@@ -1,0 +1,450 @@
+classe a_favela
+herda area
+const a_nome = "Favela"
+const a_tempo = 10
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_favela
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_area = "favela"
+
+
+classe i_favela001
+herda comum_item
+const nome = "Pistola"
+const descnome = "Uma pistola"
+const descpos = "Uma pistola leve está aqui."
+const nivel = 55
+const armamanual = 1 # Só ataca manual: Sim
+const armatipo = 8 # Tipo de arma: 8 Revolver
+const tipoitem = 2050 # Tipo de item: 1-arma, 11-Container
+const valor = 50000
+const vestir1 = 8388608 # Aonde vestir: 23-na cintura
+
+
+classe i_favela002
+herda comum_item
+const nome = "pistola"
+const descnome = "uma pequena pistola"
+const nivel = 60
+const armacarregar = 5 # Carregar: 5 Avançado
+const armamanual = 0 # Só ataca manual: Não
+const armamax = 200
+const armamin = 115
+const armamunicao = 2 # Origem da munição: 2 Itens na arma
+const armafalha = 10
+const armamove = 10
+const armatipo = 8 # Tipo de arma: 8 Revolver
+const i_municao = "favela003\nteste054"
+const valor = 50000
+const vestir1 = 8388608 # Aonde vestir: 23-na cintura
+
+
+classe i_favela003
+herda comum_itemgrupo
+const nome = "bala de metal"
+const descnome = "uma bala de metal"
+const armamunicao = 1 # Origem da munição: Sim
+
+
+classe p_favela001
+herda comum_persobat
+const nome = "Traficante"
+const ident = "Traficante"
+const descnome = "Um traficante"
+const descpadr = "Um traficante anda pela favela, tentando intimidar as pessoas."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 55
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+
+classe p_favela002
+herda comum_persobat
+const nome = "velho traficante"
+const descnome = "um velho traficante"
+const descpadr = "um velho traficante está sentado aqui, fumando seu cigarro e observando o \
+movimento lá fora."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const objmax = 10
+const nivel = 70
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_morreu1 = "$P morreu."
+const p_recebe = 1 # Recebe itens: Sim
+
+
+classe p_favela003
+herda comum_persobat
+const nome = "Richard"
+const descnome = "Richard"
+const descpadr = "Richard, o pistoleiro, fornece munições para a comunidade da favela."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const lojaitem = "favela003 60"
+
+
+classe p_favela004
+herda comum_persobat
+const nome = "fankeiro"
+const descnome = "um fankeiro"
+const descpadr = "Um fankeiro está cantando e dançando aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 80
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+
+
+classe p_favela005
+herda comum_persobat
+const nome = "bandido"
+const descnome = "um bandido armado"
+const descpadr = "Um bandido anda armado pela favela, pondo medo em todos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 100
+const tipo1 = "humano"
+const tipo2 = "ladrão"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+
+classe p_favela006
+herda comum_persobat
+const nome = "bala bomba"
+const descnome = "bala e bomba"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const objmax = 10
+const p_recebe = 1 # Recebe itens: Sim
+
+
+classe s_favela001
+herda b_favela
+const s_titulo = "Na Entrada de Uma Estranha Favela"
+const s_desc = "Após andar tanto pela estrada, você se encontra parado na entrada de uma pequena \
+favela.\n\
+Aqui, muitos ladrões, traficantes e assassinos se escondem.\n\
+Você pode se arriscar e adentrar a favela seguindo para o sul ou voltar para a estrada ao \
+norte."
+const dir_n = $s_riow004
+const dir_s = $s_favela002
+
+
+classe s_favela002
+herda b_favela
+const s_titulo = "Dentro da Favela."
+const s_desc = "Corajosamente, você adentra a estranha favela.\n\
+Ao entrar aqui, você se impressiona ao olhar em volta e ver diversas pessoas de aparência \
+ameaçadora andando de um lado a outro da favela.\n\
+O cheiro forte de drogas e bebidas invade suas narinas e você se pergunta se é corajoso o \
+suficiente para continuar seu caminho pela favela."
+const dir_n = $s_favela001
+const dir_s = $s_favela003
+const a_reset = "P 100 favela001 0 0 4 h_chutar=6,h_revolver=6,h_socar=6,z_moedas=1200"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_favela001:objsolto.total < 4
+    criar("p_favela001", este, 0, "h_chutar=6,h_revolver=6,h_socar=6,z_moedas=1200")
+  fimse
+
+
+classe s_favela003
+herda b_favela
+const s_titulo = "Rua principal da favela."
+const dir_n = $s_favela002
+const dir_s = $s_favela008
+const dir_l = $s_favela004
+
+
+classe s_favela004
+herda b_favela
+const s_titulo = "Rua principal."
+const dir_n = $s_favela005
+const dir_l = $s_favela006
+const dir_o = $s_favela003
+
+
+classe s_favela005
+herda b_favela
+const s_titulo = "entrando em uma boca de fumo"
+const dir_n = $s_favela028
+const dir_s = $s_favela004
+
+
+classe s_favela006
+herda b_favela
+const s_titulo = "A rua principal da favela."
+const dir_n = $s_favela018
+const dir_l = $s_favela007
+const dir_o = $s_favela004
+
+
+classe s_favela007
+herda b_favela
+const s_titulo = "A rua principal da favela."
+const dir_o = $s_favela006
+
+
+classe s_favela008
+herda b_favela
+const s_titulo = "Seguindo rumo a comunidade"
+const dir_n = $s_favela003
+const dir_s = $s_favela009
+
+
+classe s_favela009
+herda b_favela
+const s_titulo = "Um caminho sujo."
+const dir_n = $s_favela008
+const dir_s = $s_favela010
+
+
+classe s_favela010
+herda b_favela
+const s_titulo = "Continuando no caminho sujo."
+const dir_n = $s_favela009
+const dir_s = $s_favela011
+
+
+classe s_favela011
+herda b_favela
+const s_titulo = "O fim do caminho sujo"
+const dir_n = $s_favela010
+const dir_s = $s_favela012
+
+
+classe s_favela012
+herda b_favela
+const s_titulo = "A entrada da comunidade"
+const dir_n = $s_favela011
+const dir_s = $s_favela025
+const dir_l = $s_favela013
+
+
+classe s_favela013
+herda b_favela
+const s_titulo = "Uma rua pobre"
+const dir_n = $s_favela016
+const dir_s = $s_favela015
+const dir_l = $s_favela014
+const dir_o = $s_favela012
+
+
+classe s_favela014
+herda b_favela
+const s_titulo = "a rua pobre"
+const dir_l = $s_favela023
+const dir_o = $s_favela013
+
+
+classe s_favela015
+herda b_favela
+const s_titulo = "a entrada de um barraco de taipa"
+const dir_n = $s_favela013
+const dir_entrar = $s_favela019
+const a_reset = "P 100 favela002 0 0 1 h_atirar=8,h_revolver=8,z_moedas=5000\n\
+P 100 favela002 0 0 4 h_revolver=8,z_moedas=100000\n\
+I 100 favela003 10\n\
+E 100 favela002 1 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_favela002:objsolto.total < 1
+    criar("p_favela002", este, 0, "h_atirar=8,h_revolver=8,z_moedas=5000")
+  fimse
+  se p_favela002:objsolto.total < 4
+    p = u = criar("p_favela002", este, 0, "h_revolver=8,z_moedas=100000")
+  fimse
+  u && criar("i_favela003", u, 10)
+  se u
+    r = criar("i_favela002", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_favela016
+herda b_favela
+const s_titulo = "A entrada de um barraco de taipa"
+const dir_s = $s_favela013
+const dir_entrar = $s_favela017
+const a_reset = "P 100 favela002 0 0 4 h_revolver=8,h_atirar=8,z_moedas=2500\n\
+I 100 favela003 50\n\
+E 100 favela002 1 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_favela002:objsolto.total < 4
+    p = u = criar("p_favela002", este, 0, "h_revolver=8,h_atirar=8,z_moedas=2500")
+  fimse
+  u && criar("i_favela003", u, 50)
+  se u
+    r = criar("i_favela002", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_favela017
+herda b_favela
+const s_titulo = "Dentro do barraco."
+const dir_sair = $s_favela016
+
+
+classe s_favela018
+herda b_favela
+const s_titulo = "Loja de munições"
+const dir_s = $s_favela006
+const a_reset = "P 100 favela003 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_favela003:objsolto.total < 1
+    criar("p_favela003", este, 0)
+  fimse
+
+
+classe s_favela019
+herda b_favela
+const s_titulo = "Dentro do barraco."
+const dir_s = $s_favela021
+const dir_l = $s_favela020
+const dir_sair = $s_favela015
+
+
+classe s_favela020
+herda b_favela
+const s_titulo = "um pequeno quartinho"
+const s_luta = 0 # Batalha: 0 Pacífico
+const dir_o = $s_favela019
+const portaini_o = 1 # Estado inicial: 1 Porta aberta
+const portanome_o = "a porta do quarto"
+
+
+classe s_favela021
+herda b_favela
+const s_titulo = "Uma salinha"
+const dir_n = $s_favela019
+const dir_l = $s_favela022
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "a porta da despensa"
+
+
+classe s_favela022
+herda b_favela
+const s_titulo = "Uma despensa"
+const dir_o = $s_favela021
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "a porta da despensa"
+
+
+classe s_favela023
+herda b_favela
+const s_titulo = "A rua pobre"
+const dir_n = $s_favela024
+const dir_o = $s_favela014
+
+
+classe s_favela024
+herda b_favela
+const s_titulo = "Uma casa abandonada"
+const dir_s = $s_favela023
+const a_reset = "P 100 favela005 100 105 6 h_socar=8,h_chutar=8,h_revolver=8\n\
+P 100 favela005 0 0 6 h_revolver=8,h_chutar=8,z_moedas=250000\n\
+P 100 favela005 0 0 6 h_revolver=8,z_moedas=250000\n\
+E 100 favela002 1 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_favela005:objsolto.total < 6
+    criar("p_favela005", este, rand(100, 105), "h_socar=8,h_chutar=8,h_revolver=8")
+  fimse
+  se p_favela005:objsolto.total < 6
+    criar("p_favela005", este, 0, "h_revolver=8,h_chutar=8,z_moedas=250000")
+  fimse
+  se p_favela005:objsolto.total < 6
+    p = u = criar("p_favela005", este, 0, "h_revolver=8,z_moedas=250000")
+  fimse
+  se u
+    r = criar("i_favela002", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_favela025
+herda b_favela
+const s_titulo = "A comunidade"
+const dir_n = $s_favela012
+const dir_s = $s_favela029
+const dir_l = $s_favela026
+
+
+classe s_favela026
+herda b_favela
+const s_titulo = "Uma boate"
+const dir_o = $s_favela025
+
+
+classe s_favela027
+herda b_favela
+const dir_o = $s_favela020
+
+
+classe s_favela028
+herda b_favela
+const s_titulo = "dentro da boca"
+const dir_s = $s_favela005
+
+
+classe s_favela029
+herda b_favela
+const s_titulo = "Parte sul da comunidade"
+const dir_n = $s_favela025
+const dir_s = $s_favela030
+
+
+classe s_favela030
+herda b_favela
+const s_titulo = "Fora dos portões sul da comunidade"
+const dir_n = $s_favela029
+const dir_s = $s_favela031
+
+
+classe s_favela031
+herda b_favela
+const s_titulo = "Saindo da favela"
+const dir_n = $s_favela030
+const dir_o = $s_favela032
+
+
+classe s_favela032
+herda b_favela
+const s_titulo = "Uma estrada coberta por entulhos"
+const dir_l = $s_favela031
+const dir_o = $s_favela033
+
+
+classe s_favela033
+herda b_favela
+const s_titulo = "Continuando a estrada."
+const dir_l = $s_favela032
+const dir_o = $s_favela034
+
+
+classe s_favela034
+herda b_favela
+const s_titulo = "Ainda na estrada coberta por entulhos"
+const dir_l = $s_favela033
+const dir_o = $s_favela035
+
+
+classe s_favela035
+herda b_favela
+const s_titulo = "No fim da estrada."
+const dir_s = $s_morro001
+const dir_l = $s_favela034

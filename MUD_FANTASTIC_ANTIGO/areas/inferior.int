@@ -1,0 +1,658 @@
+classe a_inferior
+herda area
+const a_nome = "o mundo inferior"
+const a_autor = "deck"
+const a_tempo = 30
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_inferior
+herda sala
+const s_recup = 20
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const s_area = "inferior"
+
+
+classe i_inferior001
+herda comum_item
+const nome = "o barco da vida e morte"
+const descpos = "Um barco de aspécto nada seguro está aqui, aguardando pra transportar qualquer \
+um que tenha coragem de entrar nele"
+const descver = "revestida numa cor pálida, na qual quase nem dá pra identificar devido ao\n\
+seu desgaste, essa barca de aparência antiga recebeu este nome por\n\
+transportar qualquer um pelo rio styx, o rio que separa o mundo dos vivos\n\
+com os dos mortos."
+const i_pegar = "Você não vê isso."
+
+
+classe p_inferior001
+herda comum_persobat
+const nome = "Minos, a estrela celeste da nobreza"
+const descpadr = "Minos, a estrela celeste da nobreza está aqui, aguardando para dar o decreto \
+final de sua alma."
+const descver = "Após um grande reinado na ilha de cretos, seguido da prisão do minotauro \
+no\n\
+labirinto de dédalo, Minos se tornou um juíz do Hades, sendo que ele era\n\
+responsável pelo veredito final, ou seja, o julgamento dos outros juízes só\n\
+seria válida se Minos aprovasse. Só assim seria definido se a pessoa iria\n\
+para o elísios, asfódelos, ou para os campos de punições."
+
+
+classe p_inferior002
+herda comum_persobat
+const nome = "Éacos, a estrela celeste do heroísmo"
+const descpadr = "Avaliando você mais como um soldado do que uma alma a ser julgada, Éacos, a \
+estrela celeste do heroísmo está aqui."
+const descver = "Piedoso por natureza, ele é amado pelos deuses que se comprazem a satisfazer os \
+seus votos.\n\
+Assim, durante uma invasão inimiga, todos seus soldados foram mortos e sua cidade ardia em \
+chamas.\n\
+Bastante ferido, Éacos se ajoelha em frente a um carvalho sagrado da cidade e clama ajuda a \
+Zeus.\n\
+o rei dos deuses, atende sua súplica e transforma todas as formigas do carvalho em soldados \
+muito fortes.\n\
+estes foram chamados Mirmídões (formiga em grego), no mesmo instante o jogo virou e os inimigos \
+de Éacos foram exterminados em poucos minutos.\n\
+A sua sabedoria e a sua paixão pela justiça fizeram com que os deuses o escolhessem para ser \
+juíz e, mais tarde, para juíz no tribunal do Além, presidido por Hades, ao lado de Minos e \
+Radamanthys."
+
+
+classe p_inferior003
+herda comum_persobat
+const nome = "Radamanthys, a estrela celeste da fúria"
+const descpadr = "fitando-lhe com severidade, Radamanthys, a estrela celeste da fúria, busca por \
+justiça em todos os casos a serem julgados."
+const descver = "Em toda parte adquiriu a reputação de um príncipe justo, mas severo, também\n\
+nos Infernos as suas decisões têm cunho não só de justiça, mas de rigorosa\n\
+severidade. Como juíz de Hades, ele é responsável por julgar todas as almas\n\
+que foram mandadas para o mundo inferior juntamente com Éacos, tendo minos\n\
+o decreto final."
+
+
+classe p_inferior004
+herda comum_persobat
+const nome = "Caronte, o barqueiro do inferno"
+const descpadr = "Um barqueiro de aspécto sombrio está aqui, segurando um remo."
+const descver = "Responsável por conduzir as almas através do stix, Caronte olha pra você\n\
+sombriamente. aparentemente, ele não liga se está vivo ou não, até por que\n\
+se chegar ao outro lado, você já é, ou será uma pessoa morta. conduzido pela\n\
+ganância, ele olha para você avaliando se você é mais uma alma pedinte, ou\n\
+se tem o valor para pagar um transporte."
+
+
+classe s_inferior001
+herda b_inferior
+const s_titulo = "a entrada para o mundo inferior"
+const dir_n = $s_inferior002
+
+
+classe s_inferior002
+herda b_inferior
+const s_titulo = "as margens do rio Styx"
+const dir_n = $s_inferior007
+const dir_s = $s_inferior001
+const dir_l = $s_inferior003
+const dir_o = $s_inferior005
+const a_reset = "P 100 inferior004 0 0 1\nS 100 inferior001 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inferior004:objsolto.total < 1
+    criar("p_inferior004", este, 0)
+  fimse
+  !dentro1.objini("i_inferior001") && criar("i_inferior001", este, 1)
+
+
+classe s_inferior003
+herda b_inferior
+const s_titulo = "as margens do rio Styx"
+const dir_l = $s_inferior004
+const dir_o = $s_inferior002
+
+
+classe s_inferior004
+herda b_inferior
+const s_titulo = "as margens do rio Styx"
+const dir_o = $s_inferior003
+
+
+classe s_inferior005
+herda b_inferior
+const s_titulo = "as margens do rio Styx"
+const dir_l = $s_inferior002
+const dir_o = $s_inferior006
+
+
+classe s_inferior006
+herda b_inferior
+const s_titulo = "as margens do rio Styx"
+const dir_l = $s_inferior005
+
+
+classe s_inferior007
+herda b_inferior
+const s_titulo = "dentro do rio Styx"
+const dir_n = $s_inferior008
+const dir_s = $s_inferior002
+
+
+classe s_inferior008
+herda b_inferior
+const s_titulo = "as margens do rio Styx"
+const dir_n = $s_inferior013
+const dir_s = $s_inferior007
+const dir_l = $s_inferior009
+const dir_o = $s_inferior011
+
+
+classe s_inferior009
+herda b_inferior
+const s_titulo = "as margens do rio Styx"
+const dir_l = $s_inferior010
+const dir_o = $s_inferior008
+
+
+classe s_inferior010
+herda b_inferior
+const s_titulo = "as margens do rio Styx"
+const dir_o = $s_inferior009
+
+
+classe s_inferior011
+herda b_inferior
+const s_titulo = "as margens do rio Styx"
+const dir_l = $s_inferior008
+const dir_o = $s_inferior012
+
+
+classe s_inferior012
+herda b_inferior
+const s_titulo = "as margens do rio Styx"
+const dir_l = $s_inferior011
+
+
+classe s_inferior013
+herda b_inferior
+const s_titulo = "aproximando-se dos portões"
+const dir_n = $s_inferior014
+const dir_s = $s_inferior008
+
+
+classe s_inferior014
+herda b_inferior
+const s_titulo = "diante dos portões do mundo inferior"
+const dir_n = $s_inferior015
+const dir_s = $s_inferior013
+
+
+classe s_inferior015
+herda b_inferior
+const s_titulo = "julgamento"
+const dir_n = $s_inferior040
+const dir_s = $s_inferior014
+const dir_l = $s_inferior016
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "os portões dos campos de punição"
+const portaartigo_l = 3 # Artigo porta: 3 os (portões)
+const fechadura_l = "inferior001"
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_inferior033
+const a_reset = "P 100 inferior002 0 0 1\n\
+P 100 inferior001 0 0 1\n\
+P 100 inferior003 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inferior002:objsolto.total < 1
+    criar("p_inferior002", este, 0)
+  fimse
+  se p_inferior001:objsolto.total < 1
+    criar("p_inferior001", este, 0)
+  fimse
+  se p_inferior003:objsolto.total < 1
+    criar("p_inferior003", este, 0)
+  fimse
+
+
+classe s_inferior016
+herda b_inferior
+const s_titulo = "a entrada dos campos de punição"
+const dir_l = $s_inferior017
+const dir_o = $s_inferior015
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "os portões dos campos de punição"
+const portaartigo_o = 3 # Artigo porta: 3 os (portões)
+const fechadura_o = "inferior001"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_inferior017
+herda b_inferior
+const s_titulo = "os campos de punição"
+const dir_n = $s_inferior021
+const dir_s = $s_inferior020
+const dir_l = $s_inferior018
+const dir_o = $s_inferior016
+
+
+classe s_inferior018
+herda b_inferior
+const s_titulo = "os campos de punição"
+const dir_l = $s_inferior019
+const dir_o = $s_inferior017
+
+
+classe s_inferior019
+herda b_inferior
+const s_titulo = "os campos de punição"
+const dir_n = $s_inferior026
+const dir_o = $s_inferior018
+const dir_se = $s_inferior030
+
+
+classe s_inferior020
+herda b_inferior
+const s_titulo = "os campos de punição"
+const dir_n = $s_inferior017
+const dir_se = $s_inferior024
+const dir_so = $s_inferior025
+
+
+classe s_inferior021
+herda b_inferior
+const s_titulo = "os campos de punição"
+const dir_s = $s_inferior017
+const dir_ne = $s_inferior022
+const dir_no = $s_inferior023
+
+
+classe s_inferior022
+herda b_inferior
+const s_titulo = "devorado em chamas"
+const dir_so = $s_inferior021
+
+
+classe s_inferior023
+herda b_inferior
+const s_titulo = "devorado em chamas"
+const dir_se = $s_inferior021
+
+
+classe s_inferior024
+herda b_inferior
+const s_titulo = "almas devoradas"
+const dir_no = $s_inferior020
+
+
+classe s_inferior025
+herda b_inferior
+const s_titulo = "almas devoradas"
+const dir_ne = $s_inferior020
+
+
+classe s_inferior026
+herda b_inferior
+const s_titulo = "os campos de punição"
+const dir_n = $s_inferior027
+const dir_s = $s_inferior019
+
+
+classe s_inferior027
+herda b_inferior
+const s_titulo = "os campos de punição"
+const dir_n = $s_inferior029
+const dir_s = $s_inferior026
+const dir_l = $s_inferior028
+
+
+classe s_inferior028
+herda b_inferior
+const s_titulo = "castigo eterno"
+const dir_o = $s_inferior027
+
+
+classe s_inferior029
+herda b_inferior
+const s_titulo = "a câmara do terror"
+const dir_s = $s_inferior027
+
+
+classe s_inferior030
+herda b_inferior
+const s_titulo = "gritos apavorantes"
+const dir_no = $s_inferior019
+const dir_se = $s_inferior031
+
+
+classe s_inferior031
+herda b_inferior
+const s_titulo = "gritos apavorantes"
+const dir_l = $s_inferior032
+const dir_no = $s_inferior030
+
+
+classe s_inferior032
+herda b_inferior
+const s_titulo = "caverna de tortura"
+const dir_l = $s_inferior034
+const dir_o = $s_inferior031
+
+
+classe s_inferior033
+herda b_inferior
+const dir_l = $s_inferior015
+
+
+classe s_inferior034
+herda b_inferior
+const s_titulo = "caverna de tortura"
+const dir_n = $s_inferior039
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "as grades da cela"
+const portaartigo_n = 1 # Artigo porta: 1 as (portas)
+const dir_s = $s_inferior038
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "as grades da cela"
+const portaartigo_s = 1 # Artigo porta: 1 as (portas)
+const dir_l = $s_inferior035
+const dir_o = $s_inferior032
+
+
+classe s_inferior035
+herda b_inferior
+const s_titulo = "caverna de tortura"
+const dir_n = $s_inferior036
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "as grades da cela"
+const portaartigo_n = 1 # Artigo porta: 1 as (portas)
+const fecha_n = 0 # Fecha ao passar: Não
+const tranc_n = 0 # Trancar: 0 Não pode ser trancado
+const dir_s = $s_inferior037
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "as grades da cela"
+const portaartigo_s = 1 # Artigo porta: 1 as (portas)
+const dir_o = $s_inferior034
+
+
+classe s_inferior036
+herda b_inferior
+const s_titulo = "uma cela escavada na rocha."
+const dir_s = $s_inferior035
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "as grades da cela"
+const portaartigo_s = 1 # Artigo porta: 1 as (portas)
+const fecha_s = 0 # Fecha ao passar: Não
+const tranc_s = 0 # Trancar: 0 Não pode ser trancado
+
+
+classe s_inferior037
+herda b_inferior
+const s_titulo = "uma cela escavada na rocha"
+const dir_n = $s_inferior035
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "as grades da cela"
+const portaartigo_n = 1 # Artigo porta: 1 as (portas)
+
+
+classe s_inferior038
+herda b_inferior
+const s_titulo = "uma cela escavada na rocha"
+const dir_n = $s_inferior034
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "as grades da cela"
+const portaartigo_n = 1 # Artigo porta: 1 as (portas)
+
+
+classe s_inferior039
+herda b_inferior
+const s_titulo = "uma cela escavada na rocha"
+const dir_s = $s_inferior034
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "as grades da cela"
+const portaartigo_s = 1 # Artigo porta: 1 as (portas)
+
+
+classe s_inferior040
+herda b_inferior
+const s_titulo = "a entrada para os campos de asfódelos"
+const dir_n = $s_inferior041
+const dir_s = $s_inferior015
+
+
+classe s_inferior041
+herda b_inferior
+const s_titulo = "os campos de asfódelos"
+const dir_n = $s_inferior042
+const dir_s = $s_inferior040
+
+
+classe s_inferior042
+herda b_inferior
+const s_titulo = "os campos de asfódelos"
+const dir_n = $s_inferior043
+const dir_s = $s_inferior041
+
+
+classe s_inferior043
+herda b_inferior
+const s_titulo = "os campos de asfódelos"
+const dir_n = $s_inferior071
+const dir_s = $s_inferior042
+const dir_l = $s_inferior044
+const dir_o = $s_inferior047
+
+
+classe s_inferior044
+herda b_inferior
+const s_titulo = "os campos de asfódelos"
+const dir_l = $s_inferior045
+const dir_o = $s_inferior043
+
+
+classe s_inferior045
+herda b_inferior
+const s_titulo = "os campos de asfódelos"
+const dir_l = $s_inferior046
+const dir_o = $s_inferior044
+
+
+classe s_inferior046
+herda b_inferior
+const s_titulo = "os campos de asfódelos"
+const dir_n = $s_inferior050
+const dir_o = $s_inferior045
+
+
+classe s_inferior047
+herda b_inferior
+const s_titulo = "os campos de asfódelos"
+const dir_l = $s_inferior043
+const dir_o = $s_inferior048
+
+
+classe s_inferior048
+herda b_inferior
+const s_titulo = "os campos de asfódelos"
+const dir_l = $s_inferior047
+const dir_o = $s_inferior049
+
+
+classe s_inferior049
+herda b_inferior
+const s_titulo = "os campos de asfódelos"
+const dir_n = $s_inferior053
+const dir_l = $s_inferior048
+
+
+classe s_inferior050
+herda b_inferior
+const s_titulo = "os campos de ásfódelos"
+const dir_n = $s_inferior051
+const dir_s = $s_inferior046
+
+
+classe s_inferior051
+herda b_inferior
+const s_titulo = "os campos de asfódelos"
+const dir_n = $s_inferior052
+const dir_s = $s_inferior050
+
+
+classe s_inferior052
+herda b_inferior
+const s_titulo = "os campos de asfódelos"
+const dir_n = $s_inferior061
+const dir_s = $s_inferior051
+
+
+classe s_inferior053
+herda b_inferior
+const s_titulo = "os campos de ásfódelos"
+const dir_n = $s_inferior054
+const dir_s = $s_inferior049
+
+
+classe s_inferior054
+herda b_inferior
+const s_titulo = "os campos de asfódelos"
+const dir_n = $s_inferior055
+const dir_s = $s_inferior053
+const dir_l = $s_inferior069
+
+
+classe s_inferior055
+herda b_inferior
+const s_titulo = "os campos de asfódelos"
+const dir_n = $s_inferior056
+const dir_s = $s_inferior054
+
+
+classe s_inferior056
+herda b_inferior
+const s_titulo = "os campos de asfódelos"
+const dir_n = $s_inferior057
+const dir_s = $s_inferior055
+
+
+classe s_inferior057
+herda b_inferior
+const s_titulo = "os campos de asfódelos"
+const dir_s = $s_inferior056
+const dir_l = $s_inferior058
+
+
+classe s_inferior058
+herda b_inferior
+const s_titulo = "os campos de asfódelos"
+const dir_l = $s_inferior059
+const dir_o = $s_inferior057
+
+
+classe s_inferior059
+herda b_inferior
+const s_titulo = "os campos de asfódelos"
+const dir_l = $s_inferior060
+const dir_o = $s_inferior058
+
+
+classe s_inferior060
+herda b_inferior
+const s_titulo = "os campos de asfódelos"
+const dir_n = $s_inferior065
+const dir_l = $s_inferior064
+const dir_o = $s_inferior059
+
+
+classe s_inferior061
+herda b_inferior
+const s_titulo = "os campos de asfódelos"
+const dir_n = $s_inferior062
+const dir_s = $s_inferior052
+
+
+classe s_inferior062
+herda b_inferior
+const s_titulo = "os campos de asfódelos"
+const dir_s = $s_inferior061
+const dir_o = $s_inferior063
+
+
+classe s_inferior063
+herda b_inferior
+const s_titulo = "os campos de asfódelos"
+const dir_l = $s_inferior062
+const dir_o = $s_inferior064
+
+
+classe s_inferior064
+herda b_inferior
+const s_titulo = "os campos de asfódelos"
+const dir_l = $s_inferior063
+const dir_o = $s_inferior060
+
+
+classe s_inferior065
+herda b_inferior
+const s_titulo = "cada vez mais profundo"
+const dir_n = $s_inferior066
+const dir_s = $s_inferior060
+
+
+classe s_inferior066
+herda b_inferior
+const s_titulo = "descendo na escuridão"
+const dir_n = $s_inferior067
+const dir_s = $s_inferior065
+
+
+classe s_inferior067
+herda b_inferior
+const s_titulo = "descendo na escuridão."
+const dir_n = $s_inferior068
+const dir_s = $s_inferior066
+
+
+classe s_inferior068
+herda b_inferior
+const dir_s = $s_inferior067
+
+
+classe s_inferior069
+herda b_inferior
+const s_titulo = "os campos de asfódelos"
+const dir_l = $s_inferior070
+const dir_o = $s_inferior054
+
+
+classe s_inferior070
+herda b_inferior
+const s_titulo = "ao pé de uma árvore morta"
+const dir_o = $s_inferior069
+
+
+classe s_inferior071
+herda b_inferior
+const s_titulo = "os campos de asfódelos"
+const dir_n = $s_inferior072
+const dir_s = $s_inferior043
+
+
+classe s_inferior072
+herda b_inferior
+const s_titulo = "os campos de asfódelos"
+const dir_s = $s_inferior071
+const dir_l = $s_inferior073
+const dir_o = $s_inferior074
+
+
+classe s_inferior073
+herda b_inferior
+const s_titulo = "um canto sombrio"
+const dir_o = $s_inferior072
+
+
+classe s_inferior074
+herda b_inferior
+const s_titulo = "um canto sombrio"
+const dir_l = $s_inferior072

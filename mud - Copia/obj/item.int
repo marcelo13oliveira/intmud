@@ -1,0 +1,462 @@
+classe comum_item
+herda comum_persoitem
+# Itens
+const item = 1 # Para identificar que é item
+const msexo = 0 # Sexo: 0=feminino, 1=masculino
+const nome = "sem nome"
+const ident = nome
+const descnome = nome
+const descpos = txtcopiamai(descnome, "A") + " está aqui."
+const objsav = 1 # Se deve salvar o item ao salvar personagem do jogador
+const pnivel = nivel # Nível atual (personagens de nível mais baixo não vestem)
+const volmax = config:i_volmax
+const objmax = config:i_objmax
+sav uint8 vestpos # Em que posição está vestindo, 0=nenhuma
+#
+# Ordem que deve organizar as constantes:
+const admordem = "nome\n\
+ident\n\
+descnome\n\
+descpos\n\
+descver\n\
+descident\n\
+msexo\n\
+m_atrib1 m_atrib2\n\
+nivel\n\
+renascer\n\
+armacarregar\n\
+armamanual\n\
+armamax\n\
+armamin\n\
+armamunicao\n\
+armafalha\n\
+armaaddprecisao\n\
+armamove\n\
+armatipo\n\
+f_tipo\n\
+f_bebida\n\
+f_fome\n\
+f_sede\n\
+f_diges\n\
+f_magia1 f_magia2 f_magia2\n\
+f_msgperso f_msgoutros\n\
+f_nivel1 f_nivel2 f_nivel3\n\
+f_remove\n\
+i_captura\n\
+i_chave\n\
+i_itens\n\
+i_pegar\n\
+i_salapegar i_salaver i_salaentrar i_salas\n\
+i_movel\n\
+i_lugar\n\
+i_abertoini\n\
+i_municao\n\
+i_tranc\n\
+i_fechadura\n\
+i_comechave\n\
+luzfim\n\
+luzitem\n\
+luzini\n\
+luzliga\n\
+luztxt\n\
+mantersala\n\
+objmax\n\
+pesoobj\n\
+tipoitem\n\
+valor\n\
+vestir1\n\
+vestirnao\n\
+vestirsim\n\
+vestirsexo\n\
+volexp volmax volobj\n\
+inivar evhora eveste evperso evitem evsala"
+
+func ini # Objeto foi criado (arg0=dono, arg1 é ignorado, arg2=variáveis de var)
+  se arg2 || inivar
+    textotxt t
+    epara t.addfim(txttroca(txt(arg2) + "\n" + inivar, ",", "\n")), t.linhas, var.mudar(t.remove)
+    efim
+  fimse
+  i_aberto = i_abertoini, luztempo = luzini
+  comum_obj:ini, cmd_ini(arg0, arg1, arg2, arg3, arg4)
+  arg0 && mudadono(arg0)
+  epara nulo, var.ini("e_"), var.mudar(var.ini("e_"))
+    criar(var.ini("e_"), este, var.valor(var.ini("e_")))
+  efim
+  se i_salas
+    textotxt t
+    epara t.addfim(i_salas), t.linhas, criar("s_" + t.remove, este)
+    efim
+  fimse
+  recalc_exec
+
+func mudadono # Item muda de dono (arg0 = novo dono, arg1 = quantidade)
+  mdono(arg0), cmd_mudadono
+  ret este
+
+func vestir # Veste o item, arg0=posição
+  dono.recalc = 1 # Para recalcular atributos
+  idono.remove, vestpos = arg0
+  se vestpos
+    idono = dono.dentro2.addfim(este)
+    vestpos == 50 && (dono.iempu = idono)
+  senao
+    idono = dono.dentro1.addfim(este)
+  fimse
+
+const apagar = apagar(este), mdono(nulo) # Apaga o item (arg0 = quantidade)
+
+func cabedentro # Retorna quantos itens iguais a esse cabem em sala/item/personagem
+# arg0 = sala, item ou personagem
+  ret este == arg0, 0
+  refvar v1 = arg0.objmax - arg0.dentro1.total
+  refvar v2 = (arg0.volmax - arg0.volden) / voltot
+  real2 v3 = v2
+  se arg0.item
+    ref r1
+    ref r2
+    epara r1 = este, r1.item, r1 = r1.dono
+    efim
+    epara r2 = arg0, r2.item, r2 = r2.dono
+    efim
+    r1 != r2 && (v3 = (r2.objlimite - (r2.objnum >> 1)) / (objnum >> 1))
+  senao
+    ref r1
+    epara r1 = este, r1.item, r1 = r1.dono
+    efim
+    r1 != arg0 && (v3 = (arg0.objlimite - (arg0.objnum >> 1)) / (objnum >> 1))
+  fimse
+  ret intpos(intdiv(intmin(v1, v2, v3)))
+
+func recalc_exec # Ajusta variáveis
+  bitver = 17, bitinv = 3
+  var.z_armafalha_ = armafalha
+  var.z_armaaddprecisao_ = armaaddprecisao
+  var.z_armamin_ = armamin
+  var.z_armamax_ = armamax
+  recalc1_auto, cmd_recalc1(este)
+# Modificadores
+  txt512 lin
+  epara lin = var.ini("f_"), lin, lin = var.depois(lin, "f_")
+    [lin]:recalc2_auto, $[lin].cmd_recalc2(este)
+  efim
+# Efeitos
+  listaitem i
+  epara i = dentro2.ini, i, i.depois
+    [i.obj]:recalc2_auto, i.obj.cmd_recalc2(este)
+  efim
+  epara i = evento.ini, i, i.depois
+    i.obj.cmd_recalc3(este)
+  efim
+  atribs_exec
+  recalc = 0
+
+func tipoitem2
+# Nota: ao adicionar ou remover algum tipo aqui, acertar também:
+# 1. a classe classe menu_econfig_itens em econfig.int
+# 2. a classe opc_vetorprodutos em menus.int
+  int32 tipo = tipoitem
+  i_abertoini && (tipo |= config:item_container)
+  armatipo && (tipo |= config:item_arma)
+  luzitem && (tipo |= config:item_luz)
+  i_chave && (tipo |= config:item_chave)
+  vestir1 && vestir1 != "0" && (tipo |= config:item_vestimenta)
+  (f_tipo == 1 || f_tipo == 2) && (tipo |= config:item_bebida)
+  f_tipo == 3 && (tipo |= config:item_comida)
+  f_tipo == 4 && (tipo |= config:item_pergaminho)
+  ret tipo
+
+
+classe comum_itemgrupo
+herda comum_item
+# Itens mais simples:
+# Quando houver mais de um em um mesmo lugar, eles são agrupados em um
+# único objeto. A única exceção é quando forem vestidos (não são agrupados).
+const item = 2 # Para identificar que é item
+sav uint16 objtot # Quantidade de itens
+
+func objproc # Procura um objeto do mesmo tipo em uma listaobj
+# Objetivo: saber se pode agrupar objetos
+# arg0 = variável listaobj
+# Retorna: o objeto correspondente ou nulo se não houver
+  listaitem i
+  epara i = arg0.ini(este), i, i.objdepois
+    ret i.obj.var == var, ref(i.obj)
+  efim
+
+func ini # Objeto foi criado (arg0=dono, arg1=quantidade, arg2=variáveis de var)
+  objtot = arg1
+  !objtot && (objtot = 1) # Garante pelo menos um item
+  se arg2 || inivar
+    textotxt t
+    epara t.addfim(txttroca(txt(arg2) + "\n" + inivar, ",", "\n")), t.linhas, var.mudar(t.remove)
+    efim
+  fimse
+  var.limpar("e_")
+  comum_obj:ini, cmd_ini(arg0, arg1, arg2, arg3, arg4)
+  arg0 && mudadono(arg0, objtot)
+  recalc_exec
+
+func mudadono # Item muda de dono (arg0 = novo dono, arg1 = quantidade)
+  ret !ref(arg0) || 0 >= arg1, nulo
+  ref r
+  r = objproc(arg0.dentro1) # r = objeto no novo dono
+  se objtot > arg1 # Se não vai mover tudo
+    objtot -= arg1, ajustapeso
+    se r
+      r.objtot += arg1, r.ajustapeso
+      ret r
+    senao
+      r = criar(este, arg0, arg1)
+      r.var = var
+      ret r
+    fimse
+  senao r # Se já existe objeto no destino
+    r.objtot += arg1, r.ajustapeso
+    apagar(este), mdono(nulo)
+    ret r
+  senao # Senão, apenas muda o dono
+    mdono(arg0), cmd_mudadono
+    ret este
+  fimse
+
+func vestir # Veste o item, arg0=posição
+  uint8 pos = arg0
+  se !pos # Checa se deve remover
+    ret !vestpos, nulo # Retorna se não está vestindo
+    dono.recalc = 1 # Para recalcular atributos
+    refvar r = objproc(dono.dentro1) # Procura objeto que não está vestindo
+    se r # Encontrou: aumenta a quantidade
+      r.objtot++, r.ajustapeso, apagar(este), mdono(nulo)
+    senao # Não encontrou: move
+      vestpos = 0, idono.remove, idono = dono.dentro1.addfim(este)
+    fimse
+  senao objtot <= 1 # Se só tem um objeto
+    dono.recalc = 1 # Para recalcular atributos
+    vestpos = pos
+    idono.remove, idono = dono.dentro2.addfim(este)
+    pos == 50 && (dono.iempu = idono)
+  senao # Tem mais de um objeto, cria objeto e veste
+    dono.recalc = 1 # Para recalcular atributos
+    objtot--, ajustapeso
+    refvar r = criar(este)
+    r.var = var
+    r.mdono(dono), r.vestpos = pos
+    r.idono.remove, r.idono = dono.dentro2.addfim(r)
+    pos == 50 && (r.dono.iempu = r.idono)
+  fimse
+
+func apagar # Apaga o item (arg0 = quantidade)
+  ret objtot -= arg0, ajustapeso
+  apagar(este), mdono(nulo)
+
+func cabedentro # Retorna quantos itens iguais a esse cabem em sala/item/personagem
+# arg0 = sala, item ou personagem
+  ret este == arg0, 0
+  ret arg0.objmax <= arg0.dentro1.total, 0
+  se arg0.item
+    ref r1
+    ref r2
+    epara r1 = este, r1.item, r1 = r1.dono
+    efim
+    epara r2 = arg0, r2.item, r2 = r2.dono
+    efim
+    ret r1 != r2 && r2.objlimite <= r2.objnum >> 1, 0
+  senao
+    ref r1
+    epara r1 = este, r1.item, r1 = r1.dono
+    efim
+    ret r1 != arg0 && arg0.objlimite <= arg0.objnum >> 1, 0
+  fimse
+  refvar v1 = (arg0.volmax - arg0.volden) * objtot / voltot
+  ret intpos(intdiv(v1))
+
+
+classe comum_itemperso
+herda comum_item
+# Itens completos
+const item = 3 # Para identificar que é item
+listaobj persolugar # Quem está sentado ou deitado
+# const i_abertoini = 0 # Valor inicial de aberto
+sav uint8 i_aberto # Situação atual do container, ou 0 se não for container
+const luztipo = intpos(luztempo) ? 2 : 0
+sav inttempo luztempo # Quanto tempo produz luz, <0 se estiver apagado
+# const luzitem = 0 # Tipo de luz
+# const luzini = 1000 # Duração da luz
+# const luztxt = "" # Mensagem quando a luz acaba
+# const luzfim = 0 # Se item some quando a luz acaba
+const luzliga = "$P acende $o."
+
+func fim # Objeto foi apagado
+  persolugar.limpar, comum_obj:fim
+
+func mudadono # Item muda de dono (arg0 = novo dono, arg1 = quantidade)
+  persolugar.limpar, mdono(arg0), cmd_mudadono
+  ret este
+
+func recalc_exec # Acerta variáveis
+  bitver = 17, bitinv = luztempo ? 1 : 3
+  var.z_armafalha_ = armafalha
+  var.z_armaaddprecisao_ = armaaddprecisao
+  var.z_armamin_ = armamin
+  var.z_armamax_ = armamax
+  recalc1_auto, cmd_recalc1(este)
+  int(i_abertoini) < 2 || i_aberto < 2 ? (i_aberto = i_abertoini)
+  se int(luzitem) != 7 # Se não acende ao vestir
+  senao vestpos && luztempo < 0 # Vestiu: acende
+    luztempo.pos, ajustapeso
+# $mens.p(arg0, nulo, r)
+# $mens.mvis1(r.luzliga ? r.luzliga : "$P acende $o.")
+    refvar d = dono
+    listaobj l
+    epara l.addfim(d.evento), l, l.ini.remove
+      l.objini.cmd_acendeu(d, este, d)
+    efim
+    epara l.addfim(evento), l, l.ini.remove
+      l.objini.cmd_acendeu(d, este, este)
+    efim
+  senao !vestpos && luztempo > 0 # Removeu: apaga
+    luztempo.neg, ajustapeso
+    refvar d = dono
+    listaobj l
+    epara l.addfim(d.evento), l, l.ini.remove
+      l.objini.cmd_apagou(d, este, d)
+    efim
+    epara l.addfim(evento), l, l.ini.remove
+      l.objini.cmd_apagou(d, este, este)
+    efim
+  fimse
+# se intpos(luztempo) > 0
+# textopos p
+# p = atribs.ini, p.txtproc("\nBrilhando\n", 0) >= 0 && p.remove
+# atribs.addini("Aceso")
+# fimse
+# Modificadores
+  txt512 lin
+  epara lin = var.ini("f_"), lin, lin = var.depois(lin, "f_")
+    [lin]:recalc2_auto, $[lin].cmd_recalc2(este)
+  efim
+# Efeitos
+  listaitem i
+  epara i = dentro2.ini, i, i.depois
+    [i.obj]:recalc2_auto, i.obj.cmd_recalc2(este)
+  efim
+  epara i = evento.ini, i, i.depois
+    i.obj.cmd_recalc3(este)
+  efim
+  atribs_exec
+  recalc = 0
+
+func luztempo_exec # A luz apagou
+  se luztxt
+    ref r
+    epara r = dono, r.perso, r = r.dono
+    efim
+    r.msg(luztxt)
+  fimse
+  luzfim && apagar(este)
+  listaobj l
+  epara l.addfim(evento), l, l.ini.remove
+    l.objini.cmd_apagou(nulo, este, este)
+  efim
+  !luzfim && ajustapeso + recalc_exec
+
+func vestir # Veste o item, arg0=posição
+  luzitem == 7 && (recalc = 1) # Para acender ou apagar o item
+  dono.recalc = 1 # Para recalcular atributos
+  idono.remove, vestpos = arg0
+  se vestpos
+    idono = dono.dentro2.addfim(este)
+    vestpos == 50 && (dono.iempu = idono)
+  senao
+    idono = dono.dentro1.addfim(este)
+  fimse
+
+
+classe comum_corpo
+herda comum_item
+# Corpo de um personagem que morreu
+const i_aberto = 1 # Para indicar que é container (sempre aberto)
+uint32 pesoobj # Peso do objeto (em gramas)
+uint32 volobj # Volume do objeto quando estiver vazio
+const volmax = 0 # Para não poder colocar nada no corpo
+const msexo = 1 # Sexo: 0=feminino, 1=masculino
+const nome = "corpo"
+txt100 descnome
+txt100 ident
+inttempo tempo
+int8 tipocorpo # Variável p_corpo do personagem que gerou o corpo
+
+func ini
+# arg0 = personagem que morreu
+# arg1 = variável p_corpo do personagem
+# Se arg1 >=2, transfere os itens do personagem que morreu
+# Se arg1 >=3, quando o corpo se decompõe, itens e dinheiro vão para a sala
+  tempo = 1200, volobj = arg0.volobj, pesoobj = arg0.pesoobj
+  descnome = arg0.descnome
+  se txt2(descnome)
+    casovar txtmin(txt1(descnome))
+    casose "o"
+    casose "a"
+    casose "os"
+    casose "as"
+      descnome = "o corpo d" + txtmin(txt1(descnome)) + " " + txt2(descnome)
+      sair
+    casose
+      descnome = "o corpo de " + descnome
+    casofim
+  senao
+    descnome = "o corpo de " + descnome
+  fimse
+  ident = "corpo " + arg0.ident
+  comum_obj:ini
+  arg0.dono && mudadono(arg0.dono)
+  recalc_exec
+  tipocorpo = arg1
+# Acorda personagens que comem corpos
+  se tipocorpo
+    listaitem i
+    epara i = dono.dentro2.ini, i, i.depois
+      i.obj.p_comecorpo && i.obj.p_proc == 0 && (i.obj.p_proc = 1)
+    efim
+  fimse
+# Transfere itens e moedas para o corpo
+  ret tipocorpo < 2, nulo
+  var.z_moedas = arg0.var.z_moedas
+  listaobj l
+  epara l.addfim(arg0.dentro1, arg0.dentro2), l, l.ini.remove
+    l.objini.item && l.objini.mudadono(este, l.objini.objtot)
+  efim
+  se var.z_moedas
+    $mens.p(arg0)
+    se dentro1.total
+      $mens.mvis2("", "Você nota alguns itens e moedas $e " + descnome + ".")
+    senao
+      $mens.mvis2("", "Você nota algumas moedas $e " + descnome + ".")
+    fimse
+  senao dentro1.total
+    $mens.p(arg0)
+    $mens.mvis2("Você nota alguns itens $e " + descnome + ".")
+  fimse
+
+func tempo_exec
+  refvar d = ref(dono)
+  d.msg(txtcopiamai(descnome, "A") + " se decompôs totalmente.")
+  este.apagar(100000) # Isso altera a variável dono
+  se tipocorpo >= 3
+    d.var.z_moedas_ += var.z_moedas_
+    var.z_moedas_ = 0
+    listaobj l
+    epara l.addfim(dentro1, dentro2), l, l.ini.remove
+      l.objini.mudadono(d, l.objini.objtot)
+    efim
+  fimse
+
+
+classe comum_chave
+herda comum_item
+# Chave da casa de um jogador
+const nome = "chave"
+const descnome = "a chave de uma casa"
+const manterperso = 1 # Para não perder a chave ao entrar em uma sala que perde itens
+sav txt50 i_chave # Código da chave

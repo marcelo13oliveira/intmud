@@ -1,0 +1,395 @@
+classe area
+inttempo resetcont # Tempo para o próximo reset
+const iniclasse = arg0 != "area" && !$[arg0] && criar(arg0)
+
+func ini
+  resetcont = rand(a_tempo * 500, a_tempo * 700)
+
+func resetcont_exec
+  resetcont = rand(a_tempo * 500, a_tempo * 700)
+  ret !a_reset, nulo # Retorna se modo de reset é nunca
+  se a_reset == 1 # Checa reset quando não há jogadores
+    prog p
+    epara p.iniherdainv("b_" + txt(este, 2)), p.lin, p.depois
+      ret $[p.texto].socktot, nulo
+    efim
+  fimse
+  reset_exec
+
+func reset_exec # Executa o reset da área
+  prog p
+  debug d
+  ref r
+  uint16 x = d.exec
+  epara p.iniherdainv("b_" + txt(este, 2)), p.lin, p.depois
+    epara r = $[p.texto], r, r = objdepois(r)
+      r.a_reset1, d.exec = x
+    efim
+  efim
+# Avisa jogadores
+  txt100 mres = a_txtreset
+  ret !mres, nulo
+  indiceitem i
+  epara i.ini("un "), txt1(i.txt) == "un", i.depois
+    epara r = i.obj.perso.dono, r.dono, r = r.dono
+    efim
+    "a_" + r.s_area == este && i.obj.msg(mres)
+  efim
+
+func reset_atualiza
+  se resetcont <= 0 || resetcont >= a_tempo * 700
+    resetcont = a_tempo * 700
+  fimse
+
+
+classe sala
+herda comum_obj
+# Estrutura de uma sala
+#
+const objsav = 3 # Se deve salvar a sala ao salvar casa do jogador
+const s_sala = 1 # Indica que é uma sala (personagens podem entrar)
+const s_titulo = "Sem nome"
+const s_desc = ""
+const s_item = 5 # Quantos minutos para começar a apagar itens
+inttempo t_item # Tempo para começar a apagar itens da sala
+const s_noite = s_desc(arg0) # Inicialmente descrição de noite e de dia são iguais
+const s_gritar = s_falar(arg0) # Mensagem ao gritar; se estiver vazia, pode gritar
+const volmax = config:s_volmax
+const objmax = config:s_objmax
+const s_recup = config:s_recup # Taxa de recuperação de vida, mana e movimentos
+const s_pnj = config:s_pnj # Quantidade máxima de PNJs na sala
+const s_jog = config:s_jog # Quantidade máxima de jogadores na sala
+const s_atk_move = config:s_atk_move
+const s_som = config:s_som
+const s_doarsalas = config:s_doarsalas
+const s_doarsim = config:s_doarsim
+const s_doarnao = config:s_doarnao
+const objlimite = objmax
+int1 objmudou # Para salvar sala ao salvar a casa
+listaitem s_rastreio # Usado em misc:rastrear: de qual sala veio para essa
+txt10 s_rastrdir # Usado em misc:rastrear: direção para chegar nessa sala
+#
+uint8 porta_n # Tipo de saída
+uint8 porta_s # Tipo de saída
+uint8 porta_l # Tipo de saída
+uint8 porta_o # Tipo de saída
+uint8 porta_c # Tipo de saída
+uint8 porta_b # Tipo de saída
+uint8 porta_ne # Tipo de saída
+uint8 porta_no # Tipo de saída
+uint8 porta_se # Tipo de saída
+uint8 porta_so # Tipo de saída
+uint8 porta_entrar # Tipo de saída
+uint8 porta_sair # Tipo de saída
+#
+# Ordem que deve organizar as constantes:
+const admordem = "s_titulo\n\
+s_desc\n\
+s_noite\n\
+s_doarsalas s_doarsim s_doarnao\n\
+s_entrada\n\
+s_falar\n\
+s_fome\n\
+s_item\n\
+s_luta\n\
+s_luz\n\
+s_morre\n\
+s_naoresg\n\
+s_ocultar\n\
+s_pnj\n\
+s_jog\n\
+s_recup\n\
+s_reserva\n\
+s_retornar\n\
+s_semmagia\n\
+s_soltar\n\
+s_terreno\n\
+s_atk_move\n\
+s_voltar\n\
+s_som\n\
+volmax\n\
+objmax\n\
+evhora\n\
+eveste\n\
+dir_n portaini_n portanome_n portaartigo_n fechadura_n\n\
+comechave_n fugir_n inv_n fecha_n tranc_n voar_n\n\
+som_abrir_n som_fechar_n som_tranc_n som_destr_n\n\
+dir_s portaini_s portanome_s portaartigo_s fechadura_s\n\
+comechave_s fugir_s inv_s fecha_s tranc_s voar_s\n\
+som_abrir_s som_fechar_s som_tranc_s som_destr_s\n\
+dir_l portaini_l portanome_l portaartigo_l fechadura_l\n\
+comechave_l fugir_l inv_l fecha_l tranc_l voar_l\n\
+som_abrir_l som_fechar_l som_tranc_l som_destr_l\n\
+dir_o portaini_o portanome_o portaartigo_o fechadura_o\n\
+comechave_o fugir_o inv_o fecha_o tranc_o voar_o\n\
+som_abrir_o som_fechar_o som_tranc_o som_destr_o\n\
+dir_c portaini_c portanome_c portaartigo_c fechadura_c\n\
+comechave_c fugir_c inv_c fecha_c tranc_c voar_c\n\
+som_abrir_c som_fechar_c som_tranc_c som_destr_c\n\
+dir_b portaini_b portanome_b portaartigo_b fechadura_b\n\
+comechave_b fugir_b inv_b fecha_b tranc_b voar_b\n\
+som_abrir_b som_fechar_b som_tranc_b som_destr_b\n\
+dir_ne portaini_ne portanome_ne portaartigo_ne fechadura_ne\n\
+comechave_ne fugir_ne inv_ne fecha_ne tranc_ne voar_ne\n\
+som_abrir_ne som_fechar_ne som_tranc_ne som_destr_ne\n\
+dir_no portaini_no portanome_no portaartigo_no fechadura_no\n\
+comechave_no fugir_no inv_no fecha_no tranc_no voar_no\n\
+som_abrir_no som_fechar_no som_tranc_no som_destr_no\n\
+dir_se portaini_se portanome_se portaartigo_se fechadura_se\n\
+comechave_se fugir_se inv_se fecha_se tranc_se voar_se\n\
+som_abrir_se som_fechar_se som_tranc_se som_destr_se\n\
+dir_so portaini_so portanome_so portaartigo_so fechadura_so\n\
+comechave_so fugir_so inv_so fecha_so tranc_so voar_so\n\
+som_abrir_so som_fechar_so som_tranc_so som_destr_so\n\
+dir_entrar portaini_entrar portanome_entrar portaartigo_entrar fechadura_entrar\n\
+comechave_entrar fugir_entrar inv_entrar fecha_entrar tranc_entrar voar_entrar\n\
+som_abrir_entrar som_fechar_entrar som_tranc_entrar som_destr_entrar\n\
+dir_sair portaini_sair portanome_sair portaartigo_sair fechadura_sair\n\
+comechave_sair fugir_sair inv_sair fecha_sair tranc_sair voar_sair\n\
+som_abrir_sair som_fechar_sair som_tranc_sair som_destr_sair\n\
+a_reset i_reset s_reset"
+const iniclasse = !$[arg0] && criar(arg0)
+
+func ini # Objeto foi criado: inicializa variáveis (arg0=dono, pode ser nulo)
+  ret arg0.dono.dentro2.objini(este), apagar(este)
+  porta_n = portaini_n
+  porta_s = portaini_s
+  porta_l = portaini_l
+  porta_o = portaini_o
+  porta_c = portaini_c
+  porta_b = portaini_b
+  porta_ne = portaini_ne
+  porta_no = portaini_no
+  porta_se = portaini_se
+  porta_so = portaini_so
+  porta_entrar = portaini_entrar
+  porta_sair = portaini_sair
+  comum_obj:ini, cmd_ini(arg0, arg1, arg2, arg3, arg4)
+  arg0 && mdono(arg0) + cmd_mudadono
+  a_reset1, i_reset1
+
+func msg # Mensagem para todos da sala
+  ret !socktot, nulo
+  listaitem i
+  epara i = dentro2.ini, i, i.depois
+    i.obj.msg(arg0)
+  efim
+
+func msgtodos # Mensagem para todos da sala que estiverem acordados
+  ret !socktot, nulo
+  listaitem i
+  epara i = dentro2.ini, i, i.depois
+    i.obj.posicao > 4 && i.obj.msg(arg0)
+  efim
+
+func t_item_exec # Começar a apagar objetos
+  ret socktot || !s_item, nulo # Retorna se não pode apagar itens
+  listaitem i
+  epara i = dentro1.fim, i, i.antes
+    continuar i.obj.mantersala
+    apagar(i.obj)
+    t_item = 300 # 30 segundos para apagar o próximo
+    ret
+  efim
+  var.z_moedas = "" # Por último apaga as moedas
+
+func visivel # Informa se a sala está visível (arg0=quem quer ver)
+# Se retornar 0, significa que não está visível. Nesse caso, para saber
+# se o motivo é estar cego, checar: !(1 & arg0.bitver)
+  casovar 3 & arg0.bitver
+  casose "0" # Está cego
+  casose "2" # Está cego
+    ret 0
+  casose "1" # Não enxerga no escuro
+    casovar s_luz
+    casose "2" # Pode estar escuro
+      ret misc:luz || luzden
+    casose "3" # Está escuro
+      ret luzden != 0
+    casose # Está claro
+      ret 1
+    casofim
+  casose # Enxerga no escuro
+    ret 1
+  casofim
+
+func descsala # Retorna descrição da sala
+# arg0 = objeto que está vendo a descrição
+# arg1 é o número 0 somado com: +1 se mostra descrição completa,
+# +2 se mostra saídas, +4 se mostra itens, +8 se mostra o nome da sala
+  textotxt t
+  se visivel(arg0)
+# t.addfim("\b\c6" + txt(este, 2) + " " + s_titulo(arg0) + "\b")
+    t.addfim("\b\c6" + (var.z_titulo ?? s_titulo(arg0)) + "\b")
+    t.bytes <= 5 && t.limpar
+    se arg1 & 1
+      se var.z_desc
+        t.addfim(var.z_desc)
+      senao
+        refvar r1 = ref($mens.contr)
+        refvar r2 = ref($mens.perso)
+        $mens.contr = $mens.perso = arg0
+        t.addfim($mens.txt(misc:luz ? s_desc(arg0) : s_noite(arg0), arg0))
+        $mens.contr = r1
+        $mens.perso = r2
+      fimse
+    fimse
+    se !config:perigomsg
+    senao dirsala("n", arg0).s_morre || dirsala("s", arg0).s_morre
+      t.addfim(config:perigomsg)
+    senao dirsala("l", arg0).s_morre || dirsala("o", arg0).s_morre
+      t.addfim(config:perigomsg)
+    senao dirsala("ne", arg0).s_morre || dirsala("no", arg0).s_morre
+      t.addfim(config:perigomsg)
+    senao dirsala("se", arg0).se_morre || dirsala("so", arg0).s_morre
+      t.addfim(config:perigomsg)
+    senao dirsala("c", arg0).s_morre || dirsala("b", arg0).s_morre
+      t.addfim(config:perigomsg)
+    senao dirsala("entrar", arg0).s_morre || dirsala("sair", arg0).s_morre
+      t.addfim(config:perigomsg)
+    fimse
+    arg1 & 2 && t.addfim(txtsai(arg0))
+    arg1 & 4 && var.z_moedas && t.addfim("Aqui há " + misc:txtmoedas(var.z_moedas) + ".")
+  senao 1 & arg0.bitver
+    t.addfim("Está escuro...")
+  senao
+    t.addfim("Você está ceg" + (arg0.msexo ? "o" : "a") + ".")
+  fimse
+  se arg1 & 4
+    textotxt t2
+    listaobj l
+    l.addfim(dentro1, dentro2)
+    l.remove(arg0)
+    ref r
+    enquanto l
+      r = l.fim.obj, l.fim.remove
+      continuar !r.visivel(arg0)
+      refvar n = txtsublin(r.atribs.ini.textolin(2), 1)
+      t2.addfim(txt(r.objtot) + r.atribs.ini.texto + r.descpos(arg0) + n)
+    efim
+    t2.juntalin("(", "x)")
+# t.fim.add(t2.ini, t2.linhas)
+    t2.linhas && t.addfim(txttroca(t2.remove(100), "\d+", "\n"))
+  fimse
+  ret !(arg1 & 8), t.remove(1000)
+  txt100 lin = txt(este, 2)
+  ref r
+  epara r = dono, r, r = r.dono
+    lin += " em " + txt(r, r.s_sala ? 2)
+  efim
+  ret lin + "  " + t.remove(1000)
+
+func txtsai # Retorna as saídas existentes
+# arg0 = personagem
+  txt80 sai
+  sai += tsai2("n", arg0) + tsai2("s", arg0) + tsai2("l", arg0) + tsai2("o", arg0)
+  sai += tsai2("ne", arg0) + tsai2("no", arg0) + tsai2("se", arg0) + tsai2("so", arg0)
+  sai += tsai2("c", arg0) + tsai2("b", arg0) + tsai2("entrar", arg0) + tsai2("sair", arg0)
+  ret sai ? "\bSaídas:" + sai : "\bSaídas: Nenhuma"
+
+func tsai2 # Para mostrar as saídas existentes
+  refvar sala = dirsala(arg0, arg1)
+  ret !(sala.s_sala || sala.item && sala.dono.s_sala) || inv_[arg0](arg1), ""
+  casovar int(porta_[arg0])
+  casose "0"
+  casose "1"
+    ret " " + arg0
+  casose
+    ret " !" + arg0
+  casofim
+
+func dirsala # Retorna a sala em uma direção ou nulo se não existir
+# arg0 = direção
+# arg1 = personagem, pode ser nulo
+  ref saladest = dir_[arg0](arg1)
+  se saladest.item
+    ret saladest.dono.s_sala ? saladest.dono
+  senao !dono
+    ret saladest
+  senao s_entrada && arg0 == "sair" && dono.dono.s_sala
+    ret dono.dono
+  senao
+    ret dono.dentro2.objini(saladest)
+  fimse
+
+func diritem # Retorna o item em uma direção ou nulo se não for item
+# arg0 = direção
+# arg1 = personagem, pode ser nulo
+  ref saladest = dir_[arg0](arg1)
+  ret saladest.item && saladest.dono.s_sala, saladest
+  ret s_entrada && arg0 == "sair" && dono.dono.s_sala, dono
+
+func mudaporta # Muda estado de uma saída; variável porta_[arg0]
+# arg0 = nome da saída (até duas letras)
+# arg1 = novo valor
+# arg2 = mensagem enviada para a própria sala, da mesma forma que $mens.mtodos1
+# arg3 = mensagem enviada para a sala vizinha, da mesma forma que $mens.mtodos1
+# Nas mensagens: $m=nome da porta, $1=abriu ou abriram, $2=fechou ou fecharam
+# Retorna: 0=saída inexistente, 1=saída foi alterada
+  ref r = dir_[arg0]
+  ret !r.s_sala, 0 # Retorna se a saída não é uma sala
+  refvar nome = misc:d2[arg0]
+  se r.dir_[nome] == este && r.porta_[nome] == porta_[arg0]
+    r.porta_[nome] = arg1
+    se arg3 && r.socktot
+      refvar som = arg1 < 2 ? r.som_abrir_[nome] : r.som_fechar_[nome]
+      txt200 mporta = r.portanome_[nome]
+      !mporta && !(mporta = $cmd_[nome].m_porta) && (mporta = "uma porta")
+      $mens.mens = mporta
+      se r.portaartigo_[nome] & 1
+        $mens.o_1 = "abriram", $mens.o_2 = "fecharam"
+      senao
+        $mens.o_1 = "abriu", $mens.o_2 = "fechou"
+      fimse
+      listaobj l
+      epara l.addfim(r.dentro2), l, l.ini.remove
+        $mens.msgsominv(arg3, som, l.objini)
+      efim
+    fimse
+  fimse
+  porta_[arg0] = arg1
+  se arg2 && socktot
+    refvar som = arg1 < 2 ? som_abrir_[arg0] : som_fechar_[arg0]
+    txt100 mporta = portanome_[arg0]
+    !mporta && !(mporta = $cmd_[arg0].m_porta) && (mporta = "uma porta")
+    $mens.mens = mporta
+    se portaartigo_[arg0] & 1
+      $mens.o_1 = "abriram", $mens.o_2 = "fecharam"
+    senao
+      $mens.o_1 = "abriu", $mens.o_2 = "fechou"
+    fimse
+    listaobj l
+    epara l.addfim(dentro2), l, l.ini.remove
+      $mens.msgsominv(arg2, som, l.objini)
+    efim
+  fimse
+  ret 1
+
+func totalmove # Quantos movimentos consome, conforme o terreno
+  casovar int(s_terreno)
+  casose "0" # Dentro
+    ret 1
+  casose "1" # Rua de uma cidade
+    ret 2
+  casose "2" # Campo
+    ret 2
+  casose "3" # Pântano
+    ret 3
+  casose "4" # Floresta densa
+    ret 3
+  casose "5" # Colina
+    ret 4
+  casose "6" # Montanha
+    ret 6
+  casose "7" # Água pode nadar
+    ret 4
+  casose "8" # Água requer barco
+    ret 50
+  casose "9" # Em baixo d'água
+    ret 10
+  casose "10" # Ar
+    ret 10
+  casose "11" # Deserto
+    ret 6
+  casofim
+  ret 1

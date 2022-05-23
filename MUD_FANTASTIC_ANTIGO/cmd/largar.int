@@ -1,0 +1,26 @@
+classe cmd_largar
+herda comando_comum
+const posic = 0
+#
+
+func escr
+  se !arg1
+    arg0.msg("Digite largar seguido do número do bebê e o nome do item onde deseja colocá-lo.")
+  senao arg1
+    ref p
+    ref i
+    refvar perso = txt1(arg1)
+    refvar item = txt2(arg1)
+    p = misc:persoinfo(arg0, perso)
+    i = misc:itemdono(arg0, item)
+    ret !p, arg0.msg("Você não possui " + perso)
+    ret !i, arg0.msg("Você não vê " + item + ".")
+    ret i.dentro2, arg0.msg("Já há um bebê dentro do carrinho.")
+    se txt(i) == "i_bebe040"
+      $mens.p(arg0, p, i)
+      $mens.mtodos1("$P coloca $A $e $o.")
+      p.mudadono(i)
+      criar("i_bebe035", i, 1, "z_nome=" + p.descnome)
+      ret 1
+    fimse
+  fimse

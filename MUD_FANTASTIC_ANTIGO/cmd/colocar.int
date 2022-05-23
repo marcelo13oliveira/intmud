@@ -1,0 +1,31 @@
+classe cmd_colocar
+herda comando_comum
+#
+const posic = 5
+const txtajuda = "\b\c3Colocar\b\n\
+Sintaxe: colocar <número correspondente ao animal ou bebê>\n\
+Coloca o animal ou bebê descansando em um determinado lugar."
+#
+
+func escr
+  se !arg1
+    arg0.msg("Colocar onde?")
+  senao
+    ref b
+    ref i
+    b = misc:persoinfo(arg0, txt1(arg1))
+    i = misc:itemdono(arg0, txt2(arg1))
+    ret !b, arg0.msg("Não possui " + txt1(arg1))
+    ret !i, arg0.msg("Você não vê " + txt2(arg1))
+    se !i.i_movel(b)
+      ret arg0.msg("Não é possível colocar " + b.descnome + " em " + i.descnome + ".")
+    senao i != arg0.poslugar.objlista && i.i_lugar <= i.persolugar.total
+      ret arg0.msg("Não cabe mais ninguém em " + r.descnome + ".")
+    fimse
+    b.mudadono(arg0.dono)
+    b.poslugar.remove
+    b.posicao = 5 # descansando
+    b.poslugar = i.persolugar.addfim(b)
+    $mens.p(arg0, b, i)
+    $mens.mtodos1("$P coloca $A $e $o, com muito carinho e cuidado.")
+  fimse

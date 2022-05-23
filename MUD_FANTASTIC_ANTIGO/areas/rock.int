@@ -1,0 +1,1632 @@
+classe a_rock
+herda area
+
+
+classe b_rock
+herda sala
+const s_titulo = "Caminhando pelos corredores do templo."
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_area = "rock"
+
+
+classe i_rock001
+herda comum_item
+const nome = "guitarra"
+const descnome = "uma guitarra"
+const armacarregar = 3 # Carregar: 3 Básico
+const armamanual = 1 # Só ataca manual: Sim
+const armamax = 500
+const armamin = 250
+const armamunicao = 2 # Origem da munição: 2 Itens na arma
+const armamove = 4
+const armatipo = 8 # Tipo de arma: 8 Revolver
+const i_municao = "teste054"
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 1130245
+const m_atribs1 = "rodeada por uma luz intensa"
+const m_atribs2 = "Rodead$s por uma aura prateada"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atktipo.6 *= 2 # Fogo
+
+const armaatk = "atirar"
+
+
+classe i_rock002
+herda comum_itemperso
+const nome = "capa guitarra"
+const descnome = "uma capa para guitarra"
+const i_itens = "rock001"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const valor = 60000
+const vestir1 = 1050624 # Aonde vestir: 11-nas costas, 20-segurando
+
+
+classe i_rock003
+herda comum_item
+const nome = "coroa"
+const ident = "divina coroa reflexão"
+const descnome = "A divina coroa da reflexão"
+const vestir1 = 4 # Aonde vestir: 2-na cabeça
+const m_atribs2 = "Pensativo"
+
+
+classe i_rock004
+herda comum_item
+const nome = "videogame"
+const descnome = "um videogame"
+const descpos = "Aqui há um videogame, com vários joguinhos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_rock005
+herda comum_item
+const nome = "caderno"
+const descnome = "um caderno"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+sav textotxt t
+#
+
+func cmd_escr
+  se txt1(arg1) == "escrever"
+    var.z_linha = txt2(arg1)
+    t.addfim(var.z_linha)
+    ret 1
+  senao arg1 == "ler caderno"
+    arg0.msg2(t.ini)
+    ret 1
+  fimse
+
+
+classe i_rock006
+herda comum_item
+const nome = "chave secreta"
+const descnome = "uma chave secreta"
+const i_chave = "templo026"
+
+
+classe i_rock007
+herda comum_itemperso
+const nome = "vela"
+const descnome = "uma vela"
+const luzitem = 6 # Tipo de luz: 6 Tocha (acende com fogo, produz fogo)
+const luzini = 50000
+const mantersala = 1 # Mantém na sala: Sim
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+
+
+classe i_rock008
+herda comum_item
+const nome = "controle remoto"
+const descnome = "um controle remoto"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 0 # Eventos dono sala: Não
+#
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "open"
+    ret $s_parmicasas010.porta_n == 1, arg0.msg("O portão de entrada já está aberto.")
+    $mens.p(arg0)
+    refvar m1 = "$P aperta o botão open do controle e o portão da sua casa se abre."
+    refvar m2 = "$P aperta o botão open do controle remoto."
+    $mens.mtodos2(m1, m2)
+    $s_parmicasas010.mudaporta("n", 1, "$m se abriu.", "$m se abriu.")
+    ret 1
+  casose "close"
+    $mens.p(arg0)
+    ret $s_parmicasas010.porta_n > 1, arg0.msg("O portão já está fechado.")
+    refvar m1 = "$P aperta o botão close do controle e o portão da sua casa se fecha."
+    refvar m2 = "$P aperta o botão close do controle remoto."
+    $mens.mtodos2(m1, m2)
+    $s_parmicasas010.mudaporta("n", 3, "$m se fechou.", "$m se fechou.")
+    ret 1
+  casofim
+
+
+classe i_rock009
+herda comum_item
+const nome = "controle remoto"
+const descnome = "um controle remoto"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 0 # Eventos dono sala: Não
+#
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "open"
+    ret $s_parmicasas171.porta_n == 1, arg0.msg("O portão de entrada já está aberto.")
+    $mens.p(arg0)
+    refvar m1 = "$P aperta o botão open do controle e o portão da sua casa se abre."
+    refvar m2 = "$P aperta o botão open do controle remoto."
+    $mens.mtodos2(m1, m2)
+    $s_parmicasas171.mudaporta("n", 1, "$m se abriu.", "$m se abriu.")
+    ret 1
+  casose "close"
+    $mens.p(arg0)
+    ret $s_parmicasas171.porta_n > 1, arg0.msg("O portão já está fechado.")
+    refvar m1 = "$P aperta o botão close do controle e o portão da sua casa se fecha."
+    refvar m2 = "$P aperta o botão close do controle remoto."
+    $mens.mtodos2(m1, m2)
+    $s_parmicasas171.mudaporta("n", 3, "$m se fechou.", "$m se fechou.")
+    ret 1
+  casofim
+
+
+classe i_rock010
+herda comum_item
+const nome = "controle remoto"
+const descnome = "um controle remoto"
+const mantersala = 1 # Mantém na sala: Sim
+const evperso = 1 # Eventos dono perso: Sim
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "open"
+    ret $s_vilares290.porta_n == 1, arg0.msg("O portão de entrada já está aberto.")
+    $mens.p(arg0)
+    refvar m1 = "$P aperta o botão open do controle e o portão da sua casa se abre."
+    refvar m2 = "$P aperta o botão open do controle remoto."
+    $mens.mtodos2(m1, m2)
+    $s_vilares290.mudaporta("n", 1, "$m se abriu.", "$m se abriu.")
+    ret 1
+  casose "close"
+    $mens.p(arg0)
+    ret $s_vilares290.porta_n > 1, arg0.msg("O portão já está fechado.")
+    refvar m1 = "$P aperta o botão close do controle e o portão da sua casa se fecha."
+    refvar m2 = "$P aperta o botão close do controle remoto."
+    $mens.mtodos2(m1, m2)
+    $s_vilares290.mudaporta("n", 3, "$m se fechou.", "$m se fechou.")
+    ret 1
+  casofim
+#
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "open"
+    ret $s_vilares290.porta_n == 1, arg0.msg("O portão de entrada já está aberto.")
+    $mens.p(arg0)
+    refvar m1 = "$P aperta o botão open do controle e o portão da sua casa se abre."
+    refvar m2 = "$P aperta o botão open do controle remoto."
+    $mens.mtodos2(m1, m2)
+    $s_vilares290.mudaporta("n", 1, "$m se abriu.", "$m se abriu.")
+    ret 1
+  casose "close"
+    $mens.p(arg0)
+    ret $s_vilares290.porta_n > 1, arg0.msg("O portão já está fechado.")
+    refvar m1 = "$P aperta o botão close do controle e o portão da sua casa se fecha."
+    refvar m2 = "$P aperta o botão close do controle remoto."
+    $mens.mtodos2(m1, m2)
+    $s_vilares290.mudaporta("n", 3, "$m se fechou.", "$m se fechou.")
+    ret 1
+  casofim
+
+
+classe i_rock011
+herda comum_item
+const nome = "Um portal de madeira"
+const i_salaentrar = $s_rural013
+
+
+classe i_rock012
+herda comum_itemperso
+const nome = "caixinha de surpresas"
+const descnome = "uma caixinha de surpresas"
+const descpos = "Uma misteriosa caixinha de surpresas foi largada aqui, ocultando algo."
+const i_chave = "templo001"
+const i_pegar = "Você não pode pegá-la."
+const i_abertoini = 4 # Container: 4 Inicialmente trancado
+const valor = 1000000
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const frases = "Frases com letras douradas são formadas no céu: 'Feliz aniversário Júnior!\n\
+Fogos coloridos explodem no céu, formando as palavras: 'Parabéns /júnior, muitas felicidades, e \
+muitos anos de vida\n\
+Balões coloridos começam a voar, dentro deles explodem mensagens: 'Paaaaaraaaaabéééééns Júúúúúnii\
+iiiooooor!\n\
+Uuuuumpaaaaapaaaaagaaaaaiiiiiiuuuuuiumpeeeeeriiiiiquiiiiituuuuuiumpeeeeeliiiiiicâaaaaano surgem \
+junto com um vaaaaacaaaaagaaaaaluuuuuporco, dizendo: paaaaaraaaaabéns, Júúúnior!"
+#
+
+func cmd_hora
+  refvar mensagem = txtsublin(frases, rand(intsublin(frases)), 1)
+  $mens.p(nulo, nulo, este)
+  $mens.mmud1(mensagem)
+
+
+classe i_rock013
+herda comum_item
+const nome = "espada"
+const descnome = "A brilhante espada de lâmina flamejante do Lorde Dárius"
+const nivel = 500
+const renascer = 60
+const armamax = 600
+const armamin = 500
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 250 * pnivel + 750000
+  pmanamax += 500000
+  pveloc1 += 500
+  atknorm += 25000
+  defesp += 25000
+  atktipo.0 *= 1.6 # Tipos Normais
+  atktipo.1 *= 1.6 # Tipos Especiais
+  atktipo.6 *= 1.5 # Fogo
+
+const m_atribs2 = "* el$v está protegid$s por lâminas flamejantes."
+
+
+classe i_rock014
+herda comum_itemperso
+const nome = "malão azul"
+const descnome = "um malão azul com bolsos prateados"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 500
+const valor = 100000
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+
+
+classe i_rock015
+herda comum_itemperso
+const nome = "porta norte"
+const descnome = "a porta norte"
+const descpos = "A norte, há uma porta."
+const i_pegar = "o quê?"
+const i_abertoini = 4 # Container: 4 Inicialmente trancado
+const i_tranc = 1 # Trancar: 1 Pode ser trancado
+
+
+classe i_rock016
+herda comum_item
+const nome = "uma lâmpada"
+const descnome = "uma lâmpada"
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_vestiu
+  se arg1 == este
+    apagar(este)
+    arg0.var.h_engravidar = 1
+  fimse
+
+
+classe i_rock017
+herda comum_itemgrupo
+const nome = "amoleto de ouro"
+const descnome = "um amoleto de ouro com o símbolo de uma guitarra prateada"
+
+
+classe i_rock018
+herda comum_itemperso
+const nome = "barraca de frutas"
+const descnome = "uma barraca de frutas"
+const descpos = "Uma barraca de frutas está armada aqui."
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const i_tranc = 1 # Trancar: 1 Pode ser trancado
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func i_aberto
+  ret dentro2.objini($s_moveis003).porta_sair == 1, 2
+  ret dentro2.objini($s_moveis003).porta_sair == 2, 3
+  ret 4
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "armar barraca"
+    se !dentro2.objini("s_moveis003")
+      criar("s_moveis003", este)
+    fimse
+    refvar sala = dentro2.objini("s_moveis003")
+    listaobj l
+    se dentro1
+      epara l.addfim(dentro1), l, l.ini.remove
+        l.objini.item && !l.objini.mudadono(sala, 10000)
+      efim
+    fimse
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos1("$P arma $o.")
+    mudadono(arg0.dono)
+    ret 1
+  senao arg1 == "desarmar barraca"
+    refvar sala = dentro2.objini("s_moveis003")
+    ret sala.dentro2, arg0.msg("Não pode desarmar a barraca com pessoas dentro dela.")
+    listaobj l
+    epara l.addfim(sala.dentro1), l, l.ini.remove
+      l.objini.item && !l.objini.mudadono(este, 10000)
+    efim
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos1("$P desarma $o.")
+    mudadono(arg0)
+    ret 1
+  fimse
+#
+
+func cmd_abriuobj
+  se dentro2.objini("s_moveis003")
+    dentro2.objini("s_moveis003").mudaporta("sair", 1, "$m se abriu.")
+  fimse
+#
+
+func cmd_destrancouobj
+  se dentro2.objini("s_moveis003")
+    dentro2.objini("s_moveis003").mudaporta("sair", 2, "$m foi destrancada.")
+  fimse
+#
+
+func cmd_fechouobj
+  se dentro2.objini("s_moveis003")
+    dentro2.objini("s_moveis003").mudaporta("sair", 2, "$m se fechou.")
+  fimse
+#
+
+func cmd_trancouobj
+  se dentro2.objini("s_moveis003")
+    dentro2.objini("s_moveis003").mudaporta("sair", 3, "$m se trancou.")
+  fimse
+#
+
+func cmd_olhar
+  se arg1 == este
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos2("$o.", "$P olha para $o.")
+    ret i_aberto == 3, arg0.msg("Está fechada.")
+    ret i_aberto == 4, arg0.msg("Está trancada.")
+    refvar saladentr = dentro2.objini("s_moveis003")
+    textotxt t
+    listaobj l
+    epara l.addfim(saladentr.dentro1, saladentr.dentro2), l, l.ini.remove
+      refvar i = l.objini
+      continuar !i.visivel(arg0)
+      refvar nn = txtsublin(i.atribs.ini.textolin(2), 1)
+      t.addfim(txt(i.objtot) + i.atribs.ini.texto + txtcopiamai(i.descnome, "A") + nn)
+    efim
+    t.juntalin("(", "x)")
+    se t
+      arg0.msg2("\b\c6Dentro dela você vê:\b\n" + txttroca(t.remove(1000), "\d+", "\n"))
+    senao
+      arg0.msg("\b está vazia.")
+    fimse
+    ret 1
+  fimse
+
+
+classe i_rock019
+herda comum_item
+const nome = "invocador de crianças"
+const descnome = "Um invocador de crianças"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 50000
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_escr
+  se txt1(arg1) == "chamar"
+    ret !txt2(arg1), arg0.msg("Chamar quem?")
+    refvar nome = txt2(arg1)
+    arg0.teclou("gritar " + nome + "! " + nome + "!")
+    ref p
+    epara p = $p_templo012, p, p = objdepois(p)
+      continuar p.dono.jog
+      continuar arg0.descnome != p.var.z_mae && arg0.descnome != p.var.z_pai
+      se p.descnome == nome
+        refvar m1 = "$A ouviu o seu chamado e chegou aqui correndo!"
+        refvar m2 = "$A ouviu o chamado de $P e chegou aqui correndo!"
+        $mens.p(arg0, p)
+        $mens.mtodos2(m1, m2)
+        p.mudadono(arg0.dono)
+        ret 1
+      fimse
+    efim
+    ret 1
+  senao arg1 == "buscar"
+    $mens.p(arg0)
+    $mens.mtodos1("$P olha esperançoso para o céu e grita: baby! baby!")
+    ref p
+    epara p = $p_templo012, p, p = objdepois(p)
+      se !p.dono
+        arg0.msg(p.descnome + " aparece aqui de repente!")
+        p.mudadono(arg0.dono)
+      fimse
+    efim
+    ret 1
+  fimse
+
+
+classe i_rock020
+herda comum_item
+
+
+classe i_rock021
+herda comum_item
+const nome = "toalha"
+const descnome = "uma toalha de mesa"
+const m_atribs2 = "coberta com uma toalha bordada"
+
+
+classe i_rock022
+herda comum_itemperso
+const nome = "cantil"
+const descnome = "um cantil"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 5 # Tipo: 5 Container, beber
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const volobj = 9
+const f_liquido = "água"
+const f_totalml = 2000
+
+
+classe i_rock023
+herda comum_item
+const nome = "poção"
+const descnome = "uma poção para virar punk"
+const f_liquido = "punk"
+
+
+classe i_rock024
+herda comum_itemperso
+const nome = "Câmara"
+const descnome = "Uma enorme câmara de vidro cúbica"
+const descpos = "Uma enorme câmara de vidro no formato cúbico encontra-se ao fundo."
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_rock025
+herda comum_item
+const nome = "urna eletrônica"
+const descnome = "uma urna eletrônica"
+const descver = "Digite Votar 1 ou votar2.\n\
+A inquete atual é:\n\
+quem é a rainha fantasia?\n\
+(segundo turno)\n\
+Vote 1: cinderela\n\
+Vote 2: enfermeira"
+const i_pegar = "não pegue na urna"
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_mudadono
+  se dono.s_sala
+    listaobj l
+    epara l.addfim(dono.dentro2), l, l.ini.remove
+      se l.objini.jog
+        misc:evento(l.objini)
+      fimse
+    efim
+#
+
+func cmd_escr
+  se txt1(arg1) == "votar"
+    se txt2(arg1) == "1"
+      ret var.u_[arg0.descnome], arg0.msg("Você já votou.")
+      arg0.msg("Você vota em cinderela.")
+      var.u_[arg0.descnome] = 1
+      $mens.p(arg0)
+      $mens.mtodos2("", "$P votou na urna eletrônica.")
+      var.z_p_ += 1
+      ret 1
+    senao txt2(arg1) == "2"
+      ret var.u_[arg0.descnome], arg0.msg("Você já votou.")
+      arg0.msg("Você vota Em Enfermeira.")
+      var.u_[arg0.descnome] = 1
+      var.z_s_ += 1
+      $mens.p(arg0)
+      $mens.mtodos1("$P vota na urna eletrônica.")
+      ret 1
+    senao
+      arg0.msg("Digite 1, 2 3, ou 4.")
+      ret 1
+    fimse
+  senao arg1 == "limpar urna"
+    ret !arg0.j_imortal, nulo
+    var.z_p_ = 0
+    var.z_s_ = 0
+    var.z_t_ = 0
+    arg0.msg("Hermione: " + var.z_q_ + ".")
+    ret 1
+  senao arg1 == "resultado"
+    ret !arg0.j_imortal, arg0.msg("Você não pode saber o resultado antes que ele termine.")
+    arg0.msg("resultados")
+    arg0.msg("cinderela: " + var.z_p_ + ".")
+    arg0.msg("enfermeira: " + var.z_s_ + ".")
+    ret 1
+  fimse
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  deftipo.0 *= 0.14 # Tipos Normais
+  deftipo.1 *= 0.13 # Tipos Especiais
+  deftipo.2 *= 0.12 # Contusão
+  deftipo.3 *= 0.11 # luta
+  deftipo.4 *= 0.1 # Cortante
+
+
+classe i_rock026
+herda comum_itemperso
+const nome = "balões"
+const ident = "balão balões morcego"
+const descnome = "um balão no formato de um morcego com as asas abertas"
+const descpos = "Vários balões na forma de morcegos com as asas abertas foram pendurados nas \
+paredes"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv |= 16
+#
+
+func cmd_pegarobj
+  se arg2 == este
+    ret arg0.dentro1.objini("i_rock027"), arg0.msg("Você já carrega um balão.")
+    refvar i = criar("i_rock027", arg0, 1)
+    $mens.p(arg0, nulo, i)
+    $mens.mtodos1("$P pega $o.")
+    ret 1
+  fimse
+#
+
+
+classe i_rock027
+herda comum_itemgrupo
+const nome = "balão"
+const descnome = "um balão na forma de um morcego com as asas abertas"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+const eveste = 1 # Eventos item: Sim
+const evperso = 1
+inttempo estourar
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv |= 16
+#
+
+func cmd_ini
+  estourar = 3000
+#
+
+func estourar_exec
+  se dono.jog
+    $mens.p(dono, nulo, este)
+    $mens.mtodos2("$o estoura nas suas mãos!", "$o estoura nas mãos de $P.")
+    dono.ganhaexp(rand(10000, 100000))
+    $mens.p(este)
+    $mens.mtodos1("Um morcego sai voando, deixando a mensagem no ar: Viva Hermione e Lenin!")
+  senao
+    $mens.p(este)
+    $mens.mtodos1("$p estoura, e um enorme morcego sai voando pelo local, deixando a mensagem: \
+Viva Hermione e Lenin!")
+  fimse
+  apagar(este)
+
+
+classe i_rock028
+herda comum_itemperso
+const nome = "bolo de aniversário"
+const descnome = "Um enorme bolo de aniversário"
+const descpos = "Sobre a mesa, há um enorme bolo confeitado e enfeitado com vários docinhos na \
+forma de gatinhos."
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+
+classe i_rock029
+herda comum_item
+const nome = "injeção"
+const descnome = "uma injeção"
+const evperso = 1
+#
+
+func cmd_escr
+  se txt1(arg1) == "aplicar"
+    refvar jogap = txt2(arg1)
+    refvar j = misc:persodono(arg0, jogap)
+    ret !j, arg0.msg("você nõ vê " + jogap + ".")
+    $mens.p(arg0, j)
+    $mens.mens.mtodos1("$P aplica uma injeção de nestesia em $A.")
+    criar("e_sono_profundo", j)
+    ret 1
+  fimse
+
+
+classe i_rock030
+herda comum_item
+const nome = "urna eletrônica"
+const descnome = "uma urna eletrônica"
+const descpos = "Uma urna foi posta sobre um suporte, para votação geral."
+const descver = "Digite votar 1 ou votar 2\n\
+A inquete atual é:\n\
+quem é o rei das fantasias masculina?\n\
+(Segundo turno)\n\
+Vote 1: gato de botas\n\
+Vote 2: o ladrão chefe"
+const i_pegar = "não pegue na urna"
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_mudadono
+  se dono.s_sala
+    listaobj l
+    epara l.addfim(dono.dentro2), l, l.ini.remove
+      se l.objini.jog
+        misc:evento(l.objini)
+      fimse
+    efim
+#
+
+func cmd_escr
+  se txt1(arg1) == "votar"
+    se txt2(arg1) == "1"
+      ret var.u_[arg0.descnome], arg0.msg("Você já votou.")
+      arg0.msg("Você vota em gato de botas.")
+      var.u_[arg0.descnome] = 1
+      $mens.p(arg0)
+      $mens.mtodos2("", "$P votou na urna eletrônica.")
+      var.z_p_ += 1
+      ret 1
+    senao txt2(arg1) == "2"
+      ret var.u_[arg0.descnome], arg0.msg("Você já votou.")
+      arg0.msg("Você vota em o ladrão chefe.")
+      var.u_[arg0.descnome] = 1
+      var.z_s_ += 1
+      $mens.p(arg0)
+      $mens.mtodos1("$P vota na urna eletrônica.")
+      ret 1
+    senao
+      arg0.msg("Digite votar 1 ou votar 2.")
+      ret 1
+    fimse
+  senao arg1 == "limpar urna"
+    ret !arg0.j_imortal, nulo
+    var.z_p_ = 0
+    var.z_s_ = 0
+    var.z_t_ = 0
+    arg0.msg("Hermione: " + var.z_q_ + ".")
+    arg0.msg("Lenin: " + var.z_qt_ + ".")
+    ret 1
+  senao arg1 == "resultado"
+    ret !arg0.j_imortal, arg0.msg("Você não pode saber o resultado.")
+    arg0.msg("resultados")
+    arg0.msg("gato de botas: " + var.z_p_ + ".")
+    arg0.msg("o ladrão chefe: " + var.z_s_ + ".")
+    ret 1
+  fimse
+
+
+classe i_rock031
+herda comum_itemperso
+const nome = "gatinho de pelúcia"
+const descnome = "um gatinho de pelúcia segurando um lindo coração vermelho"
+const descpos = "Um gatinho de pelúcia bem branquinho, segurando um lindo coração vermelho foi \
+abandonado aqui por alguma criança."
+const descver = "Este é um lindo gatinho de pelúcia todo branquinho, de olhos dourados.\n\
+Em suas pequeninas patinhas há um belo coração vermelho escuro.\n\
+O que será que aconteceria se você apertasse o coração do gatinho?"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 22350
+const vestir1 = "100000" # Aonde vestir: 20-segurando
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const manterperso = 1 # Mantém em jogador: Sim
+const mensagens = "$O olha para $P e diz: Você é lind$s. Te amo! Te amo!\n\
+$O abraça $P e diz docemente: Você é muito especial! Te amo!\n\
+$O sorri docemente para $P e diz: Você é tão fofinh$s! ah, te amo!\n\
+$O mia baixinho, fecha os olhinhos e dorme.\n\
+$O olha para $P e diz: Raio de luz que ilumina nossas vidas, você é a estrela mais brilhante do \
+céu! Te amo!\n\
+$O pisca os olhinhos para $P e pergunta: 'Eu te amo... Você me ama?'"
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "apertar coração"
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos1("$P aperta o coração nas mãos do gatinho.")
+    $mens.p(arg0, nulo, este)
+    $mens.mvis1(txtsublin(mensagens, rand(intsublin(mensagens)), 1))
+    ret 1
+  fimse
+
+
+classe i_rock032
+herda comum_itemperso
+const nome = "bancada de vidro"
+const descnome = "uma bancada de vidro"
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const i_msgdentro = "Sobre a bancada você vê:"
+
+
+classe i_rock033
+herda comum_itemperso
+const nome = "uma cadeira elétrica de 1200 volts"
+const descnome = "Uma cadeira elétrica de 12000 volts"
+const descpos = "Uma cadeira elétrica de 12 mil volts está no centro do local, pronto para \
+torrar mais uma vítima."
+const i_pegar = "Não pode pegar a cadeira."
+const i_movel = 1 # Mobília: 1 Sentar
+const i_lugar = 1
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_sentouobj
+  ret arg0.nome == "chris", nulo
+  se arg1 == este
+    $mens.p(arg0)
+    $mens.mtodos1("Após sentar na cadeira, alguém a liga na tomada e $P sente uma intensa \
+corrente elétrica transpassando todo o seu corpo, tornando o seu corpo apenas ossos queimados!")
+    arg0.j_imortal = 0
+    arg0.morreu
+  fimse
+#
+
+func cmd_social
+  se arg1 == este
+    $mens.p(arg0)
+    $mens.mtodos1("Ao tocar na cadeira, $P recebe uma descarga elétrica de 12000 volts, fazendo-$\
+s torrar viv$s!")
+    arg0.morreu
+  fimse
+
+
+classe i_rock034
+herda comum_item
+const nome = "invocador de animais"
+const descnome = "um invocador de animais"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const valor = 200000
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_escr
+  nomeobj c
+  c.ini(txt1(arg1))
+  se c.nome("invocar")
+    ret txt1(arg1) == "inv" && !txt2(arg1), nulo
+    se txt2(arg1) == "águia"
+      ref p
+      epara p = $p_templo001, p, p = objdepois(p)
+        se p.var.z_dono == arg0.descnome
+          ret p.dono == arg0.dono, arg0.msg(p.nome + " já está aqui.")
+          ret p.dono == arg0, arg0.msg(p.descnome + " já está em seu colo.")
+          arg0.msg(p.nome + " será teletransportada.")
+          $mens.p(p, arg0)
+          $mens.mtodos1("$P some ao ouvir o chamado de $A.")
+          p.mudadono(arg0.dono)
+          p.seguirjog(arg0)
+          $mens.p(arg0, p)
+          $mens.mtodos1("\d=aguia $A dáum belo rasante na sala, vindo pousarao lado de $P.")
+          ret 1
+        fimse
+      efim
+    senao txt2(arg1) == "morcego"
+      ref p
+      epara p = $p_templo021, p, p = objdepois(p)
+        se p.var.z_dono == arg0.descnome
+          continuar p.dono == arg0.dono
+          continuar p.dono == arg0
+          arg0.msg(p.nome + " será teletransportado.")
+          $mens.p(p, arg0)
+          $mens.mtodos1("$P some ao ouvir o chamado de $A.")
+          p.mudadono(arg0.dono)
+          p.seguirjog(arg0)
+          $mens.p(arg0, p)
+          $mens.mtodos1("\d=morcego $A dáum belo rasante na sala, vindo pousarao lado de \
+$P.")
+          ret 1
+        fimse
+      efim
+    senao txt2(arg1) == "coruja"
+      ref p
+      epara p = $p_animais006, p, p = objdepois(p)
+        se p.var.z_dono == arg0.descnome
+          arg0.msg(p.nome + " será teletransportada.")
+          $mens.p(p, arg0)
+          $mens.mvis1("\d=coruja Ao ser invocada pel$t don$t, $P bate as asas, voando rumo a \
+el$w.")
+          p.mudadono(arg0.dono)
+          p.seguirjog(arg0)
+          $mens.p(p, arg0)
+          $mens.mvis1som("Você ouve o som de uma coruja, quando de repente $P pousa aqui diante \
+de $A.", "coruja")
+          ret 1
+        fimse
+      efim
+    senao txt2(arg1) == "gato" || txt2(arg1) == "gata"
+      ref p
+      epara p = $p_animais003, p, p = objdepois(p)
+        se p.var.z_dono == arg0.descnome
+          arg0.msg(p.nome + " será teletransportad" + (p.msexo ? "o." : "a."))
+          $mens.p(p, arg0)
+          $mens.mvis1som("$P mia baixinho e desaparece, ao ouvir o chamado d$t don$t.", "gato")
+          p.mudadono(arg0.dono)
+          p.seguirjog(arg0)
+          $mens.p(p, arg0)
+          $mens.mvis1som("Você ouve um miado baixinho quando $P chega aqui, vindo juntar-se ao \
+seu dono.", "gato")
+          ret 1
+        fimse
+      efim
+    senao txt2(arg1) == "macaco" || txt2(arg1) == "macaca"
+      ref p
+      epara p = $p_animais004, p, p = objdepois(p)
+        se p.var.z_dono == arg0.descnome
+          arg0.msg(p.nome + " será teletransportad" + (p.msexo ? "o." : "a."))
+          $mens.p(p)
+          $mens.mvis1("$P some ao ouvir o chamado de " + (arg0.msexo ? "seu dono!" : "sua \
+dona!"))
+          p.mudadono(arg0.dono)
+          p.seguirjog(arg0)
+          $mens.p(p)
+          $mens.mvis1("$P aparece em um redemoinho de fumaça!")
+          ret 1
+        fimse
+      efim
+    senao txt2(arg1) == "coelho" || txt2(arg1) == "coelha"
+      ref p
+      epara p = $p_bosque002, p, p = objdepois(p)
+        se p.var.z_dono == arg0.descnome
+          arg0.msg(p.nome + " será teletransportad" + (p.msexo ? "o." : "a."))
+          $mens.p(p)
+          $mens.mvis1("$P some ao ouvir o chamado de " + (arg0.msexo ? "seu dono!" : "sua \
+dona!"))
+          p.mudadono(arg0.dono)
+          p.seguirjog(arg0)
+          $mens.p(p)
+          $mens.mvis1("$P aparece em um redemoinho de fumaça!")
+          ret 1
+        fimse
+      efim
+    senao txt2(arg1) == "cachorro" || txt2(arg1) == "cadela"
+      ref p
+      epara p = $p_animais002, p, p = objdepois(p)
+        se p.var.z_dono == arg0.descnome
+          arg0.msg(p.nome + " será teletransportad" + (p.msexo ? "o." : "a."))
+          $mens.p(p)
+          $mens.mvis1("$P some ao ouvir o chamado de " + (arg0.msexo ? "seu dono!" : "sua \
+dona!"))
+          p.mudadono(arg0.dono)
+          p.seguirjog(arg0)
+          $mens.p(p)
+          $mens.mvis1("$P aparece em um redemoinho de fumaça!")
+          ret 1
+        fimse
+      efim
+    senao txt2(arg1) == "elefante"
+      ref p
+      epara p = $p_templo013, p, p = objdepois(p)
+        se p.var.z_dono == arg0.descnome
+          arg0.msg(p.nome + " será teletransportado!")
+          p.mudadono(arg0.dono)
+          p.seguirjog(arg0)
+          $mens.p(p)
+          $mens.mvis1("$P aparece em um redemoinho de fumaça.")
+          ret 1
+        fimse
+      efim
+    senao txt2(arg1) == "leão"
+      ref p
+      epara p = $p_templo005, p, p = objdepois(p)
+        se p.var.z_dono == arg0.descnome
+          ret p.dono == arg0.dono, arg0.msg(p.nome + " já está aqui.")
+          arg0.msg(p.nome + " será teletransportado!")
+          p.seguirjog(arg0)
+          p.mudadono(arg0.dono)
+          $mens.p(p)
+          $mens.mtodos1("\d=leao01 $P aparece em um redemoinho de fumaça.")
+          ret 1
+        fimse
+      efim
+    senao txt2(arg1) == "fênix"
+      ref p
+      epara p = $p_animais009, p, p = objdepois(p)
+        se p.var.z_dono == arg0.descnome
+          ret p.dono == arg0.dono, arg0.msg(p.nome + " já está aqui.")
+          arg0.msg(p.nome + " será teletransportada!")
+          p.seguirjog(arg0)
+          p.mudadono(arg0.dono)
+          $mens.p(p)
+          $mens.mtodos1(" Uma suave música pode ser ouvida ao longe, quando de repente chamas \
+irrompem do alto, e você nota $P surgir, magnificamente bela diante de você.")
+          ret 1
+        fimse
+      efim
+    senao txt2(arg1) == "jacaré"
+      ref p
+      epara p = $p_zoo005, p, p = objdepois(p)
+        se p.var.z_dono == arg0.descnome
+          arg0.msg(p.nome + " será teletransportado!")
+          p.mudadono(arg0.dono)
+          p.seguirjog(arg0)
+          $mens.p(p)
+          $mens.mvis1("$P aparece em um redemoinho de fumaça.")
+          ret 1
+        fimse
+      efim
+    senao txt2(arg1) == "urso"
+      ref p
+      epara p = $p_templo006, p, p = objdepois(p)
+        se p.var.z_dono == arg0.descnome
+          arg0.msg(p.nome + " será teletransportado!")
+          p.mudadono(arg0.dono)
+          p.seguirjog(arg0)
+          $mens.p(p)
+          $mens.mvis1("$P aparece em um redemoinho de fumaça!")
+          ret 1
+        fimse
+      efim
+    senao txt2(arg1) == "gorila"
+      ref p
+      epara p = $p_templo007, p, p = objdepois(p)
+        se p.var.z_dono == arg0.descnome
+          arg0.msg(p.nome + " será teletransportado!")
+          p.mudadono(arg0.dono)
+          p.seguirjog(arg0)
+          $mens.p(p)
+          $mens.mvis1("$P aparece em um redemoinho de fumaça!")
+          ret 1
+        fimse
+      efim
+    senao txt2(arg1) == "tigre"
+      ref p
+      epara p = $p_templo008, p, p = objdepois(p)
+        se p.var.z_dono == arg0.descnome
+          arg0.msg(p.objini.nome + " será teletransportado!")
+          p.mudadono(arg0.dono)
+          $mens.p(p)
+          $mens.mvis1("$P aparece em um redemoinho de fumaça!")
+          ret 1
+        fimse
+      efim
+    senao txt2(arg1) == "falcão"
+      ref p
+      epara p = $p_zoo006, p, p = objdepois(p)
+        se p.var.z_dono == arg0.descnome
+          arg0.msg(p.nome + " será teletransportado!")
+          p.seguirjog(arg0)
+          p.mudadono(arg0.dono)
+          $mens.p(p)
+          $mens.mvis1("$P aparece em um redemoinho de fumaça!")
+          ret 1
+        fimse
+      efim
+    fimse
+    ret 1
+  fimse
+
+
+classe i_rock035
+herda comum_itemperso
+const nome = "controle mágico"
+const descnome = "um controle mágico"
+const descpos = "Um estranho controle doi atirado a um lado e parece não ter nenhuma utilidade."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const manterperso = 1 # Mantém em jogador: Sim
+#
+
+func cmd_escr
+  nomeobj n
+  n.ini(txt1(arg1))
+  se n.nome("restaurar")
+    ret !txt2(arg1), arg0.msg("Digite o nome do personagem ou jogador que deseja restaurar.")
+    refvar perso = misc:persodono(arg0, txt2(arg1))
+    ret !perso, arg0.msg("Você não vê " + txt2(arg1) + ".")
+    perso.p_fome = perso.p_sede = 250
+    perso.p_bebida = 0, perso.restaurar, perso.recalc = 1
+    $mens.p(arg0, perso)
+    refvar m1 = "$P aperta um botão de um estranho controle, apontando-o na direção $d $a."
+    refvar m2 = "$P aperta um botão de um estranho controle, apontando-o em sua direção."
+    $mens.mvis3(m1, m2, m1)
+    perso.msg(arg0.descnome + " te restaurou por complet" + (perso.msexo ? "o." : "a."))
+    arg0.msg("Você restaurou " + perso.descnome + " por complet" + (perso.msexo ? "o." : \
+"a."))
+    ret 1
+  senao n.nome("trazermoc")
+    ref i
+    epara i = $i_quest001, i, i = objdepois(i)
+      se !i.dono
+        i.mudadono(arg0.dono)
+        $mens.p(i)
+        $mens.mtodos1("$p apareceu aqui de repente.")
+        ret 1
+      fimse
+    efim
+    arg0.msg("Não há mochilas perdidas.")
+    ret 1
+  senao n.nome("transportar")
+    ref s
+    ret !txt2(arg1), arg0.msg("Transportar quem, e para onde?")
+    refvar perso = txtsub(arg1, 1, 1)
+    refvar sala = txtsub(arg1, 2, 1)
+    ret !sala, arg0.msg("Transportar " + perso + " para onde?")
+    refvar p = misc:persodono(arg0, perso)
+    ret !p, arg0.msg("Você não vê " + perso + ".")
+    s = $s_[sala]
+    se !s
+      ref r
+      refvar nomesav = txts(txtnome(sala))
+      indiceitem item
+      item.ini("pn " + nomesav)
+      r = item.obj
+      s = r.dono
+      ret !s, arg0.msg("Jogador ou sala inexistente: " + sala)
+    fimse
+    $mens.p(arg0, p)
+    $mens.mvis3("$P aponta um controle na direção $d $a.", "$P aponta um controle em sua \
+direção.", "")
+    p.msg("transportando para " + (s.var.z_titulo ? s.var.z_titulo : s.s_titulo))
+    arg0.msg(p.descnome + " transportad" + (p.msexo ? "o" : "a") + " para " + (s.var.z_titulo ? \
+s.var.z_titulo : s.s_titulo))
+    p.mudadono(s)
+    $mens.p(p)
+    $mens.mvis1("$P apareceu aqui, trazid$s por um controle mágico.")
+    ret 1
+  fimse
+
+
+classe i_rock036
+herda comum_item
+const nome = "a espada do cavaleiro negro"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  deftipo.0 *= 0.77 # Tipos Normais
+  deftipo.1 *= 0.72 # Tipos Especiais
+  deftipo.2 *= 0.67 # Contusão
+  deftipo.3 *= 0.63 # luta
+
+
+classe i_rock037
+herda comum_item
+const nome = "tatuagem"
+const descnome = "Uma tatuagem com as iniciais R.A"
+const vestir1 = 1024 # Aonde vestir: 10-no rosto
+const manterperso = 1 # Mantém em jogador: Sim
+const i_msgvestiu = "$P faz $o no rosto."
+const i_msgremoveu = "$P remove $o do rosto."
+
+
+classe i_rock038
+herda comum_item
+const nome = "a refulgente espada do criador"
+const descnome = "a refulgente espada do criador"
+const armamax = 1000000
+const armamin = 100000
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const armaatk = "espadas"
+
+
+classe i_rock039
+herda comum_item
+const nome = "fantastic geração x"
+const descnome = "um fantastic geração x"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const renascer = 1
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 2500000
+const i_celular = 1 # é Celular: Sim
+const i_camera = 1 # tem câmera: Sim
+
+
+classe i_rock040
+herda comum_item
+const nome = "bombom de chocolate"
+const ident = "bombom chocolate"
+const descnome = "um bombom de chocolate"
+const descpos = "um bombom de chocolate foi jogado aqui."
+const msexo = 1
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_magia1 = "explosao"
+const f_msgperso = "Você delicia-se ao comer um crocante bombom de chocolate, mas espere..."
+const f_msgoutros = "$P saboreia prazerozamente um delicioso bombom de chocolate..."
+const valor = 1000000
+const eveste = 1
+const evperso = 1
+inttempo explodir
+inttempo explodird
+inttempo explodirp
+#
+
+func cmd_ini
+  explodir = 900
+#
+
+func explodir_exec
+  se dono.item
+    ref i
+    ref p
+    i = dono
+    p = i.dono
+    se p.perso
+      se p.dono.s_area == "fim"
+        explodir = 60
+        ret
+      fimse
+      $mens.p(p, nulo, i)
+      $mens.mtodos2("\d=portal01 $o explode nas suas mãos, matando-lhe!", "\d=portal01 $o \
+explode nas mãos $d $P, matando-$s!")
+      p.j_imortal = 0
+      p.morreu
+      apagar(este)
+    senao p.s_sala
+      $mens.p(i)
+      $mens.mtodos1("\d=portal01 Um bombom explodiu dentro $d $p!")
+      apagar(este)
+    fimse
+    ret 1
+  fimse
+  se dono.perso
+    se vestpos
+      $mens.p(dono, nulo, este)
+      $mens.mtodos2("\d=portal01 o bombom explode em seu corpo, reduzindo-lhe a poeira!", \
+"\d=portal01 o bombom explode no corpo $d $P, que é reduzid$s a poeira!")
+      se !arg0.dono.s_luta
+        dono.morreu
+        apagar(este)
+        ret 1
+      fimse
+      listaobj l
+      epara l.addfim(dono.dono.dentro2), l, l.ini.remove
+        se l.objini.jog
+          l.objini.j_imortal = 0
+          l.objini.morreu
+        fimse
+      efim
+      apagar(este)
+      ret 1
+    fimse
+    $mens.p(dono)
+    $mens.mtodos2("\d=portal01 o bombom explode em suas mãos, transformando-lhe em poeira!", \
+"\d=portal01 o bombom explode nas mãos $d $P, que é reduzid$s a pó!")
+    dono.j_imortal = 0
+    dono.morreu
+    apagar(este)
+    ret 1
+  fimse
+  $mens.p(este)
+  $mens.mtodos1("\d=portal01 $P explode, atirando tudo pelos ares!")
+  listaobj l
+  epara l.addfim(dono.dentro2), l, l.ini.remove
+    se l.objini.jog
+      l.objini.j_imortal = 0
+      l.objini.morreu
+    fimse
+  efim
+  apagar(este)
+#
+
+func explodirp_exec
+  $mens.p(este)
+  $mens.mtodos1("Restam 10 segundos para o bombom explodir.")
+#
+
+func explodird_exec
+  $mens.p(este)
+  $mens.mtodos1("Faltam 5 segundos para o bombom explodir!")
+#
+
+func cmd_soltarobj
+  se arg2 == este && arg1.s_sala && var.z_armada_ == 2
+    ret !arg0.dono.s_luta, arg0.msg("Você não pode soltar o bombom em um lugar pacífico.")
+  fimse
+#
+
+func cmd_comeu
+  se arg1 == este
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos2("$o explode ao ser comido, lhe tornando poeira espacial!", "$o explode ao ser \
+comido por $p, $s tornando poeira espacial!")
+    arg0.j_imortal = 0
+    arg0.morreu
+  fimse
+
+
+classe i_rock041
+herda comum_item
+const nome = "ac eeeitaaaa"
+const ident = "bombom chocolate"
+const descnome = "um controle mágico"
+const descpos = "um bombom de chocolate foi jogado aqui."
+const msexo = 1
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_magia1 = "explosao"
+const f_msgperso = "Você delicia-se ao comer um crocante bombom de chocolate, mas espere..."
+const f_msgoutros = "$P saboreia prazerozamente um delicioso bombom de chocolate..."
+const valor = 1000000
+const eveste = 1
+const evperso = 1
+inttempo explodir
+inttempo explodird
+inttempo explodirp
+#
+
+func cmd_ini
+  explodir = 600
+#
+
+func explodir_exec
+  se dono.item
+    ref i
+    ref p
+    i = dono
+    p = i.dono
+    se p.perso
+      se p.dono.s_area == "fim"
+        explodir = 60
+        ret
+      fimse
+      $mens.p(p, nulo, i)
+      $mens.mtodos2("\d=portal01 $o explode nas suas mãos, matando-lhe!", "\d=portal01 $o \
+explode nas mãos $d $P, matando-$s!")
+      p.j_imortal = 0
+      p.morreu
+      apagar(este)
+    senao p.s_sala
+      $mens.p(i)
+      $mens.mtodos1("\d=portal01 Um bombom explodiu dentro $d $p!")
+      apagar(este)
+    fimse
+    ret 1
+  fimse
+  se dono.perso
+    se vestpos
+      $mens.p(dono, nulo, este)
+      $mens.mtodos2("\d=portal01 o bombom explode em seu corpo, reduzindo-lhe a poeira!", \
+"\d=portal01 o bombom explode no corpo $d $P, que é reduzid$s a poeira!")
+      se !arg0.dono.s_luta
+        dono.morreu
+        apagar(este)
+        ret 1
+      fimse
+      listaobj l
+      epara l.addfim(dono.dono.dentro2), l, l.ini.remove
+        se l.objini.jog
+          l.objini.j_imortal = 0
+          l.objini.morreu
+        fimse
+      efim
+      apagar(este)
+      ret 1
+    fimse
+    $mens.p(dono)
+    $mens.mtodos2("\d=portal01 o bombom explode em suas mãos, transformando-lhe em poeira!", \
+"\d=portal01 o bombom explode nas mãos $d $P, que é reduzid$s a pó!")
+    dono.j_imortal = 0
+    dono.morreu
+    apagar(este)
+    ret 1
+  fimse
+  $mens.p(este)
+  $mens.mtodos1("\d=portal01 $P explode, atirando tudo pelos ares!")
+  listaobj l
+  epara l.addfim(dono.dentro2), l, l.ini.remove
+    se l.objini.jog
+      l.objini.j_imortal = 0
+      l.objini.morreu
+    fimse
+  efim
+  apagar(este)
+#
+
+func explodirp_exec
+  $mens.p(este)
+  $mens.mtodos1("Restam 10 segundos para o bombom explodir.")
+#
+
+func explodird_exec
+  $mens.p(este)
+  $mens.mtodos1("Faltam 5 segundos para o bombom explodir!")
+#
+
+func cmd_soltarobj
+  se arg2 == este && arg1.s_sala && var.z_armada_ == 2
+    ret !arg0.dono.s_luta, arg0.msg("Você não pode soltar o bombom em um lugar pacífico.")
+  fimse
+
+
+classe p_rock001
+herda comum_persobat
+const nome = "Lorde Darius"
+const ident = "cavaleiro lord darios darius forte esplanada"
+const descnome = "Lorde Darius"
+const descpadr = "Um forte cavaleiro de grande porte caminha pelo reino em seu cavalo, atrás de \
+inimigos para derrotar."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 1000
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 50000
+const inivar = "h_lâmina_longa=8,z_moedas=1000000"
+sav uint16 prenascer
+#
+
+func cmd_ini
+  prenascer = 60
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5000 * pnivel + 5000000
+  atknorm += 350 * pnivel + 250000
+  defnorm += 5000 * pnivel + 500000
+  atkesp += 350 * pnivel + 250000
+  defesp += 7500 * pnivel + 600000
+  evasao += 50 * pnivel + 25000
+  precisao += 250 * pnivel + 20000
+
+
+classe p_rock002
+herda comum_persobat
+const nome = "cavalo"
+const descnome = "o cavalo negro do Lorde Darius"
+const descpadr = "Um belo cavalo negro com crina dourada e olhos amarelados conduz seu cavaleiro \
+pelos caminhos do reino."
+
+
+classe p_rock003
+herda comum_persobat
+const nome = "ablom"
+const ident = "ablom anjo general"
+const descnome = "ablom, o primeiro general"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 10
+
+
+classe p_rock004
+herda comum_perso
+const nome = "O general Valente"
+const descnome = "O general Valente"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const lojaaula = "h_roncar 8"
+
+
+classe p_rock005
+herda comum_persobat
+const nome = "Clone"
+const descnome = "um clone"
+const sexoini = 1 # Sexo Perso: 1 Masculino
+
+
+classe p_rock006
+herda comum_perso
+const nome = "Monitor"
+const descnome = "O monitor do templo"
+const descpadr = "O monitor está em pé em uma das extremidades do templo, observando tudo com \
+cautela."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_mudadono
+  listaobj l
+  epara l.addfim(dono.dentro2), l, l.ini.remove
+    se l.objini.perso
+      misc:evento(l.objini)
+    fimse
+  efim
+#
+
+func cmd_falou
+  txt80 texto
+  txt80 w
+  epara w = arg1, w, w = txt2(w)
+    texto = txt1(w)
+    se $admnomesnao.nomes.n_[texto]
+      teclou("f Por favor, " + arg0.descnome + ", evite falar certos tipos de palavras aqui.")
+      sair
+    fimse
+  efim
+#
+
+
+classe s_rock001
+herda b_rock
+const s_titulo = "Salão"
+const s_recup = 1
+const dir_n = $s_rock006
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_rock018
+const dir_b = $s_rock002
+const dir_no = $s_rio001
+
+
+classe s_rock002
+herda b_rock
+const s_titulo = "A escadaria do quartel"
+const dir_l = $s_rock003
+const dir_c = $s_rock001
+
+
+classe s_rock003
+herda b_rock
+const s_titulo = "NA LONGA ESCADARIA DO TEMPLO"
+const dir_o = $s_rock002
+const dir_b = $s_rock004
+
+
+classe s_rock004
+herda b_rock
+const s_titulo = "NA BASE DE UMA ESCADARIA COM MASTROS EM FORMA DE GUITARRA"
+const dir_c = $s_rock003
+const dir_b = $s_rio001
+
+
+classe s_rock005
+herda b_rock
+const s_titulo = "A extremidade leste do salão"
+const s_desc = "\d=noitefloresta"
+const eveste = 1 # Eventos sala: Sim
+const dir_o = $s_rock001
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "a porta da sala"
+const fecha_o = 1 # Fecha ao passar: Sim
+#
+
+
+classe s_rock006
+herda b_rock
+const s_titulo = "O longo corredor norte"
+const dir_n = $s_rock007
+const dir_s = $s_rock001
+
+
+classe s_rock007
+herda b_rock
+const s_titulo = "O longo corredor norte"
+const dir_s = $s_rock006
+const dir_l = $s_rock008
+
+
+classe s_rock008
+herda b_rock
+const s_titulo = "No fim do corredor"
+const dir_l = $s_rock009
+const dir_o = $s_rock007
+
+
+classe s_rock009
+herda b_rock
+const s_titulo = "Na base de uma escadaria de vidro"
+const dir_o = $s_rock008
+const dir_c = $s_rock010
+
+
+classe s_rock010
+herda b_rock
+const s_titulo = "Em uma longa escadaria de vidro"
+const dir_b = $s_rock009
+const dir_no = $s_rock011
+
+
+classe s_rock011
+herda b_rock
+const s_titulo = "Na longa escadaria de vidro"
+const dir_se = $s_rock010
+const dir_so = $s_rock012
+
+
+classe s_rock012
+herda b_rock
+const s_titulo = "Na longa escadaria de vidro"
+const dir_c = $s_rock013
+const dir_ne = $s_rock011
+
+
+classe s_rock013
+herda b_rock
+const s_titulo = "No alto de uma torre com piso de vidro"
+const dir_l = $s_rock014
+const dir_b = $s_rock012
+
+
+classe s_rock014
+herda b_rock
+const s_titulo = "A câmara espelhada"
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos sala: Sim
+const dir_o = $s_rock013
+#
+
+func cmd_hora
+  se dentro2
+    listaobj l
+    epara l.addfim(dentro2), l, l.ini.remove
+      se l.objini.perso && !l.objini.jog
+        msg(l.objini.descnome + " entrou.")
+        l.objini.mudadono(dentro1.objini("i_rock024"))
+      fimse
+    efim
+  fimse
+
+
+classe s_rock015
+herda b_rock
+
+
+classe s_rock016
+herda b_rock
+const s_titulo = "Um escritório."
+const dir_o = $s_rock017
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "a porta do escritório"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_rock017
+herda b_rock
+const s_titulo = "Sala de espera."
+const dir_l = $s_rock016
+const portanome_l = "a porta do escritório"
+const fecha_l = 1 # Fecha ao passar: Sim
+const som_abrir_l = "abporta02"
+const som_fechar_l = "fporta02"
+
+
+classe s_rock018
+herda b_rock
+const dir_l = $s_rock001

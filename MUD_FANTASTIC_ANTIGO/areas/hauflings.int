@@ -1,0 +1,754 @@
+classe a_hauflings
+herda area
+const a_nome = "A cidade dos Hauflings"
+const a_autor = "pronta"
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_tempo = 10
+const a_txtreset = "Alguns hauflings começam a correr a procura de algo"
+
+
+classe b_hauflings
+herda sala
+const s_fome = 2 # Fome e sede: 2 Some aos poucos
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_luz = 0 # Luz: 0 Claro com eventos de tempo
+const s_recup = 200
+const s_reserva = 1 # Comando reserva: Sim
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const s_area = "hauflings"
+
+
+classe i_hauflings001
+herda comum_item
+const nome = "Um pão"
+const ident = "Pão"
+const descnome = "Um pão feito por hauflings"
+const descpos = "Um grande pão foi jogado aqui"
+const descver = "Este pão, feito pelos hauflings aparenta ter o poder de saciar qualquer \
+fome\n"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 10
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 4
+const f_diges = 3
+const pesoobj = 20
+const tipoitem = 8192 # Tipo de produto: 13-Comida
+const valor = 100
+
+
+classe i_hauflings002
+herda comum_itemperso
+const nome = "Uma mochila prateada"
+const ident = "mochila"
+const descnome = "Uma mochila prateada"
+const descpos = "Uma mochila prateada foi jogada aqui, aparenta caber muita coisa dentro \
+dela"
+const msexo = 0 # Sexo Msg: 0 Feminino
+const nivel = 25
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const pesoobj = 100
+const valor = 500
+const vestir1 = 1050624 # Aonde vestir: 11-nas costas, 20-segurando
+
+func recalc_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 258
+
+
+classe i_hauflings003
+herda comum_itemperso
+const nome = "Uma grande mala"
+const ident = "Mala"
+const descnome = "Uma grande mala"
+const descpos = "Uma mala enorme foi deixada aqui"
+const descident = "Muito grande é esta mala"
+const msexo = 0 # Sexo Msg: 0 Feminino
+const nivel = 50
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const objmax = 200
+const pesoobj = 9
+const tipoitem = 2048 # Tipo de produto: 11-Container
+const valor = 1000
+const vestir1 = 1050624 # Aonde vestir: 11-nas costas, 20-segurando
+const manterperso = 1 # Mantém em jogador: Sim
+
+
+classe p_hauflings001
+herda comum_perso
+const nome = "O vendedor"
+const ident = "vendedor mochila haufling"
+const descnome = "O vendedor de mochilas"
+const descpadr = "O vendedor de mochilas se encontra atráz do balcão, aguardando seu pedido"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 1000
+const pospadr = 8 # Posição padrão: 8 Em pé
+const tipo1 = "elfo"
+const tipo2 = "mago"
+const tipo3 = "Guerreiro"
+const lojaini = 1
+const lojafim = 23
+const lojaitem = "hauflings002 0\nhauflings003 0"
+
+
+classe p_hauflings002
+herda comum_perso
+const nome = "O padeiro"
+const ident = "padeiro homem"
+const descnome = "Um padeiro"
+const descpadr = "Um homem está aqui, colocando um pão no forno"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 500
+const tipo1 = "humano"
+const lojaini = 5
+const lojafim = 22
+const lojaitem = "hauflings001 0\naditem030 0\naditem027 0"
+
+
+classe p_hauflings003
+herda comum_perso
+const nome = "O professor de habilidades"
+const ident = "homem jovem professor forte"
+const descnome = "O professor de habilidades"
+const descpadr = "Um homem muito forte se encontra aqui, pronto a ensinar os mais jovens na arte \
+da luta"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const lojaini = 1
+const lojafim = 23
+const lojasim = "guerreiro"
+const lojanao = "mago\nnecromante"
+const lojaaula = "h_terceiro_ataque 8\nh_chute_invertido 8\nh_segundo_ataque 8"
+
+
+classe p_hauflings004
+herda comum_perso
+const nome = "O professor de magia"
+const ident = "homem professor"
+const descnome = "O professor de magia"
+const descpadr = "Um homem com uma aparência sombria está aqui, pronto a ensinar magias aos \
+jovens"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 50000
+const tipo1 = "humano"
+const tipo2 = "mago"
+const lojasim = "necromante"
+const lojanao = "criança\neletrico\nguerreiro\nladrao"
+
+
+classe p_hauflings005
+herda comum_persobat
+const nome = "O rei dos hauflings"
+const ident = "haufling rei"
+const descnome = "O rei dos Hauflings"
+const descpadr = "Um haufling com uma aparência soberana está aqui. Seria o rei?"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 70
+const tipo1 = "haufling"
+const p_atktipo = "segundo ataque"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 64
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+const inivar = "z_moedas=900000"
+
+func recalc_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 6174
+  bitinv |= 16
+
+
+classe p_hauflings006
+herda comum_persobat
+const nome = "O guarda haufling"
+const ident = "guarda haufling"
+const descnome = "O guarda haufling"
+const descpadr = "Um haufling guarda está em pé aqui, protegendo os habitantes da cidade"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 55
+const tipo1 = "haufling"
+const tipo2 = "guerreiro"
+const equip2 = "800"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 400
+const p_naoseguir = 0 # Não podem seguir: Não
+const p_recebe = 0 # Recebe itens: Não
+const inivar = "z_moedas_=900"
+
+func recalc_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1500
+  pmovemax += 500
+  pveloc1 += 200
+  atknorm += 500
+  defnorm += 500
+  atkesp += 100
+  defesp += 100
+  evasao += 500
+  precisao += 300
+  pesomax += 500
+  bitver |= 6198
+  bitinv |= 16
+
+
+classe p_hauflings007
+herda comum_persobat
+const nome = "Uma haufling adulta"
+const ident = "haufling adulta"
+const descnome = "Uma haufling adulta"
+const descpadr = "uma haufling adulta está aqui, correndo para todos os lados"
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const nivel = 45
+const tipo1 = "haufling"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 400
+const inivar = "z_moedas=3400"
+
+func recalc_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2000
+  pmovemax += 700
+  pveloc1 += 400
+  atknorm += 300
+  bitver |= 30
+
+
+classe p_hauflings008
+herda comum_persobat
+const nome = "O haufling esperiente"
+const ident = "haufling experiente"
+const descnome = "O haufling esperiente"
+const descpadr = "Um haufling com uma grande experiência caminha por aqui de cabeça erguida"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 64
+const tipo1 = "haufling"
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 300
+
+func recalc_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500
+  pmovemax += 600
+  atknorm += 500
+  defesp += 300
+  bitver |= 30
+
+
+classe p_hauflings009
+herda comum_persobat
+const nome = "O soldado haufling"
+const ident = "haufling soldado"
+const descnome = "O soldado haufling"
+const descpadr = "Um haufling soldado caminha por aqui, segurando uma espada"
+const nivel = 66
+const tipo1 = "haufling"
+const tipo2 = "guerreiro"
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 280
+
+func recalc_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500
+  pmovemax += 1000
+  pveloc1 += 200
+  atknorm += 300
+  defesp += 261
+  bitver |= 30
+
+
+classe p_hauflings010
+herda comum_persobat
+const nome = "O guardião haufling"
+const ident = "guarda guardião haufling"
+const descnome = "O guardião haufling"
+const descpadr = "O Guardião dos hauflings está aqui, guardando os portões"
+const nivel = 67
+const tipo1 = "haufling"
+const tipo2 = "guerreiro"
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+
+func recalc_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2800
+  pveloc1 += 300
+  atknorm += 200
+  defnorm += 500
+  bitver |= 30
+
+
+classe s_hauflings001
+herda b_hauflings
+const s_titulo = "Nos portões da cidade"
+const s_desc = "Você está nos portões de uma pequena cidade.\n\
+Mais a sul, você vê vários hauflings caminhando para lá e para cá.\n\
+Também vê alguns vendedores.\n\
+No entanto.\n\
+Você se distraiu com isso e nem viu os guardiões do portão a sua frente!"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_midoeste030
+const portaini_n = 1 # Estado inicial: 1 Porta aberta
+const portanome_n = "Os portões da cidade"
+const portaartigo_n = 3 # Artigo porta: 3 os (portões)
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_s = $s_hauflings002
+const a_reset = "P 100 hauflings010 0 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hauflings010:objsolto.total < 2
+    criar("p_hauflings010", este, 0)
+  fimse
+
+
+classe s_hauflings002
+herda b_hauflings
+const s_titulo = "Uma rua na pequena cidade"
+const s_desc = "Você caminha por uma bonita rua, toda feita de pequenos tijolos amarelos.\n\
+Você vê vários hauflings indo para o sul, na direção do centro da cidade.\n\
+A leste você vê a padaria pão quentinho, e a oeste a loja de mochilas"
+const dir_n = $s_hauflings001
+const dir_s = $s_hauflings005
+const dir_l = $s_hauflings003
+const dir_o = $s_hauflings004
+const a_reset = "P 100 hauflings007 0 0 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hauflings007:objsolto.total < 21
+    criar("p_hauflings007", este, 0)
+  fimse
+
+
+classe s_hauflings003
+herda b_hauflings
+const s_titulo = "Padaria pão quentinho"
+const s_desc = "Você ao entrar neste lugar, sente um enorme cheiro de pão, bolos e outras coisas \
+doces.\n\
+No centro da loja há um balcão, e atráz dele se encontra Augusto, o padeiro"
+const s_luz = 0 # Luz: 0 Claro com eventos de tempo
+const dir_o = $s_hauflings002
+const a_reset = "P 100 hauflings002 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hauflings002:objsolto.total < 1
+    criar("p_hauflings002", este, 0)
+  fimse
+
+
+classe s_hauflings004
+herda b_hauflings
+const s_titulo = "A loja de Mochilas"
+const s_desc = "Aqui você vai encontrar todos os tipos de mochilas, malas, bolsas, sacolas \
+etc.\n\
+E tudo por um bom preço, pois dizem que os hauflings são famosos por sempre fazerem belos \
+negócios!"
+const dir_l = $s_hauflings002
+const a_reset = "P 100 hauflings001 0 0 1 m_santuario=8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hauflings001:objsolto.total < 1
+    criar("p_hauflings001", este, 0, "m_santuario=8")
+  fimse
+
+
+classe s_hauflings005
+herda b_hauflings
+const s_titulo = "O centro da cidade"
+const s_desc = "Aqui é a parte mais movimentada da cidade, hauflings correm da direita para \
+esquerda, de cima para baixo\n\
+Preocupados com suas ocupações.\n\
+A sul você continua na rua principal, e a leste e oeste segue a avenida das casas."
+const dir_n = $s_hauflings002
+const dir_s = $s_hauflings023
+const dir_l = $s_hauflings015
+const dir_o = $s_hauflings006
+const dir_c = $s_hauflings016
+const a_reset = "P 100 hauflings008 0 0 27"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hauflings008:objsolto.total < 27
+    criar("p_hauflings008", este, 0)
+  fimse
+
+
+classe s_hauflings006
+herda b_hauflings
+const s_titulo = "Avenida das casas"
+const s_desc = "Você está na avenida das casas da cidade.\n\
+A norte e a sul você avista casas, e a oeste a avenida continua.\n\
+Para leste você vê o centro da cidade"
+const dir_n = $s_hauflings009
+const dir_s = $s_hauflings008
+const dir_l = $s_hauflings005
+const dir_o = $s_hauflings012
+
+
+classe s_hauflings007
+herda b_hauflings
+const s_titulo = "O final oeste da avenida"
+const s_desc = ""
+const dir_n = $s_hauflings011
+const dir_s = $s_hauflings010
+const dir_l = $s_hauflings006
+
+
+classe s_hauflings008
+herda b_hauflings
+const s_titulo = "Uma casa de Haufling"
+const s_desc = "Você está em uma pequena casa, com móveis novos, porém tudo muito pequeno, \
+padrão dos hauflings"
+const dir_n = $s_hauflings006
+
+
+classe s_hauflings009
+herda b_hauflings
+const s_titulo = "Uma casinha pequena"
+const s_desc = "Esta casa é muito pequena"
+const dir_s = $s_hauflings006
+
+
+classe s_hauflings010
+herda b_hauflings
+const s_titulo = "Outra casa de haufling"
+const s_desc = ""
+const dir_n = $s_hauflings007
+
+
+classe s_hauflings011
+herda b_hauflings
+const s_titulo = "Mais uma casa de haufling"
+const s_desc = ""
+const dir_s = $s_hauflings007
+
+
+classe s_hauflings012
+herda b_hauflings
+const s_titulo = "O fim da avenida"
+const s_desc = ""
+const dir_n = $s_hauflings013
+const dir_s = $s_hauflings014
+const dir_l = $s_hauflings006
+const dir_o = $s_hauflings027
+
+
+classe s_hauflings013
+herda b_hauflings
+const s_titulo = "outra casa"
+const s_desc = ""
+const dir_s = $s_hauflings012
+
+
+classe s_hauflings014
+herda b_hauflings
+const s_titulo = "Mais uma casa"
+const s_desc = ""
+const dir_n = $s_hauflings012
+
+
+classe s_hauflings015
+herda b_hauflings
+const s_titulo = "Uma avenida de casas"
+const s_desc = "Você segue pela avenida, com casas a norte e sul"
+const dir_n = $s_hauflings018
+const dir_s = $s_hauflings019
+const dir_l = $s_hauflings020
+const dir_o = $s_hauflings005
+const a_reset = "P 100 hauflings006 0 0 15"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hauflings006:objsolto.total < 15
+    criar("p_hauflings006", este, 0)
+  fimse
+
+
+classe s_hauflings016
+herda b_hauflings
+const s_titulo = "Uma escadaria"
+const s_desc = ""
+const dir_c = $s_hauflings017
+const dir_b = $s_hauflings005
+
+
+classe s_hauflings017
+herda b_hauflings
+const s_titulo = "O templo da cidade"
+const s_desc = ""
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_pnj = 0
+const s_recup = 200
+const s_retornar = 2 # Comando retornar: 2 Muda o ponto de retorno para essa sala
+const dir_b = $s_hauflings016
+
+
+classe s_hauflings018
+herda b_hauflings
+const s_titulo = "A casa de um guarda"
+const s_desc = ""
+const dir_s = $s_hauflings015
+
+
+classe s_hauflings019
+herda b_hauflings
+const s_titulo = "A casa de um soldado"
+const s_desc = ""
+const dir_n = $s_hauflings015
+const a_reset = "P 100 hauflings009 0 0 28"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hauflings009:objsolto.total < 28
+    criar("p_hauflings009", este, 0)
+  fimse
+
+
+classe s_hauflings020
+herda b_hauflings
+const s_titulo = "o final leste da avenida"
+const s_desc = ""
+const dir_n = $s_hauflings021
+const dir_s = $s_hauflings022
+const dir_l = $s_hauflings028
+const dir_o = $s_hauflings015
+
+
+classe s_hauflings021
+herda b_hauflings
+const s_titulo = "A casa do rei dos Hauflings"
+const s_desc = ""
+const dir_s = $s_hauflings020
+const a_reset = "P 100 hauflings005 0 0 1 Z_moedas=1000000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hauflings005:objsolto.total < 1
+    criar("p_hauflings005", este, 0, "Z_moedas=1000000")
+  fimse
+
+
+classe s_hauflings022
+herda b_hauflings
+const s_titulo = "A casa de uma família de hauflings"
+const s_desc = ""
+const dir_n = $s_hauflings020
+
+
+classe s_hauflings023
+herda b_hauflings
+const s_titulo = "A parte sul da rua das lojas"
+const s_desc = "Você está na parte sul da cidade, onde encontra vários tipos de lojas, professore\
+s, e etc\n\
+A leste você vê uma escola com uma placa dizendo Combate mágico, e a oeste a escola com placa \
+escrito força de campeão."
+const dir_n = $s_hauflings005
+const dir_s = $s_hauflings026
+const dir_l = $s_hauflings024
+const dir_o = $s_hauflings025
+
+
+classe s_hauflings024
+herda b_hauflings
+const s_titulo = "A escola combate mágico"
+const s_desc = "Você está na escola combate mágico, onde aprenderá tudo relacionado com luta com \
+magias, proteção, etc.\n\
+Sobre uma prateleira encontram-se Cajados, bastões, varinhas...."
+const dir_o = $s_hauflings023
+const a_reset = "P 100 hauflings004 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hauflings004:objsolto.total < 1
+    criar("p_hauflings004", este, 0)
+  fimse
+
+
+classe s_hauflings025
+herda b_hauflings
+const s_titulo = "A escola força de campeão"
+const s_desc = "Você está na escola força de campeão.\n\
+Lanças, gládios, espadas estão pelas paredes, aguardando alguém dígno de empunhar e usar \
+algo"
+const dir_l = $s_hauflings023
+const a_reset = "P 100 hauflings003 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hauflings003:objsolto.total < 1
+    criar("p_hauflings003", este, 0)
+  fimse
+
+
+classe s_hauflings026
+herda b_hauflings
+const s_titulo = "Os portões sul"
+const s_desc = "Você está no final sul da cidade.\n\
+Aqui se encontra um guarda, guardando o portão"
+const dir_n = $s_hauflings023
+const a_reset = "P 100 hauflings010 0 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hauflings010:objsolto.total < 4
+    criar("p_hauflings010", este, 0)
+  fimse
+
+
+classe s_hauflings027
+herda b_hauflings
+const s_titulo = "Os portões oeste"
+const s_desc = "Você está no final oeste da cidade.\n\
+Aqui se encontra um guarda, guardando o portão."
+const dir_l = $s_hauflings012
+const dir_o = $s_hauflings029
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "Um portão de ferro forjado em aço"
+const portaartigo_o = 2 # Artigo porta: 2 o (portão)
+const comechave_o = 0 # Come chave: Não
+const inv_o = 0 # Invisível: Não
+const fecha_o = 1 # Fecha ao passar: Sim
+const tranc_o = 0 # Trancar: 0 Não pode ser trancado
+const voar_o = 0 # Voar: Não
+const a_reset = "P 100 hauflings010 0 0 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hauflings010:objsolto.total < 3
+    criar("p_hauflings010", este, 0)
+  fimse
+
+
+classe s_hauflings028
+herda b_hauflings
+const s_titulo = "Os portões leste"
+const s_desc = "Você está no final leste da cidade.\n\
+Aqui se encontra um guarda, guardando o portão."
+const dir_o = $s_hauflings020
+const a_reset = "P 100 hauflings010 0 0 5 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hauflings010:objsolto.total < 5
+    criar("p_hauflings010", este, 0, "0")
+  fimse
+
+
+classe s_hauflings029
+herda b_hauflings
+const s_titulo = "Um caminho de pedregulhos"
+const s_desc = ""
+const dir_l = $s_hauflings027
+const dir_o = $s_hauflings030
+
+
+classe s_hauflings030
+herda b_hauflings
+const s_titulo = "No meio do caminho"
+const s_desc = ""
+const dir_l = $s_hauflings029
+const dir_o = $s_hauflings031
+
+
+classe s_hauflings031
+herda b_hauflings
+const s_titulo = "O fim do caminho de pedregulhos, avistando ao longe o mar"
+const s_desc = ""
+const dir_l = $s_hauflings030
+const dir_ne = $s_hauflings032
+
+
+classe s_hauflings032
+herda b_hauflings
+const s_titulo = "Uma estrada de areia"
+const s_desc = ""
+const dir_ne = $s_hauflings033
+const dir_so = $s_hauflings031
+
+
+classe s_hauflings033
+herda b_hauflings
+const s_titulo = "Uma estrada de areia, próximo ao mar"
+const s_desc = ""
+const dir_s = $s_hauflings034
+const dir_so = $s_hauflings032
+
+
+classe s_hauflings034
+herda b_hauflings
+const s_titulo = "Na praia"
+const s_desc = ""
+const dir_n = $s_hauflings033
+const dir_s = $s_hauflings035
+
+
+classe s_hauflings035
+herda b_hauflings
+const s_titulo = "No mar"
+const s_desc = "Cuidado, a perigo por perto!"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_n = $s_hauflings034
+const dir_s = $s_hauflings038
+const dir_ne = $s_hauflings036
+const dir_so = $s_hauflings037
+
+
+classe s_hauflings036
+herda b_hauflings
+const s_titulo = "Um redemoinho de água, levando tudo"
+const s_desc = ""
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_so = $s_hauflings035
+
+
+classe s_hauflings037
+herda b_hauflings
+const s_titulo = "Mais água"
+const s_desc = ""
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+
+
+classe s_hauflings038
+herda b_hauflings
+const s_titulo = "Atravessando uma baía"
+const s_desc = ""
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_n = $s_hauflings035
+const dir_l = $s_hauflings039
+
+
+classe s_hauflings039
+herda b_hauflings
+const s_titulo = "O final da baía, avistando terra"
+const s_desc = ""
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_l = $s_hauflings040
+const dir_o = $s_hauflings038
+
+
+classe s_hauflings040
+herda b_hauflings
+const s_titulo = "Fora de um castelo"
+const s_desc = ""
+const dir_l = $s_hauflings041
+const dir_o = $s_hauflings039
+
+
+classe s_hauflings041
+herda b_hauflings
+const s_titulo = "A fronteira entre a cidade e o castelo"
+const s_desc = ""
+const dir_l = $s_desafios001
+const dir_o = $s_hauflings040

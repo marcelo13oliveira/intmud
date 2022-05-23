@@ -1,0 +1,688 @@
+classe a_equips
+herda area
+
+
+classe b_equips
+herda sala
+const s_area = "equips"
+
+
+classe i_equips001
+herda comum_itemgrupo
+const nivel = 100
+const vestir1 = 4 # Aonde vestir: 2-na cabeça
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1 * pnivel + 100
+  pmanamax += 1 * pnivel + 100
+  pmovemax += 1 * pnivel + 100
+  pveloc1 += 50
+  defnorm += 2 * pnivel + 200
+  defesp += 2 * pnivel + 200
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 2
+#
+
+func nome
+  ret var.z_nome, var.z_nome
+  ret "um elmo comum"
+#
+
+func descnome
+  ret var.z_nome, var.z_nome
+  ret "um elmo comum"
+
+const i_msgvestiu = "$P põe $o em sua cabeça."
+
+
+classe i_equips002
+herda comum_item
+const nivel = 100
+const valor = 70000
+const vestir1 = 4096 # Aonde vestir: 12-no corpo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1 * pnivel + 100
+  pmanamax += 1 * pnivel + 100
+  pmovemax += 1 * pnivel + 100
+  defnorm += 1 * pnivel + 500
+  defesp += 1 * pnivel + 300
+#
+
+func nome
+  se var.z_nome
+    ret txt1(var.z_nome) == "a", txt2(var.z_nome)
+    ret txt1(var.z_nome) == "o", txt2(var.z_nome)
+    ret txt1(var.z_nome) == "um", txt2(var.z_nome)
+    ret txt1(var.z_nome) == "uma", txt2(var.z_nome)
+    ret var.z_nome
+  senao
+    ret "armadura"
+  fimse
+#
+
+func descnome
+  ret var.z_nome, var.z_nome
+  ret "uma armadura blindada"
+
+
+classe i_equips003
+herda comum_itemgrupo
+const nivel = 100
+const valor = 1200000
+const vestir1 = 134217728 # Aonde vestir: 27-nos pés
+#
+
+func nome
+  se var.z_nome
+    ret var.z_nome
+  senao
+    ret "par de botas de combate"
+  fimse
+#
+
+func descnome
+  se var.z_nome
+    ret var.z_nome
+  senao
+    ret "um par de botas de combate"
+  fimse
+#
+
+
+classe i_equips004
+herda comum_item
+
+
+classe i_equips005
+herda comum_itemgrupo
+const vestir1 = 16777216 # Aonde vestir: 24-nas pernas
+const eveste = 1 # Eventos item: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100
+  pmanamax += 100
+  pmovemax += 100
+  atknorm += 100
+  defnorm += 100
+  atkesp += 100
+  defesp += 100
+
+func nome
+  se var.z_nome
+    ret txt1(var.z_nome) == "a", txt2(var.z_nome)
+    ret txt1(var.z_nome) == "o", txt2(var.z_nome)
+    ret txt1(var.z_nome) == "um", txt2(var.z_nome)
+    ret txt1(var.z_nome) == "uma", txt2(var.z_nome)
+    ret var.z_nome
+  senao
+    ret "perneira de ferro"
+  fimse
+#
+
+func descnome
+  ret var.z_nome, var.z_nome
+  ret "uma perneira de ferro"
+
+
+classe i_equips006
+herda comum_itemgrupo
+const nome = var.z_nome ? var.z_nome : "braçadeiras de ferro"
+const descnome = var.z_nome ? var.z_nome : "um par de braçadeiras de ferro"
+const nivel = 100
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 100000
+const vestir1 = 49152 # Aonde vestir: 14-no braço direito, 15-no braço esquerdo
+const eveste = 1 # Eventos item: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100
+  pmanamax += 100
+  pmovemax += 100
+  atknorm += 50
+  defnorm += 50
+  atkesp += 50
+  defesp += 50 * pnivel
+
+
+classe i_equips007
+herda comum_itemgrupo
+const nivel = 100
+const vestir1 = 262144 # Aonde vestir: 18-nas mãos
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5 * pnivel + 100
+  pmanamax += 5 * pnivel + 100
+  pmovemax += 5 * pnivel + 100
+  atknorm += 100
+  defnorm += 100
+  atkesp += 200
+  defesp += 200
+  atktipo.2 *= 2 # Contusão
+  atktipo.3 *= 2 # luta
+#
+
+func nome
+  se var.z_nome
+    ret txt1(var.z_nome) == "a", txt2(var.z_nome)
+    ret txt1(var.z_nome) == "o", txt2(var.z_nome)
+    ret txt1(var.z_nome) == "um", txt2(var.z_nome)
+    ret txt1(var.z_nome) == "uma", txt2(var.z_nome)
+    ret var.z_nome
+  senao
+    ret "manopla"
+  fimse
+#
+
+func descnome
+  ret var.z_nome, var.z_nome
+  ret "uma manopla de aço"
+
+
+classe i_equips008
+herda comum_item
+const nivel = 100
+const valor = 100000
+const vestir1 = 1207959552 # Aonde vestir: 27-nos pés, 30-nos pés
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100
+  pmanamax += 50
+  pmovemax += 50
+  atknorm += 1 * pnivel
+  defnorm += 2 * pnivel + 100
+  atkesp += 1 * pnivel + 100
+  defesp += 2 * pnivel
+
+func nome
+  se var.z_nome
+    ret txt1(var.z_nome) == "a", txt2(var.z_nome)
+    ret txt1(var.z_nome) == "o", txt2(var.z_nome)
+    ret txt1(var.z_nome) == "um", txt2(var.z_nome)
+    ret txt1(var.z_nome) == "uma", txt2(var.z_nome)
+    ret var.z_nome
+  senao
+    ret "botas de couro"
+  fimse
+#
+
+func descnome
+  ret var.z_nome, var.z_nome
+  ret "um par de botas de couro"
+
+
+classe i_equips009
+herda comum_itemgrupo
+const nivel = 100
+const valor = 100000
+const vestir1 = 196608 # Aonde vestir: 16-no pulso direito, 17-no pulso esquerdo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50
+  pmanamax += 50
+  pmovemax += 50
+  atknorm += 25
+  defnorm += 50
+  precisao += 50
+  pesomax += 1000
+#
+
+func nome
+  se var.z_nome
+    ret txt1(var.z_nome) == "a", txt2(var.z_nome)
+    ret txt1(var.z_nome) == "o", txt2(var.z_nome)
+    ret txt1(var.z_nome) == "um", txt2(var.z_nome)
+    ret txt1(var.z_nome) == "uma", txt2(var.z_nome)
+    ret var.z_nome
+  senao
+    ret "bracelete de ferro"
+  fimse
+#
+
+func descnome
+  ret var.z_nome, var.z_nome
+  ret "uma pulseira de ferro"
+
+
+classe i_equips010
+herda comum_itemgrupo
+const valor = 100000
+const vestir1 = 100663296 # Aonde vestir: 25-no tornozelo direito, 26-no tornozelo esquerdo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 20
+  pmanamax += 50
+  pmovemax += 50
+  evasao += 100
+  precisao += 50
+#
+
+func nome
+  se var.z_nome
+    ret txt1(var.z_nome) == "a", txt2(var.z_nome)
+    ret txt1(var.z_nome) == "o", txt2(var.z_nome)
+    ret txt1(var.z_nome) == "um", txt2(var.z_nome)
+    ret txt1(var.z_nome) == "uma", txt2(var.z_nome)
+    ret var.z_nome
+  senao
+    ret "bracelete de ferro"
+  fimse
+#
+
+func descnome
+  ret var.z_nome, var.z_nome
+  ret "uma tornozeleira de aço"
+
+
+classe i_equips011
+herda comum_item
+const nivel = 10
+const valor = 100000
+const vestir1 = 536870912 # Aonde vestir: 29-na parte de baixo
+const eveste = 1 # Eventos item: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100
+  pmanamax += 100
+  pmovemax += 100
+  atknorm += 10
+  defnorm += 10
+  atkesp += 10
+  defesp += 10
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver &= ~16
+  bitver |= 32
+
+func nome
+  se var.z_nome
+    ret txt1(var.z_nome) == "a", txt2(var.z_nome)
+    ret txt1(var.z_nome) == "o", txt2(var.z_nome)
+    ret txt1(var.z_nome) == "um", txt2(var.z_nome)
+    ret txt1(var.z_nome) == "uma", txt2(var.z_nome)
+    ret var.z_nome
+  senao
+    ret "tapa sexo"
+  fimse
+#
+
+func descnome
+  ret var.z_nome, var.z_nome
+  ret "um tapa sexo"
+#
+
+const i_msgvestiu = "$P usa $o na parte íntima."
+const i_msgremoveu = "$P retira $o."
+
+
+classe i_equips012
+herda comum_item
+const nivel = 80
+const mantersala = 0 # Mantém na sala: Não
+const valor = 100000
+const vestir1 = 8 # Aonde vestir: 3-Sobre os ombros
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atktipo.0 *= 1.05 # Tipos Normais
+  atktipo.1 *= 1.05 # Tipos Especiais
+  deftipo.0 *= 0.8 # Tipos Normais
+  deftipo.1 *= 0.85 # Tipos Especiais
+#
+
+func nome
+  se var.z_nome
+    ret txt1(var.z_nome) == "a", txt2(var.z_nome)
+    ret txt1(var.z_nome) == "o", txt2(var.z_nome)
+    ret txt1(var.z_nome) == "um", txt2(var.z_nome)
+    ret txt1(var.z_nome) == "uma", txt2(var.z_nome)
+    ret var.z_nome
+  senao
+    ret "par de ombreiras de prata"
+  fimse
+#
+
+func descnome
+  ret var.z_nome, var.z_nome
+  ret "um par de ombreiras de prata"
+
+
+classe i_equips013
+herda comum_item
+const nivel = 15
+const mantersala = 0 # Mantém na sala: Não
+const tipoitem = 8 # Tipo de item: 3-Vestimenta
+const valor = 100000
+const vestir1 = 268435456 # Aonde vestir: 28-No busto
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atktipo.0 *= 1.1 # Tipos Normais
+  atktipo.1 *= 1.15 # Tipos Especiais
+  deftipo.0 *= 0.85 # Tipos Normais
+  deftipo.1 *= 0.95 # Tipos Especiais
+
+func nome
+  ret var.z_nome, var.z_nome
+  ret "um sutiã rosa"
+
+func descnome
+  ret var.z_nome, var.z_nome
+  ret "um sutiã rosa"
+
+
+classe i_equips014
+herda comum_itemgrupo
+const nome = var.z_nome ? var.z_nome : "escudo comum"
+const descnome = var.z_nome ? var.z_nome : "um escudo comum"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 100
+const armamax = 240
+const armamin = 160
+const armatipo = 0 # Tipo de arma: 0 Não é arma
+const tipoitem = 8 # Tipo de item: 3-Vestimenta
+const valor = 5000
+const vestir1 = 1 # Aonde vestir: 0-como escudo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 300
+  pmanamax += 120
+  atknorm += 250
+  defnorm += 380
+  defesp += 120
+
+
+classe i_equips015
+herda comum_itemgrupo
+const nivel = 100
+const armamax = 150
+const armamin = 75
+const armatipo = 1 # Tipo de arma: 1 varinha
+const valor = 300000
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atktipo.0 *= 1.2 # Tipos Normais
+  atktipo.1 *= 1.3 # Tipos Especiais
+  deftipo.0 *= 1.2 # Tipos Normais
+  deftipo.1 *= 1.3 # Tipos Especiais
+  deftipo.2 *= 1.25 # Contusão
+  deftipo.3 *= 1.3 # luta
+#
+
+func nome
+  ret var.z_nome, var.z_nome
+  ret "Uma varinha"
+#
+
+func descnome
+  ret var.z_nome, var.z_nome
+  ret "Uma varinha"
+
+
+classe i_equips016
+herda comum_itemgrupo
+const nivel = 110
+const armamax = 250
+const armamin = 180
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const valor = 300000
+const vestir1 = 16384 # Aonde vestir: 14-nos braços
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 300
+  atknorm += 340
+  defnorm += 400
+  atktipo.0 *= 1.1 # Tipos Normais
+  atktipo.2 *= 1.1 # Contusão
+  atktipo.4 *= 1.5 # Cortante
+
+func nome
+  ret var.z_nome, var.z_nome
+  ret "Uma espada longa"
+#
+
+func descnome
+  ret var.z_nome, var.z_nome
+  ret "Uma espada longa"
+
+
+classe i_equips017
+herda comum_itemgrupo
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 120
+const armamax = 250
+const armamin = 160
+const armatipo = 2 # Tipo de arma: 2 Cajado
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const pesoobj = 5000
+const valor = 300000
+const vestirnao = "guerreiro\nladrão"
+const volobj = 1000
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500
+  pmanamax += 250
+  atknorm += 600
+  defnorm += 700
+  atkesp += 600
+  atktipo.1 *= 1.15 # Tipos Especiais
+  atktipo.6 *= 1.3 # Fogo
+  deftipo.1 *= 0.8 # Tipos Especiais
+  deftipo.6 *= 0.75 # Fogo
+
+func nome
+  ret var.z_nome, var.z_nome
+  ret "Um pequeno cajado"
+#
+
+func descnome
+  ret var.z_nome, var.z_nome
+  ret "Um pequeno cajado"
+
+
+classe i_equips018
+herda comum_item
+const nome = var.z_nome ? var.z_nome : "cinto"
+const ident = var.z_nome ? var.z_nome : "cinto fivela prateada"
+const descnome = var.z_nome ? var.z_nome : "um cinto de fivela prateada"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 50
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 25000
+const vestir1 = 8388608 # Aonde vestir: 23-na cintura
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200
+  pmanamax += 300
+  pmovemax += 300
+  pveloc1 += 1 * pnivel
+  precisao += 50
+  pesomax += 1000
+
+
+classe i_equips019
+herda comum_itemperso
+const nome = var.z_nome ? var.z_nome : "capa de viagem"
+const ident = var.z_nome ? var.z_nome : "capa viagem"
+const descnome = var.z_nome ? var.z_nome : "uma capa de viagem"
+const nivel = 150
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 100000
+const vestir1 = 8192 # Aonde vestir: 13-sobre o corpo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100
+  pveloc1 += 200
+  defnorm += 500
+  defesp += 500
+  bitver |= 2
+
+
+classe i_equips020
+herda comum_itemgrupo
+const nome = "máscara"
+const descnome = "uma máscara de duas faces"
+const nivel = 9
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 5000
+const vestir1 = 1024 # Aonde vestir: 10-no rosto
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50
+  pmanamax += 50
+
+
+classe i_equips021
+herda comum_item
+const nome = var.z_nome ? var.z_nome : "par de óculos com lentes de longo alcance"
+const descnome = var.z_nome ? var.z_nome : "um par de óculos escuros com lentes de longo \
+alcanço"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 100
+const tipoitem = 8 # Tipo de item: 3-Vestimenta
+const valor = 100000
+const vestir1 = 64 # Aonde vestir: 6-sobre os olhos
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500
+  pmanamax += 500
+  precisao += 50
+  atktipo.1 *= 1.05 # Tipos Especiais
+  atktipo.6 *= 1.15 # Fogo
+  atktipo.8 *= 1.1 # Gelo
+  atktipo.14 *= 1.15 # Elétrico
+  atktipo.16 *= 1.5 # Psíquico
+  atktipo.18 *= 1.2 # Fantasma
+
+
+classe i_equips022
+herda comum_item
+const nome = var.z_nome ? var.z_nome : "máscara"
+const descnome = var.z_nome ? var.z_nome : "uma máscara"
+const nivel = 50
+const valor = 50000
+const vestir1 = 1024 # Aonde vestir: 10-sobre o rosto
+const m_atribs2 = "* el$v está usando " + descnome + " no rosto."
+#
+#
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 15 * pnivel + 200
+  pmovemax += 400
+  atknorm += 100
+  defnorm += 190
+  atkesp += 200
+  defesp += 250
+  bitinv &= ~2
+  bitver |= 6
+
+
+classe i_equips023
+herda comum_itemgrupo
+const nivel = 100
+const tipoitem = 4 # Tipo de item: 2-Armadura
+const vestir1 = 33
+
+func nome
+  ret var.z_nome, var.z_nome
+  ret "Um piercing prateado"
+
+func descnome
+  ret var.z_nome, var.z_nome
+  ret "Um piercing prateado"
+
+
+classe i_equips050
+herda comum_item
+const nome = var.z_nome ? var.z_nome : "chapéu personalizado"
+const descnome = var.z_nome ? var.z_nome : "um chapéu personalizado"
+const nivel = 50
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 30000
+const vestir1 = 4 # Aonde vestir: 2-Na cabeça
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2 * pnivel + 200
+  pmanamax += 100
+  pmovemax += 50
+  atknorm += 70
+  defnorm += 90
+  evasao += 20
+  precisao += 20
+
+
+classe i_equips051
+herda comum_item
+const nome = var.z_nome ? var.z_nome : "camiseta"
+const descnome = var.z_nome ? var.z_nome : "uma camiseta"
+const nivel = 50
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 30000
+const vestir1 = 4096
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2 * pnivel + 200
+  pmanamax += 100
+  pmovemax += 50
+  atknorm += 70
+  defnorm += 90
+  evasao += 20
+  precisao += 20
+
+
+classe i_equips052
+herda comum_item
+const nome = var.z_nome ? var.z_nome : "camiseta"
+const descnome = var.z_nome ? var.z_nome : "uma camiseta"
+const nivel = 50
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 30000
+const vestir1 = 16777216 # Aonde vestir: 24-nas pernas
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2 * pnivel + 200
+  pmanamax += 100
+  pmovemax += 50
+  atknorm += 70
+  defnorm += 90
+  evasao += 20
+  precisao += 20
+
+
+classe i_equips053
+herda comum_item
+
+
+classe i_equips054
+herda comum_item
+
+
+classe p_equips001
+herda comum_perso
+const nome = "Miroque"
+const ident = "miroque designer armeiro"
+const descnome = "Miroque, o designer de armas"

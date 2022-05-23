@@ -1,0 +1,33 @@
+classe adm_force
+herda comando_adm
+const txtajuda = "Force:\n\
+sintax:\n\
+Force player or pnj name + command.\n\
+Does the pnj or player write something or do actions."
+
+func escr
+  ret !txt1(arg1), arg0.msg("Type the name, and the command.")
+  ret !txt2(arg1), arg0.msg("Force " + txt1(arg1) + " do what?")
+  indiceitem item
+  item.ini("un " + txts(txtnome(txt1(arg1))))
+  refvar player = item.obj.perso
+  ret !player, arg0.msg("Player inexistent: " + txt1(arg1))
+  arg0.msg("Okay.")
+  player.teclou("" + txt2(arg1) + "")
+  ret 1
+
+
+classe adm_order
+herda comando_adm
+const posic = 0
+const txtajuda = "Order\n\
+Sintax:\n\
+order a pnj or a player write or do some actions, you need be in the same room who your target."
+
+func escr
+  ret !txt1(arg1), arg0.msg("Type the name, and the command.")
+  refvar perso = misc:persodono(arg0, txt1(arg1))
+  ret !perso, arg0.msg("player or pnj not found: " + txt1(arg1) + ".")
+  ret !txt2(arg1), arg0.msg("Yeah, but, force " + txt1(arg1) + " o do what?")
+  perso.teclou("" + txt2(arg1) + "")
+  ret 1

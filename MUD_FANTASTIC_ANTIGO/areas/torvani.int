@@ -1,0 +1,3218 @@
+classe i_torvani066
+herda comum_item
+const nome = "Um monte de balinhas sortidas"
+const ident = "balinhas balas sortidas"
+const descnome = "Um monte de balinhas sortidas"
+const descpos = "há aqui Uma porção de balinhas sortidas embrulhadas em um saquinho colorido."
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const f_sede = -45
+const f_diges = 30
+const f_msgperso = "Você abre um saquinho colorido e retira algumas balinhas sortidas, jogando-as\
+ todas na boca de uma vez."
+const f_msgoutros = "$P abre um saquinho colorido e retira algumas balinhas sortidas, jogando-as \
+todas na boca de uma vez."
+const valor = 125
+
+
+classe i_torvani070
+herda comum_item
+const nome = "passa-tempo"
+const ident = "passa-tempo"
+const descnome = "um delicioso passa-tempo."
+const descpos = "um passa-tempo foi deixado aqui. nham nham!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 3
+const f_diges = 3
+const f_msgperso = "$p saboreia um delicioso passa-tempo em algumas bocadas!"
+const f_msgoutros = ""
+const tipoitem = 8192 # Tipo de produto: 13-Comida
+const valor = 100
+const manterperso = 1 # Mantém em jogador: Sim
+
+
+classe i_torvani072
+herda comum_item
+const nome = "rosquinha"
+const ident = "rosquinha"
+const descnome = "Uma deliciosa rosquinha de chocolate"
+const descpos = "uma apetitosa rosquinha foi deixada aqui"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 3
+const f_diges = 3
+const f_msgperso = "$p saboreia uma rosquinha de chocolate, que de tão deliciosa se desmancha na \
+boca"
+const f_msgoutros = ""
+const mantersala = 1 # Mantém na sala: Sim
+const manterperso = 1 # Mantém em jogador: Sim
+
+
+classe i_torvani067
+herda comum_itemgrupo
+const nome = "lata de batata"
+const ident = "lata batata"
+const descnome = "uma latinha de batata chips"
+const descpos = "uma latinha de batata chips está aqui, dando sopa!"
+const valor = 10
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+sav uint32 batata
+
+func cmd_ini
+  batata = 100
+
+func descver
+  se !batata
+    ret " uma latinha de batata chips:\nEstá vazia."
+  senao batata == 1
+    ret "uma latinha de batata chips:\nContem 1 batata."
+  senao
+    ret "uma latinha de batata chips:\nContêm " + batata + " batata."
+
+func cmd_escr
+  se arg1 == "pegar batata lata"
+    $mens.p(arg0)
+    se !batata
+      $mens.mtodos1("$P tenta pegar batata da lata mas não há mais nada. Como não tem mais \
+utilidade, $P joga a lata fora .")
+      apagar(este)
+      ret 1
+    senao
+      $mens.mtodos1("$P pega uma batata da latinha.")
+      batata -= 1
+      criar("i_torvani068", arg0)
+    fimse
+    ret 1
+
+
+classe i_torvani069
+herda comum_item
+const nome = "pacote de passatempos"
+const ident = "pacote"
+const descnome = "um pacote de passatempos"
+const descpos = "um pacote de passatempos foi deixado aqui. devem ser deliciosos!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 0 # Mantém na sala: Não
+const tipoitem = 262144 # Tipo de item: 18-Comida
+const valor = 100
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const manterperso = 1 # Mantém em jogador: Sim
+sav uint32 passatempo
+
+func cmd_ini
+  passatempo = 30
+
+func descver
+  se !passatempo
+    ret " um pacote de passatempos:\nEstá vazio."
+  senao passatempo == 1
+    ret "um pacote de passatempos:\nContem 1 passatempo."
+  senao
+    ret "um pacote de passatempos:\nContém " + passatempo + " passatempo."
+
+func cmd_escr
+  se arg1 == "pegar passatempo pacote"
+    $mens.p(arg0)
+    se !passatempo
+      $mens.mtodos1("$P tenta pegar um passatempo do pacote, mas não há mais nada. como não tem \
+mais utilidade, $p joga o pacote fora.")
+      apagar(este)
+      ret 1
+    senao
+      $mens.mtodos1("$P pega um passatempo do pacote.")
+      passatempo -= 1
+      criar("i_torvani070", arg0)
+      ret 1
+
+
+classe i_torvani071
+herda comum_item
+const nome = "Pacote de rosquinhas de coco"
+const ident = "pacote rosquinhas"
+const descnome = "Um pacote de rosquinhas de coco"
+const descpos = "um pacote com rosquinhas foi deixado aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 262144 # Tipo de item: 18-Comida
+const valor = 55
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const manterperso = 1 # Mantém em jogador: Sim
+sav uint32 rosquinha
+
+func cmd_ini
+  rosquinha = 50
+
+func descver
+  se !rosquinha
+    ret " um pacote de rosquinhas de côco:\nEstá vazio."
+  senao rosquinha == 1
+    ret "um pacote de rosquinhas de côco:\nContém 1 rosquinha."
+  senao
+    ret "um pacote de rosquinhas de côco:\nContém " + rosquinha + "rosquinhas."
+
+func cmd_escr
+  se arg1 == "pegar rosquinha pacote"
+    $mens.p(arg0)
+    se !rosquinha
+      $mens.mtodos1("$P tenta pegar rosquinha do pacote mas não há mais nada. Como não tem mais \
+utilidade, $P joga o pacote fora.")
+      apagar(este)
+      ret 1
+    senao
+      $mens.mtodos1("$P pega uma rosquinha do pacote.")
+      rosquinha -= 1
+      criar("i_torvani072", arg0)
+    fimse
+    ret 1
+
+
+classe i_torvani068
+herda comum_itemgrupo
+const nome = "batata chips"
+const ident = "batata"
+const descnome = "uma crocante e deliciosa batata chips"
+const descpos = "uma batata crocante foi deixada aqui, que tal se deliciar?"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 3
+const f_diges = 3
+const f_msgperso = "$p come uma crocante e deliciosa batata chips, a saboreando com prazer!"
+const f_msgoutros = ""
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+
+
+classe a_torvani
+herda area
+const a_nome = "cidade de torvani"
+const a_autor = "Ulrich"
+const a_tempo = 10
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_torvani
+herda sala
+const s_doarsalas = "torvani101"
+const s_fome = 1 # Fome e sede: 1 Ausente
+const s_item = 4
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_pnj = 6
+const s_recup = 2
+const s_reserva = 1 # Comando reserva: Sim
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const s_som = "torvani"
+const s_area = "torvani"
+
+
+classe i_torvani001
+herda comum_item
+const nome = "fonte"
+const ident = "fonte mármore"
+const descnome = "Uma fonte"
+const descpos = "Circundada por uma aura azul, uma bela fonte localisa-se ao meio da praça, para \
+saciar a sede."
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_fome = 40
+const f_sede = 80
+const f_msgperso = "$p bebe água cristalina da fonte"
+const f_msgoutros = "$p bebe um pouco de água da fonte"
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+
+func cmd_pegarobj
+  se arg2 == este
+    arg0.msg("a fonte faz parte do chão.")
+    ret 1
+
+
+classe i_torvani002
+herda comum_item
+const nome = "chave"
+const ident = "chave portão"
+const descnome = "A chave do portão"
+const descpos = "Uma chave de ferro foi perdida aqui"
+const i_chave = "torvani017"
+
+
+classe i_torvani003
+herda comum_itemperso
+const nome = "Poção de vitalidade"
+const ident = "poção amarela vitalidade"
+const descnome = "Uma poção de vitalidade"
+const descpos = "Uma poção amarela foi perdida aqui"
+const nivel = 0
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_msgoutros = "$P toma uma poção amarela."
+const f_nivel3 = 300
+const valor = 30000
+const f_magia3 = "vitalidade"
+
+
+classe i_torvani004
+herda comum_item
+const nome = "Um par de grossas botas de viagem"
+const ident = "botas viagem"
+const descnome = "Um par de grossas botas de viagem"
+const descpos = "Um reforçado par de botas de viagem aguardam os pés que a deverão usar."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 300
+const pesoobj = 250
+const tipoitem = 12 # Tipo de produto: 2-Armadura, 3-Vestimenta
+const valor = 25000
+const vestir1 = 134217728 # Aonde vestir: 27-nos pés
+
+
+classe i_torvani005
+herda comum_item
+const nome = "Um par de botas de cano alto"
+const ident = "bota cano"
+const descnome = "Um par de botas de cano alto"
+const descpos = "Um par de brilhantes botas de cano alto foram largados no caminho."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 301
+const pesoobj = 270
+const tipoitem = 12 # Tipo de produto: 2-Armadura, 3-Vestimenta
+const valor = 23000
+const vestir1 = 134217728 # Aonde vestir: 27-nos pés
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1 * pnivel
+
+
+classe i_torvani006
+herda comum_item
+const nome = "Um par de sapatos de amarrar"
+const ident = "sapatos amarrar"
+const descnome = "Um par de sapatos de amarrar"
+const descpos = "Alguém perdeu seus novíssimos sapatos de amarrar pelo caminho."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 304
+const pesoobj = 200
+const tipoitem = 12 # Tipo de produto: 2-Armadura, 3-Vestimenta
+const valor = 23000
+const vestir1 = 134217728 # Aonde vestir: 27-nos pés
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  deftipo.0 *= 1.2 # Tipos Normais
+
+
+classe i_torvani007
+herda comum_item
+const nome = "Um par de sandálias azuis"
+const ident = "Sandálias azuis"
+const descnome = "Um par de sandálias azuis"
+const descpos = "Há um par de sandálias azuis aqui, acumulando poeira."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 308
+const pesoobj = 180
+const tipoitem = 12 # Tipo de produto: 2-Armadura, 3-Vestimenta
+const valor = 26000
+const vestir1 = 134217728 # Aonde vestir: 27-nos pés
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmanamax += 2 * pnivel + 50
+  deftipo.1 *= 1.09 # Tipos Especiais
+
+
+classe i_torvani008
+herda comum_item
+const nome = "Um par de botas militares"
+const ident = "botas militares"
+const descnome = "Um par de botas militares"
+const descpos = "Um par de pesadas botas militares foi deixada aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 304
+const pesoobj = 300
+const tipoitem = 12 # Tipo de produto: 2-Armadura, 3-Vestimenta
+const valor = 35000
+const vestir1 = 134217728 # Aonde vestir: 27-nos pés
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  deftipo.0 *= 0.6 # Tipos Normais
+  deftipo.1 *= 0.6 # Tipos Especiais
+  deftipo.2 *= 0.6 # Contusão
+  deftipo.3 *= 0.6 # Luta
+  deftipo.4 *= 0.6 # Cortante
+  deftipo.5 *= 0.6 # Perfurante
+  deftipo.6 *= 0.6 # Fogo
+
+
+classe i_torvani009
+herda comum_item
+const nome = "Um par de sapatos de corrida"
+const ident = "sapatos corrida"
+const descnome = "Um par de sapatos de corrida"
+const descpos = "Um par de sapatos de corrida foi deixado aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 311
+const pesoobj = 200
+const tipoitem = 12 # Tipo de produto: 2-Armadura, 3-Vestimenta
+const valor = 40000
+const vestir1 = 134217728 # Aonde vestir: 27-nos pés
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmovemax += 1 * pnivel
+  pveloc1 += 4 * pnivel
+  bitinv |= 16
+
+
+classe i_torvani010
+herda comum_item
+const nome = "Um par de sapatos de bico fino"
+const ident = "sapatos bico fino"
+const descnome = "Um par de sapatos de bico fino"
+const descpos = "Aparentemente, uma elegante mulher desfez-se de um belíssimo par de sapatos de \
+bico fino, encostando-os em um canto."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 304
+const pesoobj = 180
+const tipoitem = 12 # Tipo de produto: 2-Armadura, 3-Vestimenta
+const valor = 34000
+const vestir1 = "20000000"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5 * pnivel + 20
+
+
+classe i_torvani011
+herda comum_item
+const nome = "Um fino anel de safira"
+const ident = "fino anel safira"
+const descnome = "Um fino anel de safira"
+const descpos = "Um delicado anel com uma pequena safira destaca-se, enchendo os olhos de quem \
+realmente souber apreciá-lo."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 302
+const pesoobj = 60
+const tipoitem = 128 # Tipo de produto: 7-Tesouro
+const valor = 100000
+const vestir1 = 6291456 # Aonde vestir: 21-no dedo direito, 22-no dedo esquerdo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atktipo.6 *= 1.5 # Fogo
+
+
+classe i_torvani012
+herda comum_item
+const nome = "Um cordão com um pingente em forma de folha"
+const ident = "cordão pingente folha"
+const descnome = "Um cordão com um pingente em forma de folha"
+const descpos = "Aqui há um cordão com um pingente em forma de folha atirado em um cantinho."
+const nivel = 266
+const tipoitem = 128 # Tipo de produto: 7-Tesouro
+const valor = 150000
+const vestir1 = 512 # Aonde vestir: 9-no pescoço
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmanamax += 40
+  pmovemax += 40
+
+
+classe i_torvani013
+herda comum_item
+const nome = "uma pulseira de ametista"
+const ident = "ametista pulseira"
+const descnome = "uma pulseira de ametista"
+const descpos = "Há uma bela pulseira de ametista caída, logo a sua frente."
+const nivel = 260
+const pesoobj = 20
+const tipoitem = 128 # Tipo de produto: 7-Tesouro
+const valor = 140000
+const vestir1 = 196608 # Aonde vestir: 16-no pulso direito, 17-no pulso esquerdo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  precisao += 4 * pnivel + 60
+
+
+classe i_torvani014
+herda comum_item
+const nome = "Um colar de pérolas"
+const ident = "colar pérolas"
+const descnome = "Um colar de pérolas"
+const descpos = "Um amontoado de pequenas pérolas parecem formar um bonito colar."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 150
+const pesoobj = 30
+const tipoitem = 128 # Tipo de produto: 7-Tesouro
+const valor = 90000
+const vestir1 = 512 # Aonde vestir: 9-no pescoço
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1 * pnivel + 200
+  pmanamax += 1 * pnivel + 100
+
+
+classe i_torvani015
+herda comum_item
+const nome = "Uma empadinha de frango"
+const ident = "empada empadinha frango"
+const descnome = "Uma empadinha de frango"
+const descpos = "Uma deliciosa empadinha de frango bem quente foi servida a sua frente."
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 15
+const f_sede = -3
+const f_diges = 20
+const f_msgperso = "Você devora em poucas bocadas uma deliciosa empadinha de frango."
+const f_msgoutros = "$P devora em poucas bocadas uma deliciosa empadinha de frango."
+const pesoobj = 3
+const tipoitem = 0 # Tipo de item: (18-Comida)
+const valor = 750
+
+
+classe i_torvani016
+herda comum_item
+const nome = "Um pedaço de bolinho de carne"
+const ident = "bolinho carne"
+const descnome = "um pedaço de bolinho de carne"
+const descpos = "Um grande pedaço de bolinho de carne foi servido em um pratinho de isopor a sua \
+frente."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 30
+const f_diges = 20
+const f_msgperso = "Você pega um grande pedaço de bolinho de carne com um guardanapo e o \
+saboreia lentamente."
+const f_msgoutros = "$P pega um grande pedaço de bolinho de carne com um guardanapo e o saboreia \
+lentamente."
+const pesoobj = 3
+const tipoitem = 8192 # Tipo de produto: 13-Comida
+const valor = 1000
+
+
+classe i_torvani017
+herda comum_item
+const nome = "Uma dose de vinho"
+const ident = "dose vinho"
+const descnome = "Uma dose de vinho"
+const descpos = "Há um copinho minúsculo com uma dose de vinho servida aqui."
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_bebida = 10
+const f_sede = 15
+const f_msgperso = "Você vira de uma vez uma pequena dose de vinho."
+const f_msgoutros = "$P toma uma dose de vinho em apenas uma golada."
+const pesoobj = 2
+const tipoitem = 0 # Tipo de produto:
+const valor = 500
+
+
+classe i_torvani018
+herda comum_item
+const nome = "Uma garrafa de champagne"
+const ident = "garrafa champagne"
+const descnome = "Uma garrafa de champagne"
+const descpos = "Há uma garrafinha de champagne legítimo, fechada e lacrada aqui."
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_bebida = 20
+const f_sede = 15
+const pesoobj = 10
+const valor = 1200
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos em perso: Sim
+const evitem = 1 # Eventos em item: Sim
+sav uint8 bebeu # Quantas vezes bebeu o item
+
+func f_msgperso
+  ret bebeu < 9, "$P dá uma golada em uma garrafa de champagne"
+  ret "$P bebe o último gole de uma garrafa de champagne."
+
+func cmd_bebeu
+  bebeu += 1
+  bebeu >= 12 && apagar(este)
+
+
+classe i_torvani019
+herda comum_item
+const nome = "Uma porção de carne"
+const ident = "porção carne"
+const descnome = "Uma porção de carne"
+const descpos = "Há um prato com uma porção de carne fresca aqui."
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 30
+const f_sede = -3
+const f_diges = 50
+const tipoitem = 8192 # Tipo de produto: 13-Comida
+const valor = 1000
+
+
+classe i_torvani020
+herda comum_item
+const nome = "Garrafão de vinho"
+const ident = "vinho garrafão"
+const descnome = "Um garrafão de vinho"
+const descpos = "Um garrafão de vinho foi perdido aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_bebida = 50
+const f_sede = 16
+const f_msgperso = "$P bebe umas goladas de vinho"
+const valor = 700
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos em perso: Sim
+const evitem = 1 # Eventos em item: Sim
+sav uint8 bebeu # Quantas vezes bebeu o item
+
+func f_msgperso
+  ret bebeu < 35, "$P bebe um gole de vinho"
+  ret "$P vira de uma vez a garrafa de vinho, acabando com o conteúdo."
+
+func cmd_bebeu
+  bebeu += 1
+  bebeu >= 40 && apagar(este)
+
+
+classe i_torvani021
+herda comum_item
+const nome = "Garrafa pequena de whiske"
+const ident = "garrafa whiske"
+const descnome = "uma pequena garrafa de whiske"
+const descpos = "Uma pequenina garrafa de whiske foi perdida aqui"
+
+
+classe i_torvani022
+herda comum_item
+const nome = "Um par de manoplas de prata"
+const ident = "manoplas prata"
+const descnome = "Um par de manoplas de prata"
+const descpos = "Alguém deixou esse par de manoplas de prata aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 270
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 170000
+const vestir1 = 262144 # Aonde vestir: 18-nas mãos
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atktipo.0 *= 1.3 # Tipos Normais
+  atktipo.1 *= 1.45 # Tipos Especiais
+  deftipo.0 *= 0.87 # Tipos Normais
+  deftipo.1 *= 0.9 # Tipos Especiais
+
+
+classe i_torvani023
+herda comum_item
+const nome = "Lança de metal"
+const ident = "lança metal"
+const descnome = "Uma lança de metal"
+const descpos = "Uma lança foi jogada aqui"
+const nivel = 260
+const armamax = 600
+const armamin = 300
+const armafalha = 10
+const armaaddprecisao = 4
+const armatipo = 3 # Tipo de arma: 3 Lâmina curta
+const valor = 2300
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atktipo.0 *= 1.5 # Tipos Normais
+  atktipo.4 *= 1.5 # Cortante
+  atktipo.5 *= 1.5 # Perfurante
+  atktipo.14 *= 1.5 # Elétrico
+
+
+classe i_torvani024
+herda comum_item
+const nome = "elmo de prata"
+const ident = "elmo prata"
+const descnome = "Um elmo de prata"
+const descpos = "Um elmo de prata foi perdido aqui"
+const nivel = 270
+const valor = 180000
+const vestir1 = 4 # Aonde vestir: 2-Na cabeça
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 2
+  deftipo.0 *= 0.47 # Tipos Normais
+
+
+classe i_torvani025
+herda comum_item
+const nome = "Um par de perneiras de prata"
+const ident = "perneiras prata"
+const descnome = "Um par de perneiras de prata"
+const descpos = "Um par de perneiras de prata foram deixadas aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 245
+const pesoobj = 90
+const valor = 177000
+const vestir1 = 16777216 # Aonde vestir: 24-nas pernas
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2 * pnivel + 1
+  atktipo.0 *= 1.4 # Tipos Normais
+  atktipo.1 *= 1.4 # Tipos Especiais
+  deftipo.0 *= 0.67 # Tipos Normais
+  deftipo.1 *= 0.67 # Tipos Especiais
+
+
+classe i_torvani026
+herda comum_item
+const nome = "Uma barra de chocolate"
+const ident = "barra chocolate"
+const descnome = "Uma barra de chocolate"
+const descpos = "Uma deliciosa barra de chocolate foi deixada aqui."
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 50
+const f_sede = -5
+const f_diges = 12
+const f_msgperso = "Você remove uma barra de chocolate do plástico e a devora com satisfação."
+const f_msgoutros = "$P remove uma barra de chocolate do plástico e a devora com satisfação."
+const pesoobj = 30
+const tipoitem = 262144 # Tipo de item: 18-Comida
+const valor = 300
+
+
+classe i_torvani027
+herda comum_item
+const nome = "Uma touquinha de lã"
+const ident = "touca touquinha lã"
+const descnome = "Uma touquinha de lã"
+const descpos = "Um bebêzinho perdeu sua pequena touquinha de lã pelo caminho."
+const nivel = 0
+const pesoobj = 10
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 30000
+const vestir1 = 4 # Aonde vestir: 2-Na cabeça
+const vestirnao = "anao\nelfo\nhaufling\nhumano"
+const manterperso = 1 # Mantém em jogador: Sim
+
+
+classe i_torvani028
+herda comum_item
+const nome = "Um par de luvinhas de couro macio"
+const ident = "luvinha couro macio"
+const descnome = "Um par de luvinhas de couro macio"
+const descpos = "Quase sem notar, você pisa sobre um par de luvinhas de couro que está jogado \
+aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 3
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 20000
+const vestir1 = 262144 # Aonde vestir: 18-nas mãos
+const vestirnao = "anão\nelfo\nhaufling\nhumano"
+
+
+classe i_torvani029
+herda comum_item
+const nome = "Uma meia-calça rosa"
+const ident = "meia-calça meia calça rosa"
+const descnome = "Uma meia-calça rosa"
+const descpos = "Uma pequenina meia-calça rosa está aqui, pendurada em um cabidinho."
+const pesoobj = 2
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 21000
+const vestir1 = 16777216 # Aonde vestir: 24-nas pernas
+const vestirnao = "anão\nelfo\nhaufling\nhumano"
+
+
+classe i_torvani030
+herda comum_item
+const nome = "Um macacão"
+const ident = "macacão"
+const descnome = "Um macacão"
+const descpos = "Envolvido por um papel colorido, há um pequenino macacão em perfeito estado e \
+pronto para uso."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 5
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 50000
+const vestir1 = 4352 # Aonde vestir: 8-na orelha esquerda, 12-no corpo
+const vestirnao = "anão\nelfo\nhaufling\nhumano"
+
+
+classe i_torvani031
+herda comum_item
+const nome = "Uma meia rosa"
+const ident = "meia rosa"
+const descnome = "um par de meias rosas"
+const descpos = "Há uma pequena meia cor de rosa bem acondicionada em seu pacote jogado no \
+chão."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 3
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 32000
+const vestir1 = 1073741824 # Aonde vestir: 30-nos pés
+const vestirnao = "anão\nelfo\nhaufling\nhumano"
+
+
+classe i_torvani032
+herda comum_item
+const nome = "Um par de sapatinhos de amarrar"
+const ident = "sapato sapatinho"
+const descnome = "Um par de sapatinhos de amarrar"
+const descpos = "Um pequeno par de sapatos de amarrar cuidadosamente repousam em um cantinho."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 7
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 100000
+const vestir1 = 134217728 # Aonde vestir: 27-nos pés
+const vestirnao = "anão\nelfo\nhaufling\nhumano"
+
+
+classe i_torvani033
+herda comum_item
+const nome = "Uma fralda descartável"
+const ident = "fralda descarrtável"
+const descnome = "Uma fralda descartável"
+const descpos = "Há uma fralda descartável enroladinha aqui no chão."
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 15000
+const vestir1 = 32768 # Aonde vestir: 15-como fralda
+const vestirnao = "anão\nelfo\nhaufling\nhumano"
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+inttempo sujar
+
+func cmd_vestiu
+  sujar = 130
+
+func sujar_exec
+  $mens.p(arg0)
+  $mens.mtodos1("$P suja a frauda.")
+  apagar(este)
+
+
+classe i_torvani034
+herda comum_item
+const nome = "Um vestidinho florido"
+const ident = "vestido vestidinho florido"
+const descnome = "Um vestidinho florido"
+const descpos = "Um pequeno paninho formando um vestidinho florido foi deixado de lado em um \
+canto."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 4
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 62000
+const vestir1 = 4096 # Aonde vestir: 12-no corpo
+const vestirnao = "anão\nelfo\nhaufling\nhumano"
+
+
+classe i_torvani035
+herda comum_item
+const nome = "Uma camisetinha de manga curta"
+const ident = "camiseta camisa camisetinha manga"
+const descnome = "Uma camisetinha de manga curta"
+const descpos = "Uma pequenina camiseta de mangas curtas está dobradinha em um canto."
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 21000
+const vestir1 = 4096 # Aonde vestir: 12-no corpo
+const vestirnao = "anão\nelfo\nhaufling\nhumano"
+
+
+classe i_torvani036
+herda comum_item
+const nome = "Camisa de pijama"
+const ident = "camisa pijama"
+const descnome = "Uma camisa de pijama"
+const descpos = "Alguma criança deixou sua camisa de pijama jogado aqui."
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 20000
+const vestir1 = 4096 # Aonde vestir: 12-no corpo
+const vestirnao = "anão\nelfo\nhaufling\nhumano"
+
+
+classe i_torvani037
+herda comum_item
+const nome = "um short de pijama"
+const ident = "short chorte pijama"
+const descnome = "um short de pijama"
+const descpos = "Um pequeno short de pijama foi deixado dobradinho em um canto, ainda dentro de \
+seu saquinho plástico."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 3
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 16500
+const vestir1 = 16777216 # Aonde vestir: 24-nas pernas
+const vestirnao = "anão\nelfo\nhaufling\nhumano"
+
+
+classe i_torvani038
+herda comum_item
+const nome = "Uma blusa de frio com capuz"
+const ident = "blusa frio agasalho capuz"
+const descnome = "Uma blusa de frio com capuz"
+const descpos = "Dentro de um saco plástico e pendurada em um cabidinho, acha-se uma pequena \
+blusa de frio infantil aqui."
+const pesoobj = 9
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 62000
+const vestir1 = 4096 # Aonde vestir: 12-no corpo
+const vestirnao = "anão\nelfo\nhaufling\nhumano"
+
+
+classe i_torvani039
+herda comum_item
+const nome = "Uma calça social azul"
+const ident = "calça social azul"
+const descnome = "Uma calça social azul"
+const descpos = "Uma calça social azul foi deixada dobradinha em um canto."
+const pesoobj = 7
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 48500
+const vestir1 = 16777216 # Aonde vestir: 24-nas pernas
+const vestirnao = "anão\nelfo\nhaufling\nhumano"
+
+
+classe i_torvani040
+herda comum_item
+const nome = "Uma pequenina calcinha de renda"
+const ident = "calcinha renda"
+const descnome = "Uma pequenina calcinha de renda"
+const descpos = "Uma pequenina calcinha de renda largada no chão quase lhe passa despercebido."
+const nivel = 1
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 15000
+const vestir1 = 536870912 # Aonde vestir: 29-como tapa sexo
+const vestirnao = "anão\nelfo\nhaufling\nhumano"
+
+
+classe i_torvani041
+herda comum_item
+const nome = "Uma camisa social azul"
+const ident = "camisa social azul"
+const descnome = "Uma camisa social azul"
+const descpos = "Uma camisa social azul foi deixada dobradinha em um canto."
+const pesoobj = 2
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 49100
+const vestir1 = 4096 # Aonde vestir: 12-no corpo
+const vestirnao = "anão\nelfo\nhaufling\nhumano"
+const volobj = 1
+
+
+classe i_torvani042
+herda comum_item
+const nome = "Um par de meias brancas"
+const ident = "meias brancas"
+const descnome = "Um par de meias brancas"
+const descpos = "Um par de pequenas meias brancas foram perdidas pelo caminho, flutuando de um \
+lado para o outro com o vento."
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 13000
+const vestir1 = 1073741824 # Aonde vestir: 30-nos pés
+const vestirnao = "anão\nelfo\nhaufling\nhumano"
+
+
+classe i_torvani043
+herda comum_item
+const nome = "chupeta"
+const ident = "chupeta"
+const descnome = "Uma chupeta"
+const descpos = "Uma chupetinha foi perdida aqui"
+const vestir1 = "8000" # Aonde vestir: 15-
+const vestirnao = "anão\nelfo\nhaufling\nhumano\nnormal"
+
+
+classe i_torvani044
+herda comum_item
+const nome = "Uma mamadeira"
+const ident = "mamadeira"
+const descnome = "Uma mamadeira"
+const descpos = "Alguma criança de colo perdeu uma pequena mamadeira por aqui."
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const valor = 8000
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos em perso: Sim
+const evitem = 1 # Eventos em item: Sim
+const semdoar = 1
+sav uint8 bebeu
+
+func f_msgperso
+  ret bebeu < 15, "$P mama pequenos goles de leite de uma mamadeira"
+  ret "$P mama o restinho do leite de sua mamadeira."
+
+func cmd_bebeu
+  bebeu += 1
+  bebeu >= 6 && apagar(este)
+
+
+classe i_torvani045
+herda comum_itemperso
+const nome = "chiqueirinho"
+const ident = "chiqueirinho xiqueirinho"
+const descnome = "Um chiqueirinho"
+const descpos = "Um chiqueirinho está aqui, esperando uma fofa criança o usar."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_lugar = 1
+const pesoobj = 1000
+
+
+classe i_torvani047
+herda comum_item
+const nome = "Um lindo corpete negro"
+const ident = "corpete negro"
+const descnome = "Um lindo corpete negro"
+const nivel = 320
+const tipoitem = 131072 # Tipo de produto: 17-Roupa comum
+const valor = 40000
+const vestir1 = "1000"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmanamax += 400
+  pesomax += 200
+  bitver |= 4
+
+
+classe i_torvani048
+herda comum_item
+const nome = "Uma justa calça negra"
+const descnome = "Uma justa calça negra"
+const nivel = 340
+const tipoitem = 131072 # Tipo de produto: 17-Roupa comum
+const valor = 45000
+const vestir1 = "2000000"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmovemax += 40 * pnivel
+  pveloc1 += 40 * pnivel
+  pesomax += 50 * pnivel
+
+
+classe i_torvani049
+herda comum_item
+const nome = "Uma bota de couro negro com salto agulha."
+const descnome = "Uma bota de couro negro com salto agulha."
+const nivel = 360
+const valor = 60000
+const vestir1 = 134217728 # Aonde vestir: 27-nos pés
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2000
+  pmanamax += 500
+  pmovemax += -100
+
+
+classe i_torvani050
+herda comum_itemperso
+const nome = "Uma longa mesa de madeira"
+const descnome = "Uma longa mesa de madeira"
+const descpos = "Uma longa mesa de madeira está ao centro do salão, com diversos alimentos sobre \
+ela."
+const descver = "Esta mesa foi coberta por uma simples toalha branca com rendinhas de um\n\
+azul escuro. Sobre ela pode-se ver diversos alimentos, alguns copos contendo\n\
+algum líquido e vários talheres ao lado."
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 100000
+const tipoitem = 2048 # Tipo de produto: 11-Container
+
+
+classe i_torvani051
+herda comum_itemperso
+const nome = "Várias cadeiras de encosto auto"
+const descnome = "uma de várias cadeiras de encosto auto"
+const descpos = "Várias cadeiras confortáveis estão aqui, ao redor da mesa."
+const descver = "Essas belas cadeiras de encosto auto aparentam ser bastante confortáveis.\n\
+Talvez seria uma boa ideia você se sentar e disfrutar de uma boa refeição,\n\
+junto com o clima gostoso desse ambiente."
+const i_pegar = "Você não consegue pegar várias cadeiras de uma só vez."
+const i_movel = 1 # Mobília: 1 Sentar
+const i_lugar = 6
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_torvani052
+herda comum_itemperso
+const nome = "Um grande churrasqueira"
+const ident = "grande churrasqueira"
+const descnome = "Uma grande churrasqueira"
+const descpos = "Uma grande churrasqueira está acesa aqui, assando vários espetinhos de variadas \
+carnes."
+const i_pegar = "Você quase se queima ao tentar pegar uma churrasqueira. Melhor tomar cuidado!"
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const tipoitem = 2048 # Tipo de produto: 11-Container
+
+
+classe i_torvani053
+herda comum_item
+const nome = "Um suculento espetinho de carne"
+const ident = "suculento espetinho carne churrasco"
+const descnome = "Um suculento espetinho de carne"
+const descpos = "Um espetinho de carne foi jogado aqui. Que disperdício!"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 250
+const f_diges = 20
+const f_msgperso = "Você lentamente devora carne por carne do espetinho,, lambendo os lábios em \
+seguida."
+const f_msgoutros = "$p lentamente devora carne por carne do espetinho,, lambendo os lábios em \
+seguida."
+const valor = 3800
+
+
+classe i_torvani054
+herda comum_item
+const nome = "Uma asinha de frango assada"
+const ident = "asa asinha frango assada"
+const descnome = "Uma asinha de frango assada"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 40
+const f_diges = 5
+const f_msgperso = "Você come rapidamente uma asinha de frango, sujando toda a boca na pressa."
+const f_msgoutros = "$p come rapidamente uma asinha de frango, sujando toda a boca na pressa."
+const valor = 3200
+
+
+classe i_torvani055
+herda comum_item
+const nome = "1garrafinha de coca cola"
+const ident = "garrafinha coca"
+const descnome = "uma pequena garrafinha de coca cola"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_sede = 50
+const f_msgperso = "Você abre a tampinha da garrafa e dá longos goles da coca, querendo mais."
+const f_msgoutros = "$p abre a tampinha da garrafa e dá longos goles da coca, aparentimente \
+querendo mais."
+const valor = 2100
+
+
+classe i_torvani056
+herda comum_item
+const nome = "Um espetinho de lingüiça"
+const ident = "lingüiça linguiça espetinho"
+const descnome = "um espetinho de lingüiça"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 15
+const f_diges = 15
+const f_msgperso = "Você saboreia prazerosamente um espetinho de lingüiça."
+const f_msgoutros = "$p saboreia prazerosamente um espetinho de lingüiça."
+const valor = 1300
+
+
+classe i_torvani057
+herda comum_item
+const nome = "Um copo de suco natural de uva"
+const ident = "copo uva copinho suco"
+const descnome = "um copo de suco natural de uva"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_sede = 100
+const f_msgperso = "Você leva um copo de suco de uva até os lábios e bebe todo o líquido em duas \
+goladas!"
+const f_msgoutros = "$p leva um copo de suco de uva até os lábios e bebe todo o líquido em duas \
+goladas!"
+const valor = 5350
+
+
+classe i_torvani058
+herda comum_itemperso
+const nome = "Um relógio de parede"
+const ident = "relógio parede"
+const descnome = "Um relógio de parede"
+const descpos = "Um relógio foi pendurado em uma das paredes"
+const descver = parte1 + parte2
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 11000
+const evperso = 1 # Eventos dono perso: Sim
+const parte1 = "Os ponteiros estão marcando:"
+
+func parte2
+  txt100 lin
+  refvar hora = (misc:hora + 11) % 12 + 1
+  lin = txt(hora) + (hora == 1 ? " hora e " : " horas e ") + misc:min
+  lin += misc:min == 1 ? " minuto.\n" : " minutos.\n"
+  ret lin
+
+
+classe i_torvani059
+herda comum_itemperso
+const nome = "um bebê conforto"
+const ident = "bebê conforto"
+const descnome = "Um bebê conforto"
+const descpos = "Um bebê conforto foi cuidadosamente posto no cantinho da sala"
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_lugar = 1
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 12000
+const vestir1 = "100000"
+
+
+classe i_torvani060
+herda comum_item
+const nome = "Um lindo vestido azul marinho"
+const descnome = "Um lindo vestido azul marinho."
+const tipoitem = 131072 # Tipo de produto: 17-Roupa comum
+const vestir1 = "1000"
+
+
+classe i_torvani061
+herda comum_item
+const nome = "Uma toquinha branca de cozinheira"
+const descnome = "Uma toquinha branca de cozinheira"
+const vestir1 = "2"
+
+
+classe i_torvani062
+herda comum_item
+const nome = "um par de sandálias de tiras trançadas"
+const descnome = "um par de sandálias de tiras trançadas"
+const vestir1 = "10000000"
+
+
+classe i_torvani063
+herda comum_item
+const nome = "Um avental azul claro"
+const descnome = "Um avental azul claro"
+const vestir1 = 8192 # Aonde vestir: 13-sobre o corpo
+
+
+classe i_torvani064
+herda comum_item
+const nome = "Um garfo para grelha"
+const descnome = "Um garfo para grelha"
+const vestir1 = "100000"
+
+
+classe i_torvani065
+herda comum_itemperso
+const nome = "banco"
+const ident = "campo banco grande"
+const descnome = "Um grande banco de madeira"
+const descpos = "um grande banco está aqui"
+const i_pegar = "Você tiraria a beleza do campo se pegasse esse banco."
+const i_movel = 3 # Mobília: 3 Sentar confortavelmente
+
+
+classe p_torvani001
+herda comum_persobat
+const nome = "guarda do portão"
+const ident = "guarda portão"
+const descnome = "O guarda do portão"
+const descpadr = "Um guarda, imponente, encontra-se encostado a uma das torres que sustenta o \
+portão"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 90000
+const nivel = 300
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 300
+const inivar = "z_moedas=600320"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos em perso: Sim
+const evsala = 1 # Eventos em sala: Sim
+const p_ajuda = 1
+#
+
+func cmd_chegou
+  misc:tempo("entrou", arg0)
+  ret !arg0.jog, nulo
+
+func entrou5
+  arg0.msg("O guarda do portão curva-se respeitozamente de ante de você, muito nobre da parte \
+dele")
+
+func entrou15
+  arg0.msg("o guarda do portão diz: 'fique avontade em nossa cidade'")
+
+func entrou20
+  arg0.msg("Deixe-me abrir os portões para você.")
+  teclou("destrancar w")
+
+func entrou30
+  teclou("abrir w")
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100 * pnivel + 14543
+  pmanamax += 14000
+  pmovemax += 13000
+  pveloc1 += 60
+  atknorm += 300
+  defnorm += 150
+  precisao += 2 * pnivel + 200
+#
+
+func cmd_falou
+  se arg1 == "abra"
+    se dono.porta_o == 1
+      teclou("O portão já está aberto, " + arg0.descnome + ".")
+      ret 1
+    fimse
+    teclou("Ok, " + arg0.descnome + ". Vou abrir os portões para você.")
+    teclou("destrancar w")
+    teclou("abrir w")
+  fimse
+  se arg1 == "feche"
+    se dono.porta_o > 1
+      teclou("O portão já está fechado, " + arg0.descnome + ".")
+      ret 1
+    fimse
+    teclou("Ok, " + arg0.descnome + ". Vou fechar os portões para você.")
+    teclou("fechar o")
+  fimse
+#
+
+func cmd_sussurrou
+  se txt2(arg2) == "abra"
+    se dono.porta_o == 1
+      teclou("O portão já está aberto, " + arg0.descnome + ".")
+      ret 1
+    fimse
+    teclou("Ok, " + arg0.descnome + ". Vou abrir os portões para você.")
+    teclou("destrancar w")
+    teclou("abrir w")
+  fimse
+  se txt2(arg2) == "feche"
+    se dono.porta_o > 1
+      teclou("O portão já está fechado, " + arg0.descnome + ".")
+      ret 1
+    fimse
+    teclou("Ok, " + arg0.descnome + ". Vou fechar os portões para você.")
+    teclou("fechar o")
+  fimse
+
+
+classe p_torvani002
+herda comum_persobat
+const nome = "cidadão"
+const ident = "cidadão torvani"
+const descnome = "Um cidadão de torvani"
+const descpadr = "Um cidadão de torvani caminha tranquilamente por aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const objmax = 4
+const nivel = 301
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_atk_anda = 1 # Anda ataque: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 400
+const p_fugir = 7000
+const p_lembra = 30
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 600
+const p_persegue = 1 # Persegue jogadores: 1 Se atacarem
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "h_primeiro_socorro=8,z_moedas=2000000,h_chute_invertido=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 40 * pnivel + 50004
+  pmanamax += 4 * pnivel + 20002
+  pmovemax += 2 * pnivel + 25000
+  pveloc1 += 50
+  atknorm += 2 * pnivel + 900
+  defnorm += 2400
+  atkesp += 2 * pnivel + 1
+  defesp += 2500
+  evasao += 2000
+  precisao += 0.5 * pnivel + 1400
+
+
+classe p_torvani003
+herda comum_persobat
+const nome = "joalheiro"
+const ident = "Robert joalheiro"
+const descnome = "Robert, o joalheiro"
+const descpadr = "Um homem de meia idade espera pacientemente clientes para negociar"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 85000
+const nivel = 299
+const lojaitem = "torvani011 0\ntorvani012 0\ntorvani013 0\ntorvani014 0"
+const tipoitem = 128 # Compra produtos: 7-Tesouro
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 299
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 4 * pnivel + 20000
+  pmanamax += 4 * pnivel + 20000
+  precisao += 200
+
+
+classe p_torvani004
+herda comum_persobat
+const nome = "feiticeiro"
+const ident = "feiticeiro yordan"
+const descnome = "Yordan, o feiticeiro"
+const descpadr = "Yordan, um senhor de cabelos grisálios, cuida das poções, pergaminhos, e \
+demais produtos do local"
+const nivel = 304
+const lojaaula = "m_bumerang 8"
+const lojaitem = "torvani003 0"
+const taxaaula = 400
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 304
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 4 * pnivel + 24000
+  pmanamax += 4 * pnivel + 20000
+  precisao += 200
+
+
+classe p_torvani005
+herda comum_persobat
+const nome = "relojoeiro"
+const ident = "relojoeiro hobert"
+const descnome = "Robert, o relojoeiro"
+const descpadr = "Um rapáz jovem, está regulando um dos relógios, mas também está atento ao \
+fluxo de pessoas em sua loja"
+const nivel = 306
+const lojaitem = "itens046 0\ntemplo010 0\ntorvani058 0"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 306
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5 * pnivel + 23000
+  pmanamax += 2000
+  precisao += 200
+
+
+classe p_torvani006
+herda comum_persobat
+const nome = "sapateiro"
+const ident = "sapateiro thon jovem homem"
+const descnome = "thon, o sapateiro"
+const descpadr = "Um jovem está a espera de clientes"
+const nivel = 305
+const lojaitem = "torvani004 0\n\
+torvani005 0\n\
+torvani006 0\n\
+torvani007 0\n\
+torvani008 0\n\
+torvani009 0\n\
+torvani010 0"
+const tipoitem = 12 # Compra produtos: 2-Armadura, 3-Vestimenta
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 305
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5 * pnivel + 26000
+  precisao += 200
+
+
+classe p_torvani007
+herda comum_persobat
+const nome = "cidadã"
+const ident = "cidadã torvani"
+const descnome = "Uma cidadã de torvani"
+const descpadr = "Uma cidadã caminha calmamente por aqui"
+const nivel = 307
+const p_atk_anda = 1 # Anda ataque: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 307
+const p_lembra = 30
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 400
+const p_persegue = 1 # Persegue jogadores: 1 Se atacarem
+const inivar = "z_moedas=4000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5 * pnivel + 30000
+  precisao += 200
+
+
+classe p_torvani008
+herda comum_persobat
+const nome = "Guarda"
+const ident = "guarda torvani"
+const descnome = "um guarda"
+const descpadr = "Um guarda de torvani está patrulhando aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 309
+const p_atk_anda = 1 # Anda ataque: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 309
+const p_lembra = 30
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 200
+const p_persegue = 1 # Persegue jogadores: 1 Se atacarem
+const inivar = "z_moedas=70000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 20000
+  precisao += 110
+
+
+classe p_torvani009
+herda comum_persobat
+const nome = "delegado"
+const ident = "delegado"
+const descnome = "Um delegado"
+const descpadr = "Um atento delegado está aqui, sempre olhando ao seu redor"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 311
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 311
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 4 * pnivel + 27000
+  precisao += 200
+
+
+classe p_torvani010
+herda comum_persobat
+const nome = "Farrel"
+const ident = "Farrel taverneiro"
+const descnome = "Farrel, o taverneiro"
+const descpadr = "Um senhor está atrás do balcão, cuidando das bebidas e demais coisas do \
+local"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 313
+const lojaitem = "torvani017 0\ntorvani018 0\ntorvani020 0\naditem091 0\nmidgaard036 0"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 313
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5 * pnivel + 26000
+  precisao += 200
+
+
+classe p_torvani011
+herda comum_persobat
+const nome = "ginna"
+const ident = "ginna jovem vendedora"
+const descnome = "Ginna"
+const descpadr = "Uma jovem está aqui, aguardando clientes, e preparando alguns alimentos"
+const nivel = 316
+const lojaitem = "torvani026 0\n\
+torvani015 0\n\
+torvani016 0\n\
+aditem083 0\n\
+aditem091 0\n\
+aditem027 0\n\
+aditem093 0\n\
+aditem108 0\n\
+aditem123 0\n\
+fabi010 0\n\
+torvani067 0\n\
+torvani069 0\n\
+torvani071 0\n\
+bebidas004 0\n\
+torvani066 0\n\
+comidas015 0\n\
+aditem118 0"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 316
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 3 * pnivel + 31000
+  precisao += 200
+
+
+classe p_torvani012
+herda comum_persobat
+const nome = "Nathan"
+const ident = "natã armeiro"
+const descnome = "natã, o armeiro"
+const descpadr = "natã, o armeiro está pulindo algumas armas, e afiando espadas aqui."
+const nivel = 319
+const lojaaula = "h_atirar 8\nh_recarregar 8\nh_bumerang 8"
+const lojaitem = "arma002 0\n\
+arma011 0\n\
+arma001 0\n\
+torvani023 0\n\
+arma003 0\n\
+arma004 0\n\
+arma005 0\n\
+bolinha 0\n\
+arma008 0"
+const taxavenda = 50
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 319
+const eveste = 0 # Eventos perso: Não
+const evperso = 0 # Eventos dono perso: Não
+const evsala = 1 # Eventos dono sala: Sim
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10 * pnivel + 30000
+  precisao += 200
+
+func cmd_chegou
+  misc:evento(arg0)
+  ret !arg0.jog, nulo
+
+func cmd_escr
+  se txt1(arg1) == "afiar"
+    se !txt2(arg1)
+      arg0.msg("" + descnome + " pergunta: 'O que você quer afiar, " + arg0.nome + "?'")
+      ret 1
+    fimse
+    ref item
+    item = misc:itemdentro(arg0, txt2(arg1))
+    se item == nulo
+      arg0.msg("" + descnome + " diz: 'Eu não vejo " + txt2(arg1) + " com você.'")
+      ret 1
+    senao int(item.armatipo) != 4
+      arg0.msg("" + descnome + " pondera: 'Só afio lâminas longas, não sei afiar " + txt2(arg1) \
++ ",.")
+    senao item.var.f_afiado_
+      arg0.msg("" + descnome + " diz: 'isso já está afiado.")
+    senao arg0.var.z_moedas_ < 12000
+      arg0.msg("" + descnome + " diz: 'Você não tem moedas para isso.'")
+    senao
+      arg0.var.z_moedas_ -= 12000
+      item = item.mudadono(este, 1)
+      item.var.f_afiado_ = 2
+      item.recalc = 1
+      item = item.mudadono(arg0, 1)
+      $mens.p(este, arg0)
+      $mens.mvis2("", "$P afia $o para $a.")
+    fimse
+    ret 1
+  fimse
+
+
+classe p_torvani013
+herda comum_perso
+const nome = "vendedor"
+const ident = "vendedor carro"
+const descnome = "um vendedor de automóveis"
+const descpadr = "um vendedor de automóveis está sentado atrás de uma mesa, esperando por \
+clientes"
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+
+func cmd_escr
+  se arg1 == "lista"
+    arg0.msg("\bO vendedor de automóveis informa:")
+    arg0.msg("- 1. Um automóvel. $100000000")
+    arg0.msg("Digite adquirir e o número do item que quer adquirir.")
+    ret 1
+  senao arg1 == "adquirir 1"
+    ret arg0.var.z_moedas_ < 100000000, arg0.msg("Você não tem moedas para pagar por isso!")
+    arg0.var.z_moedas_ -= 100000000
+    txt100 lin
+    lin = "z_dono=" + arg0.descnome
+    criar("i_carro001", $s_torvani104, lin)
+    arg0.msg("\bO vendedor diz: Ok " + arg0.descnome + ". Seu carro já está lá fora!")
+    ret 1
+  fimse
+
+
+classe p_torvani015
+herda comum_persobat
+const nome = "Eldon"
+const ident = "eldon vendedor"
+const descnome = "Eldon"
+const descpadr = "Eldon está aqui, aguardando clientes enquanto reorganisa os itens de sua \
+loja."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 72000
+const nivel = 324
+const tipo1 = "normal"
+const equip3 = "2"
+const lojaitem = "torvani022 0\ntorvani025 0\ntorvani024 0"
+const tipoitem = 4 # Compra produtos: 2-Armadura
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 324
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10 * pnivel + 30000
+  atknorm += 20
+  precisao += 150
+
+
+classe p_torvani016
+herda comum_persobat
+const nome = "Maeryan"
+const ident = "Maeryan vendedora"
+const descnome = "Maeryan"
+const descpadr = "Maeryan reestoca produtos enquanto aguarda seus clientes."
+const pesoobj = 51
+const nivel = 323
+const tipoitem = 4 # Compra produtos: 2-Armadura
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 323
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5 * pnivel + 25000
+  atknorm += 20
+  precisao += 150
+
+
+classe p_torvani017
+herda comum_persobat
+const nome = "Jarick"
+const ident = "Jarick vendedor"
+const descnome = "Jarick, o vendedor"
+const descpadr = "Jarick, analisa os produtos em uma pratileira em quanto aguarda novos clientes"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 326
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 6 * pnivel + 20000
+
+
+classe p_torvani018
+herda comum_persobat
+const nome = "kimberly"
+const ident = "kimberly vendedora"
+const descnome = "kimberly, a vendedora"
+const descpadr = "Kimberly checa as pratileiras colocando cada coisa em seu lugar, em quanto não \
+há clientes"
+const nivel = 328
+const lojaitem = "torvani027 0\n\
+torvani028 0\n\
+torvani029 0\n\
+torvani030 0\n\
+torvani031 0\n\
+torvani032 0\n\
+torvani033 0\n\
+torvani034 0\n\
+torvani035 0\n\
+torvani036 0\n\
+torvani037 0\n\
+torvani038 0\n\
+torvani039 0\n\
+torvani040 0\n\
+torvani041 0\n\
+torvani042 0"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 4 * pnivel + 24000
+
+
+classe p_torvani019
+herda comum_persobat
+const nome = "Emanuelle"
+const ident = "Emanuelle vendedora"
+const descnome = "Emanuelle"
+const descpadr = "Emanuelle organisa as coizinhas com todo cuidado nas pratileiras em quanto \
+espera novos clientes"
+const nivel = 330
+const lojaitem = "torvani044 0\npalacio303 0\npalacio306 0\npalacio307 0\naresdark011 0"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 4 * pnivel + 25000
+  precisao += 103
+
+
+classe p_torvani020
+herda comum_perso
+const nome = "Linna"
+const ident = "linna"
+const descnome = "Linna"
+const descver = "Você a olha, mas a moça não lhe retribui o olhar. apenas atenta-se a você com \
+um sorriso apagado, indagando-lhe sobre o que quer comprar, estendendo uma lista de tralhas \
+infindáveis, a maioria coisas quebradas, espadas sem corte, brinquedos em pécimo estado e trapos \
+fedendo a mofo.\n\
+Ao mesmo tempo que espera sem muita paciência seu pedido, Linna perscruta ao seu redor como se \
+esperasse um ataque a qualquer momento. Seus olhos inquietos passam pelas pessoas sem realmente \
+se dar conta delas, ou como se não quisesse ser pega mirando alguém diretamente.\n\
+A garota é jovem, aparenta uns 17 anos, pele clara, cabelos lizos e não muito alta. Seria até \
+uma moça bonita se sua vida e seus fantasmas lhe deixassem sorrir e levar uma existência menos \
+carregada de medos.\n\
+Atentando-se a sua expressão, nota-se em seus olhos uma tristeza palpável e uma inocência não \
+muito comum a moças perspicazes como Linna. Apesar da vida de fuga contínua, ela ainda não se \
+adaptara a essas aventuras, carregando ainda certa ingenuidade em seus gestos e comportamento.\n\
+Talvez Linna seja somente mais uma garota perdida que um dia abandonou o lar, uma jovem menina \
+cujo desejo de seu coração rezume-se apenas voltar para a segurança de sua família."
+const pesoobj = 57000
+const objmax = 100
+const nivel = 20
+const tipo1 = "humano"
+const lojaitem = "aditem112 0"
+const lojainv = 0 # Produtos inv: Não
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+const p_movervel = 140
+const p_recebe = 1 # Recebe itens: Sim
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_chegou
+  refvar sala = arg0.contr.dono
+  misc:evento(arg0)
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "conversar linna"
+    se iseguir(arg0)
+      arg0.msg("Linna diz: 'Obrigado por se interessar, mas já estou seguindo alguém que me \
+levará até Linda.'")
+      arg0.var.z_ld_ = ""
+    senao arg0.var.z_ld_ == 1
+      arg0.var.z_ld_ += 1
+      arg0.msg("Você diz a Linna que sua irmã Linda lhe pediu para buscá-la, mas a moça não \
+acredita em suas palavras.")
+      arg0.msg("Você insiste, e conta para ela exatamente o que linda lhe disse.")
+      arg0.msg("após pensar um pouco, receosa, a jovem diz:")
+      arg0.msg("Sua história confere. Acredito em você.'")
+      arg0.msg("Linna diz: 'Eu seguirei seus passos até Linda. Muito obrigada por nos ajudar.'")
+      seguirjog(arg0)
+    senao
+      arg0.msg("Linna coloca-se na defenciva e aparenta estar em desespero.")
+      arg0.msg("Linna exclamou: 'Não te conheço nem quero papo. Compre o que quiser e caia \
+fora!'")
+    fimse
+    ret 1
+  casofim
+  se arg1 == "out"
+    arg0.msg("Linna para de lhe seguir, ficando agora junto de sua irmã.")
+    se iseguir.remove
+    fimse
+    ret 1
+
+func descpadr
+  se iseguir
+    ret "Linna segue " + iseguir.objlista.descnome + " com desconfiança e receio"
+  senao
+    ret "Uma inquieta vendedora de bugigangas caminha agilmente pela rua, olhando a todos com \
+sua costumeira desconfiança e medo nos olhos"
+
+func seguirjog
+  misc:evento
+  iseguir.remove
+  iseguir = arg0.lseguir.addfim(este)
+
+func cmd_mudadono
+  misc:evento(iseguir.objlista)
+
+func cabedentro
+  ret 1
+
+
+classe p_torvani021
+herda comum_perso
+const nome = "Aidê Rosenthal"
+const ident = "Aidê Rosenthal"
+const descnome = "Aidê Rosenthal"
+const descpadr = "Aidê Rosenthal cuida do funcionamento da cozinha com um sorriso nos lábios."
+const descver = "Esta senhora roliça trabalha arduamente em sua churrascaria com a ajuda \
+de\n\
+suas filhas gêmeas alice e alessandra, enquanto cuida da cozinha. Com um\n\
+rosto afável e com um sorriso brincalhão, e um brilho de diversão nos olhos\n\
+azuis,, ela te faz lembrar de sua mãe ou talvez de sua avó, preste a\n\
+pregar-lhe uma peça ou lhe dar um afeto maternal embora, Aidê Rosenthal seja\n\
+muito jovem."
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const tipo1 = "humana"
+const equip1 = "10101802"
+const p_recebe = 0 # Recebe itens: Não
+
+
+classe p_torvani022
+herda comum_persobat
+const nome = "Alice Rosenthal"
+const ident = "alice garota linda"
+const descpadr = "Alice Rosenthal corre de um lado ao outro, atendendo com eficiência os \
+pedidos."
+const descver = "Ao fixar o olhar nesta jovem garota você nota várias coisas de imediato.\n\
+Sua beleza e sua dedicação, com rosto lindo e ao mesmo tempo afável que é\n\
+emoldurado por longos cabelos cor de mel, e os olhos azuis que te fitam já\n\
+esperando seu pedido. Mesmo com sua óbvia juventude trabalha incansavelmente\n\
+para atender todos os chamados correndo de um lado para o outro a todo\n\
+instante."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const objmax = 7
+const nivel = 0
+const equip1 = "12101000"
+const lojaitem = "torvani019 0\ntorvani054 0\ntorvani053 0\ntorvani056 0\ntorvani055 0"
+const lojainv = 1 # Produtos inv: Sim
+const p_agressivo = 0 # Agressivo: 0 Pacífico
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 500
+const p_naoseguir = 0 # Não podem seguir: Não
+const p_recebe = 0 # Recebe itens: Não
+
+
+classe p_torvani023
+herda comum_persobat
+const nome = "Alessandra Rosenthal"
+const ident = "Alessandra Rosenthal"
+const descnome = "Alessandra Rosenthal"
+const descpadr = "Alessandra Rosenthal corre de um lado ao outro, atendendo com eficiência os \
+pedidos."
+const descver = "Ao fixar o olhar nesta jovem garota você nota várias coisas de imediato.\n\
+Sua beleza e sua dedicação, com rosto lindo e ao mesmo tempo afável que é\n\
+emoldurado por longos cabelos cor de mel, e os olhos azuis que te fitam já\n\
+esperando seu pedido. Mesmo com sua óbvia juventude trabalha incansavelmente\n\
+para atender todos os chamados correndo de um lado para o outro a todo\n\
+instante."
+const nivel = 0
+const equip1 = "12101000"
+const lojaitem = "torvani053 0\ntorvani054 0\ntorvani056 0\ntorvani057 0\neteste023 0"
+const p_agressivo = 0 # Agressivo: 0 Pacífico
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 500
+const p_recebe = 0 # Recebe itens: Não
+
+
+classe s_torvani001
+herda b_torvani
+const s_titulo = "O templo de torvani"
+const s_desc = ""
+const s_pnj = 0
+const s_recup = 300
+const s_retornar = 2 # Comando retornar: 2 Muda o ponto de retorno para essa sala
+const objmax = 1000000
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_torvani002
+const dir_s = $s_torvani060
+const dir_l = $s_torvani101
+
+func cmd_salaperso
+  misc:evento(arg0)
+  misc:tempo("efeito", arg0)
+
+func efeito1
+  se arg0.dentro2.objini("e_morto")
+  fimse
+  apagar(arg0.dentro2.objini("e_morto"))
+  misc:tempo("t", arg0)
+
+func t1
+  arg0.var.h_jogar = ""
+  apagar(arg0.dentro2.objini("e_animal"))
+
+func cmd_mover
+  se arg2 == "entrar"
+    se arg0.pnivel < 10
+      arg0.msg("Você precisa estar pelo menos no nível 10 para participar do evento.")
+      ret 1
+    senao
+      $mens.p(arg0)
+      $mens.mmudtodos1("*Atenção! $P acaba de entrar na pista de neve!")
+      refvar d = rand(1, 10)
+      se d == 1
+        arg0.mudadono($s_natal030)
+        ret 1
+      senao
+        se d == 2
+          arg0.mudadono($s_natal090)
+          ret 1
+        senao
+          se d == 3
+            arg0.mudadono($s_natal110)
+            ret 1
+          senao
+            se d == 4
+              arg0.mudadono($s_natal080)
+              ret 1
+            senao
+              se d == 5
+                arg0.mudadono($s_natal300)
+                ret 1
+              senao
+                se d == 6
+                  arg0.mudadono($s_natal001)
+                  ret 1
+                senao
+                  se d == 7
+                    arg0.mudadono($s_natal059)
+                    ret 1
+                  senao
+                    se d == 8
+                      arg0.mudadono($s_natal072)
+                      ret 1
+                    senao
+                      se d == 9
+                        arg0.mudadono($s_natal017)
+                        ret 1
+                      senao
+                        se d == 10
+                          arg0.mudadono($s_natal213)
+                          ret 1
+
+
+classe s_torvani002
+herda b_torvani
+const s_titulo = "final da via principal"
+const s_desc = ""
+const dir_n = $s_torvani003
+const dir_s = $s_torvani001
+
+
+classe s_torvani003
+herda b_torvani
+const s_titulo = "continuando na via principal"
+const s_desc = ""
+const dir_n = $s_torvani005
+const dir_s = $s_torvani002
+const dir_l = $s_torvani004
+const dir_o = $s_torvani063
+
+
+classe s_torvani004
+herda b_torvani
+const s_titulo = "Uma loja de alimentos variados"
+const s_desc = ""
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_pnj = 1
+const dir_o = $s_torvani003
+const a_reset = "P 100 torvani011 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_torvani011:objsolto.total < 1
+    criar("p_torvani011", este, 0)
+  fimse
+
+
+classe s_torvani005
+herda b_torvani
+const s_titulo = "A via principal"
+const s_desc = ""
+const dir_n = $s_torvani006
+const dir_s = $s_torvani003
+
+
+classe s_torvani006
+herda b_torvani
+const s_titulo = "a praça central"
+const s_desc = ""
+const s_item = 0
+const s_pnj = 6
+const dir_n = $s_torvani013
+const dir_s = $s_torvani005
+const dir_l = $s_torvani007
+const dir_o = $s_torvani008
+const a_reset = "P 100 torvani007 310 325 20\nS 100 torvani001 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_torvani007:objsolto.total < 20
+    criar("p_torvani007", este, rand(310, 325))
+  fimse
+  !dentro1.objini("i_torvani001") && criar("i_torvani001", este, 1)
+
+
+classe s_torvani007
+herda b_torvani
+const s_titulo = "continuando pela avenida tommy"
+const s_desc = ""
+const dir_l = $s_torvani014
+const dir_o = $s_torvani006
+
+
+classe s_torvani008
+herda b_torvani
+const s_titulo = "continuando na avenida tommy"
+const s_desc = ""
+const dir_n = $s_torvani010
+const dir_s = $s_torvani024
+const dir_l = $s_torvani006
+const dir_o = $s_torvani009
+
+
+classe s_torvani009
+herda b_torvani
+const s_titulo = "Um cruzamento"
+const s_desc = ""
+const dir_n = $s_torvani012
+const dir_s = $s_torvani011
+const dir_l = $s_torvani008
+const dir_o = $s_torvani019
+
+
+classe s_torvani010
+herda b_torvani
+const s_titulo = "pergaminhos e poções"
+const s_desc = ""
+const s_pnj = 0
+const dir_s = $s_torvani008
+const a_reset = "P 100 torvani004 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_torvani004:objsolto.total < 1
+    criar("p_torvani004", este, 0)
+  fimse
+
+
+classe s_torvani011
+herda b_torvani
+const s_titulo = "Rua dos nobres"
+const s_desc = ""
+const s_pnj = 6
+const dir_n = $s_torvani009
+const dir_s = $s_torvani026
+
+
+classe s_torvani012
+herda b_torvani
+const s_titulo = "Rua dos nobres"
+const s_desc = ""
+const s_pnj = 6
+const dir_n = $s_torvani025
+const dir_s = $s_torvani009
+
+
+classe s_torvani013
+herda b_torvani
+const s_titulo = "continuando pela via principal"
+const s_desc = ""
+const s_pnj = 0
+const dir_n = $s_torvani027
+const dir_s = $s_torvani006
+const dir_o = $s_torvani023
+
+
+classe s_torvani014
+herda b_torvani
+const s_titulo = "Avenida Tommy"
+const s_desc = ""
+const s_pnj = 6
+const dir_n = $s_torvani015
+const dir_s = $s_torvani016
+const dir_l = $s_torvani017
+const portanome_l = "Os portões"
+const portaartigo_l = 3 # Artigo porta: 3 os (portões)
+const dir_o = $s_torvani007
+const a_reset = "D 100 l 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("l", 0)
+
+
+classe s_torvani015
+herda b_torvani
+const s_titulo = "Uma pequena sapataria"
+const s_desc = ""
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_pnj = 0
+const dir_s = $s_torvani014
+const a_reset = "P 100 torvani006 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_torvani006:objsolto.total < 1
+    criar("p_torvani006", este, 0)
+  fimse
+
+
+classe s_torvani016
+herda b_torvani
+const s_titulo = "Uma joalheria"
+const s_desc = ""
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_pnj = 0
+const dir_n = $s_torvani014
+const a_reset = "P 100 torvani003 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_torvani003:objsolto.total < 1
+    criar("p_torvani003", este, 0)
+  fimse
+
+
+classe s_torvani017
+herda b_torvani
+const s_titulo = "de ante dos portões leste"
+const s_desc = ""
+const s_pnj = 0
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_torvani018
+const dir_o = $s_torvani014
+const portaini_o = 3 # Estado inicial: 3 Porta trancada
+const portanome_o = "os portões"
+const portaartigo_o = 3 # Artigo porta: 3 os (portões)
+const fechadura_o = "torvani017"
+const fecha_o = 1 # Fecha ao passar: Sim
+const tranc_o = 1 # Trancar: 1 Pode ser trancado
+const a_reset = "P 100 torvani001 0 0 1 z_moedas_=600320\nI 100 torvani002 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  se p_torvani001:objsolto.total < 1
+    p = u = criar("p_torvani001", este, 0, "z_moedas_=600320")
+  fimse
+  u && criar("i_torvani002", u, 0)
+
+
+classe s_torvani018
+herda b_torvani
+const s_titulo = "entrada para torvani"
+const s_desc = ""
+const s_pnj = 0
+const dir_l = $s_armedrin120
+const dir_o = $s_torvani017
+
+
+classe s_torvani019
+herda b_torvani
+const s_titulo = "Avenida tommy"
+const s_desc = ""
+const dir_n = $s_torvani020
+const dir_s = $s_torvani021
+const dir_l = $s_torvani009
+const dir_o = $s_torvani022
+const a_reset = "P 100 torvani002 300 320 50"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_torvani002:objsolto.total < 50
+    criar("p_torvani002", este, rand(300, 320))
+  fimse
+
+
+classe s_torvani020
+herda b_torvani
+const s_titulo = "taverna homem só"
+const s_desc = ""
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_pnj = 0
+const dir_s = $s_torvani019
+const a_reset = "P 100 torvani010 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_torvani010:objsolto.total < 1
+    criar("p_torvani010", este, 0)
+  fimse
+  sav inttempo tempo
+
+func cmd_mudadono
+  tempo = 200000
+
+func tempo_exec
+  tempo = 200000
+  $mens.mens = arg1
+  $mens.p(arg0)
+  $mens.mareatodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "Começa a chover.\n\
+A chuva para.\n\
+Os trovões e raios cessam.\n\
+Nuvens aparecem no céu.\n\
+As nuvens desaparecem."
+
+
+classe s_torvani021
+herda b_torvani
+const s_titulo = "a grande loja de armas"
+const s_desc = ""
+const s_pnj = 0
+const dir_n = $s_torvani019
+const a_reset = "P 100 torvani012 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_torvani012:objsolto.total < 1
+    criar("p_torvani012", este, 0)
+  fimse
+
+
+classe s_torvani022
+herda b_torvani
+const s_titulo = "de ante dos portões oeste"
+const s_desc = ""
+const s_pnj = 0
+const dir_l = $s_torvani019
+const portaini_l = 1 # Estado inicial: 1 Porta aberta
+const portanome_l = "os portões"
+const portaartigo_l = 3 # Artigo porta: 3 os (portões)
+const dir_o = $s_torvani102
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "Os portões da cidade"
+const portaartigo_o = 3 # Artigo porta: 3 os (portões)
+const fecha_o = 1 # Fecha ao passar: Sim
+const a_reset = "P 100 torvani020 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_torvani020:objsolto.total < 1
+    criar("p_torvani020", este, 0)
+  fimse
+
+
+classe s_torvani023
+herda b_torvani
+const s_titulo = "A delegacia"
+const s_desc = ""
+const dir_l = $s_torvani013
+const a_reset = "P 100 torvani009 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_torvani009:objsolto.total < 1
+    criar("p_torvani009", este, 0)
+  fimse
+
+
+classe s_torvani024
+herda b_torvani
+const s_titulo = "Uma relojoaria"
+const s_desc = ""
+const s_pnj = 0
+const dir_n = $s_torvani008
+const a_reset = "P 100 torvani005 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_torvani005:objsolto.total < 1
+    criar("p_torvani005", este, 0)
+  fimse
+
+
+classe s_torvani025
+herda b_torvani
+const s_titulo = "continuando pela rua dos nobres"
+const s_desc = ""
+const dir_n = $s_torvani029
+const dir_s = $s_torvani012
+
+
+classe s_torvani026
+herda b_torvani
+const s_titulo = "continuando pela rua dos nobres"
+const s_desc = ""
+const dir_n = $s_torvani011
+const dir_s = $s_torvani030
+
+
+classe s_torvani027
+herda b_torvani
+const s_titulo = "via principal"
+const s_desc = ""
+const dir_n = $s_torvani028
+const dir_s = $s_torvani013
+
+
+classe s_torvani028
+herda b_torvani
+const s_titulo = "via principal"
+const s_desc = ""
+const dir_s = $s_torvani027
+const dir_l = $s_torvani057
+const a_reset = "P 100 torvani007 311 320 20"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_torvani007:objsolto.total < 20
+    criar("p_torvani007", este, rand(311, 320))
+  fimse
+
+
+classe s_torvani029
+herda b_torvani
+const s_titulo = "continuando na rua dos nobres"
+const s_desc = ""
+const dir_n = $s_torvani031
+const dir_s = $s_torvani025
+
+
+classe s_torvani030
+herda b_torvani
+const s_titulo = "rua dos nobres"
+const s_desc = ""
+const dir_n = $s_torvani026
+const dir_s = $s_torvani055
+
+
+classe s_torvani031
+herda b_torvani
+const s_titulo = "ainda na rua dos nobres"
+const s_desc = ""
+const dir_s = $s_torvani029
+const dir_o = $s_torvani032
+
+
+classe s_torvani032
+herda b_torvani
+const s_titulo = "uma curva na rua dos nobres"
+const s_desc = ""
+const dir_l = $s_torvani031
+const dir_o = $s_torvani033
+
+
+classe s_torvani033
+herda b_torvani
+const s_titulo = "rua dos nobres"
+const s_desc = ""
+const dir_l = $s_torvani032
+const dir_o = $s_torvani034
+
+
+classe s_torvani034
+herda b_torvani
+const s_titulo = "ainda na rua dos nobres"
+const s_desc = ""
+const eveste = 0 # Eventos sala: Não
+const dir_l = $s_torvani033
+
+func cmd_mover
+  se arg2 == "e"
+  fimse
+  se arg2 == "n"
+    arg0.msg("Por aqui não, está em obras.")
+    ret 1
+
+const a_reset = "P 100 torvani008 0 0 20"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_torvani008:objsolto.total < 20
+    criar("p_torvani008", este, 0)
+  fimse
+
+
+classe s_torvani035
+herda b_torvani
+const s_titulo = "na ponte levadiça"
+const s_desc = ""
+const s_pnj = 0
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_torvani093
+const dir_l = $s_torvani103
+
+
+classe s_torvani036
+herda b_torvani
+const s_titulo = "fora dos portões"
+const s_desc = ""
+const dir_n = $s_torvani037
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "os portões do castelo"
+const portaartigo_n = 3 # Artigo porta: 3 os (portões)
+const dir_s = $s_torvani035
+const dir_l = $s_torvani043
+const dir_o = $s_torvani044
+
+
+classe s_torvani037
+herda b_torvani
+const s_titulo = "saguão de entrada"
+const s_desc = ""
+const dir_s = $s_torvani036
+const dir_l = $s_torvani038
+const dir_o = $s_torvani039
+
+
+classe s_torvani038
+herda b_torvani
+const s_titulo = "saguão de entrada"
+const s_desc = ""
+const dir_n = $s_torvani042
+const dir_o = $s_torvani037
+
+
+classe s_torvani039
+herda b_torvani
+const s_titulo = "saguão de entrada"
+const s_desc = ""
+const dir_n = $s_torvani041
+const dir_l = $s_torvani037
+
+
+classe s_torvani040
+herda b_torvani
+const s_titulo = "continuando pelo saguão"
+const s_desc = ""
+const dir_n = $s_torvani045
+const dir_s = $s_torvani037
+const dir_l = $s_torvani042
+const dir_o = $s_torvani041
+
+
+classe s_torvani041
+herda b_torvani
+const s_titulo = "continuando pelo saguão"
+const s_desc = ""
+const dir_s = $s_torvani039
+const dir_l = $s_torvani040
+const dir_n = $s_torvani047
+
+
+classe s_torvani042
+herda b_torvani
+const s_titulo = "Continuando pelo saguão"
+const s_desc = ""
+const dir_n = $s_torvani046
+const dir_s = $s_torvani038
+const dir_o = $s_torvani040
+
+
+classe s_torvani043
+herda b_torvani
+const s_titulo = "Um posto de guarda"
+const s_desc = ""
+const dir_o = $s_torvani036
+
+
+classe s_torvani044
+herda b_torvani
+const s_titulo = "Um posto de guarda"
+const s_desc = ""
+const dir_l = $s_torvani036
+
+
+classe s_torvani045
+herda b_torvani
+const s_titulo = "salão principal"
+const s_desc = ""
+const dir_s = $s_torvani040
+const dir_l = $s_torvani046
+const dir_o = $s_torvani047
+
+
+classe s_torvani046
+herda b_torvani
+const s_titulo = "salão principal"
+const s_desc = ""
+const dir_s = $s_torvani042
+const dir_l = $s_torvani048
+const dir_o = $s_torvani045
+
+
+classe s_torvani047
+herda b_torvani
+const s_titulo = "salão principal"
+const s_desc = ""
+const dir_s = $s_torvani041
+const dir_l = $s_torvani045
+const dir_o = $s_torvani049
+
+
+classe s_torvani048
+herda b_torvani
+const s_titulo = "Sala de guarda"
+const s_desc = ""
+const dir_o = $s_torvani046
+
+
+classe s_torvani049
+herda b_torvani
+const s_titulo = "uma passagem"
+const s_desc = ""
+const dir_n = $s_torvani050
+const dir_l = $s_torvani047
+
+
+classe s_torvani050
+herda b_torvani
+const s_titulo = "continuando na passagem"
+const s_desc = ""
+const dir_s = $s_torvani049
+const dir_l = $s_torvani051
+const dir_o = $s_torvani053
+
+
+classe s_torvani051
+herda b_torvani
+const s_titulo = "Quarto das servas"
+const s_desc = ""
+const dir_s = $s_torvani052
+const dir_o = $s_torvani050
+
+
+classe s_torvani052
+herda b_torvani
+const s_titulo = "Um pequenino banheiro"
+const s_desc = ""
+const dir_n = $s_torvani051
+
+
+classe s_torvani053
+herda b_torvani
+const s_titulo = "Quarto dos servos"
+const s_desc = ""
+const dir_n = $s_torvani054
+const dir_l = $s_torvani050
+
+
+classe s_torvani054
+herda b_torvani
+const s_titulo = "Um pequeno banheiro"
+const s_desc = ""
+const dir_s = $s_torvani053
+
+
+classe s_torvani055
+herda b_torvani
+const s_titulo = "A grande loja de armaduras"
+const s_desc = ""
+const s_pnj = 0
+const dir_n = $s_torvani030
+const dir_l = $s_torvani056
+const a_reset = "P 100 torvani015 324 330 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_torvani015:objsolto.total < 1
+    criar("p_torvani015", este, rand(324, 330))
+  fimse
+
+
+classe s_torvani056
+herda b_torvani
+const s_titulo = "Ainda na grande loja de armaduras"
+const s_desc = ""
+const dir_o = $s_torvani055
+const a_reset = "P 100 torvani016 320 322 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_torvani016:objsolto.total < 1
+    criar("p_torvani016", este, rand(320, 322))
+  fimse
+
+
+classe s_torvani057
+herda b_torvani
+const s_titulo = "Loja bebê bem vestido"
+const s_desc = ""
+const s_pnj = 0
+const dir_n = $s_torvani058
+const dir_l = $s_torvani059
+const dir_o = $s_torvani028
+const inv_o = 0 # Invisível: Não
+const a_reset = "P 100 torvani018 327 330 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_torvani018:objsolto.total < 1
+    criar("p_torvani018", este, rand(327, 330))
+  fimse
+
+
+classe s_torvani058
+herda b_torvani
+const s_titulo = "Artigos para crianças"
+const s_desc = ""
+const dir_s = $s_torvani057
+const a_reset = "P 100 torvani017 326 330 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_torvani017:objsolto.total < 1
+    criar("p_torvani017", este, rand(326, 330))
+  fimse
+
+
+classe s_torvani059
+herda b_torvani
+const s_titulo = "Artigos para recém nascidos"
+const s_desc = ""
+const dir_o = $s_torvani057
+const a_reset = "P 100 torvani019 328 331 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_torvani019:objsolto.total < 1
+    criar("p_torvani019", este, rand(328, 331))
+  fimse
+
+
+classe s_torvani060
+herda b_torvani
+const s_titulo = "O autar do templo"
+const s_desc = ""
+const s_pnj = 0
+const eveste = 0 # Eventos sala: Não
+const dir_n = $s_torvani001
+const dir_s = $s_torvani061
+
+func cmd_salaperso
+  misc:evento(arg0)
+
+func cmd_falou
+  $mens.p(arg0)
+  $mens.mens = arg1
+  $mens.mmudS("$P diz no altar de torvani: '$m'")
+# func cmd_emocao
+# $mens.p(arg0)
+# $mens.mmudS("$P $m")
+# func cmd_gritou
+# $mens.p(arg0)
+# $mens.mmudS("$P grita no autar de torvani: $m")
+# fimse
+
+
+classe s_torvani061
+herda b_torvani
+const s_titulo = "No caminho para o campo"
+const s_desc = ""
+const s_pnj = 0
+const dir_n = $s_torvani060
+const dir_s = $s_torvani062
+
+
+classe s_torvani062
+herda b_torvani
+const s_titulo = "Adentrando no campo"
+const s_desc = ""
+const s_pnj = 0
+const dir_n = $s_torvani061
+const dir_s = $s_torvani074
+
+
+classe s_torvani063
+herda b_torvani
+const s_titulo = "A entrada da churrascaria Rosenthal"
+const s_desc = "Você encontra-se na entrada da famosa churrascaria da família Rosenthal. \
+O\n\
+lugar é magnificamente decorado, contendo um requinte pouco encontrado, em\n\
+tons opostos sendo branco e negro, o lugar foi feito inteiramente de\n\
+mármore. Vários vasos com uma diversidade imensa de flores como: rosas,\n\
+margaridas e madressilvas florescem exalando um doce perfume e dando mais\n\
+cor ao lugar. A norte está a entrada para o salão da churrascaria enquanto a\n\
+leste volta para a via principal."
+const s_pnj = 0
+const dir_n = $s_torvani064
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "um par de belas portas envidraçadas"
+const portaartigo_n = 1 # Artigo porta: 1 as (portas)
+const dir_l = $s_torvani003
+
+
+classe s_torvani064
+herda b_torvani
+const s_titulo = "Um amplo salão iluminado"
+const s_desc = "Você se encontra em um salão de enormes proporções e muito bem decorado, \
+o\n\
+ambiente é feito completamente de mármore, sendo as paredes brancas e o chão\n\
+negro. O fluxo de clientes é constante, e ao longe é possível escutar uma\n\
+melodia animada. O aroma inebriante de comida chega ao seu olfato abrindo\n\
+seu apetite instantaneamente."
+const dir_s = $s_torvani063
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "Um par de portas envidraçadas"
+const portaartigo_s = 1 # Artigo porta: 1 as (portas)
+const fecha_s = 0 # Fecha ao passar: Não
+const dir_o = $s_torvani065
+
+
+classe s_torvani065
+herda b_torvani
+const s_titulo = "Um amplo salão iluminado"
+const s_desc = "Você se encontra em um salão de enormes proporções e muito bem decorado, \
+o\n\
+ambiente é feito completamente de mármore, sendo as paredes brancas e o chão\n\
+negro. O fluxo de clientes é constante, e ao longe é possível escutar uma\n\
+melodia animada. O aroma inebriante de comida chega ao seu olfato abrindo\n\
+seu apetite instantaneamente."
+const dir_l = $s_torvani064
+const dir_o = $s_torvani066
+const a_reset = "S 100 torvani051 1 S\nS 100 torvani050 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_torvani051") && criar("i_torvani051", este, 1)
+  !dentro1.objini("i_torvani050") && criar("i_torvani050", este, 1)
+
+
+classe s_torvani066
+herda b_torvani
+const s_titulo = "Um amplo salão iluminado"
+const s_desc = "Você se encontra em um salão de enormes proporções e muito bem decorado, \
+o\n\
+ambiente é feito completamente de mármore, sendo as paredes brancas e o chão\n\
+negro. O fluxo de clientes é constante, e ao longe é possível escutar uma\n\
+melodia animada. O aroma inebriante de comida chega ao seu olfato abrindo\n\
+seu apetite instantaneamente."
+const dir_l = $s_torvani065
+const dir_no = $s_torvani067
+const portaini_no = 2 # Estado inicial: 2 Porta fechada
+const portanome_no = "Uma porta de aço polido"
+const portaartigo_no = 0 # Artigo porta: 0 a (porta)
+const fecha_no = 0 # Fecha ao passar: Não
+const dir_so = $s_torvani068
+const a_reset = "S 100 torvani051 1 S\n\
+S 100 torvani050 1 S\n\
+P 100 torvani022 0 0 1\n\
+E 100 torvani047 1 13\n\
+E 100 torvani048 1 25\n\
+E 100 torvani049 1 28\n\
+E 100 eteste022 1 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  !dentro1.objini("i_torvani051") && criar("i_torvani051", este, 1)
+  !dentro1.objini("i_torvani050") && criar("i_torvani050", este, 1)
+  se p_torvani022:objsolto.total < 1
+    p = u = criar("p_torvani022", este, 0)
+  fimse
+  se u
+    r = criar("i_torvani047", u, 1), r.vestir(13), u.recalc = 1
+  fimse
+  se u
+    r = criar("i_torvani048", u, 1), r.vestir(25), u.recalc = 1
+  fimse
+  se u
+    r = criar("i_torvani049", u, 1), r.vestir(28), u.recalc = 1
+  fimse
+  se u
+    r = criar("i_eteste022", u, 1), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_torvani067
+herda b_torvani
+const s_titulo = "Uma imensa cozinha"
+const s_desc = "Esta grande cozinha iluminada, é de uma organização impecável. As paredes\n\
+são alvíssimas, e pelo o local a várias bancadas onde são preparadas uma\n\
+diversidade imensa de comidas. O calor do o fogo é aconchegante entretanto,\n\
+o aroma inebriante das deliciosas especiarias chega abrir seu apetite de\n\
+maneira eficaz."
+const s_pnj = 0
+const dir_se = $s_torvani066
+const portaini_se = 2 # Estado inicial: 2 Porta fechada
+const portanome_se = "Uma porta de aço polido"
+const portaartigo_se = 0 # Artigo porta: 0 a (porta)
+const fecha_se = 0 # Fecha ao passar: Não
+const a_reset = "P 100 torvani021 0 0 1\n\
+S 100 torvani052 1 S\n\
+S 100 torvani053 1 torvani052\n\
+S 100 torvani054 1 torvani052 e5\n\
+S 100 eteste023 1 torvani052\n\
+E 100 torvani060 1 13\n\
+E 100 torvani062 1 28\n\
+E 100 torvani064 1 21\n\
+E 100 torvani061 1 3\n\
+E 100 torvani063 1 14"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_torvani021:objsolto.total < 1
+    p = u = criar("p_torvani021", este, 0)
+  fimse
+  !dentro1.objini("i_torvani052") && criar("i_torvani052", este, 1)
+  (r = dentro1.objini("i_torvani052")) && !r.dentro1.objini("i_torvani053") && criar("i_torvani05\
+3", r, 1)
+  (r = dentro1.objini("i_torvani052")) && !r.dentro1.objini("i_torvani054") && criar("i_torvani05\
+4", r, 1, "e5")
+  (r = dentro1.objini("i_torvani052")) && !r.dentro1.objini("i_eteste023") && criar("i_eteste023"\
+, r, 1)
+  se u
+    r = criar("i_torvani060", u, 1), r.vestir(13), u.recalc = 1
+  fimse
+  se u
+    r = criar("i_torvani062", u, 1), r.vestir(28), u.recalc = 1
+  fimse
+  se u
+    r = criar("i_torvani064", u, 1), r.vestir(21), u.recalc = 1
+  fimse
+  se u
+    r = criar("i_torvani061", u, 1), r.vestir(3), u.recalc = 1
+  fimse
+  se u
+    r = criar("i_torvani063", u, 1), r.vestir(14), u.recalc = 1
+  fimse
+
+
+classe s_torvani068
+herda b_torvani
+const s_titulo = "O início das escadarias de mármore"
+const s_desc = "Você vagarosamente sobe as longas escadarias de mármore, prestando a\n\
+atenção nos belos detalhes que há sobre ela. O corrimão é todo trabalhado em\n\
+madeira polida, enquanto que os degraus são feitos de um mármore escuro que\n\
+vão subindo até levar em algum lugar que você não consegue enxergar .ainda.\n\
+Ao lado leste se encontra uma lustrosa janela, dando a vista para a via\n\
+central de Torvani onde pode-se ver várias pessoas andando apressadas,\n\
+algumas vezes admirando a bela churrascaria que você se encontra. Nas\n\
+paredes brancas encontra-se vários retratos da família Rosenthal, quanto\n\
+atualmente quanto seus antepassados que estende-se por toda a extensão da\n\
+escadaria de mármore. Para cima você continua subindo a escadaria, e para\n\
+nordeste você volta para o salão."
+const s_pnj = 0
+const dir_c = $s_torvani069
+const dir_ne = $s_torvani066
+
+
+classe s_torvani069
+herda b_torvani
+const s_titulo = "Uma longa escadaria de mármore"
+const s_desc = "Você vagarosamente sobe as longas escadarias de mármore, prestando a\n\
+atenção nos belos detalhes que há sobre ela. O corrimão é todo trabalhado em\n\
+madeira polida, enquanto que os degraus são feitos de um mármore escuro que\n\
+vão subindo até levar em algum lugar que você não consegue enxergar .ainda.\n\
+Ao lado leste se encontra uma lustrosa janela, dando a vista para a via\n\
+central de Torvani onde pode-se ver várias pessoas andando apressadas,\n\
+algumas vezes admirando a bela churrascaria que você se encontra. Nas\n\
+paredes brancas encontra-se vários retratos da família Rosenthal, quanto\n\
+atualmente quanto seus antepassados que estende-se por toda a extensão da\n\
+escadaria de mármore. Para cima você continua subindo a escadaria, e para\n\
+nordeste você volta para o salão."
+const dir_c = $s_torvani070
+const dir_b = $s_torvani068
+
+
+classe s_torvani070
+herda b_torvani
+const s_titulo = "O final das longas escadarias de mármore"
+const s_desc = "Você chegou no fim das longas escadarias de mármore. Aqui pode-se ver mais\n\
+retratos que você viu anteriormente nas paredes, e a janela de vidro está no\n\
+alcance de seus olhos nesse momento. Para nordeste você avista um belo\n\
+terraço, e para baixo você desce de volta para as escadarias."
+const s_pnj = 0
+const dir_b = $s_torvani069
+const dir_ne = $s_torvani071
+
+
+classe s_torvani071
+herda b_torvani
+const s_titulo = "Um belo terraço"
+const s_desc = "O longo terraço de proporções generosas e com uma vista espetacular, é\n\
+ricamente decorado com diversas flores disposta sobre o parapeito. O lugar\n\
+parece está sempre movimentado, cheio de famílias, crianças adolescentes e\n\
+adultos rindo e se divertindo, espalhados pelas mesas afins de degustar uma\n\
+boa comida."
+const dir_l = $s_torvani072
+const portaini_l = 0 # Estado inicial: 0 Sem porta
+const dir_so = $s_torvani070
+const a_reset = "S 100 torvani051 1 S\n\
+S 100 torvani050 1 S\n\
+P 100 torvani023 0 0 1\n\
+E 100 torvani047 1 13\n\
+E 100 torvani049 1 31\n\
+E 100 eteste022 1 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  !dentro1.objini("i_torvani051") && criar("i_torvani051", este, 1)
+  !dentro1.objini("i_torvani050") && criar("i_torvani050", este, 1)
+  se p_torvani023:objsolto.total < 1
+    p = u = criar("p_torvani023", este, 0)
+  fimse
+  se u
+    r = criar("i_torvani047", u, 1), r.vestir(13), u.recalc = 1
+  fimse
+  se u
+    r = criar("i_torvani049", u, 1), r.vestir(31), u.recalc = 1
+  fimse
+  se u
+    r = criar("i_eteste022", u, 1), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_torvani072
+herda b_torvani
+const s_titulo = "Um belo terraço"
+const s_desc = "O longo terraço de proporções generosas e com uma vista espetacular, é\n\
+ricamente decorado com diversas flores disposta sobre o parapeito. O lugar\n\
+parece está sempre movimentado, cheio de famílias, crianças adolescentes e\n\
+adultos rindo e se divertindo, espalhados pelas mesas afins de degustar uma\n\
+boa comida."
+const dir_l = $s_torvani073
+const dir_o = $s_torvani071
+const a_reset = "S 100 torvani051 1 S\nS 100 torvani050 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_torvani051") && criar("i_torvani051", este, 1)
+  !dentro1.objini("i_torvani050") && criar("i_torvani050", este, 1)
+
+
+classe s_torvani073
+herda b_torvani
+const s_titulo = "Um belo terraço"
+const s_desc = "O longo terraço de proporções generosas e com uma vista espetacular, é\n\
+ricamente decorado com diversas flores disposta sobre o parapeito. O lugar\n\
+parece está sempre movimentado, cheio de famílias, crianças adolescentes e\n\
+adultos rindo e se divertindo, espalhados pelas mesas afins de degustar uma\n\
+boa comida."
+const dir_o = $s_torvani072
+const a_reset = "S 100 torvani051 1 S\nS 100 torvani050 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_torvani051") && criar("i_torvani051", este, 1)
+  !dentro1.objini("i_torvani050") && criar("i_torvani050", este, 1)
+
+
+classe s_torvani074
+herda b_torvani
+const s_titulo = "O campo de Torvani"
+const s_desc = "Esse lugar é tão silencioso e fresco, que você só consegue sentir paz.\n\
+Uma leve brisa bate em seu rosto como uma leve carícia, e você consegue ouvir o farfalhar das \
+folhas das maravilhosas árvores existentes aqui.\n\
+Um pássaro canta ao longe, e sua vontade é nunca mais sair desse cantinho maravilhoso"
+const s_pnj = 0
+const dir_n = $s_torvani062
+const dir_s = $s_torvani076
+const dir_l = $s_torvani075
+const a_reset = "S 100 torvani065 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_torvani065") && criar("i_torvani065", este, 1)
+
+
+classe s_torvani075
+herda b_torvani
+const s_titulo = "O campo de Torvani"
+const s_desc = "Esse lugar é tão silencioso e fresco, que você só consegue sentir paz.\n\
+Uma leve brisa bate em seu rosto como uma leve carícia, e você consegue ouvir o farfalhar das \
+folhas das maravilhosas árvores existentes aqui.\n\
+Um pássaro canta ao longe, e sua vontade é nunca mais sair desse cantinho maravilhoso"
+const s_pnj = 0
+const dir_n = $s_torvani062
+const dir_s = $s_torvani077
+const dir_o = $s_torvani074
+
+
+classe s_torvani076
+herda b_torvani
+const s_titulo = "O campo de Torvani"
+const s_desc = "Esse lugar é tão silencioso e fresco, que você só consegue sentir paz.\n\
+Uma leve brisa bate em seu rosto como uma leve carícia, e você consegue ouvir o farfalhar das \
+folhas das maravilhosas árvores existentes aqui.\n\
+Um pássaro canta ao longe, e sua vontade é nunca mais sair desse cantinho maravilhoso"
+const s_pnj = 0
+const dir_n = $s_torvani074
+const dir_s = $s_torvani078
+const dir_l = $s_torvani077
+
+
+classe s_torvani077
+herda b_torvani
+const s_titulo = "O campo de Torvani"
+const s_desc = "Esse lugar é tão silencioso e fresco, que você só consegue sentir paz.\n\
+Uma leve brisa bate em seu rosto como uma leve carícia, e você consegue ouvir o farfalhar das \
+folhas das maravilhosas árvores existentes aqui.\n\
+Um pássaro canta ao longe, e sua vontade é nunca mais sair desse cantinho maravilhoso"
+const s_pnj = 0
+const dir_n = $s_torvani075
+const dir_s = $s_torvani079
+const dir_o = $s_torvani076
+
+
+classe s_torvani078
+herda b_torvani
+const s_titulo = "O campo de Torvani"
+const s_desc = "Esse lugar é tão silencioso e fresco, que você só consegue sentir paz.\n\
+Uma leve brisa bate em seu rosto como uma leve carícia, e você consegue ouvir o farfalhar das \
+folhas das maravilhosas árvores existentes aqui.\n\
+Um pássaro canta ao longe, e sua vontade é nunca mais sair desse cantinho maravilhoso"
+const s_pnj = 0
+const dir_n = $s_torvani076
+const dir_l = $s_torvani079
+const dir_c = $s_torvani071
+
+
+classe s_torvani079
+herda b_torvani
+const s_titulo = "O campo de Torvani"
+const s_desc = "Esse lugar é tão silencioso e fresco, que você só consegue sentir paz.\n\
+Uma leve brisa bate em seu rosto como uma leve carícia, e você consegue ouvir o farfalhar das \
+folhas das maravilhosas árvores existentes aqui.\n\
+Um pássaro canta ao longe, e sua vontade é nunca mais sair desse cantinho maravilhoso"
+const dir_n = $s_torvani077
+const dir_o = $s_torvani078
+
+
+classe s_torvani080
+herda b_torvani
+const s_titulo = "Fora do portão de Torvani"
+const dir_l = $s_torvani022
+const dir_o = $s_torvani081
+
+
+classe s_torvani081
+herda b_torvani
+const s_titulo = "O começo de uma estrada de asfalto"
+const dir_l = $s_torvani080
+const dir_b = $s_torvani083
+
+
+classe s_torvani082
+herda b_torvani
+const s_titulo = "Começando a subir uma ladeira"
+const dir_s = $s_torvani089
+const dir_o = $s_torvani085
+
+
+classe s_torvani083
+herda b_torvani
+const s_titulo = "Descendo a ladeira"
+const dir_n = $s_torvani084
+const dir_c = $s_torvani081
+
+
+classe s_torvani084
+herda b_torvani
+const s_titulo = "O final da ladeira"
+const dir_s = $s_torvani089
+const dir_o = $s_torvani085
+
+
+classe s_torvani085
+herda b_torvani
+const s_titulo = "Uma curva na estrada"
+const dir_n = $s_torvani086
+const dir_l = $s_torvani082
+
+
+classe s_torvani086
+herda b_torvani
+const s_titulo = "Continuando na estrada de asfalto"
+const dir_n = $s_torvani087
+const dir_s = $s_torvani085
+
+
+classe s_torvani087
+herda b_torvani
+const s_titulo = "Continuando na estrada de asfalto"
+const dir_s = $s_torvani086
+const dir_o = $s_torvani088
+
+
+classe s_torvani088
+herda b_torvani
+const s_titulo = "O final da estrada"
+const dir_n = $s_grecia001
+const dir_l = $s_torvani087
+
+
+classe s_torvani089
+herda b_torvani
+const s_titulo = "No meio da subida"
+const dir_n = $s_torvani084
+const dir_c = $s_torvani090
+
+
+classe s_torvani090
+herda b_torvani
+const s_titulo = "O final da subida, e o inícil da estrada de asfalto"
+const dir_l = $s_torvani080
+const dir_b = $s_torvani089
+
+
+classe s_torvani093
+herda b_torvani
+const s_titulo = "continuando na ponte levadiça"
+const dir_n = $s_torvani094
+const dir_s = $s_torvani035
+
+
+classe s_torvani094
+herda b_torvani
+const s_titulo = "ainda na ponte levadiça"
+const dir_s = $s_torvani093
+const dir_b = $s_torvani095
+
+
+classe s_torvani095
+herda b_torvani
+const s_titulo = "nas escadas para um novo caminho"
+const dir_c = $s_torvani094
+const dir_b = $s_torvani096
+
+
+classe s_torvani096
+herda b_torvani
+const s_titulo = "nas escadas para um novo caminho"
+const dir_n = $s_torvani097
+const dir_c = $s_torvani095
+
+
+classe s_torvani097
+herda b_torvani
+const s_titulo = "um novo caminho"
+const dir_s = $s_torvani096
+const dir_l = $s_torvani098
+
+
+classe s_torvani098
+herda b_torvani
+const s_titulo = "um novo caminho"
+const dir_l = $s_torvani099
+const dir_o = $s_torvani097
+
+
+classe s_torvani099
+herda b_torvani
+const s_titulo = "um novo caminho"
+const dir_n = $s_torvani100
+const dir_o = $s_torvani098
+
+
+classe s_torvani100
+herda b_torvani
+const s_titulo = "um novo caminho"
+const dir_n = $s_praiacoca097
+const dir_s = $s_torvani099
+
+
+classe s_torvani101
+herda b_torvani
+const s_titulo = "A sala de doações de Torvani"
+const s_desc = "Aqui você pode encontrar itens doados por alguém, em toda a área."
+const s_item = 0
+const s_soltar = 1 # Soltar itens: 1 Não permitido
+const dir_o = $s_torvani001
+
+
+classe s_torvani102
+herda b_torvani
+const s_titulo = "um caminho para uma ponte"
+const dir_l = $s_torvani022
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "Os portões da cidade"
+const portaartigo_l = 3 # Artigo porta: 3 os (portões)
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_torvani103
+
+
+classe s_torvani103
+herda b_torvani
+const s_titulo = "continuando pelo caminho"
+const dir_l = $s_torvani102
+const dir_o = $s_torvani035
+
+
+classe s_torvani104
+herda b_torvani
+const s_titulo = "o estacionamento da concecionária"
+const dir_n = $s_torvani105
+const dir_l = $s_torvani005
+
+
+classe s_torvani105
+herda b_torvani
+const s_titulo = "um escritório"
+const dir_s = $s_torvani104

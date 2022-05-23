@@ -1,0 +1,592 @@
+classe a_festa
+herda area
+
+
+classe b_festa
+herda sala
+const s_area = "festa"
+
+
+classe i_festa001
+herda comum_itemgrupo
+const nome = "coxinha"
+const descnome = "uma coxinha de frango"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 24
+const f_msgperso = "$P aprecia uma deliciosa coxinha de festa."
+const pesoobj = 100
+const volobj = 100
+
+
+classe i_festa002
+herda comum_itemgrupo
+const nome = "pastel"
+const ident = "pastel de queijo e presunto"
+const descnome = "um pastelzinho de queijo e presunto"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_msgperso = "$P saboreia um delicioso pastel de queijo e presunto."
+const pesoobj = 100
+const volobj = 100
+
+
+classe i_festa003
+herda comum_itemgrupo
+const nome = "beijinho"
+const descnome = "um beijinho"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_msgperso = "$P delicia-se ao comer um doce beijinho."
+const pesoobj = 100
+const volobj = 100
+
+
+classe i_festa004
+herda comum_itemgrupo
+const nome = "empadinha"
+const descnome = "uma empadinha de carne e azeitona"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_msgperso = "$P saboreia com prazer uma empadinha de festa."
+const pesoobj = 100
+const volobj = 100
+
+
+classe i_festa005
+herda comum_itemgrupo
+const nome = "quibe"
+const descnome = "um quibe"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 24
+const f_sede = 0
+const f_diges = 60
+const f_msgperso = "$P devora rapidamente um saboroso quibe de festa, na pressa de comer \
+mais."
+const pesoobj = 100
+const volobj = 100
+
+
+classe i_festa006
+herda comum_itemperso
+const nome = "bolo"
+const ident = "bolo gigantesco"
+const descnome = "um gigantesco bolo de chocolate em formato de mamadeira"
+const descpos = "um gigantesco bolo de chocolate está sobre a mesa"
+const descver = "A sua frente, está o bolo mais lindo que você já viu\n\
+uma grande mamadeira feita de chocolate, rodeada por ursinhos, elefantes,\n\
+leõezinhos, gatos, cachorrinhos, moldados com brigadeiro branco e preto.\n\
+no topo da mamadeira, juntamente com pedaços de chocolate trufado,\n\
+você pode observar gotas de chocolate misturado com leite ninho,\n\
+reproduzindo o efeito de leite jorrando sobre o centro do bolo,\n\
+na boca de um bebezinho feito todo de chocolate."
+const pesoobj = 100
+const volobj = 100
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "cortar bolo"
+    ret !arg0.dentro1.objini("i_festa014"), arg0.msg("Você precisa de uma faca para cortar o \
+bolo.")
+    refvar f = criar("i_fabi002", arg0, 1)
+    $mens.p(arg0, nulo, este)
+    $mens.mvis1("$P pega uma faca e corta um pedaço $d $o.")
+    ret 1
+  fimse
+
+
+classe i_festa007
+herda comum_item
+const nome = "pedaço"
+const ident = "pedaço bolo chocolate"
+const descnome = "um pedaço do bolo"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_msgperso = "$p come um pedaço de bolo de chocolate, sujando a boca com a cobertura"
+const pesoobj = 100
+const volobj = 100
+
+
+classe i_festa008
+herda comum_item
+const nome = "bolo de casamento"
+const descnome = "Um belo bolo de chocolate em formato de um lindo coração"
+const pesoobj = 100
+const volobj = 100
+
+
+classe i_festa009
+herda comum_itemgrupo
+const nome = "cupcake de chocolate"
+const descnome = "um delicioso cupcake"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 70
+const f_diges = 30
+const f_msgperso = "$p come um saboroso cupcake de chocolate!"
+const tipoitem = 8192 # Tipo de item: 13-Comida
+
+
+classe i_festa010
+herda comum_itemgrupo
+const nome = "fogos"
+const descnome = "fogos de artifício"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 10000
+const valor = 500000
+const volobj = 10000
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_soltouobj
+  se arg2 == este
+    ret dono.item, nulo
+    apagar(arg2)
+    arg0.ganhaexp(rand(10000, 100000))
+  fimse
+#
+
+func cmd_pegarobj
+  se arg2 == este
+    ret arg0.dentro1.total("i_festa010") >= 1, arg0.msg("Já possui rojões demais!")
+    ret arg0.dentro2.total("i_festa010") >= 1, arg0.msg("Já possui rojões demais!")
+  fimse
+
+
+classe i_festa011
+herda comum_itemgrupo
+const nome = "balão " + var.z_cor
+const descnome = "um balão " + var.z_cor
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 500
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const cores = "azul\n\
+branco\n\
+azul\n\
+vermelho\n\
+rosa\n\
+verde\n\
+cinza\n\
+preto\n\
+dourado\n\
+lilás\n\
+marrom\n\
+roxo\n\
+amarelo\nlaranja"
+#
+
+func cmd_ini
+  var.z_cor = txtsublin(cores, rand(intsublin(cores)), 1)
+
+func cmd_escr
+  se arg1 == "estourar balão"
+    apagar(este)
+    $mens.p(arg0, nulo, este)
+    $mens.mvis1("$P estoura $o!")
+    $mens.p(arg0)
+    $mens.mvis1("pou! pou! pou!")
+    arg0.ganhaexp(rand(10000, 100000))
+    ret 1
+  fimse
+#
+
+func cmd_pegarobj
+  se arg2 == este
+    ret arg3 > 1, arg0.msg("Apenas um balão por vez.")
+    ret arg0.dentro1.total(este) >= 1, arg0.msg("Primeiro tem que estourar o balão que leva nas \
+mãos.")
+  fimse
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv |= 16
+
+
+classe i_festa012
+herda comum_item
+const nome = "bolo de aniversário"
+const ident = "bolo"
+const descnome = "um enorme bolo de chocolate em formato de teclado"
+const descpos = "um enorme bolo de chocolate no formato de teclado está sobre a mesa"
+const descver = "esse bolo enorme, ocupa a mesa toda. possui o formato perfeito de um\n\
+teclado, e é todo feito dos mais variados e deliciosos tipos de chocolate as\n\
+teclas brancas foram feitas de barras de chocolate branco, e as teclas\n\
+pretas, de pedaços de diamante negro. os botões da parte superior, foram\n\
+simbolizados com sonho de valsa, bis, cokies, confetes, prestígio, e\n\
+pequenas trufas. e no meio, representando uma partitura colocada sobre o\n\
+teclado, uma vela em formato de clave com o número 21, emite fleches de\n\
+luz, refletindo no ar a seguinte frase em letras douradas: Feliz aniversário\n\
+júnior! a galera fantastic ama você! !"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "Não toque no bolo com as mãos"
+const eveste = 1 # Eventos item: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "cortar bolo"
+    ret !arg0.dentro1.objini("i_festa014"), arg0.msg("Você precisa de uma faca para cortar o \
+bolo.")
+    refvar f = criar("i_festa013", arg0, 1)
+    $mens.p(arg0, nulo, este)
+    $mens.mvis1("$P pega uma faca e corta um pedaço $d $o.")
+    ret 1
+  fimse
+
+
+classe i_festa013
+herda comum_itemgrupo
+const nome = "fatia do bolo"
+const descnome = "Uma fatia do bolo de aniversário"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_sede = 48
+const f_diges = 120
+const f_msgperso = "$P saboreia prazerosamente uma fatia de um deliciosíssimo bolo de aniversário\
+, dando um doce sorriso de satisfação!"
+
+
+classe i_festa014
+herda comum_itemgrupo
+const nome = "faca"
+const descnome = "uma faca"
+const descpos = "Uma faca está jogada no chão."
+const volobj = 10
+
+
+classe i_festa015
+herda comum_itemperso
+const nome = "bolo de aniversário"
+const ident = "bolo"
+const descnome = "um enorme bolo de morango nas cores branca e rosa."
+const descpos = "Um enorme bolo de morango nas cores rosa e branca está sobre a mesa."
+const descver = "Esse belo bolo possui o formato circular, nas cores branca e rosa,\n\
+possuindo diversos bombons representados por vários tipos de flores, como\n\
+lírios, rosas, violetas, margaridas, além de vários moranguinhos que se unem\n\
+formando a seguinte frase com a cobertura de chantili: Feliz aniversário,\nBarbie!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "não pegue o bolo com as mãos nuas!"
+const eveste = 1 # Eventos item: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_mudadono
+  se dono.s_sala
+    listaobj l
+    epara l.addfim(dono.dentro2), l, l.ini.remove
+      l.objini.perso && misc:evento(l.objini)
+    efim
+  senao dono.item
+    se dono.dono.s_sala
+      listaobj l
+      epara l.addfim(dono.dono.dentro2), l, l.ini.remove
+        l.objini.perso && misc:evento(l.objini)
+      efim
+    fimse
+  fimse
+
+func cmd_escr
+  se arg1 == "cortar bolo"
+    ret !arg0.dentro1.objini("i_festa014"), arg0.msg("Você precisa de uma faca para cortar o \
+bolo.")
+    ref prato
+    se arg0.dentro1.objini("i_festa026")
+      prato = arg0.dentro1.objini("i_festa026")
+    senao
+      prato = criar("i_festa026", arg0)
+    fimse
+    refvar f = criar("i_festa013", prato, 1)
+    $mens.p(arg0, nulo, este)
+    $mens.mvis1("$P se serve com um pedaço $d $o em um pratinho descartável.")
+    ret 1
+  fimse
+
+
+classe i_festa016
+herda comum_itemgrupo
+const nome = "canudinho de chocolate"
+const descnome = "um canudinho de chocolate"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_sede = 48
+const f_msgperso = "$P devora um canudinho de chocolate em algumas dentadas!"
+const valor = 200
+
+
+classe i_festa017
+herda comum_itemgrupo
+const nome = "copinho de chocolate"
+const descnome = "um copinho de chocolate"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_sede = 48
+const f_diges = 120
+const f_msgperso = "$P delicia-se ao comer todo o chocolate do copinho, sujando os lábios com o \
+recheio!"
+const valor = 500
+
+
+classe i_festa018
+herda comum_itemgrupo
+const nome = "chapéu de aniversário"
+const descnome = "um chapéu de aniversário"
+const vestir1 = 4 # Aonde vestir: 2-Na cabeça
+
+
+classe i_festa019
+herda comum_itemperso
+const nome = "caixa de fogos"
+const descnome = "uma caixa de fogos de artifício"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "não pode pegar a caixa."
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_festa020
+herda comum_item
+const nome = "bolo de aniversário"
+const descnome = "Um magnífico bolo de 3 andares"
+const descpos = "um gigantesco e magnífico bolo de 3 andares, foi colocado sobre a mesa"
+const descver = "Você pode notar que o primeiro andar do bolo é todo feito com \"Nega maluca e \
+pedaços de chocolate\".\n\
+No segundo andar, é feito com beijinhos, e coco ralado.\n\
+No terceiro andar, além dele ser feito de napolitano com morango, em cima você pode notar uma \
+foto de Luara e Hitler, banhando-se em uma lindíssima cachoeira.\n\
+O bolo é todo confeitado com glassê, , formando desenhos de vários corações coloridos.\n\
+Na circunferência da bandeja, está escrito:\n\
+Parabéns ao casal,\n\
+Luara\n\
+E\n\
+Hitler!\n\
+De Boneca e Júnior."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "cortar bolo"
+    ret !arg0.dentro1.objini("i_festa014"), arg0.msg("Você precisa de uma faca para cortar o \
+bolo.")
+    refvar f = criar("i_festa013", arg0, 1)
+    $mens.p(arg0, nulo, este)
+    $mens.mvis1("$P pega uma faca e corta um pedaço $d $o.")
+    ret 1
+  fimse
+
+
+classe i_festa021
+herda comum_itemperso
+const nome = "pacote de coxinhas"
+const ident = "pacote coxinhas"
+const descnome = "um pacote de coxinhas"
+const f_tipo = 0 # Tipo: 0 Nenhum
+const i_itens = "festa001"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const objmax = 100
+const pesoobj = 5000
+const valor = 20000
+const volobj = 5000
+const eveste = 1 # Eventos item: Sim
+const descloja = "um pacote contendo 100 coxinhas"
+#
+
+func cmd_ini
+  criar("i_festa001", este, 100)
+#
+
+func cmd_pegouobj
+  se arg1 == este && dentro1.total(arg2) == 0
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos1("Por já não ter mais utilidade, $P descarta o pacote vazio em uma lixeira.")
+    apagar(este)
+  fimse
+
+
+classe i_festa022
+herda comum_itemperso
+const nome = "pacote de pasteis"
+const ident = "pacote pasteis"
+const descnome = "um pacote de pasteis"
+const f_tipo = 0 # Tipo: 0 Nenhum
+const i_itens = "festa001\nfesta002"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const i_msgabriu = "$P rasga o pacote de pasteis."
+const i_msgfechou = "$P dá um nó no pacote de pasteis."
+const objmax = 100
+const pesoobj = 5000
+const valor = 20000
+const volobj = 5000
+const eveste = 1 # Eventos item: Sim
+const descloja = "um pacote contendo 100 pasteis"
+#
+
+func cmd_ini
+  criar("i_festa002", este, 100)
+#
+
+func cmd_pegouobj
+  se arg1 == este && dentro1.total(arg2) == 0
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos1("Por já não ter mais utilidade, $P descarta o pacote vazio em uma lixeira.")
+    apagar(este)
+  fimse
+
+
+classe i_festa023
+herda comum_itemperso
+const nome = "pacote de empadinhas"
+const ident = "pacote empadinhas"
+const descnome = "um pacote de empadinhas"
+const f_tipo = 0 # Tipo: 0 Nenhum
+const i_itens = "festa004"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const objmax = 100
+const pesoobj = 5000
+const valor = 20000
+const volobj = 5000
+const eveste = 1 # Eventos item: Sim
+const descloja = "um pacote contendo 100 empadinhas"
+#
+
+func cmd_ini
+  criar("i_festa004", este, 100)
+#
+
+func cmd_pegouobj
+  se arg1 == este && dentro1.total(arg2) == 0
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos1("Por já não ter mais utilidade, $P descarta o pacote vazio em uma lixeira.")
+    apagar(este)
+  fimse
+
+
+classe i_festa024
+herda comum_itemperso
+const nome = "pacote de quibes"
+const ident = "pacote quibes"
+const descnome = "um pacote de quibes"
+const f_tipo = 0 # Tipo: 0 Nenhum
+const i_itens = "festa005"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const objmax = 100
+const pesoobj = 5000
+const valor = 20000
+const volobj = 5000
+const eveste = 1 # Eventos item: Sim
+const descloja = "um pacote contendo 100 quibes"
+#
+
+func cmd_ini
+  criar("i_festa005", este, 100)
+#
+
+func cmd_pegouobj
+  se arg1 == este && dentro1.total(arg2) == 0
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos1("Por já não ter mais utilidade, $P descarta o pacote vazio em uma lixeira.")
+    apagar(este)
+  fimse
+
+
+classe i_festa025
+herda comum_itemgrupo
+
+
+classe i_festa026
+herda comum_itemperso
+const nome = "pratinho descartável"
+const ident = "prato pratinho descartável"
+const descnome = "um pratinho descartável"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 30
+const f_sede = 20
+const f_diges = 200
+const f_msgperso = "$P pega a fatia do bolo de aniversário do prato com um garfo e a devora com \
+muita satisfação!"
+const i_abertoini = 1 # Container: 1 Sempre aberto
+
+
+classe i_festa050
+herda comum_itemperso
+const nome = "bolo de casamento"
+const descnome = "um belo bolo de casamento na forma de um morcego"
+const descpos = "Sobre a mesa, um magnífico bolo na forma de um morcego enche os olhos de todos \
+que o veem."
+const descver = "O bolo é feito de chocolate, representando um magnífico morcego.\n\
+Na sua cobertura, você vê vários morangos cobertos de creme de leite, e uma camada de coco \
+granulado, que te deixa com água na boca só de olhar.\n\
+Olhando com atenção, você nota que os morangos do recheio formam a seguinte mensagem na cobertura\
+:\n\
+Hermione e Lenin, amor para sempre!"
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_pegarobj
+  se arg2 == este
+    se !arg0.dentrocasa && !dono.item
+      ret arg0.msg("Não toque no bolo com as mãos nuas.")
+    fimse
+#
+#
+
+func cmd_soltouobj
+  se arg1.item
+    arg1.m_atribs1 = descpos
+  fimse
+
+
+classe i_rio900
+herda comum_itemperso
+const nome = "um bolo de aniversário em forma d guitarra"
+const descnome = "um magnífico bolo de aniversário em forma de guitarra, feito de floresta \
+negra, as cordas de glacê de leite condensado e botões de cerejas"
+const descver = "um magnífico bolo de aniversário em forma de guitarra feito de floresta negra, \
+cordas de glacê de leite condençado e cerejas como botões."
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_mudadono
+  misc:evento(dono.dentro2.objlista)
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "cortar bolo"
+    ret !arg0.dentro1.objini("i_festa014"), arg0.msg("Você precisa de uma faca.")
+    refvar i = criar("i_festa014", arg0, 1)
+    ret 1
+  fimse
+
+
+classe s_festa001
+herda b_festa
+const s_titulo = "que festança!"

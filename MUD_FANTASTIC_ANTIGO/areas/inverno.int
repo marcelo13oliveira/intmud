@@ -1,0 +1,68 @@
+classe e_montanha
+herda comum_efeito
+const desc = "Parte da área montanha"
+const maximo = 1
+const r_tempo = 3600
+const tempo1 = 36000
+const evperso = 1 # Eventos perso: Sim
+
+func cmd_moveu
+  se arg0.dono.s_terreno != 6
+    apagar(este)
+  senao
+  fimse
+
+func cmd_reduz
+  ret arg0.dentro2.objini("e_voar")
+  refvar hp = rand(-1, -20000)
+  refvar msg = txtsublin(f, rand(intsublin(f)), 1)
+  arg0.msg("" + msg + ", " + hp + ".")
+  arg0.pvida += hp
+  ret arg0.pvida == 0, arg0.morreu
+
+const f = "a terra treme furiosamente"
+
+
+classe i_inverno025
+herda comum_item
+const nome = "Uma taça gigante de sorvete de chocolate"
+const ident = "taça sorvete chocolate gigante"
+const descnome = "Uma taça gigante de sorvete de chocolate"
+const descpos = "Uma grande taça de sorvete de chocolate foi servida aqui, ainda no ponto!"
+const f_fome = 50
+const valor = 20000
+const eveste = 0 # Eventos item: Não
+const evperso = 1 # Eventos dono perso: Sim
+sav uint32 sorvete
+
+func cmd_ini
+  sorvete = 30
+
+func cmd_escr
+  se arg1 == "var"
+    arg0.msg("" + sorvete + "")
+    ret 1
+  fimse
+  se arg1 == "comer sorvete"
+    se arg0.p_fome > 247
+      arg0.msg("Você não aguenta comer mais nada.")
+      ret 1
+    senao
+      se sorvete < 2
+        $mens.p(arg0), $mens.mtodos1("$P come o resto de sorvete da taça.")
+        arg0.p_sede += 75
+        arg0.p_fome += 20
+        apagar(este)
+        ret 1
+      senao
+        se arg0.p_fome > 247
+          arg0.msg("Você não aguenta comer mais nada.")
+          ret 1
+        senao
+          $mens.p(arg0), $mens.mtodos1("$P come sorvete de chocolate da taça.")
+          sorvete -= 1
+          arg0.p_fome += 20
+          arg0.p_sede += 75
+        fimse
+        ret 1
+      fimse

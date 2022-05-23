@@ -1,0 +1,141 @@
+classe cmd_kdir
+herda comando_comum
+#
+const txtajuda = "\b\c3Kdir\b\n\
+Sintaxe: Kdir <direção>\n\
+Dentro de sua barraca, cria uma sala na direção especificada."
+#
+
+func escr
+  refvar item = arg0.dono.dono
+  ret txt(item) != "i_moveis051", arg0.msg("Você não está em uma barraca.")
+  ret item.var.z_dono != arg0.descnome, arg0.msg("Você não está em sua barraca.")
+  se !arg1
+    arg0.msg("Digite a direção após kdir.")
+  senao
+    txt2 sai2
+    refvar sai1 = arg1
+    se sai1 == "n"
+      sai2 = "s"
+    senao sai1 == "s"
+      sai2 = "n"
+    senao sai1 == "l"
+      sai2 = "o"
+    senao sai1 == "o"
+      sai2 = "l"
+    senao sai1 == "c"
+      sai2 = "b"
+    senao sai1 == "b"
+      sai2 = "c"
+    senao sai1 == "ne"
+      sai2 = "so"
+    senao sai1 == "no"
+      sai2 = "se"
+    senao sai1 == "se"
+      sai2 = "no"
+    senao sai1 == "so"
+      sai2 = "ne"
+    senao
+      ret arg0.msg("Impossível criar saída para essa direção.")
+    fimse
+    refvar salaesta = arg0.dono
+    se !item.dentro2.objini("s_moveis003")
+      refvar s = criar("s_moveis003", item)
+      arg0.dono.var.z_[sai1] = s
+      s.var.z_[sai2] = arg0.dono
+      ret arg0.msg("Criada.")
+    senao !item.dentro2.objini("s_moveis101")
+      refvar s = criar("s_moveis101", item)
+      arg0.dono.var.z_[sai1] = s
+      s.var.z_[sai2] = arg0.dono
+      ret arg0.msg("Criada.")
+    senao !item.dentro2.objini("s_moveis102")
+      refvar s = criar("s_moveis102", item)
+      arg0.dono.var.z_[sai1] = s
+      s.var.z_[sai2] = arg0.dono
+    senao !item.dentro2.objini("s_moveis103")
+      refvar s = criar("s_moveis103", item)
+      arg0.dono.var.z_[sai1] = s
+      s.var.z_[sai2] = arg0.dono
+    senao !item.dentro2.objini("s_moveis104")
+      refvar s = criar("s_moveis104", item)
+      arg0.dono.var.z_[sai1] = s
+      s.var.z_[sai2] = arg0.dono
+    senao !item.dentro2.objini("s_moveis105")
+      refvar s = criar("s_moveis105", item)
+      arg0.dono.var.z_[sai1] = s
+      s.var.z_[sai2] = salaesta
+    senao !item.dentro2.objini("s_moveis106")
+      refvar s = criar("s_moveis106", item)
+      arg0.dono.var.z_[sai1] = s
+      s.var.z_[sai2] = salaesta
+    senao !item.dentro2.objini("s_moveis107")
+      refvar s = criar("s_moveis107", item)
+      arg0.dono.var.z_[sai1] = s
+      s.var.z_[sai2] = salaesta
+    senao !item.dentro2.objini("s_moveis108")
+      refvar s = criar("s_moveis108", item)
+      arg0.dono.var.z_[sai1] = s
+      s.var.z_[sai2] = salaesta
+    senao !item.dentro2.objini("s_moveis109")
+      refvar s = criar("s_moveis109", item)
+      arg0.dono.var.z_[sai1] = s
+      s.var.z_[sai2] = salaesta
+    senao !item.dentro2.objini("s_moveis110")
+      refvar s = criar("s_moveis110", item)
+      arg0.dono.var.z_[sai1] = s
+      s.var.z_[sai2] = salaesta
+    senao !item.dentro2.objini("s_moveis111")
+      refvar s = criar("s_moveis111", item)
+      arg0.dono.var.z_[sai1] = s
+      s.var.z_[sai2] = salaesta
+    senao !item.dentro2.objini("s_moveis112")
+      refvar s = criar("s_moveis112", item)
+      arg0.dono.var.z_[sai1] = s
+      s.var.z_[sai2] = salaesta
+    senao !item.dentro2.objini("s_moveis113")
+      refvar s = criar("s_moveis113", item)
+      arg0.dono.var.z_[sai1] = s
+      s.var.z_[sai2] = salaesta
+    senao !item.dentro2.objini("s_moveis114")
+      refvar s = criar("s_moveis114", item)
+      arg0.dono.var.z_[sai1] = s
+      s.var.z_[sai2] = salaesta
+    senao
+      ret arg0.msg("Não há mais espaço na barraca.")
+    fimse
+    arg0.msg("Criada.")
+  fimse
+
+
+classe cmd_adir
+herda comando_comum
+#
+const txtajuda = "\b\c3adir\b\n\
+sintaxe: adir <direção>\n\
+Apaga uma sala na direção especificada, dentro de sua barraca."
+#
+
+func escr
+  refvar item = arg0.dono.dono
+  ret txt(item) != "i_moveis051", arg0.msg("Você não está dentro de uma barraca.")
+  ret arg0.descnome != item.var.z_dono, arg0.msg("Você não está dentro de sua barraca.")
+  se !arg1
+    arg0.msg("Digite a saída a apagar, após adir.")
+  senao
+    ret !arg0.dono.var.z_[arg1], arg0.msg("Não há sala nessa direção.")
+    ret arg0.dono.var.z_[arg1] == "s_moveis003", arg0.msg("Não é possível apagar a sala principal\
+ da barraca.")
+    refvar saladest = item.dentro2.objini(arg0.dono.var.z_[arg1])
+    ret saladest.dentro2, arg0.msg("Ainda há pessoas na sala.")
+    ret saladest.dentro1, arg0.msg("Ainda há itens na sala.")
+    se saladest.var.z_titulo
+      ret saladest.var.total("z_") >= 3, arg0.msg("Não dá, há mais salas após essa.")
+    senao
+      ret saladest.var.total("z_") >= 2, arg0.msg("Não dá, há mais salas após essa.")
+    fimse
+    apagar(item.dentro2.objini(arg0.dono.var.z_[arg1]))
+    arg0.dono.var.z_[arg1] = ""
+    arg0.msg("Saída apagada: " + arg1)
+    ret 1
+  fimse

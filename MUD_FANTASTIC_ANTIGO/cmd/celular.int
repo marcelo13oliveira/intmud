@@ -1,0 +1,155 @@
+classe cmd_ligar
+herda comando_comum
+#
+const posic = 5
+const txtajuda = "\b\c3LIGAR\b\n\
+Sintaxe: ligar <nome do jogador>\n\
+Liga para um jogador via celular."
+#
+
+func escr
+  se !arg1
+    ret arg0.var.j_ligar_, arg0.msg("Já uma chamada sendo realizada.")
+    ret arg0.var.j_ligacao_, arg0.msg("Você já está em uma ligação.")
+    arg0.msg("Digite o nome do jogador para quem deseja ligar.")
+  senao
+    ret arg0.descnome == arg1, arg0.msg("Mas ligar para você mesmo?")
+    ret arg0.var.j_ligacao_, arg0.msg("Você já está em uma ligação.")
+    se arg0.var.j_ligar
+      ref j
+      refvar nomesav = txts(txtnome(arg0.var.z_jogligar))
+      indiceitem item
+      item.ini("pn " + nomesav)
+      j = item.obj
+      arg0.var.z_jogligar = ""
+      j.var.z_jogatender = ""
+    fimse
+    se arg0.var.j_atender_
+      arg0.msg("Você precisa antes recusar a ligação de " + arg0.var.z_jogatender + ".")
+      ret 1
+    fimse
+    ref p
+    refvar nomesav = txts(txtnome(arg1))
+    indiceitem item
+    item.ini("pn " + nomesav)
+    p = item.obj
+    listaobj d
+    epara d.addfim(p.dentro1), d, d.ini.remove
+      se d.objini.i_celular
+        sair d
+      fimse
+    efim
+    ret !d, arg0.msg(p.descnome + " não está disponível para chamadas.")
+    listaobj c
+    epara c.addfim(arg0.dentro1), c, c.ini.remove
+      se c.objini.i_celular
+        sair c
+      fimse
+    efim
+    ret !c, arg0.msg("Você precisa de um celular.")
+    se p.var.j_ligacao_ || p.var.j_atender_ || p.var.j_ligar_
+      ret arg0.msg(arg1 + " encontra-se ocupad" + (p.msexo ? "o" : "a") + " no momento.")
+    fimse
+    arg0.var.j_ligar_ = 1
+    p.var.j_atender_ = 1
+    arg0.var.z_jogligar = p.descnome
+    criar("e_chamando", p)
+    p.var.z_jogatender = arg0.descnome
+    $mens.p(arg0, p)
+    refvar l1 = "$P disca alguns números em seu celular, ligando para $A."
+    refvar l2 = "$P disca alguns números em seu celular, ligando para alguém."
+    $mens.mvis2("\d=discando " + l1, "\d=discando " + l2)
+    p.msg("Seu celular começa a tocar...")
+    p.msg("Ligação de: " + arg0.descnome + ". Tecle atender para aceitar a ligação ou recusar \
+para recusar!")
+  fimse
+
+
+classe cmd_atender
+herda comando_comum
+#
+const posic = 5
+#
+
+func escr
+  ret !arg0.var.j_atender, arg0.msg("Ninguém para atender no momento.")
+  ref p
+  refvar nomesav = txts(txtnome(arg0.var.z_jogatender))
+  indiceitem item
+  item.ini("pn " + nomesav)
+  p = item.obj
+  ret !p, arg0.msg(arg0.j_jogatender + " não está disponível para receber ligações no momento.")
+  arg0.var.j_ligacao_ = 1
+  p.var.j_ligacao_ = 1
+  arg0.var.j_atender_ = 0
+  arg0.var.j_ligar_ = 0
+  p.var.j_atender_ = 0
+  p.var.j_ligar_ = 0
+  arg0.var.z_jogligacao = p.descnome
+  p.var.z_jogligacao = arg0.descnome
+  apagar(arg0.dentro2.objini("e_chamando"))
+  p.msg(arg0.descnome + " atendeu sua ligação! Digite cel e a mensagem para se comunicarem.")
+  arg0.msg("Ligação atendida. Digite cel e a mensagem para se comunicarem.")
+
+
+classe cmd_recusar
+herda comando_comum
+#
+const posic = 5
+#
+
+func escr
+  ret !arg0.var.j_atender, arg0.msg("Não há ligações para serem recusadas.")
+  ref p
+  refvar nomesav = txts(txtnome(arg0.var.z_jogatender))
+  indiceitem item
+  item.ini("pn " + nomesav)
+  p = item.obj
+  arg0.msg("Você recusa a ligação de " + arg0.var.z_jogatender + ".")
+  arg0.var.j_atender_ = 0
+  apagar(arg0.dentro2.objini("e_chamando"))
+  p.msg(arg0.descnome + " recusou sua ligação.")
+  p.var.j_ligar_ = 0
+
+
+classe cmd_desligar
+herda comando_comum
+#
+const posic = 5
+#
+
+func escr
+  ret !arg0.var.j_ligacao, arg0.msg("Mas você não está em nenhuma ligação...")
+  ref p
+  refvar nomesav = txts(txtnome(arg0.var.z_jogligacao))
+  indiceitem item
+  item.ini("pn " + nomesav)
+  p = item.obj
+  arg0.msg("Você encerra a ligação com " + arg0.var.z_jogligacao + ".")
+  arg0.var.z_jogligacao = ""
+  arg0.var.j_ligacao_ = 0
+  p.msg("\d=desligatel " + arg0.descnome + " encerrou a ligação com você.")
+  p.var.z_jogligacao = ""
+  p.var.j_ligacao_ = 0
+
+
+classe cmd_cell
+herda comando_comum
+#
+const posic = 5
+#
+
+func escr
+  se !arg1
+    arg0.msg("Digite a mensagem após cell.")
+  senao
+    ret !arg0.var.j_ligacao, arg0.msg("Você não está em nenhuma ligação.")
+    ref p
+    refvar nomesav = txts(txtnome(arg0.var.z_jogligacao))
+    indiceitem item
+    item.ini("pn " + nomesav)
+    p = item.obj
+    ret !p, arg0.msg(arg0.var.z_jogligacao + " não está disponível para receber mensagem.")
+    arg0.msg("Você fala via celular com " + arg0.var.z_jogligacao + ": " + arg1)
+    p.msg(arg0.descnome + " fala via celular com você: " + arg1)
+  fimse

@@ -1,0 +1,199 @@
+classe a_kate
+herda area
+
+
+classe b_kate
+herda sala
+const s_area = "kate"
+
+
+classe i_kate001
+herda comum_item
+const nome = "Um delicado vestido de seda lilás"
+const ident = "delicado vestido lilás seda"
+const descnome = "Um delicado vestido de seda lilás"
+const vestir1 = 4096 # Aonde vestir: 12-no corpo
+
+
+classe i_kate002
+herda comum_item
+const nome = "Uma linda sandália dourada de salto agulha"
+const ident = "linda sandália dourada agulha"
+const descnome = "Uma linda sandália dourada de salto agulha"
+const vestir1 = 1073741824 # Aonde vestir: 30-nos pés
+
+
+classe i_kate003
+herda comum_item
+const nome = "Um belo brinco de ouro e diamante"
+const ident = "belo brinco ouro diamante"
+const descnome = "Um belo brinco de ouro e diamante"
+const vestir1 = 384 # Aonde vestir: 7-na orelha direita, 8-na orelha esquerda
+
+
+classe i_kate004
+herda comum_item
+const nome = "Uma delicada tiara de ouro branco incrustada com ametistas"
+const ident = "delicada tiara ouro branco ametista"
+const descnome = "Uma delicada tiara de ouro branco incrustada com ametistas"
+const vestir1 = 4 # Aonde vestir: 2-Na cabeça
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv &= ~2
+  bitver |= 6974
+  bitinv |= 48
+
+
+classe i_kate005
+herda comum_itemgrupo
+
+
+classe i_kate006
+herda comum_item
+const nome = "folheto"
+const ident = "folheto"
+const descnome = "Um folheto"
+const descpos = "Um folheto foi posto aqui"
+const descver = "Olhando com bastante atenção, você pode ler as seguintes palavras:\n\
+O uso de títulos que qualificam um jogador como uma espécie de deus, ou deusa, está terminantemen\
+te proibido.\n\
+Esse tipo de título, estáva causando confusão, deixando algums jogadores sem entender quem era \
+deus e quem não era.\n\
+Portanto, para que isso não volte a acontecer, medidas foram tomadas."
+
+
+classe i_kate007
+herda comum_item
+const nome = "Um belo espelho com moldura em ouro"
+const ident = "espelho moldura ouro"
+const descnome = "Um belo espelho com moldura em ouro"
+const descpos = "um belo espelho reluzente com moldura em ouro está fixado na parede."
+const descver = "Nele você admira seu reflexo"
+const i_pegar = "Isso está fixado a parede."
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_kate008
+herda comum_item
+const nome = "Uma pia de mármore branco"
+const ident = "pia mármore branco"
+const descnome = "Uma pia de mármore branco"
+const descpos = "Uma pia de mármore branco está na parede à sua frente, com um frasco de \
+sabonete líquido sobre si."
+const i_pegar = "Isso está fixo a parede"
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evperso = 0 # Eventos dono perso: Não
+const evitem = 0 # Eventos dono item: Não
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_chegou
+  misc:evento(arg0)
+
+func cmd_escr
+  se arg1 == "lavar mãos"
+    $mens.p(arg0)
+    $mens.mvis1("$P lava as mãos em uma pia com um sabonete líquido.")
+    ret 1
+  fimse
+
+
+classe i_kate009
+herda comum_itemperso
+const nome = "Um baú dourado"
+const ident = "baú dourado"
+const descnome = "Um baú dourado"
+const descpos = "Um imenso baú dourado foi colocado no canto do armazém."
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const i_tranc = 1 # Trancar: 1 Pode ser trancado
+const i_fechadura = "trèschic"
+const i_comechave = 0 # Come chave: Não
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 1000000
+
+
+classe i_kate010
+herda comum_item
+const nome = "Uma fina chave dourada"
+const ident = "chave fina dourada"
+const descnome = "Uma fina chave dourada"
+const descpos = "Uma bela chave dourada foi esquecida aqui."
+const i_chave = "trèschic"
+
+
+classe i_kate011
+herda comum_item
+const nome = "Uma brilhante chave prateada"
+const ident = "brilhante chave prateada"
+const descnome = "Uma brilhante chave prateada"
+const descpos = "Uma relusente chave prateada foi esquecida aqui."
+const i_chave = "saratrèschic"
+
+
+classe i_kate012
+herda comum_item
+const nome = "Um perfume"
+const ident = "perfume frasco cristal"
+const descnome = "Um belo frasco de perfume feito de cristal"
+const descpos = "Um belo frasco de perfume feito de cristal foi esquecido por alguém aqui."
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 0 # Eventos dono item: Não
+
+func cmd_escr
+  se arg1 == "passar perfume"
+    $mens.p(arg0)
+    $mens.mvis1("$P passa um pouco de perfume no corpo")
+    criar("e_perfume", arg0)
+    ret 1
+  fimse
+
+
+classe i_kate013
+herda comum_item
+const nome = "Uma bonita camiseta do São Paulo"
+const ident = "camiseta são paulo bonita"
+const descnome = "Uma bonita camiseta do São Paulo"
+const descpos = "Uma bonita camiseta do São paulo foi perdida aqui por algum torcedor."
+const nivel = 0
+const renascer = 155
+const vestir1 = 4096 # Aonde vestir: 12-no corpo
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 4352
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1 * pnivel + 1500
+  pmanamax += 1 * pnivel + 1500
+  precisao += 100
+
+
+classe i_kate014
+herda comum_item
+const tipoitem = 2 # Tipo de item: 1-arma
+
+
+classe p_kate001
+herda comum_perso
+const nome = "Sara"
+const ident = "Sara moça linda chave"
+const descnome = "Sara"
+const descpadr = "Sara está aqui vendendo chave do estabelecimento très chic para os novos \
+empregados"
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const tipo1 = "vampira"
+const tipo2 = "Maga"
+const lojaitem = "carmichael004 0"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv &= ~2
+  bitver |= 2110
+
+
+classe s_kate001
+herda b_kate

@@ -1,0 +1,720 @@
+classe a_montanha
+herda area
+const a_nome = "Montanha dos Yocais"
+const a_autor = "rock"
+const a_tempo = 20
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_txtreset = "barulhos são ouvidos ao longe."
+
+
+classe b_montanha
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_recup = 1
+const s_area = "montanha"
+
+
+classe i_montanha001
+herda comum_itemgrupo
+const nome = "Um pesado tacape"
+const ident = "um pesado tacape"
+const descnome = "um pesado tacape"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 210
+const armamax = 230
+const armamin = 180
+const armafalha = 10
+const armatipo = 5 # Tipo de arma: 5 Maca e Martelo
+
+
+classe p_montanha001
+herda comum_persobat
+const nome = "alpinista"
+const descnome = "um alpinista"
+const descpadr = "Um experiente alpinista está escalando a montanha, parecendo bastante cansado."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 190
+const p_atk_anda = 1 # Anda ataque: Sim
+const p_exp = 5000
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50 * pnivel + 30000
+  atknorm += 10000
+  defnorm += 20000
+  defesp += 20000
+
+
+classe p_montanha002
+herda comum_persobat
+const nome = "Iokay sapo"
+const ident = "iokay gigante sapo"
+const descnome = "um Iokay sapo"
+const descpadr = "Um gigantesco Iokay com aparência de um sapo está aqui!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 200
+const p_exp = 5000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 280
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 25 * pnivel + 30000
+  atknorm += 9000
+  defnorm += 18000
+  defesp += 20000
+
+
+classe p_montanha003
+herda comum_persobat
+const nome = "exterminadora"
+const ident = "jovem moça exterminadora sangô"
+const descnome = "Sangô, a exterminadora de Yocais"
+const descpadr = "Uma jovem exterminadora de yokais protege o vilarejo das criaturas monstruosas \
+que tentam invadí-lo."
+const nivel = 300
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_atktipo = "osso voador"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 4200
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 200
+const inivar = "h_osso_voador=8"
+
+
+classe p_montanha004
+herda comum_persobat
+const nome = "ciclope"
+const ident = "ciclope gigante"
+const descnome = "um gigantesco ciclope"
+const descpadr = "Um gigantesco monstro de um olho só rodeia o território, destruindo tudo que \
+há pela frente"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 300
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 4959
+const p_mover = 2 # Movimentar: 2 Qualquer lugar
+const p_movervel = 300
+const inivar = "h_socar=8,h_chutar=8"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  deftipo.0 *= 2 # Tipos Normais
+  deftipo.1 *= 1.5 # Tipos Especiais
+
+
+classe p_montanha005
+herda comum_persobat
+const nome = "ciclope soldado"
+const descnome = "Um ciclope soldado"
+const descpadr = "Um forte ciclope soldado anda armado pelo território."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 320
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 5000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 300
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  deftipo.0 *= 0.9 # Tipos Normais
+  deftipo.1 *= 0.95 # Tipos Especiais
+
+
+classe p_montanha006
+herda comum_persobat
+const nome = "jacaré"
+const ident = "enorme jacaré"
+const descnome = "um enorme jacaré"
+const descpadr = "Um enorme jacaré está nadando aqui no riacho"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 350
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 5000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 300
+const inivar = "h_morder=6,h_arranhar=6,z_moedas=150000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30000
+  atknorm += 7000
+  defnorm += 17600
+  defesp += 16750
+
+
+classe s_montanha001
+herda b_montanha
+const s_titulo = "Montanha a vista"
+const s_som = "yokai"
+const dir_n = $s_montanha002
+const dir_s = $s_rioleste024
+
+
+classe s_montanha002
+herda b_montanha
+const s_titulo = "Na base de uma montanha"
+const dir_n = $s_montanha053
+const dir_s = $s_montanha001
+const dir_c = $s_montanha003
+
+
+classe s_montanha003
+herda b_montanha
+const s_titulo = "Subindo a montanha."
+const dir_c = $s_montanha004
+const dir_b = $s_montanha002
+const a_reset = "P 100 montanha001 190 195 4 h_socar=4,h_chutar=4,h_voadora=3,z_moedas=10000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_montanha001:objsolto.total < 4
+    criar("p_montanha001", este, rand(190, 195), "h_socar=4,h_chutar=4,h_voadora=3,z_moedas=10000\
+")
+  fimse
+
+
+classe s_montanha004
+herda b_montanha
+const s_titulo = "Subindo a montanha."
+const dir_c = $s_montanha005
+const dir_b = $s_montanha003
+const a_reset = "P 100 montanha001 190 195 4 h_socar=4,h_chutar=4,h_voadora=3,z_moedas=10000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_montanha001:objsolto.total < 4
+    criar("p_montanha001", este, rand(190, 195), "h_socar=4,h_chutar=4,h_voadora=3,z_moedas=10000\
+")
+  fimse
+
+
+classe s_montanha005
+herda b_montanha
+const s_titulo = "Continuando a subir"
+const dir_c = $s_montanha006
+const dir_b = $s_montanha004
+
+
+classe s_montanha006
+herda b_montanha
+const s_titulo = "Quase no topo da montanha."
+const s_desc = "Ao chegar aqui, você sente-se muito cansado por toda a escalada.\n\
+Você sente-se um pouco aliviado ao olhar para cima e ver que está próximo de atingir o seu \
+destino,\n\
+mas se sente temeroso ao olhar para baixo e ver que está muito distante do chão."
+const dir_c = $s_montanha007
+const dir_b = $s_montanha005
+
+
+classe s_montanha007
+herda b_montanha
+const s_titulo = "No topo da montanha"
+const s_pnj = 0
+const s_som = "yokai"
+const dir_n = $s_montanha008
+const dir_l = $s_montanha009
+const dir_b = $s_montanha006
+
+
+classe s_montanha008
+herda b_montanha
+const s_titulo = "Um enorme brejo."
+const s_som = "brejo"
+const dir_n = $s_montanha024
+const dir_s = $s_montanha007
+const dir_l = $s_montanha025
+const dir_o = $s_montanha026
+const a_reset = "P 100 montanha002 0 0 8 h_gas_toxico=6,h_socar=8,h_chutar=8,z_moedas=250000\n\
+P 100 montanha002 0 0 8 h_socar=8,h_chutar=8,h_gas_toxico=6,z_moedas=25000\n\
+P 100 montanha002 0 0 8 h_gas_toxico=6,h_socar=8,h_chutar=8"
+const dir_ = $s_montanha017
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_montanha002:objsolto.total < 8
+    criar("p_montanha002", este, 0, "h_gas_toxico=6,h_socar=8,h_chutar=8,z_moedas=250000")
+  fimse
+  se p_montanha002:objsolto.total < 8
+    criar("p_montanha002", este, 0, "h_socar=8,h_chutar=8,h_gas_toxico=6,z_moedas=25000")
+  fimse
+  se p_montanha002:objsolto.total < 8
+    criar("p_montanha002", este, 0, "h_gas_toxico=6,h_socar=8,h_chutar=8")
+  fimse
+
+
+classe s_montanha009
+herda b_montanha
+const s_titulo = "Uma estrada ao redor da montanha."
+const dir_l = $s_montanha010
+const dir_o = $s_montanha007
+
+
+classe s_montanha010
+herda b_montanha
+const s_titulo = "A estrada ao redor da montanha."
+const dir_l = $s_montanha011
+const dir_o = $s_montanha009
+
+
+classe s_montanha011
+herda b_montanha
+const s_titulo = "Continuação da estrada."
+const dir_n = $s_montanha012
+const dir_l = $s_montanha014
+const dir_o = $s_montanha010
+
+
+classe s_montanha012
+herda b_montanha
+const s_titulo = "Desviando-se da estrada."
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1
+const dir_n = $s_montanha013
+const dir_s = $s_montanha011
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_hora
+
+
+classe s_montanha013
+herda b_montanha
+const s_titulo = "Uma parte perigosa na montanha."
+const dir_n = $s_montanha016
+const dir_s = $s_montanha012
+
+
+classe s_montanha014
+herda b_montanha
+const s_titulo = "Próximo a um vilarejo na montanha."
+const s_pnj = 0
+const dir_l = $s_montanha015
+const dir_o = $s_montanha011
+
+
+classe s_montanha015
+herda b_montanha
+const s_titulo = "Dentro de um pequeno vilarejo na montanha."
+const dir_n = $s_deserto001
+const dir_o = $s_montanha014
+const a_reset = "P 100 montanha003 300 305 1 z_moedas=100000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_montanha003:objsolto.total < 1
+    criar("p_montanha003", este, rand(300, 305), "z_moedas=100000")
+  fimse
+
+
+classe s_montanha016
+herda b_montanha
+const s_titulo = "Adentrando a escuridão da montanha."
+const s_luz = 3 # Luz: 3 Escuro
+const s_pnj = 0
+const dir_s = $s_montanha013
+const dir_l = $s_montanha019
+
+
+classe s_montanha017
+herda b_montanha
+const s_titulo = "Sem saída"
+const dir_l = $s_montanha016
+const dir_ = $s_montanha008
+
+
+classe s_montanha018
+herda b_montanha
+const s_titulo = "território dos ciclopes"
+const dir_n = $s_montanha022
+const dir_s = $s_montanha020
+
+
+classe s_montanha019
+herda b_montanha
+const s_titulo = "Adentrando o território dos ciclopes"
+const dir_l = $s_montanha020
+const dir_o = $s_montanha016
+
+
+classe s_montanha020
+herda b_montanha
+const s_titulo = "Dentro do território dos ciclopes"
+const dir_n = $s_montanha018
+const dir_l = $s_montanha021
+const dir_o = $s_montanha019
+const a_reset = "P 100 montanha004 0 0 5 h_socar=8,h_chutar=8,var.z_moedas=550000\n\
+P 100 montanha004 0 0 5 h_socar=8,h_chutar=8,z_moedas=550000\n\
+P 100 montanha004 0 0 5 h_socar=8,h_chutar=8,z_moedas=550000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_montanha004:objsolto.total < 5
+    criar("p_montanha004", este, 0, "h_socar=8,h_chutar=8,var.z_moedas=550000")
+  fimse
+  se p_montanha004:objsolto.total < 5
+    criar("p_montanha004", este, 0, "h_socar=8,h_chutar=8,z_moedas=550000")
+  fimse
+  se p_montanha004:objsolto.total < 5
+    criar("p_montanha004", este, 0, "h_socar=8,h_chutar=8,z_moedas=550000")
+  fimse
+
+
+classe s_montanha021
+herda b_montanha
+const s_titulo = "Território dos ciclopes"
+const dir_o = $s_montanha020
+
+
+classe s_montanha022
+herda b_montanha
+const s_titulo = "O território dos ciclopes"
+const dir_s = $s_montanha018
+const dir_o = $s_montanha023
+
+
+classe s_montanha023
+herda b_montanha
+const s_titulo = "Uma enorme cabine de soldado"
+const dir_l = $s_montanha022
+const a_reset = "P 100 montanha005 0 0 4 h_maca_e_martelo=6\nE 100 montanha001 1 0 50"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_montanha005:objsolto.total < 4
+    p = u = criar("p_montanha005", este, 0, "h_maca_e_martelo=6")
+  fimse
+  se u
+    r = criar("i_montanha001", u, 1, "50"), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_montanha024
+herda b_montanha
+const s_titulo = "No brejo"
+const dir_s = $s_montanha008
+const dir_l = $s_montanha025
+
+
+classe s_montanha025
+herda b_montanha
+const s_titulo = "No brejo"
+const dir_n = $s_montanha031
+const dir_o = $s_montanha008
+
+
+classe s_montanha026
+herda b_montanha
+const s_titulo = "No brejo"
+const dir_n = $s_montanha027
+const dir_l = $s_montanha008
+
+
+classe s_montanha027
+herda b_montanha
+const s_titulo = "No brejo"
+const dir_n = $s_montanha028
+const dir_s = $s_montanha026
+
+
+classe s_montanha028
+herda b_montanha
+const s_titulo = "No brejo"
+const dir_s = $s_montanha027
+const dir_l = $s_montanha029
+const dir_o = $s_montanha032
+
+
+classe s_montanha029
+herda b_montanha
+const s_titulo = "No brejo"
+const dir_l = $s_montanha030
+const dir_o = $s_montanha028
+
+
+classe s_montanha030
+herda b_montanha
+const s_titulo = "No brejo"
+const dir_s = $s_montanha031
+const dir_o = $s_montanha029
+
+
+classe s_montanha031
+herda b_montanha
+const s_titulo = "No brejo"
+const dir_n = $s_montanha030
+const dir_s = $s_montanha025
+
+
+classe s_montanha032
+herda b_montanha
+const s_titulo = "Saindo do brejo"
+const dir_l = $s_montanha028
+const dir_o = $s_montanha033
+
+
+classe s_montanha033
+herda b_montanha
+const s_titulo = "Um caminho sombrio"
+const dir_l = $s_montanha032
+const dir_o = $s_montanha034
+
+
+classe s_montanha034
+herda b_montanha
+const s_titulo = "Um caminho sombrio"
+const dir_l = $s_montanha033
+const dir_o = $s_montanha035
+
+
+classe s_montanha035
+herda b_montanha
+const s_titulo = "Continuando pelo caminho sombrio"
+const dir_n = $s_montanha036
+const dir_l = $s_montanha034
+
+
+classe s_montanha036
+herda b_montanha
+const s_titulo = "Desviando"
+const dir_n = $s_montanha037
+const dir_s = $s_montanha035
+
+
+classe s_montanha037
+herda b_montanha
+const s_titulo = "Pisando sobre uma superfície lamacenta."
+const dir_n = $s_montanha038
+const dir_s = $s_montanha036
+
+
+classe s_montanha038
+herda b_montanha
+const s_titulo = "Dentro do pântano alagado"
+const dir_s = $s_montanha037
+const dir_l = $s_montanha039
+
+
+classe s_montanha039
+herda b_montanha
+const s_titulo = "O pântano"
+const dir_l = $s_montanha040
+const dir_o = $s_montanha038
+
+
+classe s_montanha040
+herda b_montanha
+const s_titulo = "Pisando em muita lama"
+const dir_l = $s_montanha048
+const dir_o = $s_montanha039
+const dir_b = $s_montanha041
+
+
+classe s_montanha041
+herda b_montanha
+const s_titulo = "Uma parte com mais lama"
+const s_desc = "Ao prosseguir, você percebe que a lama vai aumentando, aqui chegando à altura \
+dos seus joelhos."
+const dir_n = $s_montanha042
+const dir_c = $s_montanha040
+
+
+classe s_montanha042
+herda b_montanha
+const s_titulo = "Uma parte com mais lama"
+const s_desc = "Aqui a lama já chega a altura de sua cintura."
+const dir_s = $s_montanha041
+const dir_l = $s_montanha043
+const dir_b = $s_montanha044
+
+
+classe s_montanha043
+herda b_montanha
+const s_titulo = "Na beira de um lago infestado de jacarés."
+const dir_o = $s_montanha042
+
+
+classe s_montanha044
+herda b_montanha
+const s_titulo = "Se aprofundando na lama do pântano"
+const s_desc = "Você chegou em uma parte bem funda na lama do pântano. Aqui, a lama\n\
+chega a cobrir os seus ombros, deixando-o quase que completamente submerso,\n\
+apenas com a cabeça do lado de fora."
+const dir_l = $s_montanha045
+const dir_o = $s_montanha046
+const dir_c = $s_montanha042
+const dir_b = $s_montanha047
+
+
+classe s_montanha045
+herda b_montanha
+const s_titulo = "Completamente afogado na lama"
+const s_desc = "É... Você foi fundo demais e acabou afogado na lama do pântano. Aqui, é impossíve\
+l respirar e não lhe resta outra opção a não ser esperar pela morte."
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+const dir_o = $s_montanha044
+
+
+classe s_montanha046
+herda b_montanha
+const s_titulo = "Caminhando na lama do pântano"
+const dir_l = $s_montanha044
+
+
+classe s_montanha047
+herda b_montanha
+const s_titulo = "Descendo.."
+const dir_c = $s_montanha044
+
+
+classe s_montanha048
+herda b_montanha
+const s_titulo = "Entrando em um pequeno riacho"
+const s_pnj = 0
+const dir_l = $s_montanha049
+const dir_o = $s_montanha040
+
+
+classe s_montanha049
+herda b_montanha
+const s_titulo = "Dentro do riacho"
+const dir_n = $s_montanha050
+const dir_o = $s_montanha048
+const a_reset = "P 100 montanha006 0 0 8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_montanha006:objsolto.total < 8
+    criar("p_montanha006", este, 0)
+  fimse
+
+
+classe s_montanha050
+herda b_montanha
+const s_titulo = "Dentro do riacho"
+const dir_n = $s_montanha051
+const dir_s = $s_montanha049
+const a_reset = "P 100 montanha006 0 0 8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_montanha006:objsolto.total < 8
+    criar("p_montanha006", este, 0)
+  fimse
+
+
+classe s_montanha051
+herda b_montanha
+const s_titulo = "uma parte mais funda no riacho"
+const dir_n = $s_montanha052
+const dir_s = $s_montanha050
+
+
+classe s_montanha052
+herda b_montanha
+const s_titulo = "Uma parte mais funda no riacho"
+const dir_s = $s_montanha051
+
+
+classe s_montanha053
+herda b_montanha
+const s_titulo = "As montanhas dos yocais"
+const dir_n = $s_montanha054
+const dir_s = $s_montanha002
+
+
+classe s_montanha054
+herda b_montanha
+const s_titulo = "As montanhas dos yocais"
+const dir_n = $s_montanha055
+const dir_s = $s_montanha053
+
+
+classe s_montanha055
+herda b_montanha
+const s_titulo = "As montanhas dos yocais"
+const dir_n = $s_montanha056
+const dir_s = $s_montanha054
+
+
+classe s_montanha056
+herda b_montanha
+const s_titulo = "As montanhas dos yocais"
+const dir_s = $s_montanha055
+const dir_b = $s_montanha057
+
+
+classe s_montanha057
+herda b_montanha
+const s_titulo = "Descendo por um caminho tortuoso:"
+const dir_l = $s_montanha058
+const dir_c = $s_montanha056
+
+
+classe s_montanha058
+herda b_montanha
+const s_titulo = "Descendo por um caminho tortuoso:"
+const dir_l = $s_montanha059
+const dir_o = $s_montanha057
+
+
+classe s_montanha059
+herda b_montanha
+const s_titulo = "Descendo por um caminho tortuoso de baixo das montanhas:"
+const dir_o = $s_montanha058
+const dir_b = $s_montanha060
+
+
+classe s_montanha060
+herda b_montanha
+const s_titulo = "Descendo por um caminho tortuoso de baixo das montanhas:"
+const dir_l = $s_montanha061
+const dir_c = $s_montanha059
+
+
+classe s_montanha061
+herda b_montanha
+const s_titulo = "Descendo por um caminho tortuoso de baixo das montanhas:"
+const dir_s = $s_montanha062
+const dir_o = $s_montanha060
+
+
+classe s_montanha062
+herda b_montanha
+const s_titulo = "Próximo a vila das fadas:"
+const dir_n = $s_montanha061
+const dir_s = $s_montanha063
+
+
+classe s_montanha063
+herda b_montanha
+const s_titulo = "De baixo das montanhas dos yocais:"
+const dir_n = $s_montanha062
+const dir_s = $s_montanha064
+
+
+classe s_montanha064
+herda b_montanha
+const s_titulo = "De baixo das montanhas dos yocais:"
+const dir_n = $s_montanha063
+const dir_s = $s_montanha065
+
+
+classe s_montanha065
+herda b_montanha
+const s_titulo = "De baixo das montanhas dos yocais:"
+const dir_n = $s_montanha064
+const dir_s = $s_montanha066
+
+
+classe s_montanha066
+herda b_montanha
+const s_titulo = "De baixo das montanhas dos yocais:"
+const dir_n = $s_montanha065

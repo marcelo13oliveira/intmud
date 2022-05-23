@@ -1,0 +1,279 @@
+classe a_aeromoveis
+herda area
+const a_nome = "aeromóveis"
+
+
+classe b_aeromoveis
+herda sala
+const s_jog = 5
+const objmax = 30
+const s_area = "aeromoveis"
+
+
+classe i_aeromoveis001
+herda comum_itemperso
+const nome = "Helicóptero"
+const ident = "helicóptero"
+const descnome = "Um helicóptero"
+const descpos = "Um helicóptero está parado aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const armatipo = 9 # Tipo de arma: 9 atirar
+const i_salas = "aeromoveis001"
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const i_msgabriu = "$P abriu a porta $d $a."
+const i_msgfechou = "$P fechou as portas $d $a."
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const i_nomeabertura = "as portas do helicóptero"
+#
+
+func i_aberto
+  ret dentro2.objini("s_aeromoveis001").porta_sair == 1, 2
+  ret dentro2.objini("s_aeromoveis001").porta_sair == 2, 3
+  ret dentro2.objini("s_aeromoveis001").porta_sair == 3, 4
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv |= 16
+#
+
+func cmd_mudadono
+  $mens.p(este)
+  $mens.mvis1som("#", "helicoptero")
+
+func cmd_abriuobj
+  dentro2.objini("s_aeromoveis001").mudaporta("sair", 1, "$m se abriram.")
+#
+
+func cmd_fechouobj
+  dentro2.objini("s_aeromoveis001").mudaporta("sair", 2, "$m se fecharam.")
+
+
+classe i_aeromoveis002
+herda comum_itemperso
+const nome = "janela"
+const ident = "janela helicóptero"
+const descnome = "A janela do helicóptero"
+const descpos = "Duas grandes janelas estão dispostas nas laterais do helicóptero"
+const i_pegar = "As janelas são aberturas com telas de vidro nos lados do helicóptero, não podem \
+ser retiradas."
+const i_salaver = dono.dono.dono
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+
+
+classe i_aeromoveis003
+herda comum_itemperso
+const nome = "Poltrona do piloto"
+const ident = "poltrona piloto"
+const descnome = "A poltrona do piloto"
+const descpos = "A poltrona do piloto está pozicionada a frente do painel de controle"
+const i_pegar = "Está preso ao chão"
+const i_movel = 1 # Mobília: 1 Sentar
+const i_lugar = 1
+const tipoitem = 512 # Tipo de item: 9-Mobília
+
+
+classe i_aeromoveis004
+herda comum_itemperso
+const nome = "Poltrona do copiloto"
+const ident = "poltrona copiloto"
+const descnome = "A poltrona do copiloto"
+const descpos = "A poltrona do copiloto está aqui, pozicionada ao lado do piloto"
+const i_pegar = "Está preso ao chão."
+const i_movel = 3 # Mobília: 3 Sentar confortavelmente
+const tipoitem = 512 # Tipo de item: 9-Mobília
+
+
+classe i_aeromoveis005
+herda comum_itemperso
+const nome = "Poltrona confortável"
+const ident = "Poltrona confortável"
+const descnome = "Uma poltrona confortável"
+const descpos = "Uma poltrona confortável está pozicionada no canto esquerdo do helicóptero, \
+atraz do piloto"
+const i_pegar = "Está preso ao chão"
+const i_movel = 3 # Mobília: 3 Sentar confortavelmente
+const i_lugar = 1
+const tipoitem = 512 # Tipo de item: 9-Mobília
+
+
+classe i_aeromoveis006
+herda comum_item
+const nome = "rádio comunicador"
+const ident = "rádio comunicador"
+const descnome = "Um rádio comunicador"
+const descpos = "O rádio comunicador do helicóptero está fixo na frente do painel de controle"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "está preso ao painel"
+
+
+classe i_aeromoveis007
+herda comum_item
+const nome = "painel de controle"
+const ident = "painel controle"
+const descnome = "O painel de controle"
+const descpos = "Um grande painel de controle está aqui, controlando as funções do helicóptero"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "você quer derrubar o helicóptero?"
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  casovar txtmin(txt1(arg1))
+  casose "disp"
+  casose "dispa"
+  casose "dispara"
+  casose "disparar"
+    refvar alvo = txt2(arg1)
+    refvar palvo = misc:persodono(dono.dono, alvo)
+    $mens.p(arg0, palvo)
+    $mens.mtodos1("$P puxa algumas lavancas no painel de controle do helicóptero, disparando um \
+míssil de fogo na direção $d $A.")
+    $cmd_missil.exechab(dono.dono, palvo, 1, arg0.pnivel, dono.dono, nulo)
+    ret 1
+  casofim
+
+
+classe i_aeromoveis008
+herda comum_itemperso
+const nome = "poltrona confortável"
+const ident = "poltrona confortável"
+const descnome = "Uma poltrona confortável"
+const descpos = "Uma poltrona confortável está localisada na lateral direita, atraz do copiloto"
+const i_pegar = "Está preso ao chão."
+const i_movel = 3 # Mobília: 3 Sentar confortavelmente
+const tipoitem = 512 # Tipo de item: 9-Mobília
+
+
+classe p_aeromoveis001
+herda comum_perso
+const nome = "comandante"
+const descnome = "o comandante da força aérea fantastic"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 635
+
+
+classe s_aeromoveis001
+herda b_aeromoveis
+const s_titulo = "No interior do helicóptero"
+const s_entrada = "porta principal"
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_jog = 8
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_aeromoveis001
+const dir_s = $s_aeromoveis001
+const dir_l = $s_aeromoveis001
+const inv_l = 1 # Invisível: Sim
+const dir_o = $s_aeromoveis001
+const dir_c = $s_aeromoveis001
+const dir_b = $s_aeromoveis001
+const dir_ne = $s_aeromoveis001
+const dir_no = $s_aeromoveis001
+const dir_se = $s_aeromoveis001
+const dir_so = $s_aeromoveis001
+const dir_entrar = $s_aeromoveis001
+const dir_sair = $s_aeromoveis002
+const portaini_sair = 2 # Estado inicial: 2 Porta fechada
+const portanome_sair = "as portas do helicóptero"
+const som_abrir_sair = "abporta02"
+const som_fechar_sair = "fporta02"
+const s_reset = "S 100 aeromoveis008 1 S\n\
+S 100 aeromoveis005 1 S\n\
+S 100 aeromoveis004 1 S\n\
+S 100 aeromoveis003 1 S\n\
+S 100 aeromoveis006 1 S\n\
+S 100 aeromoveis007 1 S\n\
+S 100 aeromoveis002 1 S"
+#
+
+func cmd_salaperso
+  ret misc:evento(arg0)
+  misc:evento(arg0s)
+#
+
+func cmd_escr
+  casovar txtmin(txt1(arg1))
+  casose "pilotar"
+  casose "pilota"
+  casose "pilot"
+  casose "pilo"
+  casose "pil"
+  casose "pi"
+    refvar dir = txt2(arg1)
+    dir == " " && dir = dono.var.z_dir
+    dir == "" && dir = dono.var.z_dir
+    ret !dono.dono.dir_[dir], arg0.msg("Você tenta pilotar nessa direção, mas vê que não \
+consegue.")
+    dono.var.z_dir = dir
+    $cmd_[dir].mover(dono, dono.dono.dir_[dir])
+    $mens.p(arg0, nulo, dono)
+    $mens.mens = dono.dono.var.z_titulo ? dono.dono.var.z_titulo : dono.dono.s_titulo
+    $mens.mvis1som("Sobrevoando $m", "helicoptero")
+    $mens.p(dono)
+    $mens.mvis1som("#", "helicoptero")
+    textotxt t
+    txt80 dirs
+    epara dirs = misc:listadir, dirs, dirs = txt2(dirs)
+      refvar nome = txt1(dirs)
+      continuar !dono.dono.dir_[nome]
+      t.addfim(nome)
+    efim
+    $mens.p(arg0)
+    $mens.mtodos1("Saídas: " + txttroca(t.remove(1000), "\n", ", "))
+    ret 1
+  casofim
+#
+
+func cmd_mover
+  ret arg2 == "sair", nulo
+  refvar dir = arg2
+  dir == "" && dir = dono.var.z_dir
+  ret !dono.dono.dir_[dir], arg0.msg("Você tenta pilotar nessa direção, mas vê que não consegue."\
+)
+  dono.var.z_dir = dir
+  $cmd_[dir].mover(dono, dono.dono.dir_[dir])
+  $mens.p(arg0, nulo, dono)
+  $mens.mens = dono.dono.var.z_titulo ? dono.dono.var.z_titulo : dono.dono.s_titulo
+  $mens.mvis1som("Sobrevoando $m", "helicoptero")
+  textotxt t
+  txt80 dirs
+  epara dirs = misc:listadir, dirs, dirs = txt2(dirs)
+    refvar nome = txt1(dirs)
+    continuar !dono.dono.dir_[nome]
+    t.addfim(nome)
+  efim
+  $mens.p(arg0)
+  $mens.mtodos1("Saídas: " + txttroca(t.remove(1000), "\n", ", "))
+  textotxt t2
+  listaobj i
+  epara i.addfim(dono.dono.dentro2, dono.dono.dentro1), i, i.ini.remove
+    t2.addfim(i.objini.descpos)
+  efim
+  $mens.p(arg0, nulo, dono)
+  $mens.mtodos1(t2.remove(1000))
+  ret 1
+#
+
+func txtsai
+  ret 1
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_aeromoveis008") && criar("i_aeromoveis008", este, 1)
+  !dentro1.objini("i_aeromoveis005") && criar("i_aeromoveis005", este, 1)
+  !dentro1.objini("i_aeromoveis004") && criar("i_aeromoveis004", este, 1)
+  !dentro1.objini("i_aeromoveis003") && criar("i_aeromoveis003", este, 1)
+  !dentro1.objini("i_aeromoveis006") && criar("i_aeromoveis006", este, 1)
+  !dentro1.objini("i_aeromoveis007") && criar("i_aeromoveis007", este, 1)
+  !dentro1.objini("i_aeromoveis002") && criar("i_aeromoveis002", este, 1)
+
+
+classe s_aeromoveis002
+herda b_aeromoveis

@@ -1,0 +1,4807 @@
+classe a_moveis
+herda area
+
+
+classe b_moveis
+herda sala
+const s_fome = 1 # Fome e sede: 1 Ausente
+const s_item = 0
+const s_recup = 200
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const s_area = "moveis"
+
+
+classe i_moveis001
+herda comum_itemperso
+const nome = "cama de casal"
+const ident = "espaçosa cama casal"
+const descnome = "uma espaçosa cama de casal."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_lugar = 2
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 10000
+const eveste = 1 # Eventos item: Sim
+#
+
+func descpos
+  se dentro1.objini("i_roupas027")
+    ret "Coberta com " + dentro1.objini("i_roupas027").descnome + ", uma cama de casal está \
+acomodada em um canto do quarto."
+  senao
+    ret "uma espaçosa cama de casal está no centro do quarto, bem arrumada com lençóis perfumados\
+."
+  fimse
+#
+
+func cmd_olhar
+  se arg1 == este
+    $mens.p(arg0, este)
+    $mens.mvis2("$A", "$P olha para $A.")
+    textotxt t
+    listaitem item
+    refvar r = este
+    ret !r, nulo
+    epara item = r.dentro1.fim, item, item.antes
+      refvar i = item.obj
+      continuar !i.visivel(arg0)
+      refvar nn = txtsublin(i.atribs.ini.textolin(2), 1)
+      t.addfim(txt(i.objtot) + i.atribs.ini.texto + txtcopiamai(i.descnome, "A") + nn)
+    efim
+    t.juntalin("(", "x)")
+    se t
+      arg0.msg2("\b\c6sobre ela você vê:\b\n" + txttroca(t.remove(1000), "\d+", "\n"))
+    senao
+      arg0.msg("\b está vazia.")
+    fimse
+    ret 1
+  fimse
+
+
+classe i_moveis002
+herda comum_itemperso
+const nome = "luxuoso sofá"
+const descnome = "um luchuoso sofá de couro preto"
+const descpos = "Um luxuoso sofá de couro preto está encostado em uma das paredes, lhe convidando\
+ a um  descanço."
+const i_pegar = ""
+const i_movel = 3 # Mobília: 3 Sentar confortavelmente
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 2300
+
+
+classe i_moveis003
+herda comum_itemperso
+const nome = "mesa redonda"
+const ident = "uma mesa redonda de madeira nobre."
+const descnome = "uma mesa redonda de madeira nobre."
+const i_movel = 1 # Mobília: 1 Sentar
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const valor = 4200
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_olhar
+  se arg1 == este
+    $mens.p(arg0, este)
+    $mens.mvis2("$A", "$P olha para $A.")
+    textotxt t
+    listaitem item
+    refvar r = este
+    ret !r, nulo
+    epara item = r.dentro1.fim, item, item.antes
+      refvar i = item.obj
+      continuar !i.visivel(arg0)
+      refvar nn = txtsublin(i.atribs.ini.textolin(2), 1)
+      t.addfim(txt(i.objtot) + i.atribs.ini.texto + txtcopiamai(i.descnome, "A") + nn)
+    efim
+    t.juntalin("(", "x)")
+    se t
+      arg0.msg2("\b\c6sobre ela você vê:\b\n" + txttroca(t.remove(1000), "\d+", "\n"))
+    senao
+      arg0.msg("\b está vazia.")
+    fimse
+    ret 1
+  fimse
+#
+
+func descpos
+  se dentro1.objini("i_roupas027")
+    ret "uma mesa redonda, feita de uma madeira nobre, está no centro do lugar, coberta com " + \
+dentro1.objini("i_roupas027").descnome + "."
+  senao
+    ret "Uma mesa redonda, feita de uma madeira nobre, está no centro do lugar."
+  fimse
+
+const i_msgdentro = "Sobre ela você vê:"
+
+
+classe i_moveis004
+herda comum_itemperso
+const nome = "Armário para despensas"
+const descnome = "Um armário para despensas"
+const descpos = "Em uma das paredes, você nota um pequeno armário feito para despensas."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 20000
+
+
+classe i_moveis005
+herda comum_itemperso
+const nome = "armário"
+const ident = "armario aço inox espaçoso"
+const descnome = "um armário de cozinha de aço inox"
+const descpos = "Um espaçoso armário de aço inox foi instalado em uma das paredes."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 200
+const pesoobj = 10000
+const valor = 6000
+
+
+classe i_moveis006
+herda comum_itemperso
+const nome = "forno de microondas de aço inox"
+const ident = "forno micro-ondas aço inox prateado"
+const descnome = "um forno de micro-ondas de aço inox"
+const descpos = "Um micro-ondas prateado  foi posto sobre um suporte na parede."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const i_msgabriu = "\d=aporta7 $P abriu a porta do microondas"
+const i_msgfechou = "\d=fporta7 $P fechou a porta do microondas"
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 6
+const tipoitem = 2048 # Tipo de item: 11-Container
+const valor = 4000
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_mudadono
+  se dono.s_sala
+    listaobj l
+    epara l.addfim(dono.dentro2), l, l.ini.remove
+      l.objini.perso && misc:evento(l.objini)
+    efim
+#
+
+func cmd_escr
+  se arg1 == "ligar microondas"
+    ret i_aberto == 2, arg0.msg("Feche o microondas antes de ligá-lo.")
+    ret !dentro1, arg0.msg("Mas ligar o microondas sem nada dentro?")
+    ret var.z_ligado_, arg0.msg("O microondas já está ligado.")
+    var.z_ligado_ = 1
+    misc:tempo("ligou", arg0)
+    ret 1
+  fimse
+#
+
+func ligou10
+  $mens.p(arg0, nulo, este)
+  $mens.mtodos1("$P liga $o.")
+#
+
+func ligou30
+  $mens.p(arg0, nulo, este)
+  $mens.mtodos1("Um dos leds do microondas acende e ele começa a esquentar...")
+#
+
+func ligou240
+  listaobj l
+  epara l.addfim(dentro1), l, l.ini.remove
+    se l.objini.f_tipo == 3
+      criar("e_quente", l.objini)
+    fimse
+  efim
+  $mens.p(arg0, nulo, este)
+  $mens.mtodos1("Alguns bips são ouvidos, e o microondas é desligado automaticamente.")
+  var.z_ligado_ = 0
+#
+#
+
+func cmd_soltarobj
+  se arg1 == este && arg2.f_tipo != 3
+    ret arg0.msg("Melhor não colocar isso no microondas.")
+  fimse
+#
+
+func cmd_abrirobj
+  se arg1 == este && var.z_ligado_
+    ret arg0.msg("Não é possível abrir a porta do microondas enquanto ligado.")
+  fimse
+
+
+classe i_moveis007
+herda comum_itemperso
+const nome = "cama"
+const ident = "cama casal"
+const descnome = "uma cama de casal."
+const descpos = "Uma grande cama de casal está no centro do quarto, cuidadosamente arrumada com \
+lençóis brancos."
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 3500
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_olhar
+  se arg1 == este
+    $mens.p(arg0, este)
+    $mens.mvis2("$A", "$P olha para $A.")
+    textotxt t
+    listaitem item
+    refvar r = este
+    ret !r, nulo
+    epara item = r.dentro1.fim, item, item.antes
+      refvar i = item.obj
+      continuar !i.visivel(arg0)
+      refvar nn = txtsublin(i.atribs.ini.textolin(2), 1)
+      t.addfim(txt(i.objtot) + i.atribs.ini.texto + txtcopiamai(i.descnome, "A") + nn)
+    efim
+    t.juntalin("(", "x)")
+    se t
+      arg0.msg2("\b\c6sobre ela você vê:\b\n" + txttroca(t.remove(1000), "\d+", "\n"))
+    senao
+      arg0.msg("\b está vazia.")
+    fimse
+    ret 1
+  fimse
+
+
+classe i_moveis008
+herda comum_itemperso
+const nome = "estante"
+const ident = "estante"
+const descnome = "Uma estante."
+const descpos = "Uma bela estante, feita com a mais rara madeira está aqui, encostada na parede \
+ao seu lado."
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const tipoitem = 2048 # Tipo de item: 11-Container
+const valor = 5000
+
+
+classe i_moveis009
+herda comum_itemperso
+const nome = "mesinha"
+const ident = "mesinha sentro"
+const descnome = "uma mesinha de sentro"
+const descpos = "Uma adorável mesinha de centro está a sua frente, com alguns enfeites sobre \
+si."
+const i_pegar = ""
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 18
+const valor = 4000
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_olhar
+  se arg1 == este && arg2 == arg0
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos2("$o.", "$P olha para $o.")
+    listaobj l
+    ret !dentro1.objini, arg0.msg("Está vazia.")
+    arg0.msg("Sobre ela você vê:")
+    epara l.addfim(arg1.dentro1), l, l.ini.remove
+      sair !l.objini
+      arg0.msg(l.objini.descnome)
+    efim
+    ret 1
+  fimse
+
+
+classe i_moveis010
+herda comum_itemperso
+const nome = "almofadas"
+const ident = "almofadas"
+const descnome = "uma de várias almofadas"
+const descpos = "Várias almofadas estão espalhadas pelo sofá."
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 1000
+
+
+classe i_moveis011
+herda comum_itemperso
+const nome = "cama"
+const ident = "cama solteiro"
+const descnome = "uma cama box de solteiro"
+const descpos = "Uma cama de solteiro está encostada em uma das paredes, bem arrumada com \
+lençóis perfumados."
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_lugar = 3
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 512 # Tipo de item: 9-Mobília
+const valor = 10000
+
+
+classe i_moveis012
+herda comum_itemperso
+const nome = "guarda-roupa"
+const ident = "um grande guarda roupas de madeira nobre"
+const descnome = "um grande guarda-roupas de madeira nobre."
+const descpos = "Um grande guarda-roupas de madeira nobre toma uma parede toda para si."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const i_msgfechou = ""
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 1000000000
+const tipoitem = 2560 # Tipo de item: 9-Mobília, 11-Container
+const valor = 4000
+const manterperso = 1 # Mantém em jogador: Sim
+
+
+classe i_moveis013
+herda comum_itemperso
+const nome = "tapete"
+const ident = "tapete"
+const descnome = "um tapete feito com pêlo de onça"
+const descpos = "Um macio tapete de pele de onça cobre o chão."
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const valor = 6000
+
+
+classe i_moveis014
+herda comum_itemperso
+const nome = "gabinete"
+const ident = "gabinete"
+const descnome = "um gabinete"
+const descpos = "Um gabinete está aqui, embutido na pia."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 15
+const valor = 3000
+
+
+classe i_moveis015
+herda comum_itemperso
+const nome = "lareira"
+const ident = "uma lareira de pedra."
+const descnome = "Uma lareira de pedra"
+const i_itens = "plantas032"
+const i_pegar = "isso está preso a parede, e você não é o super man"
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const luzitem = 6 # Tipo de luz: 6 Tocha (acende com fogo, produz fogo)
+const luzini = -3000
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 100000
+const tipoitem = 512 # Tipo de item: 9-Mobília
+const valor = 3700
+const volobj = 200000
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func descpos
+  ret "Uma lareira de pedra está aqui, aguardando para ser acesa e aquecer o ambiente ao \
+redor."
+  se luztempo.pos
+    "Uma lareira de pedra está aqui acesa, com o fogo crepitando conforme as chamas consomem a \
+lenha dentro dela."
+    ret 1
+  fimse
+
+func cmd_acender
+  refvar madeira = dentro1.objini("i_plantas032")
+  se !madeira
+    arg0.msg("Não há nenhuma madeira dentro da lareira.")
+  senao luztempo.pos
+    arg0.msg("Uma lareira já está acesa.")
+  senao
+    luztempo = 3000
+    $mens.p(arg0)
+    $mens.mvis1("$P acende uma lareira.")
+    apagar(madeira)
+    criar("i_plantas033", este)
+  fimse
+  ret 1
+
+func cmd_apagou
+  refvar mq = dentro1.objini("i_plantas033")
+  $mens.p(este)
+  $mens.mtodos1("As chamas da lareira se apagam por completo.")
+  luztempo = -3000
+  apagar(mq)
+  ret 1
+
+
+classe i_moveis016
+herda comum_item
+const nome = "pia"
+const ident = "pia"
+const descnome = "a pia do banheiro"
+const descpos = "Uma pia de mármore está na parede à sua frente, com um frasco de sabonete \
+líquido sobre si."
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 2500
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "lavar mãos"
+    $mens.p(arg0)
+    $mens.mtodos1("$P abre a torneira da pia e põe as mãos embaixo dela, começando a esfregá-las \
+com um pouco de sabão.")
+    arg0.msg("Suas mãos estão agora limpas.")
+    ret 1
+  fimse
+
+
+classe i_moveis017
+herda comum_itemperso
+const nome = "vaso"
+const ident = "vaso"
+const descnome = "um vaso sanitário"
+const descpos = "Um vaso sanitário está aqui, lhe convidando a dar aquela relaxada no intestino."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_bebida = 70
+const f_fome = -50
+const f_sede = -40
+const f_diges = -60
+const f_magia1 = "veneno_mortal"
+const f_msgperso = "$P bebe água suja de um vaso sanitário! $P começa a passar mau..."
+const i_pegar = "Está fixo ao chão"
+const i_movel = 1 # Mobília: 1 Sentar
+const i_lugar = 1
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const i_msgabriu = "$P abriu a tampa do vaso sanitário."
+const i_msgfechou = "$P fechou a tampa do vaso sanitário."
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 2600
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "dar descarga"
+  casose "dar descarg"
+  casose "dar descar"
+  casose "dar desc"
+  casose "dar desca"
+  casose "dar des"
+  casose "da descarga"
+  casose "da descarg"
+  casose "da descar"
+  casose "da desca"
+  casose "da desc"
+    $mens.p(arg0)
+    $mens.mtodos1("$P aperta o botão na caixa e dá a descarga na privada.")
+    dentro1.apagar
+    ret 1
+  casofim
+
+
+classe i_moveis018
+herda comum_itemperso
+const nome = "criado mudo"
+const ident = "criado mudo"
+const descnome = "um criado mudo"
+const descpos = "Um pequeno criado mudo está ao lado da cama."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 2560 # Tipo de item: 9-Mobília, 11-Container
+const valor = 3100
+const i_msgdentro = "Sobre ele você vê:"
+
+
+classe i_moveis019
+herda comum_itemperso
+const nome = "berço"
+const ident = "Um berço branco bercinho"
+const descnome = "Um berço branco"
+const descpos = "Um bercinho branco foi posto no cantinho do quarto."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_lugar = 2
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 10000
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_olhar
+  se arg1 == este
+    $mens.p(arg0, este)
+    $mens.mvis2("$A", "$P olha para $A.")
+    textotxt t
+    listaobj l
+    epara l.addfim(persolugar, dentro1), l, l.ini.remove
+      refvar i = l.objini
+      continuar !i.visivel(arg0)
+      refvar nn = txtsublin(i.atribs.ini.textolin(2), 1)
+      se i.perso
+        txt100 posi
+        casovar i.posicao
+        casose "4"
+          posi = "(dormindo)"
+        casose "5"
+          posi = "(descansando)"
+        casose "6"
+          posi = "(sentad" + (i.msexo ? "o)" : "a)")
+        casofim
+      fimse
+      t.addfim(txt(i.objtot) + posi + i.atribs.ini.texto + txtcopiamai(i.descnome, "A") + \
+nn)
+    efim
+    t.juntalin("(", "x)")
+    se t
+      arg0.msg2("\b\c6nele você vê:\b\n" + txttroca(t.remove(1000), "\d+", "\n"))
+    senao
+      arg0.msg("\b está vazio.")
+    fimse
+    ret 1
+  fimse
+
+
+classe i_moveis020
+herda comum_itemperso
+const nome = "almofada rosa"
+const ident = "almofada rosa coração"
+const descnome = "uma almofadinha rosa em forma de coração"
+const descpos = "Uma linda almofadinha rosa em formato de coração está aqui no chão."
+const i_movel = 3 # Mobília: 3 Sentar confortavelmente
+const i_lugar = 1
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 700
+
+
+classe i_moveis021
+herda comum_itemperso
+const nome = "Pia de mármore"
+const descnome = "a pia da cozinha"
+const descpos = "Uma bela pia de mármore está na parede à sua frente, com sua superfície \
+brilhantemente limpa."
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const i_msgabriu = "$p abre as portas do gabinete da pia."
+const i_msgfechou = "$p fechou as portas do gabinete da pia."
+const tipoitem = 2048 # Tipo de item: 11-Container
+const valor = 5500
+const i_som_abre = "$p abre as portas do gabinete da pia."
+const i_som_fecha = "$p fecha as portas do gabinete da pia."
+
+
+classe i_moveis022
+herda comum_itemperso
+const nome = "box"
+const ident = "box banheiro"
+const descnome = "o box do banheiro"
+const descpos = "Aqui há um belo box de vidro."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "é muito grande, você não consegue pegar sozinho."
+const i_salas = "moveis001"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const i_msgabriu = "\d=aporta4 Com cuidado, $p abre uma bela porta de vidro"
+const i_msgfechou = "\d=fporta4 Com cuidado, $p fecha uma bela porta de vidro"
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 15000
+#
+
+func cmd_mudadono
+  se !donoantes && dono.jog
+    var.z_dono = dono.descnome
+  fimse
+#
+
+func i_salaver
+  se i_aberto <= 2
+    ret dentro2.objini("s_moveis001")
+  senao
+    ret nulo
+  fimse
+
+
+classe i_moveis023
+herda comum_item
+const nome = "banheira"
+const ident = "banheira magnífica"
+const descnome = "uma banheira"
+const descpos = "Uma magnífica banheira está em um canto, lhe convidando para um banho relaxante.\
+"
+const i_salas = "moveis002"
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 14300
+
+
+classe i_moveis024
+herda comum_itemperso
+const nome = "chuveiro"
+const descnome = "um chuveiro de alumínio"
+const descpos = "Um chuveiro de alumínio está instalado no alto da parede."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "Ao tentar pegar um chuveiro, você leva um baita choque"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+inttempo agua
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_abriuobj
+  se arg1 == este
+    ret var.z_ligado_, arg0.msg(descnome + " já está ligado.")
+    $mens.p(arg0, nulo, este)
+    $mens.mvis1("$P aperta o botão e liga $o.")
+    var.z_ligado_ = 1
+    agua = 50
+    ret 1
+  fimse
+
+func cmd_fechouobj
+  se arg1 == este
+    ret !var.z_ligado_, arg0.msg(descnome + " não está ligado.")
+    $mens.p(arg0, nulo, este)
+    $mens.mvis1("$P aperta o botão e desliga $o.")
+    var.z_ligado_ = 0
+    ret 1
+  fimse
+#
+#
+
+func agua_exec
+  ret !var.z_ligado_, nulo
+  $mens.p(este)
+  $mens.mvis1("Água cai do chuveiro.")
+  agua = 50
+
+
+classe i_moveis025
+herda comum_itemperso
+const nome = "mesa de jantar"
+const descnome = "uma mesa de jantar"
+const descpos = "Uma longa mesa retangular com o tampo de vidro está no centro da sala de \
+jantar."
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 50
+const valor = 10500
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_olhar
+  se arg1 == este
+    $mens.p(arg0, "", este)
+    $mens.mtodos1("$P olha para $o.")
+    ret !dentro1.objini, arg0.msg("Está vazia.")
+    listaobj i
+    arg0.msg("Sobre ela você vê:")
+    epara i.addfim(dentro1), i, i.ini.remove
+      sair !i
+      arg0.msg(i.objini.descnome)
+    efim
+    ret 1
+  fimse
+
+
+classe i_moveis026
+herda comum_itemperso
+const nome = "cadeira de balanço"
+const ident = "cadeira balanço"
+const descnome = "uma cadeira de balanço"
+const descpos = "Uma cadeira de balanço de palha está em um canto."
+const i_movel = 3 # Mobília: 3 Sentar confortavelmente
+const i_lugar = 1
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 5000
+
+
+classe i_moveis027
+herda comum_itemperso
+const nome = "beliche"
+const descnome = "um beliche"
+const descpos = "Um beliche arrumado com lençóis limpos está em um canto."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_lugar = 4
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 11500
+
+
+classe i_moveis028
+herda comum_itemperso
+const nome = "frigobar"
+const descnome = "um frigobar"
+const descpos = "Um pequeno frigobar encontra-se em um canto do cômodo."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_movel = 0 # Mobília: 0 Não
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 800
+const pesoobj = 10000
+const valor = 600000
+
+
+classe i_moveis029
+herda comum_itemperso
+const nome = "Conjunto de sofá de canto, feito de veludo vermelho"
+const ident = "conjunto sofá canto veludo vermelho"
+const descnome = "Um magnífico conjunto de sofá de canto"
+const descpos = "Um magnífico conjunto de sofás feito com veludo vermelho embeleza o ambiente."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = ""
+const i_movel = 2 # Mobília: 2 Sentar e dormir
+const i_lugar = 8
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 2560 # Tipo de item: 9-Mobília, 11-Container
+const valor = 50000
+
+
+classe i_moveis030
+herda comum_itemperso
+const nome = "cristaleira"
+const ident = "cristaleira vidro"
+const descnome = "uma cristaleira de vidro"
+const descpos = "Uma extraordinária cristaleira de vidro está em um canto do cômodo, contendo \
+diversos cristais em seu interior."
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 11500
+const i_som_abre = "abporta02"
+const i_som_fecha = "fporta01"
+
+
+classe i_moveis031
+herda comum_itemperso
+const nome = "rede"
+const ident = "rede descanso"
+const descnome = "Uma rede de descanso"
+const descpos = "Uma rede de descanso, mesclada de caramelo e creme foi esteada aqui."
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_lugar = 2
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 25000
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_mudadono
+  se dono.s_sala
+    listaobj l
+    epara l.addfim(dono.dentro2), l, l.ini.remove
+      se l.objini.perso
+        misc:evento(l.objini)
+      fimse
+    efim
+  fimse
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "balançar rede"
+    refvar perso = persolugar.objini
+    txt100 lin
+    $mens.p(arg0, perso)
+    se arg0 == perso
+      $mens.mvis1("$P começa a se balançar na rede, indo para lá e para cá!")
+    senao !perso
+      $mens.p(arg0)
+      $mens.mvis1("$P balança uma rede vazia para lá e para cá.")
+    senao
+      $mens.mvis1("$P começa a balançar $A na rede, fazendo-$t ir para lá e para cá!")
+    fimse
+    se perso
+      se rand(4) == 0
+        $mens.p(perso)
+        $mens.mvis1("A rede balança com tanta violência que atira $P para o alto, fazendo-$s \
+cair no chão!")
+        perso.poslugar.remove
+      fimse
+    fimse
+    ret 1
+  fimse
+
+
+classe i_moveis032
+herda comum_itemperso
+const nome = "prateleira"
+const ident = "prateleira estante"
+const descnome = "uma prateleira de produtos"
+const descpos = "Aqui há várias prateleiras, com os mais variados tipos de produtos."
+const i_pegar = "Você tateia a estante, identificando os produtos."
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_olhar
+  se arg1 == este
+    $mens.p(arg0, este)
+    $mens.mvis2("$A", "$P olha para $A.")
+    textotxt t
+    listaitem item
+    refvar r = este
+    ret !r, nulo
+    epara item = r.dentro1.fim, item, item.antes
+      refvar i = item.obj
+      continuar !i.visivel(arg0)
+      refvar nn = txtsublin(i.atribs.ini.textolin(2), 1)
+      t.addfim(txt(i.objtot) + i.atribs.ini.texto + txtcopiamai(i.descnome, "A") + nn)
+    efim
+    t.juntalin("(", "x)")
+    se t
+      arg0.msg2("\b\c6sobre ela você vê:\b\n" + txttroca(t.remove(1000), "\d+", "\n"))
+    senao
+      arg0.msg("\b está vazia.")
+    fimse
+    ret 1
+  fimse
+#
+
+func cmd_pegarobj
+  se arg1 == este
+    arg0.msg("Você pensa em pegar " + arg2.descnome + " da estante, mas alguém diz: Só olhe.")
+    ret 1
+  fimse
+
+
+classe i_moveis033
+herda comum_itemperso
+const nome = "fogão elétrico de aço inox"
+const ident = "fogão elétrico aço inox"
+const descnome = "Um fogão elétrico de aço inox"
+const descpos = "Um fogão de 4 bocas muito bem ariado está ao lado da pia."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const luzitem = 4 # Tipo de luz: 4 Lampião (acende/apaga, produz fogo)
+const luzini = -6000
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 4000
+const tipoitem = 0 # Tipo de item:
+const valor = 4000
+const volobj = 10
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_olhar
+  se arg1 == este
+    $mens.p(arg0, este)
+    $mens.mvis2("$A", "$P olha para $A.")
+    textotxt t
+    listaitem item
+    refvar r = este
+    ret !r, nulo
+    epara item = r.dentro1.fim, item, item.antes
+      refvar i = item.obj
+      continuar !i.visivel(arg0)
+      refvar nn = txtsublin(i.atribs.ini.textolin(2), 1)
+      t.addfim(txt(i.objtot) + i.atribs.ini.texto + txtcopiamai(i.descnome, "A") + nn)
+    efim
+    t.juntalin("(", "x)")
+    se t
+      arg0.msg2("\b\c6sobre ele você vê:\b\n" + txttroca(t.remove(1000), "\d+", "\n"))
+    senao
+      arg0.msg("\b está vazio.")
+    fimse
+    ret 1
+  fimse
+
+
+classe i_moveis034
+herda comum_itemperso
+const nome = "geladeira de aço inox"
+const ident = "geladeira aço inox"
+const descnome = "Uma grande geladeira de aço inox"
+const descpos = "Uma bela geladeira está na parede ao seu lado, com belos adesivos na porta."
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 3000
+const volobj = 5000
+
+
+classe i_moveis035
+herda comum_itemperso
+const nome = "forno do fogão"
+const descnome = "o forno do fogão"
+const descpos = ""
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "puf"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+
+
+classe i_moveis036
+herda comum_itemperso
+const nome = "gaveta da escrivaninha"
+const descnome = "uma das gavetas da escrivaninha"
+const descpos = ""
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+
+
+classe i_moveis037
+herda comum_itemperso
+const nome = "piscina"
+const descnome = "uma piscina de fibra"
+const descpos = var.z_descfora ? var.z_descfora : "Uma grande piscina de fibra está aqui, com \
+suas águas claras lhe convidando a um mergulho!"
+const i_salaver = dentro2.objini("s_moveis005")
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 300000
+const volobj = 50000
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const m_atribs1 = "( você está a beira da piscina;"
+#
+
+func cmd_mudadono
+  se !donoantes && dono.jog
+    var.z_dono = dono.descnome
+  fimse
+  listaobj l
+  epara l.addfim(dono.dentro2), l, l.ini.remove
+    se l.objini.jog
+      misc:evento(l.objini)
+    fimse
+  efim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "encher piscina"
+  casose "enche piscina"
+  casose "enchh piscina"
+  casose "enc piscina"
+  casose " encher piscin"
+  casose "enche piscin"
+  casose "ench piscin"
+  casose "enc piscin"
+  casose "encher pisci"
+  casose "enche pisci"
+  casose "ench pisci"
+  casose "enc pisci"
+  casose "encher 'pis"
+  casose "ench pis"
+  casose "enc pis"
+  casose "encher pi"
+  casose "enche pi"
+  casose "ench pi"
+  casose "enc pi"
+    ret dentro2.objini("s_moveis005") && dentro2.objini("s_moveis006"), arg0.msg("A piscina já \
+está cheia.")
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos1("$P abre a torneira da piscina, deixando-a encher por completo.")
+    criar("s_moveis005", este)
+    criar("s_moveis006", este)
+    ret 1
+  casose "esvaziar piscina"
+  casose "esvazia piscina"
+  casose "esvazi piscina"
+    refvar sala1 = dentro2.objini("s_moveis005")
+    refvar sala2 = dentro2.objini("s_moveis006")
+    ret sala1.dentro2 || sala2.dentro2, arg0.msg("Ainda há pessoas dentro.")
+    apagar(dentro2.objini("s_moveis005"))
+    apagar(dentro2.objini("s_moveis006"))
+    $mens.p(arg0)
+    $mens.mtodos1("$P puxa a tampa do ralo da piscina e deixa toda a água escorrer, até a \
+piscina ficar totalmente vazia.")
+    ret 1
+  casofim
+
+
+classe i_moveis038
+herda comum_itemperso
+const nome = "um banco de madeira"
+const descnome = "um longo banco de madeira"
+const descpos = "Um banco de madeira está entre as sombras das árvores."
+const i_movel = 3 # Mobília: 3 Sentar confortavelmente
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 20000
+
+
+classe i_moveis039
+herda comum_itemperso
+const nome = "uma luchuosa cadeira"
+const ident = "uma cadeira preta"
+const descnome = "uma cadeira de escritório"
+const descpos = "Uma confortável cadeira está aqui, posicionada atrás da mesa."
+const i_movel = 3 # Mobília: 3 Sentar confortavelmente
+const i_lugar = 1
+const mantersala = 0 # Mantém na sala: Não
+const objmax = 1
+const tipoitem = 512 # Tipo de item: 9-Mobília
+const valor = 35000
+
+
+classe i_moveis040
+herda comum_itemperso
+const nome = "escrivaninha"
+const ident = "mesa escritorio"
+const descnome = "uma mesa de escritório"
+const descpos = "Uma grande mesa de escritório feita de carvalho está à sua frente, contendo \
+alguns papéis em sua superfície."
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 40000
+const i_msgdentro = "Sobre ela você vê:"
+
+
+classe i_moveis041
+herda comum_itemperso
+const nome = "lixeira"
+const descnome = "uma lixeira"
+const descpos = "Uma lixeira foi posta no canto, para receber os descartes."
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 2500
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "limpar lixeira" || arg1 == "limp lix"
+    $mens.p(arg0)
+    $mens.mvis1("$P limpa o conteúdo de uma lixeira.")
+    dentro1.apagar
+    ret 1
+  fimse
+
+
+classe i_moveis042
+herda comum_itemperso
+const nome = "um pequeno porta joias"
+const descnome = "um pequeno porta joias"
+const descpos = "Um pequeno porta joias está aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const valor = 3000
+
+
+classe i_moveis043
+herda comum_itemperso
+const nome = "liquidificador"
+const descnome = "Um liquidificador"
+const descpos = "Um liquidificador está sobre o balcão."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const valor = 11500
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "ligar liquidificador" || arg1 == "lig liq"
+    se dentro1.objini("i_frutas004")
+      ret !var.z_leite_, arg0.msg("A vitamina precisa de leite.")
+      misc:tempo("bananada", arg0)
+      ret 1
+    senao dentro1.objini("i_frutas006")
+      misc:tempo("mamoada", arg0)
+      ret 1
+    fimse
+    ret 1
+  fimse
+#
+
+func bananada10
+  $mens.p(arg0)
+  $mens.mvis1("$P gira o botão do liquidificador e o liga.")
+#
+
+func bananada30
+  $mens.p(arg0)
+  $mens.mvis1("O liquidificador começa a triturar os pedaços de banana dentro de seu copo...")
+#
+
+func bananada120
+  $mens.p(arg0)
+  se dentro1.objini("i_frutas007")
+    $mens.mvis1("$P desliga o liquidificador, e em seguida serve uma vitamina de banana com maçã \
+geladinha em alguns copos.")
+    apagar(dentro1.objini("i_frutas007"))
+    criar("i_bebidas017", arg0, 3)
+  senao
+    $mens.mvis1("$P desliga o liquidificador, e em seguida serve uma vitamina de banana geladinha\
+ em vários copos.")
+    apagar(dentro1.objini("i_frutas004"))
+    criar("i_bebidas016", arg0, 3)
+  fimse
+  var.z_leite_ = 0
+  ret 1
+#
+
+func mamoada10
+  $mens.p(arg0)
+  $mens.mvis1("$P gira o botão do liquidificador, ligando-o.")
+#
+
+func mamoada30
+  $mens.p(arg0)
+  $mens.mvis1("O liquidificador começa a triturar os pedaços de mamão dentro de seu copo...")
+#
+
+func mamoada120
+  $mens.p(arg0)
+  $mens.mvis1("$P desliga o liquidificador, e em seguida serve uma vitamina deliciosa de mamão \
+em alguns copos.")
+  criar("i_bebidas018", arg0, 4)
+  var.z_leite_ = 0
+  apagar(dentro1.objini("i_frutas006"))
+  ret 1
+
+
+classe i_moveis044
+herda comum_item
+const nome = "um tapete para sala"
+const descnome = "um tapete cinza"
+const descpos = "Um macio tapete cinza cobre todo o chão."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const valor = 5500
+
+
+classe i_moveis045
+herda comum_itemperso
+const nome = "prato"
+const descnome = "um prato"
+
+
+classe i_moveis046
+herda comum_itemperso
+const nome = "rack"
+const descnome = "um rack com painel"
+const descpos = "Um belo raque está aqui em um canto."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 10000
+
+
+classe i_moveis047
+herda comum_itemperso
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 5000
+const eveste = 1 # Eventos item: Sim
+#
+
+func nome
+  ret dentro1, "painel com " + dentro1.objini.descnome
+  ret "painel"
+#
+
+func descnome
+  ret dentro1, "um painel com " + dentro1.objini.descnome
+  ret "um painel"
+#
+#
+
+func descpos
+  ret dentro1, "um painel está preso à parede, sustentando " + dentro1.objini.descnome
+  ret "Um painel está preso à parede."
+
+func cmd_olhar
+  se arg1 == este
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos1("$o", "$P olha para $o.")
+    ret 1
+  fimse
+
+
+classe i_moveis048
+herda comum_itemperso
+const nome = "namoradeira"
+const descnome = "uma namoradeira de veludo macio"
+const descpos = "Uma bela namoradeira de veludo vermelho está aqui, aguardando por namoradores \
+apaixonados."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const i_movel = 2 # Mobília: 2 Sentar e dormir
+const i_lugar = 2
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 11000
+
+
+classe i_moveis049
+herda comum_itemperso
+const nome = "mesa de restaurante"
+const descnome = "uma enorme mesa com tampo de mármore"
+const descpos = "Uma bela mesa redonda com tampo de mármore está no centro do local, coberta por \
+uma toalha xadrez."
+const i_pegar = "Não pegue a mesa do restaurante."
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 25000
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_olhar
+  se arg1 == este
+    $mens.p(arg0, este)
+    $mens.mvis2("$A", "$P olha para $A.")
+    textotxt t
+    listaitem item
+    refvar r = este
+    ret !r, nulo
+    epara item = r.dentro1.fim, item, item.antes
+      refvar i = item.obj
+      continuar !i.visivel(arg0)
+      refvar nn = txtsublin(i.atribs.ini.textolin(2), 1)
+      t.addfim(txt(i.objtot) + i.atribs.ini.texto + txtcopiamai(i.descnome, "A") + nn)
+    efim
+    t.juntalin("(", "x)")
+    se t
+      arg0.msg2("\b\c6sobre ela você vê:\b\n" + txttroca(t.remove(1000), "\d+", "\n"))
+    senao
+      arg0.msg("\b está vazia.")
+    fimse
+    ret 1
+  fimse
+
+
+classe i_moveis050
+herda comum_itemperso
+const nome = "uma luxuosa cadeira prateada"
+const descnome = "uma luxuosa cadeira de prata"
+const i_pegar = "Não pegue a cadeira do restaurante."
+const i_movel = 3 # Mobília: 3 Sentar confortavelmente
+const i_lugar = 1
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+#
+
+func descpos
+  se dono.dentro1.total(este) == 1
+    ret "Uma bela cadeira de prata com acento dourado está diante da mesa."
+    ret "Duas cadeiras de prata, com assento dourado foram postas ao lado da mesa."
+  senao
+    ret "Várias cadeiras de prata, com assento de ouro foram postas ao redor da mesa."
+  senao dono.dentro1.total(este) == 2
+#
+
+
+classe i_moveis051
+herda comum_itemperso
+const nome = var.z_nome ? var.z_nome : "barraca de acampamento"
+const ident = var.z_portanome ? var.z_portanome + " " + nome : nome
+const descnome = var.z_nome ? var.z_nome : "uma barraca de acampamento"
+const descver = var.z_desc ? var.z_desc : nulo
+const i_movel = 1 # Mobília: 1 Sentar
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const i_tranc = 1 # Trancar: 1 Pode ser trancado
+const i_fechadura = var.z_dono
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 200000000
+const evhora = 1
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const i_fechadura = "barraca001"
+#
+
+func i_salaver
+  se i_aberto <= 2
+    ret dentro2.objini("s_moveis003")
+  senao
+    ret nulo
+  fimse
+
+func descpos
+  se dentro2.objini("s_moveis003")
+    ret var.z_descpos, var.z_descpos
+    ret descnome + " está armad" + (msexo ? "o" : "a") + " aqui."
+  fimse
+  ret descnome + " foi jogad" + (msexo ? "o" : "a") + " aqui."
+
+func msexo
+  se txt1(descnome) == "o" || txt1(descnome) == "um"
+    ret 1
+  senao
+    ret 0
+  fimse
+
+func i_aberto
+  ret dono.jog, nulo
+  se dentro2.objini("s_moveis003")
+    ret dentro2.objini($s_moveis003).porta_sair == 1, 2
+    ret dentro2.objini($s_moveis003).porta_sair == 2, 3
+    ret dentro2.objini($s_moveis003).porta_sair == 3, 4
+    ret !dentro2.objini("s_moveis003"), 1
+    ret 2
+  fimse
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se txtsub(arg1, 0, 2) == "tocar campainha"
+    refvar bar = txtsub(arg1, 2, 1)
+    refvar b = misc:itemdono(arg0, bar)
+    ret !b, arg0.msg("Você não vê " + bar + ".")
+    se b == este
+      arg0.msg("Você toca a campainha de " + descnome + ".")
+      listaobj l
+      epara l.addfim(dentro2), l, l.ini.remove
+        se l.objini.s_sala
+          dentro2.objini(l.objini).msg(arg0.descnome + " tocou a campainha da barraca.")
+        fimse
+      efim
+      ret 1
+    fimse
+  fimse
+#
+
+func cmd_abriuobj
+  se dentro2.objini("s_moveis003")
+    dentro2.objini("s_moveis003").mudaporta("sair", 1, "$m se abriu.")
+  fimse
+#
+
+func cmd_destrancouobj
+  se dentro2.objini("s_moveis003")
+    dentro2.objini("s_moveis003").mudaporta("sair", 2, "$m foi destrancada.")
+  fimse
+#
+
+func cmd_fechouobj
+  se dentro2.objini("s_moveis003")
+    dentro2.objini("s_moveis003").mudaporta("sair", 2, "$m se fechou.")
+  fimse
+#
+
+func cmd_trancouobj
+  se dentro2.objini("s_moveis003")
+    dentro2.objini("s_moveis003").mudaporta("sair", 3, "$m se trancou.")
+  fimse
+#
+
+func cmd_mudadono
+  se !donoantes && dono.jog
+    var.z_dono = dono.descnome
+    ret 1
+  fimse
+  dentro2.objini("s_moveis003").msg("a barraca está se movendo...")
+  dentro2.objini("s_moveis003").msg(dono.var.z_titulo ? dono.var.z_titulo : dono.s_titulo)
+#
+
+func cmd_abrirobj
+  se arg1 == este
+    $mens.p(arg0, nulo, este)
+    se var.z_portanome
+      $mens.mens = var.z_portanome
+      $mens.mtodos1("$P abre $m")
+    senao
+      $mens.mtodos1("$P abriu a porta $d $o.")
+    fimse
+    dentro2.objini("s_moveis003").porta_sair = 1
+    ret 1
+  fimse
+#
+
+func cmd_fecharobj
+  se arg1 == este
+    $mens.p(arg0, nulo, este)
+    se var.z_portanome
+      $mens.mens = var.z_portanome
+      $mens.mtodos1("$P fechou $m.")
+    senao
+      $mens.mtodos1("$P fechou a porta $d $o.")
+    fimse
+    dentro2.objini("s_moveis003").porta_sair = 2
+    ret 1
+  fimse
+#
+
+func cmd_trancarobj
+  se arg1 == este
+    $mens.p(arg0, nulo, este)
+    se var.z_portanome
+      $mens.mens = var.z_portanome
+      $mens.mtodos1("$P trancou $m.")
+    senao
+      $mens.mtodos1("$P trancou a porta $d $o.")
+    fimse
+    dentro2.objini("s_moveis003").mudaporta("sair", 3, "$m se trancou.")
+    ret 1
+  fimse
+#
+
+func cmd_destrancarobj
+  se arg1 == este
+    $mens.p(arg0, nulo, este)
+    se var.z_portanome
+      $mens.mens = var.z_portanome
+      $mens.mtodos1("$P destrancou $m.")
+    senao
+      $mens.mtodos1("$P destrancou a porta $d $o.")
+    fimse
+    dentro2.objini("s_moveis003").mudaporta("sair", 2, "$m se destrancou.")
+    ret 1
+  fimse
+
+
+classe i_moveis052
+herda comum_itemperso
+const nome = "saco de dormir"
+const descnome = "um saco de dormir"
+const descpos = "Um saco de dormir bem confortável está no chão, lhe convidando a um cochilo."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_lugar = 1
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 20
+const valor = 10000
+
+
+classe i_moveis053
+herda comum_itemperso
+const nome = var.z_nome ? var.z_nome : "janela"
+const descnome = var.z_nome ? var.z_nome : "uma janela"
+const i_pegar = "Não dá, está presa à parede da barraca."
+const i_salaver = dono.dono.dono
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func descpos
+  ret i_aberto > 2, ""
+  ret dono.dono.dono.var.z_titulo, "Uma janela, com vista para " + dono.dono.dono.var.z_titulo + \
+" está atrás de você."
+  ret descnome + ", com vista para " + dono.dono.dono.s_titulo + ", está aberta atrás de \
+você."
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  casovar txtmin(txt1(arg1))
+  casose "janome"
+  casose "janom"
+  casose "jano"
+  casose "jan"
+    var.z_nome = txt2(arg1)
+    ret arg0.dono.dono.var.z_dono != arg0.descnome, arg0.msg("Você não está em sua barraca.")
+    arg0.msg(var.z_nome ? "alterado o nome do item." : "o nome do item volta ao valor normal.")
+    ret 1
+  casofim
+
+
+classe i_moveis054
+herda comum_itemperso
+const nome = "um pequeno e macio sofá marrom"
+const ident = "um pequeno e macio sofá marrom"
+const descnome = "um pequeno e macio sofá marrom"
+const descpos = "Um pequeno e macio sofá marrom está aqui, encostado na parede."
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_lugar = 4
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 1000
+
+
+classe i_moveis055
+herda comum_item
+const nome = "uma linda penteadeira de madeira branca."
+const ident = "uma linda penteadeira de madeira branca."
+const descnome = "uma linda penteadeira de madeira branca."
+const descpos = "Uma linda penteadeira de madeira branca com um grande espelho está a sua \
+frente."
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 5000
+
+
+classe i_moveis056
+herda comum_item
+const nome = "uma luminária"
+const ident = "uma luminária"
+const descnome = "uma luminária"
+const descpos = "Uma bela luminária está em um canto, iluminando o ambiente."
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 3500
+
+
+classe i_moveis057
+herda comum_itemperso
+const nome = "uma pequena cômoda marfim"
+const ident = "uma pequena cômoda marfim"
+const descnome = "uma pequena cômoda marfim"
+const descpos = "Uma pequena cômoda marfim foi colocada em um canto."
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 10
+const valor = 2000
+
+
+classe i_moveis058
+herda comum_itemperso
+const nome = "uma grande cômoda branca."
+const ident = "uma grande cômoda branca."
+const descnome = "uma grande cômoda branca."
+const descpos = "Uma grande cômoda branca com 6 gavetas está encostada em um canto."
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 25
+const valor = 3000
+
+
+classe i_moveis059
+herda comum_itemperso
+const nome = "uma elegante cômoda negra"
+const ident = "uma elegante cômoda negra"
+const descnome = "uma elegante cômoda negra"
+const descpos = "Uma elegante cômoda de madeira escura está em um canto."
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 50
+const valor = 5500
+
+
+classe i_moveis060
+herda comum_item
+const nome = "um espelho de corpo inteiro"
+const ident = "um grande espelho com moldura de prata."
+const descnome = "um grande espelho com moldura de prata."
+const descpos = "Um grande espelho de corpo inteiro com moldura de prata está na parede, \
+mostrando seu reflexo."
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 3500
+const eveste = 1 # Eventos item: Sim
+#
+#
+
+func cmd_olhar
+  se arg1 == este && arg2 == arg1
+    arg0.msg("Você olha para o espelho e enxerga o seu próprio reflexo.")
+    arg0.msg(arg0.descnome)
+    arg0.msg(arg0.var.z_desc)
+    ret 1
+  fimse
+
+
+classe i_moveis061
+herda comum_itemperso
+const nome = "um berço cor de rosa."
+const ident = "um berço cor de rosa bercinho"
+const descnome = "um berço cor de rosa."
+const descpos = "Um adorável bercinho cor-de-rosa foi posto no cantinho da parede a sua direita."
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_lugar = 2
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const luzitem = 0 # Tipo de luz: 0 Não aceita acender/apagar, sem fogo
+const luzini = 0
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 512 # Tipo de item: 9-Mobília
+const valor = 15000
+
+
+classe i_moveis062
+herda comum_itemperso
+const nome = "um lindo abajur"
+const ident = "abajur"
+const descnome = "um lindo abajur"
+const descpos = "Um lindo abajur está em um cantinho, lançando luzes alvas no ambiente."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const luzitem = 1 # Tipo de luz: 1 Lanterna (acende/apaga, sem fogo)
+const luzini = 1000000
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 12000
+
+
+classe i_moveis063
+herda comum_itemperso
+const nome = "um berço azul"
+const ident = "um berço azul"
+const descnome = "um berço azul"
+const descpos = "Um lindo bercinho azul foi posto no cantinho da parede a sua esquerda."
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_lugar = 2
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 15000
+
+
+classe i_moveis064
+herda comum_item
+const nome = "um lindo abajur colorido."
+const ident = "um lindo abajur colorido."
+const descnome = "um muito fofo abajur colorido"
+const descpos = "Um muito fofo abajú colorido, está encima da cômoda , iluminando todo ambiente."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 10000
+
+
+classe i_moveis065
+herda comum_item
+const nome = "um tapetinho para quartos de meninas"
+const ident = "um lindo tapetinho cor de rosa."
+const descnome = "um lindo tapetinho cor de rosa."
+const descpos = "Um lindo tapetinho cor-de-rosa com o desenho de flores cobre o chão, deixando \
+tudo ainda mais fofo!"
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 5000
+
+
+classe i_moveis066
+herda comum_item
+const nome = "um tapete para quartos de meninos"
+const ident = "Um muito fofo tapetinho azul com animaisinhos coloridos."
+const descnome = "Um muito fofo tapetinho azul com animaisinhos coloridos."
+const descpos = "Um muito fofo tapetinho azul com desenhos de animaisinhos coloridos cobre o \
+chão."
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 5000
+
+
+classe i_moveis067
+herda comum_item
+const nome = "um tapete para quarto misto"
+const ident = "um lindo tapetinho branco"
+const descnome = "um lindo tapetinho branco"
+const descpos = "Um lindo tapetinho branco cobre o chão, deixando tudo ainda mais fofo!"
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 3000
+
+
+classe i_moveis068
+herda comum_itemperso
+const nome = "porta"
+const descnome = "uma porta"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const volobj = 9
+
+
+classe i_moveis069
+herda comum_itemperso
+const nome = "torneira"
+const descnome = "uma torneira"
+const renascer = 1
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+inttempo encher
+#
+
+func cmd_abriuobj
+  se arg1 == este
+    dono.msg("Água cai da torneira, enchendo toda a banheira.")
+    encher = 50
+  fimse
+#
+#
+
+func encher_exec
+  se var.z_agua_ >= 1000
+    dono.msg("A banheira está cheia e a água começa a transbordar...")
+  fimse
+  dono.msg("Enchendo...")
+  encher = 50
+  var.z_agua_ += 100
+#
+
+func fecharobj
+  se arg1 == este
+    var.z_agua_ = 1000
+    dono.msg("A água para de cair.")
+    criar("i_moveis069", dono, 1)
+    apagar(este)
+  fimse
+
+
+classe i_moveis070
+herda comum_itemperso
+const nome = "sofá cama"
+const descnome = "um sofá cama"
+const descpos = "Um grande sofá cama foi posto em um canto."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "É pesado demais."
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_moveis071
+herda comum_itemperso
+const nome = var.z_nome ? var.z_nome : "cadeira"
+const descnome = var.z_nome ? var.z_nome : "uma cadeira"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_movel = 3 # Mobília: 3 Sentar confortavelmente
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 2000
+const valor = 50000
+const volobj = 100
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_olhar
+  se arg1 == este
+    $mens.p(arg0, este)
+    $mens.mvis2("$A", "$P olha para $A.")
+    textotxt t
+    listaitem item
+    refvar r = este
+    ret !r, nulo
+    epara item = r.dentro1.fim, item, item.antes
+      refvar i = item.obj
+      continuar !i.visivel(arg0)
+      refvar nn = txtsublin(i.atribs.ini.textolin(2), 1)
+      t.addfim(txt(i.objtot) + i.atribs.ini.texto + txtcopiamai(i.descnome, "A") + nn)
+    efim
+    t.juntalin("(", "x)")
+    se t
+      arg0.msg2("\b\c6sobre ela você vê:\b\n" + txttroca(t.remove(1000), "\d+", "\n"))
+    senao
+      arg0.msg("\b está vazi" + (msexo ? "o." : "a."))
+    fimse
+    ret 1
+  fimse
+#
+
+func descpos
+  ret var.z_descpos, var.z_descpos
+  se dentro1.objini("i_roupas027")
+    ret descnome + " está aqui, com o encosto coberto com " + dentro1.objini("i_roupas027").descn\
+ome
+  senao
+    ret descnome + " foi posta no local."
+  fimse
+
+
+classe i_moveis072
+herda comum_itemperso
+const nome = var.z_nome ? var.z_nome : "mesa"
+const descnome = var.z_nome ? var.z_nome : "uma mesa"
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 10000
+const valor = 50000
+const volobj = 100
+const eveste = 1 # Eventos item: Sim
+#
+
+func msexo
+  ret txt1(descnome) == "um" || txt1(descnome) == "o", 1
+  ret 0
+#
+#
+#
+
+func descpos
+  ret var.z_descpos, var.z_descpos
+  se dentro1.objini("i_roupas027")
+    ret descnome + " foi posta no cento do lugar, coberta com " + dentro1.objini("i_roupas027").d\
+escnome
+  senao
+    ret descnome + " foi posta em um cantinho do aposento."
+  fimse
+
+const i_msgdentro = "Sobre ela você vê:"
+
+
+classe i_moveis073
+herda comum_itemperso
+const nome = "maca"
+const descnome = "uma maca"
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+
+
+classe i_moveis074
+herda comum_itemperso
+const nome = "maca"
+const descnome = "uma maca"
+const descpos = "Várias macas estão dispostas ao longo da enfermaria, para que os doentes possam \
+descansar."
+const i_pegar = "Não pode pegar nenhuma das macas daqui."
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_lugar = 5
+
+
+classe i_moveis075
+herda comum_itemperso
+const nome = "mesa de parto"
+const descnome = "uma mesa de parto"
+const descpos = "Uma mesa de parto está no centro da sala."
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_lugar = 1
+
+
+classe i_moveis076
+herda comum_itemperso
+const nome = "Colchão de casal para vizitas"
+const ident = "colchão casal vizitas"
+const descnome = "Um colchão de casal para vizitas"
+const descpos = "Um grande colchão de casal para vizitas foi estendido aqui no chão, forrado com \
+um lençol branco."
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const tipoitem = 512 # Tipo de item: 9-Mobília
+
+
+classe i_moveis077
+herda comum_item
+const nome = "Uma lareira de cristal"
+const ident = "lareira cristal"
+const descnome = "Uma lareira de cristal"
+const descpos = "Uma lareira completamente feita de cristal está a sua frente, banhando tudo com \
+uma luminosidade cálida."
+const descver = "Trata-se de algo tão belo e impossível que você jamais imaginou existir, \
+algo\n\
+digno de sonhos surreais ou de contos de fadas. O cristal com que ela foi feita\n\
+é imaculadamente belo, e em seu interior os toros de madeira ardem sem se\n\
+consumir, as labaredas entrecruzam-se em um espetáculo de luzes de tons\n\
+avermelhados, originando reflexos que dançam no cristal, se multiplicando, cada\n\
+vez mais hipnotizantes. Você quase é capaz de sentir a magia fabulosa que tudo\n\
+isso representa com as palmas das mãos, farejá-la, sentir o gosto na língua."
+
+
+classe i_moveis078
+herda comum_itemperso
+const nome = "cadeira acolchoada"
+const ident = "cadeira acolchoada"
+const descnome = "Uma cadeira acolchoada"
+const descpos = "Uma cadeira acolchoada está posicionada à frente da mesa."
+const i_movel = 1 # Mobília: 1 Sentar
+const tipoitem = 512 # Tipo de item: 9-Mobília
+
+
+classe i_moveis079
+herda comum_itemperso
+const nome = "balcão de mármore"
+const ident = "balcão mármore"
+const descnome = "Um balcão de mármore"
+const descpos = "Um grande balcão de mármore está em um canto da cozinha."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "Você não é o super man"
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const objmax = 40
+const tipoitem = 2048 # Tipo de item: 11-Container
+const valor = 800000
+const i_msgdentro = "sobre ele você vê:"
+
+
+classe i_moveis080
+herda comum_itemperso
+const nome = "cabideiro"
+const ident = "cabideiro"
+const descnome = "Um cabideiro"
+const descpos = "Um belo cabideiro de madeira está aqui, esperando para ser usado."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 30
+const tipoitem = 2048 # Tipo de item: 11-Container
+const valor = 2000
+const i_msgdentro = "Nele está pendurado:"
+
+
+classe i_moveis081
+herda comum_itemperso
+const nome = var.z_nome ? var.z_nome : "ventilador de teto"
+const descnome = var.z_nome ? var.z_nome : "um ventilador de teto"
+const descpos = var.z_descpos ? var.z_descpos : descnome + " foi instalad" + (msexo ? "o" : "a") \
++ " no teto."
+const valor = 50000
+#
+
+func msexo
+  ret txt1(descnome) == "o" || txt1(descnome) == "um", 1
+
+
+classe i_moveis082
+herda comum_itemperso
+const nome = "penteadeira branca"
+const descnome = "Uma penteadeira branca"
+const descpos = "Uma penteadeira branca espelhada está ao lado da cama."
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const i_tranc = 1 # Trancar: 1 Pode ser trancado
+const i_fechadura = var.z_fechadura
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_mudadono
+  se !donoantes && dono.jog
+    uint16 cod1
+    uint16 cod2
+    uint16 cod3
+    cod1 = rand(111, 999)
+    cod2 = rand(111, 999)
+    cod3 = rand(111, 999)
+    var.z_fechadura = txt1(dono.nome) + cod1 + "" + cod2 + "" + cod3
+    criar("i_moveis083", dono, 1, "z_chave=" + var.z_fechadura)
+    criar("i_moveis083", dono, 1, "z_chave=" + var.z_fechadura)
+  fimse
+
+
+classe i_moveis083
+herda comum_item
+const nome = "chave da penteadeira"
+const ident = "chave penteadeira"
+const descnome = "a chave da penteadeira"
+const i_chave = var.z_chave
+
+
+classe i_moveis084
+herda comum_itemperso
+const nome = var.z_nome ? var.z_nome : "container"
+const descnome = var.z_nome ? var.z_nome : "um grande container"
+const descpos = var.z_descpos ? var.z_descpos : "Um grande container encontra-se em um canto do \
+local."
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const i_tranc = 1 # Trancar: 1 Pode ser trancado
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 500
+#
+
+func i_msgabriu
+  se txt1(var.z_nome) == "o" || txt1(var.z_nome) == "a"
+    ret "$P abre a porta d" + var.z_nome + "."
+  senao
+    ret "$P abre a porta de " + var.z_nome + "."
+  fimse
+#
+
+func i_msgfechou
+  se txt1(var.z_nome) == "o" || txt1(var.z_nome) == "a"
+    ret "$P fecha a porta d" + var.z_nome + "."
+  senao
+    ret "$P fecha a porta de " + var.z_nome + "."
+  fimse
+#
+
+func msexo
+  se txt1(var.z_nome) == "o" || txt1(var.z_nome) == "um"
+    ret 1
+  senao
+    ret 0
+  fimse
+
+
+classe i_moveis085
+herda comum_item
+
+
+classe i_moveis086
+herda comum_itemperso
+const nome = var.z_nome ? var.z_nome : "cama"
+const descnome = var.z_nome ? var.z_nome : "uma cama"
+const descpos = var.z_descpos ? var.z_descpos : descnome + " encontra-se em um canto do local."
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const i_tranc = 1 # Trancar: 1 Pode ser trancado
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 100
+#
+#
+
+func msexo
+  ret txt1(var.z_nome) == "o" || txt1(var.z_nome) == "um", 1
+#
+
+func cmd_olhar
+  se arg1 == este && !dentro1.objini.total
+    ret ""
+  fimse
+
+
+classe i_moveis101
+herda comum_itemperso
+const nome = "janela"
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+
+classe i_moveis102
+herda comum_itemperso
+const nome = "janela"
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+
+classe i_moveis103
+herda comum_item
+
+
+classe s_moveis001
+herda b_moveis
+const s_titulo = "No box do banheiro"
+const s_entrada = "box do banheiro"
+
+
+classe s_moveis002
+herda b_moveis
+const s_titulo = "Dentro da banheira"
+const s_entrada = "banheira"
+const eveste = 1 # Eventos sala: Sim
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "ensaboar"
+    $mens.p(arg0)
+    $mens.mvis1("$P pega o sabonete e começa a passar por todo o corpo, fazendo espuma na \
+banheira!")
+    ret 1
+  senao arg1 == "molhar"
+    $mens.p(arg0)
+    $mens.mvis1("$P se molha com a água da banheira!")
+    ret 1
+  senao arg1 == "enxaguar"
+    $mens.p(arg0)
+    $mens.mvis1("$P se enxágua, retirando todo o sabonete do corpo!")
+    ret 1
+  fimse
+
+
+classe s_moveis003
+herda b_moveis
+const s_entrada = "Entrada da barraca"
+const s_fome = 1 # Fome e sede: 1 Ausente
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_recup = 1000000000
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const s_semmagia = 0 # Sem magia: Não
+const fechadura_n = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_n = 1 # Trancar: 1 Pode ser trancado
+const fechadura_s = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_s = 1 # Trancar: 1 Pode ser trancado
+const fechadura_l = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_l = 1 # Trancar: 1 Pode ser trancado
+const fechadura_o = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_o = 1 # Trancar: 1 Pode ser trancado
+const fechadura_c = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_c = 1 # Trancar: 1 Pode ser trancado
+const fechadura_b = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_b = 1 # Trancar: 1 Pode ser trancado
+const fechadura_ne = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_ne = 1 # Trancar: 1 Pode ser trancado
+const fechadura_no = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_no = 1 # Trancar: 1 Pode ser trancado
+const fechadura_se = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_se = 1 # Trancar: 1 Pode ser trancado
+const fechadura_so = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_so = 1 # Trancar: 1 Pode ser trancado
+const dir_sair = $s_moveis007
+const portaini_sair = 2 # Estado inicial: 2 Porta fechada
+const fechadura_sair = dono.var.z_dono ? dono.var.z_dono : "barraca001"
+const tranc_sair = 1 # Trancar: 1 Pode ser trancado
+const som_abrir_sair = "abporta"
+const som_fechar_sair = "fporta01"
+const s_reset = "S 100 moveis053 1 S"
+const objsav = 1
+#
+
+func portanome_n
+  ret var.z_portanome_n, var.z_portanome_n
+
+func porta_n
+  ret var.z_porta_n, var.z_porta_n
+#
+
+func portaini_n
+  ret var.z_porta_n_, var.z_porta_n_
+#
+
+func portanome_s
+  ret var.z_portanome_s, var.z_portanome_s
+
+func porta_s
+  ret var.z_porta_s, var.z_porta_s
+#
+
+func portaini_s
+  ret var.z_porta_s_, var.z_porta_s_
+#
+
+func portanome_c
+  ret var.z_portanome_c, var.z_portanome_c
+
+func portanome_b
+  ret var.z_portanome_b, var.z_portanome_b
+
+func porta_c
+  ret var.z_porta_c, var.z_porta_c
+#
+
+func portaini_c
+  ret var.z_porta_c_, var.z_porta_c_
+
+func porta_b
+  ret var.z_porta_b, var.z_porta_b
+#
+
+func portanome_l
+  ret var.z_portanome_l, var.z_portanome_l
+
+func porta_l
+  ret var.z_porta_l, var.z_porta_l
+#
+
+func portaini_l
+  ret var.z_porta_l_, var.z_porta_l_
+#
+
+func portanome_o
+  ret var.z_portanome_o, var.z_portanome_o
+
+func porta_o
+  ret var.z_porta_o, var.z_porta_o
+#
+
+func portaini_o
+  ret var.z_porta_o_, var.z_porta_o_
+
+func portanome_ne
+  ret var.z_portanome_ne, var.z_portanome_ne
+
+func porta_ne
+  ret var.z_porta_ne, var.z_porta_ne
+#
+
+func portaini_ne
+  ret var.z_porta_ne_, var.z_porta_ne_
+#
+
+func portanome_no
+  ret var.z_portanome_no, var.z_portanome_no
+
+func porta_no
+  ret var.z_porta_no, var.z_porta_no
+#
+
+func portaini_no
+  ret var.z_porta_no_, var.z_porta_no_
+#
+
+func portanome_se
+  ret var.z_portanome_se, var.z_portanome_se
+
+func porta_se
+  ret var.z_porta_se, var.z_porta_se
+#
+
+func portaini_se
+  ret var.z_porta_se_, var.z_porta_se_
+#
+
+func portanome_so
+  ret var.z_portanome_so, var.z_portanome_so
+
+func porta_so
+  ret var.z_porta_so, var.z_porta_so
+#
+
+func portaini_so
+  ret var.z_porta_so_, var.z_porta_so_
+#
+
+func portanome_sair
+  ret dono.var.z_portanome, dono.var.z_portanome
+  se txt1(dono.descnome) == "o" || txt1(dono.descnome) == "a"
+    ret "a porta d" + dono.descnome
+  senao
+    ret "a porta de " + dono.descnome
+  fimse
+#
+
+func portaartigo_sair
+  ret txt1(dono.descnome) == "a", 0
+  ret txt1(dono.descnome) == "as", 1
+  ret txt1(dono.descnome) == "o", 2
+  ret txt1(dono.descnome) == "os", 3
+#
+
+func dir_n
+  ret var.z_n, dono.dentro2.objini(var.z_n)
+
+func dir_s
+  ret var.z_s, dono.dentro2.objini(var.z_s)
+#
+
+func dir_ne
+  ret var.z_ne, dono.dentro2.objini(var.z_ne)
+#
+
+func dir_se
+  ret var.z_se, dono.dentro2.objini(var.z_se)
+#
+
+func dir_no
+  ret var.z_no, dono.dentro2.objini(var.z_no)
+#
+
+func dir_so
+  ret var.z_so, dono.dentro2.objini(var.z_so)
+#
+
+func dir_o
+  ret var.z_o, dono.dentro2.objini(var.z_o)
+#
+
+func dir_l
+  ret var.z_l, dono.dentro2.objini(var.z_l)
+
+func dir_c
+  ret var.z_c, dono.dentro2.objini(var.z_c)
+#
+
+func dir_b
+  ret var.z_b, dono.dentro2.objini(var.z_b)
+
+func s_titulo
+  se dono
+    se txt1(dono.descnome) == "o" || txt1(dono.descnome) == "a"
+      ret "Dentro d" + dono.descnome
+    senao
+      ret "Dentro de " + dono.descnome
+    fimse
+  fimse
+#
+
+func cmd_salaperso
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se txt1(arg1) == "descfora"
+    ret dono.var.z_dono != arg0.descnome, nulo
+    dono.var.z_descpos = txt2(arg1)
+    arg0.msg(dono.var.z_descpos ? "Descrição da barraca alterada." : "descrição da barraca \
+apagada.")
+    ret 1
+  fimse
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_moveis053") && criar("i_moveis053", este, 1)
+
+const dir_ = $s_moveis011
+
+
+classe s_moveis004
+herda b_moveis
+const dir_entrar = $s_moveis003
+
+
+classe s_moveis005
+herda b_moveis
+const s_titulo = "dentro da piscina"
+const s_entrada = "o outro lado da piscina"
+const s_fome = 1 # Fome e sede: 1 Ausente
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const eveste = 1 # Eventos sala: Sim
+const dir_se = $s_moveis006
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+
+func cmd_mover
+  se arg2 == "se"
+    $mens.p(arg0)
+    $mens.mvis2("$P nada para sudeste.", "$P nadou para o sudeste.")
+    arg0.mudadono(dono.dentro2.objini("s_moveis006"))
+    $mens.mvis2("", "$P nadou do noroeste.")
+    $mens.p(arg0)
+    ret 1
+  fimse
+#
+
+func cmd_sentouchao
+  $mens.p(arg0)
+  $mens.mtodos1("$P ficou totalmente submerso.")
+
+
+classe s_moveis006
+herda b_moveis
+const s_titulo = "do outro lado da piscina"
+const eveste = 1
+const dir_no = $s_moveis005
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+
+func cmd_mover
+  se arg2 == "no"
+    $mens.p(arg0)
+    $mens.mvis2("$P nada para noroeste.", "$P nadou para o noroeste.")
+    arg0.mudadono(dono.dentro2.objini("s_moveis005"))
+    $mens.mvis2("", "$P nadou do sudeste.")
+    $mens.p(arg0)
+    ret 1
+  fimse
+
+
+classe s_moveis007
+herda b_moveis
+const dir_entrar = $s_moveis003
+
+
+classe s_moveis008
+herda b_moveis
+const s_titulo = "Dentro da lixeira"
+const s_entrada = "lixeira"
+const eveste = 1 # Eventos sala: Sim
+
+
+classe s_moveis009
+herda b_moveis
+
+
+classe s_moveis010
+herda b_moveis
+const s_titulo = "dentro da lareira"
+
+
+classe s_moveis011
+herda b_moveis
+const dir_ = $s_moveis003
+
+
+classe s_moveis101
+herda b_moveis
+const s_fome = 0 # Fome e sede: 0 Presente
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_recup = 0
+const s_semmagia = 0 # Sem magia: Não
+const fechadura_n = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_n = 1
+const fechadura_s = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_s = 1
+const fechadura_l = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_l = 1
+const fechadura_o = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_o = 1
+const fechadura_c = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_c = 1
+const fechadura_b = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_b = 1
+const fechadura_ne = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_ne = 1
+const fechadura_no = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_no = 1
+const fechadura_se = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_se = 1
+const fechadura_so = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_so = 1
+const objsav = 1
+#
+
+func portanome_n
+  ret var.z_portanome_n, var.z_portanome_n
+
+func porta_n
+  ret var.z_porta_n, var.z_porta_n
+#
+
+func portaini_n
+  ret var.z_porta_n_, var.z_porta_n_
+#
+
+func portanome_s
+  ret var.z_portanome_s, var.z_portanome_s
+
+func porta_s
+  ret var.z_porta_s, var.z_porta_s
+#
+
+func portaini_s
+  ret var.z_porta_s_, var.z_porta_s_
+#
+
+func portanome_l
+  ret var.z_portanome_l, var.z_portanome_l
+
+func porta_l
+  ret var.z_porta_l, var.z_porta_l
+#
+
+func portaini_l
+  ret var.z_porta_l_, var.z_porta_l_
+#
+
+func portanome_o
+  ret var.z_portanome_o, var.z_portanome_o
+
+func porta_o
+  ret var.z_porta_o, var.z_porta_o
+#
+
+func portaini_o
+  ret var.z_porta_o_, var.z_porta_o_
+#
+
+func portanome_ne
+  ret var.z_portanome_ne, var.z_portanome_ne
+
+func porta_ne
+  ret var.z_porta_ne, var.z_porta_ne
+#
+
+func portaini_ne
+  ret var.z_porta_ne_, var.z_porta_ne_
+#
+
+func portanome_no
+  ret var.z_portanome_no, var.z_portanome_no
+
+func porta_no
+  ret var.z_porta_no, var.z_porta_no
+#
+
+func portaini_no
+  ret var.z_porta_no_, var.z_porta_no_
+#
+
+func portanome_se
+  ret var.z_portanome_se, var.z_portanome_se
+
+func porta_se
+  ret var.z_porta_se, var.z_porta_se
+#
+
+func portaini_se
+  ret var.z_porta_se_, var.z_porta_se_
+#
+
+func portanome_so
+  ret var.z_portanome_so, var.z_portanome_so
+
+func porta_so
+  ret var.z_porta_so, var.z_porta_so
+#
+
+func portaini_so
+  ret var.z_porta_so_, var.z_porta_so_
+#
+
+func portanome_c
+  ret var.z_portanome_c, var.z_portanome_c
+
+func porta_c
+  ret var.z_porta_c, var.z_porta_c
+#
+
+func portaini_c
+  ret var.z_porta_c_, var.z_porta_c_
+
+func portanome_b
+  ret var.z_portanome_b, var.z_portanome_b
+
+func porta_b
+  ret var.z_porta_b, var.z_porta_b
+#
+
+func portaini_b
+  ret var.z_porta_b_, var.z_porta_b_
+
+func dir_n
+  ret var.z_n, dono.dentro2.objini(var.z_n)
+#
+
+func dir_s
+  ret var.z_s, dono.dentro2.objini(var.z_s)
+#
+
+func dir_ne
+  ret var.z_ne, dono.dentro2.objini(var.z_ne)
+#
+
+func dir_se
+  ret var.z_se, dono.dentro2.objini(var.z_se)
+#
+
+func dir_no
+  ret var.z_no, dono.dentro2.objini(var.z_no)
+#
+
+func dir_so
+  ret var.z_so, dono.dentro2.objini(var.z_so)
+#
+
+func dir_l
+  ret var.z_l, dono.dentro2.objini(var.z_l)
+#
+
+func dir_o
+  ret var.z_o, dono.dentro2.objini(var.z_o)
+
+func dir_c
+  ret var.z_c, dono.dentro2.objini(var.z_c)
+#
+
+func dir_b
+  ret var.z_b, dono.dentro2.objini(var.z_b)
+
+
+classe s_moveis102
+herda b_moveis
+const s_fome = 1 # Fome e sede: 1 Ausente
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_recup = 0
+const s_semmagia = 0 # Sem magia: Não
+const fechadura_n = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_n = 1
+const fechadura_s = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_s = 1
+const fechadura_l = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_l = 1
+const fechadura_o = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_o = 1
+const fechadura_c = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_c = 1
+const fechadura_b = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_b = 1
+const fechadura_ne = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_ne = 1
+const fechadura_no = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_no = 1
+const fechadura_se = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_se = 1
+const fechadura_so = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_so = 1
+const objsav = 1
+#
+
+func portanome_n
+  ret var.z_portanome_n, var.z_portanome_n
+
+func porta_n
+  ret var.z_porta_n, var.z_porta_n
+#
+
+func portaini_n
+  ret var.z_porta_n_, var.z_porta_n_
+#
+
+func portanome_s
+  ret var.z_portanome_s, var.z_portanome_s
+
+func porta_s
+  ret var.z_porta_s, var.z_porta_s
+#
+
+func portaini_s
+  ret var.z_porta_s_, var.z_porta_s_
+#
+
+func portanome_l
+  ret var.z_portanome_l, var.z_portanome_l
+
+func porta_l
+  ret var.z_porta_l, var.z_porta_l
+#
+
+func portaini_l
+  ret var.z_porta_l_, var.z_porta_l_
+#
+
+func portanome_o
+  ret var.z_portanome_o, var.z_portanome_o
+
+func porta_o
+  ret var.z_porta_o, var.z_porta_o
+#
+
+func portaini_o
+  ret var.z_porta_o_, var.z_porta_o_
+#
+
+func portanome_ne
+  ret var.z_portanome_ne, var.z_portanome_ne
+
+func porta_ne
+  ret var.z_porta_ne, var.z_porta_ne
+#
+
+func portaini_ne
+  ret var.z_porta_ne_, var.z_porta_ne_
+#
+
+func portanome_no
+  ret var.z_portanome_no, var.z_portanome_no
+
+func porta_no
+  ret var.z_porta_no, var.z_porta_no
+#
+
+func portaini_no
+  ret var.z_porta_no_, var.z_porta_no_
+#
+
+func portanome_se
+  ret var.z_portanome_se, var.z_portanome_se
+
+func porta_se
+  ret var.z_porta_se, var.z_porta_se
+#
+
+func portaini_se
+  ret var.z_porta_se_, var.z_porta_se_
+#
+
+func portanome_so
+  ret var.z_portanome_so, var.z_portanome_so
+
+func porta_so
+  ret var.z_porta_so, var.z_porta_so
+#
+
+func portaini_so
+  ret var.z_porta_so_, var.z_porta_so_
+
+func portanome_c
+  ret var.z_portanome_c, var.z_portanome_c
+
+func porta_c
+  ret var.z_porta_c, var.z_porta_c
+#
+
+func portaini_c
+  ret var.z_porta_c_, var.z_porta_c_
+
+func portanome_b
+  ret var.z_portanome_b, var.z_portanome_b
+
+func porta_b
+  ret var.z_porta_b, var.z_porta_b
+#
+
+func portaini_b
+  ret var.z_porta_b_, var.z_porta_b_
+
+func dir_n
+  ret var.z_n, dono.dentro2.objini(var.z_n)
+#
+
+func dir_s
+  ret var.z_s, dono.dentro2.objini(var.z_s)
+#
+
+func dir_ne
+  ret var.z_ne, dono.dentro2.objini(var.z_ne)
+#
+
+func dir_se
+  ret var.z_se, dono.dentro2.objini(var.z_se)
+#
+
+func dir_no
+  ret var.z_no, dono.dentro2.objini(var.z_no)
+#
+
+func dir_so
+  ret var.z_so, dono.dentro2.objini(var.z_so)
+
+func dir_l
+  ret var.z_l, dono.dentro2.objini(var.z_l)
+#
+
+func dir_o
+  ret var.z_o, dono.dentro2.objini(var.z_o)
+#
+
+func dir_c
+  ret var.z_c, dono.dentro2.objini(var.z_c)
+#
+
+func dir_b
+  ret var.z_b, dono.dentro2.objini(var.z_b)
+
+
+classe s_moveis103
+herda b_moveis
+const s_fome = 1 # Fome e sede: 1 Ausente
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_recup = 1000000000
+const s_semmagia = 1 # Sem magia: Sim
+const fechadura_n = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_n = 1
+const fechadura_s = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_s = 1
+const fechadura_l = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_l = 1
+const fechadura_o = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_o = 1
+const fechadura_c = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_c = 1
+const fechadura_b = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_b = 1
+const fechadura_ne = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_ne = 1
+const fechadura_no = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_no = 1
+const fechadura_se = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_se = 1
+const fechadura_so = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_so = 1
+const objsav = 1
+#
+
+func portanome_n
+  ret var.z_portanome_n, var.z_portanome_n
+
+func porta_n
+  ret var.z_porta_n, var.z_porta_n
+#
+
+func portaini_n
+  ret var.z_porta_n_, var.z_porta_n_
+#
+
+func portanome_s
+  ret var.z_portanome_s, var.z_portanome_s
+
+func porta_s
+  ret var.z_porta_s, var.z_porta_s
+#
+
+func portaini_s
+  ret var.z_porta_s_, var.z_porta_s_
+#
+
+func portanome_l
+  ret var.z_portanome_l, var.z_portanome_l
+
+func porta_l
+  ret var.z_porta_l, var.z_porta_l
+#
+
+func portaini_l
+  ret var.z_porta_l_, var.z_porta_l_
+#
+
+func portanome_o
+  ret var.z_portanome_o, var.z_portanome_o
+#
+
+func portaini_o
+  ret var.z_porta_o_, var.z_porta_o_
+#
+
+func porta_o
+  ret var.z_porta_o, var.z_porta_o
+#
+
+func portanome_ne
+  ret var.z_portanome_ne, var.z_portanome_ne
+
+func porta_ne
+  ret var.z_porta_ne, var.z_porta_ne
+#
+
+func portaini_ne
+  ret var.z_porta_ne_, var.z_porta_ne_
+#
+
+func portanome_no
+  ret var.z_portanome_no, var.z_portanome_no
+
+func porta_no
+  ret var.z_porta_no, var.z_porta_no
+#
+
+func portaini_no
+  ret var.z_porta_no_, var.z_porta_no_
+#
+
+func portanome_se
+  ret var.z_portanome_se, var.z_portanome_se
+
+func porta_se
+  ret var.z_porta_se, var.z_porta_se
+#
+
+func portaini_se
+  ret var.z_porta_se_, var.z_porta_se_
+#
+
+func portanome_so
+  ret var.z_portanome_so, var.z_portanome_so
+
+func porta_so
+  ret var.z_porta_so, var.z_porta_so
+#
+
+func portaini_so
+  ret var.z_porta_so_, var.z_porta_so_
+#
+
+func portanome_c
+  ret var.z_portanome_c, var.z_portanome_c
+
+func porta_c
+  ret var.z_porta_c, var.z_porta_c
+#
+
+func portaini_c
+  ret var.z_porta_c_, var.z_porta_c_
+
+func portanome_b
+  ret var.z_portanome_b, var.z_portanome_b
+
+func porta_b
+  ret var.z_porta_b, var.z_porta_b
+#
+
+func portaini_b
+  ret var.z_porta_b_, var.z_porta_b_
+
+func dir_n
+  ret var.z_n, dono.dentro2.objini(var.z_n)
+#
+
+func dir_s
+  ret var.z_s, dono.dentro2.objini(var.z_s)
+#
+
+func dir_ne
+  ret var.z_ne, dono.dentro2.objini(var.z_ne)
+#
+
+func dir_se
+  ret var.z_se, dono.dentro2.objini(var.z_se)
+#
+
+func dir_no
+  ret var.z_no, dono.dentro2.objini(var.z_no)
+#
+
+func dir_so
+  ret var.z_so, dono.dentro2.objini(var.z_so)
+
+func dir_l
+  ret var.z_l, dono.dentro2.objini(var.z_l)
+#
+
+func dir_o
+  ret var.z_o, dono.dentro2.objini(var.z_o)
+#
+
+func dir_c
+  ret var.z_c, dono.dentro2.objini(var.z_c)
+#
+
+func dir_b
+  ret var.z_b, dono.dentro2.objini(var.z_b)
+
+
+classe s_moveis104
+herda b_moveis
+const s_fome = 1 # Fome e sede: 1 Ausente
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_recup = 1000000000
+const s_semmagia = 0 # Sem magia: Não
+const fechadura_n = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_n = 1
+const fechadura_s = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_s = 1
+const fechadura_l = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_l = 1
+const fechadura_o = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_o = 1
+const fechadura_c = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_c = 1
+const fechadura_b = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_b = 1
+const fechadura_ne = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_ne = 1
+const fechadura_no = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_no = 1
+const fechadura_se = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_se = 1
+const fechadura_so = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_so = 1
+const objsav = 1
+#
+
+func portanome_n
+  ret var.z_portanome_n, var.z_portanome_n
+
+func porta_n
+  ret var.z_porta_n, var.z_porta_n
+#
+
+func portaini_n
+  ret var.z_porta_n_, var.z_porta_n_
+#
+
+func portanome_s
+  ret var.z_portanome_s, var.z_portanome_s
+
+func porta_s
+  ret var.z_porta_s, var.z_porta_s
+#
+
+func portaini_s
+  ret var.z_porta_s_, var.z_porta_s_
+#
+
+func portanome_l
+  ret var.z_portanome_l, var.z_portanome_l
+
+func porta_l
+  ret var.z_porta_l, var.z_porta_l
+#
+
+func portaini_l
+  ret var.z_porta_l_, var.z_porta_l_
+#
+
+func portanome_o
+  ret var.z_portanome_o, var.z_portanome_o
+
+func porta_o
+  ret var.z_porta_o, var.z_porta_o
+#
+
+func portaini_o
+  ret var.z_porta_o_, var.z_porta_o_
+#
+
+func portanome_ne
+  ret var.z_portanome_ne, var.z_portanome_ne
+
+func porta_ne
+  ret var.z_porta_ne, var.z_porta_ne
+#
+
+func portaini_ne
+  ret var.z_porta_ne_, var.z_porta_ne_
+#
+
+func portanome_no
+  ret var.z_portanome_no, var.z_portanome_no
+
+func porta_no
+  ret var.z_porta_no, var.z_porta_no
+#
+
+func portaini_no
+  ret var.z_porta_no_, var.z_porta_no_
+#
+
+func portanome_se
+  ret var.z_portanome_se, var.z_portanome_se
+
+func porta_se
+  ret var.z_porta_se, var.z_porta_se
+#
+
+func portaini_se
+  ret var.z_porta_se_, var.z_porta_se_
+#
+
+func portanome_so
+  ret var.z_portanome_so, var.z_portanome_so
+
+func porta_so
+  ret var.z_porta_so, var.z_porta_so
+#
+
+func portaini_so
+  ret var.z_porta_so_, var.z_porta_so_
+#
+
+func portanome_c
+  ret var.z_portanome_c, var.z_portanome_c
+
+func porta_c
+  ret var.z_porta_c, var.z_porta_c
+#
+
+func portaini_c
+  ret var.z_porta_c_, var.z_porta_c_
+
+func portanome_b
+  ret var.z_portanome_b, var.z_portanome_b
+
+func porta_b
+  ret var.z_porta_b, var.z_porta_b
+#
+
+func portaini_b
+  ret var.z_porta_b_, var.z_porta_b_
+
+func dir_n
+  ret var.z_n, dono.dentro2.objini(var.z_n)
+#
+
+func dir_s
+  ret var.z_s, dono.dentro2.objini(var.z_s)
+#
+
+func dir_ne
+  ret var.z_ne, dono.dentro2.objini(var.z_ne)
+#
+
+func dir_se
+  ret var.z_se, dono.dentro2.objini(var.z_se)
+#
+
+func dir_no
+  ret var.z_no, dono.dentro2.objini(var.z_no)
+#
+
+func dir_so
+  ret var.z_so, dono.dentro2.objini(var.z_so)
+
+func dir_l
+  ret var.z_l, dono.dentro2.objini(var.z_l)
+#
+
+func dir_o
+  ret var.z_o, dono.dentro2.objini(var.z_o)
+#
+
+func dir_c
+  ret var.z_c, dono.dentro2.objini(var.z_c)
+#
+
+func dir_b
+  ret var.z_b, dono.dentro2.objini(var.z_b)
+
+
+classe s_moveis105
+herda b_moveis
+const s_fome = 1 # Fome e sede: 1 Ausente
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_recup = 1000000000
+const s_semmagia = 1 # Sem magia: Sim
+const fechadura_n = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_n = 1
+const fechadura_s = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_s = 1
+const fechadura_l = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_l = 1
+const fechadura_o = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_o = 1
+const fechadura_c = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_c = 1
+const fechadura_b = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_b = 1
+const fechadura_ne = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_ne = 1
+const fechadura_no = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_no = 1
+const fechadura_se = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_se = 1
+const fechadura_so = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_so = 1
+const objsav = 1
+#
+
+func portanome_n
+  ret var.z_portanome_n, var.z_portanome_n
+
+func porta_n
+  ret var.z_porta_n, var.z_porta_n
+#
+
+func portaini_n
+  ret var.z_porta_n_, var.z_porta_n_
+#
+
+func portanome_s
+  ret var.z_portanome_s, var.z_portanome_s
+
+func porta_s
+  ret var.z_porta_s, var.z_porta_s
+#
+
+func portaini_s
+  ret var.z_porta_s_, var.z_porta_s_
+#
+
+func portanome_l
+  ret var.z_portanome_l, var.z_portanome_l
+
+func porta_l
+  ret var.z_porta_l, var.z_porta_l
+#
+
+func portaini_l
+  ret var.z_porta_l_, var.z_porta_l_
+#
+
+func portanome_o
+  ret var.z_portanome_o, var.z_portanome_o
+
+func porta_o
+  ret var.z_porta_o, var.z_porta_o
+#
+
+func portaini_o
+  ret var.z_porta_o_, var.z_porta_o_
+#
+
+func portanome_ne
+  ret var.z_portanome_ne, var.z_portanome_ne
+
+func porta_ne
+  ret var.z_porta_ne, var.z_porta_ne
+#
+
+func portaini_ne
+  ret var.z_porta_ne_, var.z_porta_ne_
+#
+
+func portanome_no
+  ret var.z_portanome_no, var.z_portanome_no
+
+func porta_no
+  ret var.z_porta_no, var.z_porta_no
+#
+
+func portaini_no
+  ret var.z_porta_no_, var.z_porta_no_
+#
+
+func portanome_se
+  ret var.z_portanome_se, var.z_portanome_se
+
+func porta_se
+  ret var.z_porta_se, var.z_porta_se
+#
+
+func portaini_se
+  ret var.z_porta_se_, var.z_porta_se_
+#
+
+func portanome_so
+  ret var.z_portanome_so, var.z_portanome_so
+
+func porta_so
+  ret var.z_porta_so, var.z_porta_so
+#
+
+func portaini_so
+  ret var.z_porta_so_, var.z_porta_so_
+
+func portanome_c
+  ret var.z_portanome_c, var.z_portanome_c
+
+func porta_c
+  ret var.z_porta_c, var.z_porta_c
+#
+
+func portaini_c
+  ret var.z_porta_c_, var.z_porta_c_
+
+func portanome_b
+  ret var.z_portanome_b, var.z_portanome_b
+
+func porta_b
+  ret var.z_porta_b, var.z_porta_b
+#
+
+func portaini_b
+  ret var.z_porta_b_, var.z_porta_b_
+
+func dir_n
+  ret var.z_n, dono.dentro2.objini(var.z_n)
+#
+
+func dir_s
+  ret var.z_s, dono.dentro2.objini(var.z_s)
+#
+
+func dir_ne
+  ret var.z_ne, dono.dentro2.objini(var.z_ne)
+#
+
+func dir_se
+  ret var.z_se, dono.dentro2.objini(var.z_se)
+#
+
+func dir_no
+  ret var.z_no, dono.dentro2.objini(var.z_no)
+#
+
+func dir_so
+  ret var.z_so, dono.dentro2.objini(var.z_so)
+
+func dir_l
+  ret var.z_l, dono.dentro2.objini(var.z_l)
+#
+
+func dir_o
+  ret var.z_o, dono.dentro2.objini(var.z_o)
+#
+
+func dir_c
+  ret var.z_c, dono.dentro2.objini(var.z_c)
+#
+
+func dir_b
+  ret var.z_b, dono.dentro2.objini(var.z_b)
+
+
+classe s_moveis106
+herda b_moveis
+const s_fome = 0 # Fome e sede: 0 Presente
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_recup = 0
+const s_semmagia = 0 # Sem magia: Não
+const fechadura_n = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_n = 1
+const fechadura_s = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_s = 1
+const fechadura_l = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_l = 1
+const fechadura_o = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_o = 1
+const fechadura_c = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_c = 1
+const fechadura_b = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_b = 1
+const fechadura_ne = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_ne = 1
+const fechadura_no = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_no = 1
+const fechadura_se = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_se = 1
+const fechadura_so = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_so = 1
+const objsav = 1
+#
+
+func portanome_n
+  ret var.z_portanome_n, var.z_portanome_n
+
+func porta_n
+  ret var.z_porta_n, var.z_porta_n
+#
+
+func portaini_n
+  ret var.z_porta_n_, var.z_porta_n_
+#
+
+func portanome_s
+  ret var.z_portanome_s, var.z_portanome_s
+
+func porta_s
+  ret var.z_porta_s, var.z_porta_s
+#
+
+func portaini_s
+  ret var.z_porta_s_, var.z_porta_s_
+#
+
+func portanome_l
+  ret var.z_portanome_l, var.z_portanome_l
+
+func porta_l
+  ret var.z_porta_l, var.z_porta_l
+#
+
+func portaini_l
+  ret var.z_porta_l_, var.z_porta_l_
+#
+
+func portanome_o
+  ret var.z_portanome_o, var.z_portanome_o
+
+func porta_o
+  ret var.z_porta_o, var.z_porta_o
+#
+
+func portaini_o
+  ret var.z_porta_o_, var.z_porta_o_
+
+func portanome_ne
+  ret var.z_portanome_ne, var.z_portanome_ne
+
+func porta_ne
+  ret var.z_porta_ne, var.z_porta_ne
+#
+
+func portaini_ne
+  ret var.z_porta_ne_, var.z_porta_ne_
+#
+
+func portanome_no
+  ret var.z_portanome_no, var.z_portanome_no
+
+func porta_no
+  ret var.z_porta_no, var.z_porta_no
+#
+
+func portaini_no
+  ret var.z_porta_no_, var.z_porta_no_
+#
+
+func portanome_se
+  ret var.z_portanome_se, var.z_portanome_se
+
+func porta_se
+  ret var.z_porta_se, var.z_porta_se
+#
+
+func portaini_se
+  ret var.z_porta_se_, var.z_porta_se_
+#
+
+func portanome_so
+  ret var.z_portanome_so, var.z_portanome_so
+
+func porta_so
+  ret var.z_porta_so, var.z_porta_so
+#
+
+func portaini_so
+  ret var.z_porta_so_, var.z_porta_so_
+#
+
+func portanome_c
+  ret var.z_portanome_c, var.z_portanome_c
+
+func porta_c
+  ret var.z_porta_c, var.z_porta_c
+#
+
+func portaini_c
+  ret var.z_porta_c_, var.z_porta_c_
+
+func portanome_b
+  ret var.z_portanome_b, var.z_portanome_b
+
+func porta_b
+  ret var.z_porta_b, var.z_porta_b
+#
+
+func portaini_b
+  ret var.z_porta_b_, var.z_porta_b_
+
+func dir_n
+  ret var.z_n, dono.dentro2.objini(var.z_n)
+#
+
+func dir_s
+  ret var.z_s, dono.dentro2.objini(var.z_s)
+#
+
+func dir_ne
+  ret var.z_ne, dono.dentro2.objini(var.z_ne)
+#
+
+func dir_se
+  ret var.z_se, dono.dentro2.objini(var.z_se)
+#
+
+func dir_no
+  ret var.z_no, dono.dentro2.objini(var.z_no)
+#
+
+func dir_so
+  ret var.z_so, dono.dentro2.objini(var.z_so)
+
+func dir_l
+  ret var.z_l, dono.dentro2.objini(var.z_l)
+#
+
+func dir_o
+  ret var.z_o, dono.dentro2.objini(var.z_o)
+#
+
+func dir_c
+  ret var.z_c, dono.dentro2.objini(var.z_c)
+#
+
+func dir_b
+  ret var.z_b, dono.dentro2.objini(var.z_b)
+
+
+classe s_moveis107
+herda b_moveis
+const s_fome = 0 # Fome e sede: 0 Presente
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_recup = 1000
+const s_semmagia = 0 # Sem magia: Não
+const fechadura_n = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_n = 1
+const fechadura_s = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_s = 1
+const fechadura_l = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_l = 1
+const fechadura_o = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_o = 1
+const fechadura_c = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_c = 1
+const fechadura_b = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_b = 1
+const fechadura_ne = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_ne = 1
+const fechadura_no = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_no = 1
+const fechadura_se = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_se = 1
+const fechadura_so = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_so = 1
+const objsav = 1
+#
+
+func portanome_n
+  ret var.z_portanome_n, var.z_portanome_n
+
+func porta_n
+  ret var.z_porta_n, var.z_porta_n
+#
+
+func portaini_n
+  ret var.z_porta_n_, var.z_porta_n_
+#
+
+func portanome_s
+  ret var.z_portanome_s, var.z_portanome_s
+
+func porta_s
+  ret var.z_porta_s, var.z_porta_s
+#
+
+func portaini_s
+  ret var.z_porta_s_, var.z_porta_s_
+#
+
+func portanome_l
+  ret var.z_portanome_l, var.z_portanome_l
+
+func porta_l
+  ret var.z_porta_l, var.z_porta_l
+#
+
+func portaini_l
+  ret var.z_porta_l_, var.z_porta_l_
+#
+
+func portanome_o
+  ret var.z_portanome_o, var.z_portanome_o
+
+func porta_o
+  ret var.z_porta_o, var.z_porta_o
+#
+
+func portaini_o
+  ret var.z_porta_o_, var.z_porta_o_
+
+func portanome_ne
+  ret var.z_portanome_ne, var.z_portanome_ne
+
+func porta_ne
+  ret var.z_porta_ne, var.z_porta_ne
+#
+
+func portaini_ne
+  ret var.z_porta_ne_, var.z_porta_ne_
+#
+
+func portanome_no
+  ret var.z_portanome_no, var.z_portanome_no
+
+func porta_no
+  ret var.z_porta_no, var.z_porta_no
+#
+
+func portaini_no
+  ret var.z_porta_no_, var.z_porta_no_
+#
+
+func portanome_se
+  ret var.z_portanome_se, var.z_portanome_se
+
+func porta_se
+  ret var.z_porta_se, var.z_porta_se
+#
+
+func portaini_se
+  ret var.z_porta_se_, var.z_porta_se_
+#
+
+func portanome_so
+  ret var.z_portanome_so, var.z_portanome_so
+
+func porta_so
+  ret var.z_porta_so, var.z_porta_so
+#
+
+func portaini_so
+  ret var.z_porta_so_, var.z_porta_so_
+#
+
+func portanome_c
+  ret var.z_portanome_c, var.z_portanome_c
+
+func porta_c
+  ret var.z_porta_c, var.z_porta_c
+#
+
+func portaini_c
+  ret var.z_porta_c_, var.z_porta_c_
+
+func portanome_b
+  ret var.z_portanome_b, var.z_portanome_b
+
+func porta_b
+  ret var.z_porta_b, var.z_porta_b
+#
+
+func portaini_b
+  ret var.z_porta_b_, var.z_porta_b_
+
+func dir_n
+  ret var.z_n, dono.dentro2.objini(var.z_n)
+#
+
+func dir_s
+  ret var.z_s, dono.dentro2.objini(var.z_s)
+#
+
+func dir_ne
+  ret var.z_ne, dono.dentro2.objini(var.z_ne)
+#
+
+func dir_se
+  ret var.z_se, dono.dentro2.objini(var.z_se)
+#
+
+func dir_no
+  ret var.z_no, dono.dentro2.objini(var.z_no)
+#
+
+func dir_so
+  ret var.z_so, dono.dentro2.objini(var.z_so)
+
+func dir_l
+  ret var.z_l, dono.dentro2.objini(var.z_l)
+#
+
+func dir_o
+  ret var.z_o, dono.dentro2.objini(var.z_o)
+#
+
+func dir_c
+  ret var.z_c, dono.dentro2.objini(var.z_c)
+#
+
+func dir_b
+  ret var.z_b, dono.dentro2.objini(var.z_b)
+
+
+classe s_moveis108
+herda b_moveis
+const s_fome = 0 # Fome e sede: 0 Presente
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_recup = 200
+const s_semmagia = 0 # Sem magia: Não
+const fechadura_n = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_n = 1
+const fechadura_s = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_s = 1
+const fechadura_l = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_l = 1
+const fechadura_o = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_o = 1
+const fechadura_c = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_c = 1
+const fechadura_b = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_b = 1
+const fechadura_ne = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_ne = 1
+const fechadura_no = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_no = 1
+const fechadura_se = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_se = 1
+const fechadura_so = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_so = 1
+const objsav = 1
+#
+
+func portanome_n
+  ret var.z_portanome_n, var.z_portanome_n
+
+func porta_n
+  ret var.z_porta_n, var.z_porta_n
+#
+
+func portaini_n
+  ret var.z_porta_n_, var.z_porta_n_
+#
+
+func portanome_s
+  ret var.z_portanome_s, var.z_portanome_s
+
+func porta_s
+  ret var.z_porta_s, var.z_porta_s
+#
+
+func portaini_s
+  ret var.z_porta_s_, var.z_porta_s_
+#
+
+func portanome_l
+  ret var.z_portanome_l, var.z_portanome_l
+
+func porta_l
+  ret var.z_porta_l, var.z_porta_l
+#
+
+func portaini_l
+  ret var.z_porta_l_, var.z_porta_l_
+#
+
+func portanome_o
+  ret var.z_portanome_o, var.z_portanome_o
+
+func porta_o
+  ret var.z_porta_o, var.z_porta_o
+#
+
+func portaini_o
+  ret var.z_porta_o_, var.z_porta_o_
+
+func portanome_ne
+  ret var.z_portanome_ne, var.z_portanome_ne
+
+func porta_ne
+  ret var.z_porta_ne, var.z_porta_ne
+#
+
+func portaini_ne
+  ret var.z_porta_ne_, var.z_porta_ne_
+#
+
+func portanome_no
+  ret var.z_portanome_no, var.z_portanome_no
+
+func porta_no
+  ret var.z_porta_no, var.z_porta_no
+#
+
+func portaini_no
+  ret var.z_porta_no_, var.z_porta_no_
+#
+
+func portanome_se
+  ret var.z_portanome_se, var.z_portanome_se
+
+func porta_se
+  ret var.z_porta_se, var.z_porta_se
+#
+
+func portaini_se
+  ret var.z_porta_se_, var.z_porta_se_
+#
+
+func portanome_so
+  ret var.z_portanome_so, var.z_portanome_so
+
+func porta_so
+  ret var.z_porta_so, var.z_porta_so
+#
+
+func portaini_so
+  ret var.z_porta_so_, var.z_porta_so_
+#
+
+func portanome_c
+  ret var.z_portanome_c, var.z_portanome_c
+
+func porta_c
+  ret var.z_porta_c, var.z_porta_c
+#
+
+func portaini_c
+  ret var.z_porta_c_, var.z_porta_c_
+
+func portanome_b
+  ret var.z_portanome_b, var.z_portanome_b
+
+func porta_b
+  ret var.z_porta_b, var.z_porta_b
+#
+
+func portaini_b
+  ret var.z_porta_b_, var.z_porta_b_
+
+func dir_n
+  ret var.z_n, dono.dentro2.objini(var.z_n)
+#
+
+func dir_s
+  ret var.z_s, dono.dentro2.objini(var.z_s)
+#
+
+func dir_ne
+  ret var.z_ne, dono.dentro2.objini(var.z_ne)
+#
+
+func dir_se
+  ret var.z_se, dono.dentro2.objini(var.z_se)
+#
+
+func dir_no
+  ret var.z_no, dono.dentro2.objini(var.z_no)
+#
+
+func dir_so
+  ret var.z_so, dono.dentro2.objini(var.z_so)
+
+func dir_l
+  ret var.z_l, dono.dentro2.objini(var.z_l)
+#
+
+func dir_o
+  ret var.z_o, dono.dentro2.objini(var.z_o)
+#
+
+func dir_c
+  ret var.z_c, dono.dentro2.objini(var.z_c)
+#
+
+func dir_b
+  ret var.z_b, dono.dentro2.objini(var.z_b)
+
+
+classe s_moveis109
+herda b_moveis
+const s_fome = 0 # Fome e sede: 0 Presente
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_recup = 0
+const s_semmagia = 0 # Sem magia: Não
+const fechadura_s = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_s = 1
+const fechadura_l = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_l = 1
+const fechadura_o = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_o = 1
+const fechadura_c = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_c = 1
+const fechadura_b = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_b = 1
+const fechadura_ne = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_ne = 1
+const fechadura_no = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_no = 1
+const fechadura_se = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_se = 1
+const fechadura_so = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_so = 1
+const objsav = 1
+#
+
+func porta_n
+  ret var.z_porta_n, var.z_porta_n
+#
+
+func portanome_s
+  ret var.z_portanome_s, var.z_portanome_s
+
+func porta_s
+  ret var.z_porta_s, var.z_porta_s
+#
+
+func portaini_s
+  ret var.z_porta_s_, var.z_porta_s_
+#
+
+func portanome_l
+  ret var.z_portanome_l, var.z_portanome_l
+
+func porta_l
+  ret var.z_porta_l, var.z_porta_l
+#
+
+func portaini_l
+  ret var.z_porta_l_, var.z_porta_l_
+#
+
+func portanome_o
+  ret var.z_portanome_o, var.z_portanome_o
+
+func porta_o
+  ret var.z_porta_o, var.z_porta_o
+#
+
+func portaini_o
+  ret var.z_porta_o_, var.z_porta_o_
+
+func portanome_n
+  ret var.z_portanome_n, var.z_portanome_n
+
+func portanome_ne
+  ret var.z_portanome_ne, var.z_portanome_ne
+
+func porta_ne
+  ret var.z_porta_ne, var.z_porta_ne
+#
+
+func portaini_n
+  ret var.z_porta_n_, var.z_porta_n_
+#
+
+func portaini_ne
+  ret var.z_porta_ne_, var.z_porta_ne_
+#
+
+func portanome_no
+  ret var.z_portanome_no, var.z_portanome_no
+
+func porta_no
+  ret var.z_porta_no, var.z_porta_no
+#
+
+func portaini_no
+  ret var.z_porta_no_, var.z_porta_no_
+#
+
+func portanome_se
+  ret var.z_portanome_se, var.z_portanome_se
+
+func porta_se
+  ret var.z_porta_se, var.z_porta_se
+#
+
+func portaini_se
+  ret var.z_porta_se_, var.z_porta_se_
+#
+
+func portanome_so
+  ret var.z_portanome_so, var.z_portanome_so
+
+func porta_so
+  ret var.z_porta_so, var.z_porta_so
+#
+
+func portaini_so
+  ret var.z_porta_so_, var.z_porta_so_
+#
+
+func portanome_c
+  ret var.z_portanome_c, var.z_portanome_c
+
+func porta_c
+  ret var.z_porta_c, var.z_porta_c
+#
+
+func portaini_c
+  ret var.z_porta_c_, var.z_porta_c_
+
+func portanome_b
+  ret var.z_portanome_b, var.z_portanome_b
+
+func porta_b
+  ret var.z_porta_b, var.z_porta_b
+#
+
+func portaini_b
+  ret var.z_porta_b_, var.z_porta_b_
+
+func dir_s
+  ret var.z_s, dono.dentro2.objini(var.z_s)
+#
+
+func dir_n
+  ret var.z_n, dono.dentro2.objini(var.z_n)
+
+func dir_ne
+  ret var.z_ne, dono.dentro2.objini(var.z_ne)
+#
+
+func dir_se
+  ret var.z_se, dono.dentro2.objini(var.z_se)
+#
+
+func dir_no
+  ret var.z_no, dono.dentro2.objini(var.z_no)
+#
+
+func dir_so
+  ret var.z_so, dono.dentro2.objini(var.z_so)
+
+func dir_l
+  ret var.z_l, dono.dentro2.objini(var.z_l)
+#
+
+func dir_o
+  ret var.z_o, dono.dentro2.objini(var.z_o)
+#
+
+func dir_c
+  ret var.z_c, dono.dentro2.objini(var.z_c)
+#
+
+func dir_b
+  ret var.z_b, dono.dentro2.objini(var.z_b)
+
+
+classe s_moveis110
+herda b_moveis
+const s_fome = 0 # Fome e sede: 0 Presente
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_recup = 0
+const s_semmagia = 0 # Sem magia: Não
+const fechadura_n = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_n = 1
+const fechadura_s = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_s = 1
+const fechadura_l = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_l = 1
+const fechadura_o = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_o = 1
+const fechadura_c = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_c = 1
+const fechadura_b = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_b = 1
+const fechadura_ne = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_ne = 1
+const fechadura_no = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_no = 1
+const fechadura_se = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_se = 1
+const fechadura_so = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_so = 1
+const objsav = 1
+#
+
+func portanome_n
+  ret var.z_portanome_n, var.z_portanome_n
+
+func porta_n
+  ret var.z_porta_n, var.z_porta_n
+#
+
+func portaini_n
+  ret var.z_porta_n_, var.z_porta_n_
+#
+
+func portanome_s
+  ret var.z_portanome_s, var.z_portanome_s
+
+func porta_s
+  ret var.z_porta_s, var.z_porta_s
+#
+
+func portaini_s
+  ret var.z_porta_s_, var.z_porta_s_
+#
+
+func portanome_l
+  ret var.z_portanome_l, var.z_portanome_l
+
+func porta_l
+  ret var.z_porta_l, var.z_porta_l
+#
+
+func portaini_l
+  ret var.z_porta_l_, var.z_porta_l_
+#
+
+func portanome_o
+  ret var.z_portanome_o, var.z_portanome_o
+
+func porta_o
+  ret var.z_porta_o, var.z_porta_o
+#
+
+func portaini_o
+  ret var.z_porta_o_, var.z_porta_o_
+
+func portanome_ne
+  ret var.z_portanome_ne, var.z_portanome_ne
+
+func porta_ne
+  ret var.z_porta_ne, var.z_porta_ne
+#
+
+func portaini_ne
+  ret var.z_porta_ne_, var.z_porta_ne_
+#
+
+func portanome_no
+  ret var.z_portanome_no, var.z_portanome_no
+
+func porta_no
+  ret var.z_porta_no, var.z_porta_no
+#
+
+func portaini_no
+  ret var.z_porta_no_, var.z_porta_no_
+#
+
+func portanome_se
+  ret var.z_portanome_se, var.z_portanome_se
+
+func porta_se
+  ret var.z_porta_se, var.z_porta_se
+#
+
+func portaini_se
+  ret var.z_porta_se_, var.z_porta_se_
+#
+
+func portanome_so
+  ret var.z_portanome_so, var.z_portanome_so
+
+func porta_so
+  ret var.z_porta_so, var.z_porta_so
+#
+
+func portaini_so
+  ret var.z_porta_so_, var.z_porta_so_
+#
+
+func portanome_c
+  ret var.z_portanome_c, var.z_portanome_c
+
+func porta_c
+  ret var.z_porta_c, var.z_porta_c
+#
+
+func portaini_c
+  ret var.z_porta_c_, var.z_porta_c_
+
+func portanome_b
+  ret var.z_portanome_b, var.z_portanome_b
+
+func porta_b
+  ret var.z_porta_b, var.z_porta_b
+#
+
+func portaini_b
+  ret var.z_porta_b_, var.z_porta_b_
+
+func dir_n
+  ret var.z_n, dono.dentro2.objini(var.z_n)
+#
+
+func dir_s
+  ret var.z_s, dono.dentro2.objini(var.z_s)
+#
+
+func dir_ne
+  ret var.z_ne, dono.dentro2.objini(var.z_ne)
+#
+
+func dir_se
+  ret var.z_se, dono.dentro2.objini(var.z_se)
+#
+
+func dir_no
+  ret var.z_no, dono.dentro2.objini(var.z_no)
+#
+
+func dir_so
+  ret var.z_so, dono.dentro2.objini(var.z_so)
+
+func dir_l
+  ret var.z_l, dono.dentro2.objini(var.z_l)
+#
+
+func dir_o
+  ret var.z_o, dono.dentro2.objini(var.z_o)
+#
+
+func dir_c
+  ret var.z_c, dono.dentro2.objini(var.z_c)
+#
+
+func dir_b
+  ret var.z_b, dono.dentro2.objini(var.z_b)
+
+
+classe s_moveis111
+herda b_moveis
+const fechadura_n = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_n = 1
+const fechadura_s = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_s = 1
+const fechadura_l = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_l = 1
+const fechadura_o = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_o = 1
+const fechadura_c = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_c = 1
+const fechadura_b = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_b = 1
+const fechadura_ne = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_ne = 1
+const fechadura_no = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_no = 1
+const fechadura_se = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_se = 1
+const fechadura_so = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_so = 1
+const objsav = 1
+#
+
+func portanome_n
+  ret var.z_portanome_n, var.z_portanome_n
+
+func porta_n
+  ret var.z_porta_n, var.z_porta_n
+#
+
+func portaini_n
+  ret var.z_porta_n_, var.z_porta_n_
+#
+
+func portanome_s
+  ret var.z_portanome_s, var.z_portanome_s
+
+func porta_s
+  ret var.z_porta_s, var.z_porta_s
+#
+
+func portaini_s
+  ret var.z_porta_s_, var.z_porta_s_
+#
+
+func portanome_l
+  ret var.z_portanome_l, var.z_portanome_l
+
+func porta_l
+  ret var.z_porta_l, var.z_porta_l
+#
+
+func portaini_l
+  ret var.z_porta_l_, var.z_porta_l_
+#
+
+func portanome_o
+  ret var.z_portanome_o, var.z_portanome_o
+
+func porta_o
+  ret var.z_porta_o, var.z_porta_o
+#
+
+func portaini_o
+  ret var.z_porta_o_, var.z_porta_o_
+
+func portanome_ne
+  ret var.z_portanome_ne, var.z_portanome_ne
+
+func porta_ne
+  ret var.z_porta_ne, var.z_porta_ne
+#
+
+func portaini_ne
+  ret var.z_porta_ne_, var.z_porta_ne_
+#
+
+func portanome_no
+  ret var.z_portanome_no, var.z_portanome_no
+
+func porta_no
+  ret var.z_porta_no, var.z_porta_no
+#
+
+func portaini_no
+  ret var.z_porta_no_, var.z_porta_no_
+#
+
+func portanome_se
+  ret var.z_portanome_se, var.z_portanome_se
+
+func porta_se
+  ret var.z_porta_se, var.z_porta_se
+#
+
+func portaini_se
+  ret var.z_porta_se_, var.z_porta_se_
+#
+
+func portanome_so
+  ret var.z_portanome_so, var.z_portanome_so
+
+func porta_so
+  ret var.z_porta_so, var.z_porta_so
+#
+
+func portaini_so
+  ret var.z_porta_so_, var.z_porta_so_
+#
+
+func portanome_c
+  ret var.z_portanome_c, var.z_portanome_c
+
+func porta_c
+  ret var.z_porta_c, var.z_porta_c
+#
+
+func portaini_c
+  ret var.z_porta_c_, var.z_porta_c_
+
+func portanome_b
+  ret var.z_portanome_b, var.z_portanome_b
+
+func porta_b
+  ret var.z_porta_b, var.z_porta_b
+#
+
+func portaini_b
+  ret var.z_porta_b_, var.z_porta_b_
+
+func dir_n
+  ret var.z_n, dono.dentro2.objini(var.z_n)
+#
+
+func dir_s
+  ret var.z_s, dono.dentro2.objini(var.z_s)
+#
+
+func dir_ne
+  ret var.z_ne, dono.dentro2.objini(var.z_ne)
+#
+
+func dir_se
+  ret var.z_se, dono.dentro2.objini(var.z_se)
+#
+
+func dir_no
+  ret var.z_no, dono.dentro2.objini(var.z_no)
+#
+
+func dir_so
+  ret var.z_so, dono.dentro2.objini(var.z_so)
+
+func dir_l
+  ret var.z_l, dono.dentro2.objini(var.z_l)
+#
+
+func dir_o
+  ret var.z_o, dono.dentro2.objini(var.z_o)
+#
+
+func dir_c
+  ret var.z_c, dono.dentro2.objini(var.z_c)
+#
+
+func dir_b
+  ret var.z_b, dono.dentro2.objini(var.z_b)
+
+
+classe s_moveis112
+herda b_moveis
+const fechadura_n = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_n = 1
+const fechadura_s = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_s = 1
+const fechadura_l = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_l = 1
+const fechadura_o = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_o = 1
+const fechadura_c = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_c = 1
+const fechadura_b = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_b = 1
+const fechadura_ne = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_ne = 1
+const fechadura_no = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_no = 1
+const fechadura_se = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_se = 1
+const fechadura_so = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_so = 1
+const objsav = 1
+#
+
+func portanome_n
+  ret var.z_portanome_n, var.z_portanome_n
+
+func porta_n
+  ret var.z_porta_n, var.z_porta_n
+#
+
+func portaini_n
+  ret var.z_porta_n_, var.z_porta_n_
+#
+
+func portanome_s
+  ret var.z_portanome_s, var.z_portanome_s
+
+func porta_s
+  ret var.z_porta_s, var.z_porta_s
+#
+
+func portaini_s
+  ret var.z_porta_s_, var.z_porta_s_
+#
+
+func portanome_l
+  ret var.z_portanome_l, var.z_portanome_l
+
+func porta_l
+  ret var.z_porta_l, var.z_porta_l
+#
+
+func portaini_l
+  ret var.z_porta_l_, var.z_porta_l_
+#
+
+func portanome_o
+  ret var.z_portanome_o, var.z_portanome_o
+
+func porta_o
+  ret var.z_porta_o, var.z_porta_o
+#
+
+func portaini_o
+  ret var.z_porta_o_, var.z_porta_o_
+
+func portanome_ne
+  ret var.z_portanome_ne, var.z_portanome_ne
+
+func porta_ne
+  ret var.z_porta_ne, var.z_porta_ne
+#
+
+func portaini_ne
+  ret var.z_porta_ne_, var.z_porta_ne_
+#
+
+func portanome_no
+  ret var.z_portanome_no, var.z_portanome_no
+
+func porta_no
+  ret var.z_porta_no, var.z_porta_no
+#
+
+func portaini_no
+  ret var.z_porta_no_, var.z_porta_no_
+#
+
+func portanome_se
+  ret var.z_portanome_se, var.z_portanome_se
+
+func porta_se
+  ret var.z_porta_se, var.z_porta_se
+#
+
+func portaini_se
+  ret var.z_porta_se_, var.z_porta_se_
+#
+
+func portanome_so
+  ret var.z_portanome_so, var.z_portanome_so
+
+func porta_so
+  ret var.z_porta_so, var.z_porta_so
+#
+
+func portaini_so
+  ret var.z_porta_so_, var.z_porta_so_
+#
+
+func portanome_c
+  ret var.z_portanome_c, var.z_portanome_c
+
+func porta_c
+  ret var.z_porta_c, var.z_porta_c
+#
+
+func portaini_c
+  ret var.z_porta_c_, var.z_porta_c_
+
+func portanome_b
+  ret var.z_portanome_b, var.z_portanome_b
+
+func porta_b
+  ret var.z_porta_b, var.z_porta_b
+#
+
+func portaini_b
+  ret var.z_porta_b_, var.z_porta_b_
+
+func dir_n
+  ret var.z_n, dono.dentro2.objini(var.z_n)
+#
+
+func dir_s
+  ret var.z_s, dono.dentro2.objini(var.z_s)
+#
+
+func dir_ne
+  ret var.z_ne, dono.dentro2.objini(var.z_ne)
+#
+
+func dir_se
+  ret var.z_se, dono.dentro2.objini(var.z_se)
+#
+
+func dir_no
+  ret var.z_no, dono.dentro2.objini(var.z_no)
+#
+
+func dir_so
+  ret var.z_so, dono.dentro2.objini(var.z_so)
+
+func dir_l
+  ret var.z_l, dono.dentro2.objini(var.z_l)
+#
+
+func dir_o
+  ret var.z_o, dono.dentro2.objini(var.z_o)
+#
+
+func dir_c
+  ret var.z_c, dono.dentro2.objini(var.z_c)
+#
+
+func dir_b
+  ret var.z_b, dono.dentro2.objini(var.z_b)
+
+
+classe s_moveis113
+herda b_moveis
+const fechadura_n = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_n = 1
+const fechadura_s = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_s = 1
+const fechadura_o = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_o = 1
+const fechadura_c = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_c = 1
+const fechadura_b = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_b = 1
+const fechadura_ne = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_ne = 1
+const fechadura_no = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_no = 1
+const fechadura_se = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_se = 1
+const fechadura_so = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_so = 1
+const objsav = 1
+#
+
+func portanome_n
+  ret var.z_portanome_n, var.z_portanome_n
+
+func porta_n
+  ret var.z_porta_n, var.z_porta_n
+#
+
+func portaini_n
+  ret var.z_porta_n_, var.z_porta_n_
+#
+
+func portanome_s
+  ret var.z_portanome_s, var.z_portanome_s
+
+func porta_s
+  ret var.z_porta_s, var.z_porta_s
+#
+
+func portaini_s
+  ret var.z_porta_s_, var.z_porta_s_
+#
+
+func porta_l
+  ret var.z_porta_l, var.z_porta_l
+#
+
+func portanome_o
+  ret var.z_portanome_o, var.z_portanome_o
+
+func porta_o
+  ret var.z_porta_o, var.z_porta_o
+#
+
+func portaini_o
+  ret var.z_porta_o_, var.z_porta_o_
+
+func portanome_ne
+  ret var.z_portanome_ne, var.z_portanome_ne
+
+func porta_ne
+  ret var.z_porta_ne, var.z_porta_ne
+#
+
+func portaini_ne
+  ret var.z_porta_ne_, var.z_porta_ne_
+#
+
+func portanome_no
+  ret var.z_portanome_no, var.z_portanome_no
+
+func porta_no
+  ret var.z_porta_no, var.z_porta_no
+#
+
+func portaini_no
+  ret var.z_porta_no_, var.z_porta_no_
+#
+
+func portanome_se
+  ret var.z_portanome_se, var.z_portanome_se
+
+func porta_se
+  ret var.z_porta_se, var.z_porta_se
+#
+
+func portaini_se
+  ret var.z_porta_se_, var.z_porta_se_
+#
+
+func portanome_so
+  ret var.z_portanome_so, var.z_portanome_so
+
+func porta_so
+  ret var.z_porta_so, var.z_porta_so
+#
+
+func portaini_so
+  ret var.z_porta_so_, var.z_porta_so_
+#
+
+func portanome_c
+  ret var.z_portanome_c, var.z_portanome_c
+
+func porta_c
+  ret var.z_porta_c, var.z_porta_c
+#
+
+func portaini_c
+  ret var.z_porta_c_, var.z_porta_c_
+
+func portanome_b
+  ret var.z_portanome_b, var.z_portanome_b
+
+func porta_b
+  ret var.z_porta_b, var.z_porta_b
+#
+
+func portaini_b
+  ret var.z_porta_b_, var.z_porta_b_
+
+func dir_n
+  ret var.z_n, dono.dentro2.objini(var.z_n)
+#
+
+func dir_s
+  ret var.z_s, dono.dentro2.objini(var.z_s)
+#
+
+func dir_ne
+  ret var.z_ne, dono.dentro2.objini(var.z_ne)
+#
+
+func dir_se
+  ret var.z_se, dono.dentro2.objini(var.z_se)
+#
+
+func dir_no
+  ret var.z_no, dono.dentro2.objini(var.z_no)
+#
+
+func dir_so
+  ret var.z_so, dono.dentro2.objini(var.z_so)
+
+func dir_o
+  ret var.z_o, dono.dentro2.objini(var.z_o)
+#
+
+func dir_c
+  ret var.z_c, dono.dentro2.objini(var.z_c)
+#
+
+func dir_b
+  ret var.z_b, dono.dentro2.objini(var.z_b)
+
+
+classe s_moveis114
+herda b_moveis
+const fechadura_n = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_n = 1
+const fechadura_s = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_s = 1
+const fechadura_l = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_l = 1
+const fechadura_o = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_o = 1
+const fechadura_c = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_c = 1
+const fechadura_b = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_b = 1
+const fechadura_ne = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_ne = 1
+const fechadura_no = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_no = 1
+const fechadura_se = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_se = 1
+const fechadura_so = dono.var.z_dono ? dono.var.z_dono : nulo
+const tranc_so = 1
+const objsav = 1
+#
+
+func portanome_n
+  ret var.z_portanome_n, var.z_portanome_n
+
+func porta_n
+  ret var.z_porta_n, var.z_porta_n
+#
+
+func portaini_n
+  ret var.z_porta_n_, var.z_porta_n_
+#
+
+func portanome_s
+  ret var.z_portanome_s, var.z_portanome_s
+
+func porta_s
+  ret var.z_porta_s, var.z_porta_s
+#
+
+func portaini_s
+  ret var.z_porta_s_, var.z_porta_s_
+#
+
+func portanome_l
+  ret var.z_portanome_l, var.z_portanome_l
+
+func porta_l
+  ret var.z_porta_l, var.z_porta_l
+#
+
+func portaini_l
+  ret var.z_porta_l_, var.z_porta_l_
+#
+
+func portanome_o
+  ret var.z_portanome_o, var.z_portanome_o
+
+func porta_o
+  ret var.z_porta_o, var.z_porta_o
+#
+
+func portaini_o
+  ret var.z_porta_o_, var.z_porta_o_
+
+func portanome_ne
+  ret var.z_portanome_ne, var.z_portanome_ne
+
+func porta_ne
+  ret var.z_porta_ne, var.z_porta_ne
+#
+
+func portaini_ne
+  ret var.z_porta_ne_, var.z_porta_ne_
+#
+
+func portanome_no
+  ret var.z_portanome_no, var.z_portanome_no
+
+func porta_no
+  ret var.z_porta_no, var.z_porta_no
+#
+
+func portaini_no
+  ret var.z_porta_no_, var.z_porta_no_
+#
+
+func portanome_se
+  ret var.z_portanome_se, var.z_portanome_se
+
+func porta_se
+  ret var.z_porta_se, var.z_porta_se
+#
+
+func portaini_se
+  ret var.z_porta_se_, var.z_porta_se_
+#
+
+func portanome_so
+  ret var.z_portanome_so, var.z_portanome_so
+
+func porta_so
+  ret var.z_porta_so, var.z_porta_so
+#
+
+func portaini_so
+  ret var.z_porta_so_, var.z_porta_so_
+#
+
+func portanome_c
+  ret var.z_portanome_c, var.z_portanome_c
+
+func porta_c
+  ret var.z_porta_c, var.z_porta_c
+#
+
+func portaini_c
+  ret var.z_porta_c_, var.z_porta_c_
+
+func portanome_b
+  ret var.z_portanome_b, var.z_portanome_b
+
+func porta_b
+  ret var.z_porta_b, var.z_porta_b
+#
+
+func portaini_b
+  ret var.z_porta_b_, var.z_porta_b_
+
+func dir_n
+  ret var.z_n, dono.dentro2.objini(var.z_n)
+#
+
+func dir_s
+  ret var.z_s, dono.dentro2.objini(var.z_s)
+#
+
+func dir_ne
+  ret var.z_ne, dono.dentro2.objini(var.z_ne)
+#
+
+func dir_se
+  ret var.z_se, dono.dentro2.objini(var.z_se)
+#
+
+func dir_no
+  ret var.z_no, dono.dentro2.objini(var.z_no)
+#
+
+func dir_so
+  ret var.z_so, dono.dentro2.objini(var.z_so)
+
+func dir_l
+  ret var.z_l, dono.dentro2.objini(var.z_l)
+#
+
+func dir_o
+  ret var.z_o, dono.dentro2.objini(var.z_o)
+#
+
+func dir_c
+  ret var.z_c, dono.dentro2.objini(var.z_c)
+#
+
+func dir_b
+  ret var.z_b, dono.dentro2.objini(var.z_b)

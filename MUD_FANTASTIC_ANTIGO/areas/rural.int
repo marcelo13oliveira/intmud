@@ -1,0 +1,610 @@
+classe a_rural
+herda area
+const a_nome = "rural"
+
+
+classe b_rural
+herda sala
+const s_area = "rural"
+
+
+classe i_rural001
+herda comum_itemperso
+const nome = "carruagem"
+const descnome = "uma carruagem"
+const descpos = "Uma bela carruagem está aqui, conduzindo pessoas."
+const i_salas = "rural062"
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const mantersala = 1 # Mantém na sala: Sim
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_mudadono
+  seguir(dono.dentro2.objini("p_campo014"))
+  dentro2.objini("s_rural062").msg("Movendo...")
+  dentro2.objini("s_rural062").msg(dono.s_titulo)
+
+
+classe p_rural001
+herda comum_perso
+const nome = "Mário"
+const ident = "Mário vendedor"
+const descnome = "Mário"
+const descpadr = "Mário está aqui, orientando os compradores enquanto cuida dos animais de sua \
+loja."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 70
+
+
+classe p_rural002
+herda comum_perso
+const nome = "sementino"
+const descnome = "Sementino, o semeador"
+const descpadr = "Sementino, o semeador seleciona os melhores grãos e sementes para a venda e os \
+organiza em seus locais adequados."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 10
+const lojaitem = "rio010 0\n\
+plantas008 0\n\
+plantas011 0\n\
+plantas014 0\n\
+plantas020 0\n\
+plantas007 0\n\
+plantas022 0\n\
+plantas023 0\n\
+plantas026 10\n\
+plantas029 0"
+
+
+classe s_rural001
+herda b_rural
+const s_titulo = "Na Entrada da Área Rural"
+const s_desc = "Você está adentrando a área rural do rio.\n\
+Um lugar bem afastado e com ótimas fazendas à venda para aproveitar a hora de lazer e entrar em \
+contato com a natureza."
+const dir_n = $s_rural002
+const dir_o = $s_campo042
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "a porteira"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_rural002
+herda b_rural
+const s_titulo = "Dentro da Área Rural"
+const s_desc = "Você está dentro da bela área rural.\n\
+Aqui, a natureza se faz presente e o silêncio é quebrado pelo som de pássaros e outros animais e \
+ocazionalmente o som dos passos dos moradores da região."
+const dir_s = $s_rural001
+const dir_o = $s_rural003
+
+
+classe s_rural003
+herda b_rural
+const s_titulo = "Na Área Rural"
+const s_desc = "Você continua a caminhar pela maravilhosa área rural.\n\
+O contato com a natureza e os animais te deixam maravilhado e com muita vontade de morar \
+aqui.\n\
+Ao chegar aqui, o barulho de vários animais vindo do sul chega até os seus ouvidos."
+const dir_s = $s_rural006
+const dir_l = $s_rural002
+const dir_o = $s_rural005
+
+
+classe s_rural004
+herda b_rural
+const s_titulo = "Na Loja de Animais"
+const s_desc = "Você se encontra em uma ampla loja.\n\
+As paredes estão cobertas com inúmeras gaiolas com filhotes de vários tipos de animais.\n\
+O local está cheio e barulhento e o forte odor de escrementos de animais chega até suas narinas, \
+o fazendo se sentir meio enjoado."
+const dir_n = $s_rural003
+const a_reset = "S 100 templo048 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_templo048") && criar("i_templo048", este, 1)
+
+
+classe s_rural005
+herda b_rural
+const s_titulo = "Em Uma Estradinha de Terra"
+const s_desc = "Você está em uma pequena estrada de terra.\n\
+Belas fazendas o deixam admirado com tanta beleza.\n\
+Para oeste, a estradinha continua, enquanto para o leste você volta."
+const dir_l = $s_rural003
+const dir_o = $s_rural008
+
+
+classe s_rural006
+herda b_rural
+const s_titulo = "Loja nosso campo"
+const dir_n = $s_rural003
+const dir_l = $s_rural007
+
+
+classe s_rural007
+herda b_rural
+const s_titulo = "Canto das sementes"
+const s_som = "campo"
+const dir_o = $s_rural006
+const s_reset = "P 100 rural002 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_rural002:objsolto.total < 1
+    criar("p_rural002", este, 0)
+  fimse
+
+
+classe s_rural008
+herda b_rural
+const s_titulo = "Continuando em uma estradinha de terra"
+const dir_l = $s_rural005
+const dir_o = $s_rural009
+
+
+classe s_rural009
+herda b_rural
+const s_titulo = "Um desvio na estrada"
+const dir_n = $s_rural010
+const dir_l = $s_rural008
+
+
+classe s_rural010
+herda b_rural
+const s_titulo = "Uma estrada em meio as árvores"
+const dir_n = $s_rural011
+const dir_s = $s_rural009
+
+
+classe s_rural011
+herda b_rural
+const s_titulo = "Seguindo na estrada"
+const dir_n = $s_rural012
+const dir_s = $s_rural010
+
+
+classe s_rural012
+herda b_rural
+const s_titulo = "No meio da estrada"
+const dir_s = $s_rural011
+const dir_o = $s_rural013
+
+
+classe s_rural013
+herda b_rural
+const s_titulo = "A entrada da fazenda do sol poente"
+const dir_l = $s_rural012
+const dir_o = $s_rural014
+const portaini_o = 3 # Estado inicial: 3 Porta trancada
+const portanome_o = "a porteira da fazenda"
+const fecha_o = 1 # Fecha ao passar: Sim
+const tranc_o = 2 # Trancar: 2 Tranca ao fechar
+
+
+classe s_rural014
+herda b_rural
+const s_titulo = "Dentro da fazenda"
+const dir_n = $s_rural061
+const dir_l = $s_rural013
+const portanome_l = "a porteira da fazenda"
+const fecha_l = 1 # Fecha ao passar: Sim
+const tranc_l = 2 # Trancar: 2 Tranca ao fechar
+const dir_o = $s_rural015
+
+
+classe s_rural015
+herda b_rural
+const s_titulo = "Um caminho na fazenda"
+const dir_n = $s_rural058
+const dir_s = $s_rural050
+const dir_l = $s_rural014
+const dir_o = $s_rural016
+
+
+classe s_rural016
+herda b_rural
+const s_titulo = "Continuando o caminho"
+const dir_n = $s_rural059
+const dir_l = $s_rural015
+const dir_o = $s_rural017
+
+
+classe s_rural017
+herda b_rural
+const s_titulo = "O fim do caminho"
+const dir_n = $s_rural060
+const dir_l = $s_rural016
+const dir_o = $s_rural018
+
+
+classe s_rural018
+herda b_rural
+const s_titulo = "Em frente a uma portinhola de ferro"
+const dir_l = $s_rural017
+const dir_entrar = $s_rural019
+const portaini_entrar = 3 # Estado inicial: 3 Porta trancada
+const portanome_entrar = "uma portinhola de ferro"
+const fechadura_entrar = "rural001"
+const fecha_entrar = 1 # Fecha ao passar: Sim
+const tranc_entrar = 1 # Trancar: 1 Pode ser trancado
+
+
+classe s_rural019
+herda b_rural
+const s_titulo = "Jardim"
+const dir_n = $s_rural020
+const dir_s = $s_rural022
+const dir_c = $s_rural046
+const dir_sair = $s_rural018
+const portanome_sair = "uma portinhola de ferro"
+const fechadura_sair = "rural001"
+const fecha_sair = 1 # Fecha ao passar: Sim
+const tranc_sair = 1 # Trancar: 1 Pode ser trancado
+
+
+classe s_rural020
+herda b_rural
+const s_titulo = "um belo pomar"
+const dir_s = $s_rural019
+const dir_o = $s_rural021
+
+
+classe s_rural021
+herda b_rural
+const s_titulo = "Um canteiro de flores"
+const dir_l = $s_rural020
+const dir_o = $s_rural049
+
+
+classe s_rural022
+herda b_rural
+const s_titulo = "Continuação do jardim"
+const dir_n = $s_rural019
+const dir_o = $s_rural023
+
+
+classe s_rural023
+herda b_rural
+const s_titulo = "Jardim"
+const dir_l = $s_rural022
+const dir_o = $s_rural024
+const dir_c = $s_rural025
+
+
+classe s_rural024
+herda b_rural
+const s_titulo = "No fim do jardim"
+const dir_l = $s_rural023
+
+
+classe s_rural025
+herda b_rural
+const s_titulo = "Uma escadaria de pedras de mármore negro"
+const dir_c = $s_rural026
+const dir_b = $s_rural023
+
+
+classe s_rural026
+herda b_rural
+const s_titulo = "Uma ampla varanda"
+const dir_n = $s_rural027
+const dir_b = $s_rural025
+const dir_entrar = $s_rural029
+const portaini_entrar = 3 # Estado inicial: 3 Porta trancada
+const portanome_entrar = "um par de portas de madeira"
+const portaartigo_entrar = 1 # Artigo porta: 1 as (portas)
+const fechadura_entrar = "rural001"
+const fecha_entrar = 1 # Fecha ao passar: Sim
+const tranc_entrar = 2 # Trancar: 2 Tranca ao fechar
+
+
+classe s_rural027
+herda b_rural
+const s_titulo = "Varanda"
+const dir_n = $s_rural028
+const dir_s = $s_rural026
+const dir_b = $s_rural046
+
+
+classe s_rural028
+herda b_rural
+const s_titulo = "No canto da varanda"
+const dir_s = $s_rural027
+
+
+classe s_rural029
+herda b_rural
+const s_titulo = "O amplo salão da casa"
+const dir_n = $s_rural030
+const dir_o = $s_rural034
+const dir_sair = $s_rural026
+
+
+classe s_rural030
+herda b_rural
+const s_titulo = "Um largo corredor"
+const dir_n = $s_rural031
+const dir_s = $s_rural029
+const dir_o = $s_rural033
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "a porta do banheiro social"
+const fechadura_o = "rural001"
+const fecha_o = 1 # Fecha ao passar: Sim
+const tranc_o = 1 # Trancar: 1 Pode ser trancado
+
+
+classe s_rural031
+herda b_rural
+const s_titulo = "Salão de refeições"
+const dir_n = $s_rural035
+const dir_s = $s_rural030
+const dir_o = $s_rural032
+
+
+classe s_rural032
+herda b_rural
+const s_titulo = "Uma grande e organizada cozinha"
+const dir_n = $s_rural047
+const dir_l = $s_rural031
+
+
+classe s_rural033
+herda b_rural
+const s_titulo = "Um banheiro social"
+const dir_l = $s_rural030
+const portanome_l = "a porta do banheiro social"
+const fechadura_l = "rural001"
+const fecha_l = 1 # Fecha ao passar: Sim
+const tranc_l = 1 # Trancar: 1 Pode ser trancado
+
+
+classe s_rural034
+herda b_rural
+const s_titulo = "Uma sala de estar"
+const dir_l = $s_rural029
+
+
+classe s_rural035
+herda b_rural
+const s_titulo = "Aos pés da escada"
+const dir_s = $s_rural031
+const dir_c = $s_rural036
+
+
+classe s_rural036
+herda b_rural
+const s_titulo = "Subindo a escada"
+const dir_c = $s_rural037
+const dir_b = $s_rural035
+
+
+classe s_rural037
+herda b_rural
+const s_titulo = "No fim da escada"
+const dir_s = $s_rural038
+const dir_b = $s_rural036
+
+
+classe s_rural038
+herda b_rural
+const s_titulo = "Em um largo corredor"
+const dir_n = $s_rural037
+const dir_s = $s_rural040
+const dir_o = $s_rural039
+const portaini_o = 3 # Estado inicial: 3 Porta trancada
+const portanome_o = "a porta da suíte"
+const fechadura_o = "rural001"
+const fecha_o = 1 # Fecha ao passar: Sim
+const tranc_o = 1 # Trancar: 1 Pode ser trancado
+
+
+classe s_rural039
+herda b_rural
+const s_titulo = "A suíte principal"
+const dir_s = $s_rural045
+const portaini_s = 3 # Estado inicial: 3 Porta trancada
+const portanome_s = "a porta do banheiro da suíte"
+const fechadura_s = "rural001"
+const fecha_s = 1 # Fecha ao passar: Sim
+const tranc_s = 1 # Trancar: 1 Pode ser trancado
+const dir_l = $s_rural038
+const portanome_l = "a porta da suíte"
+const fechadura_l = "rural001"
+const fecha_l = 1 # Fecha ao passar: Sim
+const tranc_l = 1 # Trancar: 1 Pode ser trancado
+
+
+classe s_rural040
+herda b_rural
+const s_titulo = "Continuando pelo corredor"
+const dir_n = $s_rural038
+const dir_s = $s_rural041
+
+
+classe s_rural041
+herda b_rural
+const s_titulo = "No fim do corredor"
+const dir_n = $s_rural040
+const dir_l = $s_rural044
+const portaini_l = 3 # Estado inicial: 3 Porta trancada
+const portanome_l = "a porta do quarto"
+const fechadura_l = "rural001"
+const fecha_l = 1 # Fecha ao passar: Sim
+const tranc_l = 1 # Trancar: 1 Pode ser trancado
+const dir_o = $s_rural042
+const portaini_o = 3 # Estado inicial: 3 Porta trancada
+const portanome_o = "a porta da suíte"
+const fechadura_o = "rural001"
+const fecha_o = 1 # Fecha ao passar: Sim
+const tranc_o = 2 # Trancar: 2 Tranca ao fechar
+
+
+classe s_rural042
+herda b_rural
+const s_titulo = "Outra suíte"
+const dir_n = $s_rural043
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "a porta do banheiro da suíte"
+const fechadura_n = "rural001"
+const fecha_n = 1 # Fecha ao passar: Sim
+const tranc_n = 1 # Trancar: 1 Pode ser trancado
+const dir_l = $s_rural041
+const portanome_l = "a porta da suíte"
+const fechadura_l = "rural001"
+const fecha_l = 1 # Fecha ao passar: Sim
+const tranc_l = 2 # Trancar: 2 Tranca ao fechar
+
+
+classe s_rural043
+herda b_rural
+const s_titulo = "O banheiro da suíte"
+const dir_s = $s_rural042
+const portanome_s = "a porta do banheiro da suíte"
+const fechadura_s = "rural001"
+const fecha_s = 1 # Fecha ao passar: Sim
+const tranc_s = 1 # Trancar: 1 Pode ser trancado
+
+
+classe s_rural044
+herda b_rural
+const s_titulo = "O quarto de visitas"
+const dir_o = $s_rural041
+const portaini_o = 3 # Estado inicial: 3 Porta trancada
+const portanome_o = "a porta do quarto"
+const fechadura_o = "rural001"
+const fecha_o = 1 # Fecha ao passar: Sim
+const tranc_o = 1 # Trancar: 1 Pode ser trancado
+
+
+classe s_rural045
+herda b_rural
+const s_titulo = "o banheiro da suíte"
+const dir_n = $s_rural039
+const portanome_n = "a porta do banheiro da suíte"
+const fechadura_n = "rural001"
+const fecha_n = 1 # Fecha ao passar: Sim
+const tranc_n = 1 # Trancar: 1 Pode ser trancado
+
+
+classe s_rural046
+herda b_rural
+const s_titulo = "Uma escadaria"
+const dir_c = $s_rural027
+const dir_b = $s_rural019
+
+
+classe s_rural047
+herda b_rural
+const s_titulo = "Área de serviço"
+const dir_s = $s_rural032
+const dir_b = $s_rural048
+
+
+classe s_rural048
+herda b_rural
+const s_titulo = "Descendo alguns degraus"
+const dir_c = $s_rural047
+const dir_b = $s_rural049
+
+
+classe s_rural049
+herda b_rural
+const s_titulo = "Quintal"
+const dir_c = $s_rural048
+const dir_l = $s_rural021
+
+
+classe s_rural050
+herda b_rural
+const s_titulo = "Criadouros"
+const dir_n = $s_rural015
+const dir_s = $s_rural051
+const dir_o = $s_rural052
+
+
+classe s_rural051
+herda b_rural
+const s_titulo = "Um galinheiro"
+const dir_n = $s_rural050
+
+
+classe s_rural052
+herda b_rural
+const s_titulo = "Criadouros"
+const dir_n = $s_rural057
+const dir_s = $s_rural053
+const dir_l = $s_rural050
+const dir_o = $s_rural054
+
+
+classe s_rural053
+herda b_rural
+const s_titulo = "Um chiqueiro"
+const dir_n = $s_rural052
+
+
+classe s_rural054
+herda b_rural
+const s_titulo = "Criadouros"
+const dir_n = $s_rural056
+const dir_s = $s_rural055
+const dir_l = $s_rural052
+
+
+classe s_rural055
+herda b_rural
+const s_titulo = "Um curral"
+const dir_n = $s_rural054
+
+
+classe s_rural056
+herda b_rural
+const s_titulo = "Outro curral"
+const dir_s = $s_rural054
+
+
+classe s_rural057
+herda b_rural
+const s_titulo = "Um estábulo"
+const dir_s = $s_rural052
+
+
+classe s_rural058
+herda b_rural
+const s_titulo = "Plantações"
+const dir_s = $s_rural015
+const dir_o = $s_rural059
+const dir_l = $s_rural061
+
+
+classe s_rural059
+herda b_rural
+const s_titulo = "Plantações"
+const dir_s = $s_rural016
+const dir_l = $s_rural058
+const dir_o = $s_rural060
+
+
+classe s_rural060
+herda b_rural
+const s_titulo = "Plantações"
+const dir_s = $s_rural017
+const dir_l = $s_rural059
+
+
+classe s_rural061
+herda b_rural
+const s_titulo = "Plantações"
+const dir_s = $s_rural014
+const dir_o = $s_rural058
+
+
+classe s_rural062
+herda b_rural
+const s_titulo = "Dentro da carruagem"
+const s_entrada = "carruagem"

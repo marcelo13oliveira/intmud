@@ -1,0 +1,59 @@
+classe a_azkaban
+herda area
+
+
+classe b_azkaban
+herda sala
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_area = "azkaban"
+
+
+classe p_azkaban001
+herda comum_persobat
+const nome = "Dementador"
+const ident = "Dementador"
+const descnome = "Um dementador"
+const descpadr = "Um dementador flutua por aqui, espalhando desesperança e tristeza pelo \
+local."
+const descver = "Essa terrível criatura guarda a prisão de Azkaban, a prisão dos bruxos.\n\
+Sua pele é coberta por feridas e seu rosto é coberto por um capuz, o que o torna ainda mais \
+apavorante.\n\
+Alimenta-se da desesperança de seus confinados, muitas vezes os levando a insanidade e sua arma \
+fatal é o beijo, que aplica em quem quer destruir, sugando a alma do condenado pela boca.\n\
+É imune a qualquer tipo de ataque e feitiço e o único feitiço capaz de afastá-lo é o feitiço do \
+Patrono."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 480
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_exp = 100000
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50000 * pnivel + 500000000
+  atknorm += 75000000
+  defnorm += 666666666
+  atkesp += 77000000
+  defesp += 555555555
+  evasao += 65535
+  precisao += 65535
+
+
+classe s_azkaban001
+herda b_azkaban
+const s_titulo = "Na Prisão de Azkaban"
+const s_desc = "Você está em Azkaban.\n\
+Aqui, bruxos mal feitores foram confinados e estão condenados a passar os últimos dias de vida \
+que ainda lhe restam.\n\
+Ao chegar nesse lugar, a desesperança, o vazio, a tristeza e o desespero tomam conta do local.\n\
+Lamúrias e gritos de presos confinados aqui a muito tempo chegam aos seus ouvidos, o fazendo \
+querer sair desse estranho lugar o mais depressa possível."
+const a_reset = "P 100 Azkaban001 0 0 200 h_drenar=8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_Azkaban001:objsolto.total < 200
+    criar("p_Azkaban001", este, 0, "h_drenar=8")
+  fimse

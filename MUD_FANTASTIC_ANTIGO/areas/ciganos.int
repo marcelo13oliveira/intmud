@@ -1,0 +1,545 @@
+classe a_ciganos
+herda area
+const a_nome = "O acampamento cigano"
+const a_autor = "HellMud"
+const a_tempo = 25
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_txtreset = "Uma música cigana ecoa por toda parte."
+
+
+classe b_ciganos
+herda sala
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_naoresg = 1 # Sem resgate: Sim
+const s_recup = 20
+const s_area = "ciganos"
+
+
+classe i_ciganos001
+herda comum_itemperso
+const nome = "uma adaga cigana"
+const descnome = "uma adaga cigana"
+const descpos = "uma adaga enfeitada foi deixada aqui."
+const descver = "uma bela adaga de aspecto cultural, a mesma parece expor uma história pouco\n\
+conhecida, mas muito seguida por quem a conhece."
+const nivel = 25
+const armamax = 200
+const armamin = 25
+const armatipo = 3 # Tipo de arma: 3 Lâmina curta
+const tipoitem = 2 # Tipo de produto: 1-Arma
+const valor = 200
+const vestir1 = "1000000" # Aonde vestir: 24-segurando
+const vestirnao = "clérigo\nguerreiro\nmago"
+const armaprecisao = 100
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50
+  pmovemax += 20
+  pveloc1 += 5
+  atknorm += 27
+  evasao += 5
+  precisao += 12
+
+
+classe i_ciganos002
+herda comum_itemperso
+const nome = "um par de ombreiras ciganas"
+const descnome = "um par de ombreiras ciganas"
+const descpos = "um par de ombreiras muito bem feitas estão aqui acumulando poeira."
+const descver = "excelentes ombreiras, muito bem enfeitadas por um excelente artesão, as\n\
+mesmas parecem se ajustar de acordo com o tamanho do dono."
+const nivel = 20
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 120
+const vestir1 = "100000" # Aonde vestir: 20-Nos ombros
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50
+  pmanamax += 50
+  atknorm += 10
+  defnorm += -8
+  atkesp += 10
+  defesp += -10
+  evasao += -8
+  precisao += 10
+
+
+classe i_ciganos003
+herda comum_itemperso
+const nome = "um par de tornozeleiras de cigano"
+const descnome = "um par de tornozeleiras de cigano"
+const descpos = "belas tornozeleiras estão largadas no chão."
+const descver = "tornozeleiras que parecem ter sido feitas por mãos de artesãs, pois são\n\
+muito bem decoradas, e extremamente resistentes."
+const nivel = 20
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 120
+const vestir1 = "20000" # Aonde vestir: 17-Nas pernas
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += -30
+  pmanamax += -30
+  pmovemax += 100
+  pveloc1 += 5
+  atknorm += 5
+  defnorm += 5
+  atkesp += 7
+  evasao += 5
+  precisao += 6
+
+
+classe p_ciganos001
+herda comum_persobat
+const nome = "Fralufralu O lider cigano"
+const descnome = "fralufralu o lider cigano"
+const descpadr = "um cigano de aparência robusta está aqui."
+const descver = "Fralufralu é  um lider cigano muito respeitado por todo seu vilarejo, o\n\
+mesmo já livrou todo seu povo de armadilhas mortais, seres tenegrosos, e\n\
+qualquer outro tipo de perigo que você possa imaginar.  Olhando para este\n\
+lider, você consegue ter uma ideia de todo seu poder e sabedoria, pois\n\
+apesar de sua idade, Fralufralu está em excelentes condições físicas, e\n\
+daria sua vida para proteger os seus irmãos de cultura."
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 30
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 100
+const inivar = "z_moedas=15,h_segundo_ataque=8,h_socar=5"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_ciganos002
+herda comum_persobat
+const nome = "uma cigana artesã"
+const descnome = "uma cigana artesã"
+const descpadr = "uma bela cigana está aqui criando algo."
+const descver = "esta bela cigana, é muito boa no que faz, com uma habilidade fantástica,\n\
+utiliza suas mãos para tricotar, criar e expressar toda a cultura cigana em\n\
+seus mais variados acessórios."
+const nivel = 25
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 100
+const inivar = "z_moedas=10"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_ciganos003
+herda comum_persobat
+const nome = "o homem cigano"
+const descnome = "o homem cigano"
+const descpadr = "um cigano está aqui cantando alegremente."
+const descver = "este homem decidiu seguir a cultura cigana, para tentar achar seu ideal,\n\
+agora o mesmo canta e dança, e parece estar bem alegre como se não houvesse\n\
+com nada que se   preocupar."
+const nivel = 28
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 100
+const p_fugir = 50
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const inivar = "z_moedas=14"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_ciganos004
+herda comum_persobat
+const nome = "A mulher cigana"
+const descnome = "a mulher cigana"
+const descpadr = "uma cigana está aqui cantando alegremente."
+const descver = "esta cigana parece não saber o que é tristeza, pois canta e dança como se\n\
+não houvesse o amanhã."
+const nivel = 23
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 100
+const p_fugir = 70
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const inivar = "z_moedas=11"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_ciganos005
+herda comum_persobat
+const nome = "a criança cigana"
+const descnome = "a criança cigana"
+const descpadr = "uma criança cigana está aqui brincando sem parar"
+const descver = "da para se ver a alegria estampada no rosto desta criança, graças a sua\n\
+cultura que prega a felicidade, este pequeno cigano brinca sem parar."
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 20
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 100
+const p_fugir = 100
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const inivar = "z_moedas=1-"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_ciganos006
+herda comum_persobat
+const nome = "um cigano preguiçoso"
+const descnome = "um cigano preguiçoso"
+const descpadr = "um cigano está aqui descansando."
+const descver = "este cigano diferente dos outros não quiz saber de danças, musicas e\n\
+agitação, ele preferiu ficar dentro desta carroça apenas curtindo a paz e\n\
+descansando para próxima hora de dormir."
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 27
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 100
+const inivar = "z_moedas=14"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe s_ciganos001
+herda b_ciganos
+const s_titulo = "Uma pequena rua no vilarejo cigano"
+const s_desc = "Aqui é possível avistar algumas mulheres, crianças e homens, andando de um\n\
+lado para o outro. Você também consegue notar que essas pessoas parecem\n\
+pertencer algum tipo de cultura diferente da sua, pois seus acessórios e\n\
+roupas são bem diferentes do que você conhece."
+const dir_l = $s_midgaard090
+const dir_o = $s_ciganos002
+
+
+classe s_ciganos002
+herda b_ciganos
+const s_titulo = "O centro do vilarejo cigano"
+const s_desc = "A movimentação aqui é intensa, ciganos de todos os tipos e idades passam\n\
+por aqui, também é possível ver roupas, acessórios e qualquer outro tipo de\n\
+item neste local, todos suspendidos em um varal improvisado feito de bambu e\n\
+cipó. Mas o que lhe chama mais a atenção é uma grande carroça fixada por uma\n\
+corda no centro deste lugar."
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_ciganos004
+const dir_s = $s_ciganos003
+const dir_l = $s_ciganos001
+const dir_o = $s_ciganos005
+
+func cmd_salaperso
+  misc:evento(arg0)
+
+func cmd_escr
+  se arg1 == "entrar carroça"
+    $mens.p(arg0)
+    $mens.mvis1("$P entra na carroça.")
+    arg0.mudadono($s_ciganos006)
+    $mens.p(arg0)
+    $mens.mtodos1("", "", "$P entrou.")
+    ret 1
+
+const a_reset = "P 100 ciganos005 0 0 3\nP 100 ciganos004 0 0 3\nP 100 ciganos003 0 0 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_ciganos005:objsolto.total < 3
+    criar("p_ciganos005", este, 0)
+  fimse
+  se p_ciganos004:objsolto.total < 3
+    criar("p_ciganos004", este, 0)
+  fimse
+  se p_ciganos003:objsolto.total < 3
+    criar("p_ciganos003", este, 0)
+  fimse
+
+
+classe s_ciganos003
+herda b_ciganos
+const s_titulo = "Uma cabana cigana"
+const s_desc = "Uma bela cabana toda decorada por tecidos brilhantes e traçados a mão,\n\
+diversos acessórios estão espalhados pelo chão, todos feitos artesanalmente\n\
+por algum cigano habilidoso com as mãos."
+const dir_n = $s_ciganos002
+const a_reset = "P 100 ciganos002 0 0 2\nE 60 ciganos002 0 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ciganos002:objsolto.total < 2
+    p = u = criar("p_ciganos002", este, 0)
+  fimse
+  se u && rand(100) < 60
+    r = criar("i_ciganos002", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_ciganos004
+herda b_ciganos
+const s_titulo = "Uma cabana cigana"
+const s_desc = "Uma bela cabana toda decorada por tecidos brilhantes e traçados a mão,\n\
+diversos acessórios estão espalhados pelo chão, todos feitos artesanalmente\n\
+por algum cigano habilidoso com as mãos."
+const dir_s = $s_ciganos002
+const a_reset = "P 100 ciganos002 0 0 2\nE 60 ciganos003 0 19"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ciganos002:objsolto.total < 2
+    p = u = criar("p_ciganos002", este, 0)
+  fimse
+  se u && rand(100) < 60
+    r = criar("i_ciganos003", u, 0), r.vestir(19), u.recalc = 1
+  fimse
+
+
+classe s_ciganos005
+herda b_ciganos
+const s_titulo = "A cabana do lider cigano"
+const s_desc = "Sem dúvidas que esta é a maior cabana que você encontrou em sua vida,\n\
+moedas, travesseiros bordados a ouro e vários outros acessórios, que\n\
+tornam este lugar muito luxuoso, estão espalhados por toda a parte,\n\
+fazendo você acreditar que o cigano que aqui vive, seria uma pessoa\n\
+extremamente rica.."
+const dir_l = $s_ciganos002
+const a_reset = "P 100 ciganos001 0 0 1\nE 50 ciganos001 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ciganos001:objsolto.total < 1
+    p = u = criar("p_ciganos001", este, 0)
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_ciganos001", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_ciganos006
+herda b_ciganos
+const s_titulo = "Dentro de uma carroça cigana"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+
+func cmd_salaperso
+  misc:evento(arg0)
+
+func cmd_escr
+  se arg1 == "Sair carroça"
+    $mens.p(arg0)
+    $mens.mvis1("$P saiu da carroça.")
+    arg0.mudadono($s_ciganos002)
+    $mens.p(arg0)
+    $mens.mtodos1("", "", "$P chegou de dentro da carroça.")
+    ret 1
+
+const a_reset = "P 100 ciganos006 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_ciganos006:objsolto.total < 1
+    criar("p_ciganos006", este, 0)
+  fimse

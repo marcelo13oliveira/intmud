@@ -1,0 +1,349 @@
+classe jogador
+herda comum_persoanimal
+# Personagem no jogo
+const jog = 1 # Para identificar que é jogador
+const ident = nome
+indiceobj cnome # "pn " + nome codificado (usado ao reconectar)
+sav txt20 nome # Nome do personagem
+sav txt40 salanome # Nome da sala
+const msexo = psexo # Sexo do personagem
+txt20 senha # Senha do jogo salvo, ou "" se não estiver salvo
+sav txt20 jogperm # Permissões do personagem, mesmo que sock.jogperm
+sav txt20 jogarea # Área aonde o personagem tem permissão, mesmo que sock.jogarea
+sav int1 jogconfig.32 # Configurações do personagem, mesmo que sock.jogconfig
+sav listaobj dentro3 # Lista de animais reserva
+inttempo p_tempoatu # Tempo para atualizar personagem
+uint8 p_tempomsg # Para enviar mensagens de fome e sede em tempoatu_exec
+uint8 p_tempofim # Para sair do jogo após algum tempo sem digitar nada
+sav inttempo tempojogo1 # Em décimos de segundo, até 24 horas
+sav uint16 tempojogo2 # Dias, para contar o tempo de jogo
+const p_recebe = 1 # Para poder receber itens de outros personagens
+sav uint16 prenascer # Quantas vezes renasceu (usou o comando renascer)
+sav txt32 tipo1 # Raça do jogador; vide classes "t_*" em config/tipo.int
+sav txt32 tipo2 # Classe do jogador; vide classes "t_*" em config/tipo.int
+sav txt32 tipo3 # Subclasse do jogador; vide classes "t_*" em config/tipo.int
+sav uint32 pesoobj # Peso do personagem (em gramas)
+sav uint32 volobj # Volume do personagem
+const p_agressivo = int($perm_[jogperm].batalha)
+const p_atktipo = $t_[tipo1].atipo ?? $t_[tipo2].atipo ?? $t_[tipo3].atipo ?? config:atk_txt
+const p_naoseguir = !jogconfig.5
+const p_imortal = jogconfig.20
+const j_imortal = jogconfig.20
+sav uint32 p_fugir
+sav uint8 p_sede # Sede, quanto menor mais sede tem
+sav uint8 p_fome # Fome, quanto menor mais fome tem
+sav uint8 p_bebida # Embriaguez, quanto maior mais bêbado está
+sav uint8 p_diges # Digestão
+
+func ini # Objeto foi criado
+  tempojogo1 = 864000
+  p_sede = p_fome = 30
+  p_tempoatu = rand(150, 200)
+  var.z_prompt = config:promptmsg
+  var.z_bprompt = config:bpromptmsg
+  tipo1 = arg1, tipo2 = arg2, tipo3 = arg3
+  pnivel = intmax(t_[tipo1]:nmin, t_[j_tipo2]:nmin, t_[tipo3]:nmin)
+  $t_[tipo1].t_reset1(este), $t_[tipo2].t_reset1(este), $t_[tipo3].t_reset1(este)
+  refvar v = txt(t_[tipo1]:inivar) + "," + t_[tipo2]:inivar + "," + t_[tipo3]:inivar
+  comum_persoanimal:ini(arg0, pnivel, v)
+
+func fim # Objeto foi apagado
+  salvar
+  se posicao
+    $mens.p(este)
+    $mens.mvis2("", "$P foi embora.")
+  fimse
+  comum_perso:fim
+# Se era o último jogador online, salva todas as casas
+  cnome = nome = ""
+  indiceitem item
+  item.ini("pn ")
+  txt1(item.txt) != "pn" && $miscsav.salvartudo
+
+func sock_saiu # Executado quando o objeto sock é apagado
+# arg0 é verdadeiro se jogador via bot (deve sair mais rápido do jogo)
+  se arg0
+    p_tempofim = 7
+    !atkenv && apagar(este) # Apaga personagem se não estiver batalhando
+  senao
+    p_tempofim = 12
+  fimse
+  senha == "" && apagar(este) # Apaga personagem se não tem jogo salvo
+
+func sock_entrou # Executado quando objeto sock voltou
+  p_tempofim = 0
+
+func mudasenha # Usuário quer mudar a senha
+  ret sock, senha ? $ini_mudasenha1.passo(sock) : $ini_mudasenha2.passo(sock)
+
+func tempojogo1_exec
+  tempojogo1 = 864000, tempojogo2++
+
+func p_tempoatu_exec # Atualiza variáveis de tempos em tempos
+  p_tempoatu = rand(150, 200)
+# Checa tempo para sair do jogo
+  se p_tempofim && --p_tempofim == 0
+    msg("Muito tempo sem digitar")
+    ret apagar(este)
+  fimse
+# Restaura status de tempos em tempos
+  real2 recup
+  casovar posicao
+  casose "1" # Mortalmente ferido
+  casose "2" # Incapacitado
+    p_diges -= 1, pvida += 1, acertapos
+    sair
+  casose "3" # Fraco
+    p_diges -= 1, pvida += 2, acertapos
+    sair
+  casose "4" # Dormindo
+    recup = contr.dono.s_recup(este) / (poslugar.objlista.i_movel(este) >= 3 ? 500 : 600)
+    p_diges -= 3
+    sair
+  casose "5" # Descansando
+    recup = contr.dono.s_recup(este) / (poslugar.objlista.i_movel(este) >= 3 ? 685 : 800)
+    p_diges -= 3
+    sair
+  casose "6" # Sentado
+    recup = contr.dono.s_recup(este) / (poslugar.objlista.i_movel(este) >= 3 ? 1000 : 1200)
+    p_diges -= 3
+    sair
+  casose "7" # Lutando
+    recup = contr.dono.s_recup(este) / 1400
+    p_diges -= 1
+    sair
+  casose "8" # Em pé
+    recup = contr.dono.s_recup(este) / 1400
+    p_diges -= 2
+    sair
+  casose
+    p_diges -= 1
+  casofim
+  se !recup # Sem taxa de recuperação
+  senao p_sede && p_fome # Recuperação normal
+    pmana < pmanamax && (pmana = intmin(pmanamax, intmax(2, pmana + pmanamax * recup)))
+    pmove < pmovemax && (pmove = intmin(pmovemax, intmax(2, pmove + pmovemax * recup)))
+    pvida < pvidamax && (pvida = intmin(pvidamax, intmax(2, pvida + pvidamax * recup)))
+  senao # Recuperação com muita fome e/ou muita sede
+    recup /= 2
+    pmana < pmanamax && (pmana = intmin(pmanamax, intmax(2, pmana + pmanamax * recup)))
+    pmove < pmovemax && (pmove = intmin(pmovemax, intmax(2, pmove + pmovemax * recup)))
+  fimse
+# Acerta fome, sede e embriaguez
+  se p_bebida == 1 || p_bebida == 2
+    msg(msexo ? "Você está sóbrio." : "Você está sóbria.")
+  fimse
+  se jogconfig.20 # Imortal
+    p_sede = intmax($miscfome.semfome, p_sede - 1)
+    p_fome = intmax($miscfome.semfome, p_fome - 1)
+    p_bebida = intmin(1, p_bebida - 1)
+  senao !$perm_[jogperm].fome || !$t_[tipo1].fome # Sem fome/sede
+    p_sede = intmax($miscfome.semfome, p_sede - 1)
+    p_fome = intmax($miscfome.semfome, p_fome - 1)
+    p_bebida -= 2
+  senao pnivel < config:fomeini || pnivel >= config:fomefim || dono.s_fome == 1 # Não sente
+    p_sede = intmax($miscfome.semfome, p_sede - 1)
+    p_fome = intmax($miscfome.semfome, p_fome - 1)
+    p_bebida -= 2
+  senao !dono.s_fome # Sente fome/sede
+    p_sede -= dono.s_terreno == 11 ? 3 : 1 # No deserto sente sede 3x mais rápido
+    p_fome -= 1
+    p_bebida -= 2
+  senao # Se recupera de fome/sede aos poucos
+    p_sede = intmax(p_sede - 1, intmin($miscfome.semfome, p_sede + 1))
+    p_fome = intmax(p_fome - 1, intmin($miscfome.semfome, p_fome + 1))
+    p_bebida -= 2
+  fimse
+# Mensagens de fome e sede e pontos de vida
+  se --p_tempomsg <= 0
+    casovar txtchr(97 + $miscfome.t.[p_fome]) + $miscfome.t.[p_sede]
+    casose "a1" # Pouca sede
+      p_tempomsg = 5
+      msg("Sua boca está um pouco seca.")
+      sair
+    casose "a2" # Com sede
+      p_tempomsg = 5
+      msg("Você está com sede.")
+      sair !config:fomemsg
+      $mens.p(este)
+      $mens.mvis2("", "$P está com sede.")
+      sair
+    casose "a3" # Muita sede
+      p_tempomsg = 5
+      pvida -= 5
+      msg("Você está morrendo de sede, -5")
+      $mens.p(este)
+      $mens.mvis2("", "$P está morrendo de sede.")
+      sair
+    casose "b0" # Pouca fome
+      p_tempomsg = 5
+      msg("Você sente umas pontadas de fome.")
+      sair
+    casose "b1" # Pouca fome + Pouca sede
+      p_tempomsg = 5
+      msg("Você sente umas pontadas de fome e a boca um pouco seca.")
+      sair
+    casose "b2" # Pouca fome + Com sede
+      p_tempomsg = 5
+      msg("Você está com sede e sente umas pontadas de fome.")
+      sair !config:fomemsg
+      $mens.p(este)
+      $mens.mvis2("", "$P está com sede.")
+      sair
+    casose "b3" # Pouca fome + Muita sede
+      p_tempomsg = 5
+      pvida -= 5
+      msg("Você está morrendo de sede e sente umas pontadas de fome, -5")
+      $mens.p(este)
+      sair !config:fomemsg
+      $mens.mvis2("", "$P está morrendo de sede.")
+      sair
+    casose "c0" # Com fome
+      p_tempomsg = 5
+      msg("Você está com fome.")
+      sair !config:fomemsg
+      $mens.p(este)
+      $mens.mvis2("", "Você ouve o estômago de $P roncar.")
+      sair
+    casose "c1" # Com fome + Pouca sede
+      p_tempomsg = 5
+      msg("Você está com fome e sente a boca um pouco seca.")
+      sair !config:fomemsg
+      $mens.p(este)
+      $mens.mvis2("", "Você ouve o estômago de $P roncar.")
+      sair
+    casose "c2" # Com fome + Com sede
+      p_tempomsg = 5
+      msg("Você está com fome e sede.")
+      sair !config:fomemsg
+      $mens.p(este)
+      $mens.mvis2("", "$P está com fome e sede.")
+      sair
+    casose "c3" # Com fome + Muita sede
+      p_tempomsg = 5
+      pvida -= 5
+      msg("Você está morrendo de sede e com fome, -5")
+      $mens.p(este)
+      se config:fomemsg
+        $mens.mvis2("", "$P está morrendo de sede e com fome.")
+      senao
+        $mens.mvis2("", "$P está morrendo de sede.")
+      fimse
+      sair
+    casose "d0" # Muita fome
+      p_tempomsg = 5
+      pvida -= 10
+      msg("Você está morrendo de fome, -10")
+      $mens.p(este)
+      $mens.mvis2("", "$P está morrendo de fome.")
+      sair
+    casose "d1" # Muita fome + Pouca sede
+      p_tempomsg = 5
+      pvida -= 10
+      msg("Você está morrendo de fome e sente a boca um pouco seca, -10")
+      $mens.p(este)
+      $mens.mvis2("", "$P está morrendo de fome.")
+      sair
+    casose "d2" # Muita fome + Com sede
+      p_tempomsg = 5
+      pvida -= 10
+      msg("Você está morrendo de fome e com sede, -10")
+      $mens.p(este)
+      se config:fomemsg
+        $mens.mvis2("", "$P está morrendo de fome e com sede.")
+      senao
+        $mens.mvis2("", "$P está morrendo de fome.")
+      fimse
+      sair
+    casose "d3" # Muita fome + Muita sede
+      p_tempomsg = 5
+      pvida -= 15
+      msg("Você está morrendo de fome e sede, -15")
+      $mens.p(este)
+      $mens.mvis2("", "$P está morrendo de fome e sede.")
+      sair
+    casofim
+  fimse
+# Cair sentado devido à bebida
+  se posicao == 8 && p_bebida >= rand($miscfome.bebedir, $miscfome.cheio)
+    poslugar.remove
+    posicao = 6
+    pvida -= 5
+    msg("Você se desequilibrou e caiu, -5")
+    $mens.p(este)
+    $mens.mtodos2("", "$P se desequilibrou e caiu.")
+  fimse
+# Acerta estado do personagem
+  acertapos(1)
+
+func salvar # Salva o jogo, desde que a senha não seja nula
+# Retorna verdadeiro se conseguiu salvar
+  ret !senha, 0
+  listaitem item
+  listaobj lista
+  debug dbg
+  dbg.exec = 50000
+  lista.addfim(este, dentro1, dentro2, dentro3)
+  item = lista.ini, item.depois
+  enquanto item
+    se !item.obj.objsav
+      item.removedepois
+    senao lista.total < 2000
+      lista.addfim(item.obj.dentro1, item.obj.dentro2, item.obj.dentro3), item.depois
+    senao
+      item.depois
+    fimse
+  efim
+  ref r
+  epara r = dono, r.dono, r = r.dono
+  efim
+  salanome = r
+# msg(txt2(cnome) + " , " + senha)
+  dbg.exec = 2000
+  ret !lista.total, 0
+# Obtém o tempo do jogo salvo, em dias, e salva o jogo
+  int32 tempo
+  se pnivel < config:nivelveterano && prenascer == 0
+    tempo = $perm_[jogperm].salvardias ?? config:salvainiciante
+  senao
+    tempo = $perm_[jogperm].salvardias ?? config:salvaveterano
+  fimse
+# Salva o arquivo
+  arqsav sav1
+  ret sav1.salvar("sav1/" + txt2(cnome) + ".sav", lista, tempo, senha)
+
+func dentrocasa # Retorna verdadeiro se o jogador está dentro da própria casa
+  ret txt(dono, 0, 2) != "s_" || !txt(dono, 2), nulo
+  indiceitem item
+  refvar t = "cj " + txt2(cnome)
+  refvar d = txt(dono, 2)
+  epara item.ini(t), txtsub(item.txt, 0, 2) == t, item.depois
+    ret txtproclin(item.obj.c_salas, d) >= 0, 1
+  efim
+
+func cmd_recalc1 # Recalcula variáveis do personagem
+# pnivel < 10 && (pvidamax += 50 - pnivel * 5)
+  jogconfig.20 && (bitver |= 0x107C) # Propriedade config +imortal
+  jogconfig.18 && (bitinv |= 128) # Propriedade config +invsala
+  $perm_[jogperm].c_config & 8 && (bitver |= 128) # Ver personagens com config +invsala
+
+func ajustajog # Ajusta variáveis do jogador: pesoobj e volobj
+  int8 ajusta
+  refvar r = $t_[tipo1]
+  se volobj < r.volmin || volobj > r.volmax
+    volobj = rand(r.volmin, r.volmax) ?? volobj
+    ajusta = 1
+  fimse
+  se pesoobj < r.pesomin || pesoobj > r.pesomax
+    pesoobj = rand(r.pesomin, r.pesomax) ?? pesoobj
+    ajusta = 1
+  fimse
+  ret !ajusta, nulo
+# Aproxima peso do volume
+  se r.volmax > r.volmin && r.pesomax > r.pesomin
+    refvar num1 = (volobj - r.volmin) / (r.volmax - r.volmin)
+    refvar num2 = r.pesomin + num1 * (r.pesomax - r.pesomin)
+    pesoobj = (pesoobj + num2 * 3) / 4
+  fimse
+# Acerta peso e volume do personagem
+  ajustapeso

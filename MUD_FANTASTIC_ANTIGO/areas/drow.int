@@ -1,0 +1,2068 @@
+classe a_drow
+herda area
+const a_nome = "A cidade drow"
+const a_autor = "Hercules"
+const a_tempo = 45
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_txtreset = "Você ouve estranhos ruídos passarem por esta área..."
+
+
+classe b_drow
+herda sala
+const s_falar = ""
+const s_fome = 0 # Fome e sede: 0 Presente
+const s_item = 0
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_morre = 0 # Morre ao entrar: 0 Não
+const s_naoresg = 1 # Sem resgate: Sim
+const s_pnj = 20
+const s_recup = 1
+const s_reserva = 0 # Comando reserva: Não
+const s_semmagia = 0 # Sem magia: Não
+const s_soltar = 0 # Soltar itens: 0 Permitido
+const s_retornar = 0 # Comando retornar: 0 Permitido
+const s_terreno = 0 # Terreno: 0
+const s_voltar = $s_venore001
+const s_area = "drow"
+const s_gritar = ""
+
+
+classe i_drow001
+herda comum_itemperso
+const nome = "O cajado divino de Jonny"
+const ident = "cajado jonny divino"
+const descnome = "O cajado divino de Jonny"
+const descpos = "O cajado de jonny está aaqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 0
+const renascer = 0
+const armamanual = 0 # Só ataca manual: Não
+const armamax = 7000000
+const armamin = 500000
+const armaprecisao = 100
+const armaaddprecisao = 500000
+const armatipo = 2 # Tipo de arma: 2 Cajado
+const pesoobj = 4
+const vestir1 = 16777216 # Aonde vestir: 24-segurando
+const inivar = "e_sanctuary=8"
+const manterperso = 1 # Mantém em jogador: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 3000 * pnivel + 3000
+  pmanamax += 3000
+  pmovemax += 7 * pnivel + 100000
+  pveloc1 += 10000
+  atknorm += 100000
+  defnorm += 100000
+  atkesp += 100000
+  defesp += 100000
+  evasao += 100000 * pnivel + 100000
+  precisao += 100000
+  bitinv &= ~2
+  bitver |= 6942
+
+
+classe i_drow002
+herda comum_itemperso
+const nome = "A adaga da aranha"
+const ident = "adaga"
+const descnome = "A adaga da aranha"
+const descpos = "A adaga da aranha está aqui, no chão."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 20
+const renascer = 11
+const armamanual = 0 # Só ataca manual: Não
+const armamax = 1500
+const armamin = 750
+const armaprecisao = 100
+const armaaddprecisao = 100
+const armatipo = 3 # Tipo de arma: 3 Lâmina curta
+const tipoitem = 2 # Tipo de produto: 1-Arma
+const valor = 900
+const vestir1 = 16777216 # Aonde vestir: 24-segurando
+const vestirnao = "bispo\n\
+clerigo\n\
+espadachim\n\
+feiticeiro\n\
+guerreiro\n\
+mago\n\
+necromante\n\
+paladino"
+const armaatk = "lamina_curta"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 120
+  pmanamax += 120
+  pmovemax += 50
+  bitver |= 30
+  atktipo.0 *= 0.5 # Tipos Normais
+  atktipo.1 *= 0.5 # Tipos Especiais
+  atktipo.2 *= 0.5 # Contusão
+  atktipo.3 *= 2 # Luta
+  atktipo.4 *= 0.5 # Cortante
+  atktipo.5 *= 0.5 # Perfurante
+  atktipo.6 *= 0.5 # Fogo
+  deftipo.3 *= 2 # Luta
+  deftipo.20 *= 2 # adaga
+
+
+classe i_drow003
+herda comum_itemperso
+const nome = "Uma espada longa comum"
+const ident = "Uma espada longa comum"
+const descnome = "Uma espada longa comum"
+const descpos = "Uma longa espada está aqui, no chão"
+const descver = "Esta espada é muito estranha, e parece muito afiada.\n\
+Normalmente você a vê nas mãos de drows."
+const nivel = 65
+const renascer = 10
+const armamax = 2400
+const armamin = 1200
+const armaprecisao = 100
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const tipoitem = 2 # Tipo de produto: 1-Arma
+const valor = 950
+const vestirnao = "anao\n\
+assassino\n\
+bispo\n\
+clerigo\n\
+feiticeiro\n\
+ladrão\n\
+mago\n\
+necromante"
+const inivar = "e_ocultar=0"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += -10
+  atknorm += 20
+  precisao += 20
+  pesomax += 20000
+
+
+classe i_drow004
+herda comum_itemperso
+const nome = "Um grande osso humano"
+const ident = "Um grande osso humano"
+const descnome = "Um grande osso humano"
+const descpos = "Um enorme osso humano foi deixado aqui por alguém."
+const descver = "Nossa...\n\
+Como será que alguém conseguiria empunhar algo com uma aparência tão orrível?\n\
+Você se arrepia só de pensar."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 25
+const renascer = 10
+const armamax = 500
+const armamin = 200
+const armaprecisao = 100
+const armaaddprecisao = 20
+const armatipo = 2 # Tipo de arma: 2 Cajado
+const tipoitem = 2 # Tipo de produto: 1-Arma
+const valor = 50000
+const vestir1 = 16777216 # Aonde vestir: 24-segurando
+const vestirnao = "assassino\n\
+bispo\n\
+clerigo\n\
+elfo\n\
+espadachim\n\
+guerreiro\n\
+humano\n\
+ladrao\n\
+paladino"
+const inivar = "e_ocultar=0"
+const manterperso = 0 # Mantém em jogador: Não
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10
+  pmanamax += 10
+  pveloc1 += 1 * pnivel
+  atknorm += 1 * pnivel + 10
+  defnorm += 1 * pnivel + 10
+  atkesp += 1 * pnivel
+  defesp += 10
+  evasao += 1 * pnivel - 2
+  precisao += -2
+  pesomax += -5000
+  bitinv &= ~2
+  bitver |= 4352
+  atktipo.2 *= 3 # Contusão
+  atktipo.3 *= 2 # Luta
+  atktipo.5 *= 3 # Perfurante
+
+
+classe p_drow002
+herda comum_persobat
+const nome = "O drow aranha"
+const ident = "drow aranha"
+const descnome = "O drow aranha"
+const descpadr = "O drow aranha passa por você e empunha uma adaga"
+const descver = "Este drow é um drow meio aranha meio drow.\n\
+Assim que você o olha, ele empunha uma pequena adaga que estava na cintura e prepara-se para o \
+combate!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 63
+const tipo1 = "pnj"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_atktipo = "lamina_curta"
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 230
+const p_morreu1 = "Seu sangue congela assim que $p solta o grito de morte dele!"
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 450
+const p_naoresg = 1 # Sem resgate: Sim
+const inivar = "z_moedas=55"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1200
+  pveloc1 += 20
+  evasao += 50
+  bitver |= 274
+
+
+classe p_drow003
+herda comum_persobat
+const nome = "Um drider"
+const ident = "drider drow"
+const descnome = "Um drider"
+const descpadr = "Um drider olha para você desafiadoramente, enquanto empunha uma espada."
+const descver = "Esta pequena aranha parece muito ágil.\n\
+Assim que ele o vê, empunha uma pequena espada comum e começa a gira-la rapidamente... Nossa!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 68
+const tipo2 = "normal"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 190
+const p_morreu1 = "Seu sangue congela ao ouvir o grito de morte de $p!"
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 400
+const inivar = "z_moedas=30"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1100
+  pveloc1 += 2 * pnivel + 300
+  evasao += 65
+  bitver |= 274
+
+
+classe p_drow004
+herda comum_persobat
+const nome = "Um dracolish"
+const ident = "dracolish"
+const descnome = "Um dracolish"
+const descpadr = "Uma pilha de ossos se ergue das sombras para lhe atacar"
+const descver = "Esta pilha de ossos parece estar aqui a milhares e milhares de anos, só \
+aguardando que algum humano chegue dando sopa para ela se alimentar...\n\
+Você vê que ele segura um enorme osso...\n\
+Será uma arma?"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 85
+const tipo1 = "trevas"
+const tipo2 = "pnj"
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 210
+const p_morreu1 = "Seu sangue congela ao ouvir o grito de morte de $p"
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,h_quarto_ataque=8,e_negra=0,e_escudo_ossos\
+=0,e_barreira_ossos=0,z_moedas=80"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  evasao += 70 * pnivel + 60
+  precisao += 60
+  bitver |= 30
+  atktipo.0 *= 0.5 # Tipos Normais
+  atktipo.1 *= 0.5 # Tipos Especiais
+  atktipo.2 *= 0.5 # Contusão
+  atktipo.3 *= 0.5 # Luta
+  atktipo.4 *= 0.5 # Cortante
+  atktipo.5 *= 0.5 # Perfurante
+  atktipo.6 *= 0.5 # Fogo
+  atktipo.7 *= 0.5 # Água
+
+
+classe p_drow005
+herda comum_persobat
+const nome = "Um mestre em batalhas"
+const ident = "mestre batalhas drow"
+const descnome = "Um mestre em batalhas"
+const descpadr = "Um mestre drow olha para você, raivoso."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 72
+const tipo1 = "trevas"
+const tipo2 = "pnj"
+const tipo3 = "normal"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 213
+const p_morreu1 = "Seu sangue congela ao ouvir o grito de morte de $p."
+const inivar = "e_negra=0,z_moedas=120"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50
+  evasao += 79
+  bitver |= 286
+
+
+classe p_drow006
+herda comum_persobat
+const nome = "Uma sacerdotiza drow"
+const ident = "Sacer"
+const descnome = "A sacerdotisa drow"
+const descpadr = "Uma sacerdotiza Drow está parada aqui."
+const descver = "Esta sacerdotisa é uma mulher estranha.\n\
+Aliás, será que ela é mulher?\n\
+Parece mais uma aranha...\n\
+Ela está a espera de mais uma vítima para sacrifícios sacerdotais."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const nivel = 75
+const tipo1 = "trevas"
+const tipo2 = "pnj"
+const tipo3 = "normal"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 240
+const p_morreu1 = "Seu sangue congela ao ouvir o grito de morte de $p."
+const inivar = "m_relampago=4,z_moedas=300"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200
+  pmanamax += 3400
+  pmovemax += 3400
+  evasao += 70
+  precisao += 55
+  bitver |= 2334
+
+
+classe p_drow007
+herda comum_persobat
+const nome = "Um Guerreiro Drow"
+const ident = "Um guerreiro drow"
+const descnome = "Um guerreiro drow"
+const descpadr = "Um guerreiro drow está aqui, vigiando sua casa."
+const descver = "Este guerreiro é muito forte e destemido, você deve pensar se quer mesmo \
+enfrenta-lo."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 63
+const tipo1 = "trevas"
+const tipo2 = "pnj"
+const p_exp = 203
+const inivar = "h_bater=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200
+  evasao += 40
+  precisao += 40
+
+
+classe p_drow008
+herda comum_persobat
+const nome = "Um Escravo Goblin"
+const ident = "Um escravo goblin"
+const descnome = "Um escravo goblin"
+const descpadr = "Um escravo goblin está aqui, acorrentado contra a parede."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 75
+const tipo1 = "luz"
+const tipo2 = "normal"
+const tipo3 = "normal"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 130
+const p_morreu1 = "Seu sangue congela ao ouvir o grito de morte de $p"
+const inivar = "z_moedas=500"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100
+  evasao += 35
+
+
+classe p_drow009
+herda comum_persobat
+const nome = "O cidadão drow"
+const ident = "O cidadão drow"
+const descnome = "O cidadão drow"
+const descpadr = "Um cidadão drow caminha por aqui, com uma espada na baínha."
+const descver = "Este cidadão caminha despreocupadamente, e segue sua vida diária...\n\
+Nem parece que ele pertence a essa tão agreciva gente Drow."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 76
+const tipo1 = "trevas"
+const tipo2 = "normal"
+const tipo3 = "normal"
+const p_exp = 255
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 450
+const inivar = "e_sanc=0,e_protecao_divina=0"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200
+  evasao += 50
+
+
+classe p_drow010
+herda comum_persobat
+const nome = "Um mestre em espadas"
+const ident = "Um mestre em espadas"
+const descnome = "Um mestre em espadas"
+const descpadr = "Um mestre de armas drow está aqui, lutando com a própria sombra!"
+const descver = "Ele tem um olhar de fúria em seu rosto, e uma força sobrenatural.\n\
+Assim que o vê ele segura uma espada e começa a fazer giros estranhos com ela"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 78
+const tipo1 = "trevas"
+const tipo2 = "pnj"
+const p_exp = 243
+const inivar = "e_negra=0,z_moedas=200"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2000
+  evasao += 40
+  precisao += 40
+
+
+classe p_drow011
+herda comum_persobat
+const nome = "A rainha dos drows"
+const ident = "A rainha dos drows"
+const descnome = "A rainha dos drows"
+const descpadr = "Uma mulher de aspécto soberano está sentada em seu trono."
+const descver = "Esta mulher é uma mistura de humano com drow.\n\
+Bem, a pesar de ser humano ela parece não gostar deles, pois está com essa gente que não é nem \
+um pouquinho amiga dos humanos...\n\
+Ela veste uma roupa negra e segura um estranho objeto, tal vez usado para conjurar suas magias."
+const nivel = 85
+const tipo1 = "pnj"
+const tipo2 = "normal"
+const tipo3 = "normal"
+const p_exp = 263
+const p_morreu1 = "Seu sangue congela ao ouvir o grito de morte de $p"
+const inivar = "e_negra=0,z_moedas=250"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500
+  evasao += 100
+  precisao += 100
+  bitinv |= 16
+
+
+classe p_drow012
+herda comum_persobat
+const nome = "Um clérigo drow"
+const ident = "Um clérigo drow"
+const descnome = "Um clérigo drow"
+const descpadr = "UM clérigo drow está aqui, na vigia de sua casa"
+const descver = "Este é o curandeiro dos drows."
+const nivel = 82
+const tipo1 = "trevas"
+const tipo2 = "normal"
+const tipo3 = "normal"
+const p_exp = 190
+const p_morreu1 = "Seu sangue congela ao ouvir o grito de morte de $p"
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 400
+const inivar = "e_sanc=0"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2000
+  pveloc1 += 15
+  evasao += 50
+
+
+classe p_drow013
+herda comum_persobat
+const nome = "Um mago drow"
+const ident = "Um mago drow"
+const descnome = "Um mago drow"
+const descpadr = "Um nobre mago drow está aqui, atento em vigia"
+const descver = "Este é o mago drow da cidade...\n\
+Com uma luz mística o circundando, ele é o responsável por atacar os invasores das casas com \
+magias."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 83
+const tipo1 = "trevas"
+const tipo2 = "pnj"
+const p_exp = 200
+const p_morreu1 = "Seu sangue congela ao ouvir o grito de morte de $P."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 300
+const inivar = "e_sanc=0"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200
+  evasao += 40
+  precisao += 40
+
+
+classe p_drow014
+herda comum_persobat
+const nome = "Um anão sombrio"
+const ident = "Um anão sombrio"
+const descnome = "Um anão sombrio"
+const descpadr = "Um anão sombrio anda silienciosamente por aqui"
+const descver = "Este anão é muito sombrio, não se parece nada com os de Kazordoon..."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 70
+const tipo1 = "trevas"
+const tipo2 = "normal"
+const tipo3 = "normal"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_exp = 188
+const p_morreu1 = "Seu sangue congela ao ouvir o grito de morte de $p."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 350
+const inivar = "e_sanc=0"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 3000
+  pveloc1 += 10
+  evasao += 20
+
+
+classe s_drow001
+herda b_drow
+const s_titulo = "Uma caverna escondida"
+const s_desc = "Você está em uma sala com paredes negras, feitas de uma espécie de pedra muito \
+antiga.\n\
+Aqui é muito escuro, e você não teria muitas chanses caso alguém resouvese provocar algum ataque \
+contra sua pessoa."
+const s_pnj = 1
+const dir_n = $s_drow026
+const dir_s = $s_drow024
+const dir_l = $s_drow022
+const dir_o = $s_drow025
+const dir_c = $s_drow061
+const dir_b = $s_drow002
+const dir_ne = $s_drow027
+const dir_no = $s_drow029
+const dir_se = $s_drow023
+const dir_so = $s_drow028
+const a_reset = "P 100 drow004 0 0 1\nI 100 drow004 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  se p_drow004:objsolto.total < 1
+    p = u = criar("p_drow004", este, 0)
+  fimse
+  u && criar("i_drow004", u, 1)
+
+
+classe s_drow002
+herda b_drow
+const s_titulo = "Na entrada de uma cidade"
+const s_desc = "Você está na entrada de uma cidade.\n\
+Aqui, existem portões de ferro enferrujados a oeste, e para cima você volta a caverna.\n\
+Esta cidade tem fama de ter criaturas muito perigosas, cuidado!"
+const dir_n = $s_drow051
+const dir_s = $s_drow052
+const dir_l = $s_drow030
+const dir_o = $s_drow003
+const dir_c = $s_drow001
+
+
+classe s_drow003
+herda b_drow
+const s_titulo = "Na rua de Uma cidade"
+const s_desc = "Você está caminhando por uma rua dessa estranha cidade.\n\
+Volta e meia criaturas grotescas, meio aranha meio bem...\n\
+Algo que você não sabe, passam por aqui e olham você com ódio.\n\
+Eu não andaria tão indiscretamente por aqui..."
+const dir_n = $s_drow004
+const dir_s = $s_drow008
+const dir_l = $s_drow002
+const dir_o = $s_drow036
+const inv_o = 1 # Invisível: Sim
+const a_reset = "P 100 drow010 0 0 1\nE 100 drow002 1 0\nE 100 drow003 1 25"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_drow010:objsolto.total < 1
+    p = u = criar("p_drow010", este, 0)
+  fimse
+  se u
+    r = criar("i_drow002", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+  se u
+    r = criar("i_drow003", u, 1), r.vestir(25), u.recalc = 1
+  fimse
+
+
+classe s_drow004
+herda b_drow
+const s_titulo = "Na rua de uma cidade"
+const s_desc = "Você está caminhando por uma rua dessa estranha cidade.\n\
+Volta e meia criaturas grotescas, meio aranha meio bem...\n\
+Algo que você não sabe, passam por aqui e olham você com ódio.\n\
+Eu não andaria tão indiscretamente por aqui..."
+const dir_n = $s_drow019
+const portaini_n = 0 # Estado inicial: 0
+const portanome_n = "Um portão de madeira"
+const portaartigo_n = 2 # Artigo porta: 2 o (portão)
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_s = $s_drow003
+const dir_l = $s_drow051
+const dir_o = $s_drow005
+const a_reset = "D 100 n 2\nP 100 drow003 0 0 11"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("n", 2)
+  se p_drow003:objsolto.total < 11
+    criar("p_drow003", este, 0)
+  fimse
+
+
+classe s_drow005
+herda b_drow
+const s_titulo = "Na rua de uma cidade"
+const s_desc = "Você está caminhando por uma rua dessa estranha cidade.\n\
+Volta e meia criaturas grotescas, meio aranha meio bem...\n\
+Algo que você não sabe, passam por aqui e olham você com ódio.\n\
+Eu não andaria tão indiscretamente por aqui..."
+const dir_n = $s_drow014
+const dir_l = $s_drow004
+const dir_o = $s_drow006
+
+
+classe s_drow006
+herda b_drow
+const s_titulo = "Na rua de uma cidade"
+const s_desc = "Você está caminhando por uma rua dessa estranha cidade.\n\
+Volta e meia criaturas grotescas, meio aranha meio bem...\n\
+Algo que você não sabe, passam por aqui e olham você com ódio.\n\
+Eu não andaria tão indiscretamente por aqui..."
+const dir_n = $s_drow070
+const dir_l = $s_drow005
+const dir_o = $s_drow007
+const a_reset = "P 100 drow002 0 0 14"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_drow002:objsolto.total < 14
+    criar("p_drow002", este, 0)
+  fimse
+
+
+classe s_drow007
+herda b_drow
+const s_titulo = "Na rua de uma cidade"
+const s_desc = "Você está caminhando por uma rua dessa estranha cidade.\n\
+Volta e meia criaturas grotescas, meio aranha meio bem...\n\
+Algo que você não sabe, passam por aqui e olham você com ódio.\n\
+Eu não andaria tão indiscretamente por aqui..."
+const dir_n = $s_drow013
+const dir_s = $s_drow012
+const dir_l = $s_drow006
+const a_reset = "P 100 drow002 0 0 10\nE 100 drow002 1 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_drow002:objsolto.total < 10
+    p = u = criar("p_drow002", este, 0)
+  fimse
+  se u
+    r = criar("i_drow002", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_drow008
+herda b_drow
+const s_titulo = "Na rua de uma cidade"
+const s_desc = "Você está caminhando por uma rua dessa estranha cidade.\n\
+Volta e meia criaturas grotescas, meio aranha meio bem...\n\
+Algo que você não sabe, passam por aqui e olham você com ódio.\n\
+Eu não andaria tão indiscretamente por aqui..."
+const dir_n = $s_drow003
+const dir_l = $s_drow052
+const dir_o = $s_drow009
+
+
+classe s_drow009
+herda b_drow
+const s_titulo = "Na rua de uma cidade"
+const s_desc = "Você está caminhando por uma rua dessa estranha cidade.\n\
+Volta e meia criaturas grotescas, meio aranha meio bem...\n\
+Algo que você não sabe, passam por aqui e olham você com ódio.\n\
+Eu não andaria tão indiscretamente por aqui..."
+const dir_s = $s_drow021
+const portanome_s = "Um portão de madeira"
+const portaartigo_s = 2 # Artigo porta: 2 o (portão)
+const fecha_s = 1 # Fecha ao passar: Sim
+const dir_l = $s_drow008
+const dir_o = $s_drow010
+const a_reset = "D 10 s 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  rand(100) < 10 && mudaporta("s", 2)
+
+
+classe s_drow010
+herda b_drow
+const s_titulo = "Na rua de uma cidade"
+const s_desc = "Você está caminhando por uma rua dessa estranha cidade.\n\
+Volta e meia criaturas grotescas, meio aranha meio bem...\n\
+Algo que você não sabe, passam por aqui e olham você com ódio.\n\
+Eu não andaria tão indiscretamente por aqui..."
+const dir_n = $s_drow016
+const dir_l = $s_drow009
+const dir_o = $s_drow011
+const a_reset = "P 100 drow002 0 0 9\nE 100 drow002 1 25"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_drow002:objsolto.total < 9
+    p = u = criar("p_drow002", este, 0)
+  fimse
+  se u
+    r = criar("i_drow002", u, 1), r.vestir(25), u.recalc = 1
+  fimse
+
+
+classe s_drow011
+herda b_drow
+const s_titulo = "Na rua de uma cidade"
+const s_desc = "Você está caminhando por uma rua dessa estranha cidade.\n\
+Volta e meia criaturas grotescas, meio aranha meio bem...\n\
+Algo que você não sabe, passam por aqui e olham você com ódio.\n\
+Eu não andaria tão indiscretamente por aqui..."
+const dir_n = $s_drow012
+const dir_s = $s_drow020
+const portanome_s = "Um portão de madeira"
+const portaartigo_s = 2 # Artigo porta: 2 o (portão)
+const fecha_s = 1 # Fecha ao passar: Sim
+const dir_l = $s_drow010
+const a_reset = "D 100 s 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("s", 2)
+
+
+classe s_drow012
+herda b_drow
+const s_titulo = "Na rua de uma cidade"
+const s_desc = "Você está caminhando por uma rua dessa estranha cidade.\n\
+Volta e meia criaturas grotescas, meio aranha meio bem...\n\
+Algo que você não sabe, passam por aqui e olham você com ódio.\n\
+Eu não andaria tão indiscretamente por aqui..."
+const dir_n = $s_drow007
+const dir_s = $s_drow011
+const dir_l = $s_drow016
+const dir_o = $s_drow017
+
+
+classe s_drow013
+herda b_drow
+const s_titulo = "Na rua de uma cidade"
+const s_desc = "Você está caminhando por uma rua dessa estranha cidade.\n\
+Volta e meia criaturas grotescas, meio aranha meio bem...\n\
+Algo que você não sabe, passam por aqui e olham você com ódio.\n\
+Eu não andaria tão indiscretamente por aqui..."
+const dir_s = $s_drow007
+const dir_o = $s_drow015
+
+
+classe s_drow014
+herda b_drow
+const s_titulo = "Treinamento de Magos drow"
+const s_desc = "Você está em uma espécie de câmara.\n\
+Aqui, uma aranha gigante meio aranha meio... Você não sabe,\n\
+Ensina aos drows iniciantes sobre suas magias."
+const dir_s = $s_drow005
+const a_reset = "P 100 drow005 0 0 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_drow005:objsolto.total < 3
+    criar("p_drow005", este, 0)
+  fimse
+
+
+classe s_drow015
+herda b_drow
+const s_titulo = "Treinamentos de clérigos drow"
+const s_desc = "Você está em uma espécie de câmara.\n\
+Aqui, uma aranha gigante meio aranha meio... Você não sabe,\n\
+Ensina aos drows sobre suas formas de se recuperarem das batalhas."
+const dir_l = $s_drow013
+const a_reset = "P 100 drow005 0 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_drow005:objsolto.total < 2
+    criar("p_drow005", este, 0)
+  fimse
+
+
+classe s_drow016
+herda b_drow
+const s_titulo = "Treinamento de Guerreiros drow"
+const s_desc = "Você está em uma espécie de câmara.\n\
+Aqui, uma aranha gigante meio aranha meio... Você não sabe,\n\
+Ensina aos drows aprendizes as suas técnicas para ir bem em uma batalha e acabar com pessoas \
+curiosas e mal vistas nessa cidade, como você."
+const dir_s = $s_drow010
+const dir_o = $s_drow012
+const a_reset = "P 100 drow005 0 0 5"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_drow005:objsolto.total < 5
+    criar("p_drow005", este, 0)
+  fimse
+
+
+classe s_drow017
+herda b_drow
+const s_titulo = "Um portão dentro da cidade"
+const s_desc = "Você está junto a dois portões feitos de madeira.\n\
+Estes portões são feitos de madeira queimada e muito gasta, mas porém, é um material muito \
+duro.\n\
+Eles protegem a primeira casa drow, que fica para o oeste."
+const dir_l = $s_drow012
+const dir_o = $s_drow018
+const portaini_o = 0 # Estado inicial: 0
+const portanome_o = "Um portão de madeira"
+const portaartigo_o = 2 # Artigo porta: 2 o (portão)
+const fecha_o = 1 # Fecha ao passar: Sim
+const a_reset = "D 100 o 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("o", 2)
+
+
+classe s_drow018
+herda b_drow
+const s_titulo = "A primeira casa drow"
+const s_desc = "Você está em uma das 4 casas drow.\n\
+Estas por sua vez são habitadas por magos, guerreiros, e um clérigo, para ter sempre com o que \
+se defender.\n\
+Seja com curas, habilidades ou até magias de ataque...\n\
+Cuidado!"
+const dir_l = $s_drow017
+const portanome_l = "Um portão de madeira"
+const portaartigo_l = 2 # Artigo porta: 2 o (portão)
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_ne = $s_drow048
+const a_reset = "D 100 l 2\n\
+P 100 drow007 0 0 2\n\
+P 100 drow006 0 0 9\n\
+P 100 drow012 0 0 7\n\
+P 100 drow013 0 0 8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("l", 2)
+  se p_drow007:objsolto.total < 2
+    criar("p_drow007", este, 0)
+  fimse
+  se p_drow006:objsolto.total < 9
+    criar("p_drow006", este, 0)
+  fimse
+  se p_drow012:objsolto.total < 7
+    criar("p_drow012", este, 0)
+  fimse
+  se p_drow013:objsolto.total < 8
+    criar("p_drow013", este, 0)
+  fimse
+
+
+classe s_drow019
+herda b_drow
+const s_titulo = "A segunda casa drow"
+const s_desc = "Você está em uma das 4 casas drow.\n\
+Estas por sua vez são habitadas por magos, guerreiros, e um clérigo, para ter sempre com o que \
+se defender.\n\
+Seja com curas, habilidades ou até magias de ataque...\n\
+Cuidado!"
+const dir_n = $s_drow047
+const dir_s = $s_drow004
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "Um portão de madeira"
+const portaartigo_s = 2 # Artigo porta: 2 o (portão)
+const fecha_s = 1 # Fecha ao passar: Sim
+const tranc_s = 0 # Trancar: 0 Não pode ser trancado
+const a_reset = "P 100 drow007 0 0 8\n\
+P 100 drow006 0 0 6\n\
+P 100 drow012 0 0 4\n\
+P 100 drow013 0 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_drow007:objsolto.total < 8
+    criar("p_drow007", este, 0)
+  fimse
+  se p_drow006:objsolto.total < 6
+    criar("p_drow006", este, 0)
+  fimse
+  se p_drow012:objsolto.total < 4
+    criar("p_drow012", este, 0)
+  fimse
+  se p_drow013:objsolto.total < 4
+    criar("p_drow013", este, 0)
+  fimse
+
+
+classe s_drow020
+herda b_drow
+const s_titulo = "A terceira casa"
+const s_desc = "Você está em uma das 4 casas drow.\n\
+Estas por sua vez são habitadas por magos, guerreiros, e um clérigo, para ter sempre com o que \
+se defender.\n\
+Seja com curas, habilidades ou até magias de ataque...\n\
+Cuidado!"
+const dir_n = $s_drow011
+const portanome_n = "Um portão de madeira"
+const portaartigo_n = 2 # Artigo porta: 2 o (portão)
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_c = $s_drow049
+const a_reset = "D 100 n 2\n\
+P 100 drow007 0 0 4\n\
+P 100 drow006 0 0 12\n\
+P 100 drow012 0 0 10\n\
+P 100 drow013 0 0 12"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("n", 2)
+  se p_drow007:objsolto.total < 4
+    criar("p_drow007", este, 0)
+  fimse
+  se p_drow006:objsolto.total < 12
+    criar("p_drow006", este, 0)
+  fimse
+  se p_drow012:objsolto.total < 10
+    criar("p_drow012", este, 0)
+  fimse
+  se p_drow013:objsolto.total < 12
+    criar("p_drow013", este, 0)
+  fimse
+
+
+classe s_drow021
+herda b_drow
+const s_titulo = "A quarta casa drow"
+const s_desc = "Você está em uma das 4 casas drow.\n\
+Estas por sua vez são habitadas por magos, guerreiros, e um clérigo, para ter sempre com o que \
+se defender.\n\
+Seja com curas, habilidades ou até magias de ataque...\n\
+Cuidado!"
+const dir_n = $s_drow009
+const portanome_n = "Um portão de madeira"
+const portaartigo_n = 2 # Artigo porta: 2 o (portão)
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_s = $s_drow050
+const a_reset = "P 100 drow007 0 0 6\n\
+P 100 drow006 0 0 15\n\
+P 100 drow012 0 0 13\n\
+P 100 drow013 0 0 15"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_drow007:objsolto.total < 6
+    criar("p_drow007", este, 0)
+  fimse
+  se p_drow006:objsolto.total < 15
+    criar("p_drow006", este, 0)
+  fimse
+  se p_drow012:objsolto.total < 13
+    criar("p_drow012", este, 0)
+  fimse
+  se p_drow013:objsolto.total < 15
+    criar("p_drow013", este, 0)
+  fimse
+
+
+classe s_drow022
+herda b_drow
+const s_titulo = "O canto leste da caverna"
+const s_desc = "Você está em uma sala com paredes negras, feitas de uma espécie de pedra muito \
+antiga.\n\
+Aqui é muito escuro, e você não teria muitas chanses caso alguém resouvese provocar algum ataque \
+contra sua pessoa."
+const dir_n = $s_drow027
+const dir_s = $s_drow023
+const dir_o = $s_drow001
+
+
+classe s_drow023
+herda b_drow
+const s_titulo = "O canto sudeste da caverna"
+const s_desc = "Você está em uma sala com paredes negras, feitas de uma espécie de pedra muito \
+antiga.\n\
+Aqui é muito escuro, e você não teria muitas chanses caso alguém resouvese provocar algum ataque \
+contra sua pessoa."
+const dir_n = $s_drow022
+const dir_o = $s_drow024
+const dir_no = $s_drow001
+
+
+classe s_drow024
+herda b_drow
+const s_titulo = "O canto sul da caverna"
+const s_desc = "Você está em uma sala com paredes negras, feitas de uma espécie de pedra muito \
+antiga.\n\
+Aqui é muito escuro, e você não teria muitas chanses caso alguém resouvese provocar algum ataque \
+contra sua pessoa."
+const dir_n = $s_drow001
+const dir_l = $s_drow023
+const dir_o = $s_drow028
+
+
+classe s_drow025
+herda b_drow
+const s_titulo = "O canto oeste da caverna"
+const s_desc = "Você está em uma sala com paredes negras, feitas de uma espécie de pedra muito \
+antiga.\n\
+Aqui é muito escuro, e você não teria muitas chanses caso alguém resouvese provocar algum ataque \
+contra sua pessoa."
+const dir_n = $s_drow029
+const dir_s = $s_drow028
+const dir_l = $s_drow001
+
+
+classe s_drow026
+herda b_drow
+const s_titulo = "O canto norte da caverna"
+const s_desc = "Você está em uma sala com paredes negras, feitas de uma espécie de pedra muito \
+antiga.\n\
+Aqui é muito escuro, e você não teria muitas chanses caso alguém resouvese provocar algum ataque \
+contra sua pessoa."
+const dir_s = $s_drow001
+const dir_l = $s_drow027
+const dir_o = $s_drow029
+
+
+classe s_drow027
+herda b_drow
+const s_titulo = "O canto nordeste da caverna"
+const s_desc = "Você está em uma sala com paredes negras, feitas de uma espécie de pedra muito \
+antiga.\n\
+Aqui é muito escuro, e você não teria muitas chanses caso alguém resouvese provocar algum ataque \
+contra sua pessoa."
+const dir_s = $s_drow022
+const dir_o = $s_drow026
+const dir_so = $s_drow001
+
+
+classe s_drow028
+herda b_drow
+const s_titulo = "O canto sudoeste da caverna"
+const s_desc = "Você está em uma sala com paredes negras, feitas de uma espécie de pedra muito \
+antiga.\n\
+Aqui é muito escuro, e você não teria a menor chanse caso algo ou alguém quisesse provocar algum \
+tipo de ataque contra você.\n\
+Cuidado!"
+const dir_n = $s_drow025
+const dir_l = $s_drow024
+const dir_ne = $s_drow001
+
+
+classe s_drow029
+herda b_drow
+const s_titulo = "O canto noroeste da caverna"
+const s_desc = "Você está em uma sala com paredes negras, feitas de uma espécie de pedra muito \
+antiga.\n\
+Aqui é muito escuro, e você não teria muitas chanses caso alguém resouvese provocar algum ataque \
+contra sua pessoa."
+const dir_s = $s_drow025
+const dir_l = $s_drow026
+const dir_se = $s_drow001
+
+
+classe s_drow030
+herda b_drow
+const s_titulo = "Na rua de uma cidade"
+const s_desc = "Você está caminhando por uma rua dessa estranha cidade.\n\
+Volta e meia criaturas grotescas, meio aranha meio bem...\n\
+Algo que você não sabe, passam por aqui e olham você com ódio.\n\
+Eu não andaria tão indiscretamente por aqui..."
+const dir_n = $s_drow031
+const dir_s = $s_drow053
+const dir_l = $s_drow035
+const dir_o = $s_drow002
+
+
+classe s_drow031
+herda b_drow
+const s_titulo = "Na rua de uma cidade"
+const s_desc = "Você está caminhando por uma rua dessa estranha cidade.\n\
+Volta e meia criaturas grotescas, meio aranha meio bem...\n\
+Algo que você não sabe, passam por aqui e olham você com ódio.\n\
+Eu não andaria tão indiscretamente por aqui..."
+const dir_n = $s_drow032
+const dir_s = $s_drow030
+const dir_l = $s_drow055
+const dir_o = $s_drow051
+
+
+classe s_drow032
+herda b_drow
+const s_titulo = "Na rua de uma cidade"
+const s_desc = "Você está caminhando por uma rua dessa estranha cidade.\n\
+Volta e meia criaturas grotescas, meio aranha meio bem...\n\
+Algo que você não sabe, passam por aqui e olham você com ódio.\n\
+Eu não andaria tão indiscretamente por aqui..."
+const dir_s = $s_drow031
+
+
+classe s_drow033
+herda b_drow
+const s_titulo = "Na rua de uma cidade"
+const s_desc = "Você está caminhando por uma rua dessa estranha cidade.\n\
+Volta e meia criaturas grotescas, meio aranha meio bem...\n\
+Algo que você não sabe, passam por aqui e olham você com ódio.\n\
+Eu não andaria tão indiscretamente por aqui..."
+const dir_n = $s_drow030
+const dir_s = $s_drow034
+
+
+classe s_drow034
+herda b_drow
+const s_titulo = "Na rua de uma cidade"
+const s_desc = "Você está caminhando por uma rua dessa estranha cidade.\n\
+Volta e meia criaturas grotescas, meio aranha meio bem...\n\
+Algo que você não sabe, passam por aqui e olham você com ódio.\n\
+Eu não andaria tão indiscretamente por aqui..."
+const dir_n = $s_drow033
+
+
+classe s_drow035
+herda b_drow
+const s_titulo = "O final leste da rua"
+const s_desc = "Você está caminhando por uma rua dessa estranha cidade.\n\
+Volta e meia criaturas grotescas, meio aranha meio bem...\n\
+Algo que você não sabe, passam por aqui e olham você com ódio.\n\
+Eu não andaria tão indiscretamente por aqui..."
+const dir_n = $s_drow055
+const dir_s = $s_drow056
+const dir_o = $s_drow030
+
+
+classe s_drow036
+herda b_drow
+const s_titulo = "Uma câmara cecreta"
+const s_desc = "Uau!\n\
+Nem o mais espertos dos aventureiros conseguiria chegar nessa câmara tão bem oculta pelos \
+drows....\n\
+Quem diria, eim!\n\
+Ao leste você vê a rua da cidade, e para cima uma grande escadaria de pedra obicidiana convida \
+você a penetrar no desconhecido."
+const dir_l = $s_drow003
+const dir_c = $s_drow037
+
+
+classe s_drow037
+herda b_drow
+const s_titulo = "Uma escadaria"
+const s_desc = "Você está subindo uma grande escadaria de pedra obicidiana.\n\
+Imagens de batalhas dos drows contra os goblins foram entalhadas nas paredes..\n\
+Você ouve um ruído de algo gritando ao longe."
+const dir_n = $s_drow038
+const dir_b = $s_drow036
+
+
+classe s_drow038
+herda b_drow
+const s_titulo = "Uma escadaria"
+const s_desc = "Você está subindo uma grande escadaria de pedra obicidiana.\n\
+Imagens de batalhas dos drows contra os goblins foram entalhadas nas paredes..\n\
+Você ouve um ruído de algo gritando ao longe."
+const dir_s = $s_drow037
+const dir_c = $s_drow039
+
+
+classe s_drow039
+herda b_drow
+const s_titulo = "Uma escadaria"
+const s_desc = "Você está subindo uma grande escadaria de pedra obicidiana.\n\
+Imagens de batalhas dos drows contra os goblins foram entalhadas nas paredes..\n\
+Você ouve um ruído de algo gritando ao longe."
+const dir_c = $s_drow040
+const dir_b = $s_drow038
+
+
+classe s_drow040
+herda b_drow
+const s_titulo = "Uma escadaria"
+const s_desc = "Você está subindo uma grande escadaria de pedra obicidiana.\n\
+Imagens de batalhas dos drows contra os goblins foram entalhadas nas paredes..\n\
+Você ouve um ruído de algo gritando ao longe."
+const dir_l = $s_drow041
+const dir_b = $s_drow039
+
+
+classe s_drow041
+herda b_drow
+const s_titulo = "Quase no topo da escadaria"
+const s_desc = "Você está subindo uma grande escadaria de pedra obicidiana.\n\
+Imagens de batalhas dos drows contra os goblins foram entalhadas nas paredes..\n\
+Você ouve um ruído de algo gritando ao longe."
+const dir_o = $s_drow040
+const dir_c = $s_drow042
+
+
+classe s_drow042
+herda b_drow
+const s_titulo = "No topo da escadaria"
+const s_desc = "Você chega no topo dessa grande escadaria.\n\
+Para o leste você vê a câmara de tortura dos escravos goblins, para o sul você vê um quarto \
+aparentemente vazio, e para norte o mesmo.\n\
+Para cima você vê uma espécie de templo meio oculto. e para oeste e leste....\n\
+Existem aranhas esfomeadas por mais uma vítima!\n\
+Cuidado!\n\
+Você persebe que há perigo por perto!"
+const s_pnj = 0
+const s_semmagia = 1 # Sem magia: Sim
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const dir_n = $s_drow044
+const dir_s = $s_drow045
+const dir_l = $s_drow043
+const dir_o = $s_drow043
+const dir_c = $s_drow046
+const dir_b = $s_drow041
+
+
+classe s_drow043
+herda b_drow
+const s_titulo = "O poço"
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+const s_ocultar = 0 # Ocultar desc: Não
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_drow042
+const dir_o = $s_drow042
+const descsala = "O Poço\n\
+Assim que você entra nesse aposento, aranhas vindas de todos os lados\n\
+começam a abrir seu corpo de todas as formas, fazendo você sentir uma dor\n\
+orrível. Quando a dor passa, você ouve uma voz dizer, mais um sacrifício\n\
+para nós, oh rainha! Você está morto! Isto é seu prêmio por ler as\n\
+descrições das salas com total atenção... Só que não!\n\
+Saídas: L O"
+
+func cmd_salaperso
+  ret !arg0.jog, nulo # Retorna se não for jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou1
+  misc:evento(arg0) # Receber eventos do personagem
+  listaobj l
+  epara l.addfim(arg0.dentro1, arg0.dentro2), l, l.ini.remove
+    l.objini.item && !l.objini.manterperso && apagar(l.objini)
+  efim
+  arg0.morreu
+  ret 1
+
+
+classe s_drow044
+herda b_drow
+const s_titulo = "Uma sala peculhar"
+const s_desc = "Você entrou em um aposento aparentemente vazio.\n\
+Aqui só há móveis velhos, e restos de corpos lacerados pelos drows famintos.\n\
+A sua única opção é voltar."
+const dir_s = $s_drow042
+
+
+classe s_drow045
+herda b_drow
+const s_titulo = "Um quarto vazio"
+const s_desc = "Você entrou em um aposento aparentemente vazio.\n\
+Aqui só há móveis velhos, e restos de corpos lacerados pelos drows famintos.\n\
+A sua única opção é voltar."
+const dir_n = $s_drow042
+
+
+classe s_drow046
+herda b_drow
+const s_titulo = "No templo da rainha dos drows"
+const s_desc = "Você chegou no grande templo da rainha dos drows.\n\
+Aqui, muitos drows pequenos fazem suas oferendas a rainha, e lhe fazem pedidos...\n\
+E também dizem que a rainha faz previsões quanto ao futuro dos drows.\n\
+Para baixo você volta a escadaria, e para o norte encontra-se o tesouro dos drows, no qual acho \
+que você não devia entrar!"
+const s_pnj = 3
+const dir_n = $s_drow086
+const dir_s = $s_drow087
+const dir_b = $s_drow042
+const a_reset = "P 100 drow006 0 0 3\nP 100 drow011 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_drow006:objsolto.total < 3
+    criar("p_drow006", este, 0)
+  fimse
+  se p_drow011:objsolto.total < 1
+    criar("p_drow011", este, 0)
+  fimse
+
+
+classe s_drow047
+herda b_drow
+const s_titulo = "O final da casa"
+const s_desc = "Você está no final da casa...\n\
+Aqui é praticamente igual a entrada, e também é igual porquê você vai ter mais adiversários a \
+sua espera."
+const dir_s = $s_drow019
+const a_reset = "P 100 drow007 0 0 10\nP 100 drow006 0 0 24"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_drow007:objsolto.total < 10
+    criar("p_drow007", este, 0)
+  fimse
+  se p_drow006:objsolto.total < 24
+    criar("p_drow006", este, 0)
+  fimse
+
+
+classe s_drow048
+herda b_drow
+const s_titulo = "O final da casa"
+const s_desc = "Você está no final da casa...\n\
+Aqui é praticamente igual a entrada, e também é igual porquê você vai ter mais adiversários a \
+sua espera."
+const dir_so = $s_drow018
+const a_reset = "P 100 drow007 0 0 11\nP 100 drow006 0 0 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_drow007:objsolto.total < 11
+    criar("p_drow007", este, 0)
+  fimse
+  se p_drow006:objsolto.total < 21
+    criar("p_drow006", este, 0)
+  fimse
+
+
+classe s_drow049
+herda b_drow
+const s_titulo = "O final superior da casa"
+const s_desc = "Você está no final da casa...\n\
+Aqui é praticamente igual a entrada, e também é igual porquê você vai ter mais adiversários a \
+sua espera."
+const dir_b = $s_drow020
+const a_reset = "P 100 drow007 0 0 13\nP 100 drow006 0 0 19"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_drow007:objsolto.total < 13
+    criar("p_drow007", este, 0)
+  fimse
+  se p_drow006:objsolto.total < 19
+    criar("p_drow006", este, 0)
+  fimse
+
+
+classe s_drow050
+herda b_drow
+const s_titulo = "O final sul da casa"
+const s_desc = "Você está no final da casa...\n\
+Aqui é praticamente igual a entrada, e também é igual porquê você vai ter mais adiversários a \
+sua espera."
+const dir_n = $s_drow021
+const a_reset = "P 100 drow007 0 0 15\nP 100 drow006 0 0 17"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_drow007:objsolto.total < 15
+    criar("p_drow007", este, 0)
+  fimse
+  se p_drow006:objsolto.total < 17
+    criar("p_drow006", este, 0)
+  fimse
+
+
+classe s_drow051
+herda b_drow
+const s_titulo = "Na rua de uma cidade"
+const s_desc = "Você está caminhando por uma rua dessa estranha cidade.\n\
+Volta e meia criaturas grotescas, meio aranha meio bem...\n\
+Algo que você não sabe, passam por aqui e olham você com ódio.\n\
+Eu não andaria tão indiscretamente por aqui..."
+const dir_s = $s_drow002
+const dir_l = $s_drow031
+const dir_o = $s_drow004
+
+
+classe s_drow052
+herda b_drow
+const s_titulo = "Na rua de uma cidade"
+const s_desc = "Você está caminhando por uma rua dessa estranha cidade.\n\
+Volta e meia criaturas grotescas, meio aranha meio bem...\n\
+Algo que você não sabe, passam por aqui e olham você com ódio.\n\
+Eu não andaria tão indiscretamente por aqui..."
+const dir_n = $s_drow002
+const dir_l = $s_drow053
+const dir_o = $s_drow008
+const dir_ne = $s_drow054
+const a_reset = "P 100 drow003 0 0 10\nP 100 drow003 0 0 14"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_drow003:objsolto.total < 10
+    criar("p_drow003", este, 0)
+  fimse
+  se p_drow003:objsolto.total < 14
+    criar("p_drow003", este, 0)
+  fimse
+
+
+classe s_drow053
+herda b_drow
+const s_titulo = "Na rua de uma cidade"
+const s_desc = "Você está caminhando por uma rua dessa estranha cidade.\n\
+Volta e meia criaturas grotescas, meio aranha meio bem...\n\
+Algo que você não sabe, passam por aqui e olham você com ódio.\n\
+Eu não andaria tão indiscretamente por aqui..."
+const dir_n = $s_drow030
+const dir_l = $s_drow056
+const dir_o = $s_drow052
+
+
+classe s_drow054
+herda b_drow
+const s_titulo = "O final da rua"
+const s_desc = "Você está caminhando por uma rua dessa estranha cidade.\n\
+Volta e meia criaturas grotescas, meio aranha meio bem...\n\
+Algo que você não sabe, passam por aqui e olham você com ódio.\n\
+Eu não andaria tão indiscretamente por aqui..."
+const dir_so = $s_drow052
+
+
+classe s_drow055
+herda b_drow
+const s_titulo = "O final nordeste da rua"
+const s_desc = "Você está caminhando por uma rua dessa estranha cidade.\n\
+Volta e meia criaturas grotescas, meio aranha meio bem...\n\
+Algo que você não sabe, passam por aqui e olham você com ódio.\n\
+Eu não andaria tão indiscretamente por aqui..."
+const dir_s = $s_drow035
+const dir_o = $s_drow031
+
+
+classe s_drow056
+herda b_drow
+const s_titulo = "O final sudeste da rua"
+const s_desc = "Você está caminhando por uma rua dessa estranha cidade.\n\
+Volta e meia criaturas grotescas, meio aranha meio bem...\n\
+Algo que você não sabe, passam por aqui e olham você com ódio.\n\
+Eu não andaria tão indiscretamente por aqui..."
+const dir_n = $s_drow035
+const dir_o = $s_drow053
+
+
+classe s_drow057
+herda b_drow
+const s_titulo = "Andando pela caverna"
+const s_desc = "Você está em uma sala com paredes negras, feitas de uma espécie de pedra muito \
+antiga.\n\
+Aqui é muito escuro, e você não teria muitas chanses caso alguém resouvese provocar algum ataque \
+contra sua pessoa."
+const dir_se = $s_drow058
+const dir_so = $s_drow001
+
+
+classe s_drow058
+herda b_drow
+const s_titulo = "Andando pela caverna"
+const s_desc = "Você está em uma sala com paredes negras, feitas de uma espécie de pedra muito \
+antiga.\n\
+Aqui é muito escuro, e você não teria muitas chanses caso alguém resouvese provocar algum ataque \
+contra sua pessoa."
+const dir_ne = $s_drow001
+const dir_no = $s_drow057
+
+
+classe s_drow059
+herda b_drow
+const s_titulo = "Andando pela caverna"
+const s_desc = "Você está em uma sala com paredes negras, feitas de uma espécie de pedra muito \
+antiga.\n\
+Aqui é muito escuro, e você não teria muitas chanses caso alguém resouvese provocar algum ataque \
+contra sua pessoa."
+const dir_no = $s_drow001
+
+
+classe s_drow060
+herda b_drow
+const s_titulo = "ANdando pela caverna"
+const s_desc = "Você está em uma sala com paredes negras, feitas de uma espécie de pedra muito \
+antiga.\n\
+Aqui é muito escuro, e você não teria muitas chanses caso alguém resouvese provocar algum ataque \
+contra sua pessoa."
+const dir_se = $s_drow059
+
+
+classe s_drow061
+herda b_drow
+const s_titulo = "Na entrada de uma caverna completamente escura"
+const s_desc = "Você está na entrada de uma escura caverna.\n\
+Aqui, o chão é feito de pedras quebradas e mal calçadas, e as paredes são negras.\n\
+Sua conciência, sim, aquela que ja te deu tantos bons conselhos diz: Saia daí!\n\
+Mas sua curiosidade ao mesmo tempo pede para que você se aventure por este caminho desconhecido?\n\
+Qual você escolhe?"
+const s_pnj = 0
+const dir_s = $s_drow062
+const dir_l = $s_drow102
+const dir_b = $s_drow001
+const a_reset = "P 100 drow014 0 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_drow014:objsolto.total < 2
+    criar("p_drow014", este, 0)
+  fimse
+
+
+classe s_drow062
+herda b_drow
+const s_titulo = "No pé dos entulhos"
+const s_desc = "Você está caminhando por uma trilha sombria.\n\
+Ao norte você vê a entrada da caverna, e a sul você volta para a estrada."
+const dir_n = $s_drow061
+const dir_s = $s_drow063
+const dir_l = $s_drow107
+
+
+classe s_drow063
+herda b_drow
+const s_titulo = "No fin da estrada"
+const s_desc = "Você está no fim da estrada norte de zurs.\n\
+Aqui, você tem dois caminhos, sul volta a estrada, e norte entra em um caminho negro e desconheci\
+do."
+const s_pnj = 0
+const dir_n = $s_drow062
+const dir_s = $s_drow064
+const dir_no = $s_drow108
+
+
+classe s_drow064
+herda b_drow
+const s_titulo = "A estrada norte de Zurs"
+const s_desc = "Você está na estrada norte de zurs. Mercadores passam rapidamente por aqui,\n\
+procurando algum cliente para vender suas mercadorias. Também existem\n\
+turistas e mendigos, que vem visitar a cidade de Zurs, situada ao sul. Para\n\
+o norte a estrada continua."
+const dir_n = $s_drow063
+const dir_s = $s_drow065
+const dir_so = $s_drow069
+
+
+classe s_drow065
+herda b_drow
+const s_titulo = "A estrada norte de Zurs"
+const s_desc = "Você está na estrada norte de zurs. Mercadores passam rapidamente por aqui,\n\
+procurando algum cliente para vender suas mercadorias. Também existem\n\
+turistas e mendigos, que vem visitar a cidade de Zurs, situada ao sul. Para\n\
+o norte a estrada continua."
+const dir_n = $s_drow064
+const dir_s = $s_drow066
+
+
+classe s_drow066
+herda b_drow
+const s_titulo = "A estrada norte de Zurs"
+const s_desc = "Você está na estrada norte de zurs. Mercadores passam rapidamente por aqui,\n\
+procurando algum cliente para vender suas mercadorias. Também existem\n\
+turistas e mendigos, que vem visitar a cidade de Zurs, situada ao sul. Para\n\
+o norte a estrada continua."
+const dir_n = $s_drow065
+const dir_s = $s_drow067
+
+
+classe s_drow067
+herda b_drow
+const s_titulo = "A estrada norte de Zurs"
+const s_desc = "Você está na estrada norte de zurs. Mercadores passam rapidamente por aqui,\n\
+procurando algum cliente para vender suas mercadorias. Também existem\n\
+turistas e mendigos, que vem visitar a cidade de Zurs, situada ao sul. Para\n\
+o norte a estrada continua."
+const dir_n = $s_drow066
+const dir_s = $s_drow069
+
+
+classe s_drow069
+herda b_drow
+const s_titulo = "O início da estrada norte de Zurs"
+const s_desc = "Você está na estrada norte de zurs. Mercadores passam rapidamente por aqui,\n\
+procurando algum cliente para vender suas mercadorias. Também existem\n\
+turistas e mendigos, que vem visitar a cidade de Zurs, situada ao sul. Para\n\
+o norte a estrada continua."
+const s_pnj = 0
+const dir_n = $s_drow067
+const dir_s = $s_zurs042
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "Os portões norte de Zurs"
+const portaartigo_s = 3 # Artigo porta: 3 os (portões)
+const fecha_s = 1 # Fecha ao passar: Sim
+
+
+classe s_drow070
+herda b_drow
+const s_titulo = "Na entrada de um corredor"
+const s_desc = "Você está na entrada de um grande corredor.\n\
+Este é o corredor onde ficam os quartos dos drows.\n\
+Para o norte ele continua, e para o sul você vê a rua da cidade.\n\
+Um aviso na parede diz: Não perturbe os drows"
+const s_pnj = 0
+const dir_n = $s_drow071
+const dir_s = $s_drow006
+
+
+classe s_drow071
+herda b_drow
+const s_titulo = "No corredor entre os quartos"
+const s_desc = "Você está andando por um longo corredor.\n\
+Fotos de aranhas batalhando contra goblins enchem as paredes.\n\
+Ao leste e oeste encontram-se quartos, e a norte e sul corredor continua."
+const dir_n = $s_drow072
+const dir_s = $s_drow070
+const dir_l = $s_drow077
+const dir_o = $s_drow076
+
+
+classe s_drow072
+herda b_drow
+const s_titulo = "No corredor entre os quartos"
+const s_desc = "Você está andando por um longo corredor.\n\
+Fotos de aranhas batalhando contra goblins enchem as paredes.\n\
+Ao leste e oeste encontram-se quartos, e a norte e sul corredor continua."
+const dir_n = $s_drow073
+const dir_s = $s_drow071
+const dir_l = $s_drow079
+const dir_o = $s_drow078
+
+
+classe s_drow073
+herda b_drow
+const s_titulo = "No corredor entre os quartos"
+const s_desc = "Você está andando por um longo corredor.\n\
+Fotos de aranhas batalhando contra goblins enchem as paredes.\n\
+Ao leste e oeste encontram-se quartos, e a norte e sul corredor continua."
+const dir_n = $s_drow074
+const dir_s = $s_drow072
+const dir_l = $s_drow081
+const dir_o = $s_drow080
+
+
+classe s_drow074
+herda b_drow
+const s_titulo = "No corredor entre os quartos"
+const s_desc = "Você está andando por um longo corredor.\n\
+Fotos de aranhas batalhando contra goblins enchem as paredes.\n\
+Ao leste e oeste encontram-se quartos, e a norte e sul corredor continua."
+const dir_n = $s_drow075
+const dir_s = $s_drow073
+const dir_l = $s_drow083
+const dir_o = $s_drow082
+
+
+classe s_drow075
+herda b_drow
+const s_titulo = "O final norte do corredor"
+const s_desc = "Você está andando por um longo corredor.\n\
+Fotos de aranhas batalhando contra goblins enchem as paredes.\n\
+Ao sul você volta ao corredor."
+const dir_n = $s_drow084
+const dir_s = $s_drow074
+const dir_l = $s_drow085
+
+
+classe s_drow076
+herda b_drow
+const s_titulo = "O quarto"
+const s_desc = "Você está no quarto da cidade.\n\
+Aqui, vários drows descansam e aguardam seu próximo jantar.."
+const dir_l = $s_drow071
+
+
+classe s_drow077
+herda b_drow
+const s_titulo = "O quarto"
+const s_desc = "Você está no quarto da cidade.\n\
+Aqui, vários drows descansam e aguardam seu próximo jantar.."
+const dir_o = $s_drow071
+
+
+classe s_drow078
+herda b_drow
+const s_titulo = "O quarto"
+const s_desc = "Você está no quarto da cidade.\n\
+Aqui, vários drows descansam e aguardam seu próximo jantar.."
+const dir_l = $s_drow072
+
+
+classe s_drow079
+herda b_drow
+const s_titulo = "O quarto"
+const s_desc = "Você está no quarto da cidade.\n\
+Aqui, vários drows descansam e aguardam seu próximo jantar.."
+const dir_o = $s_drow072
+
+
+classe s_drow080
+herda b_drow
+const s_titulo = "O quarto"
+const s_desc = "Você está no quarto da cidade.\n\
+Aqui, vários drows descansam e aguardam seu próximo jantar.."
+const dir_l = $s_drow073
+
+
+classe s_drow081
+herda b_drow
+const s_titulo = "O quarto"
+const s_desc = "Você está no quarto da cidade.\n\
+Aqui, vários drows descansam e aguardam seu próximo jantar.."
+const dir_o = $s_drow073
+
+
+classe s_drow082
+herda b_drow
+const s_titulo = "O quarto"
+const s_desc = "Você está no quarto da cidade.\n\
+Aqui, vários drows descansam e aguardam seu próximo jantar.."
+const dir_l = $s_drow074
+
+
+classe s_drow083
+herda b_drow
+const s_titulo = "O quarto"
+const s_desc = "Você está no quarto da cidade.\n\
+Aqui, vários drows descansam e aguardam seu próximo jantar.."
+const s_pnj = 14
+const dir_o = $s_drow074
+const a_reset = "P 100 drow009 0 0 14"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_drow009:objsolto.total < 14
+    criar("p_drow009", este, 0)
+  fimse
+
+
+classe s_drow084
+herda b_drow
+const s_titulo = "O quarto"
+const s_desc = "Você está no quarto da cidade.\n\
+Aqui, vários drows descansam e aguardam seu próximo jantar.."
+const dir_s = $s_drow075
+const a_reset = "P 100 drow009 0 0 5"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_drow009:objsolto.total < 5
+    criar("p_drow009", este, 0)
+  fimse
+
+
+classe s_drow085
+herda b_drow
+const s_titulo = "A câmara de escravos"
+const s_desc = "Você está na câmara dos escravos goblins.\n\
+Aqui, os pobres escravos que os drows fizeram ficam abrigados..."
+const s_pnj = 13
+const dir_o = $s_drow075
+const a_reset = "P 100 drow008 0 0 4\nP 100 drow008 0 0 8\nP 100 drow008 0 0 12"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_drow008:objsolto.total < 4
+    criar("p_drow008", este, 0)
+  fimse
+  se p_drow008:objsolto.total < 8
+    criar("p_drow008", este, 0)
+  fimse
+  se p_drow008:objsolto.total < 12
+    criar("p_drow008", este, 0)
+  fimse
+
+
+classe s_drow086
+herda b_drow
+const s_titulo = "O grande tesouro dos drows"
+const s_desc = "Ao entrar aqui você se surpreende.\n\
+Você julgava que aqui houvesse um tesouro muito valioso....\n\
+Bem, pode ser que haja, mas você não consegue ver, pois os drows tem muitas formas de proteger \
+seus pertences.\n\
+Cinto muito, mas você não é drow!\n\
+A única passagem que você vê parece seguir para sul"
+const dir_s = $s_drow046
+
+
+classe s_drow087
+herda b_drow
+const s_titulo = "Uma sala de meditação"
+const s_desc = "Você está em uma pequena sala de meditação.\n\
+Aqui os drows de classes mágicas parecem meditar...\n\
+Para o norte está o templo"
+const dir_n = $s_drow046
+
+
+classe s_drow088
+herda b_drow
+const s_titulo = "Sem nome"
+const s_desc = ""
+const s_pnj = 1
+const dir_so = $s_drow007
+
+
+classe s_drow089
+herda b_drow
+const s_titulo = "Na estrada"
+const s_desc = "Você está na estrada norte de zurs.\n\
+Mercadores passam rapidamente por aqui, procurando algum cliente para vender suas mercadorias.\n\
+Também existem mendigos, e turistas que vem conhecer a cidade de Zrus, situada ao sul.\n\
+Para o norte a estrada continua."
+const dir_l = $s_drow090
+const dir_o = $s_drow068
+
+
+classe s_drow090
+herda b_drow
+const s_titulo = "Na estrada"
+const s_desc = "Você está na estrada norte de zurs.\n\
+Mercadores passam rapidamente por aqui, procurando algum cliente para vender suas mercadorias.\n\
+Também existem mendigos, e turistas que vem conhecer a cidade de Zrus, situada ao sul.\n\
+Para o norte a estrada continua."
+const dir_s = $s_drow091
+const dir_o = $s_drow089
+
+
+classe s_drow091
+herda b_drow
+const s_titulo = "Na estrada"
+const s_desc = "Você está na estrada norte de zurs.\n\
+Mercadores passam rapidamente por aqui, procurando algum cliente para vender suas mercadorias.\n\
+Também existem mendigos, e turistas que vem conhecer a cidade de Zrus, situada ao sul.\n\
+Para o norte a estrada continua."
+const dir_n = $s_drow090
+const dir_o = $s_drow092
+
+
+classe s_drow092
+herda b_drow
+const s_titulo = "Na estrada"
+const s_desc = "Você está na estrada norte de zurs.\n\
+Mercadores passam rapidamente por aqui, procurando algum cliente para vender suas mercadorias.\n\
+Também existem mendigos, e turistas que vem conhecer a cidade de Zrus, situada ao sul.\n\
+Para o norte a estrada continua."
+const dir_l = $s_drow091
+const dir_o = $s_drow069
+
+
+classe s_drow093
+herda b_drow
+const s_titulo = "Na estrada"
+const s_desc = "Você está na estrada norte de zurs.\n\
+Mercadores passam rapidamente por aqui, procurando algum cliente para vender suas mercadorias.\n\
+Também existem mendigos, e turistas que vem conhecer a cidade de Zrus, situada ao sul.\n\
+Para o norte a estrada continua."
+const dir_l = $s_drow069
+const dir_o = $s_drow094
+
+
+classe s_drow094
+herda b_drow
+const s_titulo = "Na estrada"
+const s_desc = "Você está na estrada norte de zurs.\n\
+Mercadores passam rapidamente por aqui, procurando algum cliente para vender suas mercadorias.\n\
+Também existem mendigos, e turistas que vem conhecer a cidade de Zrus, situada ao sul.\n\
+Para o norte a estrada continua."
+const dir_l = $s_drow093
+const dir_o = $s_drow095
+
+
+classe s_drow095
+herda b_drow
+const s_titulo = "Na estrada"
+const s_desc = "Você está na estrada norte de zurs.\n\
+Mercadores passam rapidamente por aqui, procurando algum cliente para vender suas mercadorias.\n\
+Também existem mendigos, e turistas que vem conhecer a cidade de Zrus, situada ao sul.\n\
+Para o norte a estrada continua."
+const dir_n = $s_drow096
+const dir_l = $s_drow094
+
+
+classe s_drow096
+herda b_drow
+const s_titulo = "Na estrada"
+const s_desc = "Você está na estrada norte de zurs.\n\
+Mercadores passam rapidamente por aqui, procurando algum cliente para vender suas mercadorias.\n\
+Também existem mendigos, e turistas que vem conhecer a cidade de Zrus, situada ao sul.\n\
+Para o norte a estrada continua."
+const dir_s = $s_drow095
+const dir_l = $s_drow097
+
+
+classe s_drow097
+herda b_drow
+const s_titulo = "Na estrada"
+const s_desc = "Você está na estrada norte de zurs.\n\
+Mercadores passam rapidamente por aqui, procurando algum cliente para vender suas mercadorias.\n\
+Também existem mendigos, e turistas que vem conhecer a cidade de Zrus, situada ao sul.\n\
+Para o norte a estrada continua."
+const dir_n = $s_drow098
+const dir_o = $s_drow096
+
+
+classe s_drow098
+herda b_drow
+const s_titulo = "Na estrada"
+const s_desc = "Você está na estrada norte de zurs.\n\
+Mercadores passam rapidamente por aqui, procurando algum cliente para vender suas mercadorias.\n\
+Também existem mendigos, e turistas que vem conhecer a cidade de Zrus, situada ao sul.\n\
+Para o norte a estrada continua."
+const dir_s = $s_drow097
+const dir_o = $s_drow099
+
+
+classe s_drow099
+herda b_drow
+const s_titulo = "Na estrada"
+const s_desc = "Você está na estrada norte de zurs.\n\
+Mercadores passam rapidamente por aqui, procurando algum cliente para vender suas mercadorias.\n\
+Também existem mendigos, e turistas que vem conhecer a cidade de Zrus, situada ao sul.\n\
+Para o norte a estrada continua."
+const dir_n = $s_drow100
+const dir_l = $s_drow098
+const dir_o = $s_drow101
+
+
+classe s_drow100
+herda b_drow
+const s_titulo = "Uma curva na estrada"
+const s_desc = "Você está na estrada norte de zurs.\n\
+Mercadores passam rapidamente por aqui, procurando algum cliente para vender suas mercadorias.\n\
+Também existem mendigos, e turistas que vem conhecer a cidade de Zrus, situada ao sul.\n\
+Para o norte a estrada continua."
+const dir_s = $s_drow099
+const dir_l = $s_drow065
+
+
+classe s_drow101
+herda b_drow
+const s_titulo = "O final oeste da estrada"
+const s_desc = "Você está na estrada norte de zurs.\n\
+Mercadores passam rapidamente por aqui, procurando algum cliente para vender suas mercadorias.\n\
+Também existem mendigos, e turistas que vem conhecer a cidade de Zrus, situada ao sul.\n\
+Para o norte a estrada continua.\n\
+Você está no final da estrada...\n\
+Para oeste você não vê nada além do horizonte."
+const dir_l = $s_drow099
+
+
+classe s_drow102
+herda b_drow
+const s_titulo = "Uma passagem escorregadia"
+const s_desc = "Você está caminhando por uma curta e escorregadia passagem.\n\
+Ela está muito escorregadia devido a imensa quantidade de lodo e musgo que você vê pelas paredes \
+e no chão.\n\
+Você quase perde o fôlego de tanto soar."
+const dir_l = $s_drow103
+const dir_o = $s_drow061
+
+
+classe s_drow103
+herda b_drow
+const s_titulo = "Uma passagem escorregadia"
+const s_desc = "Você está caminhando por uma curta e escorregadia passagem.\n\
+Ela está muito escorregadia devido a imensa quantidade de lodo e musgo que você vê pelas paredes \
+e no chão.\n\
+Você quase perde o fôlego de tanto soar."
+const dir_l = $s_drow104
+const dir_o = $s_drow102
+const a_reset = "P 100 drow014 0 0 8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_drow014:objsolto.total < 8
+    criar("p_drow014", este, 0)
+  fimse
+
+
+classe s_drow104
+herda b_drow
+const s_titulo = "Uma passagem escorregadia"
+const s_desc = "Você está caminhando por uma curta e escorregadia passagem.\n\
+Ela está muito escorregadia devido a imensa quantidade de lodo e musgo que você vê pelas paredes \
+e no chão.\n\
+Você quase perde o fôlego de tanto soar."
+const dir_s = $s_drow105
+const dir_o = $s_drow103
+
+
+classe s_drow105
+herda b_drow
+const s_titulo = "Uma curva na passagem"
+const s_desc = "Você está caminhando por uma curta e escorregadia passagem.\n\
+Ela está muito escorregadia devido a imensa quantidade de lodo e musgo que você vê pelas paredes \
+e no chão.\n\
+Você quase perde o fôlego de tanto soar.\n\
+Aqui a passagem faz uma curva ao oeste, onde ao longe você avista algo como uma caverna.\n\
+Mas no entanto para chegar lá você vai ter que continuar nesse mártir por algum tempo ainda..."
+const dir_n = $s_drow104
+const dir_s = $s_drow108
+const dir_o = $s_drow106
+
+
+classe s_drow106
+herda b_drow
+const s_titulo = "Uma passagem escorregadia"
+const s_desc = "Você está caminhando por uma curta e escorregadia passagem.\n\
+Ela está muito escorregadia devido a imensa quantidade de lodo e musgo que você vê pelas paredes \
+e no chão.\n\
+Você quase perde o fôlego de tanto soar."
+const dir_l = $s_drow105
+const dir_o = $s_drow107
+
+
+classe s_drow108
+herda b_drow
+const s_titulo = "Uma passagem escorregadia"
+const s_desc = "Você está caminhando por uma curta e escorregadia passagem.\n\
+Ela está muito escorregadia devido a imensa quantidade de lodo e musgo que você vê pelas paredes \
+e no chão.\n\
+Você quase perde o fôlego de tanto soar."
+const dir_n = $s_drow105
+const dir_so = $s_drow063
+
+
+classe s_drow107
+herda b_drow
+const s_titulo = "Uma passagem escorregadia"
+const s_desc = "Você está caminhando por uma curta e escorregadia passagem.\n\
+Ela está muito escorregadia devido a imensa quantidade de lodo e musgo que você vê pelas paredes \
+e no chão.\n\
+Você quase perde o fôlego de tanto soar."
+const dir_l = $s_drow106
+const dir_o = $s_drow062

@@ -1,0 +1,1016 @@
+classe a_transporte
+herda area
+
+
+classe b_transporte
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_area = "transporte"
+
+
+classe i_transporte001
+herda comum_itemperso
+const nome = "ônibus"
+const ident = "ônibus cap tur rio parmilion"
+const descnome = "um Ônibus da empresa Cap Tur"
+const descpos = "Um ônibus da empresa Cap Tur transporta pessoas entre as cidades."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "é pesado"
+const i_salas = "transporte012"
+const mantersala = 1 # Mantém na sala: Sim
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+inttempo mover
+#
+
+func i_aberto
+  ret dentro2.objini($s_transporte012).porta_sair == 1, 2
+  ret dentro2.objini($s_transporte012).porta_sair == 2, 3
+  ret 4
+#
+
+func cmd_mudadono
+  se dono == $s_rio100
+    dentro2.objini($s_transporte012).mudaporta("sair", 1, "\d=doorbus02 $m se abriu.", "\d=doorbu\
+s02 $m se abriu.")
+    mover = 300
+    var.z_início = "rio"
+    var.z_fim = "parmilion"
+    txt100 dirs
+    refvar listadir1 = txtvis(rastrearsala($s_rioleste042))
+    dirs = txtmin(listadir1)
+    refvar listadir = txttroca(dirs, "\\n", " ")
+    var.z_listadir = listadir
+    ret 1
+  senao dono == $s_praia001
+    dentro2.objini($s_transporte012).mudaporta("sair", 1, "$m se abriu.", "$m se abriu.")
+    mover = 300
+    var.z_início = "praia"
+    var.z_fim = "rio"
+    txt200 dirs
+    refvar listadir1 = txtvis(rastrearsala($s_rioleste042))
+    dirs = txtmin(listadir1)
+    refvar listadir = txttroca(dirs, "\\n", " ")
+    var.z_listadir = listadir
+  senao dono == $s_parmilion009
+    dentro2.objini($s_transporte012).mudaporta("sair", 1, "$m se abriu.", "$m se abriu.")
+    mover = 300
+    var.z_início = "parmilion"
+    var.z_fim = "praia"
+    txt200 dirs
+    refvar listadir1 = txtvis(rastrearsala($s_rioleste042))
+    dirs = txtmin(listadir1)
+    refvar listadir = txttroca(dirs, "\\n", " ")
+    var.z_listadir = listadir
+  senao dono == $s_rioleste042
+    dentro2.objini($s_transporte012).mudaporta("sair", 1, "$m se abriu.", "$m se abriu.")
+    mover = 200
+    se var.z_início == "rio"
+      txt100 dirs
+      refvar listadir1 = txtvis(rastrearsala($s_parmilion009))
+      dirs = txtmin(listadir1)
+      refvar listadir = txttroca(dirs, "\\n", " ")
+      var.z_listadir = listadir
+    senao var.z_inicio == "parmilion"
+      txt100 dirs
+      refvar listadir1 = txtvis(rastrearsala($s_praia001))
+      dirs = txtmin(listadir1)
+      refvar listadir = txttroca(dirs, "\\n", " ")
+      var.z_listadir = listadir
+    senao var.z_inicio == "praia"
+      txt100 dirs
+      refvar listadir1 = txtvis(rastrearsala($s_rio100))
+      dirs = txtmin(listadir1)
+      refvar listadir = txttroca(dirs, "\\n", " ")
+      var.z_listadir = listadir
+    fimse
+  fimse
+#
+
+func mover_exec
+  se dono == $s_rio100 || dono == $s_rioleste042 || dono == $s_parmilion009
+    dentro2.objini($s_transporte012).mudaporta("sair", 2, "\d=doorbus02 $m se fechou.", "\d=doorb\
+us02 $m se fechou.")
+    $mens.p(este)
+    $mens.mvis1som("A porta do ônibus se fechou.", "doorbus02")
+  fimse
+  se !var.z_listadir
+    mover = 100
+    ret 1
+  fimse
+  mover = 40
+  refvar dirp = txt1(var.z_listadir)
+  var.z_dirdepois = txt2(var.z_listadir)
+  var.z_listadir = var.z_dirdepois
+  se dirp == "l"
+    var.z_dir = "foi para leste"
+    var.z_dirantes = "chegou do oeste."
+  senao dirp == "o"
+    var.z_dir = "foi para oeste."
+    var.z_dirantes = "chegou do leste."
+  senao dirp == "n"
+    var.z_dir = "foi para o norte."
+    var.z_dirantes = "chegou do sul."
+  senao dirp == "s"
+    var.z_dir = "foi para o sul."
+    var.z_dirantes = "chegou do norte."
+  senao dirp == "b"
+    var.z_dir = "desceu."
+    var.z_dirantes = "chegou de cima."
+  senao dirp == "c"
+    var.z_dir = "subiu."
+    var.z_dirantes = "chegou de baixo."
+  senao dirp == "ne"
+    var.z_dir = "foi para o nordeste."
+    var.z_dirantes = "chegou do sudoeste."
+  senao dirp == "so"
+    var.z_dir = "foi para o sudoeste."
+    var.z_dirantes = "chegou do nordeste."
+  senao dirp == "no"
+    var.z_dir = "foi para o noroeste."
+    var.z_dirantes = "chegou do sudeste."
+  senao dirp == "se"
+    var.z_dir = "foi para o sudeste."
+    var.z_dirantes = "chegou do noroeste."
+  senao dirp == "entrar"
+    var.z_dir = "entrou."
+    var.z_dirantes = "chegou de fora."
+  senao dirp == "sair"
+    var.z_dir = "saiu."
+    var.z_dirantes = "chegou de dentro."
+  fimse
+  $mens.p(este)
+  $mens.mens = var.z_dir
+  $mens.mvis1som("$P $m", "busout")
+  mudadono(dono.dir_[dirp])
+  $mens.p(este)
+  $mens.mens = var.z_dirantes
+  $mens.mvis1som("$P $m", "busin")
+  dentro2.objini($s_transporte012).msg("\d=bus02 ")
+  dentro2.objini($s_transporte012).msg(dono.s_titulo)
+  se dono == $s_rio100 || dono == $s_rioleste042 || dono == $s_parmilion009 || dono == $s_praia00\
+1
+    $mens.p(este)
+    $mens.mvis1som("A porta do ônibus se abriu.", "doorbus02")
+  fimse
+
+
+classe i_transporte002
+herda comum_item
+const nome = "carruagem"
+const ident = "carruagem abóbora"
+const descnome = "uma carruagem na forma de abóbora"
+const descpos = "uma enorme carruagem em forma de abóbora está se movendo por aqui."
+const i_salas = "transporte003"
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_mudadono
+  se dono.dentro2.objini("p_templo021")
+    seguir(dono.dentro2.objini("p_templo021"))
+  fimse
+  dentro2.objini.msg("voando...")
+  dentro2.objini.msg(dono.s_titulo)
+#
+
+func cmd_chegou
+  se txt(arg0) == "p_templo021"
+    seguir(arg0)
+  fimse
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv |= 16
+
+
+classe i_transporte003
+herda comum_itemperso
+const nome = "ônibus"
+const descnome = "um ônibus"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "é pesado"
+const i_salas = "transporte011"
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_mudadono
+  $mens.p(este)
+  donoantes.msg(descnome + var.z_dir)
+  $mens.mtodos1("$p " + var.z_dirantes)
+  dentro2.objini("s_transporte011").msg("Movendo...")
+  dentro2.objini("s_transporte011").msg(dono.s_titulo)
+
+
+classe i_transporte004
+herda comum_itemperso
+const nome = "banco do ônibus"
+const descnome = "um dos bancos do ônibus"
+const descpos = "Vários bancos de couro formam dois pares de fileiras dentro do ônibus."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_movel = 1 # Mobília: 1 Sentar
+const i_lugar = 28
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_transporte005
+herda comum_itemperso
+const nome = "teletransportador"
+const ident = "máquina teletransporte"
+const descnome = "uma máquina de teletransporte"
+const descpos = "Uma enorme máquina de teletransporte ocupa quase todo o espaço com seu volume."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_salas = "transporte015"
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const mantersala = 1 # Mantém na sala: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+
+classe i_transporte006
+herda comum_itemperso
+const nome = "ônibus captur"
+const ident = "ônibus captur"
+const descnome = "um ônibus da empresa CAP TUR"
+const descpos = "Um grande ônibus de dois andares, nas cores azul e vermelha, roda pela cidade \
+transportando passageiros."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "é pesado"
+const i_salas = "transporte001"
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+sav txt200 listadir
+sav txt32 inicio
+sav txt32 fim
+inttempo mover
+#
+
+func i_aberto
+  ret dentro2.objini("s_transporte001").porta_sair == 1, 2
+  ret dentro2.objini("s_transporte001").porta_sair == 2, 3
+  ret 4
+#
+
+func cmd_mudadono
+  $mens.p(este)
+  $mens.mtodos1(var.z_chegou)
+  dentro2.objini("s_transporte001").msg("Movendo...")
+  dentro2.objini("s_transporte001").msg(dono.s_titulo)
+  se dono == $s_rio100
+    txt200 dirs
+    dirs = txtmin(txtvis(rastrearsala($s_rioleste042)))
+    listadir = txttroca(dirs, "\\n", " ")
+    inicio = "rio"
+    fim = "parmilion"
+    mover = 50
+  senao dono == $s_parmilion009
+    txt200 dirs
+    dirs = txtmin(txtvis(rastrearsala($s_rioleste042)))
+    listadir = txttroca(dirs, "\\n", " ")
+    inicio = "parmilion"
+    fim = "praia"
+    mover = 50
+  senao dono == $s_praia001
+    txt200 dirs
+    dirs = txtmin(txtvis(rastrearsala($s_rioleste042)))
+    listadir = txttroca(dirs, "\\n", " ")
+    inicio = "praia"
+    fim = "rio"
+    mover = 50
+  senao dono == $s_rioleste042
+    se fim == "parmilion"
+      txt200 dirs
+      dirs = txtmin(txtvis(rastrearsala($s_parmilion009)))
+      listadir = txttroca(dirs, "\\n", " ")
+    senao fim == "praia"
+      txt200 dirs
+      dirs = txtmin(txtvis(rastrearsala($s_praia001)))
+      listadir = txttroca(dirs, "\\n", " ")
+    senao fim == "rio"
+      txt200 dirs
+      dirs = txtmin(txtvis(rastrearsala($s_rio100)))
+      listadir = txttroca(dirs, "\\n", " ")
+    fimse
+    mover = 50
+  senao
+    mover = 30
+  fimse
+#
+
+func mover_exec
+  refvar dirp = txt1(listadir)
+  listadir = txt2(listadir)
+  txt100 msai
+  txt100 mentra
+  msai = txtsub($cmd_[dirp].m_sai1)
+  mentra = txtsub($cmd_[dirp].m_entra1)
+  var.z_chegou = txttroca(mentra, "$m", "")
+  var.z_saiu = txttroca(msai, "$m", "")
+  $mens.p(este)
+  $mens.mtodos1(var.z_saiu)
+  mudadono(dono.dir_[dirp])
+
+
+classe i_transporte007
+herda comum_itemperso
+const nome = "Um enorme assento dourado"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_movel = 1 # Mobília: 1 Sentar
+
+
+classe p_transporte001
+herda comum_perso
+const nome = "cocheiro"
+const descnome = "o cocheiro"
+const descpadr = "O cocheiro está sentado aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+
+
+classe p_transporte002
+herda comum_persobat
+const nome = "Avião"
+const descnome = "um avião"
+const descpadr = "Um avião sobrevoa o céu"
+const msexo = 1 # Sexo Msg: 1 Masculino
+
+
+classe p_transporte003
+herda comum_perso
+const nome = "onibaldo"
+const ident = "onibaldo motorista homem senhor"
+const descnome = "Onibaldo, o motorista"
+const descpadr = "Um senhor de cabelos grizalhos está à frente do ônibus, conduzindo-o entre as \
+cidades."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 30
+const pospadr = 6 # Posição padrão: 6 Sentado
+
+
+classe p_transporte004
+herda comum_perso
+const nome = "cobrador"
+const ident = "zaquel homem cobrador"
+const descnome = "Zaqueu, o cobrador"
+const descpadr = "Um homem está sentado próximo à porta do ônibus, recebendo a passagem dos \
+passageiros."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 30
+const pospadr = 6 # Posição padrão: 6 Sentado
+const p_recebe = 1 # Recebe itens: Sim
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret arg0 == este, nulo
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  se arg0.var.z_moedas_ < 2500
+    arg0.msg(descnome + " diz: Desculpe-me, mas você não possui 2500 moedas para entrar.")
+    arg0.mdono(dono.dono.dono)
+    ret 1
+  senao
+    misc:tempo("entrou", arg0)
+  fimse
+#
+
+func entrou10
+  teclou("cum " + arg0.descnome)
+#
+
+func entrou30
+  teclou("f Olá " + arg0.descnome + ". Seja bem-vindo ao nosso coletivo!")
+#
+
+func entrou60
+  teclou("f Por gentileza, são 2500 moedas.")
+  arg0.teclou("dar 2500 moedas " + nome)
+  teclou("F obrigado. Tenha uma boa viagem!")
+
+
+classe p_transporte005
+herda comum_persobat
+const nome = "teovaldo"
+const ident = "homem pequeno elfo teovaldo"
+const descnome = "Teovaldo, o teletransportador"
+const descpadr = "No centro, pilotando a máquina, há um pequenino homem de pouco mais de 1 \
+metro."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 500
+const tipo1 = "elfo"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 25000
+const inivar = "h_chute_elfico=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500 * pnivel + 500000
+  atknorm += 100 * pnivel + 70000
+  defnorm += 200000
+  defesp += 100000
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1000 * pnivel + 500000
+  atknorm += 100 * pnivel + 50000
+  defnorm += 400 * pnivel + 200000
+  defesp += 400 * pnivel + 200000
+
+
+classe s_transporte001
+herda b_transporte
+const s_titulo = "Dentro do ônibus"
+const s_entrada = "ônibus"
+const dir_sair = $s_transporte017
+const portaini_sair = 1 # Estado inicial: 1 Porta aberta
+const portanome_sair = "a porta do ônibus"
+
+
+classe s_transporte002
+herda b_transporte
+const s_titulo = "Estrada"
+const dir_l = $s_transporte005
+const dir_o = $s_transporte004
+
+
+classe s_transporte003
+herda b_transporte
+const s_titulo = "Dentro da carruagem"
+const s_entrada = "entrada da carruagem"
+const s_reset = "S 100 teste064 1 S\n\
+P 100 transporte001 0 0 1\n\
+S 100 teste064 1 S\n\
+P 100 transporte001 0 0 1"
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se txt1(arg1) == "conduzir"
+    refvar dir = txt2(arg1)
+    dono.iseguir.objlista.teclou(dir)
+    ret 1
+  fimse
+#
+
+func partir50
+  arg0.msg("partindo!")
+  dono.mudadono(dono.dono.dir_n)
+#
+#
+
+func partir100
+  dono.mudadono(dono.dono.dir_n)
+#
+
+func partir150
+  dono.mudadono(dono.dono.dir_l)
+#
+#
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_teste064") && criar("i_teste064", este, 1)
+
+
+classe s_transporte004
+herda b_transporte
+const s_titulo = "Início da estrada"
+const dir_l = $s_transporte002
+const dir_o = $s_transporte009
+
+
+classe s_transporte005
+herda b_transporte
+const s_titulo = "Continuação da estrada"
+const dir_l = $s_transporte006
+const dir_o = $s_transporte002
+
+
+classe s_transporte006
+herda b_transporte
+const s_titulo = "Cna estrada"
+const dir_l = $s_transporte007
+const dir_o = $s_transporte005
+
+
+classe s_transporte007
+herda b_transporte
+const s_titulo = "Estrada"
+const dir_l = $s_transporte008
+const dir_o = $s_transporte006
+
+
+classe s_transporte008
+herda b_transporte
+const s_titulo = "Quase no fim da estrada"
+const dir_l = $s_transporte009
+const dir_o = $s_transporte007
+
+
+classe s_transporte009
+herda b_transporte
+const s_titulo = "Fim da estrada"
+const dir_l = $s_transporte004
+const dir_o = $s_transporte008
+
+
+classe s_transporte010
+herda b_transporte
+const s_titulo = "Dentro do avião"
+const s_entrada = "avião"
+
+
+classe s_transporte011
+herda b_transporte
+const s_titulo = "dentro do ônibus"
+const s_entrada = "ônibus"
+const eveste = 1 # Eventos sala: Sim
+const dir_sair = $s_transporte012
+const portaini_sair = 2 # Estado inicial: 2 Porta fechada
+const portanome_sair = "a porta do ônibus"
+const fecha_sair = 1 # Fecha ao passar: Sim
+const tranc_sair = 2 # Trancar: 2 Tranca ao fechar
+const s_reset = "S 100 transporte004 1 S\nP 100 transporte003 0 0 1"
+inttempo andar
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+
+func cmd_escr
+  se arg1 == "praia"
+    txt100 dirs
+    refvar listadir1 = txtvis(dono.rastrearsala($s_praia002))
+    dirs = txtmin(listadir1)
+    refvar listadir = txttroca(dirs, "\\n", " ")
+    var.z_listadir = listadir
+    andar = 100
+    ret 1
+  senao arg1 == "rio"
+    txt100 dirs
+    refvar listadir1 = txtvis(dono.rastrearsala($s_rioleste042))
+    dirs = txtmin(listadir1)
+    refvar listadir = txttroca(dirs, "\\n", " ")
+    var.z_listadir = listadir
+    andar = 100
+    ret 1
+  senao arg1 == "templo2"
+    txt100 dirs
+    refvar listadir1 = txtvis(dono.rastrearsala($s_rio003))
+    dirs = txtmin(listadir1)
+    refvar listadir = txttroca(dirs, "\\n", " ")
+    var.z_listadir = listadir
+    andar = 100
+    ret 1
+  senao arg1 == "campo"
+    txt100 dirs
+    refvar listadir1 = txtvis(dono.rastrearsala($s_campo001))
+    dirs = txtmin(listadir1)
+    refvar listadir = txttroca(dirs, "\\n", " ")
+    var.z_listadir = listadir
+    andar = 100
+    ret 1
+  senao arg1 == "parmilion"
+    txt100 dirs
+    refvar listadir1 = txtvis(dono.rastrearsala($s_parmilion050))
+    dirs = txtmin(listadir1)
+    refvar listadir = txttroca(dirs, "\\n", " ")
+    var.z_listadir = listadir
+    andar = 100
+    ret 1
+  fimse
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_transporte004") && criar("i_transporte004", este, 1)
+  se p_transporte003:objsolto.total < 1
+    criar("p_transporte003", este, 0)
+  fimse
+
+func andar_exec
+  ret !var.z_listadir, nulo
+  andar = 50
+  refvar dirp = txt1(var.z_listadir)
+  var.z_listadir = txt2(var.z_listadir)
+  se dirp == "l"
+    dono.var.z_dir = "foi para leste."
+    dono.var.z_dirantes = "chegou do oeste."
+  senao dirp == "o"
+    dono.var.z_dir = "foi para oeste."
+    dono.var.z_dirantes = "chegou do leste."
+  senao dirp == "n"
+    dono.var.z_dir = "foi para o norte."
+    dono.var.z_dirantes = "chegou do sul."
+  senao dirp == "s"
+    dono.var.z_dir = "foi para o sul."
+    dono.var.z_dirantes = "chegou do norte."
+  fimse
+  dono.mudadono(dono.dono.dir_[dirp])
+  ret 1
+
+
+classe s_transporte012
+herda b_transporte
+const s_titulo = "dentro do ônibus"
+const s_entrada = "ônibus"
+const eveste = 1 # Eventos sala: Sim
+const dir_entrar = $s_transporte011
+const portaini_entrar = 2 # Estado inicial: 2 Porta fechada
+const portanome_entrar = "a porta do ônibus"
+const fecha_entrar = 1 # Fecha ao passar: Sim
+const dir_sair = $s_transporte014
+#
+const portaini_sair = 2 # Estado inicial: 2 Porta fechada
+const portanome_sair = "a porta do ônibus"
+const fecha_sair = 1 # Fecha ao passar: Sim
+const som_abrir_sair = "doorbus01"
+const som_fechar_sair = "doorbus02"
+const s_reset = "P 100 transporte003 0 0 1\n\
+P 100 transporte004 0 0 1\n\
+S 100 transporte004 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_transporte003:objsolto.total < 1
+    criar("p_transporte003", este, 0)
+  fimse
+  se p_transporte004:objsolto.total < 1
+    criar("p_transporte004", este, 0)
+  fimse
+  !dentro1.objini("i_transporte004") && criar("i_transporte004", este, 1)
+
+
+classe s_transporte013
+herda b_transporte
+
+
+classe s_transporte014
+herda b_transporte
+const dir_entrar = $s_transporte012
+const portaini_entrar = 2 # Estado inicial: 2 Porta fechada
+const portanome_entrar = "a porta do ônibus"
+const fecha_entrar = 1 # Fecha ao passar: Sim
+
+
+classe s_transporte015
+herda b_transporte
+const s_titulo = "Dentro do teletransportador"
+const s_entrada = "teletransportador"
+const dir_sair = $s_transporte016
+const portaini_sair = 2 # Estado inicial: 2 Porta fechada
+const portanome_sair = "uma enorme porta de platina"
+const fecha_sair = 1 # Fecha ao passar: Sim
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+  mudaporta("sair", 2, "A porta do teletransportador se fechou.")
+
+func cmd_escr
+  se txt1(arg1) == "trans"
+    ret var.z_teleporte@, arg0.msg("Aguarde alguns instantes para teletransportar novamente.")
+    se txt2(arg1) == "rio"
+      ret dono.dono.s_area === "rio", arg0.msg("Já está na cidade do Rio.")
+      listaobj l
+      epara l.addfim(dentro2), l, l.ini.remove
+        se l.objini.jog
+          se l.objini.var.z_moedas_ < 50000
+            l.objini.msg("Você não tem dinheiro suficiente para viajar aqui, então vai sair!")
+            l.objini.mudadono(dono.dono)
+            msg(l.objini.descnome + " Foi expulso por não ter dinheiro para pagar o teletransport\
+e.")
+          senao
+            $mens.p(l.objini)
+            $mens.mtodos1("$P paga 50000 moedas ao teletransportador.")
+            l.objini.var.z_moedas_ -= 50000
+          fimse
+        fimse
+      efim
+      msg("Teletransportando para a cidade do Rio!...")
+      dono.dono.msg("A grande máquina começa a rodopiar rapidamente, até desaparecer!")
+      dono.mudadono($s_rio001)
+      msg("Com um forte impacto, a máquina atinge o solo, fazendo tudo estremecer!")
+      dono.dono.msg("Com um forte impacto, uma gigantesca máquina atinge o solo, fazendo todo o \
+templo estremecer!")
+      var.z_teleporte@ = 250
+      ret 1
+    senao txt2(arg1) == "parmilion"
+      ret dono.dono.s_area == "parmilion", arg0.msg("Já está em Parmilion.")
+      listaobj l
+      epara l.addfim(dentro2), l, l.ini.remove
+        se l.objini.jog
+          se l.objini.var.z_moedas_ < 50000
+            l.objini.msg("Você não tem dinheiro suficiente para viajar aqui, então vai sair!")
+            l.objini.mudadono(dono.dono)
+            msg(l.objini.descnome + " Foi expulso por não ter dinheiro para pagar o teletransport\
+e.")
+          senao
+            $mens.p(l.objini)
+            $mens.mtodos1("$P paga 50000 moedas ao teletransportador.")
+            l.objini.var.z_moedas_ -= 50000
+          fimse
+        fimse
+      efim
+      msg("Teletransportando para Parmilion!")
+      dono.dono.msg("A grande máquina começa a rodopiar rapidamente, até desaparecer!")
+      dono.mudadono($s_parmilion009)
+      msg("Bum! Com um forte impacto, a máquina toca o solo, fazendo tudo estremecer!")
+      dono.dono.msg("CAbum! Com um forte impacto, uma gigantesca máquina toca o solo, fazendo \
+tudo ao redor estremecer!")
+      var.z_teleporte@ = 250
+      ret 1
+    senao txt2(arg1) == "vale"
+      ret dono.dono.s_area == "vale", arg0.msg("Já está em vale.")
+      listaobj l
+      epara l.addfim(dentro2), l, l.ini.remove
+        se l.objini.jog
+          se l.objini.var.z_moedas_ < 50000
+            l.objini.msg("Você não tem dinheiro suficiente para viajar aqui, então vai sair!")
+            l.objini.mudadono(dono.dono)
+            msg(l.objini.descnome + " Foi expulso por não ter dinheiro para pagar o teletransport\
+e.")
+          senao
+            $mens.p(l.objini)
+            $mens.mtodos1("$P paga 50000 moedas ao teletransportador.")
+            l.objini.var.z_moedas_ -= 50000
+          fimse
+        fimse
+      efim
+      msg("Teletransportando para o vale!")
+      dono.dono.msg("A grande máquina começa a rodopiar rapidamente, até desaparecer!")
+      dono.mudadono($s_dino005)
+      msg("Bum! Com um forte impacto, a máquina toca o solo, fazendo tudo estremecer!")
+      dono.dono.msg("CAbum! Com um forte impacto, uma gigantesca máquina toca o solo, fazendo \
+tudo ao redor estremecer!")
+      var.z_teleporte@ = 250
+      ret 1
+    senao txt2(arg1) == "cova"
+      ret dono.dono.s_area == "covaleoes", arg0.msg("Já está em cova.")
+      listaobj l
+      epara l.addfim(dentro2), l, l.ini.remove
+        se l.objini.jog
+          se l.objini.var.z_moedas_ < 50000
+            l.objini.msg("Você não tem dinheiro suficiente para viajar aqui, então vai sair!")
+            l.objini.mudadono(dono.dono)
+            msg(l.objini.descnome + " Foi expulso por não ter dinheiro para pagar o teletransport\
+e.")
+          senao
+            $mens.p(l.objini)
+            $mens.mtodos1("$P paga 50000 moedas ao teletransportador.")
+            l.objini.var.z_moedas_ -= 50000
+          fimse
+        fimse
+      efim
+      msg("Teletransportando para a cova!")
+      dono.dono.msg("A grande máquina começa a rodopiar rapidamente, até desaparecer!")
+      dono.mudadono($s_covaleoes005)
+      msg("Bum! Com um forte impacto, a máquina toca o solo, fazendo tudo estremecer!")
+      dono.dono.msg("CAbum! Com um forte impacto, uma gigantesca máquina toca o solo, fazendo \
+tudo ao redor estremecer!")
+      var.z_teleporte@ = 250
+      ret 1
+    senao txt2(arg1) == "caverna"
+      ret dono.dono.s_area == "dragoes", arg0.msg("Já está em cova.")
+      listaobj l
+      epara l.addfim(dentro2), l, l.ini.remove
+        se l.objini.jog
+          se l.objini.var.z_moedas_ < 50000
+            l.objini.msg("Você não tem dinheiro suficiente para viajar aqui, então vai sair!")
+            l.objini.mudadono(dono.dono)
+            msg(l.objini.descnome + " Foi expulso por não ter dinheiro para pagar o teletransport\
+e.")
+          senao
+            $mens.p(l.objini)
+            $mens.mtodos1("$P paga 50000 moedas ao teletransportador.")
+            l.objini.var.z_moedas_ -= 50000
+          fimse
+        fimse
+      efim
+      msg("Teletransportando para a caverna dos dragões!")
+      dono.dono.msg("A grande máquina começa a rodopiar rapidamente, até desaparecer!")
+      dono.mudadono($s_dragoes001)
+      msg("Bum! Com um forte impacto, a máquina toca o solo, fazendo tudo estremecer!")
+      dono.dono.msg("CAbum! Com um forte impacto, uma gigantesca máquina toca o solo, fazendo \
+tudo ao redor estremecer!")
+      var.z_teleporte@ = 250
+      ret 1
+    senao txt2(arg1) == "montanha"
+      ret dono.dono.s_area == "montanha", arg0.msg("Já está em cova.")
+      listaobj l
+      epara l.addfim(dentro2), l, l.ini.remove
+        se l.objini.jog
+          se l.objini.var.z_moedas_ < 50000
+            l.objini.msg("Você não tem dinheiro suficiente para viajar aqui, então vai sair!")
+            l.objini.mudadono(dono.dono)
+            msg(l.objini.descnome + " Foi expulso por não ter dinheiro para pagar o teletransport\
+e.")
+          senao
+            $mens.p(l.objini)
+            $mens.mtodos1("$P paga 50000 moedas ao teletransportador.")
+            l.objini.var.z_moedas_ -= 50000
+          fimse
+        fimse
+      efim
+      msg("Teletransportando para a a montanha!")
+      dono.dono.msg("A grande máquina começa a rodopiar rapidamente, até desaparecer!")
+      dono.mudadono($s_montanha001)
+      msg("Bum! Com um forte impacto, a máquina toca o solo, fazendo tudo estremecer!")
+      dono.dono.msg("CAbum! Com um forte impacto, uma gigantesca máquina toca o solo, fazendo \
+tudo ao redor estremecer!")
+      var.z_teleporte@ = 250
+      ret 1
+    senao txt2(arg1) == "cemiterio"
+      ret dono.dono.s_area == "cemiterio", arg0.msg("Já está em cemiterio.")
+      listaobj l
+      epara l.addfim(dentro2), l, l.ini.remove
+        se l.objini.jog
+          se l.objini.var.z_moedas_ < 50000
+            l.objini.msg("Você não tem dinheiro suficiente para viajar aqui, então vai sair!")
+            l.objini.mudadono(dono.dono)
+            msg(l.objini.descnome + " Foi expulso por não ter dinheiro para pagar o teletransport\
+e.")
+          senao
+            $mens.p(l.objini)
+            $mens.mtodos1("$P paga 50000 moedas ao teletransportador.")
+            l.objini.var.z_moedas_ -= 50000
+          fimse
+        fimse
+      efim
+      msg("Teletransportando para o cemitério!")
+      dono.dono.msg("A grande máquina começa a rodopiar rapidamente, até desaparecer!")
+      dono.mudadono($s_cemiterio002)
+      msg("Bum! Com um forte impacto, a máquina toca o solo, fazendo tudo estremecer!")
+      dono.dono.msg("CAbum! Com um forte impacto, uma gigantesca máquina toca o solo, fazendo \
+tudo ao redor estremecer!")
+      var.z_teleporte@ = 250
+      ret 1
+    senao txt2(arg1) == "bosque"
+      ret dono.dono.s_area == "bosque", arg0.msg("Já está em bosque.")
+      listaobj l
+      epara l.addfim(dentro2), l, l.ini.remove
+        se l.objini.jog
+          se l.objini.var.z_moedas_ < 50000
+            l.objini.msg("Você não tem dinheiro suficiente para viajar aqui, então vai sair!")
+            l.objini.mudadono(dono.dono)
+            msg(l.objini.descnome + " Foi expulso por não ter dinheiro para pagar o teletransport\
+e.")
+          senao
+            $mens.p(l.objini)
+            $mens.mtodos1("$P paga 50000 moedas ao teletransportador.")
+            l.objini.var.z_moedas_ -= 50000
+          fimse
+        fimse
+      efim
+      msg("Teletransportando para o bosque!")
+      dono.dono.msg("A grande máquina começa a rodopiar rapidamente, até desaparecer!")
+      dono.mudadono($s_bosque001)
+      msg("Bum! Com um forte impacto, a máquina toca o solo, fazendo tudo estremecer!")
+      dono.dono.msg("CAbum! Com um forte impacto, uma gigantesca máquina toca o solo, fazendo \
+tudo ao redor estremecer!")
+      var.z_teleporte@ = 250
+      ret 1
+    senao txt2(arg1) == "fornalha"
+      ret dono.dono.s_area == "fornalha", arg0.msg("Já está em fornalha.")
+      listaobj l
+      epara l.addfim(dentro2), l, l.ini.remove
+        se l.objini.jog
+          se l.objini.var.z_moedas_ < 50000
+            l.objini.msg("Você não tem dinheiro suficiente para viajar aqui, então vai sair!")
+            l.objini.mudadono(dono.dono)
+            msg(l.objini.descnome + " Foi expulso por não ter dinheiro para pagar o teletransport\
+e.")
+          senao
+            $mens.p(l.objini)
+            $mens.mtodos1("$P paga 50000 moedas ao teletransportador.")
+            l.objini.var.z_moedas_ -= 50000
+          fimse
+        fimse
+      efim
+      msg("Teletransportando para a fornalha!")
+      dono.dono.msg("A grande máquina começa a rodopiar rapidamente, até desaparecer!")
+      dono.mudadono($s_fornalha001)
+      msg("Bum! Com um forte impacto, a máquina toca o solo, fazendo tudo estremecer!")
+      dono.dono.msg("CAbum! Com um forte impacto, uma gigantesca máquina toca o solo, fazendo \
+tudo ao redor estremecer!")
+      var.z_teleporte@ = 250
+      ret 1
+    senao txt2(arg1) == "campo"
+      ret dono.dono.s_area == "campo", arg0.msg("Já está em campo.")
+      listaobj l
+      epara l.addfim(dentro2), l, l.ini.remove
+        se l.objini.jog
+          se l.objini.var.z_moedas_ < 50000
+            l.objini.msg("Você não tem dinheiro suficiente para viajar aqui, então vai sair!")
+            l.objini.mudadono(dono.dono)
+            msg(l.objini.descnome + " Foi expulso por não ter dinheiro para pagar o teletransport\
+e.")
+          senao
+            $mens.p(l.objini)
+            $mens.mtodos1("$P paga 50000 moedas ao teletransportador.")
+            l.objini.var.z_moedas_ -= 50000
+          fimse
+        fimse
+      efim
+      msg("Teletransportando para o campo!")
+      dono.dono.msg("A grande máquina começa a rodopiar rapidamente, até desaparecer!")
+      dono.mudadono($s_campo001)
+      msg("Bum! Com um forte impacto, a máquina toca o solo, fazendo tudo estremecer!")
+      dono.dono.msg("CAbum! Com um forte impacto, uma gigantesca máquina toca o solo, fazendo \
+tudo ao redor estremecer!")
+      var.z_teleporte@ = 250
+      ret 1
+    senao txt2(arg1) == "suldan"
+      ret dono.dono.s_area == "suldan", arg0.msg("Já está em suldan.")
+      listaobj l
+      epara l.addfim(dentro2), l, l.ini.remove
+        se l.objini.jog
+          se l.objini.var.z_moedas_ < 50000
+            l.objini.msg("Você não tem dinheiro suficiente para viajar aqui, então vai sair!")
+            l.objini.mudadono(dono.dono)
+            msg(l.objini.descnome + " Foi expulso por não ter dinheiro para pagar o teletransport\
+e.")
+          senao
+            $mens.p(l.objini)
+            $mens.mtodos1("$P paga 50000 moedas ao teletransportador.")
+            l.objini.var.z_moedas_ -= 50000
+          fimse
+        fimse
+      efim
+      msg("Teletransportando para suldan!")
+      dono.dono.msg("A grande máquina começa a rodopiar rapidamente, até desaparecer!")
+      dono.mudadono($s_suldan001)
+      msg("Bum! Com um forte impacto, a máquina toca o solo, fazendo tudo estremecer!")
+      dono.dono.msg("CAbum! Com um forte impacto, uma gigantesca máquina toca o solo, fazendo \
+tudo ao redor estremecer!")
+      var.z_teleporte@ = 250
+      ret 1
+    senao txt2(arg1) == "darkville"
+      ret dono.dono.s_area == "darkville", arg0.msg("Já está em darkville.")
+      listaobj l
+      epara l.addfim(dentro2), l, l.ini.remove
+        se l.objini.jog
+          se l.objini.var.z_moedas_ < 50000
+            l.objini.msg("Você não tem dinheiro suficiente para viajar aqui, então vai sair!")
+            l.objini.mudadono(dono.dono)
+            msg(l.objini.descnome + " Foi expulso por não ter dinheiro para pagar o teletransport\
+e.")
+          senao
+            $mens.p(l.objini)
+            $mens.mtodos1("$P paga 50000 moedas ao teletransportador.")
+            l.objini.var.z_moedas_ -= 50000
+          fimse
+        fimse
+      efim
+      msg("Teletransportando para a cidade de Dark Ville!")
+      dono.dono.msg("A grande máquina começa a rodopiar rapidamente, até desaparecer!")
+      dono.mudadono($s_darkville001)
+      msg("Bum! Com um forte impacto, a máquina toca o solo, fazendo tudo estremecer!")
+      dono.dono.msg("CAbum! Com um forte impacto, uma gigantesca máquina toca o solo, fazendo \
+tudo ao redor estremecer!")
+      var.z_teleporte@ = 250
+      ret 1
+    senao txt2(arg1) == "praia"
+      ret dono.dono.s_area == "praia", arg0.msg("Já está em praia.")
+      listaobj l
+      epara l.addfim(dentro2), l, l.ini.remove
+        se l.objini.jog
+          se l.objini.var.z_moedas_ < 50000
+            l.objini.msg("Você não tem dinheiro suficiente para viajar aqui, então vai sair!")
+            l.objini.mudadono(dono.dono)
+            msg(l.objini.descnome + " Foi expulso por não ter dinheiro para pagar o teletransport\
+e.")
+          senao
+            $mens.p(l.objini)
+            $mens.mtodos1("$P paga 50000 moedas ao teletransportador.")
+            l.objini.var.z_moedas_ -= 50000
+          fimse
+        fimse
+      efim
+      msg("Teletransportando para a praia!")
+      dono.dono.msg("A grande máquina começa a rodopiar rapidamente, até desaparecer!")
+      dono.mudadono($s_praia001)
+      msg("Bum! Com um forte impacto, a máquina toca o solo, fazendo tudo estremecer!")
+      dono.dono.msg("CAbum! Com um forte impacto, uma gigantesca máquina toca o solo, fazendo \
+tudo ao redor estremecer!")
+      var.z_teleporte@ = 250
+      ret 1
+    fimse
+  fimse
+
+
+classe s_transporte016
+herda b_transporte
+const dir_entrar = $s_transporte015
+
+
+classe s_transporte017
+herda b_transporte
+const dir_entrar = $s_transporte001

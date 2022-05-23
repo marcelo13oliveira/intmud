@@ -1,0 +1,3217 @@
+classe a_elfos
+herda area
+const a_tempo = 20
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_txtreset = "Você sente o doce aroma das flores do lugar."
+const a_nome = "A Floresta dos Elfos"
+const a_autor = "Deck"
+
+
+classe b_elfos
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_luz = 0 # Luz: 0 Claro com eventos de tempo
+const s_recup = 0
+const s_terreno = 4 # Terreno: 4 Floresta densa - 3mv
+const s_area = "elfos"
+
+
+classe i_elfos001
+herda comum_itemperso
+const nome = "Banco"
+const descnome = "Um Banco"
+const descpos = "Um banco foi posto aqui, para os aventureiros que visitam o local sentarem e \
+admirarem toda beleza em volta."
+const descver = "Este banco é grande, confortável e serve para os aventureiros descansarem."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_movel = 3 # Mobília: 3 Sentar confortavelmente
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos em perso: Sim
+const evitem = 1 # Eventos em item: Sim
+const evsala = 1 # Eventos em sala: Sim
+
+func cmd_pegarobj
+  se arg2 == este
+    arg0.msg("Os guardas estão vigiando para que você não faça isso...")
+    ret 1
+
+
+classe i_elfos002
+herda comum_itemgrupo
+const nome = "Pergaminho de Retorno"
+const ident = "pergaminho retorno"
+const descnome = "Um pergaminho de retorno"
+const descpos = "Um pergaminho de retorno está jogado aqui no chão, mostrando o seu forte e \
+poderoso brilho."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 4 # Tipo: 4 Pergaminho, recitar
+const f_magia1 = "retornar"
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 230
+const tipoitem = 64 # Tipo de produto: 6-Pergaminho
+const valor = 3000
+
+
+classe i_elfos003
+herda comum_itemgrupo
+const nome = "Elmo élfico"
+const descnome = "Um Elmo élfico"
+const descpos = "Um elmo élfico foi deixado aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 20
+const pesoobj = 230
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 2400
+const vestir1 = "2"
+
+func recalc_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  defnorm += 4
+  deftipo.12 *= 0.89 # Luz
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100
+  pmovemax += 200
+
+
+classe i_elfos004
+herda comum_itemgrupo
+const nome = "Bracelete élfico"
+const descnome = "Um bracelete élfico"
+const descpos = "Um bracelete élfico foi solto aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 10
+const pesoobj = 230
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const vestir1 = "30000"
+
+func recalc_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  defnorm += 3
+  deftipo.12 *= 0.7 # Luz
+  deftipo.13 *= 1.14 # Trevas
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50
+  pmovemax += 100
+  defnorm += 100
+  defesp += 100
+
+
+classe i_elfos005
+herda comum_itemperso
+const nome = "uma bela lagoa"
+const descpos = "Uma bela lagoa está aqui, com suas águas balançando em uma leve brisa."
+const descver = "ao aproximar-se da lagoa, você nota que a água é tão limpa que você consegue \
+enchergar o fundo.\n\
+olhando mais atentamente, você vê pequenos peixes nadando na profundidade.\n\
+concerteza os elfos cuidam muito bem da natureza, assim como cuidam de si mesmo."
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_sede = 130
+const i_pegar = "ei. é uma lagoa! como irá fazer isso?"
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_elfos006
+herda comum_item
+const nome = "uma laranja"
+const descnome = "uma laranja"
+const descpos = "uma laranja foi deixada aqui."
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 80
+const f_sede = 50
+const f_msgperso = "você descasca e come uma laranja."
+const f_msgoutros = "$p descasca e come uma laranja."
+const tipoitem = 262144 # Tipo de produto: 18-Comida
+const valor = 250
+
+
+classe i_elfos007
+herda comum_item
+const nome = "um cacho de uvas"
+const descnome = "um cacho de uvas"
+const descpos = "um cacho de uvas foi deixado aqui."
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 80
+const f_sede = 30
+const f_msgperso = "de uma por uma, você come todo o cacho de uvas."
+const f_msgoutros = "de uma por uma, $p come todo o cacho de uvas."
+const tipoitem = 262144 # Tipo de produto: 18-Comida
+const valor = 300
+
+
+classe i_elfos008
+herda comum_item
+const nome = "uma espada élfica"
+const descnome = "uma espada élfica"
+const descpos = "uma espada aparentimente feita por um elfo foi jogada aqui."
+const nivel = 200
+const renascer = 6
+const armamax = 550
+const armamin = 500
+const armaaddprecisao = 250
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const pesoobj = 100
+const tipoitem = 2 # Tipo de produto: 1-Arma
+const valor = 350000
+const vestirnao = "mago\nnecromante"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 550
+  pmanamax += -420
+  pmovemax += 400
+  atknorm += 555
+  precisao += 150
+
+const armafalha = 10
+
+
+classe i_elfos009
+herda comum_itemperso
+const nome = "um tapete de folhas."
+const descpos = "um tapete de folhas foi estendido aqui, para seu breve descanço."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "as raízes do tapete já se fixaram no chão."
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_elfos010
+herda comum_item
+const nome = "um colar de sementes"
+const descnome = "um colar de sementes"
+const descpos = "várias sementes foram deixadas aqui, formando um belo colar."
+const nivel = 90
+const valor = 3000
+const vestir1 = "300"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500
+  pmanamax += 850
+  defnorm += 90
+  defesp += 90
+
+
+classe i_elfos011
+herda comum_item
+const nome = "uma lente verde"
+const descnome = "uma lente verde"
+const descpos = "um pequeno olho verde foi deixado em um canto, acumulando poeira."
+const nivel = 160
+const renascer = 1
+const valor = 5000
+const vestir1 = "30"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50
+  bitver |= 6
+
+
+classe i_elfos012
+herda comum_item
+const nome = "um brinco de raíz com formato de serpente"
+const descnome = "um brinco de raíz com formato de serpente"
+const descpos = "uma pequena raíz parecendo uma serpente foi deixada aqui"
+const nivel = 100
+const renascer = 1
+const valor = 4600
+const vestir1 = "c0"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10 * pnivel + 1000
+  pmanamax += 10 * pnivel + 1000
+  evasao += 2 * pnivel
+
+
+classe i_elfos013
+herda comum_item
+const nome = "um pergaminho de identificação"
+const descnome = "um pergaminho de identificação"
+const descpos = "um pergaminho de identificação foi deixado aqui"
+const f_tipo = 4 # Tipo: 4 Pergaminho, recitar
+const f_magia1 = "identificar"
+const tipoitem = 64 # Tipo de produto: 6-Pergaminho
+const valor = 4000
+
+
+classe i_elfos014
+herda comum_item
+const nome = "o cajado da floresta"
+const descnome = "o cajado da floresta"
+const descpos = "um belo cajado foi deixado aqui, emanando todo o explendor da natureza."
+const descver = "Um artefato incomum e de rara beleza.\n\
+Sua haste de madeira é lisa e perfeitamente reta, guardando o tom marrom escuro da madeira de \
+mogno.\n\
+Em uma de suas extremidades o cajado possui uma esfera de cristal do tamanho de um punho humano \
+e na outra sua haste parece um grupo de vinhas que se entrelaçam em espiral.\n\
+Qualquer pessoa que puder ver de perto a peça logo notará seu caráter ímpar e precioso."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 200
+const renascer = 4
+const armamax = 620
+const armamin = 520
+const armatipo = 2 # Tipo de arma: 2 Cajado
+const valor = 2500000
+const vestirnao = "guerreiro\nnecromante"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1000
+  pmanamax += 2 * pnivel + 1000
+  atkesp += 500
+  defesp += 2000
+  precisao += 280
+  atktipo.1 *= 1.3 # Tipos Especiais
+
+const armafalha = 10
+
+
+classe i_elfos015
+herda comum_item
+const nome = "as belas asas de uma águia real"
+const descpos = "um belo parde asas, se debatendo no ar, aguarda o dono que as mereça."
+const nivel = 50
+const renascer = 4
+const vestir1 = 2048 # Aonde vestir: 11-nas costas
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1500
+  pmanamax += 1000
+  pmovemax += 5 * pnivel + 2000
+  bitinv |= 16
+
+
+classe i_elfos016
+herda comum_item
+const nome = "um par de perneiras élficas"
+const descnome = "um par de perneiras élficas"
+const descpos = "um par de perneiras élficas foram jogadas aqui."
+const nivel = 200
+const renascer = 1
+const vestir1 = "2000000"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500
+  pmovemax += 10 * pnivel + 3000
+  defnorm += 2000
+  evasao += 500
+  precisao += 400
+
+
+classe i_elfos017
+herda comum_item
+const nome = "um cinto adornado por rubis em forma de flores"
+const descnome = "um cinto adornado por rubis em forma de flores"
+const descpos = "um cinto de rubi foi deixado aqui, espalhando o cheiro de flores no ar."
+const nivel = 300
+const renascer = 2
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 5000000
+const vestir1 = "1000000"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5 * pnivel + 2000
+  pmanamax += 5 * pnivel + 2000
+  pmovemax += 5 * pnivel + 2000
+  atktipo.1 *= 1.4 # Tipos Especiais
+
+
+classe i_elfos018
+herda comum_item
+const nome = "uma camiseta florida"
+const descnome = "uma camiseta florida"
+const descpos = "uma camiseta de primavera foi jogada aqui em um canto."
+const nivel = 50
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 2000000
+const vestir1 = "1000"
+const vestirnao = "necromante"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 300
+  pmanamax += 500
+  defnorm += 150
+  defesp += 300
+
+
+classe i_elfos019
+herda comum_item
+const nome = "o anel da inteligência"
+const descnome = "o anel da inteligência"
+const descpos = "o anel da inteligência foi deixado aqui."
+const nivel = 200
+const renascer = 5
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 3000000
+const vestir1 = "c00000"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10 * pnivel
+  pmanamax += 10 * pnivel
+  pmovemax += 10 * pnivel
+  atktipo.1 *= 1.05 # Tipos Especiais
+
+
+classe i_elfos020
+herda comum_item
+const nome = "um morango"
+const descnome = "Um morango"
+const descpos = "Uma apetitosa fruta vermelha foi jogada aqui no chão"
+const descver = "Nada mais que um delicioso morango!"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 80
+const f_msgperso = "Você devora um delicioso morango."
+const f_msgoutros = "$p devora um delicioso morango."
+const tipoitem = 262144 # Tipo de produto: 18-Comida
+const valor = 200
+
+
+classe i_elfos021
+herda comum_item
+const nome = "Uma maçã."
+const descnome = "Uma apetitosa maçã"
+const descpos = "Uma deliciosa maçã foi deixada aqui no chão!"
+const descver = "Nada mais que uma maçã."
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 80
+const f_msgperso = "Você come uma maçã e joga o caroço fora."
+const f_msgoutros = "$p come uma maçã e joga o caroço fora."
+const tipoitem = 262144 # Tipo de produto: 18-Comida
+const valor = 300
+
+
+classe i_elfos022
+herda comum_item
+const nome = "Uma pêra."
+const descnome = "Uma apetitosa pêra."
+const descpos = "Uma pêra foi jogada aqui no chão."
+const descver = "Nada mais do que uma pêra."
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 80
+const f_msgperso = "Você saboreia uma deliciosa pêra."
+const f_msgoutros = "$p saboreia uma deliciosa pêra."
+const tipoitem = 262144 # Tipo de produto: 18-Comida
+const valor = 300
+
+
+classe i_elfos023
+herda comum_itemperso
+const nome = "Um belíssimo porta jóias."
+const descnome = "Um belíssimo porta jóias."
+const descpos = "Um porta jóias está aqui."
+const descver = "Um belíssimo porta jóias dourado!"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const tipoitem = 2048 # Tipo de produto: 11-Container
+const valor = 1000000
+const volmax = 100
+
+
+classe i_elfos024
+herda comum_itemperso
+const nome = "Um belo tapete."
+const descnome = "Um belo tapete."
+const descpos = "Um belíssimo tapete está estendido aqui no chão."
+const descver = "Um belo tapete felpudo, de cor marron claro.\n\
+Ele ficaria perfeito na sua sala de estár!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_movel = 2 # Mobília: 2 Sentar e dormir
+const tipoitem = 512 # Tipo de produto: 9-Mobília
+const valor = 5000000
+
+
+classe i_elfos025
+herda comum_item
+const nome = "Um chapel de palha."
+const descnome = "Um chapel de palha."
+const descpos = "Um chapel está aqui"
+const descver = "Um grande chapel de palha."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 1
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 2000000
+const vestir1 = "2"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100
+  pmanamax += 100
+  pmovemax += 100
+  pveloc1 += 100
+
+
+classe i_elfos026
+herda comum_itemperso
+const nome = "Uma mochila verde"
+const descnome = "Uma mochila verde"
+const descpos = "Uma mochila está aqui."
+const descver = "Nada mais do que uma mochila."
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 1000000
+const vestir1 = "800"
+
+
+classe i_elfos027
+herda comum_itemperso
+const nome = "Um tapete de atividades."
+const descnome = "Um tapete de atividades"
+const descpos = "Um tapete repleto de atividades diferentes está estendido aqui no chão."
+const descver = "Um tapete repleto de diversos tipos de atividades diferenciadas para que seu \
+bebê possa interagir, brincar, e aprender."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_movel = 1 # Mobília: 1 Sentar
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 512 # Tipo de produto: 9-Mobília
+const valor = 10000000
+
+
+classe i_elfos028
+herda comum_itemperso
+const nome = "Uma almofada de folhas."
+const descnome = "Uma almofada de folhas"
+const descpos = "Uma grande almofada de folhas está aqui sobre o tapete para que os pacientes \
+possam se sentar."
+const descver = "uma grande almofada de folhas."
+const i_pegar = "a elfa dá um tapa em sua mão dizendo: \"Isso não é para pegar, é somente para \
+descançar.\""
+const i_movel = 1 # Mobília: 1 Sentar
+const tipoitem = 512 # Tipo de produto: 9-Mobília
+const valor = 20
+
+
+classe i_elfos029
+herda comum_itemperso
+const nome = "Uma prateleira"
+const descpos = "Uma prateleira repleta de diversos tipos de chás e frascos de remédios está \
+aqui fixada na parede."
+const descver = "Uma prateleira repleta de diferentes tipos de chás e frascos de remédios, \
+totalmente naturais."
+const i_pegar = "Ela está fixada na parede, você não tem como pegar."
+const i_movel = 0 # Mobília: 0 Não
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const tipoitem = 2048 # Tipo de produto: 11-Container
+
+
+classe i_elfos030
+herda comum_itemperso
+const nome = "Uma almofada de folhas."
+const descnome = "Uma almofada de folhas"
+const descpos = "Uma grande almofada de folhas está aqui sobre o tapete para que os pacientes \
+possam se sentar."
+const descver = "uma grande almofada de folhas."
+const i_pegar = "a elfa dá um tapa em sua mão dizendo: \"Isso não é para pegar, é somente para \
+descansar.\""
+const i_movel = 1 # Mobília: 1 Sentar
+const tipoitem = 512 # Tipo de produto: 9-Mobília
+
+
+classe i_elfos031
+herda comum_itemperso
+const nome = "Uma almofada de folhas"
+const descnome = "Uma almofada de folhas."
+const descpos = "Uma grande almofada de folhas está aqui sobre o tapete para que os pacientes \
+possam se sentar."
+const descver = "Uma grande almofada de folhas."
+const i_pegar = "a elfa dá um tapa em sua mão dizendo: \"Isso não é para pegar, é somente para \
+descansar.\""
+const i_movel = 1 # Mobília: 1 Sentar
+const tipoitem = 512 # Tipo de produto: 9-Mobília
+
+
+classe i_elfos032
+herda comum_itemperso
+const nome = "Uma almofada de folhas."
+const descnome = "Uma almofada de folhas."
+const descpos = "Uma grande almofada de folhas está aqui sobre o tapete para que os pacientes \
+possam se sentar."
+const descver = "Uma grande almofada de folhas."
+const i_pegar = "a elfa dá um tapa em sua mão dizendo: \"Isso não é para pegar, é somente para \
+descansar.\""
+const i_movel = 1 # Mobília: 1 Sentar
+const tipoitem = 512 # Tipo de produto: 9-Mobília
+
+
+classe i_elfos033
+herda comum_itemperso
+const nome = "Uma almofada de folhas."
+const descnome = "Uma almofada de folhas."
+const descpos = "Uma grande almofada de folhas está aqui sobre o tapete para que os pacientes \
+possam se sentar."
+const descver = "Uma grande almofada de folhas."
+const i_pegar = "a elfa dá um tapa em sua mão dizendo: \"Isso não é para pegar, é somente para \
+descansar.\""
+const i_movel = 1 # Mobília: 1 Sentar
+const tipoitem = 512 # Tipo de produto: 9-Mobília
+
+
+classe i_elfos034
+herda comum_itemperso
+const nome = "Uma mesa de sinuca."
+const descnome = "Uma mesa de sinuca"
+const descpos = "Uma mesa de sinuca está aqui."
+const i_pegar = "Você não pode pegar uma mesa de sinuca."
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const tipoitem = 2048 # Tipo de produto: 11-Container
+
+
+classe i_elfos035
+herda comum_item
+const nome = "uma bola branca de sinuca está rolando sobre a mesa."
+const descpos = "Uma bolinha branca de sinuca está aqui."
+const descver = "Nada mais que uma bola de sinuca."
+const i_pegar = "Uma bolinha branca de sinuca rola assim que você tenta pegala!"
+
+
+classe i_elfos036
+herda comum_itemperso
+const nome = "Um banco de madeira."
+const descnome = "Um banco de madeira."
+const descpos = "Um banco de madeira está aqui, para que você possa se sentar."
+const descver = "Você não vê nada de especial."
+const i_pegar = "Você não pode pegar um banco de madeira."
+const i_movel = 1 # Mobília: 1 Sentar
+const tipoitem = 512 # Tipo de produto: 9-Mobília
+
+
+classe i_elfos037
+herda comum_itemperso
+const nome = "Uma mesa de bár"
+const descnome = "Uma mesinha."
+const descpos = "Uma mesa está aqui para que você possa se acomodar."
+const descver = "Você não vê nada de especial."
+const i_pegar = "O garçom da um grito assim que você tenta pegar uma mesa."
+const tipoitem = 512 # Tipo de produto: 9-Mobília
+
+
+classe i_elfos038
+herda comum_itemperso
+const nome = "Uma cadeira de palha."
+const descnome = "Uma cadeira de palha."
+const descpos = "Uma cadeira de palha está aqui ao redor da mesa."
+const descver = "Nada mais que uma cadeira de palha."
+const i_pegar = "O garçom grita assim que você tenta pegar uma cadeira."
+const i_movel = 1 # Mobília: 1 Sentar
+const tipoitem = 512 # Tipo de produto: 9-Mobília
+
+
+classe i_elfos039
+herda comum_itemperso
+const nome = "Uma cadeira de palha."
+const descnome = "Uma cadeira de palha."
+const descpos = "Uma cadeira de palha está aqui ao redor da mesa."
+const descver = "Nada mais que uma cadeira de palha."
+const i_pegar = "O garçom grita assim que você tenta pegar uma cadeira."
+const i_movel = 1 # Mobília: 1 Sentar
+const tipoitem = 512 # Tipo de produto: 9-Mobília
+
+
+classe i_elfos040
+herda comum_itemperso
+const nome = "Uma cadeira de palha."
+const descnome = "Uma cadeira de palha."
+const descpos = "Uma cadeira de palha está aqui ao redor da mesa."
+const descver = "Nada mais que uma cadeira de palha."
+const i_pegar = "O garçom grita assim que você tenta pegar uma cadeira."
+const i_movel = 1 # Mobília: 1 Sentar
+const tipoitem = 512 # Tipo de produto: 9-Mobília
+
+
+classe i_elfos041
+herda comum_itemperso
+const nome = "Uma cadeira de palha."
+const descnome = "Uma cadeira de palha."
+const descpos = "Uma cadeira de palha está aqui ao redor da mesa."
+const descver = "Nada mais que uma cadeira de palha."
+const i_pegar = "Um garçom grita assim que você tenta pegar uma cadeira."
+const i_movel = 1 # Mobília: 1 Sentar
+const tipoitem = 512 # Tipo de produto: 9-Mobília
+
+
+classe i_elfos042
+herda comum_item
+const nome = "Um balcão."
+const descpos = "No canto do bár há um balcão repleto de bebidas, hmmm! chega dar até água na \
+boca!"
+const descver = "Um balcão repleto de bebidas."
+const i_pegar = "Você não pode pegar um balcão."
+const tipoitem = 512 # Tipo de produto: 9-Mobília
+
+
+classe i_elfos043
+herda comum_item
+const nome = "uma enorme árvore"
+const descpos = "uma enorme árvore com uma história gravada em seu tronco, está aqui, guardando \
+um caminho para baixo."
+const descver = "rabiscado no tronco da árvore pode se ler :\n\
+faltava pouco para todos nós sermos destruídos.\n\
+aquele dragão já tinha dizimado metade de nossa floresta.\n\
+uma força incrível, um poder posto em um ser de fúria e ódio.\n\
+mas um poder ainda mais antigo e supremo, foi a nossa salvação.\n\
+nossa raínha, com a ajuda da força da natureza, conseguiu prender aquela fera, em uma prisão \
+criada para que jamais quem entrasse ali pudesse sair.\n\
+mas o dragão não tinha sido derrotado ainda.\n\
+em uma explosão de força, ele atacou direto nossa raínha.\n\
+em um ato de desespero, a raínha lançou a força da natureza sobre a criatura, empurrando-a para \
+dentro da prisão.\n\
+sem termos opção, tivemos que trancá-la lá dentro, perdendo para sempre o poder antigo, conhecido\
+ por nós como força da natureza.\n\
+muitos corajosos já entraram lá, afim de procurar essa força, mas jamais voltaram.\n\
+parto eu agora, mais um viajante, em busca desse antigo poder, para a nosssa própria proteção.\n\
+assinado : um elfo viajante."
+const i_pegar = "é muito pesada."
+
+
+classe i_elfos044
+herda comum_item
+const nome = "Um taco de sinuca"
+const descnome = "Um taco de sinuca"
+const descpos = "Um taco de sinuca está jogado aqui no chão."
+const descver = "Um taco de sinuca\nCuidado! ele pode ser perigoso!"
+const descident = "Objeto: Um taco de sinuca.\n\
+Tipo: Arma\n\
+Atributos\n\
+Vida por 300\n\
+Mana por 200"
+const nivel = 100
+const armamax = 200
+const armamin = 100
+const armaaddprecisao = 150
+const armatipo = 5 # Tipo de arma: 5 Maca e Martelo
+const tipoitem = 2 # Tipo de produto: 1-Arma
+const valor = 2500
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 300
+  pmanamax += 200
+
+
+classe i_elfos045
+herda comum_item
+const nome = "Um casaco de tricô."
+const descnome = "Um casaco de trícô"
+const descpos = "Um belo casaco foi pendurado aqui."
+const descver = "Um belíssimo casaco florido, todo bordado a mão."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const tipoitem = 131072 # Tipo de produto: 17-Roupa comum
+const valor = 50000
+const vestir1 = "1000"
+
+
+classe i_elfos046
+herda comum_itemperso
+const nome = "Uma boina."
+const descnome = "Uma boina."
+const descpos = "Uma linda boina foi deixada aqui."
+const descver = "Uma belíssima boina toda trabalhada a mão."
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const vestir1 = "2"
+
+
+classe i_elfos047
+herda comum_item
+const nome = "Um cachecol"
+const descnome = "Um cachecol"
+const descpos = "Um cachecol foi deixado aqui"
+const descver = "Nada mais que um cachecol."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 100000
+const vestir1 = "100"
+
+
+classe i_elfos048
+herda comum_item
+const nome = "Uma dose de whisky"
+const descnome = "Uma dose de whisky."
+const descpos = "Uma dose de whisky está aqui. Hmmm! que delicia!"
+const descver = "Nada mais que uma dose de whisky"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_bebida = 50
+const f_sede = 60
+const f_msgperso = "Você bebe uma dose de whisky em apenas um gole, e depois lembe os lábios \
+pedindo mais...."
+const f_msgoutros = "$p bebe uma dose de whisky interinha, e depois lambe os lábios pedindo \
+mais..."
+const tipoitem = 1024 # Tipo de produto: 10-Poção
+const valor = 5000
+
+
+classe i_elfos049
+herda comum_itemperso
+const nome = "uma bainha forjada em bronze"
+const descnome = "uma bainha forjada em bronze"
+const descpos = "uma bela baínha, toda forjada em bronze foi deixada aqui."
+const nivel = 10
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const objmax = 1
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 1000000
+const vestir1 = 2048 # Aonde vestir: 11-nas costas
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 900000
+  defnorm += 400000
+  precisao += 20000
+
+
+classe i_elfos050
+herda comum_item
+const nome = "Uma mantinha para cobrir seu bebê."
+const descnome = "Uma mantinha de nenêm"
+const descpos = "Uma mantinha de nenêm foi deixada aqui."
+const descver = "Um cobertorzinho de nenêm todo tricotado pela vovó."
+const tipoitem = 524296 # Tipo de produto: 3-Vestimenta, 19-Item infantil
+const valor = 50000
+const vestir1 = "800"
+
+
+classe p_elfos001
+herda comum_perso
+const nome = "Jhon, o vendedor de armaduras"
+const descpadr = "um vendedor está aqui, exibindo suas belas armaduras."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 820
+const tipo1 = "elfo"
+const lojaini = 8
+const lojafim = 20
+const lojaitem = "elfos011 0\nelfos004 0\nelfos003 0"
+const tipoitem = 4 # Compra produtos: 2-Armadura
+const m_atribs1 = "2500000"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv |= 132
+
+
+classe p_elfos002
+herda comum_perso
+const nome = "Vendedor de Pergaminhos e Poções"
+const ident = "Vendedor poções poção pergaminho elfo"
+const descnome = "O Vendedor de pergaminhos e poções"
+const descpadr = "O vendedor de pergaminhos e poções está aqui, esperimentando sempre alguma \
+coisa nova."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 54000
+const lojaitem = "elfos002 0"
+const taxacompra = 50
+const taxavenda = 25
+const tipoitem = 64 # Compra produtos: 6-Pergaminho
+
+
+classe p_elfos003
+herda comum_perso
+const nome = "Jaqueline, a vendedora de frutas"
+const descpadr = "Jaqueline está aqui, aguardando você comprar uma de suas deliciosas frutas!"
+const tipo1 = "elfa"
+const lojaini = 8
+const lojafim = 20
+const lojaitem = "elfos006 0\nelfos007 0\nelfos020 0\nelfos021 0\nelfos022 0"
+const lojafechada = "$P diz: \"desculpe, mas estamos fechados no momento. volte as 8 da manhã."
+
+
+classe p_elfos004
+herda comum_perso
+const nome = "o mestre mago dos elfos"
+const descpadr = "o mestre mago dos elfos está aqui, aguardando seus alunos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const tipo1 = "elfo"
+const tipo2 = "mago"
+const lojaini = 8
+const lojafim = 20
+const lojasim = "elfo"
+const lojanao = "anao\nhaufling\nhumano"
+const lojaaula = "h_meditar 8\n\
+m_sono_profundo 8\n\
+m_remover_veneno 8\n\
+m_escudo 8\n\
+m_armadura 8\n\
+m_voar 8\n\
+m_flutuar 8\n\
+m_bola_de_fogo 8\n\
+m_terremoto 8\n\
+m_armadura_de_pedra 8\n\
+m_escudo_de_espinhos 8\n\
+m_aura_gelada 8\n\
+m_sono_profundo 8\n\
+m_remover_cegueira 8"
+
+
+classe p_elfos005
+herda comum_perso
+const nome = "o mestre guerreiro dos elfos."
+const descpadr = "o mestre guerreiro dos elfos está aqui, aguardando seus alunos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const lojaini = 8
+const lojafim = 20
+const lojasim = "elfo\nguerreiro"
+const lojanao = "anão\nhaufling\nhumano\nmago\nnecromante"
+const lojaaula = "h_socar 8\n\
+h_chutar 8\n\
+h_voadora 8\n\
+h_arremessar 8\n\
+h_gancho 8\n\
+h_chute_invertido 8\n\
+h_soco_esmagador 8\n\
+h_retreat 8"
+const lojafechada = "$P : Desculpe, só trabalho apartir das 8 horas."
+
+
+classe p_elfos006
+herda comum_persobat
+const nome = "Pietro, o ferreiro"
+const descpadr = "Pietro, o ferreiro está aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 350
+const tipo1 = "elfo"
+const tipo2 = "guerreiro"
+const lojaini = 8
+const lojafim = 20
+const lojasim = "élfo\nguerreiro\nmago\nnecromante"
+const lojaitem = "elfos008 0\nelfos044 0"
+const taxacompra = 50
+const tipoitem = 2 # Compra produtos: 1-Arma
+const p_agressivo = 0 # Agressivo: 0 Pacífico
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_imortal = 0 # Imortal: Não
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 90000
+  defnorm += 1 * pnivel + 150
+  precisao += 40 * pnivel
+
+
+classe p_elfos007
+herda comum_perso
+const nome = "Luci, a curandeira élfica."
+const descpadr = "uma elfa curandeira está aqui, atendendo todos os pacientes feridos."
+const tipo1 = "elfa"
+
+
+classe p_elfos008
+herda comum_perso
+const nome = "Um elfo feiticeiro"
+const descpadr = "um elfo feiticeiro está aqui, preparando mais um item mágico."
+const tipo1 = "elfo"
+const tipo2 = "mago"
+const lojaini = 8
+const lojafim = 20
+const lojaitem = "elfos002 0\nelfos013 0"
+const lojafechada = "$P diz: \"desculpe, mas estamos fechados no momento. volte as 8 da manhã."
+const taxacompra = 50
+const tipoitem = 1088 # Compra produtos: 6-Pergaminho, 10-Poção
+
+
+classe p_elfos009
+herda comum_persobat
+const nome = "o guardião"
+const descpadr = "um imponente guardião está aqui, pronto para qualquer batalha!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const tipo1 = "elfo"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 400
+const p_imortal = 0 # Imortal: Não
+const inivar = "z_moedas=1000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10 * pnivel + 50000
+  atknorm += 400
+  defnorm += 10 * pnivel + 1000
+  evasao += 1000
+  precisao += 2000
+
+
+classe p_elfos010
+herda comum_persobat
+const nome = "um elfo"
+const descpadr = "um elfo caminha tranquilamente por aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const tipo1 = "elfo"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 2000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 600
+const inivar = "z_moedas=1500000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100 * pnivel + 120000
+  atknorm += 9000
+  defnorm += 10 * pnivel + 18000
+  defesp += 20000
+  evasao += 1000
+  precisao += 2 * pnivel + 2000
+
+
+classe p_elfos011
+herda comum_persobat
+const nome = "elfa"
+const ident = "elfa mulher"
+const descnome = "Uma elfa"
+const descpadr = "uma elfa está aqui, cantando uma bela melodia."
+const tipo1 = "elfa"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 2500
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 600
+const inivar = "z_moedas=1500000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100 * pnivel + 200000
+  atknorm += 10000
+  defnorm += 10 * pnivel + 20000
+  defesp += 20000
+  evasao += 15000
+  precisao += 2 * pnivel + 15000
+
+
+classe p_elfos012
+herda comum_persobat
+const nome = "Um guardião"
+const ident = "elfo guardião"
+const descnome = "Um elfo guardião"
+const descpadr = "Um guardião caminha pelos túneis, preparado para qualquer tipo de ameaça."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const tipo1 = "elfo"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 2900
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const inivar = "z_moedas=2000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 150 * pnivel + 200000
+  pmanamax += 10000
+  atknorm += 15000
+  defnorm += 15 * pnivel + 28000
+  defesp += 30000
+  evasao += 9000
+  precisao += 2 * pnivel + 9000
+
+
+classe p_elfos013
+herda comum_perso
+const nome = "Clary, a artesã"
+const descpadr = "Clary, a artesã está aqui mostrando seus diversos trabalhos."
+const lojaini = 8
+const lojafim = 20
+const lojaitem = "elfos010 0\nelfos012 0\nelfos023 0\nelfos025 0\nelfos026 0"
+const lojafechada = "$P diz: \"desculpe, mas estamos fechados no momento. volte as 8 da manhã."
+const taxacompra = 50
+const tipoitem = 520 # Compra produtos: 3-Vestimenta, 9-Mobília
+
+
+classe p_elfos014
+herda comum_persobat
+const nome = "A raínha dos elfos"
+const descpadr = "Com uma pose altiva e serena, A raínha dos elfos está aqui, dando proteção a \
+toda floresta."
+const descver = "simplesmente bela!\n\
+ao olhar para ela você logo se encanta pelos lindos olhos verdes que, em contraste com a cor de \
+sua pele e com o sorriso que ela trás nos lábios, lhe conferem uma aparência jovem.\n\
+a brisa que sopra levemente neste lugar, faz com que seus longos cabelos ondulem às suas costas \
+e o lindo sorriso que ela possui, contribui ainda mais para que ela tenha um ar despreocupado.\n\
+porém, ao analisá-la com mais atenção, você percebe que ela é bem mais experiente do que \
+aparenta ser.\n\
+mesmo com essa aparência despreocupada, ela está sempre alerta e pronta para lutar para proteger \
+sua casa e seu povo, se isso for preciso.\n\
+Muitas histórias sobre esta bela elfa e seu povo contam como foram capazes de vencer inimigos \
+mais poderosos ainda que a vitória parecesse impossível..\n\
+sem pronunciar uma palavra sequer, você entende que ela pretende dizer: você decide se serei sua \
+amiga ou inimiga.\n\
+então, ela lhe lança um olhar tão intenso que faz você pensar que não seria uma boa ideia Tê-la \
+como inimiga."
+const nivel = 450
+const tipo1 = "elfo"
+const tipo2 = "mago"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 6000
+const p_morreu1 = "a medida que $P morre, as flores secam ao seu redor."
+const inivar = "m_descarga_eletrica=8,segundo_ataque=8,terceiro_ataque=8,z_moedas=5000000"
+const m_atribs1 = "* Ela está rodeada por uma forte luz."
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200 * pnivel + 300000
+  pmanamax += 100000
+  atknorm += 39999
+  defnorm += 20 * pnivel + 50000
+  defesp += 50000
+  evasao += 19000
+  precisao += 19000
+  bitver |= 2048
+
+
+classe p_elfos015
+herda comum_persobat
+const nome = "uma criança elfa"
+const descpadr = "uma pequena criança atravessa a floresta, correndo de um lado a outro."
+const tipo1 = "elfo"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 375
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const inivar = "z_moedas=1000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5 * pnivel + 67000
+  defnorm += 1000
+  defesp += 900
+  evasao += 1000
+  precisao += 2 * pnivel + 2000
+
+
+classe p_elfos016
+herda comum_persobat
+const nome = "o primeiro conselheiro"
+const descpadr = "o primeiro conselheiro está aqui, analisando um manuscrito."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const tipo1 = "elfo"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 430
+const p_lembra = 1
+const inivar = "z_moedas=3000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10 * pnivel + 75000
+  defnorm += 15 * pnivel + 1200
+  defesp += 1200
+  evasao += 1000
+  precisao += 2 * pnivel + 2000
+
+const m_atribs1 = "* ele está protegido por uma forte luz!"
+
+
+classe p_elfos017
+herda comum_persobat
+const nome = "o segundo conselheiro"
+const descpadr = "com uma pena em uma das mãos, e um pergaminho na outra, o segundo conselheiro \
+está aqui, imaginando quem o incomoda em suas escrituras."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const tipo1 = "elfo"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 430
+const p_lembra = 1
+const inivar = "z_moedas=3000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 15 * pnivel + 75100
+  defnorm += 10 * pnivel + 1200
+  defesp += 1200
+  evasao += 1000
+  precisao += 2 * pnivel + 2000
+
+const m_atribs1 = "* ele está protegido por uma forte luz!"
+
+
+classe p_elfos018
+herda comum_persobat
+const nome = "um elfo atléta"
+const descpadr = "o elfo atléta, se exercita correndo por toda a ârea de treino."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const tipo1 = "elfo"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 410
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_persegue = 1 # Persegue jogadores: 1 Se atacarem
+const inivar = "z_moedas 2500000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 12 * pnivel + 73000
+  atknorm += 2000
+  defnorm += 2000
+  defesp += 600
+  evasao += 500
+  precisao += 2000
+
+
+classe p_elfos019
+herda comum_persobat
+const nome = "um aprendiz de guerreiro"
+const descpadr = "um aprendiz de guerreiro está aqui, praticando suas habilidades de combate."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const tipo1 = "elfo"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 405
+const inivar = "z_moedas=1000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10 * pnivel + 72000
+  defnorm += 5 * pnivel + 2000
+  defesp += 2000
+  evasao += 1000
+  precisao += 2 * pnivel + 2000
+
+
+classe p_elfos020
+herda comum_persobat
+const nome = "o instrutor dos guerreiros"
+const descpadr = "o instrutor de guerreiros está aqui, observando cada um de seus aprendizes."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const tipo1 = "elfo"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 405
+const inivar = "z_moedas=1500000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 15 * pnivel + 72000
+  defnorm += 10 * pnivel + 2000
+  evasao += 1000
+  precisao += 2 * pnivel + 2000
+
+
+classe p_elfos021
+herda comum_persobat
+const nome = "um aprendiz de mago"
+const descpadr = "um aprendiz de mago está aqui, aprimorando suas magias."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const tipo1 = "elfo"
+const tipo2 = "mago"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 405
+const inivar = "z_moedas=1000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10 * pnivel + 72000
+  defnorm += 10 * pnivel + 2000
+  defesp += 2000
+  evasao += 1000
+  precisao += 2 * pnivel + 2000
+
+
+classe p_elfos022
+herda comum_persobat
+const nome = "o instrutor de magos"
+const descpadr = "o instrutor de magos está aqui, analizando cada evolução de seus aprendizes."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const tipo1 = "elfo"
+const tipo2 = "mago"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 405
+const inivar = "z_moedas=1500000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 15 * pnivel + 72000
+  defnorm += 10 * pnivel + 2000
+  defesp += 2000
+  evasao += 1000
+  precisao += 2 * pnivel + 2000
+
+
+classe p_elfos023
+herda comum_persobat
+const nome = "a águia real"
+const descpadr = "descendo dos céus, uma enorme ave, estende as garras vindo em sua direção!"
+const descver = "  A maior águia que você já viu em toda a sua vida.\n\
+ A sua plumagem é castanha escura, com um tom mais claro na parte\n\
+superior da cabeça e na nuca, sendo de uma cor amarela dourada.\n\
+ Sua calda ligeiramente arredondada, é da mesma cor escura do corpo, mas com a\n\
+base também mais clara.\n\
+ Suas patas são amarelas e possuem perigosas garras, seus grandes olhos\n\
+são castanhos escuro, e a ponta de seu bico afiado é preto.\n\
+ Suas grandes asas com as extremidades ligeiramente\n\
+enroladas para cima, são das cores dourada e castanho escuro,\n\
+tendo mais de um metro de comprimento."
+const nivel = 200
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_atk_anda = 1 # Anda ataque: Sim
+const p_atktipo = "arranhar"
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 5500
+const p_imortal = 0 # Imortal: Não
+const p_persegue = 1 # Persegue jogadores: 1 Se atacarem
+const inivar = "H_arranhar=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 150 * pnivel + 210000
+  atknorm += 18000
+  defnorm += 25000
+  defesp += 28000
+  evasao += 18500
+  precisao += 2 * pnivel + 17500
+  bitver |= 14
+  bitinv |= 16
+
+
+classe p_elfos024
+herda comum_perso
+const nome = "marry, a vendedora de decorações"
+const descpadr = "Marry, a irmã de clari está aqui aguardando você comprar um de vários de seus \
+produtos."
+const tipo2 = "elfa"
+const lojaitem = "elfos024 0\nelfos027 0"
+const taxacompra = 50
+const tipoitem = 512 # Compra produtos: 9-Mobília
+
+
+classe p_elfos025
+herda comum_perso
+const nome = "Cherosvaldo, o élfo garsom."
+const descpadr = "Cambaleando, o garsom élfico está aqui oferecendo suas bebidas para você!"
+const descver = "Cherosvaldo é um homem alto, barbudo, e que vive cambaleando de bêbado por \
+aí.\n\
+Hmmm! acho que ele está precisando de um banho."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+const p_recebe = 0 # Recebe itens: Não
+const lojaitem = "elfos048 0"
+
+
+classe p_elfos026
+herda comum_persobat
+const nome = "Jatobá, o élfo sacana."
+const descnome = "Jatobá, o élfo sacana."
+const descpadr = "Jatobá, o élfo sacana está aqui tentando sacaniar você!"
+const descver = "Jatobá é um homem sacana que carrega um sorriso sínico no rosto."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_atktipo = "Golpear"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_morreu1 = ""
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+
+
+classe p_elfos027
+herda comum_perso
+const nome = "a vovó Tina"
+const descpadr = "A vovó Tina está aqui fazendo mais um de seus tricôs."
+const descver = "Cabelos brancos, rugas na base dos olhos...\n\
+bem, o que esperamos na aparência de uma vovó?\n\
+apesar de sua idade tina, faz seu trabalho com agilidade e eficiência."
+const lojaitem = "elfos045 0\nelfos046 0\nelfos047 0\nelfos050 0"
+const taxacompra = 50
+const tipoitem = 131080 # Compra produtos: 3-Vestimenta, 17-Roupa comum
+
+
+classe p_elfos028
+herda comum_perso
+const nome = "o elfo sentinela"
+const descpadr = "guardando um caminho para baixo. O elfo sentinela impede sua passagem."
+const tipo1 = "guerreiro"
+const tipo2 = "elfo"
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_mover
+  se arg2 == "b"
+    -$mens.p(este, arg0)
+    $mens.mtodos1("$P impede que $A prossiga para baixo.")
+    $mens.mtodos1("$P diz: Desculpe " + arg0.nome + ", este caminho está proibido por enquanto. \
+Volte quando me for permitido deixá-lo passar.")
+    ret 1
+  fimse
+
+
+classe p_elfos029
+herda comum_perso
+const nome = "Um elfo ancião"
+const descpadr = "um senhor idoso, caminha por aqui, com sabedoria em seu olhar."
+const tipo1 = "elfo"
+const p_mover = 2 # Movimentar: 2 Qualquer lugar
+const p_movervel = 1000
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  se arg0.var.d_Um_elfo_ancião == ""
+    misc:evento(arg0)
+    misc:tempo("entrou", arg0)
+  fimse
+
+func entrou10
+  $mens.p(este, arg0)
+  $mens.mtodos1("$P diz: Olá " + arg0.nome + ", posso ver no seu olhar que é uma pessoa inteligen\
+te.")
+
+func entrou50
+  $mens.p(este, arg0)
+  $mens.mtodos1("$P diz: bom, são para poucos que faço isso, mas acho que vou abrir uma exceção."\
+)
+
+func entrou100
+  $mens.p(este, arg0)
+  $mens.mtodos1("$P diz: posso lhe mandar para uma floresta desconhecida, uma floresta nova. \
+Basta me dizer um sim ou não")
+
+func cmd_falou
+  se arg1 == "sim"
+    $mens.p(este, arg0)
+    $mens.mtodos1("$P diz: Ok! vamos lá!")
+    $mens.p(este, arg0)
+    $mens.mtodos1("Com um simples estalar de dedos, $P faz $A piscar com uma luz ofuscante.", \
+"$P desaparece em meio a luzes ofuscantes.")
+    arg0.msg("Com sua visão voltando ao foco, você nota que está em:")
+    arg0.mudadono($s_elfos009)
+  senao arg1 == "não" # Não quer lutar
+    $mens.p(este, arg0)
+    $mens.mtodos1("$P diz: Tudo bem, quem sabe em outra hora.")
+  senao
+    arg0.msg("Um velho ancião diz: então, vai querer? responda sim ou não.")
+  fimse
+
+
+classe s_elfos001
+herda b_elfos
+const s_titulo = "um pequeno jardim"
+const s_desc = "Uma saída no meio do túnel, te trâs até este pequeno jardim.\n\
+flores alegres, pássaros cantando, e um silêncio $s envolve a medida que uma vontade de sentar e \
+descançar $s domina."
+const s_pnj = 0
+const dir_l = $s_elfos096
+
+
+classe s_elfos002
+herda b_elfos
+const s_titulo = "nos galhos de uma imensa árvore."
+const s_desc = "nessa extremidade da árvore, você consegue ver com mais precisão o chão abaixo \
+de você e, rapidamente conclui que cair daqui de cima é uma das coisas que você menos deseja.\n\
+De repente o galho abaixo de você começa a estalar...\n\
+E antes que você possa ter qualquer reação, o galho se quebra.\n\
+Você cai e só ouve o barulho de seus ossos se fraturando,\n\
+antes da dor e da escuridão lhe consumir por completo."
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+const eveste = 1 # Eventos sala: Sim
+
+
+classe s_elfos003
+herda b_elfos
+const s_titulo = "nos galhos de uma imensa árvore."
+const s_desc = "nessa extremidade da árvore, você consegue ver com mais precisão o chão abaixo \
+de você e, rapidamente conclui que cair daqui de cima é uma das coisas que você menos deseja.\n\
+De repente o galho abaixo de você começa a estalar...\n\
+E antes que você possa ter qualquer reação, o galho se quebra.\n\
+Você cai e só ouve o barulho de seus ossos se fraturando,\n\
+antes da dor e da escuridão lhe consumir por completo."
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+
+
+classe s_elfos004
+herda b_elfos
+const s_titulo = "diversidades élficas."
+const dir_l = $s_elfos049
+const a_reset = "P 100 elfos024 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_elfos024:objsolto.total < 1
+    criar("p_elfos024", este, 0)
+  fimse
+
+
+classe s_elfos005
+herda b_elfos
+const s_titulo = "Um Jardim"
+const s_desc = "Você está em um jardim.\n\
+O lugar é confortável, e uma grande árvore faz uma excelente sombra por todo o local.\n\
+Um doce aroma invade suas narinas, e você sente uma vontade de sentar e ficar aqui por muito \
+tempo, aproveitando, pensando e admirando toda essa beleza."
+const eveste = 1 # Eventos sala: Sim
+const dir_c = $s_elfos008
+const s_reset = "S 100 elfos001 0 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_elfos001") && criar("i_elfos001", este, 0)
+
+
+classe s_elfos006
+herda b_elfos
+const s_titulo = "uma passagem"
+const s_pnj = 0
+const dir_n = $s_elfos102
+const dir_s = $s_elfos007
+
+
+classe s_elfos007
+herda b_elfos
+const s_titulo = "a entrada para o desafio élfico."
+const s_terreno = 4 # Terreno: 4 Floresta densa - 3mv
+const dir_n = $s_elfos006
+const dir_b = $s_elfos008
+const portaini_b = 2 # Estado inicial: 2 Porta fechada
+const portanome_b = "as raízes da enorme árvore"
+const portaartigo_b = 1 # Artigo porta: 1 as (portas)
+const fecha_b = 1 # Fecha ao passar: Sim
+const a_reset = "P 100 elfos028 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_elfos028:objsolto.total < 1
+    criar("p_elfos028", este, 0)
+  fimse
+
+
+classe s_elfos008
+herda b_elfos
+const s_titulo = "o labirinto"
+const dir_n = $s_elfos008
+const dir_s = $s_elfos129
+const dir_l = $s_elfos129
+const dir_o = $s_elfos112
+const dir_c = $s_elfos007
+const portaini_c = 2 # Estado inicial: 2 Porta fechada
+const portanome_c = "as raízes da enorme árvore"
+const portaartigo_c = 1 # Artigo porta: 1 as (portas)
+const fecha_c = 1 # Fecha ao passar: Sim
+const dir_b = $s_elfos109
+
+
+classe s_elfos009
+herda b_elfos
+const s_titulo = "A entrada para a floresta dos elfos."
+const s_desc = "você está na entrada para floresta dos elfos.\n\
+duas imensas árvores estão aqui como base de entrada.\n\
+olhando ao redor, você vê que não há outra entrada a não ser por entre as árvores."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_pnj = 0
+const dir_n = $s_elfos010
+const portaini_n = 0 # Estado inicial: 0 Sem porta
+const portaartigo_n = 2 # Artigo porta: 2 o (portão)
+const fecha_n = 0 # Fecha ao passar: Não
+const a_reset = "P 100 elfos009 350 370 4\nE 70 elfos008 1 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_elfos009:objsolto.total < 4
+    p = u = criar("p_elfos009", este, rand(350, 370))
+  fimse
+  se u && rand(100) < 70
+    r = criar("i_elfos008", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_elfos010
+herda b_elfos
+const s_titulo = "No início da floresta."
+const s_desc = "ao atravessar as duas enormes árvores, você se encontra numa enorme floresta.\n\
+Logo que você bota os pés neste lugar, uma sensação de paz o conforta.\n\
+as árvores de aparência convidativa, parecem lhe chamar para deitar-se as suas sombras para um \
+bom e relaxante descanço.\n\
+uma leve brisa bagunça seus cabelos, e um cheiro de terra e folhas\n\
+invade suas narinas, demonstrando como se a floresta jamais fosse habitada.\n\
+você sente que este seria um escelente lugar para se morar, tirando o fato que você não vê \
+nenhuma casa a vista."
+const dir_n = $s_elfos011
+const dir_s = $s_elfos009
+const portaini_s = 0 # Estado inicial: 0 Sem porta
+const portaartigo_s = 2 # Artigo porta: 2 o (portão)
+const fecha_s = 0 # Fecha ao passar: Não
+const a_reset = "P 100 elfos015 350 375 12"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_elfos015:objsolto.total < 12
+    criar("p_elfos015", este, rand(350, 375))
+  fimse
+
+
+classe s_elfos011
+herda b_elfos
+const s_titulo = "uma trilha na floresta."
+const s_desc = "você está numa trilha, atravessando a floresta dos elfos.\n\
+árvores o rodeiam por todo o lado.\n\
+você acha estranho o fato de não ter nenhum animal a vista, no entanto,\n\
+você ouve barulhos de pássaros nas copas das árvores, água ao longe e o vento assoviando por \
+toda a floresta.\n\
+Os únicos caminhos que você vê é uma trilha continuando para norte ou voltando ao início da \
+floresta ao sul."
+const dir_n = $s_elfos012
+const dir_s = $s_elfos010
+const a_reset = "P 100 elfos010 360 390 16"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_elfos010:objsolto.total < 16
+    criar("p_elfos010", este, rand(360, 390))
+  fimse
+
+
+classe s_elfos012
+herda b_elfos
+const s_titulo = "uma trilha na floresta"
+const s_desc = "você está numa trilha, atravessando a floresta dos elfos.\n\
+árvores o rodeiam por todo o lado.\n\
+você acha estranho o fato de não ter nenhum animal a vista, no entanto,\n\
+você ouve barulhos de pássaros nas copas das árvores, água ao longe e o vento assoviando por \
+toda a floresta.\n\
+você pode seguir para leste ou norte onde a trilha continua, ou voltar para sul."
+const dir_n = $s_elfos019
+const dir_s = $s_elfos011
+const dir_l = $s_elfos013
+
+
+classe s_elfos013
+herda b_elfos
+const s_titulo = "continuando pela trilha"
+const s_desc = "ao tomar este caminho, tudo fica ainda mais calmo, enquanto você caminha, uma \
+suave brisa sopra por entre as árvores e, ao olhar fixamente a sua frente você pode\n\
+ver algo como um riacho ou lago. por estar muito longe ainda, não há como ter certeza. porém sua \
+mente viaja em pensamentos e, você sabe que independente do\n\
+que seja, é um ótimo lugar para se sentar e apenas descansar."
+const dir_l = $s_elfos015
+const dir_o = $s_elfos012
+
+
+classe s_elfos014
+herda b_elfos
+const s_titulo = "continuando pela trilha"
+const dir_l = $s_elfos015
+const dir_o = $s_elfos013
+
+
+classe s_elfos015
+herda b_elfos
+const s_titulo = "próximo de uma bela lagoa."
+const s_desc = "após uma longa caminhada, você se encontra próximo à uma lagoa. O que você vê é \
+muito mais lindo do que você pensava, pois em volta estão inúmeras árvores\n\
+mas, estranhamente o caminho até a lagoa está livre, como se este belo lugar estivesse esperando \
+por você. ao respirar profundamente o ar puro, você fixa seu\n\
+olhar nesta linda paisagem e, percebe que a lagoa encontra-se agora não mais que alguns metros \
+de distância."
+const dir_l = $s_elfos016
+const dir_o = $s_elfos013
+
+
+classe s_elfos016
+herda b_elfos
+const s_titulo = "as margens de uma bela lagoa."
+const s_desc = "A densa floresta converge aqui, na margem de uma bela lagoa cristalina, formando \
+um pequeno reservatório de água.\n\
+Em razão do lago, aqui a luz entra em abundância, permitindo que cresça uma bela diversidade de \
+plantas, e assim, que apareça um também vasta variedade de insetos e pequenos animais.\n\
+Ao norte e ao sul a lagoa se estende, nos limeares da floresta."
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_n = $s_elfos017
+const dir_s = $s_elfos018
+const dir_o = $s_elfos015
+const a_reset = "S 100 elfos005 1 S\nP 100 elfos011 360 390 16"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_elfos005") && criar("i_elfos005", este, 1)
+  se p_elfos011:objsolto.total < 16
+    criar("p_elfos011", este, rand(360, 390))
+  fimse
+
+
+classe s_elfos017
+herda b_elfos
+const s_titulo = "as margens de uma bela lagoa."
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_s = $s_elfos016
+const a_reset = "S 100 elfos005 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_elfos005") && criar("i_elfos005", este, 1)
+
+
+classe s_elfos018
+herda b_elfos
+const s_titulo = "as margens de uma bela lagoa"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_n = $s_elfos016
+const a_reset = "S 100 elfos005 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_elfos005") && criar("i_elfos005", este, 1)
+
+
+classe s_elfos019
+herda b_elfos
+const s_titulo = "uma trilha na floresta."
+const s_desc = "você está numa trilha, atravessando a floresta dos elfos.\n\
+árvores o rodeiam por todo o lado.\n\
+você acha estranho o fato de não ter nenhum animal a vista, no entanto,\n\
+você ouve barulhos de pássaros nas copas das árvores, água ao longe e o vento assoviando por \
+toda a floresta.\n\
+ao norte as árvores se abrem, levando ao centro da floresta dos elfos."
+const dir_n = $s_elfos020
+const dir_s = $s_elfos012
+
+
+classe s_elfos020
+herda b_elfos
+const s_titulo = "a parte central da floresta dos elfos."
+const s_desc = "você está na parte mais ao centro da floresta.\n\
+o silêncio das trilhas subtamente desaparece ao ouvir barulhos de passos e conversas animadas \
+numa grande movimentação de elfos de um lado a outro.\n\
+a leste e ao oeste o fluxo de sons se intensifica ao que você supoe ser a parte comercial \
+élfica.\n\
+em quanto que ao norte e ao sul a trilha segue até onde a vista pode alcançar."
+const dir_n = $s_elfos023
+const dir_s = $s_elfos019
+const dir_l = $s_elfos021
+const dir_o = $s_elfos022
+const dir_no = $s_elfos051
+const a_reset = "P 100 elfos015 350 375 6"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_elfos015:objsolto.total < 6
+    criar("p_elfos015", este, rand(350, 375))
+  fimse
+
+
+classe s_elfos021
+herda b_elfos
+const s_titulo = "A feira élfica."
+const dir_n = $s_elfos043
+const dir_s = $s_elfos044
+const dir_l = $s_elfos039
+const dir_o = $s_elfos020
+
+
+classe s_elfos022
+herda b_elfos
+const s_titulo = "a feira élfica."
+const dir_n = $s_elfos047
+const dir_s = $s_elfos048
+const dir_l = $s_elfos020
+const dir_o = $s_elfos041
+
+
+classe s_elfos023
+herda b_elfos
+const s_titulo = "seguindo a trilha."
+const s_desc = "você está numa trilha, atravessando a floresta dos elfos.\n\
+árvores o rodeiam por todo o lado.\n\
+você acha estranho o fato de não ter nenhum animal a vista, no entanto,\n\
+você ouve barulhos de pássaros nas copas das árvores, água ao longe e o vento assoviando por \
+toda a floresta.\n\
+ao sul você avista o centro da floresta dos elfos, enquanto que ao norte a trilha continua \
+seguindo para o que você percebe ser uma árvore imensa."
+const dir_n = $s_elfos024
+const dir_s = $s_elfos020
+
+
+classe s_elfos024
+herda b_elfos
+const s_titulo = "seguindo a trilha"
+const s_desc = "você está numa trilha, atravessando a floresta dos elfos.\n\
+árvores o rodeiam por todo o lado.\n\
+você acha estranho o fato de não ter nenhum animal a vista, no entanto,\n\
+você ouve barulhos de pássaros nas copas das árvores, água ao longe e o vento assoviando por \
+toda a floresta.\n\
+ao leste e a oeste, você vê uma perfeita sequência de árvores, formando um caminho em ambas as \
+direções, enquanto para norte, o que você achou ser uma árvore imensa se concretiza ao avistar o \
+gigantesco tronco."
+const dir_n = $s_elfos070
+const dir_s = $s_elfos023
+const dir_l = $s_elfos079
+const dir_o = $s_elfos080
+
+
+classe s_elfos025
+herda b_elfos
+const s_titulo = "entre árvores."
+const s_desc = "você está em uma perfeita sequência de árvores levando de leste para oeste.\n\
+devido a proximidade das árvores, o caminho se torna mais denso, dificultando a passagem de \
+várias pessoas ao mesmo tempo."
+const dir_l = $s_elfos027
+const dir_o = $s_elfos079
+
+
+classe s_elfos026
+herda b_elfos
+const s_titulo = "entre árvores."
+const s_desc = "você está em uma perfeita sequência de árvores levando de leste para oeste.\n\
+devido a proximidade das árvores, o caminho se torna mais denso, dificultando a passagem de \
+várias pessoas ao mesmo tempo."
+const dir_l = $s_elfos080
+const dir_o = $s_elfos033
+
+
+classe s_elfos027
+herda b_elfos
+const s_titulo = "entre árvores."
+const s_desc = "você está em uma perfeita sequência de árvores levando de leste para oeste.\n\
+devido a proximidade das árvores, o caminho se torna mais denso, dificultando a passagem de \
+várias pessoas ao mesmo tempo."
+const dir_l = $s_elfos028
+const dir_o = $s_elfos025
+
+
+classe s_elfos028
+herda b_elfos
+const s_titulo = "serpenteando entre as árvores"
+const s_desc = "aqui, o caminho se estreita para uma leve trilha.\n\
+Observando as coisas com mais clareza agora, você nota que a trilha não segue um curso comum.\n\
+semelhante a uma enorme serpente, um caminho se segue entre as árvores, levando você ao extremo \
+mais ao leste da floresta."
+const dir_s = $s_elfos029
+const dir_o = $s_elfos027
+
+
+classe s_elfos029
+herda b_elfos
+const s_titulo = "serpenteando entre as árvores"
+const s_desc = "você continua pelo caminho que se assemelha a uma serpente.\n\
+com cada vez mais dificuldade, a trilha vai se estreitando, devido ao caminho estar tomado de \
+árvores e arbustos por todas as direções.\n\
+você começa a pensar na possibilidade de retroceder, mas já está no meio do caminho.\n\
+vai desistir agora?"
+const dir_n = $s_elfos028
+const dir_l = $s_elfos030
+
+
+classe s_elfos030
+herda b_elfos
+const s_titulo = "serpenteando entre as árvores"
+const s_desc = "você continua pelo caminho que se assemelha a uma serpente.\n\
+com cada vez mais dificuldade, a trilha vai se estreitando, devido ao caminho estar tomado de \
+árvores e arbustos por todas as direções.\n\
+você começa a pensar na possibilidade de retroceder, mas já está no meio do caminho.\n\
+vai desistir agora?"
+const dir_n = $s_elfos031
+const dir_o = $s_elfos029
+const a_reset = "P 100 elfos010 360 390 16"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_elfos010:objsolto.total < 16
+    criar("p_elfos010", este, rand(360, 390))
+  fimse
+
+
+classe s_elfos031
+herda b_elfos
+const s_titulo = "serpenteando entre as árvores"
+const s_desc = "você continua pelo caminho que se assemelha a uma serpente.\n\
+com cada vez mais dificuldade, a trilha vai se estreitando, devido ao caminho estar tomado de \
+árvores e arbustos por todas as direções.\n\
+você começa a pensar na possibilidade de retroceder, mas já está no meio do caminho.\n\
+vai desistir agora?"
+const dir_s = $s_elfos030
+const dir_l = $s_elfos032
+
+
+classe s_elfos032
+herda b_elfos
+const s_titulo = "serpenteando entre as árvores"
+const s_desc = "você continua pelo caminho que se assemelha a uma serpente.\n\
+com cada vez mais dificuldade, a trilha vai se estreitando, devido ao caminho estar tomado de \
+árvores e arbustos por todas as direções.\n\
+ao leste, você vê um pequeno declínio em um barranco.\n\
+a cada medida que se aproxima, você sabe que está no extremo leste da floresta."
+const dir_l = $s_elfos064
+const dir_o = $s_elfos031
+
+
+classe s_elfos033
+herda b_elfos
+const s_titulo = "entre árvores."
+const s_desc = "você está em uma perfeita sequência de árvores levando de leste para oeste.\n\
+devido a proximidade das árvores, o caminho se torna mais denso, dificultando a passagem de \
+várias pessoas ao mesmo tempo."
+const dir_l = $s_elfos026
+const dir_o = $s_elfos034
+
+
+classe s_elfos034
+herda b_elfos
+const s_titulo = "serpenteando entre as árvores"
+const s_desc = "aqui, o caminho se estreita para uma leve trilha.\n\
+Observando as coisas com mais clareza agora, você nota que a trilha não segue um curso comum.\n\
+semelhante a uma enorme serpente, um caminho se segue entre as árvores, levando você ao extremo \
+mais ao oeste da floresta."
+const dir_s = $s_elfos035
+const dir_l = $s_elfos033
+
+
+classe s_elfos035
+herda b_elfos
+const s_titulo = "serpenteando entre as árvores"
+const s_desc = "você continua pelo caminho que se assemelha a uma serpente.\n\
+com cada vez mais dificuldade, a trilha vai se estreitando, devido ao caminho estar tomado de \
+árvores e arbustos por todas as direções.\n\
+você começa a pensar na possibilidade de retroceder, mas já está no meio do caminho.\n\
+vai desistir agora?"
+const dir_n = $s_elfos034
+const dir_o = $s_elfos036
+
+
+classe s_elfos036
+herda b_elfos
+const s_titulo = "serpenteando entre as árvores"
+const s_desc = "você continua pelo caminho que se assemelha a uma serpente.\n\
+com cada vez mais dificuldade, a trilha vai se estreitando, devido ao caminho estar tomado de \
+árvores e arbustos por todas as direções.\n\
+você começa a pensar na possibilidade de retroceder, mas já está no meio do caminho.\n\
+vai desistir agora?"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_elfos037
+const dir_l = $s_elfos035
+const a_reset = "P 100 elfos010 360 390 16"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_elfos010:objsolto.total < 16
+    criar("p_elfos010", este, rand(360, 390))
+  fimse
+
+
+classe s_elfos037
+herda b_elfos
+const s_titulo = "serpenteando entre as árvores"
+const s_desc = "você continua pelo caminho que se assemelha a uma serpente.\n\
+com cada vez mais dificuldade, a trilha vai se estreitando, devido ao caminho estar tomado de \
+árvores e arbustos por todas as direções.\n\
+você começa a pensar na possibilidade de retroceder, mas já está no meio do caminho.\n\
+vai desistir agora?"
+const dir_s = $s_elfos036
+const dir_o = $s_elfos038
+
+
+classe s_elfos038
+herda b_elfos
+const s_titulo = "serpenteando entre as árvores"
+const s_desc = "você continua pelo caminho que se assemelha a uma serpente.\n\
+com cada vez mais dificuldade, a trilha vai se estreitando, devido ao caminho estar tomado de \
+árvores e arbustos por todas as direções.\n\
+ao oeste, você nota um pequeno declínio em um barranco.\n\
+a cada medida que se aproxima, você sabe que está no extremo oeste da floresta."
+const dir_l = $s_elfos037
+const dir_o = $s_elfos067
+
+
+classe s_elfos039
+herda b_elfos
+const s_titulo = "a feira élfica."
+const dir_l = $s_elfos040
+const dir_o = $s_elfos021
+
+
+classe s_elfos040
+herda b_elfos
+const s_titulo = "a feira élfica."
+const dir_n = $s_elfos045
+const dir_s = $s_elfos046
+const dir_o = $s_elfos039
+const a_reset = "P 100 elfos011 360 390 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_elfos011:objsolto.total < 10
+    criar("p_elfos011", este, rand(360, 390))
+  fimse
+
+
+classe s_elfos041
+herda b_elfos
+const s_titulo = "a feira élfica."
+const dir_l = $s_elfos022
+const dir_o = $s_elfos042
+
+
+classe s_elfos042
+herda b_elfos
+const s_titulo = "a feira élfica."
+const dir_n = $s_elfos049
+const dir_s = $s_elfos050
+const dir_l = $s_elfos041
+const dir_o = $s_elfos131
+const a_reset = "P 100 elfos011 360 390 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_elfos011:objsolto.total < 10
+    criar("p_elfos011", este, rand(360, 390))
+  fimse
+
+
+classe s_elfos043
+herda b_elfos
+const s_titulo = "escola de magos."
+const s_pnj = 1
+const dir_s = $s_elfos021
+const a_reset = "P 100 elfos004 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_elfos004:objsolto.total < 1
+    criar("p_elfos004", este, 0)
+  fimse
+
+
+classe s_elfos044
+herda b_elfos
+const s_titulo = "escola de guerreiros."
+const s_pnj = 1
+const dir_n = $s_elfos021
+const a_reset = "P 100 elfos005 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_elfos005:objsolto.total < 1
+    criar("p_elfos005", este, 0)
+  fimse
+
+
+classe s_elfos045
+herda b_elfos
+const s_titulo = "armaduras élficas."
+const s_pnj = 1
+const dir_s = $s_elfos040
+const a_reset = "P 100 elfos001 0 0 1\nP 100 elfos001 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_elfos001:objsolto.total < 1
+    criar("p_elfos001", este, 0)
+  fimse
+  se p_elfos001:objsolto.total < 1
+    criar("p_elfos001", este, 0)
+  fimse
+
+
+classe s_elfos046
+herda b_elfos
+const s_titulo = "armas élficas."
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_pnj = 1
+const dir_n = $s_elfos040
+const a_reset = "P 100 elfos006 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_elfos006:objsolto.total < 1
+    criar("p_elfos006", este, 0)
+  fimse
+
+
+classe s_elfos047
+herda b_elfos
+const s_titulo = "cabana das frutas."
+const s_pnj = 1
+const dir_s = $s_elfos022
+const a_reset = "P 100 elfos003 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_elfos003:objsolto.total < 1
+    criar("p_elfos003", este, 0)
+  fimse
+
+
+classe s_elfos048
+herda b_elfos
+const s_titulo = "cabana da cura."
+const s_pnj = 1
+const s_recup = 300
+const s_soltar = 1 # Soltar itens: 1 Não permitido
+const dir_n = $s_elfos022
+const a_reset = "P 100 elfos007 0 0 1\n\
+S 100 elfos009 1 S\n\
+S 100 elfos029 1 S\n\
+S 100 elfos028 1 S\n\
+S 100 elfos030 1 S\n\
+S 100 elfos031 1 S\n\
+S 100 elfos032 1 S\n\
+S 100 elfos033 1 S\n\
+S 100 teste035 3 elfos029\n\
+S 100 midgaard023 1 elfos029\n\
+S 100 midgaard061 1 elfos029"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref r # Usado como rascunho
+  se p_elfos007:objsolto.total < 1
+    criar("p_elfos007", este, 0)
+  fimse
+  !dentro1.objini("i_elfos009") && criar("i_elfos009", este, 1)
+  !dentro1.objini("i_elfos029") && criar("i_elfos029", este, 1)
+  !dentro1.objini("i_elfos028") && criar("i_elfos028", este, 1)
+  !dentro1.objini("i_elfos030") && criar("i_elfos030", este, 1)
+  !dentro1.objini("i_elfos031") && criar("i_elfos031", este, 1)
+  !dentro1.objini("i_elfos032") && criar("i_elfos032", este, 1)
+  !dentro1.objini("i_elfos033") && criar("i_elfos033", este, 1)
+  (r = dentro1.objini("i_elfos029")) && !r.dentro1.objini("i_teste035") && criar("i_teste035", \
+r, 3)
+  (r = dentro1.objini("i_elfos029")) && !r.dentro1.objini("i_midgaard023") && criar("i_midgaard02\
+3", r, 1)
+  (r = dentro1.objini("i_elfos029")) && !r.dentro1.objini("i_midgaard061") && criar("i_midgaard06\
+1", r, 1)
+
+
+classe s_elfos049
+herda b_elfos
+const s_titulo = "artigos élficos."
+const s_pnj = 1
+const dir_s = $s_elfos042
+const a_reset = "P 100 elfos013 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_elfos013:objsolto.total < 1
+    criar("p_elfos013", este, 0)
+  fimse
+
+
+classe s_elfos050
+herda b_elfos
+const s_titulo = "cabana da magia."
+const s_pnj = 1
+const dir_n = $s_elfos042
+const a_reset = "P 100 elfos008 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_elfos008:objsolto.total < 1
+    criar("p_elfos008", este, 0)
+  fimse
+
+
+classe s_elfos051
+herda b_elfos
+const s_titulo = "no meio das árvores"
+const dir_no = $s_elfos052
+const dir_se = $s_elfos020
+
+
+classe s_elfos052
+herda b_elfos
+const s_titulo = "no meio das árvores"
+const dir_no = $s_elfos053
+const dir_se = $s_elfos051
+
+
+classe s_elfos053
+herda b_elfos
+const s_titulo = "no meio das árvores"
+const dir_o = $s_elfos054
+const dir_se = $s_elfos052
+
+
+classe s_elfos054
+herda b_elfos
+const s_titulo = "a entrada para o campo de treino"
+const dir_l = $s_elfos053
+const dir_o = $s_elfos055
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "os portões do campo de treino"
+const portaartigo_o = 3 # Artigo porta: 3 os (portões)
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_elfos055
+herda b_elfos
+const s_titulo = "o campo de treino"
+const dir_n = $s_elfos056
+const dir_s = $s_elfos057
+const dir_l = $s_elfos054
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "os portões do campo de treino"
+const portaartigo_l = 3 # Artigo porta: 3 os (portões)
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_elfos058
+
+
+classe s_elfos056
+herda b_elfos
+const s_titulo = "o campo de treino"
+const dir_s = $s_elfos055
+const dir_o = $s_elfos060
+
+
+classe s_elfos057
+herda b_elfos
+const s_titulo = "o campo de treino"
+const dir_n = $s_elfos055
+const dir_o = $s_elfos059
+
+
+classe s_elfos058
+herda b_elfos
+const s_titulo = "o campo de treino"
+const dir_n = $s_elfos060
+const dir_s = $s_elfos059
+const dir_l = $s_elfos055
+const dir_o = $s_elfos061
+
+
+classe s_elfos059
+herda b_elfos
+const s_titulo = "o campo de treino"
+const dir_n = $s_elfos058
+const dir_l = $s_elfos057
+const dir_o = $s_elfos062
+const a_reset = "P 100 elfos019 385 400 5\nP 100 elfos020 400 400 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_elfos019:objsolto.total < 5
+    criar("p_elfos019", este, rand(385, 400))
+  fimse
+  se p_elfos020:objsolto.total < 1
+    criar("p_elfos020", este, 400)
+  fimse
+
+
+classe s_elfos060
+herda b_elfos
+const s_titulo = "o campo de treino"
+const dir_s = $s_elfos058
+const dir_o = $s_elfos063
+const dir_l = $s_elfos056
+const a_reset = "P 100 elfos021 380 400 5\nP 100 elfos022 400 400 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_elfos021:objsolto.total < 5
+    criar("p_elfos021", este, rand(380, 400))
+  fimse
+  se p_elfos022:objsolto.total < 1
+    criar("p_elfos022", este, 400)
+  fimse
+
+
+classe s_elfos061
+herda b_elfos
+const s_titulo = "o campo de treino"
+const dir_n = $s_elfos063
+const dir_s = $s_elfos062
+const dir_l = $s_elfos058
+const a_reset = "P 100 elfos018 400 410 3\nE 100 elfos016 1 26"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_elfos018:objsolto.total < 3
+    p = u = criar("p_elfos018", este, rand(400, 410))
+  fimse
+  se u
+    r = criar("i_elfos016", u, 1), r.vestir(26), u.recalc = 1
+  fimse
+
+
+classe s_elfos062
+herda b_elfos
+const s_titulo = "o campo de treino"
+const dir_n = $s_elfos061
+const dir_l = $s_elfos059
+
+
+classe s_elfos063
+herda b_elfos
+const s_titulo = "o campo de treino"
+const dir_s = $s_elfos061
+const dir_l = $s_elfos060
+
+
+classe s_elfos064
+herda b_elfos
+const s_titulo = "Na parte leste da floresta dos elfos."
+const s_desc = "depois de muito esforço, você chega a parte mais afastada da floresta a leste.\n\
+um pequeno declínio, leva para baixo,ao que você pode observar desta direção a entrada de uma \
+pequena cabana."
+const dir_o = $s_elfos032
+const dir_b = $s_elfos065
+
+
+classe s_elfos065
+herda b_elfos
+const s_titulo = "A entrada da cabana do primeiro conselheiro"
+const s_desc = "você está na entrada de uma simples cabana.\n\
+uma pequena porta de madeira, e uma única janela é o que podemos descrever desta umilde habitação\
+.\n\
+ao que parece, quem mora neste lugar, deseja bastante privacidade, pois ao que seus olhos \
+conseguem avistar é a única cabana neste extremo da floresta.\n\
+há uma placa na porta com os seguintes dizeres:\n\
+cabana do primeiro conselheiro.\n\
+somente assuntos urgentes."
+const s_ocultar = 0 # Ocultar desc: Não
+const dir_s = $s_elfos066
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "a pequena porta de madeira"
+const fecha_s = 1 # Fecha ao passar: Sim
+const dir_c = $s_elfos064
+
+
+classe s_elfos066
+herda b_elfos
+const s_titulo = "A cabana do primeiro conselheiro."
+const dir_n = $s_elfos065
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "a pequena porta de madeira"
+const fecha_n = 1 # Fecha ao passar: Sim
+const a_reset = "P 100 elfos016 400 430 1\nE 100 elfos018 1 13"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_elfos016:objsolto.total < 1
+    p = u = criar("p_elfos016", este, rand(400, 430))
+  fimse
+  se u
+    r = criar("i_elfos018", u, 1), r.vestir(13), u.recalc = 1
+  fimse
+
+
+classe s_elfos067
+herda b_elfos
+const s_titulo = "Na parte oeste da floresta dos elfos."
+const s_desc = "depois de muito esforço, você chega a parte mais afastada da floresta a oeste.\n\
+um pequeno declínio, leva para baixo,ao que você pode observar desta direção a entrada de uma \
+pequena cabana."
+const dir_l = $s_elfos038
+const dir_b = $s_elfos068
+
+
+classe s_elfos068
+herda b_elfos
+const s_titulo = "a entrada da cabana do segundo conselheiro."
+const s_desc = "você está na entrada de uma simples cabana.\n\
+uma pequena porta de madeira, e uma única janela é o que podemos descrever desta umilde habitação\
+.\n\
+ao que parece, quem mora neste lugar, deseja bastante privacidade, pois ao que seus olhos \
+conseguem avistar é a única cabana neste extremo da floresta.\n\
+há uma placa na porta com os seguintes dizeres:\n\
+cabana do segundo conselheiro.\n\
+somente assuntos urgentes."
+const dir_s = $s_elfos069
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "a pequena porta de madeira"
+const fecha_s = 1 # Fecha ao passar: Sim
+const dir_c = $s_elfos067
+
+
+classe s_elfos069
+herda b_elfos
+const s_titulo = "A cabana do segundo conselheiro."
+const dir_n = $s_elfos068
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "a pequena porta de madeira"
+const fecha_n = 1 # Fecha ao passar: Sim
+const a_reset = "P 100 elfos017 410 430 1\nE 100 elfos019 1 23"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_elfos017:objsolto.total < 1
+    p = u = criar("p_elfos017", este, rand(410, 430))
+  fimse
+  se u
+    r = criar("i_elfos019", u, 1), r.vestir(23), u.recalc = 1
+  fimse
+
+
+classe s_elfos070
+herda b_elfos
+const s_titulo = "seguindo a trilha."
+const s_desc = "você está numa trilha, atravessando a floresta dos elfos.\n\
+árvores o rodeiam por todo o lado.\n\
+você acha estranho o fato de não ter nenhum animal a vista, no entanto,\n\
+você ouve barulhos de pássaros nas copas das árvores, água ao longe e o vento assoviando por \
+toda a floresta.\n\
+ao norte você se aproxima da imensa árvore, tentando olhar seu tamanho e espessura."
+const dir_n = $s_elfos071
+const dir_s = $s_elfos024
+
+
+classe s_elfos071
+herda b_elfos
+const s_titulo = "Diante de uma árvore imensa."
+const s_desc = "depois de muito caminhar, a trilha termina aqui, pois o caminho ao norte é \
+bloqueado por uma árvore enorme que, se ergue muito além de onde seus olhos conseguem ver.\n\
+ao observar com mais atenção esta imponente árvore, você fica se perguntando qual deve ser a \
+vista lá de cima."
+const dir_s = $s_elfos070
+const dir_l = $s_elfos081
+const dir_o = $s_elfos082
+const dir_c = $s_elfos072
+const a_reset = "P 100 elfos015 350 375 8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_elfos015:objsolto.total < 8
+    criar("p_elfos015", este, rand(350, 375))
+  fimse
+
+
+classe s_elfos072
+herda b_elfos
+const s_titulo = "escalando a imensa árvore."
+const s_desc = "após contemplar por algum tempo a beleza dessa árvore, você, tomad$s pela \
+curiosidade resolve escalá-la. tem sido fácil até aqui, uma vez que, em pouco tempo você já se \
+encontra à uma boa distância do chão.\n\
+ao fazer uma pequena pausa, você olha para cima e vê que há ainda muito o que subir para chegar \
+ao topo, você nota também algumas ramificações sendo que,\n\
+.para além dos galhos acima, existem alguns galhos fáceis de alcançar ao norte e ao oeste."
+const s_pnj = 0
+const dir_n = $s_elfos073
+const dir_o = $s_elfos076
+const dir_c = $s_elfos074
+const dir_b = $s_elfos071
+
+
+classe s_elfos073
+herda b_elfos
+const s_titulo = "Nos galhos de uma imensa árvore."
+const s_desc = "nessa extremidade da árvore, você consegue ver com mais precisão o chão abaixo \
+de você e, rapidamente conclui que cair daqui de cima é uma das coisas que você menos deseja."
+const dir_s = $s_elfos072
+
+
+classe s_elfos074
+herda b_elfos
+const s_titulo = "escalando a imensa árvore."
+const s_desc = "você continua subindo, e subindo, na imensa árvore.\n\
+uma rápida olhada para baixo, e sua visão fica turva.\n\
+você se segura com mais força nos galhos da árvore, e fica imaginando como seria uma queda \
+dolorosa, caso você venha a cair."
+const s_item = 5
+const s_pnj = 0
+const s_semmagia = 0 # Sem magia: Não
+const dir_n = $s_elfos003
+const dir_s = $s_elfos075
+const dir_l = $s_elfos077
+const dir_o = $s_elfos002
+const dir_c = $s_elfos078
+const portanome_c = "os galhos do topo da árvore."
+const dir_b = $s_elfos072
+
+
+classe s_elfos075
+herda b_elfos
+const s_titulo = "Nos galhos de uma imensa árvore."
+const s_desc = "nessa extremidade da árvore, você consegue ver com mais precisão o chão abaixo \
+de você e, rapidamente conclui que cair daqui de cima é uma das coisas que você menos deseja.\n\
+ De repente o galho abaixo de você começa a estalar...\n\
+ E antes que você possa ter qualquer reação, o galho se quebra.\n\
+  Você cai e só ouve o barulho de seus ossos se fraturando,\n\
+antes da dor e da escuridão lhe consumir por completo."
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+const eveste = 1 # Eventos sala: Sim
+
+func cmd_chegou
+  $mens.p(arg0)
+  $mens.mareatodos("um grito de dor gela seu sangue, seguido de um baque surdo e ossos se \
+fraturando!")
+
+
+classe s_elfos076
+herda b_elfos
+const s_titulo = "Nos Galhos De Uma Imensa Árvore"
+const s_desc = "nessa extremidade da árvore, você consegue ver com mais precisão o chão abaixo \
+de você e, rapidamente conclui que cair daqui de cima é uma das coisas que você menos deseja."
+const dir_l = $s_elfos072
+
+
+classe s_elfos077
+herda b_elfos
+const s_titulo = "Nos galhos de uma imensa árvore."
+const s_desc = "nessa extremidade da árvore, você consegue ver com mais precisão o chão abaixo \
+de você e, rapidamente conclui que cair daqui de cima é uma das coisas que você menos deseja.\n\
+De repente o galho abaixo de você começa a estalar...\n\
+E antes que você possa ter qualquer reação, o galho se quebra.\n\
+Você cai e só ouve o barulho de seus ossos se fraturando,\n\
+antes da dor e da escuridão lhe consumir por completo."
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+
+
+classe s_elfos078
+herda b_elfos
+const s_titulo = "no topo de uma imensa árvore."
+const s_desc = "foi um longo caminho, porém finalmente você conseguiu chegar no topo da árvore.\n\
+você olha em todas as direções, ficando maravilhado com a ampla vista de toda a floresta e tudo \
+o que nela se encontra.\n\
+uma pequena parte de você começa a lhe dizer: não, não olhe para baixo, por favor."
+const s_fome = 1 # Fome e sede: 1 Ausente
+const s_pnj = 0
+const s_reserva = 1 # Comando reserva: Sim
+const dir_b = $s_elfos074
+const portaini_b = 1 # Estado inicial: 1 Porta aberta
+const portanome_b = "os galhos do topo da árvore"
+const a_reset = "P 100 elfos023 450 450 1\nI 100 elfos015 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  se p_elfos023:objsolto.total < 1
+    p = u = criar("p_elfos023", este, 450)
+  fimse
+  u && criar("i_elfos015", u, 1)
+
+
+classe s_elfos079
+herda b_elfos
+const s_titulo = "entre árvores"
+const s_desc = "você está em uma perfeita sequência de árvores levando de leste para oeste.\n\
+devido a proximidade das árvores, o caminho se torna mais denso, dificultando a passagem de \
+várias pessoas ao mesmo tempo."
+const dir_l = $s_elfos025
+const dir_o = $s_elfos024
+
+
+classe s_elfos080
+herda b_elfos
+const s_titulo = "entre árvores"
+const s_desc = "você está em uma perfeita sequência de árvores levando de leste para oeste.\n\
+devido a proximidade das árvores, o caminho se torna mais denso, dificultando a passagem de \
+várias pessoas ao mesmo tempo."
+const dir_l = $s_elfos024
+const dir_o = $s_elfos026
+
+
+classe s_elfos081
+herda b_elfos
+const s_titulo = "Um caminho de cascalhos"
+const s_desc = "ao passar pela imensa árvore, você se encontra em um pequeno caminho de cascalhos\
+.\n\
+nota-se que o caminho foi criado pra chegar em uma das partes mais profundas da floresta, isso \
+se não a mais profunda.\n\
+você sente curiosidade de seguir o caminho, no entanto, o vestígio de magia é grande. e agora? \
+continuar ou retroceder?"
+const dir_l = $s_elfos083
+const dir_o = $s_elfos071
+
+
+classe s_elfos082
+herda b_elfos
+const s_titulo = "Um caminho de cascalhos"
+const s_desc = "ao passar pela imensa árvore, você se encontra em um pequeno caminho de cascalhos\
+.\n\
+nota-se que o caminho foi criado pra chegar em uma das partes mais profundas da floresta, isso \
+se não a mais profunda.\n\
+você sente curiosidade de seguir o caminho, no entanto, o vestígio de magia é grande. e agora? \
+continuar ou retroceder?"
+const dir_l = $s_elfos071
+const dir_o = $s_elfos087
+
+
+classe s_elfos083
+herda b_elfos
+const s_titulo = "Um caminho de cascalhos"
+const s_desc = "ao passar pela imensa árvore, você se encontra em um pequeno caminho de cascalhos\
+.\n\
+nota-se que o caminho foi criado pra chegar em uma das partes mais profundas da floresta, isso \
+se não a mais profunda.\n\
+você sente curiosidade de seguir o caminho, no entanto, o vestígio de magia é grande. e agora? \
+continuar ou retroceder?"
+const dir_l = $s_elfos084
+const dir_o = $s_elfos081
+
+
+classe s_elfos084
+herda b_elfos
+const s_titulo = "Um caminho de cascalhos"
+const s_desc = "ao passar pela imensa árvore, você se encontra em um pequeno caminho de cascalhos\
+.\n\
+nota-se que o caminho foi criado pra chegar em uma das partes mais profundas da floresta, isso \
+se não a mais profunda.\n\
+você sente curiosidade de seguir o caminho, no entanto, o vestígio de magia é grande. e agora? \
+continuar ou retroceder?"
+const dir_l = $s_elfos085
+const dir_o = $s_elfos083
+
+
+classe s_elfos085
+herda b_elfos
+const s_titulo = "Um caminho de cascalhos"
+const s_desc = "ao passar pela imensa árvore, você se encontra em um pequeno caminho de cascalhos\
+.\n\
+nota-se que o caminho foi criado pra chegar em uma das partes mais profundas da floresta, isso \
+se não a mais profunda.\n\
+você sente curiosidade de seguir o caminho, no entanto, o vestígio de magia é grande. e agora? \
+continuar ou retroceder?"
+const s_pnj = 0
+const dir_n = $s_elfos095
+const dir_o = $s_elfos084
+const dir_se = $s_elfos086
+
+
+classe s_elfos086
+herda b_elfos
+const s_titulo = "Uma clareira na floresta"
+const s_desc = "Este talvez seja o lugar mais belo e calmo que você já teve a oportunidade de \
+estar ao longo de toda a sua vida.\n\
+Cores vibrantes cercam você, dando uma sensação de serenidade e alegria.\n\
+Observando todas essas belezas da natureza, você percebe que, mesmo havendo tanta imperfeição no \
+mundo, há um equilíbrio que confere à tal imperfeição as razões de sua existência."
+const dir_no = $s_elfos085
+
+
+classe s_elfos087
+herda b_elfos
+const s_titulo = "um caminho de cascalhos"
+const s_desc = "ao passar pela imensa árvore, você se encontra em um pequeno caminho de cascalhos\
+.\n\
+nota-se que o caminho foi criado pra chegar em uma das partes mais profundas da floresta, isso \
+se não a mais profunda.\n\
+você sente curiosidade de seguir o caminho, no entanto, o vestígio de magia é grande. e agora? \
+continuar ou retroceder?"
+const dir_l = $s_elfos082
+const dir_o = $s_elfos088
+
+
+classe s_elfos088
+herda b_elfos
+const s_titulo = "Um caminho de cascalhos"
+const s_desc = "ao passar pela imensa árvore, você se encontra em um pequeno caminho de cascalhos\
+.\n\
+nota-se que o caminho foi criado pra chegar em uma das partes mais profundas da floresta, isso \
+se não a mais profunda.\n\
+você sente curiosidade de seguir o caminho, no entanto, o vestígio de magia é grande. e agora? \
+continuar ou retroceder?"
+const dir_l = $s_elfos087
+const dir_o = $s_elfos089
+
+
+classe s_elfos089
+herda b_elfos
+const s_titulo = "um caminho de cascalhos"
+const s_desc = "ao passar pela imensa árvore, você se encontra em um pequeno caminho de cascalhos\
+.\n\
+nota-se que o caminho foi criado para chegar em uma das partes mais profundas da floresta, isso \
+se não a mais profunda.\n\
+você sente curiosidade de seguir o caminho, no entanto, o vestígio de magia é grande. e agora? \
+continuar ou retroceder?"
+const s_pnj = 0
+const dir_n = $s_elfos091
+const dir_l = $s_elfos088
+const dir_so = $s_elfos090
+
+
+classe s_elfos090
+herda b_elfos
+const s_titulo = "Uma clareira na floresta"
+const s_desc = "Este talvez seja o lugar mais belo e calmo que você já teve a oportunidade de \
+estar ao longo de toda a sua vida.\n\
+Cores vibrantes cercam você, dando uma sensação de serenidade e alegria.\n\
+Observando todas essas belezas da natureza, você percebe que, mesmo havendo tanta imperfeição no \
+mundo, há um equilíbrio que confere à tal imperfeição as razões de sua existência."
+const dir_ne = $s_elfos089
+
+
+classe s_elfos091
+herda b_elfos
+const s_titulo = "Um túnel de árvores"
+const s_desc = "você está atravessando um túnel ladeado por árvores.\n\
+a copa das árvores fecha-se acima de você, formando assim um arco perfeito.\n\
+logicamente, você sabe que este lugar não foi criado naturalmente.\n\
+ao se aproximar de um dos troncos você nota uma leve aura protegendo as árvores.\n\
+agora você sabe que os elfos tem uma forte conecção com a natureza assim como são muito ligados \
+a magia."
+const dir_n = $s_elfos092
+const dir_s = $s_elfos089
+const a_reset = "P 100 elfos012 390 420 8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_elfos012:objsolto.total < 8
+    criar("p_elfos012", este, rand(390, 420))
+  fimse
+
+
+classe s_elfos092
+herda b_elfos
+const s_titulo = "Um túnel de árvores"
+const s_desc = "você está atravessando um túnel ladeado por árvores.\n\
+a copa das árvores fecha-se acima de você, formando assim um arco perfeito.\n\
+logicamente, você sabe que este lugar não foi criado naturalmente.\n\
+ao se aproximar de um dos troncos você nota uma leve aura protegendo as árvores.\n\
+agora você sabe que os elfos tem uma forte conecção com a natureza assim como são muito ligados \
+a magia."
+const dir_n = $s_elfos093
+const dir_s = $s_elfos091
+
+
+classe s_elfos093
+herda b_elfos
+const s_titulo = "Um túnel de árvores"
+const s_desc = "você está atravessando um túnel ladeado por árvores.\n\
+a copa das árvores fecha-se acima de você, formando assim um arco perfeito.\n\
+logicamente, você sabe que este lugar não foi criado naturalmente."
+const dir_n = $s_elfos094
+const dir_s = $s_elfos092
+
+
+classe s_elfos094
+herda b_elfos
+const s_titulo = "Uma curva no túnel"
+const s_desc = "você está atravessando um túnel ladeado por árvores.\n\
+a copa das árvores fecha-se acima de você, formando assim um arco perfeito.\n\
+logicamente, você sabe que este lugar não foi criado naturalmente.\n\
+ao se aproximar de um dos troncos você nota uma leve aura protegendo as árvores.\n\
+agora você sabe que os elfos tem uma forte conecção com a natureza assim como são muito ligados \
+a magia.\n\
+aqui, o túnel faz uma curva levando para leste e sul."
+const dir_s = $s_elfos093
+const dir_l = $s_elfos105
+const a_reset = "P 100 elfos012 360 420 8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_elfos012:objsolto.total < 8
+    criar("p_elfos012", este, rand(360, 420))
+  fimse
+
+
+classe s_elfos095
+herda b_elfos
+const s_titulo = "Um túnel de árvores"
+const s_desc = "você está atravessando um túnel ladeado por árvores.\n\
+a copa das árvores fecha-se acima de você, formando assim um arco perfeito.\n\
+logicamente, você sabe que este lugar não foi criado naturalmente.\n\
+ao se aproximar de um dos troncos você nota uma leve aura protegendo as árvores.\n\
+agora você sabe que os elfos tem uma forte conecção com a natureza assim como são muito ligados \
+a magia."
+const dir_n = $s_elfos096
+const dir_s = $s_elfos085
+const a_reset = "P 100 elfos012 390 420 8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_elfos012:objsolto.total < 8
+    criar("p_elfos012", este, rand(390, 420))
+  fimse
+
+
+classe s_elfos096
+herda b_elfos
+const s_titulo = "Um túnel de árvores"
+const s_desc = "você está atravessando um túnel ladeado por árvores.\n\
+a copa das árvores fecha-se acima de você, formando assim um arco perfeito.\n\
+logicamente, você sabe que este lugar não foi criado naturalmente.\n\
+ao se aproximar de um dos troncos você nota uma leve aura protegendo as árvores.\n\
+agora você sabe que os elfos tem uma forte conecção com a natureza assim como são muito ligados \
+a magia."
+const dir_n = $s_elfos097
+const dir_s = $s_elfos095
+const dir_o = $s_elfos001
+
+
+classe s_elfos097
+herda b_elfos
+const s_titulo = "Um túnel de árvores"
+const s_desc = "você está atravessando um túnel ladeado por árvores.\n\
+a copa das árvores fecha-se acima de você, formando assim um arco perfeito.\n\
+logicamente, você sabe que este lugar não foi criado naturalmente."
+const dir_n = $s_elfos098
+const dir_s = $s_elfos096
+
+
+classe s_elfos098
+herda b_elfos
+const s_titulo = "Uma curva no túnel"
+const s_desc = "você está atravessando um túnel ladeado por árvores.\n\
+a copa das árvores fecha-se acima de você, formando assim um arco perfeito.\n\
+logicamente, você sabe que este lugar não foi criado naturalmente.\n\
+ao se aproximar de um dos troncos você nota uma leve aura protegendo as árvores.\n\
+agora você sabe que os elfos tem uma forte conecção com a natureza assim como são muito ligados \
+a magia.\n\
+aqui, o túnel faz uma curva levando para oeste e sul."
+const dir_s = $s_elfos097
+const dir_o = $s_elfos099
+const a_reset = "P 100 elfos012 390 420 8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_elfos012:objsolto.total < 8
+    criar("p_elfos012", este, rand(390, 420))
+  fimse
+
+
+classe s_elfos099
+herda b_elfos
+const s_titulo = "Um túnel de árvores"
+const s_desc = "você está atravessando um túnel ladeado por árvores.\n\
+a copa das árvores fecha-se acima de você, formando assim um arco perfeito.\n\
+logicamente, você sabe que este lugar não foi criado naturalmente.\n\
+ao se aproximar de um dos troncos você nota uma leve aura protegendo as árvores.\n\
+agora você sabe que os elfos tem uma forte conecção com a natureza assim como são muito ligados \
+a magia."
+const dir_l = $s_elfos098
+const dir_o = $s_elfos100
+
+
+classe s_elfos100
+herda b_elfos
+const s_titulo = "Um túnel de árvores"
+const s_desc = "você está atravessando um túnel ladeado por árvores.\n\
+a copa das árvores fecha-se acima de você, formando assim um arco perfeito.\n\
+logicamente, você sabe que este lugar não foi criado naturalmente.\n\
+ao se aproximar de um dos troncos você nota uma leve aura protegendo as árvores.\n\
+agora você sabe que os elfos tem uma forte conecção com a natureza assim como são muito ligados \
+a magia."
+const dir_l = $s_elfos099
+const dir_o = $s_elfos101
+
+
+classe s_elfos101
+herda b_elfos
+const s_titulo = "Um túnel de árvores"
+const s_desc = "você está atravessando um túnel ladeada por árvores.\n\
+a copa das árvores fecha-se acima de você, formando assim um arco perfeito.\n\
+logicamente, você sabe que este lugar não foi criado naturalmente.\n\
+ao se aproximar de um dos troncos você nota uma leve aura protegendo as árvores.\n\
+agora você sabe que os elfos tem uma forte conecção com a natureza assim como são muito ligados \
+a magia."
+const dir_l = $s_elfos100
+const dir_o = $s_elfos102
+
+
+classe s_elfos102
+herda b_elfos
+const s_titulo = "Uma intersecção no túnel"
+const dir_n = $s_elfos106
+const dir_s = $s_elfos006
+const dir_l = $s_elfos101
+const dir_o = $s_elfos103
+
+
+classe s_elfos103
+herda b_elfos
+const s_titulo = "Um túnel de árvores"
+const s_desc = "você está atravessando um túnel ladeado por árvores.\n\
+a copa das árvores fecha-se acima de você, formando assim um arco perfeito.\n\
+logicamente, você sabe que este lugar não foi criado naturalmente.\n\
+ao se aproximar de um dos troncos você nota uma leve aura protegendo as árvores.\n\
+agora você sabe que os elfos tem uma forte conecção com a natureza assim como são muito ligados \
+a magia."
+const dir_l = $s_elfos102
+const dir_o = $s_elfos104
+
+
+classe s_elfos104
+herda b_elfos
+const s_titulo = "Um túnel de árvores"
+const s_desc = "você está atravessando um túnel ladeado por árvores.\n\
+a copa das árvores fecha-se acima de você, formando assim um arco perfeito.\n\
+logicamente, você sabe que este lugar não foi criado naturalmente.\n\
+ao se aproximar de um dos troncos você nota uma leve aura protegendo as árvores.\n\
+agora você sabe que os elfos tem uma forte conecção com a natureza assim como são muito ligados \
+a magia."
+const dir_l = $s_elfos103
+const dir_o = $s_elfos105
+
+
+classe s_elfos105
+herda b_elfos
+const s_titulo = "um túnel de árvores"
+const s_desc = "você está atravessando um túnel ladeado por árvores.\n\
+a copa das árvores fecha-se acima de você, formando assim um arco perfeito.\n\
+logicamente, você sabe que este lugar não foi criado naturalmente.\n\
+ao se aproximar de um dos troncos você nota uma leve aura protegendo as árvores.\n\
+agora você sabe que os elfos tem uma forte conecção com a natureza assim como são muito ligados \
+a magia."
+const dir_l = $s_elfos104
+const dir_o = $s_elfos094
+
+
+classe s_elfos106
+herda b_elfos
+const s_titulo = "Um túnel de árvores"
+const s_desc = "você está atravessando um túnel ladeado por árvores.\n\
+a copa das árvores fecha-se acima de você, formando assim um arco perfeito.\n\
+logicamente, você sabe que este lugar não foi criado naturalmente.\n\
+ao se aproximar de um dos troncos você nota uma leve aura protegendo as árvores.\n\
+agora você sabe que os elfos tem uma forte conecção com a natureza assim como são muito ligados \
+a magia."
+const dir_n = $s_elfos107
+const dir_s = $s_elfos102
+
+
+classe s_elfos107
+herda b_elfos
+const s_titulo = "Um túnel de árvores"
+const s_desc = "você está atravessando um túnel ladeado por árvores.\n\
+a copa das árvores fecha-se acima de você, formando assim um arco perfeito.\n\
+logicamente, você sabe que este lugar não foi criado naturalmente.\n\
+ao se aproximar de um dos troncos você nota uma leve aura protegendo as árvores.\n\
+agora você sabe que os elfos tem uma forte conecção com a natureza assim como são muito ligados \
+a magia."
+const dir_n = $s_elfos108
+const dir_s = $s_elfos106
+
+
+classe s_elfos108
+herda b_elfos
+const s_titulo = "Um explêndido jardim"
+const s_desc = "Ao chegar neste lugar, você pisca seus olhos várias vezes, tentando imaginar se \
+sonha ou se está vendo coisas.\n\
+O mais belo jardim que você já viu, está retratado em sua frente.\n\
+Flores por todo lado, pássaros cantando, um gramado perfeito, parecendo um tapete.\n\
+Seu corpo relaxa. uma sensação de paz o conforta.\n\
+Sua maior vontade é de se deitar, abraçado pela leve brisa que envolve todo seu corpo."
+const s_fome = 1 # Fome e sede: 1 Ausente
+const s_pnj = 0
+const dir_s = $s_elfos107
+const a_reset = "P 100 elfos014 450 450 1\nE 100 elfos014 1 0\nE 20 elfos017 1 25"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_elfos014:objsolto.total < 1
+    p = u = criar("p_elfos014", este, 450)
+  fimse
+  se u
+    r = criar("i_elfos014", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+  se u && rand(100) < 20
+    r = criar("i_elfos017", u, 1), r.vestir(25), u.recalc = 1
+  fimse
+
+
+classe s_elfos109
+herda b_elfos
+const s_titulo = "o labirinto"
+const dir_n = $s_elfos109
+const dir_s = $s_elfos008
+const dir_l = $s_elfos110
+const dir_o = $s_elfos008
+const dir_c = $s_elfos008
+const dir_b = $s_elfos109
+
+
+classe s_elfos110
+herda b_elfos
+const s_titulo = "o labirinto"
+const dir_n = $s_elfos111
+const dir_s = $s_elfos109
+const dir_l = $s_elfos008
+const dir_o = $s_elfos109
+const dir_c = $s_elfos110
+const dir_b = $s_elfos109
+
+
+classe s_elfos111
+herda b_elfos
+const s_titulo = "o labirinto"
+const dir_n = $s_elfos112
+const dir_s = $s_elfos110
+const dir_l = $s_elfos130
+const dir_o = $s_elfos109
+const dir_c = $s_elfos110
+const dir_b = $s_elfos109
+
+
+classe s_elfos112
+herda b_elfos
+const s_titulo = "o labirinto"
+const dir_n = $s_elfos109
+const dir_s = $s_elfos111
+const dir_l = $s_elfos130
+const dir_o = $s_elfos109
+const dir_c = $s_elfos113
+const dir_b = $s_elfos130
+
+
+classe s_elfos113
+herda b_elfos
+const s_titulo = "o labirinto"
+const dir_n = $s_elfos112
+const dir_s = $s_elfos114
+const dir_l = $s_elfos112
+const dir_o = $s_elfos112
+const dir_c = $s_elfos113
+const dir_b = $s_elfos112
+
+
+classe s_elfos114
+herda b_elfos
+const s_titulo = "o labirinto"
+const dir_n = $s_elfos113
+const dir_s = $s_elfos130
+const dir_l = $s_elfos112
+const dir_o = $s_elfos115
+const dir_c = $s_elfos008
+const dir_b = $s_elfos109
+
+
+classe s_elfos115
+herda b_elfos
+const s_titulo = "o labirinto"
+const dir_n = $s_elfos115
+const dir_s = $s_elfos112
+const dir_l = $s_elfos114
+const dir_o = $s_elfos116
+const dir_c = $s_elfos115
+const dir_b = $s_elfos111
+
+
+classe s_elfos116
+herda b_elfos
+const s_titulo = "o labirinto"
+const dir_n = $s_elfos130
+const dir_s = $s_elfos114
+const dir_l = $s_elfos115
+const dir_o = $s_elfos114
+const dir_c = $s_elfos109
+const dir_b = $s_elfos117
+
+
+classe s_elfos117
+herda b_elfos
+const s_titulo = "o labirinto"
+const dir_n = $s_elfos119
+const dir_s = $s_elfos118
+const dir_l = $s_elfos115
+const dir_o = $s_elfos112
+const dir_c = $s_elfos116
+const dir_b = $s_elfos117
+
+
+classe s_elfos118
+herda b_elfos
+const s_titulo = "o labirinto"
+const dir_n = $s_elfos117
+const dir_s = $s_elfos119
+const dir_l = $s_elfos119
+const dir_o = $s_elfos116
+const dir_c = $s_elfos117
+const dir_b = $s_elfos111
+
+
+classe s_elfos119
+herda b_elfos
+const s_titulo = "o labirinto"
+const dir_n = $s_elfos117
+const dir_s = $s_elfos008
+const dir_l = $s_elfos109
+const dir_o = $s_elfos118
+const dir_b = $s_elfos120
+
+
+classe s_elfos120
+herda b_elfos
+const s_titulo = "o labirinto"
+const dir_n = $s_elfos109
+const dir_s = $s_elfos113
+const dir_l = $s_elfos119
+const dir_o = $s_elfos118
+const dir_c = $s_elfos119
+const dir_b = $s_elfos121
+
+
+classe s_elfos121
+herda b_elfos
+const s_titulo = "o labirinto"
+const dir_n = $s_elfos118
+const dir_s = $s_elfos122
+const dir_l = $s_elfos112
+const dir_o = $s_elfos111
+const dir_c = $s_elfos120
+const dir_b = $s_elfos111
+
+
+classe s_elfos122
+herda b_elfos
+const s_titulo = "o labirinto"
+const dir_n = $s_elfos121
+const dir_s = $s_elfos116
+const dir_l = $s_elfos117
+const dir_o = $s_elfos123
+const dir_c = $s_elfos130
+const dir_b = $s_elfos120
+
+
+classe s_elfos123
+herda b_elfos
+const s_titulo = "o labirinto"
+const dir_n = $s_elfos124
+const dir_s = $s_elfos122
+const dir_l = $s_elfos122
+const dir_o = $s_elfos123
+const dir_c = $s_elfos008
+const dir_b = $s_elfos120
+
+
+classe s_elfos124
+herda b_elfos
+const s_titulo = "o labirinto"
+const dir_n = $s_elfos122
+const dir_s = $s_elfos123
+const dir_l = $s_elfos126
+const dir_o = $s_elfos124
+const dir_c = $s_elfos119
+const dir_b = $s_elfos125
+
+
+classe s_elfos125
+herda b_elfos
+const s_titulo = "o labirinto"
+const dir_n = $s_elfos115
+const dir_s = $s_elfos125
+const dir_l = $s_elfos115
+const dir_o = $s_elfos125
+const dir_c = $s_elfos124
+const dir_b = $s_elfos125
+
+
+classe s_elfos126
+herda b_elfos
+const s_titulo = "o labirinto"
+const dir_n = $s_elfos008
+const dir_s = $s_elfos008
+const dir_l = $s_elfos008
+const dir_o = $s_elfos124
+const dir_c = $s_elfos127
+const dir_b = $s_elfos008
+
+
+classe s_elfos127
+herda b_elfos
+const s_titulo = "enfim, uma passagem diferente."
+const dir_n = $s_elfos128
+const dir_b = $s_elfos126
+
+
+classe s_elfos128
+herda b_elfos
+const s_titulo = "a recompensa aos vitoriósos."
+const dir_s = $s_elfos127
+
+
+classe s_elfos129
+herda b_elfos
+const s_titulo = "o labirinto"
+const dir_n = $s_elfos008
+const dir_s = $s_elfos110
+const dir_l = $s_elfos109
+const dir_o = $s_elfos008
+const dir_c = $s_elfos129
+const dir_b = $s_elfos129
+
+
+classe s_elfos130
+herda b_elfos
+const s_titulo = "o labirinto"
+const dir_n = $s_elfos130
+const dir_s = $s_elfos130
+const dir_l = $s_elfos130
+const dir_o = $s_elfos111
+const dir_c = $s_elfos130
+const dir_b = $s_elfos130
+
+
+classe s_elfos131
+herda b_elfos
+const s_titulo = "O bar élfico."
+const s_fome = 0 # Fome e sede: 0 Presente
+const s_luz = 1 # Luz: 1 Claro sem eventos de tempo
+const dir_l = $s_elfos042
+const dir_o = $s_elfos132
+const a_reset = "P 100 elfos025 0 0 1\n\
+S 100 elfos037 1 S\n\
+S 100 elfos039 1 S\n\
+S 100 elfos038 1 S\n\
+S 100 elfos040 1 S\n\
+S 100 elfos041 1 S\n\
+S 100 elfos042 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_elfos025:objsolto.total < 1
+    criar("p_elfos025", este, 0)
+  fimse
+  !dentro1.objini("i_elfos037") && criar("i_elfos037", este, 1)
+  !dentro1.objini("i_elfos039") && criar("i_elfos039", este, 1)
+  !dentro1.objini("i_elfos038") && criar("i_elfos038", este, 1)
+  !dentro1.objini("i_elfos040") && criar("i_elfos040", este, 1)
+  !dentro1.objini("i_elfos041") && criar("i_elfos041", este, 1)
+  !dentro1.objini("i_elfos042") && criar("i_elfos042", este, 1)
+
+
+classe s_elfos132
+herda b_elfos
+const s_titulo = "Sala de jogos."
+const s_fome = 0 # Fome e sede: 0 Presente
+const s_luz = 1 # Luz: 1 Claro sem eventos de tempo
+const dir_l = $s_elfos131
+const a_reset = "S 100 elfos034 1 S\n\
+S 100 elfos035 1 elfos034\n\
+S 100 elfos036 1 S\n\
+P 100 elfos026 0 0 1\n\
+E 100 elfos044 1 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  !dentro1.objini("i_elfos034") && criar("i_elfos034", este, 1)
+  (r = dentro1.objini("i_elfos034")) && !r.dentro1.objini("i_elfos035") && criar("i_elfos035", \
+r, 1)
+  !dentro1.objini("i_elfos036") && criar("i_elfos036", este, 1)
+  se p_elfos026:objsolto.total < 1
+    p = u = criar("p_elfos026", este, 0)
+  fimse
+  se u
+    r = criar("i_elfos044", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_elfos133
+herda b_elfos
+const s_titulo = "Tricôs da vovó Tina."
+const s_desc = "Você está na loja da vovó Tina.\n\
+você pode ver diversas roupas de tricô muito bem dobrados e organizados em algumas prateleiras, \
+e outras peças menores em delicados cestos de palha trançada.\n\
+Os produtos vendidos aqui, são todos feitos a mão com muito carinho e amor pela vovó."
+const dir_o = $s_elfos040
+const a_reset = "P 100 elfos027 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_elfos027:objsolto.total < 1
+    criar("p_elfos027", este, 0)
+  fimse

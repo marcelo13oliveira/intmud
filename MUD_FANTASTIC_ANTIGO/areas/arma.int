@@ -1,0 +1,316 @@
+classe a_arma
+herda area
+
+
+classe b_arma
+herda sala
+const s_area = "arma"
+
+
+classe i_arma001
+herda comum_itemperso
+const nome = "porta-munição"
+const descnome = "um porta-munição"
+const descpos = "um porta-munição está aqui, parece cheio!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_itens = "arma005\nmorro010\nteste054"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const valor = 350000
+const vestir1 = "100000"
+
+
+classe i_arma002
+herda comum_itemperso
+const nome = "mochila de armas"
+const descnome = "uma mochila de armas"
+const descpos = "uma mochila grande está pendurada aqui, nela pode conter armas, cuidado!"
+const i_itens = "arco\narma003\narma004\narma010\nteste051"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const valor = 450000
+const vestir1 = 1050632 # Aonde vestir: 3-sobre os ombros, 11-nas costas, 20-segurando
+
+
+classe i_arma003
+herda comum_item
+const nome = "pistola"
+const descnome = "uma pequena pistola"
+const descpos = "uma pequena pistola está jogada aqui. cuidado, pode estar carregada."
+const nivel = 300
+const armacarregar = 8 # Carregar: 8 Perito
+const armamanual = 1 # Só ataca manual: Sim
+const armamunicao = 2 # Origem da munição: 2 Itens na arma
+const armamove = 10
+const armatipo = 8 # Tipo de arma: 8 Revolver
+const i_municao = "arma005"
+const pesoobj = 500
+const tipoitem = 2 # Tipo de produto: 1-Arma
+const valor = 500000
+const vestir1 = "1000000"
+const volmax = 25
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10 * pnivel
+  atkesp += 10 * pnivel
+
+
+classe i_arma004
+herda comum_item
+const nome = "revolver"
+const descnome = "um revolver"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 300
+const armacarregar = 3 # Carregar: 3 Básico
+const armamanual = 1 # Só ataca manual: Sim
+const armamunicao = 2 # Origem da munição: 2 Itens na arma
+const armafalha = 10
+const armamove = 1000
+const armatipo = 8 # Tipo de arma: 8 Revolver
+const i_municao = "arma005\nteste054"
+const tipoitem = 2 # Tipo de item: 1-Arma
+const valor = 500000
+const volmax = 6
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 15 * pnivel
+  atkesp += 15 * pnivel
+
+const armaatk = ""
+
+
+classe i_arma005
+herda comum_itemgrupo
+const nome = "bala"
+const descnome = "uma bala de metal"
+const armamax = 70
+const armamin = 50
+const valor = 15000
+
+
+classe i_arma006
+herda comum_itemperso
+const nome = "pistola"
+const ident = "pistola água"
+const descnome = "uma pistolinha de água"
+const descpos = "uma pistolinha de água está por aqui"
+const descver = "com cano de ferro e revestimento de metal, dão a essa pequena pistola, uma \
+aparência de uma arma de verdade! mas, será que funciona? o jeito é testar."
+const nivel = 300
+const armacarregar = 8 # Carregar: 8 Perito
+const armamax = 2000
+const armamin = 10
+const armamunicao = 2 # Origem da munição: 2 Itens na arma
+const armaaddprecisao = 500
+const armamove = 400
+const armatipo = 8 # Tipo de arma: 8 Revolver
+const i_municao = "arma007"
+const tipoitem = 2 # Tipo de produto: 1-Arma
+const valor = 500000
+const vestir1 = 8388608 # Aonde vestir: 23-na cintura
+const i_empunhoumsg = "$P arma-se com $o."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 12 * pnivel
+  atkesp += 10 * pnivel
+
+
+classe i_arma007
+herda comum_itemgrupo
+const nome = "água"
+const descnome = "a água própria para a pistola"
+const descpos = "você vê uma poça dágua aqui, podendo milagrosamente pegá-la para recarregar uma \
+pistolinha dágua!"
+const valor = 25000
+
+
+classe i_arma008
+herda comum_item
+const nome = "lança-bolinhas"
+const ident = "lança bolinhas"
+const descnome = "um pequeno lança-bolinhas"
+const descpos = "Um pequeno lança-bolinhas está aqui, parece uma ótima arma!"
+const nivel = 200
+const armacarregar = 8 # Carregar: 8 Perito
+const armamax = 800
+const armamin = 200
+const armamunicao = 2 # Origem da munição: 2 Itens na arma
+const armamove = 600
+const armatipo = 8 # Tipo de arma: 8 atirar
+const i_municao = "bolinha"
+const objmax = 100
+const valor = 400000
+const i_empunhoumsg = "$P desativa a trava de $O e o empunha."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20 * pnivel
+  atkesp += 20 * pnivel
+
+const i_msgremoveu = "Ativando a trava de $O, $P guarda-o na cintura."
+
+
+classe i_arma009
+herda comum_itemgrupo
+const nome = "garra de fogo"
+const ident = "garra fogo"
+const descnome = "uma garra de fogo"
+const armamax = 70
+const armamin = 50
+
+
+classe i_arma010
+herda comum_itemperso
+const nome = "fuzil"
+const ident = "fuzil"
+const descnome = "um fuzil"
+const descpos = "um fuzil prateado está jogado aqui no chão"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const armacarregar = 8 # Carregar: 8 Perito
+const armamax = 800
+const armamin = 300
+const armamunicao = 2 # Origem da munição: 2 Itens na arma
+const armafalha = 19
+const armaaddprecisao = 20
+const armamove = 40
+const armatipo = 8 # Tipo de arma: 8 atirar
+const i_itens = "arma005"
+const i_municao = "arma005"
+const objmax = 40
+const pesoobj = 100
+const vestir1 = "1100000"
+const armaatk = "atirar"
+
+
+classe i_arma011
+herda comum_itemperso
+const nome = "bumerang"
+const descnome = "um bumerang"
+const descpos = "um bumerang está aqui, parece uma excelente arma para se usar a distância."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 200
+const armamanual = 1 # Só ataca manual: Sim
+const armamax = 100
+const armamin = 20
+const armafalha = 10
+const armamove = 300
+const armatipo = 0 # Tipo de arma: 0 Não é arma
+const tipoitem = 2 # Tipo de item: 1-Arma
+const valor = 250000
+const armaatk = "atirar"
+
+
+classe i_arma012
+herda comum_itemgrupo
+const nome = "Bomba relógio"
+const descnome = "uma Bomba relógio"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_magia1 = "explosao"
+const f_msgperso = "Você engole uma bomba relógio, sentido um imenso mal estar enquanto ela \
+desce pelo seu intestino!"
+const f_msgoutros = "$P engole uma bomba relógio!"
+const valor = 1000000
+const vestir1 = 6144 # Aonde vestir: 11-nas costas, 12-no corpo
+const eveste = 1
+const evperso = 1
+inttempo explodir
+inttempo explodird
+inttempo explodirp
+#
+
+func descpos
+  ret var.z_armada_ == 2, "Uma bomba relógio foi armada, e está prestes a explodir!"
+  ret "Você quase pisa em uma bomba relógio!"
+
+func cmd_escr
+  se arg1 == "armar Bomba relógio"
+    var.z_armada_ = 1
+    arg0.msg("Digite t seguido do tempo.")
+    ret 1
+  fimse
+  se txtsub(arg1, 0, 2) == "jogar bomba"
+    refvar dir = txtsub(arg1, 2, 1)
+    ret arg0.dono.porta_[dir] > 1, arg0.msg("A saída está fechada.")
+    ret !arg0.dono.dir_[dir].s_luta, arg0.msg("Lá é um lugar pacífico.")
+    $mens.p(arg0, nulo, este)
+    $mens.mens = $cmd_[dir].dirsai
+    $mens.mtodos1("$P atira $o para $m.")
+    mdono(arg0.dono.dir_[dir])
+    $mens.p(este)
+    $mens.mens = $cmd_[dir].direntra
+    $mens.mtodos1("$P foi jogada por alguém $m.")
+    ret 1
+  fimse
+  se txt1(arg1) == "t"
+    ret txt(intpos(txt2(arg1))) != txt2(arg1), arg0.msg("Digite t seguido do tempo.")
+    uint32 t2
+    uint32 t3
+    uint32 t
+    t = txt2(arg1) * 10
+    t2 = t - 100
+    t3 = t - 50
+    var.z_armada_ = 2
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos1("$P arma $o.")
+    mudadono(arg0.dono)
+    explodir = t
+    ret 1
+  fimse
+#
+
+func explodir_exec
+  se dono.perso
+    se vestpos
+      $mens.p(dono, nulo, este)
+      $mens.mtodos2("\d=portal01 A bomba explode em seu corpo, reduzindo-lhe a poeira!", \
+"\d=portal01 A bomba explode no corpo $d $P, que é reduzid$s a poeira!")
+      se !arg0.dono.s_luta
+        dono.morreu
+        apagar(este)
+        ret 1
+      fimse
+      listaobj l
+      epara l.addfim(dono.dono.dentro2), l, l.ini.remove
+        se l.objini.jog
+          l.objini.j_imortal = 0
+          l.objini.morreu
+        fimse
+      efim
+      apagar(este)
+      ret 1
+    fimse
+    $mens.p(dono)
+    $mens.mtodos2("\d=portal01 A bomba explode em suas mãos, transformando-lhe em poeira!", \
+"\d=portal01 A bomba explode nas mãos $d $P, que é reduzid$s a pó!")
+    dono.j_imortal = 0
+    dono.morreu
+    apagar(este)
+    ret 1
+  fimse
+  $mens.p(este)
+  $mens.mtodos1("\d=portal01 $P explode, atirando tudo pelos ares!")
+  listaobj l
+  epara l.addfim(dono.dentro2), l, l.ini.remove
+    se l.objini.jog
+      l.objini.j_imortal = 0
+      l.objini.morreu
+    fimse
+  efim
+  apagar(este)
+#
+
+func explodirp_exec
+  $mens.p(este)
+  $mens.mtodos1("Restam 10 segundos para a bomba explodir.")
+#
+
+func explodird_exec
+  $mens.p(este)
+  $mens.mtodos1("Faltam 5 segundos para a bomba explodir!")
+#
+
+func cmd_soltarobj
+  se arg2 == este && arg1.s_sala && var.z_armada_ == 2
+    ret !arg0.dono.s_luta, arg0.msg("Você não pode soltar a bomba em um lugar pacífico.")
+  fimse

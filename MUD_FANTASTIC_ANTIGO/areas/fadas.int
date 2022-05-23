@@ -1,0 +1,1006 @@
+classe a_fadas
+herda area
+const a_nome = "O vilarejo das fadas"
+const a_tempo = 10
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_fadas
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_recup = 10
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const s_area = "fadas"
+
+
+classe i_fadas001
+herda comum_itemperso
+const nome = "luzes coloridas"
+const descnome = "um show de luzes coloridas que flutuam no ar."
+const descpos = "Um show de luzes bailam para lá e para cá, iluminando todo o local."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const luzfim = 1 # Sem luz item some: Sim
+const luzitem = 3 # Tipo de luz: 3 Não aceita acender/apagar, produz fogo
+const luzini = 5000
+const luztxt = "As luzes começam a enfraquecer, piscam algumas vezes e logo se apagam."
+
+
+classe p_fadas001
+herda comum_persobat
+const nome = "Sandy a rainha das fadas azuis"
+const ident = "sandy rainha fadas azuis"
+const descnome = "Sandy, a rainha das fadas azuis"
+const descpadr = "Sandy, a fada azul suspira enquanto pensa em algo, olhando para uma varinha."
+const nivel = 700
+const tipo1 = "fada"
+const tipo2 = "maga"
+const p_exp = 65000
+
+
+classe p_fadas002
+herda comum_persobat
+const nome = "Fada azul"
+const ident = "fada azul"
+const descnome = "uma fada azul"
+const descpadr = "Uma fada azul flutua por aqui, sempre graciosa."
+const nivel = 677
+const tipo1 = "fada"
+const tipo2 = "maga"
+const p_exp = 65000
+
+
+classe p_fadas004
+herda comum_persobat
+const nome = "Fada branca"
+const descnome = "Uma fada branca"
+const nivel = 653
+const tipo1 = "fada"
+const tipo2 = "maga"
+const p_exp = 65000
+
+
+classe p_fadas005
+herda comum_persobat
+const nome = "luciana a rainha das fadas brancas"
+const descnome = "Luciana, a rainha das fadas brancas"
+const descpadr = "lice, a rainha das fadas brancas está aqui, segurando uma varinha em suas \
+mãos"
+const nivel = 930
+const tipo1 = "fada"
+const tipo2 = "maga"
+const p_exp = 65000
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50000 * pnivel + 100000000
+  pmanamax += 1000 * pnivel + 50000
+  pmovemax += 10000 * pnivel + 50000
+  pveloc1 += 650000 * pnivel + 1000000
+  atknorm += 55000 * pnivel + 2000000
+  defnorm += 120000 * pnivel + 2000000
+  atkesp += 55000 * pnivel + 2000000
+  defesp += 120000 * pnivel + 2000000
+  precisao += 50000 * pnivel + 1000000
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atktipo.0 *= 2 # Tipos Normais
+  atktipo.1 *= 2 # Tipos Especiais
+  atktipo.12 *= 2 # Luz
+
+
+classe p_fadas006
+herda comum_persobat
+const nome = "A diretora"
+const ident = "diretora"
+const descnome = "a diretora"
+const nivel = 670
+const tipo1 = "fada"
+const tipo2 = "maga"
+const p_exp = 65000
+
+
+classe p_fadas007
+herda comum_perso
+const nome = "A professora das fadas"
+const ident = "fadas professora"
+const descnome = "a professora das fadas"
+const tipo1 = "fada"
+
+
+classe p_fadas008
+herda comum_persobat
+const nome = "samira, a fada lutadora"
+const descnome = "samira"
+const descpadr = "samira, a fada lutadora caminha pela vila, empunhando sua brilhante varinha"
+const nivel = 760
+const tipo1 = "fada"
+const tipo2 = "maga"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 65000
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+
+classe p_fadas056
+herda comum_persobat
+const nome = "a fada bebê"
+const ident = "bebê fada pequena"
+const descnome = "Uma fada bebê"
+const descpadr = "uma pequena fada está aqui, olhando curiosamente para você"
+const nivel = 697
+const tipo1 = "fada"
+const tipo2 = "maga"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+
+classe s_fadas001
+herda b_fadas
+const s_titulo = "na entrada da vila das fadas"
+const s_desc = "você agora está em uma pequena vila.\n\
+nesta simples vila, você pode ver fadas caminhando para lá e para cá."
+const dir_n = $s_fadas002
+
+
+classe s_fadas002
+herda b_fadas
+const s_titulo = "caminhando pela vila das fadas"
+const dir_n = $s_fadas003
+const dir_s = $s_fadas001
+
+
+classe s_fadas003
+herda b_fadas
+const s_titulo = "se aprofundando na vila"
+const dir_n = $s_fadas004
+const dir_s = $s_fadas002
+
+
+classe s_fadas004
+herda b_fadas
+const s_titulo = "na estremidade da vila"
+const dir_n = $s_fadas021
+const dir_s = $s_fadas003
+
+
+classe s_fadas005
+herda b_fadas
+const s_titulo = "No longo corredor:"
+const dir_n = $s_fadas006
+const dir_s = $s_fadas007
+const dir_l = $s_fadas030
+const dir_o = $s_fadas008
+const fecha_sair = 1 # Fecha ao passar: Sim
+
+
+classe s_fadas006
+herda b_fadas
+const s_titulo = "um pequenino quarto"
+const dir_s = $s_fadas005
+
+
+classe s_fadas007
+herda b_fadas
+const s_titulo = "mais um pequenino quarto"
+const dir_n = $s_fadas005
+
+
+classe s_fadas008
+herda b_fadas
+const s_titulo = "ainda no longo corredor"
+const dir_n = $s_fadas009
+const dir_s = $s_fadas010
+const dir_l = $s_fadas005
+const dir_o = $s_fadas011
+const s_reset = "P 100 fadas008 760 760 23532 z_moedas=50000000"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_fadas008:objsolto.total < 23532
+    criar("p_fadas008", este, 760, "z_moedas=50000000")
+  fimse
+
+
+classe s_fadas009
+herda b_fadas
+const s_titulo = "o quarto da fada guerreira"
+const dir_s = $s_fadas008
+
+
+classe s_fadas010
+herda b_fadas
+const s_titulo = "o quarto da fada lutadora"
+const dir_n = $s_fadas008
+
+
+classe s_fadas011
+herda b_fadas
+const s_titulo = "no final do corredor, próximo a uma escadaria"
+const dir_l = $s_fadas008
+const dir_o = $s_fadas012
+
+
+classe s_fadas012
+herda b_fadas
+const s_titulo = "aos pés de uma escadaria"
+const dir_l = $s_fadas011
+const dir_c = $s_fadas013
+
+
+classe s_fadas013
+herda b_fadas
+const s_titulo = "em uma escadaria de cristal"
+const dir_c = $s_fadas014
+const dir_b = $s_fadas012
+
+
+classe s_fadas014
+herda b_fadas
+const s_titulo = "ainda na escadaria de cristal"
+const dir_l = $s_fadas015
+const dir_b = $s_fadas013
+
+
+classe s_fadas015
+herda b_fadas
+const s_titulo = "uma curva na escadaria"
+const dir_n = $s_fadas016
+const dir_o = $s_fadas014
+
+
+classe s_fadas016
+herda b_fadas
+const s_titulo = "se aproximando de mais um lance de escadas"
+const dir_s = $s_fadas015
+const dir_c = $s_fadas017
+
+
+classe s_fadas017
+herda b_fadas
+const s_titulo = "em uma escadaria de cristal"
+const dir_c = $s_fadas018
+const dir_b = $s_fadas016
+
+
+classe s_fadas018
+herda b_fadas
+const s_titulo = "no fim da escadaria"
+const dir_n = $s_fadas019
+const dir_b = $s_fadas017
+
+
+classe s_fadas019
+herda b_fadas
+const s_titulo = "próximo a moradia da rainha das fadas"
+const dir_n = $s_fadas020
+const dir_s = $s_fadas018
+
+
+classe s_fadas020
+herda b_fadas
+const s_titulo = "a moradia da rainha das fadas"
+const dir_s = $s_fadas019
+const a_reset = "P 100 fadas005 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_fadas005:objsolto.total < 1
+    criar("p_fadas005", este, 0)
+  fimse
+
+
+classe s_fadas021
+herda b_fadas
+const s_titulo = "No interior da vila:"
+const dir_n = $s_fadas022
+const dir_s = $s_fadas004
+
+
+classe s_fadas022
+herda b_fadas
+const s_titulo = "no centro da vila"
+const dir_n = $s_fadas081
+const dir_s = $s_fadas021
+const dir_l = $s_fadas034
+const dir_o = $s_fadas023
+
+
+classe s_fadas023
+herda b_fadas
+const s_titulo = "No início da rua das fadas brancas:"
+const dir_l = $s_fadas022
+const dir_o = $s_fadas024
+
+
+classe s_fadas024
+herda b_fadas
+const s_titulo = "A rua das fadas brancas:"
+const dir_l = $s_fadas023
+const dir_o = $s_fadas025
+
+
+classe s_fadas025
+herda b_fadas
+const s_titulo = "A rua das fadas brancas:"
+const dir_s = $s_fadas029
+const dir_l = $s_fadas024
+const dir_o = $s_fadas026
+
+
+classe s_fadas026
+herda b_fadas
+const s_titulo = "A rua das fadas brancas:"
+const dir_l = $s_fadas025
+const dir_o = $s_fadas027
+
+
+classe s_fadas027
+herda b_fadas
+const s_titulo = "A rua das fadas brancas:"
+const dir_l = $s_fadas026
+const dir_o = $s_fadas028
+
+
+classe s_fadas028
+herda b_fadas
+const s_titulo = "A rua das fadas brancas:"
+const dir_l = $s_fadas027
+
+
+classe s_fadas029
+herda b_fadas
+const s_titulo = "Em frente ao casarão branco:"
+const dir_n = $s_fadas025
+const dir_entrar = $s_fadas033
+
+
+classe s_fadas030
+herda b_fadas
+const s_titulo = "No início de um longo corredor:"
+const dir_s = $s_fadas031
+const dir_o = $s_fadas005
+
+
+classe s_fadas031
+herda b_fadas
+const s_titulo = "Em uma grande sala:"
+const dir_n = $s_fadas030
+const dir_l = $s_fadas032
+
+
+classe s_fadas032
+herda b_fadas
+const s_titulo = "Na varanda do casarão:"
+const dir_o = $s_fadas031
+const dir_b = $s_fadas033
+
+
+classe s_fadas033
+herda b_fadas
+const s_titulo = "Em um grande quintal de pedras brancas:"
+const dir_c = $s_fadas032
+const dir_sair = $s_fadas029
+
+
+classe s_fadas034
+herda b_fadas
+const s_titulo = "no inícil da rua das fadas asuis"
+const dir_l = $s_fadas035
+const dir_o = $s_fadas022
+
+
+classe s_fadas035
+herda b_fadas
+const s_titulo = "Na rua das fadas azuis:"
+const dir_l = $s_fadas036
+const dir_o = $s_fadas034
+
+
+classe s_fadas036
+herda b_fadas
+const s_titulo = "na rua das fadas asuis"
+const dir_n = $s_fadas040
+const dir_l = $s_fadas037
+const dir_o = $s_fadas035
+
+
+classe s_fadas037
+herda b_fadas
+const s_titulo = "na rua das fadas asuis"
+const dir_l = $s_fadas038
+const dir_o = $s_fadas036
+
+
+classe s_fadas038
+herda b_fadas
+const s_titulo = "na rua das fadas asuis"
+const dir_l = $s_fadas039
+const dir_o = $s_fadas037
+
+
+classe s_fadas039
+herda b_fadas
+const s_titulo = "Na rua das fadas azuis:"
+const dir_l = $s_fadas105
+const dir_o = $s_fadas038
+
+
+classe s_fadas040
+herda b_fadas
+const s_titulo = "em frente ao casarão asul"
+const dir_s = $s_fadas036
+const dir_entrar = $s_fadas041
+
+
+classe s_fadas041
+herda b_fadas
+const s_titulo = "um jardim florido"
+const dir_n = $s_fadas042
+const dir_l = $s_fadas074
+const dir_o = $s_fadas075
+const dir_c = $s_fadas078
+const dir_sair = $s_fadas040
+
+
+classe s_fadas042
+herda b_fadas
+const s_titulo = "em uma grande sala"
+const dir_n = $s_fadas043
+const dir_l = $s_fadas046
+const dir_b = $s_fadas080
+
+
+classe s_fadas043
+herda b_fadas
+const s_titulo = "em uma pequena cozinha"
+const dir_n = $s_fadas044
+const dir_s = $s_fadas042
+const dir_l = $s_fadas063
+const dir_o = $s_fadas062
+
+
+classe s_fadas044
+herda b_fadas
+const s_titulo = "uma varanda"
+const dir_s = $s_fadas043
+const dir_b = $s_fadas045
+
+
+classe s_fadas045
+herda b_fadas
+const s_titulo = "o quintal do casarão asul"
+const dir_l = $s_fadas069
+const dir_o = $s_fadas064
+const dir_c = $s_fadas044
+
+
+classe s_fadas046
+herda b_fadas
+const s_titulo = "Em frente a escadaria do segundo andar do casarão:"
+const dir_o = $s_fadas042
+const dir_c = $s_fadas047
+
+
+classe s_fadas047
+herda b_fadas
+const s_titulo = "Em uma escada de pedras azuis:"
+const dir_c = $s_fadas048
+const dir_b = $s_fadas046
+
+
+classe s_fadas048
+herda b_fadas
+const s_titulo = "em uma escada de pedras asuis"
+const dir_b = $s_fadas047
+const dir_no = $s_fadas049
+
+
+classe s_fadas049
+herda b_fadas
+const s_titulo = "No meio da escadaria:"
+const dir_c = $s_fadas050
+const dir_se = $s_fadas048
+
+
+classe s_fadas050
+herda b_fadas
+const s_titulo = "próximo ao segundo andar"
+const dir_c = $s_fadas051
+const dir_b = $s_fadas049
+
+
+classe s_fadas051
+herda b_fadas
+const s_titulo = "Em uma escada de pedras azuis:"
+const dir_c = $s_fadas052
+const dir_b = $s_fadas050
+
+
+classe s_fadas052
+herda b_fadas
+const s_titulo = "No segundo andar do casarão:"
+const dir_n = $s_fadas053
+const dir_b = $s_fadas051
+
+
+classe s_fadas053
+herda b_fadas
+const s_titulo = "um extenso corredor de cristais azuis"
+const dir_n = $s_fadas054
+const dir_s = $s_fadas052
+const dir_l = $s_fadas056
+const dir_o = $s_fadas057
+
+
+classe s_fadas054
+herda b_fadas
+const s_titulo = "um extenso corredor de cristais asuis"
+const dir_n = $s_fadas055
+const dir_s = $s_fadas053
+
+
+classe s_fadas055
+herda b_fadas
+const s_titulo = "um extenso corredor de cristais asuis"
+const dir_n = $s_fadas058
+const dir_s = $s_fadas054
+const dir_l = $s_fadas060
+const dir_o = $s_fadas061
+
+
+classe s_fadas056
+herda b_fadas
+const s_titulo = "O quarto da fada bebê:"
+const dir_o = $s_fadas053
+
+
+classe s_fadas057
+herda b_fadas
+const s_titulo = "Outro quarto:"
+const dir_l = $s_fadas053
+
+
+classe s_fadas058
+herda b_fadas
+const s_titulo = "No final do corredor, em frente a sala da rainha das fadas:"
+const dir_n = $s_fadas059
+const dir_s = $s_fadas055
+
+
+classe s_fadas059
+herda b_fadas
+const s_titulo = "A sala real:"
+const dir_s = $s_fadas058
+const s_reset = "P 100 fadas001 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_fadas001:objsolto.total < 1
+    criar("p_fadas001", este, 0)
+  fimse
+
+
+classe s_fadas060
+herda b_fadas
+const s_titulo = "um quarto"
+const dir_o = $s_fadas055
+
+
+classe s_fadas061
+herda b_fadas
+const s_titulo = "um outro quarto"
+const dir_l = $s_fadas055
+
+
+classe s_fadas062
+herda b_fadas
+const s_titulo = "Um largo banheiro:"
+const dir_l = $s_fadas043
+
+
+classe s_fadas063
+herda b_fadas
+const s_titulo = "Na dispensa do casarão:"
+const dir_o = $s_fadas043
+
+
+classe s_fadas064
+herda b_fadas
+const s_titulo = "No quintal:"
+const dir_l = $s_fadas045
+const dir_o = $s_fadas065
+
+
+classe s_fadas065
+herda b_fadas
+const s_titulo = "No quintal:"
+const dir_s = $s_fadas066
+const dir_l = $s_fadas064
+
+
+classe s_fadas066
+herda b_fadas
+const s_titulo = "No quintal, ao lado do casarão:"
+const dir_n = $s_fadas065
+const dir_s = $s_fadas067
+
+
+classe s_fadas067
+herda b_fadas
+const s_titulo = "No quintal, ao lado do casarão:"
+const dir_n = $s_fadas066
+const dir_s = $s_fadas068
+
+
+classe s_fadas068
+herda b_fadas
+const s_titulo = "No quintal, ao lado do casarão:"
+const dir_n = $s_fadas067
+const dir_s = $s_fadas076
+
+
+classe s_fadas069
+herda b_fadas
+const s_titulo = "No quintal:"
+const dir_l = $s_fadas070
+const dir_o = $s_fadas045
+
+
+classe s_fadas070
+herda b_fadas
+const s_titulo = "No quintal:"
+const dir_s = $s_fadas071
+const dir_o = $s_fadas069
+
+
+classe s_fadas071
+herda b_fadas
+const s_titulo = "No quintal, ao lado do casarão:"
+const dir_n = $s_fadas070
+const dir_s = $s_fadas072
+
+
+classe s_fadas072
+herda b_fadas
+const s_titulo = "No quintal, ao lado do casarão:"
+const dir_n = $s_fadas071
+const dir_s = $s_fadas073
+
+
+classe s_fadas073
+herda b_fadas
+const s_titulo = "No quintal, ao lado do casarão:"
+const dir_n = $s_fadas072
+const dir_s = $s_fadas077
+
+
+classe s_fadas074
+herda b_fadas
+const s_titulo = "No jardim:"
+const dir_l = $s_fadas077
+const dir_o = $s_fadas041
+
+
+classe s_fadas075
+herda b_fadas
+const s_titulo = "No jardim:"
+const dir_l = $s_fadas041
+const dir_o = $s_fadas076
+
+
+classe s_fadas076
+herda b_fadas
+const s_titulo = "No jardim:"
+const dir_l = $s_fadas075
+const dir_n = $s_fadas068
+
+
+classe s_fadas077
+herda b_fadas
+const s_titulo = "No jardim:"
+const dir_o = $s_fadas074
+const dir_n = $s_fadas073
+
+
+classe s_fadas078
+herda b_fadas
+const s_titulo = "Em um pequeno corredor:"
+const dir_l = $s_fadas079
+const dir_b = $s_fadas041
+
+
+classe s_fadas079
+herda b_fadas
+const s_titulo = "Em um pequeno corredor:"
+const dir_l = $s_fadas080
+const dir_o = $s_fadas078
+
+
+classe s_fadas080
+herda b_fadas
+const s_titulo = "No final do corredor, em frente a porta da sala:"
+const dir_o = $s_fadas079
+const dir_c = $s_fadas042
+
+
+classe s_fadas081
+herda b_fadas
+const s_titulo = "Continuando a caminhar pela vila:"
+const dir_n = $s_fadas082
+const dir_s = $s_fadas022
+
+
+classe s_fadas082
+herda b_fadas
+const s_titulo = "Na vila das fadas:"
+const dir_n = $s_fadas083
+const dir_s = $s_fadas081
+
+
+classe s_fadas083
+herda b_fadas
+const s_titulo = "Na vila das fadas:"
+const dir_n = $s_fadas084
+const dir_s = $s_fadas082
+
+
+classe s_fadas084
+herda b_fadas
+const s_titulo = "Na vila das fadas:"
+const dir_n = $s_fadas085
+const dir_s = $s_fadas083
+
+
+classe s_fadas085
+herda b_fadas
+const s_titulo = "Na vila das fadas:"
+const dir_s = $s_fadas084
+const dir_l = $s_fadas098
+const dir_no = $s_fadas086
+
+
+classe s_fadas086
+herda b_fadas
+const s_titulo = "Em uma pequena rua no vilarejo:"
+const dir_no = $s_fadas087
+const dir_se = $s_fadas085
+
+
+classe s_fadas087
+herda b_fadas
+const s_titulo = "Em uma pequena rua no vilarejo:"
+const dir_no = $s_fadas088
+const dir_se = $s_fadas086
+
+
+classe s_fadas088
+herda b_fadas
+const s_titulo = "Em uma pequena rua no vilarejo:"
+const dir_no = $s_fadas089
+const dir_se = $s_fadas087
+
+
+classe s_fadas089
+herda b_fadas
+const s_titulo = "Próximo a escola de magia das fadas:"
+const dir_n = $s_fadas090
+const dir_se = $s_fadas088
+
+
+classe s_fadas090
+herda b_fadas
+const s_titulo = "A caminho da escola de magias:"
+const dir_n = $s_fadas091
+const dir_s = $s_fadas089
+
+
+classe s_fadas091
+herda b_fadas
+const s_titulo = "A caminho da escola de magias:"
+const dir_n = $s_fadas092
+const dir_s = $s_fadas090
+
+
+classe s_fadas092
+herda b_fadas
+const s_titulo = "A caminho da escola de magias:"
+const dir_s = $s_fadas091
+const dir_l = $s_fadas093
+
+
+classe s_fadas093
+herda b_fadas
+const s_titulo = "Nos portões da escola:"
+const dir_l = $s_fadas120
+const dir_o = $s_fadas092
+const dir_entrar = $s_fadas094
+
+
+classe s_fadas094
+herda b_fadas
+const s_titulo = "Na recepção da escola:"
+const dir_s = $s_fadas097
+const dir_l = $s_fadas095
+const dir_sair = $s_fadas093
+
+
+classe s_fadas095
+herda b_fadas
+const s_titulo = "Na diretoria:"
+const dir_o = $s_fadas094
+
+
+classe s_fadas096
+herda b_fadas
+const s_titulo = "Uma pequena sala de aula:"
+const dir_l = $s_fadas097
+
+
+classe s_fadas097
+herda b_fadas
+const s_titulo = "Num pequeno corredor de salas:"
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const dir_n = $s_fadas094
+const dir_o = $s_fadas096
+
+
+classe s_fadas098
+herda b_fadas
+const s_titulo = "Nas ruas do vilarejo:"
+const dir_l = $s_fadas099
+const dir_o = $s_fadas085
+
+
+classe s_fadas099
+herda b_fadas
+const s_titulo = "Nas ruas do vilarejo:"
+const dir_l = $s_fadas100
+const dir_o = $s_fadas098
+
+
+classe s_fadas100
+herda b_fadas
+const s_titulo = "Nas ruas do vilarejo:"
+const dir_l = $s_fadas101
+const dir_o = $s_fadas099
+
+
+classe s_fadas101
+herda b_fadas
+const s_titulo = "Nas ruas do vilarejo:"
+const dir_n = $s_fadas103
+const dir_l = $s_fadas102
+const dir_o = $s_fadas100
+
+
+classe s_fadas102
+herda b_fadas
+const s_titulo = "Nas ruas do vilarejo:"
+const dir_l = $s_fadas104
+const dir_o = $s_fadas101
+
+
+classe s_fadas103
+herda b_fadas
+const s_titulo = "Em uma loja de produtos para magias:"
+const dir_s = $s_fadas101
+
+
+classe s_fadas104
+herda b_fadas
+const s_titulo = "Em uma esquina na vila:"
+const dir_o = $s_fadas102
+const dir_s = $s_fadas115
+
+
+classe s_fadas105
+herda b_fadas
+const s_titulo = "EM uma esquina na vila:"
+const dir_n = $s_fadas106
+const dir_o = $s_fadas039
+
+
+classe s_fadas106
+herda b_fadas
+const s_titulo = "Nas ruas da vila:"
+const dir_n = $s_fadas107
+const dir_s = $s_fadas105
+
+
+classe s_fadas107
+herda b_fadas
+const s_titulo = "Nas ruas da vila:"
+const dir_n = $s_fadas108
+const dir_s = $s_fadas106
+
+
+classe s_fadas108
+herda b_fadas
+const s_titulo = "Nas ruas da vila:"
+const dir_n = $s_fadas109
+const dir_s = $s_fadas107
+
+
+classe s_fadas109
+herda b_fadas
+const s_titulo = "Nas ruas da vila:"
+const dir_n = $s_fadas110
+const dir_s = $s_fadas108
+
+
+classe s_fadas110
+herda b_fadas
+const s_titulo = "Em uma encruzilhada:"
+const dir_n = $s_fadas112
+const dir_s = $s_fadas109
+const dir_o = $s_fadas111
+
+
+classe s_fadas111
+herda b_fadas
+const s_titulo = "Em uma rua estreita na vila:"
+const dir_l = $s_fadas110
+const dir_o = $s_fadas116
+
+
+classe s_fadas112
+herda b_fadas
+const s_titulo = "Nas ruas da vila:"
+const dir_n = $s_fadas113
+const dir_s = $s_fadas110
+
+
+classe s_fadas113
+herda b_fadas
+const s_titulo = "Nas ruas da vila:"
+const dir_n = $s_fadas114
+const dir_s = $s_fadas112
+
+
+classe s_fadas114
+herda b_fadas
+const s_titulo = "Nas ruas da vila:"
+const dir_n = $s_fadas115
+const dir_s = $s_fadas113
+
+
+classe s_fadas115
+herda b_fadas
+const s_titulo = "Nas ruas da vila:"
+const dir_n = $s_fadas104
+const dir_s = $s_fadas114
+
+
+classe s_fadas116
+herda b_fadas
+const s_titulo = "Em uma rua estreita na vila:"
+const dir_l = $s_fadas111
+const dir_o = $s_fadas117
+
+
+classe s_fadas117
+herda b_fadas
+const s_titulo = "Em uma rua estreita na vila:"
+const dir_n = $s_fadas118
+const dir_l = $s_fadas116
+
+
+classe s_fadas118
+herda b_fadas
+const s_titulo = "Em uma curva na rua:"
+const dir_s = $s_fadas117
+const dir_o = $s_fadas119
+
+
+classe s_fadas119
+herda b_fadas
+const s_titulo = "Em uma rua estreita na vila:"
+const dir_l = $s_fadas118
+const dir_o = $s_fadas120
+
+
+classe s_fadas120
+herda b_fadas
+const s_titulo = "EM uma rua estreita na vila:"
+const dir_l = $s_fadas119
+const dir_o = $s_fadas093

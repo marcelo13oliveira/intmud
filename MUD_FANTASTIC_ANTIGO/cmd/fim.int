@@ -1,0 +1,29 @@
+classe cmd_fim
+herda comando_comum
+const txtajuda = "\b\c3Fim\b\n\
+Sintaxe: FIM\n\
+Sai do jogo, retirando também o seu personagem. Você pode usar esse\n\
+comando a qualquer momento, exceto se estiver lutando. E quando entrar\n\
+novamente no jogo, voltará aonde estava.\n\
+Simplesmente sair do jogo sem teclar FIM pode deixar seu personagem\n\
+\"pendurado\" no jogo por alguns minutos, à mercê de qualquer perigo.\n\
+Mas isso não significa que ele está totalmente indefeso. Se atacado,\n\
+lutará como qualquer personagem não jogador."
+const posic = 0
+
+func escr
+  se arg0.atkenv && arg0.senha
+    arg0.msg("Você está ocupad" + (arg0.msexo ? "o" : "a") + " demais para isso.")
+  senao arg0.jog
+    arg0.msg("\d=parafundo Até mais! Nós da equipe killerMUD esperamos Sempre  você, e estamos \
+adisposição")
+    apagar(arg0)
+  senao
+    indiceitem ind
+    refvar obj = ind.obj("pn " + txt2(arg0.sock.cnome))
+    obj ? arg0.sock.mudaperso(obj) : arg0.sock.reinicia
+  fimse
+
+
+classe cmd_quit
+herda cmd_fim

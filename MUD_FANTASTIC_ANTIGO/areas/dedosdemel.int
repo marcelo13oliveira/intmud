@@ -1,0 +1,195 @@
+classe a_dedosdemel
+herda area
+
+
+classe b_dedosdemel
+herda sala
+const s_area = "dedosdemel"
+
+
+classe i_dedosdemel001
+herda comum_itemperso
+const nome = "pacote"
+const descnome = "um pacote de feijõezinhos de todos os sabores"
+const valor = 3000
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+sav uint8 feijoes
+#
+
+func cmd_ini
+  feijoes = 20
+#
+
+func descver
+  ret !feijoes, "Está vazio."
+  ret feijoes == 1, "Contém um feijãozinho."
+  ret "contém " + feijoes + " feijõezinhos."
+#
+
+func cmd_escr
+  se arg1 == "pegar feijão pacote"
+    feijoes -= 1
+    !feijoes && apagar(este)
+    refvar r = criar("i_dedosdemel012", arg0, 1)
+    $mens.p(arg0)
+    se !feijoes
+      $mens.mvis1("$P pega o último feijãozinho do pacote.")
+    senao
+      $mens.mvis1("$P pega um feijãozinho do pacote.")
+    fimse
+    ret 1
+  fimse
+
+
+classe i_dedosdemel002
+herda comum_itemgrupo
+const nome = "sapo de chocolate"
+const descnome = "um sapo de chocolate"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const f_diges = 60
+const valor = 50
+
+
+classe i_dedosdemel003
+herda comum_itemgrupo
+const nome = "bolo de caldeirão"
+const descnome = "um bolo de caldeirão"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const f_diges = 60
+const valor = 70
+
+
+classe i_dedosdemel004
+herda comum_itemgrupo
+const nome = "tortinha de abóbora"
+const descnome = "uma tortinha de abóbora"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const f_diges = 120
+const valor = 100
+
+
+classe i_dedosdemel005
+herda comum_itemgrupo
+const nome = "varinha de alcaçus"
+const descnome = "uma varinha de alcaçuz"
+const armatipo = 1 # Tipo de arma: 1 varinha
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const f_diges = 120
+const valor = 80
+const eveste = 1
+#
+
+func cmd_comeu
+  $mens.p(arg0)
+  rand(3) == 0 && $mens.mvis1("$P  sente algo lhe estrangulando e $P começa a gritar desesperadam\
+ente por socorro, ao sentir que a morte parece está chegando!")
+  $mens.mvis1("$P começa a contorcer-se em dores, como se algo lhe tivesse estrangulando todo \
+seu corpo. Por um tempo $P fica sem voz, fazendo uma força imensa para gritar, mas nenhum som \
+sai de sua boca.")
+
+
+classe i_dedosdemel006
+herda comum_itemgrupo
+const nome = "chicle de bola"
+const descnome = "um chicle de bola"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const f_diges = 60
+const valor = 60
+
+
+classe i_dedosdemel007
+herda comum_itemgrupo
+const nome = "suco de abóbora"
+const descnome = "um suco de abóbora gelado"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_sede = 60
+const f_diges = 120
+const f_msgperso = "$p delicia-se ao beber um  suco de abóbora geladinho em grandes goladas!"
+const valor = 100
+
+
+classe i_dedosdemel008
+herda comum_itemgrupo
+const nome = "caramelo cor de mel"
+const descnome = "um caramelo cor de mel"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 30
+const f_sede = 30
+const f_diges = 60
+const f_msgperso = "$P se lambusa ao saborear um doce e delicioso caramelo cor de mel!"
+const valor = 200
+
+
+classe i_dedosdemel009
+herda comum_itemgrupo
+const nome = "sorvete de coco cor de rosa"
+const descnome = "um sorvete de coco cor de rosa"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_sede = 30
+const f_diges = 60
+const f_msgperso = "$P delicia-se ao tomar um delicioso sorvete de coco cor de rosa, deliciando-s\
+e a cada lambida!"
+const valor = 500
+
+
+classe i_dedosdemel010
+herda comum_itemgrupo
+const nome = "cacho de barata"
+const descnome = "um cacho de baratas"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const f_diges = 60
+const f_msgperso = "$P come uma a uma as baratas do cacho!"
+const valor = 300
+
+
+classe i_dedosdemel011
+herda comum_itemgrupo
+const nome = "cacho de barata"
+const descnome = "um cacho de barata"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const f_sede = 10
+const f_diges = 120
+const f_msgperso = "$P come uma a uma as baratas do cacho com prazer!"
+const valor = 100
+
+
+classe i_dedosdemel012
+herda comum_itemgrupo
+const nome = "feijãozinho sabor de " + var.z_feijao
+const descnome = "um feijãozinho sabor " + var.z_feijao
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 40
+const f_diges = 60
+const sabores = "vômito\n\
+morango\n\
+chocolate\n\
+cera de ouvido\n\
+terra\n\
+grama\n\
+ovo podre\n\
+fígado podre\n\
+pimenta\n\
+tutti frutti\n\
+hortelã\n\
+marmelada\n\
+abacaxi\n\
+melancia\n\
+sujeira\npapel"
+#
+#
+
+func cmd_ini
+  var.z_feijao = txtsublin(sabores, rand(intsublin(sabores)), 1)

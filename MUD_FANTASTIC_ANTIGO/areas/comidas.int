@@ -1,0 +1,810 @@
+classe a_comidas
+herda area
+
+
+classe b_comidas
+herda sala
+const s_area = "comidas"
+
+
+classe i_comidas001
+herda comum_itemgrupo
+const nome = "batatas fritas"
+const descnome = "um prato de batatinhas fritas"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const f_sede = 30
+const f_diges = 120
+const f_msgperso = "$P saboreia com prazer algumas crocantes batatas fritas!"
+const valor = 150
+
+
+classe i_comidas002
+herda comum_itemgrupo
+const nome = "feijoada"
+const descnome = "um prato de feijoada"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 30
+const f_sede = 100
+const f_diges = 30
+const f_msgperso = "$P se delicia ao comer uma saborosa feijoada!"
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 150
+
+
+classe i_comidas003
+herda comum_itemperso
+const nome = "pacote de pipoca"
+const descnome = "um pacote de pipocas"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const valor = 120
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_ini
+  criar("i_comidas008", este, 30)
+  ret 1
+
+func cmd_pegouobj
+  se !dentro1.total("i_comidas008") && arg4 == arg1
+    $mens.p(arg0)
+    $mens.mtodos1("$P Pega a última pipoca do pacote, e o descarta em seguida.")
+    apagar(este)
+  fimse
+
+
+classe i_comidas004
+herda comum_itemgrupo
+const nome = "pizza calabresa"
+const descnome = "uma pizza de calabresa"
+const descpos = "Uma deliciosa pizza de calabrezza está aqui, dando mole para você."
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 120
+const f_msgperso = "$P saboreia uma deliciosa pizza de calabresa com muito prazer!"
+const valor = 4350
+
+
+classe i_comidas005
+herda comum_item
+const nome = "um enorme bolo confeitado"
+const descnome = "um enorme bolo confeitado, com vários doces"
+const descver = "Um bolo extremamente lindo, que agrada aos olhos de todos que o veem. Na parte \
+de cima do bolo, coberto por morango, há um desenho de um lindo coração, com os nomes persy and \
+anabete, love for ever!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "Não toque no bolo com as mãos! Isso é falta de higiene!"
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+
+classe i_comidas006
+herda comum_item
+const nome = "fatia de bolo"
+const ident = "fatia bolo casamento"
+const descnome = "uma fatia de um delicioso bolo de casamento"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_sede = 60
+const f_msgperso = "$P delicia-se ao comer uma fatia de um saboroso bolo de casamento!"
+
+
+classe i_comidas007
+herda comum_itemgrupo
+const nome = "brigadeiro"
+const ident = "brigadeiro"
+const descnome = "um doce brigadeiro de festa"
+const descpos = "7"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const f_diges = 120
+const f_msgperso = "$P saboreia um doce brigadeiro de festas, dando um largo sorriso de satisfaçã\
+o!"
+
+
+classe i_comidas008
+herda comum_itemgrupo
+const nome = "Pipoca"
+const ident = "pi pipoca pipocas"
+const descnome = "Uma pipoca"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 40
+const f_sede = 10
+const f_diges = 75
+const f_msgperso = "$P come uma pipoca do pacote"
+
+
+classe i_comidas009
+herda comum_itemgrupo
+const nome = "cochinha"
+const descnome = "uma cochinha"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 70
+const f_diges = 80
+const f_msgperso = "$p come uma deliciosa cochinha sujando a boca com catupiri!"
+const tipoitem = 8192 # Tipo de item: 13-Comida
+const valor = 50
+
+
+classe i_comidas010
+herda comum_itemgrupo
+
+
+classe i_comidas011
+herda comum_itemperso
+#
+const nome = "caixa de chocolate"
+const descnome = "uma caixa de chocolate"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const valor = 6000
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+sav uint16 chocolates
+#
+
+func cmd_ini
+  criar("i_comidas012", este, 4)
+  criar("i_comidas012", este, 4)
+  criar("i_comidas012", este, 4)
+  criar("i_comidas012", este, 4)
+  criar("i_comidas012", este, 4)
+  criar("i_comidas012", este, 4)
+  criar("i_comidas012", este, 4)
+  criar("i_comidas012", este, 4)
+#
+#
+#
+
+func cmd_pegarobj
+  se arg1 == este && dentro1.total(arg2) == 0
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos1("Por não ter mais utilidade, $P descarta a caixa no lixo.")
+    apagar(este)
+    ret 1
+  fimse
+
+
+classe i_comidas012
+herda comum_itemgrupo
+const nome = var.z_nome ? var.z_nome : "chocolate"
+const descnome = var.z_nome ? "um " + var.z_nome : "um chocolate"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_sede = 30
+const f_diges = 120
+const f_msgoutros = f_msgperso
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 500
+const valor = 100
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const chocolates = "sonho de valsa\n\
+diamante negro\n\
+baton\n\
+ouro branco\n\
+bis\n\
+prestígio\n\
+choquito"
+#
+
+func cmd_ini
+  var.z_nome = txtsublin(chocolates, rand(intsublin(chocolates)), 1)
+#
+#
+
+func f_msgperso
+  ret "$P delicia-se ao comer um saboroso chocolate " + var.z_nome + ", lambendo os lábios em \
+seguida."
+
+
+classe i_comidas013
+herda comum_itemgrupo
+const nome = "pacote de pães"
+const ident = "pacote pães"
+const descnome = "um pacote de pães"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 0 # Mantém na sala: Não
+const valor = 3000
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+sav uint16 pães
+#
+
+func cmd_ini
+  pães = 20
+#
+#
+
+func descver
+  se !pães
+    ret "Está vazio."
+  senao pães == 1
+    ret "Contém um pão."
+  senao pães == 2
+    ret "Contém dois pães."
+  senao
+    ret "Contém " + pães + " pães."
+  fimse
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "pegar pão pacote"
+    ret !pães, arg0.msg("A caixa está vazia.")
+    pães -= 1
+    refvar i = criar("i_comidas014", arg0, 1)
+    $mens.p(arg0, nulo, i)
+    $mens.mvis1("$P pega $o do pacote.")
+    ret 1
+  fimse
+
+
+classe i_comidas014
+herda comum_item
+const nome = "pão de forma"
+const descnome = "um pão de forma"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 30
+const f_diges = 60
+const f_msgperso = "$P Come rapidamente um pão de forma."
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "colocar queijo pão"
+    ret !arg0.dentro1.objini("i_comidas019"), arg0.msg("Falta o queijo.")
+    $mens.p(arg0)
+    $mens.mvis1("$P coloca o queijo no pão")
+    criar("i_comidas021", arg0, 1)
+    apagar(arg0.dentro1.objini("i_comidas019"))
+    apagar(arg0.dentro1.objini("i_comidas014"))
+    ret 1
+  senao arg1 == "colocar presunto pão"
+    ret !arg0.dentro1.objini("i_comidas020"), arg0.msg("Falta o presunto.")
+    $mens.p(arg0)
+    $mens.mvis1("$P coloca o presunto no pão")
+    criar("i_comidas022", arg0, 1)
+    apagar(arg0.dentro1.objini("i_comidas020"))
+    apagar(arg0.dentro1.objini("i_comidas014"))
+    ret 1
+  fimse
+
+
+classe i_comidas015
+herda comum_itemgrupo
+const nome = "saco de amendoim"
+const ident = "saco"
+const descnome = "um saco de amendoim"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const valor = 3000
+const evperso = 1 # Eventos dono perso: Sim
+sav uint16 amendoim
+#
+
+func cmd_ini
+  amendoim = 30
+#
+#
+
+func descver
+  se !amendoim
+    ret "Está vazio."
+  senao amendoim == 1
+    ret "Contém uma unidade."
+  senao amendoim == 2
+    ret "Contém duas unidades."
+  senao
+    ret "Contém " + amendoim + " unidades."
+  fimse
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "pegar amendoim saco"
+    ret !amendoim, arg0.msg("o saco está vazio.")
+    amendoim -= 1
+    refvar i = criar("i_comidas016", arg0, 1)
+    $mens.p(arg0, nulo, i)
+    se !amendoim
+      $mens.mvis1("$P pega o último amendoim do saco e descarta a embalagem no lixo.")
+    senao
+      $mens.mvis1("$P pega $o do saco.")
+    fimse
+    ret 1
+  casofim
+
+
+classe i_comidas016
+herda comum_itemgrupo
+const nome = "amendoim"
+const descnome = "um amendoim"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 30
+const f_diges = 60
+const f_msgperso = "$P come um amendoim crocante."
+const valor = 10
+
+
+classe i_comidas017
+herda comum_itemperso
+const nome = "pacote de biscoitos"
+const ident = "pacote biscoitos"
+const descnome = "um pacote de biscoitos"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const valor = 2500
+const evperso = 1 # Eventos dono perso: Sim
+sav uint16 biscoitos
+#
+
+func cmd_ini
+  criar("i_comidas018", este, 25)
+#
+#
+
+func cmd_pegouobj
+  se arg1 == este && !dentro1.total("i_comidas018")
+    $mens.p(arg0)
+    $mens.mtodos1("$P solta o pacote de biscoitos, que sai voando.")
+    apagar(este)
+  fimse
+
+
+classe i_comidas018
+herda comum_itemgrupo
+const nome = "biscoito recheado"
+const descnome = "um biscoito recheado"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 0
+const f_sede = 30
+const f_diges = 60
+const f_msgperso = "$P delicia-se ao sabor de um crocante biscoito recheado."
+
+
+classe i_comidas019
+herda comum_item
+const nome = "fatia de queijo"
+const ident = "fatia queijo muçarela"
+const descnome = "uma fatia de queijo muçarela"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 30
+const f_msgperso = "$P saboreia uma deliciosa fatia de um queijo muçarela com muito prazer."
+const valor = 250
+
+
+classe i_comidas020
+herda comum_item
+const nome = "fatia de presunto"
+const ident = "fatia presunto"
+const descnome = "uma fatia de presunto"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 30
+const f_diges = 60
+const f_msgperso = "$P devora rapidamente uma deliciosa fatia de presunto, fazendo cara de quero \
+mais!"
+const valor = 210
+
+
+classe i_comidas021
+herda comum_item
+const nome = "pão com queijo"
+const descnome = "uma fatia de pão com queijo"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const f_diges = 60
+const f_msgperso = "$P praserosamente devora um delicioso pão com queijo."
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "juntar fatias"
+    ret !arg0.dentro1.objini("i_comidas022"), arg0.msg("Falta a fatia com presunto.")
+    criar("i_comidas023", arg0, 1)
+    apagar(arg0.dentro1.objini("i_comidas021"))
+    apagar(arg0.dentro1.objini("i_comidas022"))
+    $mens.p(arg0)
+    $mens.mvis1("$P junta as fatias dos pães.")
+    ret 1
+  fimse
+
+
+classe i_comidas022
+herda comum_item
+const nome = "pão com presunto"
+const ident = "pão presunto"
+const descnome = "uma fatia de pão com presunto"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const f_diges = 60
+const f_msgperso = "$P saboreia praserosamente um delicioso pão com presunto"
+const evperso = 1 # Eventos dono perso: Sim
+
+
+classe i_comidas023
+herda comum_item
+const nome = "pão com queijo e presunto"
+const descnome = "um pão com queijo e presunto"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const f_diges = 60
+const f_msgperso = "$P devora com prazer um delicioso pão com queijo e presunto."
+const valor = 600
+
+
+classe i_comidas024
+herda comum_item
+const nome = "sanduiche de queijo"
+const descnome = "um sanduiche de queijo"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const f_diges = 60
+const valor = 750
+
+
+classe i_comidas025
+herda comum_item
+const nome = "sanduiche de presunto"
+const descnome = "um sanduiche de presunto"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const f_diges = 60
+const valor = 700
+
+
+classe i_comidas026
+herda comum_item
+const nome = "sanduiche de queijo e presunto"
+const descnome = "um sanduiche de queijo e presunto"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const f_diges = 60
+const f_msgperso = "$P devora com satisfação um delicioso sanduiche de queijo em presunto em \
+várias bocadas!"
+const valor = 800
+
+
+classe i_comidas027
+herda comum_item
+const nome = "bandeja de queijo"
+const descnome = "uma bandeja de queijo"
+const valor = 5000
+const evperso = 1 # Eventos dono perso: Sim
+sav uint16 queijos
+#
+
+func cmd_ini
+  queijos = 15
+#
+#
+
+func descver
+  se !queijos
+    ret "Está vazia."
+  senao queijos == 1
+    ret "Contém um pão."
+  senao queijos == 2
+    ret "Contém dois queijos."
+  senao
+    ret "Contém " + queijos + " queijos."
+  fimse
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "pegar queijo bandeja"
+    ret !queijos, arg0.msg("A caixa está vazia.")
+    queijos -= 1
+    refvar i = criar("i_comidas019", arg0, 1)
+    $mens.p(arg0, nulo, i)
+    $mens.mvis1("$P pega $o da bandeja.")
+    se !queijos
+      arg0.msg("A bandeja agora está vazia e você a descarta.")
+      apagar(este)
+    fimse
+    ret 1
+  fimse
+
+
+classe i_comidas028
+herda comum_item
+const nome = "bandeja de presunto"
+const descnome = "uma bandeja de presunto"
+const valor = 4800
+const evperso = 1 # Eventos dono perso: Sim
+sav uint16 presuntos
+#
+
+func cmd_ini
+  presuntos = 15
+#
+#
+
+func descver
+  se !presuntos
+    ret "Está vazia."
+  senao presuntos == 1
+    ret "Contém um pão."
+  senao presuntos == 2
+    ret "Contém dois presuntos."
+  senao
+    ret "Contém " + presuntos + " presuntos."
+  fimse
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "pegar presunto bandeja"
+    ret !presuntos, arg0.msg("A caixa está vazia.")
+    presuntos -= 1
+    refvar i = criar("i_comidas020", arg0, 1)
+    $mens.p(arg0, nulo, i)
+    $mens.mvis1("$P pega $o da bandeja.")
+    se !presuntos
+      arg0.msg("A bandeja agora está vaia e você a descarta.")
+      apagar(este)
+    fimse
+    ret 1
+  fimse
+
+
+classe i_comidas029
+herda comum_item
+
+
+classe i_comidas030
+herda comum_itemgrupo
+const nome = "um copo de musse de chocolate"
+const ident = "pegar musse"
+const descnome = "um copo de musse de chocolate"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_fome = 50
+const f_diges = 100
+const f_msgperso = "$p aprecia lentamente um delicioso musse de chocolate"
+const pesoobj = 100
+const tipoitem = 1024 # Tipo de item: 10-Poção
+const valor = 100
+
+
+classe i_comidas031
+herda comum_itemgrupo
+const nome = "copo de musse de maracujá"
+const descnome = "um grande copo de musse de maracujá"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_fome = 40
+const f_sede = 60
+const f_diges = 50
+const f_msgperso = "$p saboreia com muita vontade um delicioso musse de maracujá!"
+const tipoitem = 1024 # Tipo de item: 10-Poção
+const valor = 100
+
+
+classe i_comidas032
+herda comum_item
+
+
+classe i_comidas033
+herda comum_itemgrupo
+const nome = "espetinho"
+const descnome = "um delicioso espetinho de linguiça"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const f_diges = 50
+const f_msgperso = "$p retira a lingüiça do espeto e devora em várias dentadas!"
+const tipoitem = 8192 # Tipo de item: 13-Comida
+
+
+classe i_comidas034
+herda comum_itemgrupo
+const nome = "queijo provolone"
+const ident = "porção queijo provolone"
+const descnome = "uma porção de queijo provolone"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 40
+const f_sede = 10
+const f_diges = 250
+const f_msgperso = "$P saboreia uma deliciosa porção de queijo provolone, tirando-$s do ar por \
+alguns segundos."
+const f_msgoutros = "10"
+const valor = 500
+
+
+classe i_comidas035
+herda comum_itemgrupo
+const nome = "queijo mineiro"
+const descnome = "uma porção de queijo mineiro"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 40
+const f_diges = 250
+const f_msgperso = "$P saboreia prazerosamente uma porção de queijo mineiro, dando um largo \
+sorriso de satisfação, uai!"
+const valor = 500
+
+
+classe i_comidas036
+herda comum_itemgrupo
+const nome = "queijo prata"
+const descnome = "uma porção de queijo prata"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const f_sede = 30
+const f_diges = 240
+const f_msgperso = "$P saboreia prazerosamente uma porção inteira de um delicioso queijo \
+prata!"
+const valor = 700
+
+
+classe i_comidas037
+herda comum_itemgrupo
+
+
+classe i_comidas038
+herda comum_itemgrupo
+const nome = "bolinha de queijo"
+const ident = "bolinha queijo"
+const descnome = "uma bolinha de queijo"
+const msexo = 0 # Sexo Msg: 0 Feminino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 24
+const f_msgperso = "$P devora rapidamente uma deliciosa bolinha de queijo, fazendo cara de quero \
+mais!"
+const valor = 400
+
+
+classe i_comidas039
+herda comum_itemperso
+const nome = "pacote de bolinhas de queijo"
+const ident = "pacote"
+const descnome = "um pacote de bolinhas de queijo"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_itens = "comidas038"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const objmax = 50
+const pesoobj = 5000
+const valor = 12000
+const volobj = 1000
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_ini
+  criar("i_comidas038", este, 50)
+#
+
+func cmd_pegouobj
+  se arg1 == este && dentro1.total(arg2) == 0
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos1("Por não ter mais utilidade, $P descarta o pacote vazio em uma lixeira.")
+    apagar(este)
+  fimse
+
+
+classe i_comidas040
+herda comum_itemperso
+const nome = dentro1.objini ? " pão com " + dentro1.objini.descnome : " pão"
+const descnome = dentro1.objini ? "um pão com " + dentro1.objini.descnome : "um pão"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_msgoutros = f_msgperso
+#
+const i_abertoini = 1 # Container: 1 Sempre aberto
+#
+
+func f_msgperso
+  ret dentro1, "$P põe o pão na boca e começa a devorá-lo em várias mordidas, saboreando-se com \
+o recheio de " + dentro1.objini.descnome + "."
+  ret "$P põe o pão na boca e começa a devorá-lo em grandes mordidas."
+
+
+classe i_comidas041
+herda comum_itemperso
+const nome = "um pavê de chocolate"
+const ident = "pavê chocolate"
+const descnome = "um enorme pavê de chocolate"
+const descpos = "um ennorme pavêde chocolate foi posto sobre a mesa, confeitado com pedacinhos \
+de chocolate"
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_chegou
+  misc:evento(arg0)
+
+func cmd_escr
+  se arg1 == "cortar pavê"
+    se arg0.dentro1.objini("i_comidas042")
+      arg0.msg("Você já tem um pedaço")
+    senao
+      se arg0.dentro1.objini("i_festa014")
+        $mens.p(arg0)
+        $mens.mtodos1("$P corta um pedaço do pavê.")
+        criar("i_comidas042", arg0)
+      senao
+        arg0.msg("Você precisa ter uma faca.")
+      fimse
+    fimse
+    ret 1
+
+
+classe i_comidas042
+herda comum_item
+const nome = "um pedaço de pavê de chocolate"
+const ident = "pedaço pavê chocolate"
+const descnome = "um pedaço de pavê de chocolate"
+const descpos = "você vê um pratinho aqui, com um pedaço de pavê de chocolate"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 40
+const f_diges = 30
+const f_msgperso = "$p saboreia com prazer um pedaço de pavê de chocolate, já pensando em comer \
+mais"
+const f_msgoutros = "$p saboreia com prazer um pedaço de pavê de chocolate e com tanta vontade, \
+que acaba sujando a boca toda"
+
+
+classe i_comidas043
+herda comum_itemperso
+const nome = "pacote de cookies"
+const ident = "pacote cookies"
+const descnome = "Um pacote de Cookies"
+const descpos = "Um pacote de Cookies está jogado aqui, parece que ainda está fechado!"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const valor = 1500
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_ini
+  criar("i_comidas044", este, 8)
+  ret 1
+
+func cmd_pegouobj
+  se !dentro1.total("i_comidas044") && arg4 == arg1
+    $mens.p(arg0)
+    $mens.mtodos1("$P Pega o último cookie do pacote, e o descarta em seguida.")
+    apagar(este)
+  fimse
+
+
+classe i_comidas044
+herda comum_itemgrupo
+const nome = "cookie"
+const ident = "cookie biscoito"
+const descnome = "um cookie, com gotinhas de chocolate no meio"
+const descpos = "$O foi jogado aqui!"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 20
+const f_diges = 20
+const f_msgperso = "$P delicia-se com $o, desejando mais."

@@ -1,0 +1,1780 @@
+classe a_morte
+herda area
+const a_nome = "Refúgio do Lord das Trevas"
+const a_autor = "dracco"
+const a_tempo = 15
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_txtreset = "Um calafrio percorre seu corpo."
+
+
+classe b_morte
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_luz = 3 # Luz: 3 Escuro
+const s_recup = 2
+const s_area = "morte"
+
+
+classe i_morte001
+herda comum_item
+const nome = "o portal para as trevas"
+const descnome = "o portal para as trevas"
+const descpos = "Um misterioso portal é revelado a sua frente."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "Impossível pegar o portal, ele está muito bem afixado ao chão."
+const mantersala = 1 # Mantém na sala: Sim
+#
+
+func i_salaentrar
+  se rand(10) >= 6
+    ret $s_morte047
+  senao
+    ret $s_morte048
+  fimse
+
+const m_atribs1 = "rodeado por uma aura negra"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 512
+
+
+classe p_morte001
+herda comum_persoanimal
+const nome = "Voldemort"
+const ident = "lord lorde voldemort trevas"
+const descnome = "Voldemort, o Lorde das Trevas"
+const descpadr = "Com uma serpente em seu colo, Voldemort, o Lorde das Trevas está aqui, com seu \
+olhar ameaçador apontado para você!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 1040
+const tipo1 = "humano"
+const tipo2 = "trevas"
+const tipo3 = "necromante"
+const p_exp = 1100000
+const m_atribs1 = "(Rodeado por uma aura negra)"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100000 * pnivel + 2000000
+  pmovemax += 5000 * pnivel + 100000
+  pveloc1 += 10000 * pnivel + 100000
+  atknorm += 70000 * pnivel + 6000000
+  defnorm += 90000000 * pnivel + 10000000
+  atkesp += 70000 * pnivel + 6000000
+  defesp += 90000000 * pnivel + 10000000
+  precisao += 5000 * pnivel + 20000
+  bitver |= 6204
+
+
+classe p_morte002
+herda comum_persobat
+const nome = "Nagine"
+const ident = "nagine serpente cobra lord lorde Voldemort trevas"
+const descnome = "Nagine"
+const nivel = 1025
+const p_exp = 1100000
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100000 * pnivel + 2000000
+  pmovemax += 5000 * pnivel + 100000
+  pveloc1 += 10000 * pnivel + 100000
+  atknorm += 70000 * pnivel + 6000000
+  defnorm += 90000000 * pnivel + 10000000
+  atkesp += 70000 * pnivel + 6000000
+  defesp += 90000000 * pnivel + 10000000
+  precisao += 5000 * pnivel + 20000
+
+
+classe p_morte003
+herda comum_persobat
+const nome = "dementador"
+const ident = "dementador"
+const descnome = "um dementador"
+const descpadr = "Um dementador perambula por aqui, pronto para te dar o golpe fatal."
+const descver = "Essa terrível criatura guarda a prisão de Azkaban, a prisão dos bruxos.\n\
+Sua pele é coberta por feridas e seu rosto é coberto por um capuz, o que o torna ainda mais \
+apavorante.\n\
+Alimenta-se da desesperança de seus confinados, muitas vezes os levando a insanidade e sua arma \
+fatal é o beijo, que aplica em quem quer destruir, sugando a alma do condenado pela boca.\n\
+É imune a qualquer tipo de ataque e feitiço e o único feitiço capaz de afastá-lo é o feitiço do \
+Patrono."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 1005
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 1100000
+const p_mover = 1 # Movimentar: 1 Somente na área
+#
+
+func p_agressivo
+  ret dono.dentro2.objini("p_templo011") ? 1 : 2
+#
+
+func cmd_ini
+  $mens.p(arg0)
+  se dono.dentro2.objini("p_templo011")
+    $mens.mvis1("$P surge da escuridão.")
+  senao
+    $mens.mvis1("$P surge da escuridão, pronto para sugar sua alma.")
+  fimse
+#
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100000 * pnivel + 2000000
+  pmovemax += 5000 * pnivel + 100000
+  pveloc1 += 10000 * pnivel + 100000
+  atknorm += 70000 * pnivel + 6000000
+  defnorm += 90000000 * pnivel + 10000000
+  atkesp += 70000 * pnivel + 6000000
+  defesp += 90000000 * pnivel + 10000000
+  precisao += 5000 * pnivel + 20000
+  bitver |= 6974
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  deftipo.0 *= 0 # Tipos Normais
+  deftipo.2 *= 0 # Contusão
+  deftipo.3 *= 0 # luta
+  deftipo.4 *= 0 # Cortante
+  deftipo.5 *= 0 # Perfurante
+
+
+classe p_morte004
+herda comum_persobat
+const nome = "Lúcio"
+const ident = "Lúcio Malfoy comensal morte"
+const descnome = "Lúcio"
+const descpadr = "Lúcio, o chefe da família Malfoy está aqui, para fazer a segurança do cemitério\
+."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 1035
+const p_exp = 1100000
+const p_mover = 1 # Movimentar: 1 Somente na área
+#
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100000 * pnivel + 2000000
+  pmovemax += 5000 * pnivel + 100000
+  pveloc1 += 10000 * pnivel + 100000
+  atknorm += 70000 * pnivel + 6000000
+  defnorm += 90000000 * pnivel + 10000000
+  atkesp += 70000 * pnivel + 6000000
+  defesp += 90000000 * pnivel + 10000000
+  precisao += 5000 * pnivel + 20000
+  bitver |= 62
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  deftipo.0 *= 0 # Tipos Normais
+  deftipo.2 *= 0 # Contusão
+  deftipo.3 *= 0 # luta
+  deftipo.4 *= 0 # Cortante
+  deftipo.5 *= 0 # Perfurante
+
+
+classe p_morte005
+herda comum_persobat
+const nome = "comensal"
+const ident = "comensal lord lorde morte trevas"
+const descnome = "um comensal da morte"
+const descpadr = "Um comensal da morte caminha silenciosamente por aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 1010
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_exp = 1100000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const inivar = "h_varinha=8"
+#
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100000 * pnivel + 2000000
+  pmovemax += 5000 * pnivel + 100000
+  pveloc1 += 10000 * pnivel + 100000
+  atknorm += 70000 * pnivel + 6000000
+  defnorm += 90000 * pnivel + 10000000
+  atkesp += 70000 * pnivel + 6000000
+  defesp += 90000000 * pnivel + 10000000
+  precisao += 5000 * pnivel + 20000
+  bitver |= 6974
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  deftipo.0 *= 0 # Tipos Normais
+  deftipo.2 *= 0 # Contusão
+  deftipo.3 *= 0 # luta
+  deftipo.4 *= 0 # Cortante
+  deftipo.5 *= 0 # Perfurante
+
+
+classe p_morte006
+herda comum_persobat
+const nome = "Mary"
+const ident = "família Mary mulher Riddle"
+const descnome = "Mary Riddle"
+const descpadr = "Mary, a senhora da família Riddle está aqui, te olhando com seu rosto entristec\
+ido."
+const descver = "Mary Riddle (1883 - 1943) era a esposa de Thomas Riddle e mãe de Tom Riddle Sr. \
+e, assim, a avó paterna de Tom Servolo Riddle, também conhecido como Lord Voldemort.\n\
+Ela era parte da família mais rica na aldeia de Little Hangleton.\n\
+Solitária em sua sepultura e com um olhar tristonho voltado para você, Mary tenta um contato \
+direto com seu marido e filho, os quais estão no mesmo cemitério. Porém, a presença maligna do \
+neto a envolve profundamente.\n\
+Ela parece frágil mas, se você for corajoso o suficiente, pode ser uma boa opção de luta. Será \
+que dá pra encarar esta antiga madame?"
+const nivel = 1020
+const p_exp = 1100000
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100000 * pnivel + 2000000
+  pmovemax += 5000 * pnivel + 100000
+  pveloc1 += 10000 * pnivel + 100000
+  atknorm += 70000 * pnivel + 6000000
+  defnorm += 90000000 * pnivel + 10000000
+  atkesp += 70000 * pnivel + 6000000
+  defesp += 90000000 * pnivel + 10000000
+  precisao += 5000 * pnivel + 20000
+  bitver |= 62
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  deftipo.0 *= 0 # Tipos Normais
+  deftipo.2 *= 0 # Contusão
+  deftipo.3 *= 0 # luta
+  deftipo.4 *= 0 # Cortante
+  deftipo.5 *= 0 # Perfurante
+
+
+classe p_morte007
+herda comum_persobat
+const nome = "Thomas"
+const ident = "família homem Riddle Thomas"
+const descnome = "Thomas Riddle"
+const descpadr = "O senhor Thomas Riddle está parado por aqui, te observando cuidadosamente."
+const descver = "Thomas Riddle (1880 - 1943) foi um trouxa muito rico que possuía a maior parte \
+da cidade de Little Hangleton. Ele e sua esposa Mary tiveram um filho chamado Tom Riddle \
+Sr..\n\
+Os Riddles foram esnobes e olhavam com desprezo para a pobre Família Gaunt, que morava nas \
+proximidades. Ele foi assassinado junto com sua esposa e filho por seu próprio neto, Tom Servolo \
+Riddle.\n\
+Agora, com seu olhar atento e desconfiado, ele está aguardando a hora certa para executar sua \
+vingança contra quem o matara anos atrás."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 1030
+const p_exp = 1100000
+#
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100000 * pnivel + 2000000
+  pmovemax += 5000 * pnivel + 100000
+  pveloc1 += 10000 * pnivel + 100000
+  atknorm += 70000 * pnivel + 6000000
+  defnorm += 90000000 * pnivel + 10000000
+  atkesp += 70000 * pnivel + 6000000
+  defesp += 90000000 * pnivel + 10000000
+  precisao += 5000 * pnivel + 20000
+  bitver |= 62
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  deftipo.0 *= 0 # Tipos Normais
+  deftipo.2 *= 0 # Contusão
+  deftipo.3 *= 0 # luta
+  deftipo.4 *= 0 # Cortante
+  deftipo.5 *= 0 # Perfurante
+
+
+classe p_morte008
+herda comum_persobat
+const nome = "Tom"
+const ident = "família filho homem Riddle Tom"
+const descnome = "Tom Riddle"
+const descpadr = "Tom, um dos filhos do casal Riddle, está por aqui."
+const nivel = 1025
+const p_exp = 1100000
+const p_mover = 1 # Movimentar: 1 Somente na área
+#
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100000 * pnivel + 2000000
+  pmovemax += 5000 * pnivel + 100000
+  pveloc1 += 10000 * pnivel + 100000
+  atknorm += 70000 * pnivel + 6000000
+  defnorm += 90000000 * pnivel + 10000000
+  atkesp += 70000 * pnivel + 6000000
+  defesp += 90000000 * pnivel + 10000000
+  precisao += 5000 * pnivel + 20000
+  bitver |= 62
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  deftipo.0 *= 0 # Tipos Normais
+  deftipo.2 *= 0 # Contusão
+  deftipo.3 *= 0 # luta
+  deftipo.4 *= 0 # Cortante
+  deftipo.5 *= 0 # Perfurante
+
+
+classe p_morte009
+herda comum_persobat
+const nome = "coveiro"
+const ident = "coveiro fantasma humano"
+const descnome = "um coveiro fantasma"
+const descpadr = "Um estranho coveiro vaga pelo cemitério, preservando o que ainda resta \
+dele."
+const nivel = 1005
+const tipo1 = "fantasma"
+const tipo2 = "trevas"
+const p_exp = 1100000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const inivar = "m_ataque_fantasma=8,m_drenar_energia=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100000 * pnivel + 2000000
+  pmanamax += 1000 * pnivel + 50000
+  pmovemax += 5000 * pnivel + 100000
+  pveloc1 += 10000 * pnivel + 100000
+  atknorm += 70000 * pnivel + 6000000
+  defnorm += 90000000 * pnivel + 10000000
+  atkesp += 70000 * pnivel + 6000000
+  defesp += 90000000 * pnivel + 10000000
+  precisao += 5000 * pnivel + 20000
+  bitver |= 4670
+
+
+classe p_morte010
+herda comum_persobat
+const nome = "Fantasma"
+const descnome = "um fantasma"
+const descpadr = "Um fantasma escala pelas paredes, em busca de novas almas pela escuridão."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 1015
+const tipo1 = "fantasma"
+const tipo2 = "trevas"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_exp = 1100000
+const p_mover = 1 # Movimentar: 1 Somente na área
+#
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100000 * pnivel + 2000000
+  pmovemax += 5000 * pnivel + 100000
+  pveloc1 += 10000 * pnivel + 100000
+  atknorm += 70000 * pnivel + 6000000
+  defnorm += 90000000 * pnivel + 10000000
+  atkesp += 70000 * pnivel + 6000000
+  defesp += 90000000 * pnivel + 10000000
+  precisao += 5000 * pnivel + 20000
+  bitver |= 6718
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  deftipo.0 *= 0 # Tipos Normais
+  deftipo.2 *= 0 # Contusão
+  deftipo.3 *= 0 # luta
+  deftipo.4 *= 0 # Cortante
+  deftipo.5 *= 0 # Perfurante
+
+
+classe p_morte011
+herda comum_persobat
+const nome = "porteiro necromante"
+const descnome = "Um necromante"
+const descpadr = "Um necromante vaga pelo reino , a procura de ossos para devorar."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 930
+const tipo1 = "trevas"
+const tipo2 = "necromante"
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_exp = 1000000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const inivar = "e_marmadura_de_ossos=8,m_fogo=8,m_garras_retalhadoras=8,z_moedas=100000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50000 * pnivel + 100000000
+  pmanamax += 1000 * pnivel + 50000
+  pmovemax += 10000 * pnivel + 10000
+  pveloc1 += 1000 * pnivel + 2000
+  atknorm += 55000 * pnivel + 2000000
+  defnorm += 65000 * pnivel + 2000000
+  atkesp += 55000 * pnivel + 2000000
+  defesp += 65000 * pnivel + 2000000
+  precisao += 1000 * pnivel + 5000
+  bitver |= 4158
+
+
+classe p_morte012
+herda comum_persobat
+const nome = "Poderoso necromante"
+const descnome = "um poderoso necromante"
+const descpadr = "Um poderoso necromante vaga pelo reino, à procura de almas."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 935
+const tipo1 = "trevas"
+const tipo2 = "necromante"
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 1000000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const inivar = "e_marmadura_de_ossos=8,m_fogo=8,m_garras_retalhadoras=8,z_moedas=100000"
+#
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50000 * pnivel + 100000000
+  pmanamax += 1000 * pnivel + 50000
+  pmovemax += 10000 * pnivel + 10000
+  pveloc1 += 1000 * pnivel + 2000
+  atknorm += 55000 * pnivel + 2000000
+  defnorm += 65000 * pnivel + 2000000
+  atkesp += 55000 * pnivel + 2000000
+  defesp += 65000 * pnivel + 2000000
+  precisao += 1000 * pnivel + 5000
+  bitver |= 4158
+
+
+classe p_morte013
+herda comum_persobat
+const nome = "Supremo necromante"
+const descnome = "O supremo necromante"
+const descpadr = "Sentado em seu trono de ossos, o supremo necromante maquina mais um de seus \
+planos diabólicos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 1000
+const tipo1 = "trevas"
+const tipo2 = "necromante"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 100000
+const inivar = "e_marmadura_de_ossos=8,m_fogo=8,m_garras_retalhadoras=8,z_moedas=100000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50000 * pnivel + 100000000
+  pmanamax += 1000 * pnivel + 50000
+  pmovemax += 10000 * pnivel + 10000
+  pveloc1 += 1000 * pnivel + 2000
+  atknorm += 55000 * pnivel + 2000000
+  defnorm += 65000 * pnivel + 2000000
+  atkesp += 55000 * pnivel + 2000000
+  defesp += 65000 * pnivel + 2000000
+  precisao += 1000 * pnivel + 5000
+
+
+classe p_morte014
+herda comum_persobat
+const nome = "morto vivo"
+const ident = "morto vivo"
+const descnome = "um morto vivo"
+const descpadr = "Um morto vivo está aqui, pronto para obedecer às ordens de seu senhor necromant\
+e."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 915
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_exp = 1000000
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50000 * pnivel + 100000000
+  pmovemax += 10000 * pnivel + 10000
+  pveloc1 += 1000 * pnivel + 2000
+  atknorm += 55000 * pnivel + 2000000
+  defnorm += 65000 * pnivel + 2000000
+  atkesp += 55000 * pnivel + 2000000
+  defesp += 65000 * pnivel + 2000000
+  precisao += 1000 * pnivel + 5000
+  bitver |= 6204
+
+
+classe p_morte015
+herda comum_persobat
+const nome = "tesoureiro necromante"
+const ident = "necromante tesoureiro"
+const descnome = "um tesoureiro necromante"
+const descpadr = "Um necromante está aqui, cuidando dos tesouros de seu reino."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 930
+const tipo1 = "humano"
+const tipo2 = "necromante"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 1000000
+const inivar = "e_marmadura_de_ossos=8,m_fogo=8,m_garras_retalhadoras=8,z_moedas=100000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50000 * pnivel + 100000000
+  pmanamax += 1000 * pnivel + 50000
+  pmovemax += 10000 * pnivel + 10000
+  pveloc1 += 1000 * pnivel + 2000
+  atknorm += 55000 * pnivel + 2000000
+  defnorm += 65000 * pnivel + 2000000
+  atkesp += 55000 * pnivel + 2000000
+  defesp += 65000 * pnivel + 2000000
+  precisao += 1000 * pnivel + 5000
+
+
+classe s_morte001
+herda b_morte
+const s_titulo = "Um caminho de trevas:"
+const s_pnj = 0
+const s_som = "castelos"
+const dir_s = $s_morte002
+const dir_l = $s_sombras117
+
+
+classe s_morte002
+herda b_morte
+const s_titulo = "Um caminho de trevas:"
+const dir_n = $s_morte001
+const dir_s = $s_morte003
+
+
+classe s_morte003
+herda b_morte
+const s_titulo = "Um caminho de trevas:"
+const dir_n = $s_morte002
+const dir_s = $s_morte004
+
+
+classe s_morte004
+herda b_morte
+const s_titulo = "Um caminho de trevas:"
+const s_pnj = 0
+const dir_n = $s_morte003
+const dir_s = $s_morte005
+
+
+classe s_morte005
+herda b_morte
+const s_titulo = "Na entrada do reino dos necromantes:"
+const dir_n = $s_morte004
+const dir_o = $s_morte006
+const a_reset = "P 100 morte011 0 0 5"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_morte011:objsolto.total < 5
+    criar("p_morte011", este, 0)
+  fimse
+
+
+classe s_morte006
+herda b_morte
+const s_titulo = "Um caminho trevoso:"
+const dir_s = $s_morte007
+const dir_l = $s_morte005
+
+
+classe s_morte007
+herda b_morte
+const s_titulo = "Um caminho trevoso:"
+const dir_n = $s_morte006
+const dir_s = $s_morte008
+
+
+classe s_morte008
+herda b_morte
+const s_titulo = "Um caminho trevoso:"
+const dir_n = $s_morte007
+const dir_s = $s_morte009
+
+
+classe s_morte009
+herda b_morte
+const s_titulo = "Um caminho trevoso:"
+const dir_n = $s_morte008
+const dir_s = $s_morte010
+
+
+classe s_morte010
+herda b_morte
+const s_titulo = "Na mais profunda escuridão:"
+const dir_n = $s_morte009
+const dir_l = $s_morte011
+
+
+classe s_morte011
+herda b_morte
+const s_titulo = "Em meio a escuridão:"
+const dir_l = $s_morte012
+const dir_o = $s_morte010
+
+
+classe s_morte012
+herda b_morte
+const s_titulo = "Em meio a escuridão:"
+const dir_l = $s_morte013
+const dir_o = $s_morte011
+
+
+classe s_morte013
+herda b_morte
+const s_titulo = "Em meio a escuridão:"
+const dir_l = $s_morte014
+const dir_o = $s_morte012
+
+
+classe s_morte014
+herda b_morte
+const s_titulo = "Em meio a escuridão:"
+const dir_l = $s_morte015
+const dir_o = $s_morte013
+
+
+classe s_morte015
+herda b_morte
+const s_titulo = "Em meio a escuridão:"
+const dir_s = $s_morte016
+const dir_o = $s_morte014
+
+
+classe s_morte016
+herda b_morte
+const s_titulo = "No portão do castelo dos necromantes:"
+const dir_n = $s_morte015
+const dir_entrar = $s_morte017
+const portaini_entrar = 1 # Estado inicial: 1 Porta aberta
+const portaartigo_entrar = 2 # Artigo porta: 2 o (portão)
+
+
+classe s_morte017
+herda b_morte
+const s_titulo = "Dentro do castelo dos necromantes:"
+const dir_l = $s_morte018
+const dir_sair = $s_morte016
+const portaini_sair = 1 # Estado inicial: 1 Porta aberta
+const portaartigo_sair = 2 # Artigo porta: 2 o (portão)
+
+
+classe s_morte018
+herda b_morte
+const s_titulo = "O corredor negro do castelo:"
+const dir_l = $s_morte019
+const dir_o = $s_morte017
+
+
+classe s_morte019
+herda b_morte
+const s_titulo = "O corredor negro do castelo:"
+const dir_l = $s_morte020
+const dir_o = $s_morte018
+
+
+classe s_morte020
+herda b_morte
+const s_titulo = "O corredor negro do castelo:"
+const dir_l = $s_morte021
+const dir_o = $s_morte019
+
+
+classe s_morte021
+herda b_morte
+const s_titulo = "O corredor negro do castelo:"
+const dir_l = $s_morte022
+const dir_o = $s_morte020
+
+
+classe s_morte022
+herda b_morte
+const s_titulo = "O corredor negro do castelo:"
+const dir_n = $s_morte023
+const dir_s = $s_morte024
+const dir_l = $s_morte025
+const dir_o = $s_morte021
+const a_reset = "P 100 morte012 935 1000 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_morte012:objsolto.total < 10
+    criar("p_morte012", este, rand(935, 1000))
+  fimse
+
+
+classe s_morte023
+herda b_morte
+const s_titulo = "Uma passagem suspeita no caminho:"
+const s_morre = 3 # Morre ao entrar: 3 Sim e perde itens
+const dir_s = $s_morte022
+
+
+classe s_morte024
+herda b_morte
+const s_titulo = "Um alçapão das trevas:"
+const s_morre = 4 # Morre ao entrar: 4 Sim e perde dinheiro
+const dir_n = $s_morte022
+
+
+classe s_morte025
+herda b_morte
+const s_titulo = "Na continuação do corredor:"
+const dir_l = $s_morte026
+const dir_o = $s_morte022
+
+
+classe s_morte026
+herda b_morte
+const s_titulo = "O corredor nebuloso:"
+const dir_l = $s_morte027
+const dir_o = $s_morte025
+
+
+classe s_morte027
+herda b_morte
+const s_titulo = "O corredor nebuloso:"
+const dir_l = $s_morte028
+const dir_o = $s_morte026
+
+
+classe s_morte028
+herda b_morte
+const s_titulo = "No fim do corredor negro:"
+const dir_l = $s_morte029
+const dir_o = $s_morte027
+
+
+classe s_morte029
+herda b_morte
+const s_titulo = "Diante de uma escadaria de madeira:"
+const dir_o = $s_morte028
+const dir_c = $s_morte030
+
+
+classe s_morte030
+herda b_morte
+const s_titulo = "Na escadaria do castelo:"
+const dir_c = $s_morte031
+const dir_b = $s_morte029
+
+
+classe s_morte031
+herda b_morte
+const s_titulo = "Uma curva pela escadaria:"
+const dir_b = $s_morte030
+const dir_se = $s_morte032
+
+
+classe s_morte032
+herda b_morte
+const s_titulo = "Na escadaria do castelo:"
+const dir_c = $s_morte033
+const dir_no = $s_morte031
+
+
+classe s_morte033
+herda b_morte
+const s_titulo = "Na escadaria do castelo:"
+const dir_c = $s_morte034
+const dir_b = $s_morte032
+
+
+classe s_morte034
+herda b_morte
+const s_titulo = "No meio da escadaria:"
+const dir_b = $s_morte033
+const dir_so = $s_morte035
+
+
+classe s_morte035
+herda b_morte
+const s_titulo = "No segundo andar do castelo dos necromantes:"
+const dir_c = $s_morte036
+const dir_ne = $s_morte034
+
+
+classe s_morte036
+herda b_morte
+const s_titulo = "Subindo pela escadaria:"
+const dir_c = $s_morte037
+const dir_b = $s_morte035
+
+
+classe s_morte037
+herda b_morte
+const s_titulo = "No final da escadaria de madeira do castelo:"
+const dir_b = $s_morte036
+const dir_no = $s_morte038
+
+
+classe s_morte038
+herda b_morte
+const s_titulo = "No terceiro andar do castelo:"
+const dir_n = $s_morte131
+const dir_s = $s_morte039
+const dir_l = $s_morte132
+const dir_o = $s_morte133
+const dir_se = $s_morte037
+
+
+classe s_morte039
+herda b_morte
+const s_titulo = "Um corredor no terceiro andar do castelo:"
+const dir_n = $s_morte038
+const dir_s = $s_morte040
+
+
+classe s_morte040
+herda b_morte
+const s_titulo = "Um corredor no terceiro andar do castelo:"
+const dir_n = $s_morte039
+const dir_s = $s_morte041
+const dir_l = $s_morte045
+const portaini_l = 3 # Estado inicial: 3 Porta trancada
+const portanome_l = "uma porta de ferro"
+const fecha_l = 1 # Fecha ao passar: Sim
+
+
+classe s_morte041
+herda b_morte
+const s_titulo = "Um corredor no terceiro andar do castelo:"
+const dir_n = $s_morte040
+const dir_s = $s_morte042
+
+
+classe s_morte042
+herda b_morte
+const s_titulo = "Um corredor no terceiro andar do castelo:"
+const dir_n = $s_morte041
+const dir_s = $s_morte043
+const dir_o = $s_morte046
+const portaini_o = 3 # Estado inicial: 3 Porta trancada
+const portanome_o = "Uma porta de ferro"
+const fecha_o = 1 # Fecha ao passar: Sim
+const tranc_o = 2 # Trancar: 2 Tranca ao fechar
+
+
+classe s_morte043
+herda b_morte
+const s_titulo = "Um corredor no terceiro andar do castelo:"
+const dir_n = $s_morte042
+const dir_s = $s_morte044
+
+
+classe s_morte044
+herda b_morte
+const s_titulo = "No final do corredor:"
+const s_soltar = 0 # Soltar itens: 0 Permitido
+const dir_n = $s_morte043
+const s_reset = "S 100 morte001 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_morte001") && criar("i_morte001", este, 1)
+
+const a_reset = "P 100 morte012 935 1000 5"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_morte012:objsolto.total < 5
+    criar("p_morte012", este, rand(935, 1000))
+  fimse
+
+
+classe s_morte045
+herda b_morte
+const s_titulo = "A prisão dos mortos-vivos:"
+const dir_o = $s_morte040
+const portaini_o = 3 # Estado inicial: 3 Porta trancada
+const portanome_o = "A porta de ferro da prisão"
+const fecha_o = 1 # Fecha ao passar: Sim
+const tranc_o = 2 # Trancar: 2 Tranca ao fechar
+const a_reset = "P 100 morte014 900 920 4\n\
+P 100 morte014 900 920 4\n\
+P 100 morte014 900 920 4\n\
+P 100 morte014 900 920 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_morte014:objsolto.total < 4
+    criar("p_morte014", este, rand(900, 920))
+  fimse
+  se p_morte014:objsolto.total < 4
+    criar("p_morte014", este, rand(900, 920))
+  fimse
+  se p_morte014:objsolto.total < 4
+    criar("p_morte014", este, rand(900, 920))
+  fimse
+  se p_morte014:objsolto.total < 4
+    criar("p_morte014", este, rand(900, 920))
+  fimse
+
+
+classe s_morte046
+herda b_morte
+const s_titulo = "A sala do tesouro dos necromantes:"
+const s_pnj = 1
+const dir_l = $s_morte042
+const portaini_l = 3 # Estado inicial: 3 Porta trancada
+const portanome_l = "a porta de ferro dos domínios"
+const fecha_l = 1 # Fecha ao passar: Sim
+const tranc_l = 2 # Trancar: 2 Tranca ao fechar
+const a_reset = "P 100 morte015 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_morte015:objsolto.total < 1
+    criar("p_morte015", este, 0)
+  fimse
+
+
+classe s_morte047
+herda b_morte
+const s_titulo = "Flutuando em plena escuridão:"
+const s_desc = "Você anda em meio a uma profunda aura de trevas, flutuando em uma queda vertigino\
+sa.\n\
+Você tenta gritar, mas as palavras não saem de sua boca.\n\
+Você sente sua força sendo sugada por uma energia negativa, enquanto que um grande breu toma \
+conta de si, fazendo com que você não veja nada à sua frente.\n\
+Uma grande falta de ar o consome, e você percebe que sua alma acaba de ser destituída de seu \
+corpo... Infelizmente, você é mais um que não escapa das garras da morte!"
+const s_morre = 1 # Morre ao entrar: 1 Sim
+
+
+classe s_morte048
+herda b_morte
+const s_titulo = "Caindo em plena escuridão:"
+const s_desc = "Você anda em meio a uma profunda aura de trevas, flutuando em uma queda vertigino\
+sa.\n\
+Você tenta gritar, mas as palavras não saem de sua boca.\n\
+Você sente sua força sendo sugada por uma energia negativa, enquanto que um grande breu toma \
+conta de si, fazendo com que você não veja nada à sua frente.\n\
+Parabéns, jovem bruxo! Você conseguiu passar com sucesso pelo portal, indo em direção ao refúgio \
+do Lord das Trevas!"
+const s_pnj = 0
+const dir_n = $s_morte049
+
+
+classe s_morte049
+herda b_morte
+const s_titulo = "Vagando pelo abismo:"
+const dir_n = $s_morte050
+const dir_s = $s_morte048
+
+
+classe s_morte050
+herda b_morte
+const s_titulo = "Vagando pelo abismo:"
+const dir_n = $s_morte051
+const dir_s = $s_morte049
+
+
+classe s_morte051
+herda b_morte
+const s_titulo = "Vagando pelo abismo:"
+const dir_n = $s_morte052
+const dir_s = $s_morte050
+
+
+classe s_morte052
+herda b_morte
+const s_titulo = "Vagando pelo abismo:"
+const dir_n = $s_morte053
+const dir_s = $s_morte051
+
+
+classe s_morte053
+herda b_morte
+const s_titulo = "Vagando pelo abismo:"
+const dir_n = $s_morte054
+const dir_s = $s_morte052
+
+
+classe s_morte054
+herda b_morte
+const s_titulo = "No meio do abismo:"
+const dir_n = $s_morte086
+const dir_s = $s_morte053
+const dir_l = $s_morte055
+const dir_o = $s_morte059
+const a_reset = "P 100 morte003 0 0 6"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_morte003:objsolto.total < 6
+    criar("p_morte003", este, 0)
+  fimse
+
+
+classe s_morte055
+herda b_morte
+const s_titulo = "Vagando sem rumo pelo abismo:"
+const dir_l = $s_morte056
+const dir_o = $s_morte054
+
+
+classe s_morte056
+herda b_morte
+const s_titulo = "Vagando sem rumo pelo abismo:"
+const dir_l = $s_morte057
+const dir_o = $s_morte055
+
+
+classe s_morte057
+herda b_morte
+const s_titulo = "Vagando sem rumo pelo abismo:"
+const dir_l = $s_morte058
+const dir_o = $s_morte056
+
+
+classe s_morte058
+herda b_morte
+const s_titulo = "Vagando sem rumo pelo abismo:"
+const dir_n = $s_morte070
+const dir_o = $s_morte057
+
+
+classe s_morte059
+herda b_morte
+const s_titulo = "Vagando sem rumo pelo abismo:"
+const dir_l = $s_morte054
+const dir_o = $s_morte060
+
+
+classe s_morte060
+herda b_morte
+const s_titulo = "Vagando sem rumo pelo abismo:"
+const dir_l = $s_morte059
+const dir_o = $s_morte061
+
+
+classe s_morte061
+herda b_morte
+const s_titulo = "Vagando sem rumo pelo abismo:"
+const dir_l = $s_morte060
+const dir_o = $s_morte062
+
+
+classe s_morte062
+herda b_morte
+const s_titulo = "Vagando sem rumo pelo abismo:"
+const dir_l = $s_morte061
+const dir_o = $s_morte063
+
+
+classe s_morte063
+herda b_morte
+const s_titulo = "Vagando sem rumo pelo abismo:"
+const dir_l = $s_morte062
+const dir_o = $s_morte064
+
+
+classe s_morte064
+herda b_morte
+const s_titulo = "Vagando sem rumo pelo abismo:"
+const dir_n = $s_morte065
+const dir_l = $s_morte063
+
+
+classe s_morte065
+herda b_morte
+const s_titulo = "Perdido pela escuridão:"
+const dir_n = $s_morte066
+const dir_s = $s_morte064
+
+
+classe s_morte066
+herda b_morte
+const s_titulo = "Perdido pela escuridão:"
+const dir_n = $s_morte067
+const dir_s = $s_morte065
+
+
+classe s_morte067
+herda b_morte
+const s_titulo = "Perdido pela escuridão:"
+const dir_n = $s_morte068
+const dir_s = $s_morte066
+
+
+classe s_morte068
+herda b_morte
+const s_titulo = "perdido pela escuridão:"
+const dir_n = $s_morte069
+const dir_s = $s_morte067
+const dir_l = $s_morte129
+
+
+classe s_morte069
+herda b_morte
+const s_titulo = "Perdido pela escuridão:"
+const dir_s = $s_morte068
+const dir_l = $s_morte075
+
+
+classe s_morte070
+herda b_morte
+const s_titulo = "Perdido pela escuridão:"
+const dir_n = $s_morte071
+const dir_s = $s_morte058
+
+
+classe s_morte071
+herda b_morte
+const s_titulo = "Perdido pela escuridão:"
+const dir_n = $s_morte072
+const dir_s = $s_morte070
+
+
+classe s_morte072
+herda b_morte
+const s_titulo = "Perdido pela escuridão:"
+const dir_n = $s_morte073
+const dir_s = $s_morte071
+
+
+classe s_morte073
+herda b_morte
+const s_titulo = "Perdido pela escuridão:"
+const dir_n = $s_morte074
+const dir_s = $s_morte072
+
+
+classe s_morte074
+herda b_morte
+const s_titulo = "Perdido pela escuridão:"
+const dir_s = $s_morte073
+const dir_o = $s_morte077
+const a_reset = "P 100 morte010 0 0 7"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_morte010:objsolto.total < 7
+    criar("p_morte010", este, 0)
+  fimse
+
+
+classe s_morte075
+herda b_morte
+const s_titulo = "O corredor da morte:"
+const dir_l = $s_morte076
+const dir_o = $s_morte069
+
+
+classe s_morte076
+herda b_morte
+const s_titulo = "O corredor da morte:"
+const dir_l = $s_morte081
+const dir_o = $s_morte075
+
+
+classe s_morte077
+herda b_morte
+const s_titulo = "O corredor da morte:"
+const dir_l = $s_morte074
+const dir_o = $s_morte078
+
+
+classe s_morte078
+herda b_morte
+const s_titulo = "O corredor da morte:"
+const dir_l = $s_morte077
+const dir_o = $s_morte079
+
+
+classe s_morte079
+herda b_morte
+const s_titulo = "O corredor da morte:"
+const dir_l = $s_morte078
+const dir_o = $s_morte080
+
+
+classe s_morte080
+herda b_morte
+const s_titulo = "O corredor da morte:"
+const dir_l = $s_morte079
+const dir_o = $s_morte084
+
+
+classe s_morte081
+herda b_morte
+const s_titulo = "O corredor da morte:"
+const dir_l = $s_morte082
+const dir_o = $s_morte076
+
+
+classe s_morte082
+herda b_morte
+const s_titulo = "O corredor da morte:"
+const dir_l = $s_morte083
+const dir_o = $s_morte081
+
+
+classe s_morte083
+herda b_morte
+const s_titulo = "Continuando pelo corredor da morte:"
+const dir_l = $s_morte085
+const dir_o = $s_morte082
+
+
+classe s_morte084
+herda b_morte
+const s_titulo = "O corredor da morte:"
+const dir_l = $s_morte080
+const dir_o = $s_morte085
+
+
+classe s_morte085
+herda b_morte
+const s_titulo = "No centro do corredor da morte:"
+const dir_s = $s_morte090
+const dir_l = $s_morte084
+const dir_o = $s_morte083
+const dir_entrar = $s_morte091
+const fechadura_entrar = "morte002"
+
+
+classe s_morte086
+herda b_morte
+const s_titulo = "Atravessando um corredor gelado:"
+const dir_n = $s_morte087
+const dir_s = $s_morte054
+
+
+classe s_morte087
+herda b_morte
+const s_titulo = "Atravessando um corredor gelado:"
+const dir_n = $s_morte088
+const dir_s = $s_morte086
+
+
+classe s_morte088
+herda b_morte
+const s_titulo = "Atravessando um corredor gelado:"
+const dir_n = $s_morte089
+const dir_s = $s_morte087
+
+
+classe s_morte089
+herda b_morte
+const s_titulo = "Atravessando um corredor gelado:"
+const dir_n = $s_morte090
+const dir_s = $s_morte088
+
+
+classe s_morte090
+herda b_morte
+const s_titulo = "Atravessando um corredor gelado:"
+const dir_n = $s_morte085
+const dir_s = $s_morte089
+
+
+classe s_morte091
+herda b_morte
+const s_titulo = "Nas bordas de um túnel:"
+const s_pnj = 10
+const dir_b = $s_morte092
+const dir_sair = $s_morte085
+
+
+classe s_morte092
+herda b_morte
+const s_titulo = "Dentro de um túnel:"
+const dir_c = $s_morte091
+const dir_no = $s_morte093
+
+
+classe s_morte093
+herda b_morte
+const s_titulo = "Rastejando por um túnel:"
+const dir_no = $s_morte094
+const dir_se = $s_morte092
+
+
+classe s_morte094
+herda b_morte
+const s_titulo = "Rastejando por um túnel:"
+const dir_no = $s_morte095
+const dir_se = $s_morte093
+
+
+classe s_morte095
+herda b_morte
+const s_titulo = "Rastejando por um túnel:"
+const dir_no = $s_morte096
+const dir_se = $s_morte094
+
+
+classe s_morte096
+herda b_morte
+const s_titulo = "Rastejando por um túnel:"
+const dir_no = $s_morte097
+const dir_se = $s_morte095
+
+
+classe s_morte097
+herda b_morte
+const s_titulo = "Rastejando por um túnel:"
+const dir_no = $s_morte098
+const dir_se = $s_morte096
+
+
+classe s_morte098
+herda b_morte
+const s_titulo = "Rastejando por um túnel:"
+const dir_ne = $s_morte099
+const dir_se = $s_morte097
+
+
+classe s_morte099
+herda b_morte
+const s_titulo = "Uma subida estreita dentro do túnel:"
+const dir_c = $s_morte100
+const dir_so = $s_morte098
+
+
+classe s_morte100
+herda b_morte
+const s_titulo = "Em uma subida estreita dentro do túnel:"
+const dir_b = $s_morte099
+const dir_so = $s_morte101
+
+
+classe s_morte101
+herda b_morte
+const s_titulo = "Continuando a subir dentro do túnel:"
+const dir_c = $s_morte102
+const dir_ne = $s_morte100
+
+
+classe s_morte102
+herda b_morte
+const s_titulo = "Subindo pelo túnel:"
+const dir_c = $s_morte103
+const dir_b = $s_morte101
+
+
+classe s_morte103
+herda b_morte
+const s_titulo = "Próximo à superfície:"
+const dir_b = $s_morte102
+const dir_no = $s_morte104
+
+
+classe s_morte104
+herda b_morte
+const s_titulo = "Na saída do túnel:"
+const dir_c = $s_morte105
+const dir_se = $s_morte103
+
+
+classe s_morte105
+herda b_morte
+const s_titulo = "Próximo ao cemitério de Little Hangleton:"
+const dir_s = $s_morte106
+const dir_b = $s_morte104
+
+
+classe s_morte106
+herda b_morte
+const s_titulo = "Nos portões do cemitério:"
+const s_pnj = 0
+const dir_n = $s_morte105
+const dir_entrar = $s_morte107
+
+
+classe s_morte107
+herda b_morte
+const s_titulo = "No cemitério de Little Hangleton:"
+const s_desc = "Em anos anteriores, o cemitério de Little Hangleton era um lugar de descanso \
+muito bom para os cidadãos de Little Hangleton.\n\
+Agora, no entanto, tudo o que você vê é mato e Muitas das sepulturas instaladas aqui estão \
+cobertas pela hera e por musgo.\n\
+Os nomes escritos sobre elas se encontram desbotados, deixando bem claro que o local foi \
+completamente abandonado pelo tempo.\n\
+De acordo com as histórias locais, este é o refúgio central para Voldemort, o Lorde das Trevas, \
+juntamente com seus comensais da morte. Portanto, muita cautela ao caminhar por estas bandas!"
+const dir_b = $s_morte108
+const dir_sair = $s_morte106
+
+
+classe s_morte108
+herda b_morte
+const s_titulo = "No cemitério de Little Hangleton:"
+const s_desc = "Você continua a vagar pelo cemitério, que era noutras épocas uma referência para \
+os cidadãos de Little Hangleton sepultarem seus entes queridos.\n\
+Atualmente, o mato alto e os túmulos violados fazem cada vez mais parte da paisagem.\n\
+Um ar sombrio e um vento gelado invadem o local à medida em que você se aprofunda, e uma vontade \
+repentina de fugir toma conta de seu corpo.\n\
+Para norte, a escuridão é ainda maior, enquanto que para cima você retorna à entrada."
+const dir_n = $s_morte109
+const dir_c = $s_morte107
+
+
+classe s_morte109
+herda b_morte
+const s_titulo = "No cemitério de Little Hangleton:"
+const s_desc = "Você continua a vagar pelo cemitério, que era noutras épocas uma referência para \
+os cidadãos de Little Hangleton sepultarem seus entes queridos.\n\
+Atualmente, o mato alto e os túmulos violados fazem cada vez mais parte da paisagem.\n\
+Um ar sombrio e um vento gelado invadem o local à medida em que você se aprofunda, e uma vontade \
+repentina de fugir toma conta de seu corpo.\n\
+O caminho até o centro do cemitério continua a norte, e a sul se encontra a passagem de volta."
+const dir_n = $s_morte110
+const dir_s = $s_morte108
+
+
+classe s_morte110
+herda b_morte
+const s_titulo = "No cemitério de Little Hangleton:"
+const s_desc = "Você continua a vagar pelo cemitério, que era noutras épocas uma referência para \
+os cidadãos de Little Hangleton sepultarem seus entes queridos.\n\
+Atualmente, o mato alto e os túmulos violados fazem cada vez mais parte da paisagem.\n\
+Um ar sombrio e um vento gelado invadem o local à medida em que você se aprofunda, e uma vontade \
+repentina de fugir toma conta de seu corpo.\n\
+O medo e a curiosidade começam a se fundir, pois você nota que há uma surpreendente descida \
+aqui! Será prudente continuar ou seguir em retirada para o sul?"
+const dir_s = $s_morte109
+const dir_b = $s_morte111
+
+
+classe s_morte111
+herda b_morte
+const s_titulo = "Descendo pelo cemitério:"
+const s_desc = "Você se encontra numa pequena, porém arrepiante descida pelo cemitério.\n\
+A paisagem aqui se torna ainda mais sombria e amedrontadora, e você sente a sensação de que algo \
+maligno está a segui-lo por toda parte.\n\
+Ossos quebrados e covas abertas enchem o ar, e nem a luz solar consegue penetrar em tão terrível \
+ambiente.\n\
+O caos e o terror continuam para leste, mas você tem a oportunidade de subir e buscar um alívio \
+temporário."
+const dir_l = $s_morte112
+const dir_c = $s_morte110
+
+
+classe s_morte112
+herda b_morte
+const s_titulo = "No cemitério de Little Hangleton:"
+const s_desc = "Você continua a vagar pelo cemitério, que era noutras épocas uma referência para \
+os cidadãos de Little Hangleton sepultarem seus entes queridos.\n\
+Atualmente, o mato alto e os túmulos violados fazem cada vez mais parte da paisagem.\n\
+Um ar sombrio e um vento gelado invadem o local à medida em que você se aprofunda, e uma vontade \
+repentina de fugir toma conta de seu corpo.\n\
+Para leste, você chega ao centro do cemitério e, para oeste, retorna-se."
+const dir_l = $s_morte113
+const dir_o = $s_morte111
+
+
+classe s_morte113
+herda b_morte
+const s_titulo = "No meio do cemitério:"
+const s_desc = "Com muito medo e apreensão, você chega ao centro do cemitério de Little Hangleton\
+.\n\
+Aqui, o ar monstruoso e sombrio é evidente, e você pensa até que está se aproximando do senhor \
+das trevas.\n\
+Criaturas nunca antes vistas aparecem por aqui, para transmitir a mensagem de que a luz jamais \
+penetrará estes caminhos tenebrosos.\n\
+Para baixo, avista-se uma encruzilhada estranha, enquanto que para oeste você volta."
+const s_pnj = 20
+const dir_o = $s_morte112
+const dir_b = $s_morte114
+const a_reset = "P 100 morte005 0 0 12\nP 100 morte009 0 0 12"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_morte005:objsolto.total < 12
+    criar("p_morte005", este, 0)
+  fimse
+  se p_morte009:objsolto.total < 12
+    criar("p_morte009", este, 0)
+  fimse
+
+
+classe s_morte114
+herda b_morte
+const s_titulo = "Numa confusa encruzilhada:"
+const s_desc = "Você está numa estranha interseção pelo cemitério, em que estão dispostos vários \
+caminhos.\n\
+Para norte, leste e oeste, tudo o que se vê são covas e túmulos espalhados pelo chão.\n\
+Para cima você volta ao centro do local, e para baixo uma surpresa nada agradável te espera \
+ansiosamente!"
+const dir_n = $s_morte117
+const dir_l = $s_morte116
+const dir_o = $s_morte115
+const dir_c = $s_morte113
+const dir_b = $s_morte130
+
+
+classe s_morte115
+herda b_morte
+const s_titulo = "Caminhando entre covas:"
+const s_desc = "Você está no início da passagem oeste entre as covas.\n\
+O cenário aqui é de pura destruição e abandono, e a podridão dos cadáveres em alto estado de \
+decomposição percorre suas narinas sem pedir licença.\n\
+O caminho segue para o oeste, e para leste você volta ao ápice da encruzilhada."
+const dir_l = $s_morte114
+const dir_o = $s_morte119
+
+
+classe s_morte116
+herda b_morte
+const s_titulo = "Caminhando entre covas:"
+const s_desc = "Você está no início da passagem leste entre as covas.\n\
+O cenário aqui é de pura destruição e abandono, e a podridão dos cadáveres em alto estado de \
+decomposição percorre suas narinas sem pedir licença.\n\
+O caminho segue para o leste, e para oeste você volta ao ápice da encruzilhada."
+const dir_l = $s_morte118
+const dir_o = $s_morte114
+
+
+classe s_morte117
+herda b_morte
+const s_titulo = "Caminhando entre covas:"
+const s_desc = "Você está na passagem norte entre as covas.\n\
+O cenário aqui é de pura destruição e abandono, e a podridão dos cadáveres em alto estado de \
+decomposição percorre suas narinas sem pedir licença.\n\
+O caminho segue para o norte, e para sul você volta ao ápice da encruzilhada."
+const dir_n = $s_morte122
+const dir_s = $s_morte114
+
+
+classe s_morte118
+herda b_morte
+const s_titulo = "Caminhando entre covas:"
+const s_desc = "Você está no centro da passagem leste entre as covas.\n\
+O cenário aqui é de pura destruição e abandono, e a podridão dos cadáveres em alto estado de \
+decomposição percorre suas narinas sem pedir licença.\n\
+O caminho segue para o leste, e para oeste você volta."
+const dir_l = $s_morte125
+const dir_o = $s_morte116
+
+
+classe s_morte119
+herda b_morte
+const s_titulo = "Caminhando entre covas:"
+const s_desc = "Você está no centro da passagem oeste entre as covas.\n\
+O cenário aqui é de pura destruição e abandono, e a podridão dos cadáveres em alto estado de \
+decomposição percorre suas narinas sem pedir licença.\n\
+O caminho segue para o oeste, e para leste você volta."
+const dir_l = $s_morte115
+const dir_o = $s_morte126
+
+
+classe s_morte120
+herda b_morte
+const s_titulo = "Aos pés de uma imponente sepultura:"
+const dir_b = $s_morte121
+const portanome_b = "uma sepultura"
+const fecha_b = 1 # Fecha ao passar: Sim
+const dir_n = $s_morte126
+const a_reset = "P 100 morte004 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_morte004:objsolto.total < 1
+    criar("p_morte004", este, 0)
+  fimse
+
+
+classe s_morte121
+herda b_morte
+const s_titulo = "A sepultura de Tom RiddleSR:"
+const dir_c = $s_morte120
+const portaini_c = 2 # Estado inicial: 2 Porta fechada
+const portanome_c = "a tampa da sepultura"
+const fecha_c = 1 # Fecha ao passar: Sim
+const a_reset = "P 100 morte008 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_morte008:objsolto.total < 1
+    criar("p_morte008", este, 0)
+  fimse
+
+
+classe s_morte122
+herda b_morte
+const s_titulo = "Caminhando entre covas:"
+const s_desc = "Você continua a caminhada na passagem norte entre as covas.\n\
+O cenário aqui é de pura destruição e abandono, e a podridão dos cadáveres em alto estado de \
+decomposição percorre suas narinas sem pedir licença.\n\
+Para norte há uma sepultura de mármore, que parece pertencer a uma família importante de Little \
+Hangleton. Ela é uma das únicas que ainda permanece intacta dentre tantas outras espalhadas pelo \
+lugar.\n\
+Ao sul, você volta ao início da passagem."
+const dir_n = $s_morte123
+const dir_s = $s_morte117
+
+
+classe s_morte123
+herda b_morte
+const s_titulo = "Aos pés de uma enorme sepultura de mármore:"
+const dir_s = $s_morte122
+const dir_b = $s_morte124
+const portaini_b = 2 # Estado inicial: 2 Porta fechada
+const portanome_b = "a tampa da lápide de mármore"
+const fecha_b = 1 # Fecha ao passar: Sim
+
+
+classe s_morte124
+herda b_morte
+const s_titulo = "A sepultura de Mary Riddle:"
+const dir_c = $s_morte123
+const portaini_c = 2 # Estado inicial: 2 Porta fechada
+const portanome_c = "a tampa da lápide de mármore"
+const fecha_c = 1 # Fecha ao passar: Sim
+const a_reset = "P 100 morte006 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_morte006:objsolto.total < 1
+    criar("p_morte006", este, 0)
+  fimse
+
+
+classe s_morte125
+herda b_morte
+const s_titulo = "Caminhando entre covas:"
+const s_desc = "Você está no final leste da passagem entre as covas.\n\
+O cenário aqui é de pura destruição e abandono, e a podridão dos cadáveres em alto estado de \
+decomposição percorre suas narinas sem pedir licença.\n\
+Para sul há uma sepultura de mármore, que parece pertencer a uma família importante de Little \
+Hangleton. Ela é uma das únicas que permanece intacta dentre tantas outras espalhadas pelo \
+local.\n\
+Para oeste, volta-se ao centro da passagem."
+const dir_s = $s_morte127
+const dir_o = $s_morte118
+
+
+classe s_morte126
+herda b_morte
+const s_titulo = "Caminhando entre covas:"
+const s_desc = "Você está no final oeste da passagem entre as covas.\n\
+O cenário aqui é de pura destruição e abandono, e a podridão dos cadáveres em alto estado de \
+decomposição percorre suas narinas sem pedir licença.\n\
+Para sul há uma sepultura de mármore, que parece pertencer a uma família importante de Little \
+Hangleton. Ela é uma das únicas que permanece intacta dentre tantas outras espalhadas pelo \
+local.\n\
+Para leste, volta-se ao centro da passagem."
+const dir_s = $s_morte120
+const dir_l = $s_morte119
+
+
+classe s_morte127
+herda b_morte
+const s_titulo = "Diante de outra sepultura:"
+const dir_n = $s_morte125
+const dir_b = $s_morte128
+const portaini_b = 2 # Estado inicial: 2 Porta fechada
+const portanome_b = "a tampa da lápide de mármore"
+const fecha_b = 1 # Fecha ao passar: Sim
+
+
+classe s_morte128
+herda b_morte
+const s_titulo = "A sepultura de Thomas Riddle:"
+const s_desc = "Você adentra uma sepultura sombria no cemitério.\n\
+O lugar é escuro a ponto de não poder enxergar quase nada em volta.\n\
+Ao olhar para o chão, você nota alguns ossos que parecem ter pertencido a alguém que morreu há \
+muitos anos."
+const dir_c = $s_morte127
+const portaini_c = 2 # Estado inicial: 2 Porta fechada
+const portanome_c = "a tampa da lápide de mármore"
+const fecha_c = 1 # Fecha ao passar: Sim
+const a_reset = "P 100 morte007 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_morte007:objsolto.total < 1
+    criar("p_morte007", este, 0)
+  fimse
+
+
+classe s_morte129
+herda b_morte
+const s_titulo = "Perdido pela escuridão:"
+const dir_o = $s_morte068
+const a_reset = "P 100 morte005 0 0 6"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_morte005:objsolto.total < 6
+    criar("p_morte005", este, 0)
+  fimse
+
+
+classe s_morte130
+herda b_morte
+const s_titulo = "Um buraco escuro e tenebroso:"
+const s_desc = "Você entra num buraco profundo, atraído pela curiosidade em saber no que daria a \
+surpresa desagradável.\n\
+Tentando buscar um apoio, você se agarra desesperadamente às paredes que o levariam para cima, \
+mas uma força sobrenatural faz com que você continue a descer, a descer, a descer...\n\
+É, meu caro, infelizmente seu dia chegou mais cedo do que você imaginava!"
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+const dir_c = $s_morte114
+const a_reset = "P 100 morte001 0 0 1\nA 100 morte002 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  se p_morte001:objsolto.total < 1
+    p = u = criar("p_morte001", este, 0)
+  fimse
+  se p.animalmais
+    criar("p_morte002", p, 0)
+  fimse
+
+
+classe s_morte131
+herda b_morte
+const s_titulo = "No terceiro andar do castelo:"
+const dir_n = $s_morte136
+const dir_s = $s_morte038
+const dir_l = $s_morte134
+const dir_o = $s_morte135
+
+
+classe s_morte132
+herda b_morte
+const s_titulo = "No terceiro andar do castelo:"
+const dir_n = $s_morte134
+const dir_o = $s_morte038
+
+
+classe s_morte133
+herda b_morte
+const s_titulo = "No terceiro andar do castelo:"
+const dir_n = $s_morte135
+const dir_l = $s_morte038
+
+
+classe s_morte134
+herda b_morte
+const s_titulo = "No terceiro andar do castelo:"
+const dir_s = $s_morte132
+const dir_o = $s_morte131
+
+
+classe s_morte135
+herda b_morte
+const s_titulo = "No terceiro andar do castelo:"
+const dir_s = $s_morte133
+const dir_l = $s_morte131
+
+
+classe s_morte136
+herda b_morte
+const s_titulo = "Na sala do supremo necromante:"
+const dir_s = $s_morte131
+const a_reset = "P 100 morte013 0 0 1\nE 100 morte002 1 22"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_morte013:objsolto.total < 1
+    p = u = criar("p_morte013", este, 0)
+  fimse
+  se u
+    r = criar("i_morte002", u, 1), r.vestir(22), u.recalc = 1
+  fimse

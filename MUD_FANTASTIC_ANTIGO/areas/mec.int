@@ -1,0 +1,908 @@
+classe a_mec
+herda area
+const a_tempo = 1
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_mec
+herda sala
+const s_fome = 2 # Fome e sede: 2 Some aos poucos
+const s_som = "restaurante"
+const s_area = "mec"
+
+
+classe i_mec001
+herda comum_itemgrupo
+const nome = "Bebedouro"
+const ident = "Bebedouro água"
+const descnome = "Um bebedouro"
+const descpos = "Próximo a você, um bonito bebedor metálico descansa na parede a sua esquerda, \
+contendo água geladinha."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_sede = 150
+const f_msgperso = "$P bebe das frescas águas de $O"
+const i_captura = 0
+const i_pegar = "Você prefere não fazer papel de tolo, roubando algo que não é seu."
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_mec002
+herda comum_itemperso
+const nome = "Uma pequena mesa de madeira"
+const ident = "Pequena mesa madeira"
+const descpos = "Com a capacidade de comportar 4 pessoas, uma pequena mesa está aqui."
+const i_pegar = "A mesa está instalada no chão, lamento."
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_mec003
+herda comum_itemperso
+const nome = "Uma cadeira confortável"
+const ident = "Cadeira confortável"
+const descnome = "Uma cadeira confortável"
+const descpos = "Um conjunto de 4 cadeiras estão aqui, encaixadas na mesa."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const i_pegar = "Você tenta levar uma cadeira, mas um dos seguranças a toma de você e a coloca \
+em seu lugar."
+const i_movel = 3 # Mobília: 3 Sentar confortavelmente
+const i_lugar = 4
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_mec004
+herda comum_itemgrupo
+const nome = "Um cheeseburger de picanha"
+const ident = "Cheeseburger picanha"
+const descnome = "Um cheeseburger de picanha"
+const descpos = "Seu estômago se alegra, ao sentir o cheiro de um cheeseburger de picanha que \
+está aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 150
+const f_msgperso = "$P devora ferozmente $O, que em minutos, desaparece em sua boca!"
+const pesoobj = 1
+const valor = 2000
+
+
+classe i_mec005
+herda comum_itemgrupo
+const nome = "Um cheeseburger de frango"
+const ident = "Cheeseburger frango"
+const descnome = "Um cheeseburger de frango"
+const descpos = "Alguém perdeu um delicioso cheeseburger de frango por aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 150
+const f_msgperso = "$P devora ferozmente $O, que em minutos, desaparece em sua boca!"
+const pesoobj = 1
+const valor = 2000
+
+
+classe i_mec006
+herda comum_itemgrupo
+const nome = "Um cheeseburger de bacon"
+const ident = "Cheeseburger de bacon"
+const descnome = "Um cheeseburger de bacon"
+const descpos = "Alguém largou um cheeseburger de bacon por aqui, achado não é roubado, né?"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 150
+const f_msgperso = "$P devora ferozmente $O, que em minutos, desaparece em sua boca!"
+const pesoobj = 1
+const valor = 2000
+
+
+classe i_mec007
+herda comum_itemgrupo
+const nome = "Um cheeseburger de queijo"
+const ident = "Cheeseburger queijo"
+const descnome = "Um cheeseburger de queijo"
+const descpos = "Um cheeseburger de queijo foi abandonado aqui, que delícia!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 150
+const f_msgperso = "$P devora ferozmente $O, que em minutos, desaparece em sua boca!"
+const pesoobj = 1
+const valor = 2000
+
+
+classe i_mec008
+herda comum_itemgrupo
+const nome = "Um cheeseburger vegetariano"
+const ident = "Cheeseburger vegetariano"
+const descnome = "Um cheeseburger vegetariano"
+const descpos = "Alguma modelo deve ter esquecido esse cheeseburger vegetariano aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 150
+const f_msgperso = "$P devora ferozmente $O, que em minutos, desaparece em sua boca!"
+const pesoobj = 1
+const valor = 2000
+
+
+classe i_mec009
+herda comum_itemgrupo
+const nome = "Um duplo cheeseburger de picanha"
+const ident = "Duplo cheeseburger picanha"
+const descnome = "Um duplo cheeseburger de picanha"
+const descpos = "Seu estômago começa a enlouquecer, quando você percebe um cheeseburger duplo de \
+picanha, que alguém abandonou aqui!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 200
+const f_msgperso = "Com muita vontade, $P devora $O, até que não sobre nada."
+const valor = 5000
+
+
+classe i_mec010
+herda comum_itemgrupo
+const nome = "Um duplo cheeseburger de frango"
+const ident = "Duplo cheeseburger de frango"
+const descnome = "Um duplo cheeseburger de frango"
+const descpos = "Alguém esqueceu um saboroso cheeseburger duplo de frango aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 200
+const f_msgperso = "Com muita vontade, $P devora $O, até que não sobre nada."
+const valor = 5000
+
+
+classe i_mec011
+herda comum_itemgrupo
+const nome = "Um duplo cheeseburger de bacon"
+const ident = "Duplo cheeseburger bacon"
+const descnome = "Um duplo cheeseburger de bacon"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 200
+const f_msgperso = "Com muita vontade, $P devora $O, até que não sobre nada."
+const valor = 5000
+
+
+classe i_mec012
+herda comum_itemgrupo
+const nome = "Um duplo cheeseburger de queijo"
+const ident = "Duplo cheeseburger queijo"
+const descnome = "Um duplo cheeseburger de queijo"
+const descpos = "Alguém abandonou um saboroso duplo cheeseburger de queijo aqui, que desperdício,\
+ não?"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 200
+const f_msgperso = "Com muita vontade, $P devora $O, até que não sobre nada."
+const valor = 5000
+
+
+classe i_mec013
+herda comum_itemgrupo
+const nome = "Um duplo cheeseburger vegetariano"
+const ident = "Duplo cheeseburger vegetariano"
+const descnome = "Um duplo cheeseburger vegetariano"
+const descpos = "Alguma modelo faminta deve ter esquecido seu duplo cheeseburger vegetariano por \
+aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 200
+const f_msgperso = "Com muita vontade, $P devora $O, até que não sobre nada."
+const valor = 5000
+
+
+classe i_mec014
+herda comum_itemgrupo
+const nome = "Um triplo cheeseburger de picanha"
+const ident = "Triplo cheeseburger picanha"
+const descnome = "Um triplo cheeseburger de picanha"
+const descpos = "Alguém esqueceu um triplo cheeseburger por aqui!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 250
+const f_msgperso = "Afim de apreciar muito bem o sabor, $P come $O com bastante calma."
+const valor = 10000
+
+
+classe i_mec015
+herda comum_itemgrupo
+const nome = "Um triplo cheeseburger de frango"
+const ident = "Triplo cheeseburger de frango"
+const descnome = "Um triplo cheeseburger de frango"
+const descpos = "Alguém deixou um triplo cheeseburger de frango por aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 250
+const f_msgperso = "Afim de apreciar muito bem o sabor, $P come $O com bastante calma."
+const valor = 10000
+
+
+classe i_mec016
+herda comum_item
+const nome = "Uma pequena latinha de Cocacola"
+const descnome = "Uma pequena latinha de Cocacola"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_sede = 50
+const f_msgperso = "$p vira $o nos lábios, arrotando ao esvaziar ela."
+const pesoobj = 15
+const valor = 1000
+
+
+classe i_mec017
+herda comum_item
+const nome = "Uma latinha média de Cocacola"
+const descnome = "Uma latinha média de Cocacola"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_sede = 80
+const f_msgperso = "$p vira $o na boca, tomando tudo em uma golada só!"
+const valor = 3000
+
+
+classe i_mec018
+herda comum_item
+const nome = "Uma latinha grande de Cocacola"
+const descnome = "Uma latinha grande de Cocacola"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_sede = 120
+const f_msgperso = "$p vira $o, bebendo em rápidas goladas!"
+const valor = 5000
+
+
+classe i_mec019
+herda comum_itemgrupo
+const nome = "Um triplo cheeseburger de bacon"
+const ident = "Triplo cheeseburger bacon"
+const descnome = "Um triplo cheeseburger de bacon"
+const descpos = "Você pira, ao avistar jogado por aqui, um maravilhoso triplo cheeseburger de \
+bacon!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 250
+const f_msgperso = "Afim de apreciar muito bem o sabor, $P come $O com bastante calma."
+const valor = 10000
+
+
+classe i_mec020
+herda comum_itemgrupo
+const nome = "Um triplo cheeseburger de queijo"
+const ident = "Triplo cheeseburger queijo"
+const descnome = "Um triplo cheeseburger de queijo"
+const descpos = "Algum doido perdeu um saboroso triplo cheeseburger de queijo por aqui!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 250
+const f_msgperso = "Afim de apreciar muito bem o sabor, $P come $O com bastante calma."
+const valor = 10000
+
+
+classe i_mec021
+herda comum_itemgrupo
+const nome = "Um triplo cheeseburger vegetariano"
+const ident = "Triplo cheeseburger vegetariano"
+const descnome = "Um triplo cheeseburger vegetariano"
+const descpos = "Alguma modelo muito faminta esqueceu seu triplo cheeseburger vegetariano por \
+aqui!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 250
+const f_msgperso = "Afim de apreciar muito bem o sabor, $P come $O com bastante calma."
+const valor = 10000
+
+
+classe p_mec001
+herda comum_perso
+const nome = "Janaina"
+const ident = "Janaina"
+const descnome = "Janaina"
+const descpadr = "embalando os lanches com muita alegria, Janaina está aqui, tratando muito bem \
+os clientes."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const tipo1 = "Humana"
+const tipo2 = "Funcionária do Mcdonalds"
+const equip3 = "0"
+const lojaini = 1
+const lojafim = 0
+const lojaitem = "mec004 0\n\
+mec005 0\n\
+mec006 0\n\
+mec007 0\n\
+mec008 0\n\
+mec009 0\n\
+mec010 0\n\
+mec011 0\n\
+mec012 0\n\
+mec013 0\n\
+mec014 0\n\
+mec015 0\n\
+mec019 0\n\
+mec020 0\n\
+mec021 0"
+const lojafechada = "$P: Acabou nosso horário de serviço meu bem, me desculpe."
+
+
+classe p_mec002
+herda comum_perso
+const nome = "Milena"
+const ident = "Milena"
+const descnome = "Milena"
+const descpadr = "Encarregada de cuidar das bebidas, Milena está aqui, atendendo muito bem as \
+pessoas."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const tipo1 = "Humana"
+const tipo2 = "Funcionária do Mcdonalds"
+const equip3 = "0"
+const lojaini = 7
+const lojafim = 7
+const lojaitem = "água016 0\nágua017 0\nágua018 0"
+
+
+classe p_mec003
+herda comum_perso
+const nome = "Max"
+const ident = "Max"
+const descnome = "Max"
+const descpadr = "Reclamando de queimaduras nos dedos e com muita preguiça, Max, um dos funcionár\
+ios está aqui, recebendo muitas broncas de sua chefe."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const tipo1 = "Humano"
+const tipo2 = "Funcionário do Mcdonalds"
+const equip3 = "0"
+const lojaini = 7
+const lojafim = 21
+const lojafechada = "$P: Tá achando que eu sou escravo pra ficar atendendo até a hora que você \
+quiser? Vasa!"
+
+
+classe p_mec004
+herda comum_perso
+const nome = "Natally"
+const ident = "Natally gerente"
+const descnome = "Natally, a gerente do Mcdonalds"
+const descpadr = "Supervisionando os funcionários do Mcdonalds mas especialmente Max, Natally, a \
+gerente do Mcdonalds te dá as boas vindas."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const lojaini = 7
+const lojafim = 21
+const lojafechada = "$P: Max, respeita! Perdoi-me pela falta de educação dele, mas agora estamos \
+fechados, volte depois."
+
+
+classe p_mec005
+herda comum_perso
+const nome = "Breno"
+const ident = "Breno"
+const descnome = "Breno, um dos seguranças do Mcdonalds"
+const descpadr = "Vigiando tudo, Breno, um segurança musculoso está aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const tipo1 = "Humano"
+const tipo2 = "Segurança do Mcdonalds"
+
+
+classe p_mec006
+herda comum_perso
+const nome = "Rodrigo"
+const ident = "Rodrigo"
+const descnome = "Rodrigo, um dos seguranças do Mcdonalds"
+const descpadr = "Sempre atento com ladrões, Rodrigo, um dos seguranças analisa cada um que \
+entra aqui, com um olhar amedrontador."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const tipo1 = "Humano"
+const tipo2 = "Segurança do Mcdonalds"
+
+
+classe p_mec007
+herda comum_perso
+const nome = "Honda"
+const ident = "Honda"
+const descnome = "Honda, a chefe da segurança do Mcdonalds"
+const descpadr = "Grande como um armário de 2 metros, Honda, a assustadora chefe da segurança do \
+Mcdonalds te encara, esperando que você não seja um infrator."
+const tipo1 = "Humana"
+const tipo2 = "Chefe dos seguranças do Mcdonalds"
+
+
+classe s_mec001
+herda b_mec
+const s_titulo = "Dentro do MecDonalds"
+const s_jog = 100
+const dir_n = $s_midgaard014
+const dir_s = $s_parmilion019
+const dir_l = $s_mec063
+const dir_o = $s_mec003
+const dir_ne = $s_mec005
+const dir_no = $s_mec006
+const dir_se = $s_mec007
+const dir_so = $s_mec008
+
+
+classe s_mec002
+herda b_mec
+const s_titulo = "O balcão"
+const dir_n = $s_mec063
+const dir_l = $s_mec064
+const dir_o = $s_mec065
+const a_reset = "P 100 mec001 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_mec001:objsolto.total < 1
+    criar("p_mec001", este, 0)
+  fimse
+
+
+classe s_mec003
+herda b_mec
+const s_titulo = "Dentro do MecDonalds"
+const dir_s = $s_mec065
+const dir_l = $s_mec001
+const dir_o = $s_mec004
+
+
+classe s_mec004
+herda b_mec
+const s_titulo = "Área dos banheiros."
+const dir_n = $s_mec009
+const dir_s = $s_mec010
+const dir_l = $s_mec001
+
+
+classe s_mec005
+herda b_mec
+const s_titulo = "Um canto de mesas"
+const dir_so = $s_mec001
+const s_reset = "S 100 água002 1 S\nS 100 água003 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_água002") && criar("i_água002", este, 1)
+  !dentro1.objini("i_água003") && criar("i_água003", este, 1)
+
+
+classe s_mec006
+herda b_mec
+const s_titulo = "Um canto de mesas"
+const dir_se = $s_mec001
+const s_reset = "S 100 água002 1 S\nS 100 água003 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_água002") && criar("i_água002", este, 1)
+  !dentro1.objini("i_água003") && criar("i_água003", este, 1)
+
+
+classe s_mec007
+herda b_mec
+const s_titulo = "Um canto de mesas"
+const dir_no = $s_mec001
+const s_reset = "S 100 água002 1 S\nS 100 água003 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_água002") && criar("i_água002", este, 1)
+  !dentro1.objini("i_água003") && criar("i_água003", este, 1)
+
+
+classe s_mec008
+herda b_mec
+const s_titulo = "Um canto de mesas"
+const dir_ne = $s_mec001
+const s_reset = "S 100 água002 1 S\nS 100 água003 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_água002") && criar("i_água002", este, 1)
+  !dentro1.objini("i_água003") && criar("i_água003", este, 1)
+
+
+classe s_mec009
+herda b_mec
+const s_titulo = "A entrada do banheiro feminino"
+const dir_n = $s_mec037
+const dir_s = $s_mec004
+const s_reset = "S 100 água001 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_água001") && criar("i_água001", este, 1)
+
+
+classe s_mec010
+herda b_mec
+const s_titulo = "A entrada do banheiro masculino"
+const dir_n = $s_mec004
+const dir_s = $s_mec011
+const s_reset = "S 100 água001 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_água001") && criar("i_água001", este, 1)
+
+
+classe s_mec011
+herda b_mec
+const s_titulo = "O banheiro masculino."
+const dir_n = $s_mec010
+const dir_s = $s_mec030
+const dir_l = $s_mec012
+const dir_o = $s_mec021
+
+
+classe s_mec012
+herda b_mec
+const s_titulo = "O corredor dos boxes"
+const dir_n = $s_mec013
+const dir_s = $s_mec014
+const dir_l = $s_mec015
+const dir_o = $s_mec011
+
+
+classe s_mec013
+herda b_mec
+const s_titulo = "Um box"
+const dir_s = $s_mec012
+
+
+classe s_mec014
+herda b_mec
+const s_titulo = "Um box."
+const dir_n = $s_mec012
+
+
+classe s_mec015
+herda b_mec
+const s_titulo = "O corredor dos boxes"
+const dir_n = $s_mec016
+const dir_s = $s_mec017
+const dir_l = $s_mec018
+const dir_o = $s_mec012
+
+
+classe s_mec016
+herda b_mec
+const s_titulo = "Um box"
+const dir_s = $s_mec015
+
+
+classe s_mec017
+herda b_mec
+const s_titulo = "Um box"
+const dir_n = $s_mec015
+
+
+classe s_mec018
+herda b_mec
+const s_titulo = "O fim do corredor."
+const dir_n = $s_mec019
+const dir_s = $s_mec020
+const dir_o = $s_mec015
+
+
+classe s_mec019
+herda b_mec
+const s_titulo = "Um box"
+const dir_s = $s_mec018
+
+
+classe s_mec020
+herda b_mec
+const s_titulo = "Um box"
+const dir_n = $s_mec018
+
+
+classe s_mec021
+herda b_mec
+const s_titulo = "O corredor dos boxes"
+const dir_n = $s_mec022
+const dir_s = $s_mec023
+const dir_l = $s_mec011
+const dir_o = $s_mec024
+
+
+classe s_mec022
+herda b_mec
+const s_titulo = "Um box"
+const dir_s = $s_mec021
+
+
+classe s_mec023
+herda b_mec
+const s_titulo = "Um box"
+const dir_n = $s_mec021
+
+
+classe s_mec024
+herda b_mec
+const s_titulo = "O corredor dos boxes"
+const dir_n = $s_mec025
+const dir_s = $s_mec026
+const dir_l = $s_mec021
+const dir_o = $s_mec027
+
+
+classe s_mec025
+herda b_mec
+const s_titulo = "Um box"
+const dir_s = $s_mec024
+
+
+classe s_mec026
+herda b_mec
+const s_titulo = "Um box"
+const dir_n = $s_mec024
+
+
+classe s_mec027
+herda b_mec
+const s_titulo = "O fim do corredor."
+const dir_n = $s_mec028
+const dir_s = $s_mec029
+const dir_l = $s_mec024
+
+
+classe s_mec028
+herda b_mec
+const s_titulo = "Um box"
+const dir_s = $s_mec027
+
+
+classe s_mec029
+herda b_mec
+const s_titulo = "Um box"
+const dir_n = $s_mec027
+
+
+classe s_mec030
+herda b_mec
+const s_titulo = "Área das pias"
+const dir_n = $s_mec011
+const dir_l = $s_mec032
+const dir_o = $s_mec031
+
+
+classe s_mec031
+herda b_mec
+const s_titulo = "Área das pias"
+const dir_l = $s_mec030
+const dir_o = $s_mec035
+
+
+classe s_mec032
+herda b_mec
+const s_titulo = "Área das pias"
+const dir_l = $s_mec033
+const dir_o = $s_mec030
+
+
+classe s_mec033
+herda b_mec
+const s_titulo = "Área das pias"
+const dir_l = $s_mec034
+const dir_o = $s_mec032
+
+
+classe s_mec034
+herda b_mec
+const s_titulo = "Área das pias"
+const dir_o = $s_mec033
+
+
+classe s_mec035
+herda b_mec
+const s_titulo = "Área das pias"
+const dir_l = $s_mec031
+const dir_o = $s_mec036
+
+
+classe s_mec036
+herda b_mec
+const s_titulo = "Área das pias"
+const dir_l = $s_mec035
+
+
+classe s_mec037
+herda b_mec
+const s_titulo = "O banheiro feminino"
+const dir_n = $s_mec048
+const dir_s = $s_mec009
+const dir_l = $s_mec038
+const dir_o = $s_mec039
+
+
+classe s_mec038
+herda b_mec
+const s_titulo = "O corredor das cabines sanitárias"
+const dir_n = $s_mec055
+const dir_s = $s_mec056
+const dir_l = $s_mec057
+const dir_o = $s_mec037
+
+
+classe s_mec039
+herda b_mec
+const s_titulo = "O corredor das cabines sanitárias"
+const dir_n = $s_mec040
+const dir_s = $s_mec041
+const dir_l = $s_mec037
+const dir_o = $s_mec042
+
+
+classe s_mec040
+herda b_mec
+const s_titulo = "Uma cabine sanitária"
+const dir_s = $s_mec039
+
+
+classe s_mec041
+herda b_mec
+const s_titulo = "Uma cabine sanitária"
+const dir_n = $s_mec039
+
+
+classe s_mec042
+herda b_mec
+const s_titulo = "O corredor das cabines sanitárias"
+const dir_n = $s_mec043
+const dir_s = $s_mec044
+const dir_l = $s_mec039
+const dir_o = $s_mec045
+
+
+classe s_mec043
+herda b_mec
+const s_titulo = "Uma cabine sanitária"
+const dir_s = $s_mec042
+
+
+classe s_mec044
+herda b_mec
+const s_titulo = "Uma cabine sanitária"
+const dir_n = $s_mec042
+
+
+classe s_mec045
+herda b_mec
+const s_titulo = "O fim do corredor."
+const dir_n = $s_mec046
+const dir_s = $s_mec047
+const dir_l = $s_mec042
+
+
+classe s_mec046
+herda b_mec
+const s_titulo = "Uma cabine sanitária"
+const dir_s = $s_mec045
+
+
+classe s_mec047
+herda b_mec
+const s_titulo = "Uma cabine sanitária"
+const dir_n = $s_mec045
+
+
+classe s_mec048
+herda b_mec
+const s_titulo = "Área das pias"
+const dir_s = $s_mec037
+const dir_l = $s_mec052
+const dir_o = $s_mec049
+
+
+classe s_mec049
+herda b_mec
+const s_titulo = "Área das pias"
+const dir_l = $s_mec048
+const dir_o = $s_mec050
+
+
+classe s_mec050
+herda b_mec
+const s_titulo = "Área das pias"
+const dir_l = $s_mec049
+const dir_o = $s_mec051
+
+
+classe s_mec051
+herda b_mec
+const s_titulo = "Área das pias"
+const dir_l = $s_mec050
+
+
+classe s_mec052
+herda b_mec
+const s_titulo = "Área das pias"
+const dir_l = $s_mec053
+const dir_o = $s_mec048
+
+
+classe s_mec053
+herda b_mec
+const s_titulo = "Área das pias"
+const dir_l = $s_mec054
+const dir_o = $s_mec052
+
+
+classe s_mec054
+herda b_mec
+const s_titulo = "Área das pias"
+const dir_o = $s_mec053
+
+
+classe s_mec055
+herda b_mec
+const s_titulo = "Uma cabine sanitária"
+const dir_s = $s_mec038
+
+
+classe s_mec056
+herda b_mec
+const s_titulo = "Uma cabine sanitária"
+const dir_n = $s_mec038
+
+
+classe s_mec057
+herda b_mec
+const s_titulo = "O corredor das cabines sanitárias"
+const dir_n = $s_mec058
+const dir_s = $s_mec059
+const dir_l = $s_mec060
+const dir_o = $s_mec038
+
+
+classe s_mec058
+herda b_mec
+const s_titulo = "O corredor das cabines sanitárias"
+const dir_s = $s_mec057
+
+
+classe s_mec059
+herda b_mec
+const s_titulo = "O corredor das cabines sanitárias"
+const dir_n = $s_mec057
+
+
+classe s_mec060
+herda b_mec
+const s_titulo = "O fim do corredor."
+const dir_n = $s_mec061
+const dir_s = $s_mec062
+const dir_o = $s_mec057
+
+
+classe s_mec061
+herda b_mec
+const s_titulo = "Uma cabine sanitária"
+const dir_s = $s_mec060
+
+
+classe s_mec062
+herda b_mec
+const s_titulo = "Uma cabine sanitária"
+const dir_n = $s_mec060
+
+
+classe s_mec063
+herda b_mec
+const s_titulo = "Dentro do MecDonalds"
+const dir_s = $s_mec002
+const dir_o = $s_mec001
+
+
+classe s_mec065
+herda b_mec
+const s_titulo = "Um balcão"
+const dir_n = $s_mec003
+const dir_l = $s_mec002
+const a_reset = "P 100 mec003 0 0 1\nP 100 mec004 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_mec003:objsolto.total < 1
+    criar("p_mec003", este, 0)
+  fimse
+  se p_mec004:objsolto.total < 1
+    criar("p_mec004", este, 0)
+  fimse

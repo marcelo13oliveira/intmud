@@ -1,0 +1,541 @@
+classe adm_cod
+const iniclasse = !$[arg0] && criar(arg0)
+const txtajuda = "\b\c3Comandos de edição do código\b\n\
+  \c2LCL\b       Lista as classes existentes\n\
+  \c2CCL\b       Cria classe\n\
+  \c2ACL\b       Apaga classe\n\
+  \c2ECL\b       Edita uma classe\n\
+  \c2ICL\b       Inicializa uma classe (chama a função iniclasse)\n\
+  \c2RCL\b       Renomeia uma classe\n\
+  \c2AOBJ\b      Apaga todos os objetos de uma classe\n\
+  \c2LHERDA\b    Lista heranças de uma classe\n\
+  \c2EHERDA\b    Edita herança de uma classe\n\
+  \c2LFUNC\b     Lista funções de uma classe\n\
+  \c2LFUNC2\b    Lista todas funções de uma classe, inclusive as herdadas\n\
+  \c2LARQ\b      Lista os arquivos e as classes de cada arquivo\n\
+  \c2MUDLER\b    Recarrega arquivos do MUD que foram alterados\n\
+  \c2MD5CL\b     Calcula o MD5 do texto de uma classe (para saber se mudou)\n\
+  \c2MD5SALVAR\b Calcula o MD5 de diversos arquivos e salva em mud-md5.txt\n\
+  \c2MD5CHECAR\b Verifica se os arquivos listados em mud-md5.txt mudaram"
+
+
+classe adm_lcl
+herda comando_adm
+const txtajuda = "\b\c3Lcl\b\n\
+Sintaxe: LCL [nome] [quantidade]\n\
+Lista todas as classes que começam com o nome especificado.\n\
+Se o nome for omitido, lista todos os itens.\n\
+Para listar somente as classes que tenham uma certa quantidade mínima\n\
+de objetos, acrescentar um número após o comando. Exemplo, LCL 100\n\
+lista somente as classes com 100 ou mais objetos."
+
+func escr # Listar classes
+  prog p
+  refvar txtmais = arg0.sock.txtmais
+  txt80 nome
+  uint32 total
+  debug d
+  d.exec = 100000
+  txtmais.limpar
+  total = txt1(arg1)
+  se txt1(arg1) != total
+    nome = txt1(arg1)
+    total = txt2(arg1)
+  fimse
+  se total
+    epara p.iniclasse(nome), p.lin, p.depois
+      refvar num = inttotal($[p.texto])
+      num >= total && txtmais.addfim(p.texto + "  " + num)
+    efim
+    total = txtmais.linhas
+  senao
+    epara p.iniclasse(nome), p.lin, p.depois
+      txtmais.addfim(p.texto + ",")
+    efim
+    total = txtmais.linhas
+    textopos pos
+    pos = txtmais.fim, pos.antes
+    pos.mudar("", inttotal(pos.texto) - 1, 1)
+    txtmais.juntar
+    txtmais.dividelin(50, 70)
+  fimse
+  se total
+    txtmais.addini("\b\c6Classes (" + total + "):\b")
+    arg0.sock.txtmostra
+  senao
+    txtmais.limpar
+    arg0.msg("\bNenhuma classe encontrada.")
+  fimse
+
+
+classe adm_ccl
+herda comando_adm
+const txtajuda = "\b\c3Ccl\b\n\
+Sintaxe: CCL <nome> [arquivo]\n\
+Cria uma classe. Aquivo é o nome do arquivo sem o .int no final, e a partir\n\
+do diretório aonde está o arquivo mud.int. Se for omitido, cria no arquivo\n\
+mud.int.\n\
+Nota: após criar a classe, costuma-se editar com Ecl e inicializar com Icl."
+
+func escr # Cria classe
+  prog p
+  se !arg1
+    arg0.msg("\bDigite o nome da classe após CCL")
+  senao p.existe(txt1(arg1))
+    arg0.msg("\bClasse já existe: " + txt1(arg1))
+  senao
+    arg0.sock.tpasso = arg1
+    passo(arg0.sock, "")
+  fimse
+
+func passo
+  arg0.passo = ""
+  se arg1 == "n"
+    arg0.msg("Cancelado")
+  senao arg1 == "s"
+    textotxt t
+    prog p
+    t.addfim(p.criar(txt1(arg0.tpasso) + "\n" + txt2(arg0.tpasso)))
+    se t.bytes > 1
+      arg0.msg2("Erro ao criar:\n" + t.remove(1000))
+    senao
+      arg0.msg("Classe criada: " + txt1(arg0.tpasso))
+      config:salvar
+      admlog(arg0, "criou classe " + txt1(arg0.tpasso))
+    fimse
+  senao
+    arg0.msg("Criar classe " + txt1(arg0.tpasso) + " ? Tecle S ou N")
+    arg0.passo = este
+  fimse
+  ret 1
+
+
+classe adm_acl
+herda comando_adm
+const txtajuda = "\b\c3Acl\b\nSintaxe: ACL <nome>\nApaga uma classe."
+
+func escr # Apaga classe
+  prog p
+  se !arg1
+    arg0.msg("\bDigite o nome da classe após ACL")
+  senao !p.existe(arg1)
+    arg0.msg("\bClasse não existe: " + arg1)
+  senao
+    arg0.sock.tpasso = arg1
+    passo(arg0.sock, "")
+  fimse
+
+func passo
+  arg0.passo = ""
+  se arg1 == "n"
+    arg0.msg("Cancelado")
+  senao arg1 == "s"
+    prog p
+    se !p.apagar(arg0.tpasso)
+      arg0.msg("Erro ao apagar " + arg0.tpasso)
+    senao
+      arg0.msg("Classe apagada " + arg0.tpasso)
+      config:salvar
+      admlog(arg0, "apagou classe " + arg0.tpasso)
+    fimse
+  senao
+    arg0.msg("Apagar classe " + arg0.tpasso + " ? Tecle S ou N")
+    arg0.passo = este
+  fimse
+  ret 1
+
+
+classe adm_ecl
+herda comando_editor
+const txtajuda = "\b\c3Ecl\b\n\
+Sintaxe: ECL [nome da classe]\n\
+Edita uma classe.\n\
+A primeira linha do texto é ARQ: seguido do nome do arquivo aonde\n\
+a classe está sem o .int no final."
+
+func escr # Edita uma classe
+  prog p
+  se !arg1
+    arg0.msg("\bDigite o nome da classe após ECL")
+  senao !p.existe(arg1)
+    arg0.msg("\bClasse não existe: " + arg1)
+  senao
+    arg0.sock.var.opcnome = ""
+    arg0.sock.var.opcclasse = txts(arg1)
+    passo(arg0.sock, "\b")
+  fimse
+
+func passo # Editar função
+  se arg1 == "z" # Sair do editor
+    arg0.msg("Fechando editor")
+    arg0.passo = ""
+  senao
+    arg0.var.opcnome = "classe " + arg0.var.opcclasse
+    passocod(arg0, arg1, 1)
+  fimse
+  ret 1
+
+
+classe adm_icl
+herda comando_adm
+const txtajuda = "\b\c3Icl\b\n\
+Sintaxe: ICL <nome da classe>\n\
+Inicializa uma classe (chama a função iniclasse da classe).\n\
+Isso é necessário após criar e editar com os comandos ccl e ecl."
+
+func escr # Inicializa uma classe
+  prog p
+  se !arg1
+    arg0.msg("\bDigite o nome da classe após ICL")
+  senao !p.existe(arg1)
+    arg0.msg("\bClasse não existe: " + arg1)
+  senao
+    [arg1]:iniclasse(arg1)
+    arg0.msg("\bClasse inicializada: " + arg1)
+  fimse
+
+
+classe adm_rcl
+herda comando_adm
+const txtajuda = "\b\c3Rcl\b\nSintaxe: RCL <nome> <novo nome>\nRenomeia uma classe."
+
+func escr # Renomeia uma classe
+  prog p
+  se !txt2(arg1)
+    arg0.msg("Digite RCL seguido do nome da classe e o novo nome da classe")
+  senao !p.existe(txt1(arg1))
+    arg0.msg("Classe não existe: " + txt1(arg1))
+  senao p.existe(txt2(arg1))
+    arg0.msg("Classe já existe: " + txt2(arg1))
+  senao
+    arg0.msg("Renomeando classe " + txt1(arg1) + " para " + txt2(arg1))
+    p.renomear(txt1(arg1), txt2(arg1))
+    config:salvar
+  fimse
+
+
+classe adm_aobj
+herda comando_adm
+const txtajuda = "\b\c3Aobj\b\n\
+Sintaxe: AOBJ <nome>\n\
+Apaga todos os objetos de uma classe."
+
+func escr
+  prog p
+  se !arg1
+    arg0.msg("\bDigite o nome da classe após AOBJ")
+  senao !p.existe(arg1)
+    arg0.msg("\bClasse não existe: " + arg1)
+  senao !$[arg1]
+    arg0.msg("\bClasse " + arg1 + " não possui nenhum objeto")
+  senao
+    refvar total = inttotal($[arg1])
+    ref r
+    epara r = $[arg1], r, r = objdepois(r)
+      apagar(r)
+    efim
+    se total == 1
+      arg0.msg("\bClasse " + arg1 + ", 1 objeto apagado")
+    senao
+      arg0.msg("\bClasse " + arg1 + ", " + total + " objetos apagados")
+    fimse
+  fimse
+
+
+classe adm_lfunc
+herda comando_adm
+const txtajuda = "\b\c3Lfunc\b\n\
+Sintaxe: LFUNC <nome da classe>\n\
+Lista as funções de uma classe."
+
+func escr # Listar funções
+  prog p
+  se !arg1
+    arg0.msg("\bDigite o nome da classe após LFUNC")
+  senao !p.existe(arg1)
+    arg0.msg("\bClasse não existe: " + arg1)
+  senao !p.inifunc(arg1)
+    arg0.msg("\bNenhuma função encontrada.")
+  senao
+    textotxt t
+    t.addfim("\bFunções de " + arg1 + ":")
+    enquanto p.lin
+      t.addfim(p.vartipo(arg1, p.texto) + " " + p.texto)
+      p.depois
+    efim
+    arg0.msg2(t.remove(1000))
+  fimse
+
+
+classe adm_lfunc2
+herda comando_adm
+const txtajuda = "\b\c3Lfunc2\b\n\
+Sintaxe: LFUNC2 <nome da classe>\n\
+Lista todas as funções de uma classe, inclusive as herdadas."
+
+func escr # Listar funções inclusive as herdadas
+  prog p
+  se !arg1
+    arg0.msg("\bDigite o nome da classe após LFUNC2")
+  senao !p.existe(arg1)
+    arg0.msg("\bClasse não existe: " + arg1)
+  senao !p.inifunctudo(arg1)
+    arg0.msg("\bNenhuma função encontrada.")
+  senao
+    textotxt t
+    t.addfim("\bFunções de " + arg1 + ":")
+    enquanto p.lin
+      t.addfim(p.vartipo(arg1, p.texto) + " " + p.texto)
+      p.depois
+    efim
+    arg0.msg2(t.remove(1000))
+  fimse
+
+
+classe adm_larq
+herda comando_adm
+const txtajuda = "\b\c3Larq\b\n\
+Sintaxe: LARQ [prefixo do arquivo]\n\
+Sem argumentos lista os arquivos que compõem o programa.\n\
+Com um hífen lista as classes do arquivo principal.\n\
+Seguido de um nome lista as classes do arquivo especificado."
+
+func escr
+  prog p
+  textotxt t
+  txt100 lin
+  se !arg1
+    epara p.iniarq, p.lin, p.depois
+      p.texto && t.addfim(p.texto + ",")
+    efim
+    t.ordena
+    lin = "\b\c6Arquivos (" + t.linhas + "):\b"
+  senao arg1 == "-"
+    epara p.iniarq(""), p.lin, p.depois
+      t.addfim(p.texto + ",")
+    efim
+    ret !t.linhas, arg0.msg("Arquivo principal está vazio.")
+    lin = "\b\c6Arquivo principal (" + t.linhas + "):\b"
+  senao
+    epara p.iniarq(arg1), p.lin, p.depois
+      t.addfim(p.texto + ",")
+    efim
+    lin = "\b\c6Arquivo " + arg1 + " (" + t.linhas + "):\b"
+  fimse
+  textopos pos
+  pos = t.fim, pos.antes
+  pos.mudar("", inttotal(pos.texto) - 1, 1)
+  t.juntar
+  t.dividelin(50, 70)
+  t.addini(lin)
+  arg0.msg2(t.remove(1000))
+
+
+classe adm_lherda
+herda comando_editor
+const txtajuda = "\b\c3Lherda\b\n\
+Sintaxe: lherda <nome da classe>\n\
+Lista heranças de uma classe."
+
+func escr
+  prog p
+  se !arg1
+    ret arg0.msg("\bDigite o nome da classe após LHERDA")
+  senao !p.existe(arg1)
+    ret arg0.msg("Classe não existe: " + arg1)
+  fimse
+  refvar txtmais = arg0.sock.txtmais
+  txt100 lin
+  txt10 e
+  debug d
+  d.exec = 50000
+  txtmais.addfim("\b\c6Classe " + arg1 + ":\b")
+  txtmais.addfim("\b\c6* Na instrução herda\b")
+  epara p.iniherda(arg1), p.lin, p.depois
+    refvar l = lin + e + p.texto
+    se inttotal(l) < 75
+      lin = l, e = ", "
+    senao
+      txtmais.addfim(lin), lin = e = ""
+    fimse
+  efim
+  lin && txtmais.addfim(lin)
+  txtmais.addfim("\b\c6* Herança completa\b")
+  lin = e = ""
+  epara p.iniherdatudo(arg1), p.lin, p.depois
+    refvar l = lin + e + p.texto
+    se inttotal(l) < 75
+      lin = l, e = ", "
+    senao
+      txtmais.addfim(lin), lin = e = ""
+    fimse
+  efim
+  lin && txtmais.addfim(lin)
+  txtmais.addfim("\b\c6* Herdado por\b")
+  lin = e = ""
+  epara p.iniherdainv(arg1), p.lin, p.depois
+    refvar l = lin + e + p.texto
+    se inttotal(l) < 75
+      lin = l, e = ", "
+    senao
+      txtmais.addfim(lin), lin = e = ""
+    fimse
+  efim
+  lin && txtmais.addfim(lin)
+  arg0.sock.txtmostra
+
+
+classe adm_eherda
+herda comando_editor
+const txtajuda = "\b\c3Eherda\b\n\
+Sintaxe: eherda <nome da classe>\n\
+Edita herança de uma classe (uma classe herdada por linha)."
+
+func escr
+  prog p
+  se !arg1
+    arg0.msg("\bDigite o nome da classe após HERDA")
+  senao !p.existe(arg1)
+    arg0.msg("\bClasse não existe: " + arg1)
+  senao
+    arg0.sock.tpasso = arg1
+    passo(arg0.sock, "\b")
+  fimse
+
+func passo
+  casovar txtmin(txt(arg1, 0, 1))
+  casose "\b"
+    prog p
+    arg0.teditor.limpar
+    epara p.iniherda(arg0.tpasso), p.lin, p.depois
+      arg0.teditor.addfim(p.texto)
+    efim
+    arg0.teditor.bytes == 1 && teditor.limpar
+    arg0.leditor = arg0.teditor.ini
+    arg0.leditor1 = arg0.teditor.ini
+    arg0.leditor2 = arg0.teditor.fim
+    arg0.leditor2.antes
+    arg0.passo = este
+    arg0.msg("Editando herança de " + arg0.tpasso + ", O opções, Z sair")
+    ret 1
+  casose "z" # Sair do editor
+    arg0.msg("Fechando editor")
+    arg0.passo = ""
+    ret 1
+  casose "x" # Salvar o texto
+    prog p
+    textopos p1
+    textotxt t1
+    p1 = arg0.teditor.ini
+    se !p1.lin # Nenhum texto significa apagar herança
+      p.inilinha(arg0.tpasso)
+      txt1(p.texto) == "herda" && p.apagarlin(arg0.tpasso, 1)
+      config:salvar, arg0.msg("Salvou: nenhuma herança")
+      admlog(arg0, "alterou herança da classe " + arg0.tpasso)
+      ret 1
+    fimse
+    enquanto p1.lin
+      t1.addfim(p1.texto), p1.depois
+    efim
+    t1.addfim(p.criar(arg0.tpasso, "herda " + txttroca(t1.remove(100), "\n", ",")))
+    se t1.bytes > 1
+      arg0.msg2("Erro ao salvar herança:\n" + t1.remove(1000))
+    senao
+      config:salvar, arg0.msg("Salvou herança")
+      admlog(arg0, "alterou herança da classe " + arg0.tpasso)
+    fimse
+    ret 1
+  casofim
+  ret passoeditor(arg0, arg1, 1000, "Herança")
+
+
+classe adm_md5cl
+herda comando_adm
+const txtajuda = "\b\c3Md5cl\b\n\
+Sintaxe: MD5CL <nome da classe>\n\
+Calcula o MD5 e o SHA1 das linhas que compõem uma classe.\n\
+Quando o conteúdo de uma classe muda, o MD5 e do SHA1 também mudam.\n\
+Dessa forma, consegue-se verificar se duas classes, não necessariamente\n\
+no mesmo MUD, são iguais."
+
+func escr # Listar funções inclusive as herdadas
+  prog p
+  se !arg1
+    arg0.msg("\bDigite o nome da classe após MD5CL")
+  senao !p.existe(arg1)
+    arg0.msg("\bClasse não existe: " + arg1)
+  senao
+    textotxt t
+    epara p.inilinha(arg1), p.lin, p.depois
+      t.addfim(p.texto)
+    efim
+    arg0.msg("Classe " + arg1)
+    arg0.msg("md5 = " + txtmd5(t.ini.textolin(100000)))
+    arg0.msg("sha1 = " + txtsha1(t.ini.textolin(100000)))
+  fimse
+
+
+classe adm_md5salvar
+herda comando_adm
+const txtajuda = "\b\c3Md5salvar\b\n\
+Sintaxe: MD5SALVAR\n\
+Calcula o MD5 e o SHA1 de todos os arquivos dos diretórios adm, cmd, misc\n\
+e obj, via Textotxt. O resultado é salvo no arquivo mud-md5.txt e pode ser\n\
+verificado com o comando Md5checar. Quando o conteúdo de um arquivo muda,\n\
+o MD5 e o SHA1 também mudam."
+
+func escr # Listar funções inclusive as herdadas
+  datahora dh
+  textotxt t
+  textotxt f
+  dh.agora
+  f.addfim(txt(dh.dia) + "/" + dh.mes + "/" + dh.ano + " " + dh.hora + ":" + dh.min)
+  arqdir dir
+  epara dir.abrir("adm"), dir.lin, dir.depois
+    continuar !t.ler("adm/" + dir.texto)
+    f.addfim("adm/" + dir.texto + " " + t.ini.txtmd5(100000) + " " + t.ini.txtsha1(100000))
+  efim
+  epara dir.abrir("cmd"), dir.lin, dir.depois
+    continuar !t.ler("cmd/" + dir.texto)
+    f.addfim("cmd/" + dir.texto + " " + t.ini.txtmd5(100000) + " " + t.ini.txtsha1(100000))
+  efim
+  epara dir.abrir("misc"), dir.lin, dir.depois
+    continuar !t.ler("misc/" + dir.texto)
+    f.addfim("misc/" + dir.texto + " " + t.ini.txtmd5(100000) + " " + t.ini.txtsha1(100000))
+  efim
+  epara dir.abrir("obj"), dir.lin, dir.depois
+    continuar !t.ler("obj/" + dir.texto)
+    f.addfim("obj/" + dir.texto + " " + t.ini.txtmd5(100000) + " " + t.ini.txtsha1(100000))
+  efim
+  f.salvar("mud-md5.txt")
+  arg0.msg("Arquivo salvo: mud-md5.txt")
+
+
+classe adm_md5checar
+herda comando_adm
+const txtajuda = "\b\c3Md5checar\b\n\
+Sintaxe: MD5CHECAR\n\
+Checa o MD5 e o SHA1 dos arquivos listados no arquivo mud-md5.txt.\n\
+Esse arquivo é criado com o comando md5salvar."
+
+func escr # Listar funções inclusive as herdadas
+  textotxt t
+  textotxt f
+  arqtxt arq
+  se !arq.abrir("mud-md5.txt", 0)
+    ret arg0.msg("Não foi possível abrir o arquivo mud-md5.txt")
+  fimse
+  f.addfim("Comparando " + arq.ler)
+  enquanto !arq.eof
+    refvar lin = arq.ler
+    se !lin
+    senao !t.ler(txt1(lin))
+      f.addfim(txt1(lin) + ": erro ao abrir arquivo")
+    senao txt2(lin) != t.ini.txtmd5(100000) + " " + t.ini.txtsha1(100000)
+      f.addfim(txt1(lin) + ": mudou")
+# f.addfim(" < " + txt2(lin))
+# f.addfim(" > " + t.ini.txtmd5(100000) + " " + t.ini.txtsha1(100000))
+    fimse
+  efim
+  f.linhas <= 1 && f.addfim("Nenhuma diferença encontrada")
+  arg0.msg2(f.remove(1000))

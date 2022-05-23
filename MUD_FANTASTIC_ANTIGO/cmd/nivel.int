@@ -1,0 +1,60 @@
+classe cmd_nivel
+herda comando_comum
+const txtajuda = "\b\c3Nível\b\n\
+Sintaxe: NIVEL [nível]\n\
+Mostra a quantidade de experiência necessária para os próximos níveis.\n\
+Digitando Nivel seguido de um número, mostra a experiência necessária\n\
+a partir desse nível."
+const posic = 0
+
+func escr
+  uint16 nivel = arg1
+  uint16 nmax = arg0.pnivelmax ?? 65535
+  se !arg1
+    nivel = arg0.pnivel
+  senao txt(nivel) != arg1
+    ret arg0.msg("Nível não existe: " + arg1)
+  senao nivel > nmax
+    ret arg0.msg("\bO nível máximo é " + nmax + ".")
+  fimse
+  se nmax > nivel + 5
+    nmax = nivel + 5
+  fimse
+  textotxt t0
+  se nmax == nivel
+    t0.addfim("\b\c6Experiência necessária, nível " + nivel + ":\b")
+  senao
+    t0.addfim("\b\c6Experiência necessária, níveis " + nivel + " a " + nmax + ":\b")
+  fimse
+  enquanto 1
+    refvar exp = arg0.expmax(nivel, arg0.prenascer)
+    t0.addfim(txtfim("    " + nivel, 5) + ":  " + txtnum(exp, ".") + " exp")
+    sair nivel++ >= nmax
+  efim
+  arg0.msg(t0.remove(1000))
+
+
+classe cmd_level
+herda cmd_nivel
+
+
+classe cmd_lvl
+herda comando_comum
+const posic = 0
+
+func escr
+  refvar r = misc:persoinfo(arg0, arg1)
+  ret !r, nulo
+  se r == arg0
+    arg0.msg(nivellin(arg0))
+  senao
+    arg0.msg(txtcopiamai(r.nome, "A") + ": " + nivellin(r))
+  fimse
+
+func nivellin
+  txt100 lin
+  lin += "  Nível " + arg0.pnivel + "\n"
+  lin += "  Experiência atual: " + arg0.expatual + "\n"
+  refvar nmax = arg0.pnivelmax
+  (nmax <= 0 || arg0.pnivel < nmax) && (lin += "Experiência necessária: " + arg0.expmax)
+  ret lin

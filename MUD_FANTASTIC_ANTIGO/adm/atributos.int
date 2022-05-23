@@ -1,0 +1,680 @@
+classe opc_atribcomum
+herda comando_adm
+# Funções para mudar atributos de personagens e itens
+#
+real2 atribnum.22 # Atributos numéricos
+real2 atribobj.8 # Atributos de itens
+int8 atribbit.20 # Atributos de bit
+real2 atribatk.32 # Ataques
+real2 atribdef.32 # Defesas
+#
+const p_atrib_num = "Vida\n\
+Vida por nível\n\
+Mana\n\
+Mana por nível\n\
+Movimentos\n\
+Movimentos por nível\n\
+Velocidade\n\
+Velocidade por nível\n\
+Ataque normal\n\
+Ataque normal por nível\n\
+Defesa normal\n\
+Defesa normal por nível\n\
+Ataque especial\n\
+Ataque especial por nível\n\
+Defesa especial\n\
+Defesa especial por nível\n\
+Evasão\n\
+Evasão por nível\n\
+Precisão\n\
+Precisão por nível\n\
+Carrega (gramas)\n\
+Carrega (gramas) por nível"
+#
+const p_atrib_obj = "Falha arma\n\
+Falha arma por nível\n\
+Precisão perso\n\
+Precisão perso por nível\n\
+Ataque mín\n\
+Ataque mín por nível\n\
+Ataque máx\n\
+Ataque máx por nível"
+#
+const p_atrib_bit = "Visão noturna\n\
+Pode ver invisível\n\
+Pode ver oculto\n\
+Pode ver voando\n\
+Não pode ver voando\n\
+Pode ver voando alto\n\
+Não pode ver voando alto\n\
+Está cego\n\
+Torna invisível\n\
+Torna oculto\n\
+Invisível a não admin\n\
+Visível no escuro\n\
+Anda em silêncio\n\
+Percebe andar em silêncio\n\
+Está flutuando\n\
+Está voando\n\
+Está voando alto\n\
+Está dormindo\n\
+Imune a dormir"
+#
+const p_atrib_atk = "Tipos Normais\nTipos Especiais\n" + config:atknomes
+
+func atrib2txt # Usado internamente em atrib_salvar
+# arg0 e arg1 = variáveis
+  ret !arg1, txt(0 + arg0) # Exemplo: 5
+  ret !arg0, txt(arg1) + "*pnivel" # Exemplo: 10*pnivel
+  ret arg0 < 0, txt(arg1) + "*pnivel" + txt(arg0) # Exemplo: 10*pnivel-5
+  ret txt(arg1) + "*pnivel+" + txt(arg0) # Exemplo: 10*pnivel+5
+
+func atrib_ler # Extrai os atributos de uma função para variáveis atrib
+# arg0 = nome da classe
+# arg1 = nome da função
+  int32 x
+  atribnum.limpar
+  atribobj.limpar
+  atribbit.limpar
+  atribatk.limpar(100)
+  atribdef.limpar(100)
+  prog p
+  epara p.inilinha(arg0, arg1), p.lin, p.depois
+    casovar txt1(p.texto)
+    casose "pvidamax"
+      atrib_ler2(p.texto, atribnum.0, atribnum.1)
+      sair
+    casose "pmanamax"
+      atrib_ler2(p.texto, atribnum.2, atribnum.3)
+      sair
+    casose "pmovemax"
+      atrib_ler2(p.texto, atribnum.4, atribnum.5)
+      sair
+    casose "pveloc1"
+      atrib_ler2(p.texto, atribnum.6, atribnum.7)
+      sair
+    casose "atknorm"
+      atrib_ler2(p.texto, atribnum.8, atribnum.9)
+      sair
+    casose "defnorm"
+      atrib_ler2(p.texto, atribnum.10, atribnum.11)
+      sair
+    casose "atkesp"
+      atrib_ler2(p.texto, atribnum.12, atribnum.13)
+      sair
+    casose "defesp"
+      atrib_ler2(p.texto, atribnum.14, atribnum.15)
+      sair
+    casose "evasao"
+      atrib_ler2(p.texto, atribnum.16, atribnum.17)
+      sair
+    casose "precisao"
+      atrib_ler2(p.texto, atribnum.18, atribnum.19)
+      sair
+    casose "pesomax"
+      atrib_ler2(p.texto, atribnum.20, atribnum.21)
+      sair
+    casose "var.z_armafalha_"
+      atrib_ler2(p.texto, atribobj.0, atribobj.1)
+      sair
+    casose "var.z_armaaddprecisao_"
+      atrib_ler2(p.texto, atribobj.2, atribobj.3)
+      sair
+    casose "var.z_armamin_"
+      atrib_ler2(p.texto, atribobj.4, atribobj.5)
+      sair
+    casose "var.z_armamax_"
+      atrib_ler2(p.texto, atribobj.6, atribobj.7)
+      sair
+    casose "bitver"
+      refvar abit = atribbit
+      se txtsub(p.texto, 3, 1) == "&" || txtsub(p.texto, 1, 1) == "&="
+        x = txt(txtsub(p.texto, 2), 1)
+        x & 1 && (abit.7 = 1) # Está cego
+        x & 16 && (abit.4 = 1) # Não pode ver voando
+        x & 32 && (abit.6 = 1) # Não pode ver voando alto
+      senao
+        x = txtsub(p.texto, 2)
+        x & 2 && (abit.0 = 1) # Visão noturna
+        x & 4 && (abit.1 = 1) # Pode ver invisível
+        x & 8 && (abit.2 = 1) # Pode ver oculto
+        x & 16 && (abit.3 = 1) # Pode ver voando
+        x & 32 && (abit.5 = 1) # Pode ver voando alto
+        x & 0x100 && (abit.12 = 1) # Anda em silêncio
+        x & 0x1000 && (abit.13 = 1) # Percebe quem anda em silêncio
+        x & 0x200 && (abit.14 = 1) # Voando ou flutuando
+        x & 0x400 && (abit.17 = 1) # Dormindo
+        x & 0x800 && (abit.18 = 1) # Imune a dormir
+      fimse
+      sair
+    casose "bitinv"
+      refvar abit = atribbit
+      se txtsub(p.texto, 3, 1) == "&" || txtsub(p.texto, 1, 1) == "&="
+        abit.11 = 1 # Visível no escuro
+      senao
+        x = txtsub(p.texto, 2)
+        x & 4 && (abit.8 = 1) # Torna invisível
+        x & 8 && (abit.9 = 1) # Torna oculto
+        x & 16 && (abit.15 = 1) # Voando
+        x & 32 && (abit.16 = 1) # Voando alto
+        x & 128 && (abit.10 = 1) # Invisível a não admin
+      fimse
+      sair
+    casose
+      se txt(p.texto, 0, 8) == "atktipo." && txtsub(p.texto, 1, 1) == "*="
+        atribatk.[int(txt(p.texto, 8))] = 100 * txtsub(p.texto, 2)
+      senao txt(p.texto, 0, 8) == "deftipo." && txtsub(p.texto, 1, 1) == "*="
+        atribdef.[int(txt(p.texto, 8))] = 100 * txtsub(p.texto, 2)
+      fimse
+    casofim
+  efim
+
+func atrib_ler2 # Usado internamente em atrib_ler
+# arg0 = texto do tipo "a = 5" ou "a = 10 * pnivel + 5"
+# arg1 e arg2 = variáveis
+  se txtsub(arg0, 3, 3) == "* pnivel -"
+    arg2 = txtsub(arg0, 2, 1)
+    arg1 = -1 * txtsub(arg0, 6)
+  senao txtsub(arg0, 3, 2) == "* pnivel"
+    arg2 = txtsub(arg0, 2, 1)
+    arg1 = txtsub(arg0, 6)
+  senao
+    arg1 = txtsub(arg0, 2)
+  fimse
+
+func atrib_salvar # Salva os atributos em função conforme variáveis atrib
+# arg0 = objeto jogsock do jogador
+# arg0.var.opcclasse e arg0.var.opcvar = nomes da classe e da função
+# Usa também arg0.var.opcnome e arg0.var.opcexec
+  textotxt t
+  t.addfim("func " + arg0.var.opcvar + " # Altera atributos do personagem")
+  t.addfim("# Não alterar; função criada automaticamente")
+  refvar anum = atribnum
+  refvar aobj = atribobj
+  refvar abit = atribbit
+  (anum.0 || anum.1) && t.addfim("pvidamax+=" + atrib2txt(anum.0, anum.1))
+  (anum.2 || anum.3) && t.addfim("pmanamax+=" + atrib2txt(anum.2, anum.3))
+  (anum.4 || anum.5) && t.addfim("pmovemax+=" + atrib2txt(anum.4, anum.5))
+  (anum.6 || anum.7) && t.addfim("pveloc1+=" + atrib2txt(anum.6, anum.7))
+  (anum.8 || anum.9) && t.addfim("atknorm+=" + atrib2txt(anum.8, anum.9))
+  (anum.10 || anum.11) && t.addfim("defnorm+=" + atrib2txt(anum.10, anum.11))
+  (anum.12 || anum.13) && t.addfim("atkesp+=" + atrib2txt(anum.12, anum.13))
+  (anum.14 || anum.15) && t.addfim("defesp+=" + atrib2txt(anum.14, anum.15))
+  (anum.16 || anum.17) && t.addfim("evasao+=" + atrib2txt(anum.16, anum.17))
+  (anum.18 || anum.19) && t.addfim("precisao+=" + atrib2txt(anum.18, anum.19))
+  (anum.20 || anum.21) && t.addfim("pesomax+=" + atrib2txt(anum.20, anum.21))
+  (aobj.0 || aobj.1) && t.addfim("var.z_armafalha_+=" + atrib2txt(aobj.0, aobj.1))
+  (aobj.2 || aobj.3) && t.addfim("var.z_armaaddprecisao_+=" + atrib2txt(aobj.2, aobj.3))
+  (aobj.4 || aobj.5) && t.addfim("var.z_armamin_+=" + atrib2txt(aobj.4, aobj.5))
+  (aobj.6 || aobj.7) && t.addfim("var.z_armamax_+=" + atrib2txt(aobj.6, aobj.7))
+  abit.11 && t.addfim("bitinv &= ~2") # Visível no escuro
+  int32 x
+  abit.4 && (x += 16) # Não pode ver voando
+  abit.6 && (x += 32) # Não pode ver voando alto
+  abit.7 && (x += 1) # Está cego
+  x && t.addfim("bitver&=~" + x)
+  x = 0
+  abit.0 && (x += 2) # Visão noturna
+  abit.1 && (x += 4) # Pode ver invisível
+  abit.2 && (x += 8) # Pode ver oculto
+  abit.3 && (x += 16) # Pode ver voando
+  abit.5 && (x += 32) # Pode ver voando alto
+  abit.12 && (x += 0x100) # Anda em silêncio
+  abit.13 && (x += 0x1000) # Percebe quem anda em silêncio
+  abit.14 && (x += 0x200) # Voando ou flutuando
+  abit.17 && (x += 0x400) # Dormindo
+  abit.18 && (x += 0x800) # Imune a dormir
+  x && t.addfim("bitver|=" + x)
+  x = 0
+  abit.8 && (x += 4) # Torna invisível
+  abit.9 && (x += 8) # Torna oculto
+  abit.15 && (x += 16) # Voando
+  abit.16 && (x += 32) # Voando alto
+  abit.10 && (x += 128) # Invisível a não admin
+  x && t.addfim("bitinv|=" + x)
+  txt100 lin
+  refvar total = intsublin(p_atrib_atk)
+  epara x = 0, x < total, x++
+    continuar atribatk.[x] == 100
+    lin = " # " + txtsublin(p_atrib_atk, x, 1)
+    t.addfim("atktipo." + x + "*=" + atribatk.[x] / 100 + lin)
+  efim
+  epara x = 0, x < total, x++
+    continuar atribdef.[x] == 100
+    lin = " # " + txtsublin(p_atrib_atk, x, 1)
+    t.addfim("deftipo." + x + "*=" + atribdef.[x] / 100 + lin)
+  efim
+# msg("----------\n" + t.ini.textolin(10000) + "\n----------")
+  prog p
+  refvar var = arg0.var
+  se t.linhas > 2
+    p.criar(var.opcclasse, t.remove(10000))
+    config:salvar
+    criar("admmudou", var.opcclasse, var.opcexec)
+    admlog(arg0, "mudou " + var.opcclasse + ":" + var.opcvar + " " + var.opcnome)
+  senao
+    p.apagar(var.opcclasse, var.opcvar)
+    config:salvar
+    criar("admmudou", var.opcclasse, var.opcexec)
+    admlog(arg0, "apagou " + var.opcclasse + ":" + var.opcvar + " " + var.opcnome)
+  fimse
+
+
+classe opc_atribnum
+herda opc_atribcomum
+# Atributos numéricos
+const vetor = atribnum
+const lista = p_atrib_num
+
+func menu # Retorna a quantidade de atributos numéricos
+# arg0=nome da classe, arg1=nome da variável
+  atrib_ler(arg0, arg1)
+  refvar total = intsublin(lista)
+  int8 x
+  int8 linhas
+  epara x = 0, x < total, x++
+    linhas += vetor.[x] != 0
+  efim
+  prog p
+  casovar p.existe(arg0, arg1)
+  casose "1" # Na própria classe
+    ret linhas == 1 ? "\c61 linha\b" : "\c6" + linhas + " linhas\b"
+  casose "2" # Em uma classe herdada
+    ret linhas == 1 ? "<herda> \c61 linha\b" : "<herda> \c6" + linhas + " linhas\b"
+  casose # Não foi definido
+    ret "<nulo> \c60 linhas\b"
+  casofim
+
+func passo # Editando atributos
+  uint16 linha
+  linha = arg1, arg0.passo = este
+  se arg1 == "" || arg1 == "\b"
+    se arg0.var.opcvalido
+      arg0.msg("Entre com uma opção, O mostra as opções, Z cancela")
+    senao
+      arg0.msg("Entre com uma opção, O mostra as opções, N nenhum atributo, Z cancela")
+    fimse
+  senao arg1 == "n" && !arg0.var.opcvalido
+    atrib_ler(arg0.var.opcclasse, arg0.var.opcvar)
+    vetor.limpar(0)
+    atrib_salvar(arg0)
+    arg0.msg("Apagado: " + arg0.var.opcnome)
+    ret passosair(arg0)
+  senao arg1 == "z"
+    ret passosair(arg0)
+  senao txt(arg1, 0, 1) == "m" # Executa comando do MUD
+    arg0.perso.teclou(txtremove(txt(arg1, 1), "E"))
+  senao arg1 == "o"
+    atrib_ler(arg0.var.opcclasse, arg0.var.opcvar)
+    arg0.txtmais.limpar
+    arg0.txtmais.addfim("Atributos")
+    textotxt t1
+    textotxt t2
+    epara t1.addfim(lista), t1.linhas, linha++
+      refvar lin = "\b\c2" + txt(linha + 1) + (linha < 9 ? "\b. " : "\b.") + t1.remove
+      refvar n = vetor.[linha]
+      se n
+        arg0.txtmais.addfim(txt(lin + txtesp(29), 0, 34) + ": \c3" + n + "\b")
+      senao
+        t2.addfim(lin)
+      fimse
+    efim
+    t2.linhas && arg0.txtmais.addfim(t2.remove(100))
+    arg0.txtmostra
+  senao txt(linha) != arg1 || !linha || linha > intsublin(lista)
+    arg0.msg("Opção inexistente: " + txt1(arg1))
+  senao
+    atrib_ler(arg0.var.opcclasse, arg0.var.opcvar)
+    linha--
+    arg0.var.opcpasso2 = este
+    arg0.var.opclin = linha
+    arg0.msg(txtsublin(lista, linha, 1) + ": " + vetor.[linha])
+    ret $opc_atrib2.passo(arg0, "\b")
+  fimse
+  ret 1
+
+
+classe opc_atribobj
+herda opc_atribnum
+# Atributos numéricos de itens
+const vetor = atribobj
+const lista = p_atrib_obj
+
+
+classe opc_atribbit
+herda opc_atribcomum
+# Atributos sim/não
+
+func menu # Retorna a quantidade de atributos sim/não
+# arg0=nome da classe, arg1=nome da variável
+  prog p
+  uint16 linhas
+  epara p.inilinha(arg0, arg1) && p.depois, p.lin, p.depois
+    txt(p.texto, 0, 3) == "bit" && linhas++
+  efim
+  casovar p.existe(arg0, arg1)
+  casose "1" # Na própria classe
+    ret linhas == 1 ? "\c61 linha\b" : "\c6" + linhas + " linhas\b"
+  casose "2" # Em uma classe herdada
+    ret linhas == 1 ? "<herda> \c61 linha\b" : "<herda> \c6" + linhas + " linhas\b"
+  casose # Não foi definido
+    ret "<nulo> \c60 linhas\b"
+  casofim
+
+func passo # Editando atributos
+  uint16 linha
+  linha = arg1, arg0.passo = este
+  se arg1 == "" || arg1 == "\b"
+    se arg0.var.opcvalido
+      arg0.msg("Entre com uma opção, O mostra as opções, Z cancela")
+    senao
+      arg0.msg("Entre com uma opção, O mostra as opções, N nenhum atributo, Z cancela")
+    fimse
+  senao arg1 == "n" && !arg0.var.opcvalido
+    atrib_ler(arg0.var.opcclasse, arg0.var.opcvar)
+    atribbit.limpar(0)
+    atrib_salvar(arg0)
+    arg0.msg("Apagado: " + arg0.var.opcnome)
+    ret passosair(arg0)
+  senao arg1 == "z"
+    ret passosair(arg0)
+  senao txt(arg1, 0, 1) == "m" # Executa comando do MUD
+    arg0.perso.teclou(txtremove(txt(arg1, 1), "E"))
+  senao arg1 == "o"
+    atrib_ler(arg0.var.opcclasse, arg0.var.opcvar)
+    arg0.txtmais.limpar
+    arg0.txtmais.addfim("Atributos")
+    textotxt t1
+    textotxt t2
+    epara t1.addfim(p_atrib_bit), t1.linhas, linha++
+      refvar lin = "\b\c2" + txt(linha + 1) + (linha < 9 ? "\b. " : "\b.") + t1.remove
+      se atribbit.[linha]
+        arg0.txtmais.addfim(txt(lin + txtesp(29), 0, 34) + ": \c6Sim\b")
+      senao
+        t2.addfim(lin)
+      fimse
+    efim
+    t2.linhas && arg0.txtmais.addfim(t2.remove(100))
+    arg0.txtmostra
+  senao txt(linha) != arg1 || !linha || linha > intsublin(p_atrib_bit)
+    arg0.msg("Opção inexistente: " + txt1(arg1))
+  senao
+    atrib_ler(arg0.var.opcclasse, arg0.var.opcvar)
+    linha--
+    atribbit.[linha] = !atribbit.[linha]
+    atrib_salvar(arg0)
+    refvar lin = atribbit.[linha] ? "Sim" : "Não"
+    arg0.msg(txtsublin(p_atrib_bit, linha, 1) + " mudou para: " + lin)
+  fimse
+  ret 1
+
+
+classe opc_atribatk
+herda opc_atribcomum
+# Ataques
+const vetor = atribatk # Variável que contém os atributos
+const nome = "atktipo" # Nome da variável
+
+func menu # Retorna a quantidade de ataques
+# arg0=nome da classe, arg1=nome da variável
+  prog p
+  uint16 linhas
+  epara p.inilinha(arg0, arg1) && p.depois, p.lin, p.depois
+    txt(p.texto, 0, 7) == nome && linhas++
+  efim
+  casovar p.existe(arg0, arg1)
+  casose "1" # Na própria classe
+    ret linhas == 1 ? "\c61 linha\b" : "\c6" + linhas + " linhas\b"
+  casose "2" # Em uma classe herdada
+    ret linhas == 1 ? "<herda> \c61 linha\b" : "<herda> \c6" + linhas + " linhas\b"
+  casose # Não foi definido
+    ret "<nulo> \c60 linhas\b"
+  casofim
+
+func passo # Editando atributos
+  uint16 linha
+  linha = arg1, arg0.passo = este
+  se arg1 == "" || arg1 == "\b"
+    se arg0.var.opcvalido
+      arg0.msg("Entre com uma opção, O mostra as opções, Z cancela")
+    senao
+      arg0.msg("Entre com uma opção, O mostra as opções, N nenhum atributo, Z cancela")
+    fimse
+  senao arg1 == "n" && !arg0.var.opcvalido
+    atrib_ler(arg0.var.opcclasse, arg0.var.opcvar)
+    vetor.limpar(100)
+    atrib_salvar(arg0)
+    arg0.msg("Apagado: " + arg0.var.opcnome)
+    ret passosair(arg0)
+  senao arg1 == "z"
+    ret passosair(arg0)
+  senao txt(arg1, 0, 1) == "m" # Executa comando do MUD
+    arg0.perso.teclou(txtremove(txt(arg1, 1), "E"))
+  senao arg1 == "o"
+    atrib_ler(arg0.var.opcclasse, arg0.var.opcvar)
+    arg0.txtmais.limpar
+    arg0.txtmais.addfim("Atributos")
+    textotxt t1
+    textotxt t2
+    txt100 lin
+    epara t1.addfim(p_atrib_atk), t1.linhas, linha++
+      lin = "\b\c2" + txt(linha + 1) + (linha < 9 ? "\b. Danos " : "\b.Danos ") + t1.remove
+      refvar n = vetor.[linha]
+      se n != 100
+        arg0.txtmais.addfim(txt(lin + txtesp(29), 0, 34) + ": \c3" + n + "%\b")
+      senao
+        t2.addfim(lin)
+      fimse
+    efim
+    t2.linhas && arg0.txtmais.addfim(t2.remove(100))
+    arg0.txtmostra
+  senao txt(linha) != arg1 || !linha || linha > intsublin(p_atrib_atk)
+    arg0.msg("Opção inexistente: " + txt1(arg1))
+  senao
+    atrib_ler(arg0.var.opcclasse, arg0.var.opcvar)
+    linha--
+    arg0.var.opcpasso2 = este
+    arg0.var.opclin = linha
+    refvar nomedano = txtsublin(p_atrib_atk, linha, 1)
+    arg0.msg("Danos " + nomedano + ": " + vetor.[linha] + "%")
+    ret $opc_atrib2.passo(arg0, "\b")
+  fimse
+  ret 1
+
+
+classe opc_atribdef
+herda opc_atribatk
+# Defesas
+const vetor = atribdef # Variável que contém os atributos
+const nome = "deftipo" # Nome da variável
+
+
+classe opc_atrib2
+herda opc_atribcomum
+# Usado por opc_atrib; editando um atributo
+
+func passo
+  real2 num
+  num = arg1, arg0.passo = este
+  se arg1 == "" || arg1 == "\b"
+    casovar arg0.var.opcpasso2
+    casose "opc_atribnum"
+    casose "opc_atribbit"
+      arg0.msg("Entre com a quantidade, 0=não alterar, Z cancela")
+      sair
+    casose "opc_atribatk"
+    casose "opc_atribdef"
+      arg0.msg("Entre com a porcentagem, 100=danos normais, Z cancela")
+    casofim
+  senao arg1 == "z"
+    $[arg0.var.opcpasso2].passo(arg0, "")
+    arg0.var.opcpasso2 = ""
+    arg0.var.opclin = ""
+  senao txt(num) != arg1
+    arg0.msg("Opção inválida, entre com outra")
+  senao
+    casovar arg0.var.opcpasso2
+    casose "opc_atribatk"
+    casose "opc_atribdef"
+      sair num >= 0
+      arg0.msg("A porcentagem não pode ser menor que zero, entre com outra")
+      ret 1
+    casofim
+    atrib_ler(arg0.var.opcclasse, arg0.var.opcvar)
+    atrib[txt(arg0.var.opcpasso2, 9)].[arg0.var.opclin] = num
+    atrib_salvar(arg0)
+    $[arg0.var.opcpasso2].passo(arg0, "")
+    arg0.var.opcpasso2 = ""
+    arg0.var.opclin = ""
+  fimse
+  ret 1
+
+
+classe opc_atribcfg
+herda opc_atribcomum
+# Atributos numéricos dos personagens no comando Econfig
+
+func menu # Retorna a quantidade de atributos numéricos
+# arg0=nome da classe, arg1=nome da variável
+  prog p
+  uint16 linhas
+  epara p.inilinha(arg0, arg1) && p.depois, p.lin, p.depois
+    linhas++
+  efim
+  casovar p.existe(arg0, arg1)
+  casose "1" # Na própria classe
+    ret linhas == 1 ? "\c61 linha\b" : "\c6" + linhas + " linhas\b"
+  casose "2" # Em uma classe herdada
+    ret linhas == 1 ? "<herda> \c61 linha\b" : "<herda> \c6" + linhas + " linhas\b"
+  casose # Não foi definido
+    ret "<nulo> \c60 linhas\b"
+  casofim
+
+func passo
+  uint16 linha
+  linha = arg1, arg0.passo = este
+  se arg1 == "" || arg1 == "\b"
+    se arg0.var.opcvalido
+      arg0.msg("Entre com uma opção, O mostra as opções, Z cancela")
+    senao
+      arg0.msg("Entre com uma opção, O mostra as opções, N nenhum atributo, Z cancela")
+    fimse
+  senao arg1 == "n" && !arg0.var.opcvalido
+    p.apagar(arg0.var.opcclasse, arg0.var.opcvar)
+    config:salvar
+    criar("admmudou", arg0.var.opcclasse, arg0.var.opcexec)
+    arg0.msg("Apagado: " + arg0.var.opcnome)
+    admlog(arg0, "apagou " + arg0.var.opcclasse + ":" + arg0.var.opcvar + " " + arg0.var.opcnome)
+    ret passosair(arg0)
+  senao arg1 == "z"
+    ret passosair(arg0)
+  senao txt(arg1, 0, 1) == "m" # Executa comando do MUD
+    perso.teclou(txtremove(txt(arg1, 1), "E"))
+  senao arg1 == "o"
+    atrib_ler(arg0.var.opcclasse, arg0.var.opcvar)
+    arg0.txtmais.limpar
+    arg0.txtmais.addfim("Atributos")
+    textotxt t1
+    txt100 lin
+    epara t1.addfim(p_atrib_num), t1.linhas, linha++
+      lin = "\b\c2" + txt(linha + 1) + (linha < 9 ? "\b. " : "\b.") + t1.remove
+      arg0.txtmais.addfim(txt(lin + txtesp(29), 0, 34) + ": \c3" + atribnum.[linha] + "\b")
+    efim
+    arg0.txtmostra
+  senao txt(linha) != arg1 || !linha || linha > intsublin(p_atrib_num)
+    arg0.msg("Opção inexistente: " + txt1(arg1))
+  senao
+    atrib_ler(arg0.var.opcclasse, arg0.var.opcvar)
+    linha--
+    arg0.var.opclin = linha
+    arg0.msg(txtsublin(p_atrib_num, linha, 1) + ": " + atribnum.[linha])
+    ret $opc_atribcfg2.passo(arg0, "\b")
+  fimse
+  ret 1
+
+
+classe opc_atribcfg2
+herda opc_atribcomum
+# Usado por opc_atribcfg; editando um atributo
+
+func passo
+  real2 num
+  num = arg1, arg0.passo = este
+  se arg1 == "" || arg1 == "\b"
+    arg0.msg("Entre com a quantidade, Z cancela")
+  senao arg1 == "z"
+    $opc_atribcfg.passo(arg0, "")
+    arg0.var.opclin = ""
+  senao txt(num) != arg1
+    arg0.msg("Opção inválida, entre com outra")
+  senao
+    atrib_ler(arg0.var.opcclasse, arg0.var.opcvar)
+    atribnum.[arg0.var.opclin] = num
+    textotxt t
+    t.addfim("func " + arg0.var.opcvar + " # Altera atributos do personagem")
+    t.addfim("# Função criada automaticamente")
+    t.addfim("pvidamax=" + atrib2txt(atribnum.0, atribnum.1))
+    t.addfim("pmanamax=" + atrib2txt(atribnum.2, atribnum.3))
+    t.addfim("pmovemax=" + atrib2txt(atribnum.4, atribnum.5))
+    t.addfim("pveloc1=" + atrib2txt(atribnum.6, atribnum.7))
+    t.addfim("atknorm=" + atrib2txt(atribnum.8, atribnum.9))
+    t.addfim("defnorm=" + atrib2txt(atribnum.10, atribnum.11))
+    t.addfim("atkesp=" + atrib2txt(atribnum.12, atribnum.13))
+    t.addfim("defesp=" + atrib2txt(atribnum.14, atribnum.15))
+    t.addfim("evasao=" + atrib2txt(atribnum.16, atribnum.17))
+    t.addfim("precisao=" + atrib2txt(atribnum.18, atribnum.19))
+    t.addfim("pesomax=" + atrib2txt(atribnum.20, atribnum.21))
+    prog p
+    p.criar(arg0.var.opcclasse, t.remove(10000))
+    config:salvar
+    criar("admmudou", arg0.var.opcclasse, arg0.var.opcexec)
+    admlog(arg0, "mudou " + arg0.var.opcclasse + ":" + arg0.var.opcvar + " " + arg0.var.opcnome)
+    $opc_atribcfg.passo(arg0, "")
+    arg0.var.opclin = ""
+    $admrecalc.exec # Para atualizar os personagens
+  fimse
+  ret 1
+
+
+classe admrecalc
+# Para recalcular os atributos de todos os personagens que lutam:
+# $admrecalc.exec
+# Para atualizar os atributos de todos os personagens:
+# $admrecalc.atuperso
+# Para atualizar os atributos de todos os itens:
+# $admrecalc.atuitem
+#
+const iniclasse = !$[arg0] && criar(arg0)
+
+func exec
+  prog p
+  debug d
+  ref r
+  d.exec = 50000
+  epara p.iniherdainv("comum_persobat"), p.lin, p.depois
+    epara r = $[p.texto], r, r = objdepois(r)
+      r.recalc = 1
+    efim
+  efim
+
+func atuperso
+  prog p
+  debug d
+  ref r
+  d.exec = 50000
+  epara p.iniherdainv("comum_perso"), p.lin, p.depois
+    epara r = $[p.texto], r, r = objdepois(r)
+      r.recalc = 1
+    efim
+  efim
+
+func atuitem
+  prog p
+  debug d
+  ref r
+  d.exec = 50000
+  epara p.iniherdainv("comum_item"), p.lin, p.depois
+    epara r = $[p.texto], r, r = objdepois(r)
+      r.recalc = 1
+    efim
+  efim

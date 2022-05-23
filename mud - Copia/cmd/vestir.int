@@ -1,0 +1,154 @@
+classe cmd_usar
+herda cmd_vestir
+const objcmd = $cmd_vestir
+
+
+classe cmd_vestir
+herda comando_comum
+const txtajuda = "\b\c3Vestir\b\n\
+Sintaxe: VESTIR <objeto> [posição]\n\
+         USAR <objeto> [posição]\n\
+Seu personagem veste ou usa um objeto que está carregando.\n\
+Para vestir tudo (até 10 objetos) tecle TUDO ao invés do objeto.\n\
+Para saber em que posições pode vestir algo, tecle EQUIP TUDO"
+const posic = 5
+txt12 lugar # Posições aonde quer vestir
+txt12 vest # Posições aonde está vestindo alguma coisa
+
+func escr
+  ret !arg1, arg0.msg("Vestir o que?")
+  refvar perm_msg = $perm_[arg0.jogperm].vestir
+  ret perm_msg, $mensjog.msg(perm_msg, arg0)
+  refvar alvo = ref(arg0.persoesc) # Quem vai vestir
+  refvar tipo1 = txte(alvo.tipo1)
+  refvar tipo2 = txte(alvo.tipo2)
+  refvar tipo3 = txte(alvo.tipo3)
+# Variáveis
+  int8 total # Quantidade de itens encontrados
+  nomeobj n # Para reconhecer os itens
+  listaitem item
+  vest = lugar = "0"
+# Preenche a variável vest com o que está vestindo
+  epara item = alvo.dentro2.ini, item, item.depois
+    item.obj.vestpos > 0 && (vest |= intbith(item.obj.vestpos - 1))
+  efim
+# Descobre aonde quer vestir
+  misc:separa(arg1) # Separa nome do objeto do nome da posição
+  se !misc:sep2
+    lugar = alvo.equippos # Todas as posições que possui
+  senao
+    n.ini(misc:sep2, 100)
+    textotxt t
+    textopos p
+    t.addfim(config:equip_txt)
+    refvar lug2 = ~txthex(alvo.equippos, 12)
+    epara p = t.ini, p, p.depois
+      (lug2 & intbith(p.linha)) == "0" && n.nome(p.texto) && (lugar |= intbith(p.linha))
+    efim
+    ret lugar == "0", arg0.msg("Você não sabe aonde fica " + misc:sep2 + ".")
+  fimse
+# Vestir itens
+  listaobj l
+  n.ini(misc:sep1, misc:objmax, misc:tudo)
+  epara l.addfim(alvo.dentro1), l, l.ini.remove
+    ref r = l.objini
+    continuar !r.visivel(arg0) || !n.nome(r.ident, r.objtot)
+    total += n
+    txt100 erro # Se for um texto vazio, pode vestir
+# Checa se o personagem pode vestir
+    se r.vestirsim == (alvo == arg0 ? 2 : 1)
+      erro = "$P não consegue vestir $o."
+    senao r.vestirsexo == (alvo.psexo ? 1 : 2)
+      erro = "$P não consegue vestir $o."
+# Checa o nível
+    senao int(r.pnivel) > alvo.pnivel
+      erro = "$P precisa estar no nível " + r.pnivel + " para vestir $o."
+    senao int(r.renascer) > alvo.prenascer
+      se r.renascer == 1
+        erro = "$P precisa renascer uma vez para vestir $o."
+      senao r.renascer == 2
+        erro = "$P precisa renascer duas vezes para vestir $o."
+      senao
+        erro = "$P precisa renascer " + r.renascer + " vezes para vestir $o."
+      fimse
+# Checa se a classe ou a raça tem permissão
+    senao !r.vestirnao
+    senao tipo1 && txtproclin(txte(r.vestirnao), tipo1) >= 0
+      erro = "$P não consegue vestir $o."
+    senao tipo2 && txtproclin(txte(r.vestirnao), tipo2) >= 0
+      erro = "$P não consegue vestir $o."
+    senao tipo3 && txtproclin(txte(r.vestirnao), tipo3) >= 0
+      erro = "$P não consegue vestir $o."
+    fimse
+# Tenta vestir
+    se erro
+      $mens.p(alvo, nulo, r)
+      $mens.mperso(erro)
+    senao
+      erro = objvestir(arg0, r, int(n))
+      erro && arg0.msg(erro)
+    fimse
+  efim
+# Avisa se não encontrou nenhum item
+  !total && arg0.msg("Você não vê isso.")
+
+func objvestir # Quer vestir um item
+# arg0 = personagem, arg1 = objeto, arg2 = quantidade
+# Retorna mensagem de erro ou "" se conseguiu vestir
+  uint8 total
+  epara total = arg2, total, total--
+# Checa se o item pode ser vestido
+    refvar lugar1 = lugar & txt(arg1.vestir1) # Posições aonde pode vestir o item
+    se lugar1 == "0"
+      ret arg1.vestir1, "Você não consegue vestir " + arg1.descnome + "."
+      ret "Não se pode vestir " + arg1.descnome + "."
+    fimse
+# Exclui posições em que está vestindo algo
+    refvar lugar2 = lugar1 & ~txthex(vest, 12)
+    se lugar2 == "0"
+      listaitem item
+      epara item = arg0.dentro2.ini, item, item.depois
+        sair item.obj.vestpos && intbith(item.obj.vestpos - 1) & (lugar1 & vest)
+      efim
+      ret "Já está usando " + item.obj.descnome + " nessa posição."
+    fimse
+# Checa os itens que estão em cima
+    txt512 lin
+    epara lin = txtbith(lugar2), lin, lin = txt2(lin)
+      sair vest & txt(config:vestir[txt1(lin)]) == "0"
+    efim
+    se !lin
+      lin = txtbit(lugar2)
+      txt12 pos = vest & txt(config:vestir[txt1(lin)])
+      listaitem item
+      epara item = arg0.dentro2.ini, item, item.depois
+        sair item.obj.vestpos && intbith(item.obj.vestpos - 1) & pos
+      efim
+      ret "Antes precisa parar de usar " + item.obj.descnome + "."
+    fimse
+# Checa se o item deixa vestir
+    txt100 txtvestir = arg1.cmd_podevestir(arg0)
+    ret txtvestir, txtvestir
+# Eventos
+    refvar numpos = 1 + txt1(lin)
+    listaobj l
+    epara l.addfim(arg0.evento), l, l.ini.remove
+      ret l.objini.cmd_vestir(arg0, arg1, numpos, arg0), nulo
+    efim
+    epara l.addfim(arg1.evento), l, l.ini.remove
+      ret l.objini.cmd_vestir(arg0, arg1, numpos, arg1), nulo
+    efim
+# Veste o item
+    arg1.vestir(numpos)
+    vest |= intbith(numpos - 1)
+    refvar mvestir = txtsublin(config:equip_vestir, numpos - 1, 1)
+    $mens.p(arg0, nulo, arg1)
+    $mens.mvis1som(mvestir ?? "$P veste $o.", arg1.i_som_vest1)
+# Eventos
+    epara l.addfim(arg0.evento), l, l.ini.remove
+      l.objini.cmd_vestiu(arg0, arg1, numpos, arg0)
+    efim
+    epara l.addfim(arg1.evento), l, l.ini.remove
+      l.objini.cmd_vestiu(arg0, arg1, numpos, arg1)
+    efim
+  efim

@@ -1,0 +1,95 @@
+classe perm_admin
+herda comum_perm_admin
+const salvardias = 365
+const fome = 1 # Fome/sede: Sim
+const c_salatele = $s_rio001
+const cmd_congelar = "glrcmdj $1 criar(\"e_congelado\", este)"
+const cmd_descongelar = "glrcmdj $1 apagar(dentro2.objini(\"e_congelado\"))"
+#
+
+func cmd_harea
+  ret arg0.jogarea != arg0.dono.s_area, arg0.msg("Você não tem permissão para editar esta \
+área.")
+  ret "earea"
+
+const cmd_del = "matar1 $0"
+const cmd_intervox = "com bot2 intervox.nce.ufrj.br 1963 fantastic fantastic123mud"
+const cmd_jardim = "com bot2 chat.portaljardimdaamizade.tk 1963 -fantastic fantastic123mud"
+const cmd_net = "com bot2 66.70.227.16 1963 fantasticmud fantastic2017"
+const cmd_autorizar = "glrperm $1 jog"
+const cmd_double = "mudaexp$z1$z$1$zz"
+const cmd_dm = "mudaexp$z2$z2000000000$zz$zecho XP máxima ativada!"
+const cmd_fdm = "mudaexp$z2$z200$zz$zecho XP máxima desativada!"
+const cmd_rouco = "glrcmdj $1 criar(\"e_rouquidao\", este)"
+const cmd_voz = "glrcmdj $1 apagar(dentro2.objini(\"e_rouquidao\"))"
+const div_voz = "Volta a voz de um jogador."
+const div_rouco = "Retira a voz de um jogador."
+const cmd_dono = "glrcmdp $1 var.z_dono=\"$2\""
+const div_dono = "Esse atalho, serve para definir, em um pet de jogador, o novo dono. Útil \
+quando jogadores perdem e precisa-se redefinir o dono no novo animal, ou se houver uma troca de \
+animais entre jogadores."
+const cmd_lusomix = "com bot 192.99.205.108 1963 fantasticmud fantastic2018"
+const div_lusomix = "tenta conectar o bot no chat Lusomix."
+const div_jardim = "tenta conectar o bot no chat Jardim da Amizade."
+const div_net = "tenta conectar o bot no chat Portal Mundo Net"
+
+
+classe perm_autorizar
+herda comum_perm
+const nomequem = "[Não autorizado]"
+const entroumsg = "Seu personagem não está mais autorizado a jogar."
+const salvardias = 1
+const c_salvar = "Seu personagem ainda não foi autorizado"
+const c_chat = "Seu personagem ainda não está autorizado: utilize o comando rezar para pedir \
+autorização."
+const c_novatos = "Seu personagem ainda não está autorizado: utilize o comando rezar para pedir \
+autorização."
+const c_gritar = "Seu personagem ainda não está autorizado: utilize o comando rezar para pedir \
+autorização."
+const c_falar = "Seu personagem ainda não está autorizado: utilize o comando rezar para pedir \
+autorização."
+const c_social = "Seu personagem ainda não está autorizado: utilize o comando rezar para pedir \
+autorização."
+const c_telepatia = "Seu personagem ainda não está autorizado: utilize o comando rezar para \
+pedir autorização."
+const andar = "Seu personagem ainda não foi autorizado, use o canal rezar para pedir autorização.\
+"
+const salvar = 0
+
+
+classe perm_editor
+herda comum_perm
+const nomequem = "editor"
+const c_config = 2 # Config: 1-sala
+const i_entrando = 1 # Jogador entrando: 1 Informar o nome
+const entroumsg = "agora você pode editar uma área"
+const saiumsg = "você não pode mais editar uma área"
+const c_tele = 1 # Tele,Lugar: 1 Tele na área de edição
+const c_ivar = 0 # Ivar: Não
+const c_larea = 0 # Larea: Não
+const c_lsala = 1 # Lsala,Psala: 1 Área onde tem permissão
+const c_lsai = 1 # Lsai: 1 Área onde tem permissão
+const c_esala = 1 # Editar sala/saídas: 1 Área onde tem permissão
+const c_lperso = 1 # Lperso,Pperso: 1 Área onde tem permissão
+const c_iperso = 1 # Iperso: 1 Área onde tem permissão
+const c_eperso = 1 # Editar perso: 1 Área onde tem permissão
+const c_litem = 1 # Litem,Pitem: 1 Área onde tem permissão
+const c_iitem = 1 # Iitem: 1 Área onde tem permissão
+const c_eitem = 1 # Editar item: 1 Área onde tem permissão
+const c_lres = 1 # Lres: 1 Área onde tem permissão
+const c_ares = 1 # Ares: 1 Área onde tem permissão
+const c_sres = 0 # Sres: 0 Não
+const cmd_lhab = "lhab $1"
+const cmd_lmag = "lmag $1"
+const cmd_lef = "lef $1"
+const cmd_ltipo = "ltipo $1"
+const c_salatele = $s_rio001
+const cmd_esai = "esai $1"
+
+
+classe perm_jog
+herda comum_perm
+const i_entrando = 1 # Jogador entrando: 1 Informar o nome
+const entroumsg = "seu personagem foi aprovado. boas aventuras por este mundo!"
+const salvardias = 10000
+const c_pnj = 0 # PNJ: Não

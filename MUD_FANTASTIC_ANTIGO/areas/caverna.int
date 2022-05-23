@@ -1,0 +1,798 @@
+classe a_caverna
+herda area
+const a_nome = "Caverna Dos Elementais"
+const a_tempo = 30
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_autor = "hellmud"
+const a_txtreset = "O chão da caverna treme, e algumas pedras caem do teto."
+
+
+classe b_caverna
+herda sala
+const s_item = 0
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_luz = 2 # Luz: 2 Luz do sol
+const s_recup = 20
+const s_area = "caverna"
+
+
+classe i_caverna001
+herda comum_itemperso
+const nome = "ventos do desespero"
+const ident = "ventos desespero objeto transparente"
+const descnome = "Os ventos do desespero"
+const descpos = "Um objeto transparente paira sobre o chão."
+const descver = "Nossa!\nO que é isso?\nVentos!\nVentos do desespero"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 86
+const pesoobj = 1000
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 0
+const vestir1 = "100" # Aonde vestir: 8-Nas costas
+const vestirnao = ""
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 120
+  pmanamax += 100
+  pveloc1 += 9
+  atknorm += 38
+  defnorm += 35
+  defesp += 50
+  evasao += -20
+  precisao += 30
+  bitinv |= 16
+
+
+classe i_caverna002
+herda comum_itemperso
+const nome = "colar de raiz"
+const ident = "raízes raiz colar"
+const descnome = "Um colar de raízes"
+const descpos = "Um pequeno monte de raízes está jogado no canto."
+const descver = "Um pequeno embolado de raízes."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 84
+const pesoobj = 200
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 200
+const vestir1 = "20" # Aonde vestir: 5-No pescoço
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 80
+  pmanamax += 100
+  pmovemax += 100
+  pveloc1 += 20
+  atknorm += 40
+  atkesp += 37
+
+
+classe i_caverna003
+herda comum_itemperso
+const nome = "uma esfera de fogo"
+const ident = "esfera chamas fogo"
+const descnome = "Uma esfera de fogo"
+const descpos = "Uma pequena esfera está ardendo em chamas."
+const descver = "Nada mais do que uma esfera de fogo."
+const nivel = 80
+const pesoobj = 300
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 100
+const vestir1 = "2000000" # Aonde vestir: 25-como símbolu
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += -30
+  pmanamax += 100
+  pmovemax += 100
+  pveloc1 += 10
+  defnorm += 25
+  defesp += 25
+  evasao += 30
+  precisao += 17
+
+
+classe i_caverna004
+herda comum_itemperso
+const nome = "Tornozeleiras d'água"
+const ident = "aquática tornozeleiras d'água"
+const descnome = "Um par de tornozeleiras d'água"
+const descpos = "um par de tornozeleiras aquáticas foi esquecido no canto da sala."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 82
+const pesoobj = 400
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 200
+const vestir1 = "40000" # Aonde vestir: 18-Nos tornozelos
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 150
+  pmanamax += 150
+  pveloc1 += 15
+  defnorm += 20
+  defesp += 20
+  evasao += 20
+  pesomax += 10000
+
+
+classe p_caverna001
+herda comum_persobat
+const nome = "elemental de fogo"
+const descnome = "Um Elemental de fogo"
+const descpadr = "Um elemental de fogo passa por aqui, espirrando fogo para todos os lados!"
+const descver = "Chamas e mais chamas!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 80
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 500
+const p_morreu1 = "$P cai sem vida."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10000
+
+
+classe p_caverna002
+herda comum_persobat
+const nome = "elemental de água"
+const descnome = "Um elemental de água"
+const descpadr = "Um elemental de água passa por aqui, espirrando água para todos os lados!"
+const descver = "Água e mais água!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 82
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 500
+const p_morreu1 = "$P cai sem vida."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10000
+
+
+classe p_caverna003
+herda comum_persobat
+const nome = "elemental de terra"
+const descnome = "Um elemental de terra"
+const descpadr = "Um elemental de terra passa por aqui, espirrando terra para todos os lados!"
+const descver = "Terra e mais terra!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 84
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 500
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,e_barreira_areia=0,z_moedas=40"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 11000
+
+
+classe p_caverna004
+herda comum_persobat
+const nome = "elemental de ar"
+const descnome = "Um elemental de ar"
+const descpadr = "Um elemental de ar passa por aqui, espirrando uma forte rajada de ventos para \
+todos os lados!"
+const descver = "Ventos e mais ventos!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 86
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 500
+const p_morreu1 = "$P cai sem vida."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 9000
+  bitinv |= 16
+
+
+classe p_caverna005
+herda comum_persobat
+const nome = "Viúva negra"
+const descnome = "Uma Viúva negra"
+const descpadr = "Uma viúva negra escala lentamente a parede."
+const descver = "Este bicho não é normal!"
+const nivel = 72
+const p_corpo = 1 # Corpo: 1 Deixa corpo vazio
+const p_exp = 700
+const p_morreu1 = "$P cai sem vida."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_caverna006
+herda comum_persobat
+const nome = "pequena larva"
+const descnome = "Uma pequena larva"
+const descpadr = "Uma pequena larva rasteja lentamente pelo chão."
+const descver = "Eca! Que bicho nojento."
+const nivel = 71
+const p_corpo = 1 # Corpo: 1 Deixa corpo vazio
+const p_exp = 700
+const p_morreu1 = "$P cai sem vida."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe s_caverna001
+herda b_caverna
+const s_titulo = "Uma estrada de barro"
+const s_desc = "Você está passando por uma pequena estrada.\n\
+A presença de barro, musgo e buracos é extremamente notável, fazendo com que a caminhada se \
+torne ainda mais debilitada.\n\
+Um belo gramado, de um verde exuberante, estende-se por toda a estrada, que acompanhado do \
+cantar dos pássaros, e do doce som dos ventos, torna o lugar ainda mais interessante.\n\
+A sua curiosidade insiste que você continue."
+const dir_s = $s_midleste014
+const dir_o = $s_caverna002
+
+
+classe s_caverna002
+herda b_caverna
+const s_titulo = "Uma curva na estrada"
+const s_desc = "Você está em uma curva na estrada.\n\
+A presença de barro, musgo e buracos é extremamente notável, fazendo com que a caminhada se \
+torne ainda mais debilitada.\n\
+Um belo gramado, de um verde exuberante, estende-se por toda a estrada, que acompanhado do \
+cantar dos pássaros, e do doce som dos ventos, torna o lugar ainda mais interessante.\n\
+A sua curiosidade insiste que você continue."
+const dir_s = $s_caverna003
+const dir_l = $s_caverna001
+
+
+classe s_caverna003
+herda b_caverna
+const s_titulo = "Uma estrada de barro"
+const s_desc = "Você está passando por uma pequena estrada.\n\
+A presença de barro, musgo e buracos é extremamente notável, fazendo com que a caminhada se \
+torne ainda mais debilitada.\n\
+Um belo gramado, de um verde exuberante, estende-se por toda a estrada, que acompanhado do \
+cantar dos pássaros, e do doce som dos ventos, torna o lugar ainda mais interessante.\n\
+A sua curiosidade insiste que você continue."
+const dir_n = $s_caverna002
+const dir_s = $s_caverna004
+
+
+classe s_caverna004
+herda b_caverna
+const s_titulo = "Uma estrada de barro"
+const s_desc = "Você está passando por uma pequena estrada.\n\
+A presença de barro, musgo e buracos é extremamente notável, fazendo com que a caminhada se \
+torne ainda mais debilitada.\n\
+Um belo gramado, de um verde exuberante, estende-se por toda a estrada, que acompanhado do \
+cantar dos pássaros, e do doce som dos ventos, torna o lugar ainda mais interessante.\n\
+A sua curiosidade insiste que você continue."
+const dir_n = $s_caverna003
+const dir_s = $s_caverna005
+
+
+classe s_caverna005
+herda b_caverna
+const s_titulo = "O final de uma estrada de barro"
+const s_desc = "Você chega ao final da estrada.\n\
+A presença de barro, musgo e buracos é extremamente notável, fazendo com que a caminhada se \
+torne ainda mais debilitada.\n\
+Um belo gramado, de um verde exuberante, estende-se por toda a estrada, que acompanhado do \
+cantar dos pássaros, e do doce som dos ventos, torna o lugar ainda mais interessante.\n\
+A sua curiosidade insiste que você continue."
+const dir_n = $s_caverna004
+const dir_o = $s_caverna006
+
+
+classe s_caverna006
+herda b_caverna
+const s_titulo = "Diante de uma grande caverna"
+const s_desc = "Você está diante de uma grande caverna.\n\
+Ao olhar em volta do lugar, você se espanta com a beleza transmitida por um pequeno vale, que \
+circunda quase toda a extensão da caverna.\n\
+Observando mais atentamente, você pode ver que dentro da caverna não existe luz alguma, facilitan\
+do a estadia de vários insetos ou animais noturnos.\n\
+Um arrepio sobe através de sua espinha, porém, sua curiosidade fala mais alto do que o medo \
+preexistente dentro de te."
+const s_pnj = 0
+const dir_l = $s_caverna005
+const dir_o = $s_caverna007
+
+
+classe s_caverna007
+herda b_caverna
+const s_titulo = "Uma grande caverna"
+const s_desc = "Você está dentro de uma grande caverna.\n\
+Nas paredes da caverna, ao seu redor, teias e mais teias de aranhas são de fácil localização. \
+Além disso, grandes rachaduras estão presentes por todas elas, causando-lhe enorme espanto.\n\
+O lugar aparenta ser calmo, porém o medo ainda é um fator relevante.\n\
+O chão da caverna parece um tanto liso, dando a entender que seja coberto por lodo."
+const dir_n = $s_caverna008
+const dir_s = $s_caverna009
+const dir_l = $s_caverna006
+
+
+classe s_caverna008
+herda b_caverna
+const s_titulo = "Uma grande caverna"
+const s_desc = "Você está dentro de uma grande caverna.\n\
+Nas paredes da caverna, ao seu redor, teias e mais teias de aranhas são de fácil localização. \
+Além disso, grandes rachaduras estão presentes por todas elas, causando-lhe enorme espanto.\n\
+O lugar aparenta ser calmo, porém o medo ainda é um fator relevante.\n\
+O chão da caverna parece um tanto liso, dando a entender que seja coberto por lodo."
+const dir_s = $s_caverna007
+const dir_o = $s_caverna010
+const a_reset = "P 100 caverna004 0 0 1 h_segundo_ataque=8,h_terceiro_ataque=8,e_escudo_ar=0,z_mo\
+edas=40\n\
+E 20 caverna001 0 9 m_voar=8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_caverna004:objsolto.total < 1
+    p = u = criar("p_caverna004", este, 0, "h_segundo_ataque=8,h_terceiro_ataque=8,e_escudo_ar=0,\
+z_moedas=40")
+  fimse
+  se u && rand(100) < 20
+    r = criar("i_caverna001", u, 0, "m_voar=8"), r.vestir(9), u.recalc = 1
+  fimse
+
+
+classe s_caverna009
+herda b_caverna
+const s_titulo = "Uma grande caverna"
+const s_desc = "Você está dentro de uma grande caverna.\n\
+Nas paredes da caverna, ao seu redor, teias e mais teias de aranhas são de fácil localização. \
+Além disso, grandes rachaduras estão presentes por todas elas, causando-lhe enorme espanto.\n\
+O lugar aparenta ser calmo, porém o medo ainda é um fator relevante.\n\
+O chão da caverna parece um tanto liso, dando a entender que seja coberto por lodo."
+const dir_n = $s_caverna007
+const dir_o = $s_caverna016
+const a_reset = "P 100 caverna003 0 0 1\nE 30 caverna002 0 6"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_caverna003:objsolto.total < 1
+    p = u = criar("p_caverna003", este, 0)
+  fimse
+  se u && rand(100) < 30
+    r = criar("i_caverna002", u, 0), r.vestir(6), u.recalc = 1
+  fimse
+
+
+classe s_caverna010
+herda b_caverna
+const s_titulo = "Uma grande caverna"
+const s_desc = "Você está dentro de uma grande caverna.\n\
+Nas paredes da caverna, ao seu redor, teias e mais teias de aranhas são de fácil localização. \
+Além disso, grandes rachaduras estão presentes por todas elas, causando-lhe enorme espanto.\n\
+O lugar aparenta ser calmo, porém o medo ainda é um fator relevante.\n\
+O chão da caverna parece um tanto liso, dando a entender que seja coberto por lodo."
+const dir_l = $s_caverna008
+const dir_o = $s_caverna011
+
+
+classe s_caverna011
+herda b_caverna
+const s_titulo = "Uma grande caverna"
+const s_desc = "Você está dentro de uma grande caverna.\n\
+Nas paredes da caverna, ao seu redor, teias e mais teias de aranhas são de fácil localização. \
+Além disso, grandes rachaduras estão presentes por todas elas, causando-lhe enorme espanto.\n\
+O lugar aparenta ser calmo, porém o medo ainda é um fator relevante.\n\
+O chão da caverna parece um tanto liso, dando a entender que seja coberto por lodo."
+const dir_s = $s_caverna012
+const dir_l = $s_caverna010
+const dir_o = $s_caverna015
+
+
+classe s_caverna012
+herda b_caverna
+const s_titulo = "Uma passagem escura"
+const s_desc = "Você está em uma pequena passagem.\n\
+O local é ainda mais desprovido de luminosidade, comparado ao restante da caverna.\n\
+O lodo ainda continua por ser predominante neste chão, assim como, as teias de aranhas e \
+rachaduras, que em algumas partes se tornam ainda maiores."
+const dir_n = $s_caverna011
+const dir_l = $s_caverna013
+const a_reset = "P 100 caverna006 0 0 2 h_segundo_ataque=8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_caverna006:objsolto.total < 2
+    criar("p_caverna006", este, 0, "h_segundo_ataque=8")
+  fimse
+
+
+classe s_caverna013
+herda b_caverna
+const s_titulo = "Uma passagem escura"
+const s_desc = "O local é ainda mais desprovido de luminosidade, comparado ao restante da \
+caverna.\n\
+O lodo ainda continua por ser predominante neste chão, assim como, as teias de aranhas e \
+rachaduras, que em algumas partes se tornam ainda maiores.\n\
+Você sente que há algo perigoso por perto!"
+const eveste = 1 # Eventos sala: Sim
+const dir_o = $s_caverna012
+const dir_b = $s_caverna014
+const dir_ne = $s_caverna021
+
+func cmd_salaperso
+  ret !arg0.jog, nulo # Retorna se não for jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou4
+  arg0.msg("Você sente que há algo perigoso por perto!")
+  ret 1
+
+
+classe s_caverna014
+herda b_caverna
+const s_titulo = "Um buraco na caverna"
+const s_desc = "Você caiu em um buraco...\n\
+Nossa! A caverna é mesmo perigosa, você não consegue se segurar, escorregou e caiu neste buraco \
+sem saídas!!!"
+const s_luz = 0 # Luz: 0 Claro com eventos de tempo
+const s_pnj = 0
+const eveste = 0 # Eventos sala: Não
+const dir_c = $s_caverna013
+
+func cmd_salaperso
+  ret !arg0.jog, nulo # Retorna se não for jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou1
+  arg0.msg("Você começa a cair em um buraco profundo.")
+  arg0.msg("Você tenta se segurar, mas não vê a onde.")
+  arg0.msg("Você cai e quebra todos os seus ossos...")
+  misc:evento(arg0) # Receber eventos do personagem
+  listaobj l
+  epara l.addfim(arg0.dentro1, arg0.dentro2), l, l.ini.remove
+    l.objini.item && !l.objini.manterperso && apagar(l.objini)
+  efim
+  arg0.morreu
+  ret 1
+
+
+classe s_caverna015
+herda b_caverna
+const s_titulo = "Uma grande caverna"
+const s_desc = "Você está dentro de uma grande caverna.\n\
+Nas paredes da caverna, ao seu redor, teias e mais teias de aranhas são de fácil localização. \
+Além disso, grandes rachaduras estão presentes por todas elas, causando-lhe enorme espanto.\n\
+O lugar aparenta ser calmo, porém o medo ainda é um fator relevante.\n\
+O chão da caverna parece um tanto liso, dando a entender que seja coberto por lodo."
+const dir_l = $s_caverna011
+const a_reset = "P 100 caverna002 0 0 1 h_segundo_ataque=8,h_terceiro_ataque=8,e_barreira_água=0,\
+z_moedas=40\n\
+E 20 caverna004 0 19"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_caverna002:objsolto.total < 1
+    p = u = criar("p_caverna002", este, 0, "h_segundo_ataque=8,h_terceiro_ataque=8,e_barreira_águ\
+a=0,z_moedas=40")
+  fimse
+  se u && rand(100) < 20
+    r = criar("i_caverna004", u, 0), r.vestir(19), u.recalc = 1
+  fimse
+
+
+classe s_caverna016
+herda b_caverna
+const s_titulo = "Uma grande caverna"
+const s_desc = "Você está dentro de uma grande caverna.\n\
+Nas paredes da caverna, ao seu redor, teias e mais teias de aranhas são de fácil localização. \
+Além disso, grandes rachaduras estão presentes por todas elas, causando-lhe enorme espanto.\n\
+O lugar aparenta ser calmo, porém o medo ainda é um fator relevante.\n\
+O chão da caverna parece um tanto liso, dando a entender que seja coberto por lodo."
+const dir_l = $s_caverna009
+const dir_o = $s_caverna017
+
+
+classe s_caverna017
+herda b_caverna
+const s_titulo = "Uma grande caverna"
+const s_desc = "Você está dentro de uma grande caverna.\n\
+Nas paredes da caverna, ao seu redor, teias e mais teias de aranhas são de fácil localização. \
+Além disso, grandes rachaduras estão presentes por todas elas, causando-lhe enorme espanto.\n\
+O lugar aparenta ser calmo, porém o medo ainda é um fator relevante.\n\
+O chão da caverna parece um tanto liso, dando a entender que seja coberto por lodo."
+const dir_l = $s_caverna016
+const dir_o = $s_caverna018
+
+
+classe s_caverna018
+herda b_caverna
+const s_titulo = "Uma grande caverna"
+const s_desc = "Você está dentro de uma grande caverna.\n\
+Nas paredes da caverna, ao seu redor, teias e mais teias de aranhas são de fácil localização. \
+Além disso, grandes rachaduras estão presentes por todas elas, causando-lhe enorme espanto.\n\
+O lugar aparenta ser calmo, porém o medo ainda é um fator relevante.\n\
+O chão da caverna parece um tanto liso, dando a entender que seja coberto por lodo."
+const dir_l = $s_caverna017
+const dir_so = $s_caverna019
+const a_reset = "P 100 caverna001 0 0 1 h_segundo_ataque=8,h_terceiro_ataque=8,e_barreira_fogo=0,\
+z_moedas=40\n\
+E 20 caverna003 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_caverna001:objsolto.total < 1
+    p = u = criar("p_caverna001", este, 0, "h_segundo_ataque=8,h_terceiro_ataque=8,e_barreira_fog\
+o=0,z_moedas=40")
+  fimse
+  se u && rand(100) < 20
+    r = criar("i_caverna003", u, 0), r.vestir(1), u.recalc = 1
+  fimse
+
+
+classe s_caverna019
+herda b_caverna
+const s_titulo = "Uma rachadura na pedra"
+const s_desc = "Você está em uma grande rachadura.\n\
+O lugar é completamente coberto por lodo, e muitos insetos rastejantes se tornam presentes no \
+lugar.\n\
+Todos esses são efeitos do passar dos anos, que assim como todos os seres vivos, as rochas, \
+montanhas, etc... Também sofrem com o desgaste."
+const dir_ne = $s_caverna018
+const dir_so = $s_caverna020
+
+
+classe s_caverna020
+herda b_caverna
+const s_titulo = "Uma rachadura na pedra"
+const s_desc = "Você está em uma grande rachadura.\n\
+O lugar é completamente coberto por lodo, e muitos insetos rastejantes se tornam presentes no \
+lugar.\n\
+Todos esses são efeitos do passar dos anos, que assim como todos os seres vivos, as rochas, \
+montanhas, etc... Também sofrem com o desgaste."
+const dir_ne = $s_caverna019
+const dir_so = $s_caverna021
+const a_reset = "P 100 caverna005 0 0 2 h_segundo_ataque=8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_caverna005:objsolto.total < 2
+    criar("p_caverna005", este, 0, "h_segundo_ataque=8")
+  fimse
+
+
+classe s_caverna021
+herda b_caverna
+const s_titulo = "Uma rachadura na pedra"
+const s_desc = "Você está em uma grande rachadura.\n\
+O lugar é completamente coberto por lodo, e muitos insetos rastejantes se tornam presentes no \
+lugar.\n\
+Todos esses são efeitos do passar dos anos, que assim como todos os seres vivos, as rochas, \
+montanhas, etc... Também sofrem com o desgaste."
+const dir_ne = $s_caverna020
+const dir_so = $s_caverna013

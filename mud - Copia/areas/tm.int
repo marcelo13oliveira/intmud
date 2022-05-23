@@ -1,0 +1,46 @@
+classe a_tm
+herda area
+const a_tempo = 3
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_tm
+herda sala
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_area = "tm"
+
+
+classe p_tm001
+herda comum_persobat
+const nome = "dragão"
+const nivel = 130
+const tipo1 = "dragao"
+const p_atktipo = "morder"
+const p_exp = 1000000000
+const inivar = "h_morder=8, h_segundo_ataque=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1000000
+  pveloc1 += 5000
+  atknorm += 50000
+  defnorm += 10000
+  evasao += 10000
+  precisao += 10000
+  bitinv |= 16
+  atktipo.0 *= 10 # Tipos Normais
+  atktipo.6 *= 10 # Fogo
+
+
+classe s_tm001
+herda b_tm
+const s_titulo = "Entrada"
+const s_desc = "Você se encontra na entrada do templo de Daimon"
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const a_reset = "P 100 tm001 0 0 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tm001:objsolto.total < 3
+    criar("p_tm001", este, 0)
+  fimse

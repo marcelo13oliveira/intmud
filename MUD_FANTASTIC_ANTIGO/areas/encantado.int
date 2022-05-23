@@ -1,0 +1,1358 @@
+classe a_encantado
+herda area
+const a_nome = "o castelo encantado"
+const a_autor = "wilson e fernanda"
+const a_tempo = 1
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_encantado
+herda sala
+const s_area = "encantado"
+
+
+classe i_encantado001
+herda comum_item
+const nome = "Bolinho de chuva"
+const ident = "Bolo bolinho bol"
+const descnome = "Um bolinho de chuva."
+const descpos = "Um delicioso bolinho de chuva está aqui no chão."
+const descver = "Só ao olhar esse bolinho de chuva, você nota a maciez da massa e o quanto ele é \
+crocante. Te levando a um pensamento de devorá-lo imediatamente."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 6
+const f_diges = 250
+const f_msgperso = "Você coloca esse delicioso bolinho de chuva na boca rapidamente, o devorando \
+e saboreando sua massa deliciosa e crocante."
+const f_msgoutros = "Você sente o cheiro de uma massa crocante. E não demora muito para distingui\
+r que é um delicioso bolinho de chuva que $p está devorando ferozmente!"
+const mantersala = 0 # Mantém na sala: Não
+const tipoitem = 8192 # Tipo de item: 13-Comida
+
+
+classe i_encantado002
+herda comum_itemperso
+const nome = "uma janela de ferro"
+const ident = "uma janela de ferro"
+const descnome = "uma janela de ferro com vidros relusantes"
+const descpos = "uma janela de ferro com vidro relusante"
+
+
+classe i_encantado003
+herda comum_item
+const nome = "Fonte de coca-cola"
+const ident = "fonte coca coca-cola"
+const descnome = "Uma fonte de coca-cola"
+const descpos = "Uma fonte jorrando coca-cola foi fixada ao chão."
+const descver = "Você vê uma límpida fonte coberta de gelo e não demora muito para descobrir que \
+é uma fonte de coca-cola."
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_sede = 100
+const f_msgperso = "Você olha para a fonte de coca-cola e aproximando-se começa a beber rapidamen\
+te a coca-cola que jorra, sem limites.\""
+const f_msgoutros = "$p Olha para a fonte de coca-cola e aproximando-se começa a beber rapidament\
+ e a coca-cola que jorra, sem limites."
+const i_pegar = "Tira sua mão daí, isto não lhe pertence."
+
+
+classe i_encantado005
+herda comum_item
+const nome = "Fonte de chocolate."
+const ident = "Fonte choco chocolate"
+const descnome = "Uma fonte de chocolate."
+const descpos = "Uma fonte jorrando chocolate foi fixada ao chão."
+const descver = "Ao olhar essa fonte que jorra incessantemente um delicioso chocolate branco, \
+você não pensa nada além de começar a beber todo esse chocolate o mais rápido possível."
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_sede = 100
+const f_msgperso = "Você se abaixa e saboreia uma boa quantidade de um saboroso chocolate \
+branco, sujando os lábios completamente."
+const f_msgoutros = "$p Se abaixa e saboreia uma boa quantidade de um saboroso chocolate branco, \
+sujando os lábios completamente."
+const i_pegar = "Tira sua mão daí, isto não lhe pertence."
+
+
+classe p_encantado001
+herda comum_perso
+const nome = "Uma fada"
+const ident = "uma fada linda segurando sua varinha"
+const descpadr = "Uma fada está em pé aqui."
+const descver = "Uma linda Fada."
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const nivel = 20
+const pospadr = 8 # Posição padrão: 8 Em pé
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+
+classe s_encantado001
+herda b_encantado
+const s_titulo = "Hall de entrada do lindo castelo."
+const s_desc = "Ao entrar nesse lindo castelo, você sente o perfume doce de rosas. Vários \
+quadros nas paredes estão espalhados.\n\
+Quadros de diversos pintores admirados pelos moradores\n\
+desse castelo. Cadeiras feitas de ouros foram expostas para serem vistas pelos visitantes do \
+castelo.\n\
+As paredes são pintadas com tons de branco, vermelho e verde."
+const s_fome = 1 # Fome e sede: 1 Ausente
+const dir_n = $s_encantado002
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "uma porta de vidro com a foto de um casal de rei se abraçando com um largo \
+sorriso"
+const portaartigo_n = 0 # Artigo porta: 0 a (porta)
+const fecha_n = 1 # Fecha ao passar: Sim
+const som_fechar_n = "fechar porta"
+const som_destr_n = "destrancou a porta"
+const a_reset = "S 100 encantado005 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_encantado005") && criar("i_encantado005", este, 1)
+
+
+classe s_encantado002
+herda b_encantado
+const s_titulo = "Uma linda sala de visitas."
+const s_desc = "Ao chegar nessa sala, você nota que é um ambiente aconchegante. Contendo no \
+canto direito: Uma lareira, feita de\n\
+tijolos, aquecendo todo ambiente. Já no canto esquerdo:\n\
+uma janela de ferro com uma cortina de ouro, te dá a vista do hall do castelo.\n\
+Nas paredes: Foram colocadas fotos feitas nas viagens dos proprietários do castelo."
+const dir_s = $s_encantado001
+const dir_l = $s_encantado003
+
+
+classe s_encantado003
+herda b_encantado
+const s_titulo = "Um corredor encantado."
+const s_desc = "Você não tem dúvidas deste nome ao entrar aqui, pois ver voando várias fadas e \
+deuses do castelo.\n\
+Carroagens sendo conduzidas por seus lindos cavalos brancos. Não\n\
+param de passar por você. Todas as paredes tem luz brilhando. Aqui sua imaginação começa a \
+fluir, te fazendo ter vontade de ir mais a dentro."
+const dir_s = $s_encantado004
+const dir_l = $s_encantado051
+const dir_o = $s_encantado002
+
+
+classe s_encantado004
+herda b_encantado
+const s_titulo = "Uma sala de estar."
+const s_desc = "Uma música suave e calma pode ser ouvida ao entrar nessa sala. Vários vasos com \
+arranjos de rosas e margaridas foram colocadas enfeitando o ambiente.\n\
+O perfume\n\
+delas exalam por todo local. As paredes são cobertas por painéis de fotos da família do jovem \
+casal.\n\
+Uma janela de vidro com uma cortina de seda na cor vermelha\n\
+foi construída ao sul, te dando a vista de um belo jardim."
+const dir_n = $s_encantado003
+const dir_s = $s_encantado005
+
+
+classe s_encantado005
+herda b_encantado
+const s_titulo = "Um jardim fantástico."
+const s_desc = "Realmente, aqui é mesmo um jardim fantástico. Um gramado verde foi plantado \
+aqui. Você sente a maciez ao entrar. Flores estão sendo cuidadosamente colocadas aqui.\n\
+No canto direito: Está uma linda estufa com várias orquídeas. No lado esquerdo: Você ver um \
+Rosal todo vermelho coberto por rosas vermelhas. O perfume aqui é inacabável. O\n\
+vento faz seus cabelos balançarem. Pássaros voam cantando alegremente por entre as árvores. Você \
+consegue viajar em um mundo diferente com o cantar deles."
+const dir_n = $s_encantado004
+const dir_o = $s_encantado006
+const dir_entrar = $s_encantado008
+
+
+classe s_encantado006
+herda b_encantado
+const s_titulo = "Um quintal acolhedor."
+const s_desc = "Um ambiente para se refletir nos sonhos. Na vida e fazer projetos. No canto \
+esquerdo: Um giral de pedra, tendo em cima algumas luminárias, coloridas, iluminando o\n\
+espaço. Uma brisa leve e calma bate delicadamente em seu rosto. Uma samambaia foi colocada na \
+parede oeste. Perfumes de flores são sentidos ao longe, mas ao olhar na direção leste, você \
+repara que este perfume vem do jardim desse lindo castelo."
+const dir_s = $s_encantado007
+const dir_l = $s_encantado005
+
+
+classe s_encantado007
+herda b_encantado
+const s_titulo = "Um estúdio musical."
+const s_desc = "Você nota que aqui se trata de um local musical. Ao ver uma potente mesa de som \
+instalada no canto direito. Contendo diversos equipamentos sonoros.\n\
+No canto esquerdo: Uma enorme guitarra foi posta. Na parede oeste, um violão está pendurado em \
+um ferro apropriado para ele.\n\
+No interior sul do estúdio, um lindo piano de calda chama sua atenção."
+const dir_n = $s_encantado006
+
+
+classe s_encantado008
+herda b_encantado
+const s_titulo = "Continuação do jardim."
+const s_desc = "Continuando a caminhar pelo fantástico jardim do castelo, Você nota que aqui o \
+chão é coberto por pedras e um pouco de areia, dando mais charme no ambiente. A brisa\n\
+leve do vento te faz olhar para cima e notar uma escada de acesso. O que será que te aguarda lá? \
+Suba e veja!"
+const dir_c = $s_encantado009
+const dir_sair = $s_encantado005
+
+
+classe s_encantado009
+herda b_encantado
+const s_titulo = "Primeiro degrau da ponte."
+const s_desc = "Chegando no primeiro degrau dessa ponte, olhando ela, parece perigosa, te \
+causando medo. Mas ao ver a linda natureza, você se enche de coragem e continua a subir pelos \
+degraus."
+const dir_c = $s_encantado010
+const dir_b = $s_encantado008
+
+
+classe s_encantado010
+herda b_encantado
+const s_titulo = "Segundo degrau da ponte."
+const s_desc = "Ao chegar no segundo degrau dessa escada, você olha para baixo e nota o chão \
+feito com pedras de vidros. Logo a cima, pode ser avistada o início de uma linda ponte."
+const dir_c = $s_encantado011
+const dir_b = $s_encantado009
+
+
+classe s_encantado011
+herda b_encantado
+const s_titulo = "Uma linda ponte."
+const s_desc = "Chegando nessa linda ponte, você sente um pouco de medo em continuar, nota ela \
+meia estreita, mas a beleza a diante, é tão encantadora que você se enche de coragem para \
+continuar sua caminhada. Os corrimãos são construídos com barras de\n\
+ferros, cobertos por ouro."
+const dir_o = $s_encantado012
+const dir_b = $s_encantado010
+
+
+classe s_encantado012
+herda b_encantado
+const s_titulo = "Início das márgens de um lindo lago."
+const s_desc = "Caminhando mais a frente você chega nas margens de um lindo lago. Com papagaios \
+voando, com suas penas coloridas. Aos lados os corrimãos feitos de ferro tampado por alumínio \
+puro."
+const dir_l = $s_encantado011
+const dir_b = $s_encantado013
+
+
+classe s_encantado013
+herda b_encantado
+const s_titulo = "Início do lindo lago."
+const s_desc = "Chegando nesse ambiente refrescante, sendo guiado pelo barulho das águas \
+cristalinas, você se encanta ao sentir correntes leves de águas batendo em seus pés.\n\
+No céu um lindo sol se pondo. E para baixo, vários raios iluminados te chamam atenção, te \
+convidando a descer mais."
+const dir_c = $s_encantado012
+const dir_b = $s_encantado014
+
+
+classe s_encantado014
+herda b_encantado
+const s_titulo = "Entrando dentro do lindo lago."
+const s_desc = "Você se encontra com um peixinho colorido aqui, ele vem ao seu encontro, se \
+sentindo feliz com sua presença. Olhando para dentro, você ver pedras enormes brilhando. Suas \
+vistas te levam a imaginações incríveis.\n\
+O vento em seu rosto já começa a ser um pouco forte, o suficiente para balançar seus cabelos."
+const dir_c = $s_encantado013
+const dir_b = $s_encantado015
+
+
+classe s_encantado015
+herda b_encantado
+const s_titulo = "Dentro do lindo lago."
+const s_desc = "Chegando dentro desse maravilhoso lago, você sente vontade de mergulhar nessas \
+águas cristalinas, junto com patinhos de todas as cores e peixinhos. Mas você já\n\
+se\n\
+sente mergulhando com eles, ao sentir eles passeando por entre seus pés.\n\
+No céu você nota tucanos de várias espécies, voando por entre árvores, procurando seus alimentos.\
+\n\
+O som da água te faz viajar em um mundo mágico."
+const dir_n = $s_encantado016
+const dir_c = $s_encantado014
+
+
+classe s_encantado016
+herda b_encantado
+const s_titulo = "As bordas do lindo lago."
+const s_desc = "Chegando nas bordas do lindo lago, após você se relaxar, sentindo vontade de \
+seguir sua caminhada, ao se deparar com várias borboletas azuis no céu e\n\
+beija-flores, você nota um caminho secreto ao norte, dando fim ao lago e direcionando-te a \
+próxima límpida criação."
+const dir_n = $s_encantado017
+const dir_s = $s_encantado015
+
+
+classe s_encantado017
+herda b_encantado
+const s_titulo = "Início do caminho secreto."
+const s_desc = "Dando início a esse caminho, você pode observar que a natureza aqui continua \
+encantadora. Araras verdes voam felizes com o seu cantarolar.\n\
+Enquanto o vento calmo bagunça seu cabelo e bate em seu rosto, fazendo-te sentir uma enorme \
+PAZ."
+const dir_s = $s_encantado016
+const dir_o = $s_encantado018
+
+
+classe s_encantado018
+herda b_encantado
+const s_titulo = "Continuação do caminho secreto."
+const s_desc = "Aqui uma sombra fresca te dá vontade\n\
+de se sentar e fazer um belo piquenique, com alguns raios solares iluminando o céu.\n\
+Além disto, a brisa do vento calmo que bate em seu rosto e muito verde plantado no chão."
+const dir_l = $s_encantado017
+const dir_o = $s_encantado019
+
+
+classe s_encantado019
+herda b_encantado
+const s_titulo = "Fim do caminho secreto."
+const s_desc = "Feliz com o que já pode ser possível ver por esse caminho, finalmente você chega \
+ao fim, ouvindo um barulho de água muito\n\
+forte. Você fica a pensar o que pode ser. Porém, você só consegue ver o início de uma linda\n\
+cachoeira, jogando água cristalina por entre umas pedras brilhantes. Seu desejo é continuar a \
+percorrer. Canarinhos podem ser encontrados cantando. Enquanto faz voos incríveis no céu."
+const dir_l = $s_encantado018
+const dir_b = $s_encantado020
+
+
+classe s_encantado020
+herda b_encantado
+const s_titulo = "Início da cachoeira da felicidade."
+const s_desc = "Começando a adentrar na cachoeira da felicidade, você começa a pisar em\n\
+um gramado verde, com o vento batendo forte em seu corpo. Acompanhando o ritmo da água que cai \
+constantemente."
+const dir_c = $s_encantado019
+const dir_b = $s_encantado021
+
+
+classe s_encantado021
+herda b_encantado
+const s_titulo = "Dentro da cachoeira da felicidade."
+const s_desc = "Finalmente, chegamos dentro da cachoeira da felicidade! Podemos sentir aqui o \
+coração acelerar, ao sentir corrente de água refrescante sendo jogada das pedras brilhantes.\n\
+seu desejo nesse instante, é de abrir os braços e deixar a felicidade te levar por uma aventura \
+espetacular. No céu é\n\
+possível ver o sol começando a desaparecer timidamente, mostrando aos poucos o brilho da \
+maravilhosa lua."
+const dir_s = $s_encantado022
+const dir_c = $s_encantado020
+
+
+classe s_encantado022
+herda b_encantado
+const s_titulo = "Fim da cachoeira da felicidade."
+const s_desc = "Chegando ao fim desta maravilhosa cachoeira, é possível levar na lembrança: O \
+barulho da água caindo por entre as pedras, o brilho da lua que começa a aparecer no céu e o \
+vento já calmo, te dando uma tranquilidade imensa."
+const dir_n = $s_encantado021
+const dir_entrar = $s_encantado023
+
+
+classe s_encantado023
+herda b_encantado
+const s_titulo = "Início de um caminho florido."
+const s_desc = "Aqui você ver várias copas de flores das árvores, fazendo uma sombra calma.\n\
+Sua vontade é de se sentar nos troncos\n\
+das árvores e ficar olhando o lindo arco íris, que se forma no céu, com algumas gotinhas de \
+chuva acabando de cair."
+const dir_s = $s_encantado024
+const dir_sair = $s_encantado022
+
+
+classe s_encantado024
+herda b_encantado
+const s_titulo = "Um caminho florido."
+const s_desc = "Adentrando por esse caminho, você observa árvores de todos os tamanhos, com \
+macaquinhos pulando por cada uma delas, indo em busca de seu alimento sustentável."
+const dir_n = $s_encantado023
+const dir_s = $s_encantado025
+
+
+classe s_encantado025
+herda b_encantado
+const s_titulo = "Continuação do caminho florido."
+const s_desc = "Na continuação desse caminho florido, você continua encontrando árvores sendo \
+moradias de pássaros cantantes, o céu todo colorido e adiante, avista-se um maravilhoso pomar."
+const dir_n = $s_encantado024
+const dir_s = $s_encantado026
+
+
+classe s_encantado026
+herda b_encantado
+const s_titulo = "Fim do caminho florido."
+const s_desc = "Aqui foi plantado vários tipos de cipós e várias árvores que nos dão sombras \
+frescas, com o vento a te acalmar, fazendo-te sentir uma paz natural."
+const dir_n = $s_encantado025
+const dir_s = $s_encantado027
+
+
+classe s_encantado027
+herda b_encantado
+const s_titulo = "Início do maravilhoso pomar."
+const s_desc = "Entrando nesse pomar, você começa a sentir um cheiro delicioso das frutas que \
+estão sendo produzidas aqui.\n\
+Aqui pode ser visto: Uma goiabeira carregada com goiabas\n\
+saborosas, coqueiros com cachos de cocos suculentos e um banco se encontra no meio das\n\
+sombras para que você\n\
+relaxe, enquanto degusta uma dessas frutas."
+const dir_n = $s_encantado026
+const dir_s = $s_encantado028
+
+
+classe s_encantado028
+herda b_encantado
+const s_titulo = "Meio do maravilhoso pomar."
+const s_desc = "Continuando a caminhar por esse maravilhoso pomar, você pisa em uma terra fofa \
+para ser cultivada. Aqui você ver: Uma mangueira carregada com mangas madurinhas e um pé de \
+morango, estão aqui plantados, ambos prontos para serem colhidos."
+const dir_n = $s_encantado027
+const dir_s = $s_encantado029
+
+
+classe s_encantado029
+herda b_encantado
+const s_titulo = "Continuação do maravilhoso pomar."
+const s_desc = "Continuar a caminhar por esse maravilhoso pomar, radiante com o cultivo de\n\
+frutas que o casal reals tem em seu castelo, você encontra sendo cultivada uma videira\n\
+carregada com belos cachos de uvas docinhas, para serem feitos os mais\n\
+sofisticados vinhos e licores do reino. Um mamoeiro repleto de mamões prontos para fazer\n\
+todo tipo de vitaminas e doces, também pode ser visto aqui."
+const dir_n = $s_encantado028
+const dir_s = $s_encantado030
+
+
+classe s_encantado030
+herda b_encantado
+const s_titulo = "Fim do maravilhoso pomar."
+const s_desc = "Sem dúvidas, você nota ao chegar no fim desse maravilhoso pomar frutífero, que é \
+um cultivo muito rico e delicioso. Aqui está uma macieira saldável com muitas\n\
+maçãs, para serem feitas as mais incríveis, saborosas maçãs do amor, com muito chocolate.\n\
+Uma bananeira pendendo com diversos cachos de bananas, para se fazer vários tipos de doces. Um \
+pé de laranja docinhas para fazer um suco refrescante\n\
+também está aqui. E por fim, um verde abacateiro com todo tipo e tamanho de abacate, para se \
+fazer uma bela vitamina está plantado lindamente aqui."
+const dir_n = $s_encantado029
+const dir_s = $s_encantado031
+
+
+classe s_encantado031
+herda b_encantado
+const s_titulo = "Início de uma estrada de terra."
+const s_desc = "Continuando sua caminhada, você encontra o início de uma estrada contendo terra \
+e você começa a sentir um cheiro de mato, o que indica que um belo campo está por aqui. Basta \
+você continuar a andar por este castelo lindo e mágico que irá encontrar."
+const dir_n = $s_encantado030
+const dir_s = $s_encantado032
+
+
+classe s_encantado032
+herda b_encantado
+const s_titulo = "No meio da estrada de terra."
+const s_desc = "Andando pelo meio da estrada de terra com o suor tomando conta do seu\n\
+rosto, você esquece do cansaço ao avistar no céu, muitas maritacas voando felizes de todas\n\
+as cores. O vento incansavelmente batendo em seu rosto e o cheirinho de campo começando a fluir \
+mais forte."
+const dir_n = $s_encantado031
+const dir_s = $s_encantado033
+
+
+classe s_encantado033
+herda b_encantado
+const s_titulo = "Final da estrada de terra."
+const s_desc = "Encontrando finalmente o fim desta estrada, você avista a baixo um belo campo, \
+sendo iniciado com muitos animais."
+const dir_n = $s_encantado032
+const dir_b = $s_encantado034
+
+
+classe s_encantado034
+herda b_encantado
+const s_titulo = "Entrada do belo campo do castelo."
+const s_desc = "Você está entrando no belo campo do castelo, um lugar calmo, longe do barulho \
+intenso do reino e com ar puro da natureza, onde a família real ama passar suas férias."
+const dir_c = $s_encantado033
+const dir_b = $s_encantado035
+
+
+classe s_encantado035
+herda b_encantado
+const s_titulo = "Chegando na porteira do belo campo."
+const s_desc = "Aqui está a porteira que te dá acesso ao belo campo do lindo castelo."
+const dir_c = $s_encantado034
+const dir_no = $s_encantado036
+
+
+classe s_encantado036
+herda b_encantado
+const s_titulo = "Dentro do belo campo do castelo."
+const s_desc = "Sejam bem vindos ao belo campo do castelo! Muita grama verde se encontra aqui. O \
+céu aqui é totalmente azul, com muitas aves voando por ele!."
+const dir_se = $s_encantado035
+const dir_so = $s_encantado037
+
+
+classe s_encantado037
+herda b_encantado
+const s_titulo = "O pasto do belo campo."
+const s_desc = "Você finalmente chega no pasto do belo campo, aqui é o lugar onde o gado que a \
+família real cria pode descansar e comer gramas verdinhas. A brisa aqui é totalmente relaxante!."
+const dir_ne = $s_encantado036
+const dir_entrar = $s_encantado038
+
+
+classe s_encantado038
+herda b_encantado
+const s_titulo = "A granja do belo campo."
+const s_desc = "Estamos na granja do belo campo do castelo, aqui estão sendo chocados vários \
+ovos. Galinhas ciscam, comendo seu milho de um lado para o outro, sem parar de cantar."
+const dir_c = $s_encantado039
+const dir_sair = $s_encantado037
+
+
+classe s_encantado039
+herda b_encantado
+const s_titulo = "O curral das vacas do belo campo."
+const s_desc = "Esse é o curral das vacas que a família real cria. Aqui você ver um ordenhador \
+sentado em um banquinho ordenhando uma dessas vacas produtivas. Com certeza, esse leite é uma \
+delíícia!."
+const dir_n = $s_encantado040
+const dir_s = $s_encantado041
+const dir_o = $s_encantado042
+const dir_b = $s_encantado038
+
+
+classe s_encantado040
+herda b_encantado
+const s_titulo = "O curral dos bois do belo campo."
+const s_desc = "Nesse curral, encontram-se vários bois reprodutores e alguns esperando para \
+serem churrascos da família real."
+const dir_s = $s_encantado039
+
+
+classe s_encantado041
+herda b_encantado
+const s_titulo = "O estábulo do belo campo."
+const s_desc = "Chegamos ao estábulo do belo campo, onde encontram-se cavalos que a família real \
+cria, sendo escovados e equipados para uma bela cavalgada. O vento aqui é muito gostoso de ser \
+sentido no rosto."
+const dir_n = $s_encantado039
+
+
+classe s_encantado042
+herda b_encantado
+const s_titulo = "Uma passagem curta."
+const s_desc = "Você está pisando em uma passagem curta no belo campo. Essa passagem lhe levará \
+para a casa do belo campo do castelo. O vento aqui é forte e meio frio."
+const dir_l = $s_encantado039
+const dir_o = $s_encantado043
+
+
+classe s_encantado043
+herda b_encantado
+const s_titulo = "A frente da casa do belo campo."
+const dir_l = $s_encantado042
+const dir_o = $s_encantado044
+
+
+classe s_encantado044
+herda b_encantado
+const s_titulo = "A varanda do belo campo."
+const s_desc = "Você ver aqui, no canto esquerdo, na parede: Um paneleiro com várias panelas. \
+Várias prateleiras estão na mesma parede com pratos e talheres.\n\
+No canto direito, na parede: Você ver mais prateleiras com depósitos e todos\n\
+os tipos de alimentos para serem preparados pela cozinheira. No chão, em sua frente, você ver: \
+Um fogão e do lado direito do fogão você ver um bujão\n\
+de gás. O cheiro gostoso de comida aqui é presente todas as horas."
+const dir_l = $s_encantado043
+const dir_o = $s_encantado045
+
+
+classe s_encantado045
+herda b_encantado
+const s_titulo = "O terreiro do campo."
+const s_desc = "Você está sobre o terreiro do belo campo. Aqui é onde a família real se junta \
+com seus amigos para enormes, populares e importantes reuniões e festas. Além do lugar ser \
+agradável, tem de um a tudo para que ninguém saia mais\n\
+daqui, depois que pisar pela primeira vez. A brisa aqui é leve e fraca."
+const dir_s = $s_encantado046
+const dir_l = $s_encantado044
+
+
+classe s_encantado046
+herda b_encantado
+const s_titulo = "A estufa de verduras do belo campo."
+const s_desc = "Continuando a andar por entre o cultivo de alimentos saldáveis da família real, \
+nessa estufa, vemos: Milhares de pés de alfaces sendo cuidados, repolhos sendo plantados,\n\
+couves e todos os tipos de verduras deliciosas que você possa imaginar."
+const dir_n = $s_encantado045
+const dir_s = $s_encantado047
+
+
+classe s_encantado047
+herda b_encantado
+const s_titulo = "A horta do belo campo."
+const s_desc = "Chegamos na horta do belo campo, todos gostam de uns legumes .fresquinhos, não \
+é? Pois é, com a família\n\
+real, não é diferente. Aqui eles cultivam: Tomates para as mais saldáveis saladas, batatas, \
+abóboras, cenouras, mandiocas e todos tipos de legumes."
+const dir_n = $s_encantado046
+const dir_s = $s_encantado049
+const dir_l = $s_encantado048
+const dir_c = $s_encantado050
+const dir_so = $s_encantado049
+
+
+classe s_encantado048
+herda b_encantado
+const s_titulo = "Reservatório de água do belo campo."
+const s_desc = "Esse é o reservatório de água do belo campo, que a família real utiliza para \
+armazenar uma quantidade imensa de água, para regar as plantações e banhar os animais,\n\
+ou seja, todos os benefícios que a água pode fazer e trazer ao campo."
+const dir_o = $s_encantado047
+
+
+classe s_encantado049
+herda b_encantado
+const s_titulo = "O final do belo campo."
+const s_desc = "Depois de se encantar com tanta beleza deste incrível e belo campo, nós terminamo\
+s a caminhada por esta natureza límpida. Esperamos q tenham gostado deste pequeno\n\
+pedaço do castelo. E continua a linda aventura de imaginações!"
+const dir_n = $s_encantado047
+
+
+classe s_encantado050
+herda b_encantado
+const s_titulo = "O garimpo do belo campo."
+const s_desc = "Estamos no garimpo do belo campo, aqui é uma das partes que saem a riqueza da \
+família real, pedras de vários tamanhos, com seus determinados valores, são encontradas\n\
+aqui. Tudo é feito com bastante calma e cuidado para que não haja erros fúteis."
+const dir_b = $s_encantado047
+
+
+classe s_encantado051
+herda b_encantado
+const s_titulo = "O parque."
+const s_desc = "Você adentra no parque do castelo, esbarrando-se em várias pessoas correndo \
+atráz das suas crianças, que brincam encantadas nos seus brinquedos favoritos.\n\
+Um vento calmo, toca seu rosto, lhe refrescando. É possível sentir cheiro de chocolate, cachorro \
+quente e várias comidas deliciosas, que estão sendo vendidas pelo\n\
+lindo parque!."
+const dir_l = $s_encantado055
+const dir_o = $s_encantado003
+const dir_c = $s_encantado053
+const dir_entrar = $s_encantado052
+
+
+classe s_encantado052
+herda b_encantado
+const s_titulo = "O balanço maravilhoso."
+const s_desc = "Sentando nesse incrível balanço, você começa a balançar muito forte, começando a \
+acreditar que levará um tombo. Automaticamente, o balanço diminue a velocidade\n\
+e você relaxa, curtindo a brincadeira, podendo sentir o balanço de seus\n\
+cabelos, com o vento que vem conforme o balançar do balanço."
+const dir_sair = $s_encantado051
+
+
+classe s_encantado053
+herda b_encantado
+const s_titulo = "Entrada da gangorra animada."
+const dir_b = $s_encantado051
+const dir_entrar = $s_encantado054
+
+
+classe s_encantado054
+herda b_encantado
+const s_titulo = "Dentro da gangorra animada."
+const s_desc = "Uma gangorra muito animada, que começa a gangorrar para frente muito rápido e \
+para trás muito lento. Você chega a ter sono, mas, quando vai achando que dormirá\n\
+com sua lentidão, rapidamente, ela gangorra para frente fazendo seu coração acelerar."
+const dir_sair = $s_encantado053
+
+
+classe s_encantado055
+herda b_encantado
+const s_titulo = "Continuação do parque."
+const s_desc = "Aqui você vê, além do verde, vários cabos elétricos ligando a roda gigante que \
+fica logo a cima e um lindo carrossel que fica logo abaixo."
+const dir_l = $s_encantado082
+const dir_o = $s_encantado051
+const dir_c = $s_encantado056
+const dir_b = $s_encantado057
+const dir_ne = $s_encantado058
+const dir_so = $s_encantado059
+
+
+classe s_encantado056
+herda b_encantado
+const s_titulo = "Uma roda gigante."
+const s_desc = "Ao entrar nesse brinquedo, você sente um pouco de medo. Seu coração acelera, \
+você fica com as mãos suadas. Mas logo se acalma quando lembra que é somente um brinquedo. E \
+abre um largo sorriso de felicidade.\n\
+É possível notar várias fileiras de bancos com umas pecinhas redondas na parte de cima dele, \
+para a proteção dos aventureiros adultos.\n\
+E cintos de seguranças para as crianças aventureiras."
+const dir_b = $s_encantado055
+
+
+classe s_encantado057
+herda b_encantado
+const s_titulo = "Um lindo carrossel."
+const s_desc = "Ao pisar nesse lindo carrossel, você sente uma energia positiva invadir seu \
+corpo, prendendo-te aqui. Um bom lugar para refletir sobre a vida, enquanto ele gira calmamente. \
+Ou um lugar para diversão. Depende como você esteja no dia."
+const dir_c = $s_encantado055
+
+
+classe s_encantado058
+herda b_encantado
+const s_titulo = "Um escorregador."
+const s_desc = "Quando você chega nesse local enladerado, você já deslisa para a parte de \
+baixo.\n\
+Só agora você dar-se conta que está no escorregarrega.\n\
+Já que quando você chega aqui, não tem tempo de pensar nada antes de escorregar para baixo."
+const dir_so = $s_encantado055
+
+
+classe s_encantado059
+herda b_encantado
+const s_titulo = "Antes da escada."
+const s_desc = "Aqui é um ambiente que dá acesso a escada para o primeiro andar do lindo e \
+imenso castelo."
+const dir_c = $s_encantado060
+const dir_ne = $s_encantado055
+
+
+classe s_encantado060
+herda b_encantado
+const s_titulo = "Subindo a escada."
+const s_desc = "Você sobe, sobe e sobe todos os degraus da escada e se depara com outra entrada \
+do lindo e imenso castelo. Só que agora, a entrada é para o primeiro andar."
+const dir_b = $s_encantado059
+const dir_entrar = $s_encantado061
+
+
+classe s_encantado061
+herda b_encantado
+const s_titulo = "Primeiro andar."
+const dir_n = $s_encantado062
+const dir_sair = $s_encantado060
+
+
+classe s_encantado062
+herda b_encantado
+const s_titulo = "O início de um corredor todo forrado por lindas pedras de mármores."
+const s_desc = "Esse corredor, como você pode ver, possue várias lindas pedras de mármores sobre \
+o chão, além de serem lindas e chamarem a atenção de quem chega aqui, é possível\n\
+se espelhar nelas.\n\
+Essas lindas pedras de mármores chegam a cobrir o teto, não sendo necessário uso de luzes para \
+clarear o ambiente."
+const dir_n = $s_encantado066
+const dir_s = $s_encantado061
+const dir_l = $s_encantado067
+const dir_o = $s_encantado063
+const dir_c = $s_encantado068
+
+
+classe s_encantado063
+herda b_encantado
+const s_titulo = "O Quarto real."
+const s_desc = "Entrando no quarto real, pode ser observada as paredes feitas de vidro, contendo \
+na parede oeste: 3 corações com um contendo os nomes: Rodolfo e Cecília. E nos outros dois, \
+Mariana e Maria Vitória.\n\
+Juntamente com fotos de viagens da família. Na parede leste: Fotos mostrando cada fase de \
+crescimento das princesas. No canto esquerdo: Uma vidraça te dá a vista de\n\
+um céu azul, que durante o dia, clareia tudo com raios solares. E a noite, com o brilho da lua, \
+ao lado das estrelas clareia toda terra."
+const dir_n = $s_encantado064
+const dir_l = $s_encantado062
+const dir_o = $s_encantado065
+const portanome_o = "uma porta feita de ouro com a foto de cecília e rodolfo numa linda praia"
+const fecha_o = 1 # Fecha ao passar: Sim
+const som_abrir_o = "abriu"
+const som_fechar_o = "fechou"
+
+
+classe s_encantado064
+herda b_encantado
+const s_titulo = "Sacada do quarto real."
+const s_desc = "Você acaba de entrar na sacada do quarto real, podendo ver as paredes pintadas \
+de branco. Uma lareira de ferro aquecendo o ambiente no canto esquerdo. Um céu mostrando arco \
+íris após as chuvas, desenhando a frase: Família real para sempre!"
+const dir_s = $s_encantado063
+
+
+classe s_encantado065
+herda b_encantado
+const s_titulo = "banheiro do quarto real."
+const s_desc = "Entrando no banheiro do quarto real, você encontra espelhos espalhados por todas \
+as paredes. E o perfume doce de jasmim te faz relaxar."
+const dir_l = $s_encantado063
+const dir_entrar = $s_encantado083
+const portanome_entrar = "uma porta de vidro fino"
+
+
+classe s_encantado066
+herda b_encantado
+const s_titulo = "O quarto da princesa Maria Vitória."
+const s_desc = "Entrando no quarto da princesa, você ver que aqui o luxo é incrível. Mostrando \
+na parede oeste: Um telão, passando um vídeo com todos os prêmios conquistados pela jovem\n\
+princesa com sua música sendo ouvida pelo mundo todo. Na parede leste: Fotos da princesa com \
+amigos. Sua irmã Mariana e seus pais com um largo sorriso no rosto."
+const dir_s = $s_encantado062
+
+
+classe s_encantado067
+herda b_encantado
+const s_titulo = "O quarto da princesa Mariana."
+const s_desc = "Um quarto todo feito com paredes rosas e vinho. Com o teto feito por cristais, \
+tornando o ambiente iluminado. O perfume de rosas, deixa esse quarto mais aconchegante.\n\
+Na parede leste: Portas retratos feitos de ouro, mostram fotos de cada fase na carreira da \
+princesa. Na parede oeste: Estão todos\n\
+troféus conquistados por ela."
+const dir_o = $s_encantado062
+
+
+classe s_encantado068
+herda b_encantado
+const s_titulo = "Primeiro degrau da continuação do lindo corredor."
+const s_desc = "Subindo nesse primeiro degrau do lindo corredor, você observa no teto várias \
+lâmpadas, deixando o corredor mais iluminado. Aqui as paredes são feitas de pedras e azulejos \
+prateados, o chão é um assoalho coberto por carpete branco.\n\
+E o vento forte, bagunçando seu cabelo, entra aqui por lugares estratégicos bem arquitetados."
+const dir_c = $s_encantado069
+const dir_b = $s_encantado062
+
+
+classe s_encantado069
+herda b_encantado
+const s_titulo = "Segundo degrau do corredor."
+const s_desc = "No segundo degrau desse maravilhoso corredor, você nota um belo lustre de ouro \
+fixado no teto, as paredes todas cobertas por um painel reluzente, fazendo o ambiente ficar \
+iluminado\n\
+e o chão é feito por piso branco, contendo algumas pedras de esmeraldas como detalhes."
+const dir_c = $s_encantado070
+const dir_b = $s_encantado068
+
+
+classe s_encantado070
+herda b_encantado
+const s_titulo = "Final do corredor."
+const s_desc = "Ao chegar no final deste corredor, você pode encontrar várias bancadas de \
+mármores com alguns enfeites em cima delas, decorando o ambiente. No teto:\n\
+Um lustre feito de vidro, brilha incessantemente e o chão, é todo forrado por um carpete \
+decorado com pétalas de rosas brancas. Olhando na frente, você avista\n\
+uma sala muito atraente."
+const dir_o = $s_encantado071
+const dir_b = $s_encantado069
+
+
+classe s_encantado071
+herda b_encantado
+const s_titulo = "Uma agradável e ampla sala de jantar."
+const s_desc = "Entrando nessa ampla e rica sala de jantar, você observa vários castiçais postos \
+em uma bancada de mármore, no canto direito. Já no canto\n\
+esquerdo, um jogo de porcelanas muito delicado, faz seus olhos brilharem. No teto, está fixado, \
+um painel\n\
+lilás com várias luminárias iluminando o espaço. E o cheiro de comida aqui é muito apetitoso. \
+Sua boca chega até a encher d'água. O chão é feito de assoalho, sendo coberto por um incrível \
+carpete de esmeraldas."
+const dir_l = $s_encantado070
+const dir_b = $s_encantado072
+
+
+classe s_encantado072
+herda b_encantado
+const s_titulo = "Início de um belo lance de escadas."
+const s_desc = "Chegando aqui você começa a descer, indo em direção a maravilhosa cozinha do \
+castelo. Nesse primeiro degrau, pelas paredes você ver: Fotos do noivado do jovem\n\
+casal, os dois com um lindo e largo sorriso no rosto. No teto você visualiza: Uma bela luminária \
+feita de brilhantes. E o chão é feito de tijolos especiais."
+const dir_c = $s_encantado071
+const dir_b = $s_encantado073
+
+
+classe s_encantado073
+herda b_encantado
+const s_titulo = "Continuação de um belo lance de escadas."
+const s_desc = "Continuando a descer por essas escadas, você se encanta com vários troféus nas \
+paredes conquistados pela rainha, com suas danças como bailarina.\n\
+As paredes tem os tons de branco, bege e rosa. O teto é feito com um gigante laço vermelho \
+decorado com lâmpadas coloridas, trazendo luz ao ambiente. E o chão é feito de mármore branco \
+coberto por um carpete cinza, com muitas pedras de ouro bordadas."
+const dir_c = $s_encantado072
+const dir_entrar = $s_encantado074
+
+
+classe s_encantado074
+herda b_encantado
+const s_titulo = "Uma passagem secreta."
+const s_desc = "Uma passagem secreta, é uma continuação das escadas. Aqui você nota um encantador\
+ espelho que cobre as 4 paredes dessa passagem. O brilho é encantador aos seus olhos. Continue a \
+ir longe e descobrirá onde essa passagem te levará."
+const dir_b = $s_encantado075
+const dir_sair = $s_encantado073
+
+
+classe s_encantado075
+herda b_encantado
+const s_titulo = "Uma escada escondida."
+const s_desc = "Aqui se encontra uma escada escondida, que te levará a continuação do lance de \
+escadas. Aqui tudo é feito de mármore, desde o chão, até o teto. Tudo aqui é muito organizado. \
+Um belo tapete bordado a couro de ovelha branco está cobrindo o chão.\n\
+E no canto direito, encontra-se um cofre muito pesado, provavelmente deve está cheio de riquezas.\
+"
+const dir_c = $s_encantado074
+const dir_b = $s_encantado076
+
+
+classe s_encantado076
+herda b_encantado
+const s_titulo = "O fim da escada escondida."
+const s_desc = "Aqui chegamos ao fim deste maravilhoso lance de escadas, onde o teto é feito por \
+telhas iluminantes, afinal, se trata de um reino mágico! As paredes estão todas enfeitadas por \
+diversos troféus da princesa Maria Vitória, com sua\n\
+arte como atris. E como pode-se ver, aqui tudo é muito lindo e organizado."
+const dir_n = $s_encantado077
+const dir_c = $s_encantado075
+
+
+classe s_encantado077
+herda b_encantado
+const s_titulo = "A cozinha do castelo."
+const s_desc = "Essa é a cozinha do lindo castelo, onde cozinheiras andam de um lado para o \
+outro, fazendo comidas que são pedidas pela família real. Empregadas saem com bandejas\n\
+cheias nas mãos. As panelas chegam brilharem de tanta limpeza e o cheiro de comida aqui, é muito \
+agradável e forte."
+const dir_s = $s_encantado076
+const dir_l = $s_encantado078
+const dir_o = $s_encantado079
+const dir_no = $s_encantado080
+const dir_so = $s_encantado081
+
+
+classe s_encantado078
+herda b_encantado
+const s_titulo = "O banheiro social do castelo."
+const s_desc = "Entrando no banheiro social do castelo, onde os convidados vem fazer suas \
+higienes, você encontra toalhas brancas bordadas com fios de ouro, saboneteiras feitas de \
+diamantes, um carpete felpudo bege cobrindo o chão e um espelho\n\
+gerando luzes e reflexos ao ambiente."
+const dir_o = $s_encantado077
+
+
+classe s_encantado079
+herda b_encantado
+const s_titulo = "Armazém de alimentos do castelo."
+const s_desc = "Aqui é o lugar onde se guarda variados tipos de alimentos que a família real \
+consome. Prateleiras de vidro estão fixadas nas paredes, armários de inox foram cuidadosamente \
+instalados aqui e homens entram e saem carregando caixas com alimentos."
+const dir_l = $s_encantado077
+
+
+classe s_encantado080
+herda b_encantado
+const s_titulo = "A sala de leitura do castelo."
+const s_desc = "Você entra em uma calma sala de leitura. Um aparelho de som reproduz baixinho: \
+Uma calma melodia para te fazer viajar no livro que está lendo. Várias prateleiras\n\
+repletas de livros, estão fixadas nas paredes a sua disposição, é só escolher um, se sentar ao \
+sofá de couro a sua esquerda e deixar a imaginação tomar conta de te. Boa leitura!"
+const dir_se = $s_encantado077
+
+
+classe s_encantado081
+herda b_encantado
+const s_titulo = "Rua os dois lados do amor."
+const s_desc = "Como já podemos ver, com nossa caminhada até aqui, vimos que a família real é \
+composta por artistas. Então, nos surpreendemos ao saber que encontraremos a diante, um\n\
+teatro. Vários estudantes, atrizes, atores, autores e toda a equipe técnica, caminham por essa \
+rua em direção ao teatro."
+const dir_o = $s_encantado085
+const dir_ne = $s_encantado077
+
+
+classe s_encantado082
+herda b_encantado
+const s_titulo = "Área de laser do parque."
+const s_desc = "Você chega em uma área do parque onde se encontram diversas mesas e cadeiras \
+para comodidade de todos. Pessoas e crianças fazem seus lanches conversando e sorrindo."
+const dir_o = $s_encantado055
+
+
+classe s_encantado083
+herda b_encantado
+const s_titulo = "Boxe do banheiro do quarto real."
+const s_desc = "Esse é o boxe do banheiro do quarto real. Você pode notar as paredes feitas por \
+vidros de cristais, tornando o reflexo mais brilhante. No teto, um lindo lustre de\n\
+ouro, dá um charme maior. Olhando para baixo, você avista uma confortável e enorme banheira, sua \
+vontade é de entrar e relaxar."
+const s_fome = 0 # Fome e sede: 0 Presente
+const dir_entrar = $s_encantado084
+const dir_sair = $s_encantado065
+const portanome_sair = "uma porta de vidro fino com a massaneta de ouro com algumas pedras de \
+cristais q brilham"
+const fechadura_sair = "3"
+const fecha_sair = 1 # Fecha ao passar: Sim
+const som_abrir_sair = "abriu"
+const som_fechar_sair = "fechou"
+
+
+classe s_encantado084
+herda b_encantado
+const s_titulo = "Uma banheira relaxante."
+const s_desc = "Você está dentro de uma banheira relaxante, coberta por água morna, quentinha e \
+repleta de espuma do sais, contendo aroma de jasmim. Sua vontade é de ficar aqui relaxando para \
+sempre."
+const s_fome = 0 # Fome e sede: 0 Presente
+const s_luz = 2 # Luz: 2 Luz do sol
+const s_som = "fonte"
+const dir_sair = $s_encantado083
+
+
+classe s_encantado085
+herda b_encantado
+const s_titulo = "a frente do teatro os dois lados do amor"
+const s_desc = "estamos na frente do teatro os dois lado do amor, caminhando diante a entrada. \
+podemos obcervar casais caminhando abraçados para curtir mais uma apresentação. pessoas estão \
+conversando sobre suas espectativas para esta noite."
+const dir_l = $s_encantado081
+const dir_entrar = $s_encantado086
+
+
+classe s_encantado086
+herda b_encantado
+const s_titulo = "dentro do teatro"
+const s_desc = "entrando neste encantado e maravilhoso teatro,podemos ver muitas lâmpadas \
+iluminando a visibilidade de todos, pessoas chegando com tranquilidade indo na diressão de seu \
+acento para não perder nada do espetaculo da noite."
+const dir_n = $s_encantado087
+const dir_s = $s_encantado088
+const dir_c = $s_encantado103
+const dir_b = $s_encantado089
+const dir_se = $s_encantado110
+const dir_sair = $s_encantado085
+
+
+classe s_encantado087
+herda b_encantado
+const s_titulo = "uma fileira de cadeiras"
+const s_desc = "encontramos uma fileira de cadeiras, onde a plateia pode se sentar e relachar \
+deixando suas imaginações voarem na magia do espetáculos. cadeiras confortaveis estão colocadas \
+aqui, com almofadas cor de vinho, e os braços beje."
+const dir_s = $s_encantado086
+
+
+classe s_encantado088
+herda b_encantado
+const s_titulo = "outra fileira de cadeira"
+const s_desc = "para que não haja descórdia a produção deste teatro,pensou em fazer mais uma \
+fileira de cadeiras, onde o publico possa se sentir a vontade. cadeiras são almofadadas por \
+almofadas de couro na cor branca. e nos braços está escrito em verde os dois lado do amor\n"
+const dir_n = $s_encantado086
+
+
+classe s_encantado089
+herda b_encantado
+const s_titulo = "primeiro degral do palco do teatro"
+const s_desc = "descendo um pouco podemos ver que aqui se inicia o caminho que dá acesso ao \
+lugar mais importante de todos espetáculos, o palco! podemos nos esbarrarmos com homens que \
+sobem e decem incanssavelmente organizando cada detale para q nada saia errado."
+const dir_c = $s_encantado086
+const dir_b = $s_encantado090
+
+
+classe s_encantado090
+herda b_encantado
+const s_titulo = "o segundo degral do palco"
+const s_desc = "subindo pelo segundo degral do palco. podemos encontrar mulheres subindo \
+apressadas na direção dos camarins. homens lá de cima textando son e imagem, e o chão está \
+coberto por uma pedraria iluminante."
+const dir_c = $s_encantado089
+const dir_b = $s_encantado091
+
+
+classe s_encantado091
+herda b_encantado
+const s_titulo = "em cima do palco"
+const s_desc = "chegamos no local mais emocionante do teatro, onde tudo acontece! aqui encontramo\
+s atrizes e atores fazendo os utimos retoques para n errarem nada na hora determinada. podemos \
+sentir uma emoção enorme ao ve-los com os olhos brilhando por estarem fazendo o que gostam. e um \
+largo sorriso no rosto ao se deparar com você. fixado atraz de você se encontra um enorme \
+telão,onde dá acesso a visão da plateia que aguarda toda espectativa."
+const dir_n = $s_encantado093
+const dir_s = $s_encantado094
+const dir_l = $s_encantado092
+const dir_o = $s_encantado095
+const dir_c = $s_encantado090
+
+
+classe s_encantado092
+herda b_encantado
+const s_titulo = "atraz do palco"
+const s_desc = "caminhando mais um pouco. chegamos atraz do palco do teatro, onde fãs e admirador\
+es de cada atriz e ator aguardam anciosos por uma foto, ou um altógrafo de seu ídolo!\n"
+const dir_o = $s_encantado091
+
+
+classe s_encantado093
+herda b_encantado
+const s_titulo = "camarim das atrizes"
+const s_desc = "aqui está o hambiente onde nossas lindas e amadas atrizes podem descansar. e se \
+arrumar para a noite. maquiadoras saem e entram apressadas. atrizes lindas estão sendo vestidas \
+sentadas em sofás confortavel."
+const dir_s = $s_encantado091
+
+
+classe s_encantado094
+herda b_encantado
+const s_titulo = "camarim dos atores"
+const s_desc = "este é o camarim dos atores mais competentes, amados e gatões deste teatro! \
+pessoas entram e saem com o figurino da noite em mãos aguardando a aprovação de cada ator. \
+jornalistas aguardam anciosos por uma matéria com câmeras fotográficas em mãos."
+const dir_n = $s_encantado091
+
+
+classe s_encantado095
+herda b_encantado
+const s_titulo = "saida do teatro"
+const s_desc = "encontramos a saida do teatro. onde encontramos pessoas com o sorriso de \
+sastifação no rosto. os seus sonhos sendo imaginados atravez da pessa que acabaram de acistir. e \
+uma linda fonte jorrando uma água clistalina muito fresca."
+const dir_l = $s_encantado091
+const dir_no = $s_encantado096
+
+
+classe s_encantado096
+herda b_encantado
+const s_titulo = "rua boas festas"
+const s_desc = "início da rua boas festas do reino. por este caminho. pessoas muito bem vestidas.\
+ vão para o salão,onde são realizadas as mais belas festas do reinos.todos passam por você \
+demonstrando querer se divertir muito.afinal quem não gosta de uma boa festa!."
+const dir_o = $s_encantado097
+const dir_se = $s_encantado095
+
+
+classe s_encantado097
+herda b_encantado
+const s_titulo = "continuação da rua boas festas"
+const s_desc = "continuamdo a caminhar por esta linda rua. obcervanmos claramente lâmpadas que \
+brilham incantadamente. dando uma luz especial ao ambiente. muitos vasos de flores perfumam \
+neste espaço dando um toque especial."
+const dir_l = $s_encantado096
+const dir_o = $s_encantado098
+
+
+classe s_encantado098
+herda b_encantado
+const s_titulo = "a frente do salão boas festas"
+const s_desc = "a frente do salão de festas! tudo aqui é tudo muito lindo. a fachada foi \
+desenhada com vários balões de festa. corações coloridos. e na entrada um jogo imenço de luz \
+clareia seus olhos."
+const dir_l = $s_encantado097
+const dir_c = $s_encantado099
+
+
+classe s_encantado099
+herda b_encantado
+const s_titulo = "entrada do salão boas festas"
+const s_desc = "estamos na escada de acesso a entrada deste salão. avistamos lá dentro pessoas \
+dançando, outras em suas mesas bebendo ou conversando. todos muito alegres. o q mostra que \
+realmente aqui se faz boas festas!."
+const dir_c = $s_encantado100
+const dir_b = $s_encantado098
+
+
+classe s_encantado100
+herda b_encantado
+const s_titulo = "segundo degral da escada do salão boas festas"
+const s_desc = "o chão aqui é feito por um asoalho colorido. princesas e principes passam por \
+sobre você com um lindo sorriso no rosto. todos estão indo de mãos dadas para dentro do magnifico\
+ salão. esta animação te contajeia. te dando vontade de entrar também!."
+const dir_c = $s_encantado101
+const dir_b = $s_encantado099
+
+
+classe s_encantado101
+herda b_encantado
+const s_titulo = "a porta de entrada do salão boas festas"
+const s_desc = "chegando na porta de entrada. você é recebido por uma moça de cabelos longos. \
+olhos verdes e um maravilhoso sorriso. demonstrando ser muito atenciosa. te endicando o hambiente\
+ mais animado da festa!ela te dá um forte abraço e você continua adentrar por este salão."
+const dir_b = $s_encantado100
+const dir_entrar = $s_encantado102
+
+
+classe s_encantado102
+herda b_encantado
+const s_titulo = "dentro do salão boas festas"
+const s_desc = "finalmente você entra neste salão incrivel! onde mas adiante pode ser ouvida uma \
+melodia animada. e várias mesas com cadeiras estão ao seu dispor."
+const s_fome = 1 # Fome e sede: 1 Ausente
+const dir_s = $s_encantado108
+const dir_sair = $s_encantado101
+const a_reset = "P 100 encantado001 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_encantado001:objsolto.total < 1
+    criar("p_encantado001", este, 0)
+  fimse
+
+
+classe s_encantado103
+herda b_encantado
+const s_titulo = "primeiro degral do palco do teatro"
+const s_desc = "Subindo um pouco podemos ver que aqui se inicia o caminho que dá acesso ao lugar \
+mais importante de todos espetáculos, o palco! podemos nos esbarrarmos com homens\n\
+que sobem e decem incanssavelmente organizando cada detale para q nada saia errado."
+const dir_c = $s_encantado104
+const dir_b = $s_encantado086
+
+
+classe s_encantado104
+herda b_encantado
+const s_titulo = "o segundo degral do palco"
+const s_desc = "subindo pelo segundo degral do palco. podemos encontrar mulheres subindo \
+apressadas na direção dos camarins. homens lá de cima textando son e imagem, e o chão está\n\
+coberto por uma pedraria iluminante."
+const dir_c = $s_encantado105
+const dir_b = $s_encantado103
+
+
+classe s_encantado105
+herda b_encantado
+const s_titulo = "em cima do palco"
+const s_desc = "chegamos no local mais emocionante do teatro, onde tudo acontece! aqui encontramo\
+s atrizes e atores fazendo os utimos retoques para n errarem nada na hora determinada.\n\
+podemos sentir uma emoção enorme ao ve-los com os olhos brilhando por estarem fazendo o que \
+gostam. e um largo sorriso no rosto ao se deparar com você. fixado atraz\n\
+de você se encontra um enorme telão,onde dá acesso a visão da plateia que aguarda toda espectativ\
+a."
+const dir_n = $s_encantado106
+const dir_s = $s_encantado107
+const dir_l = $s_encantado109
+const dir_b = $s_encantado104
+
+
+classe s_encantado106
+herda b_encantado
+const s_titulo = "camarim das atrizes"
+const s_desc = "aqui está o hambiente onde nossas lindas e amadas atrizes podem descansar. e se \
+arrumar para a noite. maquiadoras saem e entram apressadas. atrizes lindas estão\n\
+sendo vestidas sentadas em sofás confortavel."
+const dir_s = $s_encantado105
+
+
+classe s_encantado107
+herda b_encantado
+const s_titulo = "camarim dos atores"
+const s_desc = "este é o camarim dos atores mais competentes, amados e gatões deste teatro! \
+pessoas entram e saem com o figurino da noite em mãos aguardando a aprovação de cada\n\
+ator. jornalistas aguardam anciosos por uma matéria com câmeras fotográficas em mãos."
+const dir_n = $s_encantado105
+
+
+classe s_encantado108
+herda b_encantado
+const s_titulo = "adega de bebidas do salão boas festas"
+const s_desc = "como todo salão de festas, aqui também temos uma adega de bebidas ao gosto de \
+cada convidado!z"
+const dir_n = $s_encantado102
+
+
+classe s_encantado109
+herda b_encantado
+const s_titulo = "atraz do palco"
+const s_desc = "caminhando mais um pouco. chegamos atraz do palco do teatro, onde fãs e admirador\
+es de cada atriz e ator aguardam anciosos por uma foto, ou um altógrafo de seu\nídolo!"
+const dir_o = $s_encantado105
+
+
+classe s_encantado110
+herda b_encantado
+const s_titulo = "saida do teatro"
+const s_desc = "encontramos a saida do teatro. onde encontramos pessoas com o sorriso de \
+sastifação no rosto. os seus sonhos sendo imaginados atravez da pessa que acabaram de acistir.\n\
+e uma linda fonte jorrando uma água clistalina muito fresca."
+const dir_no = $s_encantado086
+const dir_so = $s_encantado111
+
+
+classe s_encantado111
+herda b_encantado
+const s_titulo = "rua boas festas"
+const s_desc = "início da rua boas festas do reino. por este caminho. pessoas muito bem vestidas.\
+ vão para o salão,onde são realizadas as mais belas festas do reinos.todos passam\n\
+por você demonstrando querer se divertir muito.afinal quem não gosta de uma boa festa!."
+const dir_n = $s_encantado112
+const dir_ne = $s_encantado110
+
+
+classe s_encantado112
+herda b_encantado
+const s_titulo = "continuação da rua boas festas"
+const s_desc = "continuamdo a caminhar por esta linda rua. obcervanmos claramente lâmpadas que \
+brilham incantadamente. dando uma luz especial ao ambiente. muitos vasos de flores\n\
+perfumam neste espaço dando um toque especial."
+const dir_n = $s_encantado113
+const dir_s = $s_encantado111
+
+
+classe s_encantado113
+herda b_encantado
+const s_titulo = "a frente do salão boas festas"
+const s_desc = "a frente do salão de festas! tudo aqui é tudo muito lindo. a fachada foi \
+desenhada com vários balões de festa. corações coloridos. e na entrada um jogo imenço de\n\
+luz clareia seus olhos."
+const dir_s = $s_encantado112
+const dir_c = $s_encantado114
+
+
+classe s_encantado114
+herda b_encantado
+const s_titulo = "entrada do salão boas festas"
+const s_desc = "estamos na escada de acesso a entrada deste salão. avistamos lá dentro pessoas \
+dançando, outras em suas mesas bebendo ou conversando. todos muito alegres. o q mostra\n\
+que realmente aqui se faz boas festas!."
+const dir_c = $s_encantado115
+const dir_b = $s_encantado113
+
+
+classe s_encantado115
+herda b_encantado
+const s_titulo = "segundo degral da escada do salão boas festas"
+const s_desc = "o chão aqui é feito por um asoalho colorido. princesas e principes passam por \
+sobre você com um lindo sorriso no rosto. todos estão indo de mãos dadas para dentro\n\
+do magnifico salão. esta animação te contajeia. te dando vontade de entrar também!."
+const dir_c = $s_encantado116
+const dir_b = $s_encantado114
+
+
+classe s_encantado116
+herda b_encantado
+const s_titulo = "a porta de entrada do salão boas festas"
+const s_desc = "chegando na porta de entrada. você é recebido por uma moça de cabelos longos. \
+olhos verdes e um maravilhoso sorriso. demonstrando ser muito atenciosa. te endicando\n\
+o hambiente mais animado da festa!ela te dá um forte abraço e você continua adentrar por este \
+salão."
+const dir_b = $s_encantado115
+const dir_entrar = $s_encantado117
+
+
+classe s_encantado117
+herda b_encantado
+const s_titulo = "dentro do salão boas festas"
+const s_desc = "finalmente você entra neste salão incrivel! onde mas adiante pode ser ouvida uma \
+melodia animada. e várias mesas com cadeiras estão ao seu dispor."
+const s_fome = 0 # Fome e sede: 0 Presente
+const dir_s = $s_encantado118
+const dir_sair = $s_encantado116
+
+
+classe s_encantado118
+herda b_encantado
+const s_titulo = "adega de bebidas do salão boas festas"
+const s_desc = "como todo salão de festas, aqui também temos uma adega de bebidas ao gosto de \
+cada convidado!z"
+const dir_n = $s_encantado117

@@ -1,0 +1,856 @@
+classe a_parque
+herda area
+const a_nome = "Parque"
+const a_tempo = 15
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_parque
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_area = "parque"
+
+
+classe i_parque001
+herda comum_itemgrupo
+const nome = "churros"
+const descnome = "um churros"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const f_diges = 120
+const f_msgperso = "$P delicia um saboroso churros, lambendo o recheio dos lábios!"
+const i_pegar = ""
+const valor = 120
+
+
+classe i_parque002
+herda comum_item
+const nome = "roleta"
+const descnome = "uma enorme roleta"
+const descpos = "Uma enorme roleta foi posta aqui, para os jogadores jogarem."
+const i_pegar = "Você encosta sua mão na roleta."
+const evsala = 1 # Eventos dono sala: Sim
+
+
+classe i_parque003
+herda comum_itemperso
+const nome = "grande pula pula"
+const descnome = "o grande pula pula"
+const descpos = "Um grande pula pula está aqui, aguardando pessoas para entrarem nele."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "Você é louco? Só se você fosse o super man!"
+const i_salas = "parque034"
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_parque004
+herda comum_item
+const nome = "bilhete do pula-pula"
+const descnome = "um bilhete do pula-pula"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const valor = 500
+
+
+classe i_parque005
+herda comum_itemperso
+const nome = "enorme balanço"
+const descnome = "Um grande balanço com várias cadeirinhas"
+const descpos = "Um grande balanço, com várias cadeirinhas está no meio da praça, para as \
+crianças brincarem."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "É muito grande e pesado demais para que você consiga pegá-lo sozinho."
+const i_movel = 1 # Mobília: 1 Sentar
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+
+classe i_parque006
+herda comum_itemperso
+const nome = "carrinho de montanha russa"
+const descnome = "um carrinho de montanha russa"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_salas = "parque038"
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+inttempo andar
+inttempo mover
+#
+
+func andar_exec
+  se dono == $s_parque037
+    txt512 dirs
+    refvar s1 = dentro2.objini("s_parque038")
+    listaobj l
+    mudadono($s_parque062)
+    var.z_dir = "norte"
+    refvar listadir1 = txtvis(rastrearsala($s_parque096))
+    dirs = txtmin(listadir1)
+    refvar listadir = txttroca(dirs, "\\n", " ")
+    var.z_listadir = listadir
+    mover = 50
+  fimse
+#
+
+func cmd_mover
+  ret !var.z_listadir, nulo
+  refvar dir = txt1(var.z_listadir)
+  var.z_dirsdepois = txt2(var.z_listadir)
+  var.z_listadir = var.z_dirsdepois
+  txt1 nomedir
+  nomedir = txtmin($cmd_[dir].m_entra1)
+  refvar ndir = txttroca(txtsub(nomedir, 3, 1), "$m", "")
+  var.z_dir = ndir
+#
+
+func cmd_mudadono
+  refvar s1 = dentro2.objini("s_parque038")
+  listaobj l
+  epara l.addfim(s1.dentro2), l, l.ini.remove
+    se l.objini.jog
+      $mens.p(l.objini)
+      l.objini.msginv(var.z_dir)
+      s1.msg(dono.s_titulo)
+    fimse
+  efim
+  mover = 30
+
+
+classe i_parque007
+herda comum_itemperso
+const i_salas = "parque064"
+
+
+classe p_parque001
+herda comum_persobat
+const nome = "segurança"
+const descnome = "o segurança do parque"
+const descpadr = "O segurança do parque posta-se aqui, a fim de proteger os visitantes de \
+qualquer perigo.."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 30
+
+
+classe p_parque002
+herda comum_persobat
+const nome = "vendedor de balões"
+const descnome = "um vendedor de balões"
+const descpadr = "Um senhor caminha pelo parque vendendo seus balões."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 14
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+
+
+classe p_parque003
+herda comum_persobat
+const nome = "pixador"
+const descnome = "um pixador"
+const descpadr = "Um jovem pixador está pixando o muro do parque."
+const nivel = 18
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+
+
+classe p_parque004
+herda comum_persobat
+const nome = "vândalo"
+const descnome = "um vândalo"
+const descpadr = "Um vândalo está fazendo algazarra por aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 22
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+
+classe p_parque005
+herda comum_persobat
+
+
+classe p_parque006
+herda comum_perso
+const nome = "vendedora"
+const descnome = "Dona Florinda, a vendedora de churros"
+const descpadr = "Dona florinda prepara seus deliciosos churros e atende os clientes da barraca."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const lojaitem = "parque001 0"
+
+
+classe p_parque007
+herda comum_persobat
+const nome = "mulher"
+const descnome = "uma mulher"
+const descpadr = "Uma mulher passeia pelo parque com suas crianças."
+const nivel = 12
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+
+classe p_parque008
+herda comum_perso
+const nome = "dono do cassino"
+const descnome = "o dono do cassino"
+const msexo = 1 # Sexo Msg: 1 Masculino
+
+
+classe p_parque009
+herda comum_persobat
+const nome = "vendedora"
+const ident = "lyn vendedora sorvete"
+const descnome = "Lyn, a vendedora de sorvete"
+const descpadr = "Com um doce sorriso, Lyn, a vendedora de sorvetes espera seu pedido pacientemen\
+te."
+const nivel = 30
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const inivar = "h_chutar=8,h_socar=8z_moedas=1000"
+const lojaitem = "inverno025 0\naditem031 0"
+
+
+classe p_parque010
+herda comum_perso
+const nome = "fiscal"
+const ident = "homem fiscal parque"
+const descnome = "um fiscal do parque"
+const descpadr = "Um homem orienta os visitantes do parque, recebendo os bilhetes de entrada nos \
+brinquedos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const p_recebe = 1 # Recebe itens: Sim
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_mover
+  se arg2 == "entrar"
+    se !arg0.var.d_entrarpulapula_
+      teclou("f Antes, precisa me entregar o bilhete de entrada no pulapula.")
+      ret 1
+    fimse
+  fimse
+#
+
+func cmd_darobj
+  ret arg4 != arg0, nulo
+  se txt(arg2) != "i_parque004"
+    teclou("f não " + arg0.descnome + ". Só aceito o bilhete do pulapula.")
+    ret 1
+  fimse
+#
+
+func cmd_deuobj
+  ret arg4 != arg0, nulo
+  apagar(arg2)
+  arg0.var.d_entrarpulapula_ = 1
+  teclou("f Ok, " + arg0.descnome + ". Pode entrar.")
+  ret 1
+
+
+classe p_parque011
+herda comum_perso
+const nome = "Ascarban"
+const ident = "ascarban bilheteiro"
+const descnome = "Ascarban, o bilheteiro do parque"
+const descpadr = "Ascarban, o jovem bilheteiro está aqui, vendendo bilhetes para entrar nos \
+parques."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const lojaitem = "parque004 0"
+
+
+classe p_parque012
+herda comum_perso
+const nome = "um gari"
+const ident = "um gari esforçado"
+const descnome = "um gari esforçado"
+const descpadr = "um gari esforçado está aqui, limpando com uma enorme vassoura."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 4
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+
+classe s_parque001
+herda b_parque
+const s_titulo = "O parque da cidade"
+const s_desc = "você está no parque da cidade do rio. O chão é gasto, e está limpo graças\n\
+ao esforço desmedido dos garis que zanzam de um lado para o outro com\n\
+enormes vassouras. Várias crianças passam correndo, com seus pais no\n\
+encalço, parecendo irritados. Para sul está a entrada do parque, para leste\n\
+uma bilheteria, e para oeste uma cabine telefônica."
+const dir_n = $s_parque003
+const dir_s = $s_rio054
+const dir_l = $s_parque002
+const dir_o = $s_parque017
+
+
+classe s_parque002
+herda b_parque
+const s_titulo = "uma bilheteria"
+const dir_o = $s_parque001
+
+
+classe s_parque003
+herda b_parque
+const s_titulo = "A grande avenida do parque"
+const s_desc = "você está no parque da cidade do rio. O chão é gasto, e está limpo graças\n\
+ao esforço desmedido dos garis que zanzam de um lado para o outro com\n\
+enormes vassouras. Várias crianças passam correndo, com seus pais no encalço\n\
+e parecendo irritados. Para sul e norte está a continuação do parque, e para\n\
+leste um passeio ao redor do parque. "
+const dir_n = $s_parque004
+const dir_s = $s_parque001
+const dir_l = $s_parque006
+const dir_o = $s_parque019
+
+
+classe s_parque004
+herda b_parque
+const s_titulo = "a grande avenida do parque"
+const s_desc = "você está no parque da cidade do rio. O chão é gasto, e está limpo graças\n\
+ao esforço desmedido dos garis que zanzam de um lado para o outro com\n\
+enormes vassouras. Várias crianças passam correndo, com seus pais no encalço\n\
+e parecendo irritados. Para sul e norte  estão continuações do parque, e\n\
+para leste um gramado do parque."
+const dir_n = $s_parque005
+const dir_s = $s_parque003
+const dir_l = $s_parque018
+const a_reset = "P 100 parque012 0 0 6"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parque012:objsolto.total < 6
+    criar("p_parque012", este, 0)
+  fimse
+
+
+classe s_parque005
+herda b_parque
+const s_titulo = "A grande avenida do parque"
+const s_desc = "você está no parque da cidade do rio. O chão é gasto, e está limpo graças\n\
+ao esforço desmedido dos garis que zanzam de um lado para o outro com\n\
+enormes vassouras. Várias crianças passam correndo, com seus pais no encalço\n\
+e parecendo irritados. Para sul e norte  estão continuações do parque."
+const dir_n = $s_parque016
+const dir_s = $s_parque004
+
+
+classe s_parque006
+herda b_parque
+const s_titulo = "o passeio ao redor do parque"
+const dir_n = $s_parque018
+const dir_s = $s_parque009
+const dir_l = $s_parque007
+const dir_o = $s_parque003
+
+
+classe s_parque007
+herda b_parque
+const s_titulo = "o passeio ao redor do parque"
+const dir_s = $s_parque010
+const dir_l = $s_parque008
+const dir_o = $s_parque006
+const a_reset = "P 100 parque002 0 0 4 h_socar=2,h_chutar=2,z_moedas=2500"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parque002:objsolto.total < 4
+    criar("p_parque002", este, 0, "h_socar=2,h_chutar=2,z_moedas=2500")
+  fimse
+
+
+classe s_parque008
+herda b_parque
+const s_titulo = "O passeio ao redor do parque"
+const dir_s = $s_parque011
+const dir_l = $s_parque012
+const dir_o = $s_parque007
+
+
+classe s_parque009
+herda b_parque
+const s_titulo = "barraca de cachorro quente"
+const s_pnj = 0
+const dir_n = $s_parque006
+const s_reset = "P 100 perso007 0 0 2"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_perso007:objsolto.total < 2
+    criar("p_perso007", este, 0)
+  fimse
+
+
+classe s_parque010
+herda b_parque
+const s_titulo = "barraca de churros"
+const dir_n = $s_parque007
+const a_reset = "P 100 parque006 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parque006:objsolto.total < 1
+    criar("p_parque006", este, 0)
+  fimse
+
+
+classe s_parque011
+herda b_parque
+const s_titulo = "sorveteria"
+const dir_n = $s_parque008
+const a_reset = "P 100 parque009 30 30 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parque009:objsolto.total < 1
+    criar("p_parque009", este, 30)
+  fimse
+
+
+classe s_parque012
+herda b_parque
+const s_titulo = "O passeio ao redor do parque"
+const dir_l = $s_parque013
+const dir_o = $s_parque008
+
+
+classe s_parque013
+herda b_parque
+const s_titulo = "O muro leste"
+const dir_n = $s_parque014
+const dir_o = $s_parque012
+const a_reset = "P 100 parque003 0 0 4 h_socar=3,h_chutar=3,z_moedas=2000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parque003:objsolto.total < 4
+    criar("p_parque003", este, 0, "h_socar=3,h_chutar=3,z_moedas=2000")
+  fimse
+
+
+classe s_parque014
+herda b_parque
+const s_titulo = "o muro leste"
+const dir_n = $s_parque015
+const dir_s = $s_parque013
+const a_reset = "P 100 parque004 0 0 8 h_soar=4,h_voadora=2,h_chutar=3,z_moedas=3000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parque004:objsolto.total < 8
+    criar("p_parque004", este, 0, "h_soar=4,h_voadora=2,h_chutar=3,z_moedas=3000")
+  fimse
+
+
+classe s_parque015
+herda b_parque
+const s_titulo = "o muro leste"
+const dir_s = $s_parque014
+
+
+classe s_parque016
+herda b_parque
+const s_titulo = "A grande avenida do parque"
+const s_desc = "você está no parque da cidade do rio. O chão é gasto, e está limpo graças\n\
+ao esforço desmedido dos garis que zanzam de um lado para o outro com\n\
+enormes vassouras. Várias crianças passam correndo, com seus pais no encalço\n\
+e parecendo irritados. Para sul e norte  estão continuações do parque."
+const dir_n = $s_parque020
+const dir_s = $s_parque005
+
+
+classe s_parque017
+herda b_parque
+const s_titulo = "Uma cabine telefônica"
+const s_desc = "você está dentro de uma cabine telefônica, que está bem quebrada e\n\
+abandonada. Provavelmente agora serve apenas para os vândalos se divertirem,\n\
+e não para telefonar. Para leste está o parque."
+const dir_l = $s_parque001
+
+
+classe s_parque018
+herda b_parque
+const s_titulo = "O gramado do parque."
+const dir_n = $s_parque026
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "uma pequena porta de ferro"
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_s = $s_parque006
+const dir_l = $s_parque030
+const dir_o = $s_parque004
+const a_reset = "P 100 parque007 0 0 4 h_socar=3,z_ol"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parque007:objsolto.total < 4
+    criar("p_parque007", este, 0, "h_socar=3,z_ol")
+  fimse
+
+
+classe s_parque019
+herda b_parque
+const s_titulo = "o cassino"
+const s_desc = "Você está em um grande cassino.\n\
+O local está cheio e muito barulhento.\n\
+Pessoas entram e saem a todo o momento.\n\
+Um senhor anda de um lado a outro no cassino orientando os jogadores."
+const s_pnj = 0
+const dir_l = $s_parque003
+const dir_o = $s_parque059
+
+
+classe s_parque020
+herda b_parque
+const s_titulo = "A grande avenida do parque"
+const s_desc = "você está no parque da cidade do rio. O chão é gasto, e está limpo graças\n\
+ao esforço desmedido dos garis que zanzam de um lado para o outro com\n\
+enormes vassouras. Várias crianças passam correndo, com seus pais no encalço\n\
+e parecendo irritados. Para sul e norte  estão continuações do parque."
+const dir_n = $s_parque021
+const dir_s = $s_parque016
+
+
+classe s_parque021
+herda b_parque
+const s_titulo = "A grande avenida do parque"
+const s_desc = "você está no parque da cidade do rio. O chão é gasto, e está limpo graças\n\
+ao esforço desmedido dos garis que zanzam de um lado para o outro com\n\
+enormes vassouras. Várias crianças passam correndo, com seus pais no encalço\n\
+e parecendo irritados. Para sul e norte  estão continuações do parque."
+const dir_n = $s_parque022
+const dir_s = $s_parque020
+
+
+classe s_parque022
+herda b_parque
+const s_titulo = "O fim da avenida do parque."
+const s_desc = "você chega ao fim da grande avenida do parque. Para sul está a continuação\n\
+da avenida e digitando entrar você irá para uma pista de corrida."
+const dir_s = $s_parque021
+const dir_entrar = $s_parque023
+
+
+classe s_parque023
+herda b_parque
+const s_titulo = "A entrada da pista de corrida"
+const s_pnj = 0
+const dir_l = $s_pista001
+const dir_sair = $s_parque022
+
+
+classe s_parque024
+herda b_parque
+const s_titulo = "Uma cabine de jogo."
+const dir_s = $s_parque059
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "uma porta de vidro fumê"
+const fecha_s = 1 # Fecha ao passar: Sim
+const som_abrir_s = "abporta"
+const som_fechar_s = "fporta01"
+
+
+classe s_parque025
+herda b_parque
+const s_titulo = "Uma sala de jogo"
+const s_pnj = 0
+const dir_n = $s_parque059
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const fecha_n = 1 # Fecha ao passar: Sim
+const som_abrir_n = "abporta"
+const som_fechar_n = "fporta01"
+
+
+classe s_parque026
+herda b_parque
+const s_titulo = "Na entrada da área dos brinquedos do parque"
+const s_pnj = 0
+const dir_n = $s_parque027
+const dir_s = $s_parque018
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "uma pequena porta de ferro"
+const fecha_s = 1 # Fecha ao passar: Sim
+const dir_l = $s_parque028
+
+
+classe s_parque027
+herda b_parque
+const s_titulo = "Uma bilheteria"
+const dir_s = $s_parque026
+const s_reset = "P 100 parque011 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_parque011:objsolto.total < 1
+    criar("p_parque011", este, 0)
+  fimse
+
+
+classe s_parque028
+herda b_parque
+const s_titulo = "Na área dos Brinquedos"
+const dir_n = $s_parque032
+const dir_s = $s_parque029
+const dir_l = $s_parque035
+const dir_o = $s_parque026
+
+
+classe s_parque029
+herda b_parque
+const s_titulo = "O pula pula"
+const dir_n = $s_parque028
+const s_reset = "S 100 parque003 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_parque003") && criar("i_parque003", este, 1)
+
+
+classe s_parque030
+herda b_parque
+const s_titulo = "o gramado do parque"
+const dir_n = $s_parque031
+const dir_o = $s_parque018
+
+
+classe s_parque031
+herda b_parque
+const s_titulo = "Continuando no gramado do parque"
+const dir_s = $s_parque030
+
+
+classe s_parque032
+herda b_parque
+const s_titulo = "A entrada da pista de patinação"
+const dir_s = $s_parque028
+const dir_o = $s_parque033
+const dir_entrar = $s_parque039
+
+
+classe s_parque033
+herda b_parque
+const s_titulo = "A sala do instrutor de patinação"
+const dir_l = $s_parque032
+
+
+classe s_parque034
+herda b_parque
+const s_titulo = "dentro do grande pula pula"
+const s_entrada = "pula pula"
+const pularmsgs = "$P dá um salto bem alto, gira no ar e tomba de bumbum no chão!\n\
+$P pula de um lado a outro, parecendo uma bola de ping pong!\n\
+$P começa a pular no pula pula, dando voltas e tombando no chão!\n\
+$P dá um salto e bate com a cabeça no teto do pula pula!\n\
+$P pula e dá uma cambalhota, caindo com a ponta do nariz no chão!"
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+
+func cmd_escr
+  se arg1 == "pulapula" || arg1 == "pular"
+    ret arg0.posicao == "6", arg0.msg("Precisa levantar primeiro!")
+    refvar pularmsg = txtsublin(pularmsgs, rand(intsublin(pularmsgs)), 1)
+    $mens.p(arg0)
+    $mens.mvis1(pularmsg)
+    arg0.posicao = 6
+    ret 1
+  fimse
+
+const dir_sair = $s_parque029
+
+
+classe s_parque035
+herda b_parque
+const s_titulo = "A  área dos brinquedos"
+const dir_n = $s_parque036
+const dir_o = $s_parque028
+
+
+classe s_parque036
+herda b_parque
+const s_titulo = "A entrada da montanha russa"
+const dir_s = $s_parque035
+const dir_entrar = $s_parque037
+
+
+classe s_parque037
+herda b_parque
+const s_titulo = "O início da montanha russa"
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_parque061
+const dir_sair = $s_parque036
+#
+
+
+classe s_parque038
+herda b_parque
+const s_titulo = "Dentro do carrinho"
+const s_entrada = "montanha russa"
+
+
+classe s_parque039
+herda b_parque
+const s_titulo = "O início da pista de patinação"
+const dir_l = $s_parque040
+const dir_sair = $s_parque032
+
+
+classe s_parque040
+herda b_parque
+const s_titulo = "A longa pista de patinação"
+const dir_n = $s_parque041
+const dir_o = $s_parque039
+
+
+classe s_parque041
+herda b_parque
+const s_titulo = "Desviando  na pista"
+const dir_s = $s_parque040
+const dir_l = $s_parque042
+
+
+classe s_parque042
+herda b_parque
+const s_titulo = "Continuando na pista"
+const dir_s = $s_parque043
+const dir_o = $s_parque041
+
+
+classe s_parque043
+herda b_parque
+const s_titulo = "Desviando outra vez na pista"
+const dir_n = $s_parque042
+const dir_l = $s_parque044
+
+
+classe s_parque044
+herda b_parque
+const s_titulo = "Continuando a patinar na longa pista"
+const dir_o = $s_parque043
+const dir_ne = $s_parque045
+
+
+classe s_parque045
+herda b_parque
+const s_titulo = "Ziguezagueando na pista"
+const dir_se = $s_parque046
+const dir_so = $s_parque044
+
+
+classe s_parque046
+herda b_parque
+const s_titulo = "A pista em ziguezague"
+const dir_ne = $s_parque047
+const dir_no = $s_parque045
+
+
+classe s_parque047
+herda b_parque
+const s_titulo = "Ziguezagueando na pista"
+const dir_se = $s_parque048
+const dir_so = $s_parque046
+
+
+classe s_parque048
+herda b_parque
+const s_titulo = "descendo na pista"
+const dir_b = $s_parque049
+const dir_no = $s_parque047
+
+
+classe s_parque049
+herda b_parque
+const s_titulo = "Escorregando rapidamente para baixo"
+const dir_c = $s_parque048
+const dir_b = $s_parque050
+
+
+classe s_parque050
+herda b_parque
+const s_titulo = "Escorregando rapidamente para baixo"
+const dir_c = $s_parque049
+const dir_b = $s_parque051
+
+
+classe s_parque051
+herda b_parque
+const s_titulo = "Descendo na pista"
+const dir_c = $s_parque050
+const dir_b = $s_parque052
+
+
+classe s_parque052
+herda b_parque
+const s_titulo = "Uma parte congelada na pista"
+const dir_n = $s_parque053
+const dir_c = $s_parque051
+
+
+classe s_parque053
+herda b_parque
+const s_titulo = "Continuando na pista gelada"
+const dir_s = $s_parque052
+const dir_no = $s_parque054
+
+
+classe s_parque054
+herda b_parque
+const s_titulo = "O início de uma rampa inclinada"
+const dir_c = $s_parque055
+const dir_se = $s_parque053
+
+
+classe s_parque055
+herda b_parque
+const s_titulo = "Subindo na rampa"
+const dir_c = $s_parque056
+const dir_b = $s_parque054
+
+
+classe s_parque056
+herda b_parque
+const s_titulo = "Subindo com dificuldade na rampa"
+const dir_c = $s_parque057
+const dir_b = $s_parque055
+
+
+classe s_parque057
+herda b_parque
+const s_titulo = "1"
+const dir_b = $s_parque056
+
+
+classe s_parque058
+herda b_parque
+const s_titulo = "Um caminho retilínio na montanha russa"
+const dir_n = $s_parque060
+const dir_s = $s_parque037
+
+
+classe s_parque059
+herda b_parque
+const s_titulo = "Um largo corredor"
+const dir_n = $s_parque024
+const portanome_n = "uma porta de vidro fumê"
+const som_abrir_n = "abporta"
+const som_fechar_n = "fporta01"
+const dir_s = $s_parque025
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "uma porta de vidro fumê"
+const fecha_s = 1 # Fecha ao passar: Sim
+const som_abrir_s = "abporta"
+const som_fechar_s = "fporta01"
+const dir_l = $s_parque019
+
+
+classe s_parque060
+herda b_parque
+const s_titulo = "Sala do duende"
+const dir_n = $s_parque059
+
+
+classe s_parque088
+herda b_parque
+const dir_l = $s_parque087

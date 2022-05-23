@@ -1,0 +1,437 @@
+classe a_diagonal
+herda area
+const a_nome = "o beco diagonal"
+
+
+classe b_diagonal
+herda sala
+const s_doarsalas = "rio023"
+const s_area = "diagonal"
+
+
+classe i_diagonal001
+herda comum_item
+const nome = "uma vassoura firebolt"
+const ident = "vassoura firebolt"
+const descnome = "uma vassoura firebolt"
+const descver = "Feita com madeira de freixo, com a cauda de ramos de bétula, essa vassoura\n\
+é capaz de alcançar 240 quilômetros em 10 segundos."
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 5000000
+const vestir1 = -2147483648 # Aonde vestir: 31-montando
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 0 # Eventos dono sala: Não
+#
+
+func cmd_mover
+  se arg0.dono.s_area == "quadribol"
+    se arg2 == "c"
+      arg0.msg("Você direciona o cabo de sua vassoura para cima e dá um impulso, voando em \
+direção ao céu!!")
+    senao arg2 == "b"
+      arg0.msg("pousando!")
+    fimse
+  fimse
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 62
+  bitinv |= 48
+
+
+classe i_diagonal002
+herda comum_item
+const nome = "luva de apanhador"
+const descnome = "um par de luvas de apanhador"
+const valor = 50000
+const vestir1 = 262144 # Aonde vestir: 18-nas mãos
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_escr
+  se arg1 == "capturar pomo" || arg1 == "apanhar pomo"
+    ret arg0.posicao < 8, arg0.msg("Você não está em condições de fazer isso!")
+    refvar pomo = arg0.dono.dentro2.objini("p_quadribol001")
+    ret !pomo, arg0.msg("Você não vê o pomo de ouro por perto.")
+    ret !pomo.visivel(arg0), arg0.msg("Você não vê o pomo.")
+    se rand(1, 10) > 8
+      apagar(pomo)
+      refvar p = criar("i_quadribol001", arg0, 1)
+      $mens.p(arg0, nulo, p)
+      $mens.marea1("$P capturou o pomo de ouro!")
+      arg0.msg("Parabéns! Você recebe 10 pontos de aventura!")
+      arg0.var.z_quest_ += 10
+      arg0.ganhaexp(rand(500, 10000))
+    senao
+      refvar dir = $comando_mover.fugirdir(pomo)
+      txt100 lin
+      lin = $cmd_[dir].m_fugir
+      arg0.msg("Você tenta capturar o pomo, mas ele é mais rápido e escapa de suas mãos!")
+      $mens.p(pomo)
+      $mens.mvis1(lin)
+      pomo.mudadono(pomo.dono.dir_[dir])
+    fimse
+    ret 1
+  fimse
+
+const m_atribs2 = "* el$v é apanhador" + (dono.msexo ? "" : "a") + " do time da " + dono.var.z_ca\
+sah
+
+
+classe p_diagonal001
+herda comum_perso
+const nome = "Olivaras"
+const ident = "Olivaras"
+const descnome = "Olivaras"
+const descpadr = "O Sr. Olivaras está aqui, vendendo varinhas aos novos estudantes de Hogwarts."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 60
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const varinhas = "videira e núcleo de corda de dragão\n\
+bétula e núcleo de corda de coração de dragão\n\
+nogueira e fibra cardíaca de dragão\n\
+cerejeira e pelo de unicórnio\n\
+pilriteiro e núcleo de pelo de unicórnio\n\
+castanheira e fibra cardíaca de dragão\n\
+azevinho de pena de fênix\n\
+salgueiro e núcleo de pelo de unicórnio"
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "comprar varinha"
+    misc:tempo("escolher", arg0)
+    ret 1
+  fimse
+#
+
+func escolher30
+  $mens.p(este, arg0)
+  $mens.mtodos1("$P explica a $A: A varinha escolhe o bruxo...")
+#
+
+func escolher60
+  $mens.p(este, arg0)
+  $mens.mtodos1("$P pega algumas varinhas de algumas prateleiras e começa a testá-las.")
+#
+
+func escolher120
+  teclou("f hmmmm... Muito difícil...")
+#
+
+func escolher180
+  txt200 vars
+  vars = "z_varinha=" + txtsublin(varinhas, rand(intsublin(varinhas)), 1)
+  refvar r = criar("i_itens026", arg0, 1, vars)
+  $mens.p(este, arg0, r)
+  $mens.mtodos1("Após várias tentativas, $P entrega a $o para $A.")
+  ret 1
+
+
+classe p_diagonal002
+herda comum_perso
+const nome = "Edward"
+const ident = "Edward senhor vendedor"
+const descnome = "Edward"
+const descpadr = "Um senhor alimenta as corujas à venda em sua loja, enquanto espera a chegada \
+de clientes."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 60
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  casovar txtmin(txt1(arg1))
+  casose "lista"
+    arg0.msg("Edward informa:\n1. Uma coruja     $30000     n5")
+    ret 1
+  casose "comprar"
+    se txt2(arg1) == "1" || txt2(arg1) == "coruja"
+      ret arg0.var.z_moedas_ < 30000, arg0.msg("Você não tem $30000.")
+      arg0.var.z_moedas_ -= 30000
+      refvar i = criar("i_gaiola", arg0, 1)
+      txt200 vardono
+      vardono = "z_dono=" + arg0.descnome + ""
+      refvar p = criar("p_animais006", i, 5, vardono)
+      criar("i_chavegaiola", arg0, 1)
+      p.seguirjog(arg0)
+      $mens.p(este, arg0)
+      $mens.mtodos1("$P pega uma gaiola com uma coruja e a entrega para $A.")
+      ret 1
+    fimse
+  casofim
+
+
+classe p_diagonal005
+herda comum_perso
+const nome = "Gerente"
+const descnome = "Gerente"
+const descpadr = "O Gerente da loja está aqui, mostrando as vassouras aos clientes."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 50
+const lojaitem = "diagonal001 0\ndiagonal002 0\nquadribol002 0"
+
+
+classe p_diagonal006
+herda comum_perso
+const nome = "Duende"
+const descpadr = "Um duende está aqui, guardando as portas do banco."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 150
+
+
+classe p_diagonal007
+herda comum_perso
+const nome = "Grampo"
+const descpadr = "Grampo está aqui, auxiliando os bruxos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 150
+const pospadr = 6 # Posição padrão: 6 Sentado
+
+
+classe s_diagonal001
+herda b_diagonal
+const s_titulo = "No Beco Diagonal"
+const s_desc = "Você está em uma rua de pedras irregulares.\n\
+Por todos os lados, há lojas de magia.\n\
+Para leste, há uma loja de caldeirões.\n\
+Para oeste, há uma loja de varinhas.\n\
+E para sul, a rua continua."
+const dir_n = $s_caldeirao003
+const dir_s = $s_diagonal003
+const dir_l = $s_diagonal002
+const dir_o = $s_diagonal012
+
+
+classe s_diagonal002
+herda b_diagonal
+const s_titulo = "Na loja de caldeirões"
+const dir_o = $s_diagonal001
+
+
+classe s_diagonal003
+herda b_diagonal
+const s_titulo = "Andando Pelo Beco Diagonal"
+const s_desc = "Você continua caminhando pelo fascinante Beco Diagonal.\n\
+Por todos os lados, há lojas de magia.\n\
+Para leste, há a loja de Madame Malkin.\n\
+Para oeste, há a livraria Floreios e Borrões."
+const dir_n = $s_diagonal001
+const dir_s = $s_diagonal004
+const dir_l = $s_diagonal018
+const portaini_l = 3 # Estado inicial: 3 Porta trancada
+const portanome_l = "a porta da loja"
+const fechadura_l = "hg01"
+const dir_o = $s_diagonal017
+const portaini_o = 3 # Estado inicial: 3 Porta trancada
+const portanome_o = "Uma porta com letreiros dourados"
+const fechadura_o = "hg001"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_diagonal004
+herda b_diagonal
+const s_titulo = "O Beco Diagonal"
+const s_desc = "Você continua sua caminhada pelo Beco Diagonal.\n\
+A medida que você vai avançando, mais lojas vão se tornando visíveis.\n\
+Para leste, há a loja Artigos de Qualidade Para Quadribol.\n\
+Para oeste, há a Animais Mágicos.\n\
+E para sul, a rua continua."
+const dir_n = $s_diagonal003
+const dir_s = $s_diagonal006
+const dir_l = $s_diagonal005
+
+
+classe s_diagonal005
+herda b_diagonal
+const s_titulo = "Na Artigos de Qualidade Para Quadribol"
+const s_desc = "Você adentra uma ampla loja.\n\
+Muitos garotos, fãs de Quadribol estão na loja, que é quase impossível não esbarrar em ninguém.\n\
+Por toda a loja, há tablados com vários tipos de vassouras de diferentes marcas."
+const dir_o = $s_diagonal004
+const a_reset = "P 100 diagonal005 0 0 1\nS 100 diagonal001 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_diagonal005:objsolto.total < 1
+    criar("p_diagonal005", este, 0)
+  fimse
+  !dentro1.objini("i_diagonal001") && criar("i_diagonal001", este, 1)
+
+
+classe s_diagonal006
+herda b_diagonal
+const s_titulo = "Caminhando Pelo Beco Diagonal"
+const s_desc = "Você continua caminhando pelo Beco Diagonal.\n\
+Para leste há o Gringotes, o banco dos bruxos.\n\
+Para oeste, há a sorveteria.\n\
+Para sul, a rua continua."
+const dir_n = $s_diagonal004
+const dir_s = $s_diagonal014
+const dir_l = $s_diagonal007
+
+
+classe s_diagonal007
+herda b_diagonal
+const s_titulo = "Em Frente ao Gringotes"
+const s_desc = "Você está parado diante de um enorme edifício, maior do que todas as lojas que \
+você já viu.\n\
+Parado diante das portas de bronze polido, há um duende vestindo um uniforme vermelho e dourado."
+const dir_o = $s_diagonal006
+const dir_c = $s_diagonal008
+
+
+classe s_diagonal008
+herda b_diagonal
+const s_titulo = "Nos Degraus de Pedras Brancas"
+const s_desc = "Você está subindo uns degraus de pedras brancas, rumo as portas do imponente \
+edifício.\n\
+Para cima, há o fim dos degraus."
+const dir_c = $s_diagonal009
+const dir_b = $s_diagonal007
+
+
+classe s_diagonal009
+herda b_diagonal
+const s_titulo = "No Fim Dos Degraus de Pedras Brancas"
+const s_desc = "Você está parado no fim das escadas do edifício de Gringotes.\n\
+A sua frente, há portas de bronze polido que dão acesso ao interior do banco."
+const dir_b = $s_diagonal008
+const dir_entrar = $s_diagonal010
+const a_reset = "P 100 diagonal006 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_diagonal006:objsolto.total < 1
+    criar("p_diagonal006", este, 0)
+  fimse
+
+
+classe s_diagonal010
+herda b_diagonal
+const s_titulo = "Dentro do Banco Dos Bruxos"
+const s_desc = "Você adentra o enorme banco.\n\
+Você se depara com um segundo par de portas, dessa vez de prata, com os seguintes dizeres:\n\
+\"Entrem, estranhos, mas prestem atenção\n\
+Ao que espera o pecado da ambição,\n\
+Porque os que tiram o que não ganharam\n\
+Terão é que pagar muito caro,\n\
+Assim, se procuram sob o nosso chão\n\
+Um tesouro que nunca enterraram,\n\
+Ladrão, você foi avisado, cuidado,\n\
+pois vai encontrar mais do que procurou.\""
+const dir_s = $s_diagonal011
+const dir_sair = $s_diagonal009
+const a_reset = "P 100 diagonal006 0 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_diagonal006:objsolto.total < 2
+    criar("p_diagonal006", este, 0)
+  fimse
+
+
+classe s_diagonal011
+herda b_diagonal
+const s_titulo = "Em um Grande Saguão de Mármore"
+const s_desc = "Após passar pelas portas de prata, você desemboca em um grande saguão.\n\
+Sentados em vários banquinho altos atrás de um balcão, há pelo menos uns 100 duendes escrevendo \
+em grandes livros-caixas, pesando moedas em balanças de latão, examinando pedras preciosas com \
+óculos de joalheiro."
+const dir_n = $s_diagonal010
+const a_reset = "P 100 diagonal007 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_diagonal007:objsolto.total < 1
+    criar("p_diagonal007", este, 0)
+  fimse
+
+
+classe s_diagonal012
+herda b_diagonal
+const s_titulo = "Em Frente a Loja de Varinhas"
+const s_desc = "Você está em frente a uma loja estreita e muito feia.\n\
+Você vê na vitrine empoeirada uma varinha em uma almofada púrpura e desbotada.\n\
+Em letras de ouro descascadas sobre a porta há o seguinte aviso: \"Olivaras Artesãos de Varinhas \
+de Qualidade desde 382 A.C.\""
+const dir_l = $s_diagonal001
+const dir_entrar = $s_diagonal013
+
+
+classe s_diagonal013
+herda b_diagonal
+const s_titulo = "Na Loja de Varinhas"
+const s_desc = "Você está em uma lojinha mínima e vazia.\n\
+Empilhadas com cuidado até o teto, há várias caixas contendo varinhas mágicas à venda."
+const dir_sair = $s_diagonal012
+const a_reset = "P 100 Diagonal001 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_Diagonal001:objsolto.total < 1
+    criar("p_Diagonal001", este, 0)
+  fimse
+
+
+classe s_diagonal014
+herda b_diagonal
+const s_titulo = "Caminhando pelo beco diagonal"
+const dir_n = $s_diagonal006
+const dir_l = $s_diagonal015
+
+
+classe s_diagonal015
+herda b_diagonal
+const s_titulo = "Em Frente ao Impório de Corujas"
+const s_desc = "Você está em frente de uma loja escura.\n\
+Inesperadamente, pios baixos de corujas chegam até seus ouvidos."
+const dir_o = $s_diagonal014
+const dir_entrar = $s_diagonal016
+
+
+classe s_diagonal016
+herda b_diagonal
+const s_titulo = ".Na Loja de Corujas"
+const s_desc = "Você está dentro da escura loja.\n\
+As paredes da loja estão escondidas por diversas gaiolas nas quais corujas de diversos tipos, \
+cores e tamanho piam umas para as outras descontentes."
+const dir_sair = $s_diagonal015
+const a_reset = "P 100 Diagonal002 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_Diagonal002:objsolto.total < 1
+    criar("p_Diagonal002", este, 0)
+  fimse
+
+
+classe s_diagonal017
+herda b_diagonal
+const s_titulo = "Na Floreios e Borrões"
+const dir_l = $s_diagonal003
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "uma porta com letreiros dourados"
+const fecha_l = 1 # Fecha ao passar: Sim
+
+
+classe s_diagonal018
+herda b_diagonal
+const s_titulo = "Na loja da madame Malkin"
+const dir_o = $s_diagonal003

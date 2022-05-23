@@ -1,0 +1,200 @@
+classe i_folha
+herda comum_item
+const nome = "folha"
+const descnome = "uma folha de espessura 40"
+const msexo = 0 # Sexo Msg: 0 Feminino
+const valor = 400
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_escr
+  se txt(arg1, 0, 1) == "\\"
+    txt1 l
+    l = letra(arg1)
+    se l == "\n"
+      arg0.msg(txtsublin(var.z_txt, intsublin(var.z_txt) - 1))
+    senao l == " "
+      arg0.msg(txtsub(var.z_txt, intsub(var.z_txt) - 1))
+    senao
+      arg0.msg(l)
+    fimse
+    var.z_txt += l
+    ret 1
+  senao arg1 == "|"
+    arg0.msg("apagando: " + txt(var.z_txt, inttotal(var.z_txt) - 1))
+    var.z_txt = txt(var.z_txt, 0, inttotal(var.z_txt) - 1)
+    ret 1
+  senao arg1 == "ltxt"
+    arg0.msg(var.z_txt)
+    ret 1
+  fimse
+#
+
+func letra
+  casovar txtmin(txt(arg0, 1))
+  casose "1"
+    se var.z_maiusc_
+      var.z_maiusc_ == 1 && (var.z_maiusc_ = 0)
+      ret "A"
+    senao var.z_num_
+      ret 1
+    fimse
+    ret "a"
+  casose "12"
+    se var.z_maiusc_
+      var.z_maiusc_ == 1 && (var.z_maiusc_ = 0)
+      ret "B"
+    senao var.z_num_
+      ret 2
+    fimse
+    ret "b"
+  casose "14"
+    se var.z_maiusc_
+      var.z_maiusc_ == 1 && (var.z_maiusc_ = 0)
+      ret "C"
+    senao var.z_num_
+      ret 3
+    fimse
+    ret "c"
+  casose "145"
+    se var.z_maiusc_
+      var.z_maiusc_ == 1 && (var.z_maiusc_ = 0)
+      ret "D"
+    senao var.z_num_
+      ret 4
+    fimse
+    ret "d"
+  casose "15"
+    se var.z_maiusc_
+      var.z_maiusc_ == 1 && (var.z_maiusc_ = 0)
+      ret "E"
+    senao var.z_num_
+      ret 5
+    fimse
+    ret "e"
+  casose "124"
+    se var.z_maiusc_
+      var.z_maiusc_ == 1 && (var.z_maiusc_ = 0)
+      ret "F"
+    senao var.z_num_
+      ret 6
+    fimse
+    ret "f"
+  casose "1245"
+    se var.z_maiusc_
+      var.z_maiusc_ == 1 && (var.z_maiusc_ = 0)
+      ret "G"
+    senao var.z_num_
+      ret 7
+    fimse
+    ret "g"
+  casose "125"
+    se var.z_maiusc_
+      var.z_maiusc_ == 1 && (var.z_maiusc_ = 0)
+      ret "H"
+    senao var.z_num_
+      ret 8
+    fimse
+    ret "h"
+  casose "24"
+    se var.z_maiusc_
+      var.z_maiusc_ == 1 && (var.z_maiusc_ = 0)
+      ret "I"
+    senao var.z_num_
+      ret 9
+    fimse
+    ret "i"
+  casose "245"
+    se var.z_maiusc_
+      var.z_maiusc_ == 1 && (var.z_maiusc_ = 0)
+      ret "J"
+    senao var.z_num_
+      ret 0
+    fimse
+    ret "j"
+  casose "13"
+    ret "k"
+  casose "123"
+    ret "l"
+  casose "134"
+    ret "m"
+  casose "1345"
+    ret "n"
+  casose "135"
+    ret "o"
+  casose "1234"
+    ret "p"
+  casose "12345"
+    ret "q"
+  casose "1235"
+    ret "r"
+  casose "234"
+    ret "s"
+  casose "2345"
+    ret "t"
+  casose "136"
+    ret "u"
+  casose "1236"
+    ret "v"
+  casose "2456"
+    ret "w"
+  casose "1346"
+    ret "x"
+  casose "13456"
+    ret "y"
+  casose "1356"
+    ret "z"
+  casose "12346"
+    ret "ç"
+  casose "45"
+    ret "$"
+  casose "\\"
+    ret "\n"
+  casose "123456"
+    ret "é"
+  casose "126"
+    ret "ê"
+  casose "12356"
+    ret "á"
+  casose "16"
+    ret "â"
+  casose "345"
+    ret "ã"
+  casose "1246"
+    ret "à"
+  casose "46"
+    se var.z_maiusc_
+      var.z_maiusc_ = 2
+    senao
+      var.z_maiusc_ = 1
+    fimse
+    ret
+  casose "3456"
+    var.z_num_ = 1
+    ret
+  casose "3"
+    ret "."
+  casose "235"
+    ret "!"
+  casose "26"
+    ret "?"
+  casose "34"
+    ret "í"
+  casose "346"
+    ret "ó"
+  casose "1456"
+    ret "ô"
+  casose "246"
+    ret "õ"
+  casose "23456"
+    ret "ú"
+  casose "25"
+    ret ":"
+  casose "2"
+    ret ","
+  casose ""
+    var.z_num_ = 0
+    var.z_maiusc_ = 0
+    ret " "
+  casofim

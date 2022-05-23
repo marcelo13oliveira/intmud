@@ -1,0 +1,18 @@
+classe adm_sobenivel
+herda comando_adm
+#
+const posic = 0
+const txtajuda = "\b\\c3SOBENIVEL\b\n\
+ Sintaxe: sobenivel <jogador> <níveis>\n\
+ Sobe o nível de um jogador."
+#
+
+func escr
+  se arg1
+    ref p
+    refvar nomesav = txts(txtnome(txt1(arg1)))
+    indiceitem item
+    item.ini("pn " + nomesav)
+    p = item.obj
+    ret intnome(arg1), arg0.msg("Nome inválido para jogador: " + arg1)
+    ret !p, arg0.msg("Jogador inexistente ou ausente: " + txt1(arg1) + ".")

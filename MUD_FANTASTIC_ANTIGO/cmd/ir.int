@@ -1,0 +1,27 @@
+classe cmd_ir
+herda comando_comum
+#
+const posic = 8
+#
+
+func escr
+  se !arg1
+    arg0.msg("Ir até quem?")
+  senao
+    ref p
+    refvar nomesav = txts(txtnome(arg1))
+    indiceitem item
+    item.ini("pn " + nomesav)
+    p = item.obj
+    txt80 dir
+    refvar listadir = txtvis(arg0.rastrearsala(p.dono, "", 1000))
+    txt100 direcoes
+    direcoes = txtmin(listadir)
+    refvar listadir2 = txttroca(direcoes, "\\n", " ")
+    epara dir = listadir2, dir, dir = txt2(dir)
+      refvar dirp = txt1(dir)
+      sair !arg0.dono.dir_[dirp]
+      arg0.msg(dirp)
+      arg0.teclou(dirp)
+    efim
+  fimse

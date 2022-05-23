@@ -1,0 +1,69 @@
+classe adm_monit
+herda comando_adm
+const objcmd = int(arg1.c_monit) >= 2 ? este
+const txtajuda = "\b\c3Monit\b\n\
+Sintaxe: MONIT [jogador]\n\
+observa um jogador, permitindo ver o que ele lê e escreve.\n\
+Se [jogador] estiver ausente ou for o próprio, deixa de observar.\n\
+O principal objetivo é auxiliar outros usuários, por isso quando\n\
+esse comando é usado, todos os administradores são informados.\n\
+O comando QUEM também mostra aos administradores quem está observando."
+
+func escr
+  indiceitem item
+  ref r
+  r = item.obj("un " + txts(txtnome(arg1)))
+  refvar imonit = arg0.sock.imonit
+  se !arg1 || r == arg0.sock
+    se imonit
+      txt100 t1
+      t1 = imonit.objlista.nome
+      imonit.remove
+      arg0.msg("Deixando de observar " + t1)
+      t1 = "*** " + arg0.sock.nome + " deixa de observar " + t1
+      epara item.ini("un "), txt1(item.txt) == "un", item.depois
+        continuar !$perm_[item.obj.jogperm].c_monit
+        item.obj != arg0.sock && item.obj.msg(t1)
+      efim
+      $misclog.cmdlog("monit " + arg0.nome + ":")
+    senao
+      arg0.msg("Não está observando ninguém")
+    fimse
+  senao !r
+    arg0.msg("Jogador não encontrado: " + arg1)
+  senao r == imonit.objlista
+    arg0.msg("Já está observando " + r.nome)
+  senao
+    imonit && arg0.msg("Deixando de observar " + imonit.objlista.nome)
+    imonit.remove
+    txt100 t1
+    t1 = "*** " + arg0.sock.nome + " está observando " + r.nome
+    epara item.ini("un "), txt1(item.txt) == "un", item.depois
+      continuar !$perm_[item.obj.jogperm].c_monit
+      item.obj != arg0.sock && item.obj.msg(t1)
+    efim
+    imonit = r.lmonit.addini(arg0.sock)
+    arg0.msg("observando " + r.nome)
+    $misclog.cmdlog("monit " + arg0.nome + ": " + r.nome)
+  fimse
+
+
+classe adm_escr
+herda comando_adm
+const objcmd = int(arg1.c_monit) >= 3 ? este
+const txtajuda = "\b\c3Escr\b\n\
+Sintaxe: ESCR <comando>\n\
+Digita um comando no teclado do usuário sendo observado."
+
+func escr
+  se !arg0.sock.imonit
+    arg0.msg("Você não está observando ninguém")
+  senao arg0.jogperm != "admin" && arg0.sock.imonit.objlista.jogperm == "admin"
+    arg0.msg("Para escrever em Admin você também precisa ser Admin")
+  senao !arg1
+    arg0.msg("Tecle a mensagem após ESCR")
+  senao
+    arg0.sock.imonit.objlista.msg("*** " + arg0.nome + " escreve no seu teclado: " + arg1)
+    arg0.sock.imonit.objlista.recebe(arg1)
+    $misclog.cmdlog("escr " + arg0.nome + ": " + arg1)
+  fimse

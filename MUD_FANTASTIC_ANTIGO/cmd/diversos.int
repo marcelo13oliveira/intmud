@@ -1,0 +1,60 @@
+classe cmd_barracas
+herda comando_comum
+#
+const txtajuda = "\b\c3COMANDOS básicos para usar as barracas\b\n\
+Armar <nome da barraca>\n\
+Arma uma determinada barraca;\n\
+desarmar <nome da barraca\n\
+Desarma uma barraca\n\
+nomebarraca <novo nome>\n\
+Dá um novo nome à barraca onde está.\n\
+portanome <nome da porta>\n\
+Nomeia a porta principal da barraca para o nome especificado.\n\
+kdir <direção>\n\
+Cria uma sala extra dentro da barraca, na direção especificada.\n\
+adir <direção>\n\
+Apaga uma sala da direção especificada.\n\
+obs:  Não usar esse comando em uma direção cuja tenham sido criadas mais de uma sala, pois as \
+mesmas serão perdidas.\n\
+cporta <direção> <nome da porta>\n\
+Cria uma porta na direção e com o nome especificados.\n\
+aporta <direção>\n\
+Apaga uma porta na direção especificada.\n\
+descfora <texto>\n\
+Muda o a descrição do item na sala;\n\
+Ex: descfora Uma barraca espaçosa foi armada embaixo de uma frondosa árvore.\n\
+Os comandos sjog, stitulo e sdesc também funcionam nas salas das barracas, consulte os tópicos \
+de ajuda dos comandos para saber mais."
+
+
+classe cmd_nomebarraca
+herda comando_comum
+#
+const posic = 5
+#
+
+func escr
+  se arg0.dono.dono.var.z_dono != arg0.descnome
+    ret arg0.msg("Você não está dentro de sua barraca.")
+  fimse
+  arg0.dono.dono.var.z_nome = arg1
+  arg0.msg(arg0.dono.dono.var.z_nome ? "Nome da barraca alterado." : "Nome da barraca apagado.")
+
+
+classe cmd_carros
+herda comando_comum
+#
+#
+const txtajuda = "\b\c3Comandos básicos para usar os carros\b\n\
+modelo <Nome do novo modelo>\n\
+Muda o nome do modelo do carro para o especificado.\n\
+Ex: modelo a ferrare prateada\n\
+\b\c3On\b\n\
+Liga o carro.\n\
+\b\c3Off\b\n\
+Desliga o carro.\n\
+Dirigir <Direção>\n\
+Move o carro para uma direção.\n\
+Abastecer <Quantidade em litros>\n\
+Abastece o tanque do carro com a quantidade informada.\n\
+Fim da ajuda."

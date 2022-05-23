@@ -1,0 +1,783 @@
+classe a_olimpo
+herda area
+const a_nome = "O monte olimpo"
+const a_autor = "Kate Smith"
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_tempo = 2
+
+
+classe b_olimpo
+herda sala
+const s_fome = 1 # Fome e sede: 1 Ausente
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_morre = 0 # Morre ao entrar: 0 Não
+const s_terreno = 2 # Terreno: 2 Campo, um campo aberto - 2mv
+const s_area = "olimpo"
+
+
+classe i_olimpo001
+herda comum_item
+const nome = "Uma fonte de mármore branco com a estátua de zeus sobre ela"
+const ident = "fonte branco mármore estátua zeus"
+const descnome = "Uma bela fonte de mármore branco com uma estátua de Zeus"
+const descpos = "Uma bela fonte de mármore branco, com uma imponente estátua de Zeus empunhando \
+o Raio Mestre, está aqui no centro da praça."
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_fome = 100
+const f_sede = 100
+const f_msgperso = "$P bebe Néctar da fonte"
+const f_msgoutros = "$P bebe Néctar da fonte"
+const i_pegar = "Você não consegue pegar isto, está preso no chão"
+const pesoobj = 1000000
+const tipoitem = 4096 # Tipo de item: 12-Vasilhame (10-Poção)
+const f_liquido = "Néctar"
+
+
+classe p_olimpo001
+herda comum_perso
+const nome = "Ariana"
+const ident = "Ariana"
+const descnome = "Ariana"
+const descpadr = "Ariana está aqui, cuidando do comércio de sua família"
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const nivel = 1000
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+
+
+classe s_olimpo001
+herda b_olimpo
+const s_titulo = "Um estreito caminho de pedras no meio do ar"
+const dir_n = $s_olimpo002
+const dir_l = $s_olimpo017
+const voar_l = 0 # Voar: Não
+const dir_o = $s_olimpo018
+
+
+classe s_olimpo002
+herda b_olimpo
+const s_titulo = "Um estreito caminho de pedras no meio do ar"
+const dir_n = $s_olimpo003
+const dir_s = $s_olimpo001
+const dir_l = $s_olimpo019
+const dir_o = $s_olimpo020
+
+
+classe s_olimpo003
+herda b_olimpo
+const s_titulo = "Um estreito caminho de pedras no meio do ar"
+const dir_s = $s_olimpo002
+const dir_l = $s_olimpo021
+const dir_o = $s_olimpo022
+const dir_ne = $s_olimpo004
+
+
+classe s_olimpo004
+herda b_olimpo
+const s_titulo = "No início dos degraus de mármore branco"
+const dir_c = $s_olimpo005
+const dir_so = $s_olimpo003
+
+
+classe s_olimpo005
+herda b_olimpo
+const s_titulo = "Subindo os degraus de mármore branco"
+const dir_c = $s_olimpo006
+const voar_c = 1 # Voar: Sim
+const dir_b = $s_olimpo004
+
+
+classe s_olimpo006
+herda b_olimpo
+const s_titulo = "Em uma nuvem"
+const dir_c = $s_olimpo007
+const dir_b = $s_olimpo005
+
+
+classe s_olimpo007
+herda b_olimpo
+const s_titulo = "No pico de uma montanha com o cume coberto de neve"
+const dir_b = $s_olimpo006
+const voar_b = 1 # Voar: Sim
+const dir_so = $s_olimpo024
+
+
+classe s_olimpo008
+herda b_olimpo
+const s_titulo = "Próximo a um vilarejo no monte"
+const dir_s = $s_olimpo006
+const dir_l = $s_olimpo009
+
+
+classe s_olimpo009
+herda b_olimpo
+const s_titulo = "Próximo a um vilarejo no monte"
+const dir_l = $s_olimpo010
+const dir_o = $s_olimpo008
+
+
+classe s_olimpo010
+herda b_olimpo
+const s_titulo = "Próximo a um vilarejo no monte Olimpo"
+const dir_l = $s_olimpo011
+const dir_o = $s_olimpo009
+
+
+classe s_olimpo011
+herda b_olimpo
+const s_titulo = "Próximo a um vilarejo no monte Olimpo"
+const dir_l = $s_olimpo012
+const dir_o = $s_olimpo010
+
+
+classe s_olimpo012
+herda b_olimpo
+const s_titulo = "Próximo ao vilarejo"
+const dir_l = $s_olimpo013
+const dir_o = $s_olimpo011
+
+
+classe s_olimpo013
+herda b_olimpo
+const s_titulo = "Na entrada do vilarejo:"
+const dir_o = $s_olimpo012
+const dir_entrar = $s_olimpo014
+
+
+classe s_olimpo014
+herda b_olimpo
+const dir_s = $s_olimpo015
+const dir_sair = $s_olimpo013
+
+
+classe s_olimpo015
+herda b_olimpo
+const dir_n = $s_olimpo014
+
+
+classe s_olimpo016
+herda b_olimpo
+
+
+classe s_olimpo017
+herda b_olimpo
+const s_titulo = "No ar"
+const s_morre = 0 # Morre ao entrar: 0 Não
+const s_terreno = 10 # Terreno: 10 Ar, itens e personagens caem - 10mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_olimpo019
+const dir_o = $s_olimpo001
+const dir_b = $s_olimpo023
+const inv_b = 1 # Invisível: Sim
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+  se arg0.bitinv & 48 # Voando ou voando alto
+    ret
+  senao arg0.bitver & 0x200 # Flutuando
+    ret
+  senao
+    $mens.p(arg0)
+    $mens.p(arg0)
+    $mens.p(arg0), $mens.mtodos2("", "Ao chegar aqui, $P começa a cair em alta velocidade...")
+    arg0.mudadono(dir_b)
+  fimse
+
+
+classe s_olimpo018
+herda b_olimpo
+const s_titulo = "No ar"
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_olimpo020
+const dir_l = $s_olimpo001
+const dir_b = $s_olimpo023
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+  se arg0.bitinv & 48 # Voando ou voando alto
+    ret
+  senao arg0.bitver & 0x200 # Flutuando
+    ret
+  senao
+    $mens.p(arg0)
+    $mens.p(arg0)
+    $mens.p(arg0), $mens.mtodos2("", "Ao chegar aqui, $P começa a cair em alta velocidade...")
+    arg0.mudadono(dir_b)
+  fimse
+
+
+classe s_olimpo019
+herda b_olimpo
+const s_titulo = "No ar"
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_olimpo021
+const dir_s = $s_olimpo017
+const dir_o = $s_olimpo002
+const dir_b = $s_olimpo023
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+  se arg0.bitinv & 48 # Voando ou voando alto
+    ret
+  senao arg0.bitver & 0x200 # Flutuando
+    ret
+  senao
+    $mens.p(arg0)
+    $mens.p(arg0)
+    $mens.p(arg0), $mens.mtodos2("", "Ao chegar aqui, $P começa a cair em alta velocidade...")
+    arg0.mudadono(dir_b)
+  fimse
+
+
+classe s_olimpo020
+herda b_olimpo
+const s_titulo = "No ar"
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_olimpo022
+const dir_s = $s_olimpo018
+const dir_l = $s_olimpo002
+const dir_b = $s_olimpo023
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+  se arg0.bitinv & 48 # Voando ou voando alto
+    ret
+  senao arg0.bitver & 0x200 # Flutuando
+    ret
+  senao
+    $mens.p(arg0)
+    $mens.p(arg0)
+    $mens.p(arg0), $mens.mtodos2("", "Ao chegar aqui, $P começa a cair em alta velocidade...")
+    arg0.mudadono(dir_b)
+  fimse
+
+
+classe s_olimpo021
+herda b_olimpo
+const s_titulo = "No ar"
+const eveste = 1 # Eventos sala: Sim
+const dir_s = $s_olimpo019
+const dir_o = $s_olimpo003
+const dir_b = $s_olimpo023
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+  se arg0.bitinv & 48 # Voando ou voando alto
+    ret
+  senao arg0.bitver & 0x200 # Flutuando
+    ret
+  senao
+    $mens.p(arg0)
+    $mens.p(arg0)
+    $mens.p(arg0), $mens.mtodos2("", "Ao chegar aqui, $P começa a cair em alta velocidade...")
+    arg0.mudadono(dir_b)
+  fimse
+
+
+classe s_olimpo022
+herda b_olimpo
+const s_titulo = "No ar"
+const eveste = 1 # Eventos sala: Sim
+const dir_s = $s_olimpo020
+const dir_l = $s_olimpo003
+const dir_b = $s_olimpo023
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+  se arg0.bitinv & 48 # Voando ou voando alto
+    ret
+  senao arg0.bitver & 0x200 # Flutuando
+    ret
+  senao
+    $mens.p(arg0)
+    $mens.p(arg0)
+    $mens.p(arg0), $mens.mtodos2("", "Ao chegar aqui, $P começa a cair em alta velocidade...")
+    arg0.mudadono(dir_b)
+  fimse
+
+
+classe s_olimpo023
+herda b_olimpo
+const s_titulo = "Caindo em alta velocidade pelo ar"
+const s_morre = 1 # Morre ao entrar: 1 Sim
+
+
+classe s_olimpo024
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_n = $s_olimpo025
+const dir_ne = $s_olimpo007
+
+
+classe s_olimpo025
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_s = $s_olimpo024
+const dir_l = $s_olimpo026
+
+
+classe s_olimpo026
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_l = $s_olimpo027
+const dir_o = $s_olimpo025
+
+
+classe s_olimpo027
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_n = $s_olimpo028
+const dir_o = $s_olimpo026
+
+
+classe s_olimpo028
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_n = $s_olimpo029
+const dir_s = $s_olimpo027
+
+
+classe s_olimpo029
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_n = $s_olimpo030
+const dir_s = $s_olimpo028
+
+
+classe s_olimpo030
+herda b_olimpo
+const s_titulo = "Uma divisão na estrada principal"
+const dir_s = $s_olimpo029
+const dir_ne = $s_olimpo032
+const dir_no = $s_olimpo031
+
+
+classe s_olimpo031
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_o = $s_olimpo033
+const dir_se = $s_olimpo030
+
+
+classe s_olimpo032
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_l = $s_olimpo054
+const dir_so = $s_olimpo030
+
+
+classe s_olimpo033
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_l = $s_olimpo031
+const dir_o = $s_olimpo034
+
+
+classe s_olimpo034
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_n = $s_olimpo035
+const dir_l = $s_olimpo033
+
+
+classe s_olimpo035
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_n = $s_olimpo036
+const dir_s = $s_olimpo034
+
+
+classe s_olimpo036
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_n = $s_olimpo037
+const dir_s = $s_olimpo035
+
+
+classe s_olimpo037
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_s = $s_olimpo036
+const dir_o = $s_olimpo038
+
+
+classe s_olimpo038
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_n = $s_olimpo039
+const dir_l = $s_olimpo037
+
+
+classe s_olimpo039
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_n = $s_olimpo040
+const dir_s = $s_olimpo038
+
+
+classe s_olimpo040
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_n = $s_olimpo041
+const dir_s = $s_olimpo039
+
+
+classe s_olimpo041
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_s = $s_olimpo040
+const dir_l = $s_olimpo042
+
+
+classe s_olimpo042
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_s = $s_olimpo053
+const dir_l = $s_olimpo043
+const dir_o = $s_olimpo041
+
+
+classe s_olimpo043
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_n = $s_olimpo052
+const dir_l = $s_olimpo044
+const dir_o = $s_olimpo042
+
+
+classe s_olimpo044
+herda b_olimpo
+const s_titulo = "A praça central do olimpo"
+const dir_n = $s_olimpo050
+const dir_l = $s_olimpo045
+const dir_o = $s_olimpo043
+const a_reset = "S 100 olimpo001 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_olimpo001") && criar("i_olimpo001", este, 1)
+
+
+classe s_olimpo045
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_s = $s_olimpo049
+const dir_l = $s_olimpo046
+const dir_o = $s_olimpo044
+
+
+classe s_olimpo046
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_n = $s_olimpo051
+const dir_l = $s_olimpo047
+const dir_o = $s_olimpo045
+
+
+classe s_olimpo047
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_s = $s_olimpo061
+const dir_o = $s_olimpo046
+
+
+classe s_olimpo048
+herda b_olimpo
+
+
+classe s_olimpo049
+herda b_olimpo
+const s_titulo = "Loja de néctar e ambrosia"
+const dir_n = $s_olimpo045
+const a_reset = "P 100 olimpo001 1000 1000 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_olimpo001:objsolto.total < 1
+    criar("p_olimpo001", este, 1000)
+  fimse
+
+
+classe s_olimpo050
+herda b_olimpo
+const s_titulo = "A entrada de um magestoso castelo"
+const dir_n = $s_olimpo063
+const portaini_n = 3 # Estado inicial: 3 Porta trancada
+const portanome_n = "Os imensos portões de ouro"
+const portaartigo_n = 3 # Artigo porta: 3 os (portões)
+const fecha_n = 1 # Fecha ao passar: Sim
+const tranc_n = 2 # Trancar: 2 Tranca ao fechar
+const dir_s = $s_olimpo044
+
+
+classe s_olimpo051
+herda b_olimpo
+const s_titulo = "Loja de equipamento para semideuses"
+const dir_s = $s_olimpo046
+
+
+classe s_olimpo052
+herda b_olimpo
+const s_titulo = "Loja de armas para semideuses"
+const dir_s = $s_olimpo043
+
+
+classe s_olimpo053
+herda b_olimpo
+const dir_n = $s_olimpo042
+
+
+classe s_olimpo054
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_l = $s_olimpo055
+const dir_o = $s_olimpo032
+
+
+classe s_olimpo055
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_n = $s_olimpo056
+const dir_o = $s_olimpo054
+
+
+classe s_olimpo056
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_n = $s_olimpo057
+const dir_s = $s_olimpo055
+
+
+classe s_olimpo057
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_n = $s_olimpo058
+const dir_s = $s_olimpo056
+
+
+classe s_olimpo058
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_s = $s_olimpo057
+const dir_l = $s_olimpo059
+
+
+classe s_olimpo059
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_n = $s_olimpo060
+const dir_o = $s_olimpo058
+
+
+classe s_olimpo060
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_n = $s_olimpo061
+const dir_s = $s_olimpo059
+
+
+classe s_olimpo061
+herda b_olimpo
+const s_titulo = "A estrada principal"
+const dir_s = $s_olimpo060
+const dir_n = $s_olimpo047
+
+
+classe s_olimpo062
+herda b_olimpo
+
+
+classe s_olimpo063
+herda b_olimpo
+const s_titulo = "Um grandioso pátio de entrada"
+const dir_n = $s_olimpo066
+const dir_s = $s_olimpo050
+const portaini_s = 3 # Estado inicial: 3 Porta trancada
+const portanome_s = "Os imensos portões de ouro"
+const portaartigo_s = 3 # Artigo porta: 3 os (portões)
+const fecha_s = 1 # Fecha ao passar: Sim
+const tranc_s = 2 # Trancar: 2 Tranca ao fechar
+const dir_l = $s_olimpo064
+const dir_o = $s_olimpo065
+
+
+classe s_olimpo064
+herda b_olimpo
+const s_titulo = "Um grandioso pátio de entrada"
+const dir_n = $s_olimpo067
+const dir_o = $s_olimpo063
+const dir_c = $s_olimpo072
+
+
+classe s_olimpo065
+herda b_olimpo
+const s_titulo = "Um grandioso pátio de entrada"
+const dir_n = $s_olimpo068
+const dir_l = $s_olimpo063
+const dir_c = $s_olimpo075
+
+
+classe s_olimpo066
+herda b_olimpo
+const s_titulo = "Um grandioso pátio de entrada"
+const dir_n = $s_olimpo069
+const dir_s = $s_olimpo063
+const dir_l = $s_olimpo067
+const dir_o = $s_olimpo068
+
+
+classe s_olimpo067
+herda b_olimpo
+const s_titulo = "Um grandioso pátio de entrada"
+const dir_n = $s_olimpo070
+const dir_s = $s_olimpo064
+const dir_o = $s_olimpo066
+
+
+classe s_olimpo068
+herda b_olimpo
+const s_titulo = "Um grandioso pátio de entrada"
+const dir_s = $s_olimpo065
+const dir_l = $s_olimpo066
+const dir_n = $s_olimpo071
+
+
+classe s_olimpo069
+herda b_olimpo
+const s_titulo = "Um grandioso pátio de entrada"
+const dir_s = $s_olimpo066
+const dir_l = $s_olimpo070
+const dir_o = $s_olimpo071
+const dir_c = $s_olimpo078
+
+
+classe s_olimpo070
+herda b_olimpo
+const s_titulo = "Um grandioso pátio de entrada"
+const dir_o = $s_olimpo069
+const dir_s = $s_olimpo067
+
+
+classe s_olimpo071
+herda b_olimpo
+const s_titulo = "Um grandioso pátio de entrada"
+const dir_s = $s_olimpo068
+const dir_l = $s_olimpo069
+
+
+classe s_olimpo072
+herda b_olimpo
+const s_titulo = "Subindo para a torre de vigia"
+const dir_c = $s_olimpo073
+const dir_b = $s_olimpo064
+
+
+classe s_olimpo073
+herda b_olimpo
+const s_titulo = "Subindo para a torre de vigia"
+const dir_c = $s_olimpo074
+const dir_b = $s_olimpo072
+
+
+classe s_olimpo074
+herda b_olimpo
+const s_titulo = "No alto da torre de vigia"
+const dir_b = $s_olimpo073
+
+
+classe s_olimpo075
+herda b_olimpo
+const s_titulo = "Subindo para a torre de vigia"
+const dir_c = $s_olimpo076
+const dir_b = $s_olimpo065
+
+
+classe s_olimpo076
+herda b_olimpo
+const s_titulo = "Subindo para a torre de vigia"
+const dir_c = $s_olimpo077
+const dir_b = $s_olimpo075
+
+
+classe s_olimpo077
+herda b_olimpo
+const s_titulo = "No alto da torre de vigia"
+const dir_b = $s_olimpo076
+
+
+classe s_olimpo078
+herda b_olimpo
+const s_titulo = "Nos degraus de mármore dourado"
+const dir_b = $s_olimpo069
+const dir_entrar = $s_olimpo079
+
+
+classe s_olimpo079
+herda b_olimpo
+const s_titulo = "No magestoso salão"
+const dir_n = $s_olimpo082
+const dir_l = $s_olimpo080
+const dir_o = $s_olimpo081
+const dir_sair = $s_olimpo078
+
+
+classe s_olimpo080
+herda b_olimpo
+const s_titulo = "No magestoso salão"
+const dir_o = $s_olimpo079
+const dir_n = $s_olimpo083
+
+
+classe s_olimpo081
+herda b_olimpo
+const s_titulo = "No magestoso salão"
+const dir_l = $s_olimpo079
+const dir_n = $s_olimpo084
+
+
+classe s_olimpo082
+herda b_olimpo
+const s_titulo = "No magestoso salão"
+const dir_s = $s_olimpo079
+const dir_l = $s_olimpo083
+const dir_o = $s_olimpo084
+const dir_c = $s_olimpo085
+
+
+classe s_olimpo083
+herda b_olimpo
+const s_titulo = "No magestoso salão"
+const dir_s = $s_olimpo080
+const dir_o = $s_olimpo082
+
+
+classe s_olimpo084
+herda b_olimpo
+const s_titulo = "No magestoso salão"
+const dir_s = $s_olimpo081
+const dir_l = $s_olimpo082
+
+
+classe s_olimpo085
+herda b_olimpo
+const s_titulo = "Nos degraus de ouro que conduz aos tronos"
+const dir_n = $s_olimpo086
+const dir_b = $s_olimpo082
+
+
+classe s_olimpo086
+herda b_olimpo
+const s_titulo = "Nos tronos"
+const dir_s = $s_olimpo085

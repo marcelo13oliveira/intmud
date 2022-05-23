@@ -1,0 +1,2856 @@
+classe a_itens
+herda area
+
+
+classe b_itens
+herda sala
+const s_area = "itens"
+
+
+classe i_itens001
+herda comum_itemgrupo
+const nome = "armadura de bronze"
+const descnome = "uma armadura de bronze"
+const nivel = 10
+const valor = 4500
+const vestir1 = 4096 # Aonde vestir: 12-no corpo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 20
+  pmanamax += 20
+  pmovemax += 20
+
+
+classe i_itens002
+herda comum_item
+const nome = "uma fonte de vinho"
+const descnome = "uma fonte de vinho"
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_bebida = 250
+const i_pegar = "não pegue a fonte!"
+
+
+classe i_itens003
+herda comum_item
+const nome = "garrafa de água"
+const descnome = "uma garrafa de água"
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_sede = 60
+const f_diges = 240
+const f_msgoutros = f_msgperso
+const valor = 200
+sav uint8 bebeu
+#
+
+func f_msgperso
+  ret bebeu < 11, "$p bebe água da garrafa."
+  ret "$p bebe o último gole da garrafa."
+#
+
+func cmd_bebeu
+  bebeu += 1
+  se bebeu >= 12
+    apagar(este)
+    criar("i_itens004", arg0, 1)
+  fimse
+
+const f_totalml = 2000
+
+
+classe i_itens004
+herda comum_item
+const nome = "garrafa"
+const descnome = "uma garrafa " + (var.z_liquido ? " de 2 litros de " + txt2(var.z_liquido) : " \
+vazia")
+const descpos = descnome + " foi deixada aqui."
+const f_tipo = 5 # Tipo: 5 Container, beber
+const eveste = 0 # Eventos item: Não
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func descver
+  ret var.z_liquido, "Contém " + txt1(var.z_liquido) + " ml."
+#
+
+const f_liquido = "agua"
+const f_totalml = 2000
+
+
+classe i_itens005
+herda comum_itemgrupo
+const nome = "espada"
+const descnome = "uma espada curta"
+const nivel = 3
+const armamax = 70
+const armamin = 30
+const armafalha = 10
+const armaaddprecisao = 10
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const valor = 500
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+
+
+classe i_itens006
+herda comum_itemgrupo
+const nome = "escudo leve"
+const descnome = "um escudo leve"
+const nivel = 9
+const valor = 2000
+const vestir1 = 1 # Aonde vestir: 0-como escudo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  defnorm += 50
+  defesp += 50
+
+
+classe i_itens007
+herda comum_itemgrupo
+const nome = "lança de metal"
+const descnome = "uma lança de metal"
+const nivel = 20
+const armamax = 60
+const armamin = 30
+const armaaddprecisao = 100
+const armatipo = 3 # Tipo de arma: 3 Lâmina curta
+const vestirnao = "druída\nladrão\nmago\nnecromante"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 30
+
+
+classe i_itens008
+herda comum_itemgrupo
+const nome = "pergaminho de retorno"
+const ident = "pergaminho retorno"
+const descnome = "um pergaminho de retorno"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 4 # Tipo: 4 Pergaminho, recitar
+const f_magia1 = "retornar"
+const valor = 210
+
+
+classe i_itens009
+herda comum_itemgrupo
+const nome = "pergaminho de identificação"
+const ident = "pergaminho identificação"
+const descnome = "um pergaminho de identificação"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 4 # Tipo: 4 Pergaminho, recitar
+const f_magia1 = "identificar"
+const valor = 210
+
+
+classe i_itens010
+herda comum_itemgrupo
+const nome = "óculos escuros"
+const descnome = "um par de óculos escuros"
+const vestir1 = 64 # Aonde vestir: 6-sobre os olhos
+
+
+classe i_itens011
+herda comum_itemgrupo
+const nome = "chicote"
+const descnome = "um chicote"
+const nivel = 15
+const armamax = 75
+const armamin = 25
+const armatipo = 7 # Tipo de arma: 7 Chicote e Corrente
+const valor = 1500
+const armaatk = ""
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 25
+
+
+classe i_itens012
+herda comum_itemgrupo
+const nome = "elmo fraco"
+const descnome = "um elmo fraco"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 15
+const valor = 1100
+const vestir1 = 4 # Aonde vestir: 2-na cabeça
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5 * pnivel + 50
+  atknorm += 50
+  defnorm += 570
+  deftipo.0 *= 0.98 # Tipos Normais
+
+
+classe i_itens013
+herda comum_itemgrupo
+const nome = "perneiras de bronze"
+const ident = "perneiras bronze"
+const descnome = "um par de perneiras de bronze"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 15
+const valor = 1100
+const vestir1 = 16777216 # Aonde vestir: 24-nas pernas
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 30
+  deftipo.0 *= 1.01 # Tipos Normais
+  deftipo.2 *= 1.01 # Contusão
+  deftipo.3 *= 1.01 # luta
+  deftipo.5 *= 1.01 # Perfurante
+
+
+classe i_itens014
+herda comum_itemgrupo
+const nome = "celular"
+const descnome = "um celular"
+const tipoitem = 131072 # Tipo de item: 17-celular
+const valor = 500
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # sim
+const evsala = 0 # Eventos dono sala: Não
+#
+#
+
+func cmd_escr
+  se txt1(arg1) == "sms"
+    ref p
+    refvar nomesav = txts(txtnome(txtsub(arg1, 1, 1)))
+    indiceitem item
+    item.ini("pn " + nomesav)
+    p = item.obj
+    ret !p, arg0.msg("Jogador inexistente ou ausente:" + txtsub(arg1, 1, 1) + ".")
+    refvar mensagem = txtsub(arg1, 2)
+    ret intotal(mensagem) > 120, arg0.msg("limite é de 120 caracteres por mensagem.")
+    p.var.s_[arg0.descnome] += mensagem + "\n"
+    p.msg("Novo sms de: " + arg0.descnome + ". Digite lsms " + arg0.descnome + " para ler o \
+histórico.")
+    arg0.msg("Mensagem enviada com sucesso.")
+    ret 1
+  senao txt1(arg1) == "lsms"
+    refvar var = arg0.var
+    textotxt t
+    txt100 nome
+    epara nome = var.ini("s_" + txt2(arg1)), nome, nome = var.depois(nome, "s_" + txt2(arg1))
+      t.addfim(var.[nome])
+    efim
+    ret t.linhas == 0, arg0.msg("sem mensagens desta pessoa.")
+    arg0.msg("mensagens de " + txt2(arg1) + ": " + txttroca(t.remove(1000), "\n", ", "))
+    ret 1
+  fimse
+
+
+classe i_itens015
+herda comum_itemperso
+const nome = "frigideira"
+const descnome = "uma frigideira"
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 6000
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_soltouobj
+  se arg2 == este && txt(arg1) == "i_moveis033"
+    se arg4 == arg2
+      misc:evento(arg0)
+      se arg1.var.z_ligado
+        $mens.p(arg0, nulo, este)
+        $mens.mtodos1("O óleo na frigideira começa a esquentar.")
+      fimse
+    fimse
+  fimse
+
+
+classe i_itens016
+herda comum_itemgrupo
+const nome = "braçadeiras de bronze"
+const descnome = "um par de braçadeiras de bronze"
+const nivel = 10
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 1100
+const vestir1 = 16384 # Aonde vestir: 14-nos braços
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atkesp += 200
+  atktipo.0 *= 1.1 # Tipos Normais
+  atktipo.1 *= 1.15 # Tipos Especiais
+
+
+classe i_itens017
+herda comum_itemgrupo
+const nome = "guitarra"
+const descnome = "uma guitarra"
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+
+
+classe i_itens018
+herda comum_itemgrupo
+const nome = "violão"
+const descnome = "um violão"
+const descpos = "Um belo violão acústico está encostado em um canto , preso a um pequeno supore \
+de metal."
+const descver = "Um comum e belo violão. Possui seis cordas de aço."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+const eveste = 0 # Eventos item: Não
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "tocar violão"
+    $mens.p(arg0)
+    $mens.mtodos1("$p segura um violão e começa a dedilhar uma linda canção...")
+    misc:tempo("tocou", arg0)
+    ret 1
+  fimse
+#
+
+func tocou20
+  arg0.msg("A vida tem sonhos, que pra gente ouvir")
+  arg0.msg("Precisa entender, que um amor de verdade...")
+#
+
+func tocou30
+  arg0.msg("É feito canção, qualquer coisa assim,")
+  arg0.msg("Que tem seu começo, seu meio e seu fim...")
+#
+
+func tocou40
+  arg0.msg("A vida tem sonhos, que pra gente ouvir,")
+  arg0.msg("Precisa aprender, a começar de novo...")
+  arg0.msg("É como tocar, o mesmo violão,")
+  arg0.msg("E nele compôr uma nova canção...")
+#
+
+func tocou40
+  arg0.msg("Que fale de amor, que faça chorar...")
+  arg0.msg("Que toque mais forte esse meu coração...")
+
+
+classe i_itens019
+herda comum_itemgrupo
+const nome = "varinha"
+const descnome = "uma varinha mágica"
+const armatipo = 1 # Tipo de arma: 1
+const vestirnao = "druida\nguerreiro\nnecromante"
+
+
+classe i_itens020
+herda comum_itemgrupo
+const nome = "adaga de bronze"
+const descnome = "uma adaga de bronze"
+const nivel = 18
+const valor = 720
+
+
+classe i_itens021
+herda comum_itemgrupo
+const nome = "forte elmo de bronze"
+const descnome = "um forte elmo de bronze"
+const nivel = 30
+const valor = 7500
+const vestir1 = 4 # Aonde vestir: 2-na cabeça
+
+
+classe i_itens022
+herda comum_itemgrupo
+const nome = "pequeno cajado"
+const descnome = "um pequeno cajado"
+const armatipo = 2 # Tipo de arma: 2 Cajado
+
+
+classe i_itens023
+herda comum_itemgrupo
+const nome = "varinha"
+const descnome = "uma varinha de azevinho e pena de fênix"
+const armatipo = 1 # Tipo de arma: 1 varinha
+
+
+classe i_itens024
+herda comum_itemperso
+const nome = "baú"
+const ident = "baú madeira"
+const descnome = "um baúde madeira"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const i_tranc = 1 # Trancar: 1 Pode ser trancado
+const objmax = 200
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+const manterperso = 1 # Mantém em jogador: Sim
+
+
+classe i_itens025
+herda comum_item
+const nome = "varinha"
+const descnome = "uma varinha de pilriteiro e núcleo de pêlo de unicórnio"
+const armatipo = 1 # Tipo de arma: 1 varinha
+
+
+classe i_itens026
+herda comum_item
+const nome = var.z_varinha ? "varinha de " + var.z_varinha : "varinha"
+const descnome = var.z_varinha ? "uma varinha de " + var.z_varinha : "uma varinha mágica"
+const nivel = 25
+const armatipo = 1 # Tipo de arma: 1 varinha
+
+
+classe i_itens027
+herda comum_item
+const nome = "um pergaminho de clonagem"
+const descnome = "um pergaminho de clonagem"
+const nivel = 10
+const f_tipo = 4 # Tipo: 4 Pergaminho, recitar
+const f_magia1 = "clonar"
+const f_nivel1 = 10
+const tipoitem = 64 # Tipo de item: 6-Pergaminho
+const valor = 3500
+
+
+classe i_itens028
+herda comum_item
+const nome = "um pergaminho de curar cegueira"
+const descnome = "um pergaminho de curar cegueira"
+const nivel = 10
+const f_tipo = 4 # Tipo: 4 Pergaminho, recitar
+const f_magia1 = "curar_cegueira"
+const f_nivel1 = 10
+const tipoitem = 64 # Tipo de item: 6-Pergaminho
+const valor = 500
+
+
+classe i_itens029
+herda comum_item
+const nome = "Bateria"
+const descnome = "uma bateria"
+const descpos = "Uma bela bateria com pedais de prata está aqui."
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_itens030
+herda comum_item
+const nome = "teclado"
+const descnome = "um teclado yamarra"
+const descpos = "Um belíssimo teclado yamaha foi posto sobre um suporte, encostado a uma das \
+paredes."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 2048 # Tipo de item: 11-Container
+const valor = 1123450
+const vestir1 = "100000" # Aonde vestir: 20-segurando
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_mudadono
+  listaobj l
+  epara l.addfim(dono.dentro2), l, l.ini.remove
+    l.objini.perso && misc:evento(l.objini)
+  efim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  nomeobj c
+  nomeobj i
+  c.ini(txt1(arg1))
+  i.ini(txtsub(arg1, 1, 1))
+  se c.nome("tocar") && i.nome("teclado")
+    txt200 mus
+    mus = txtsub(arg1, 2)
+    $mens.p(arg0)
+    $mens.mtodos1("\d=teclado1 $P desliza os dedos pelas teclas do teclado e começa tocar \
+algumas notas soltas...")
+    se mus
+      $mens.p(arg0)
+      $mens.mens = mus
+      $mens.mtodos1("Enquanto toca uma bela melodia, $P canta: '$m'")
+    fimse
+    ret 1
+  fimse
+
+
+classe i_itens031
+herda comum_item
+const nome = "chupeta"
+const descnome = "uma chupeta"
+const valor = 1500
+const vestir1 = 524288 # Aonde vestir: 19-
+const i_msgvestiu = "$P põe uma chupeta na boca."
+
+
+classe i_itens032
+herda comum_item
+const nome = "pergaminho lançar sono"
+const descnome = "um pergaminho lançar sono"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 4 # Tipo: 4 Pergaminho, recitar
+const f_magia1 = "sono profundo"
+const pesoobj = 1
+const valor = 50000
+
+
+classe i_itens033
+herda comum_item
+
+
+classe i_itens034
+herda comum_itemgrupo
+const nome = "Sorvete"
+const descnome = "Um pote de sorvete de morango"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_fome = 50
+const f_sede = 50
+const f_diges = 120
+const f_msgperso = "$P saboreia um delicioso sorvete de morango, apreciando seu sabor inigualável\
+"
+const tipoitem = 1024 # Tipo de item: 10-Poção
+const valor = 50
+
+
+classe i_itens035
+herda comum_itemgrupo
+const nome = "Sorvete de chocolate"
+const descnome = "Um pote de sorvete de chocolate"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_fome = 50
+const f_sede = 30
+const f_diges = 100
+const f_msgperso = "$P aprecia um delicioso sorvete de chocolate lentamente"
+const tipoitem = 1024 # Tipo de item: 10-Poção
+const valor = 50
+
+
+classe i_itens036
+herda comum_item
+const nome = "uma faca"
+const ident = "faca"
+const descnome = "uma faca"
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "cortar bolo"
+    $mens.p(arg0)
+    $mens.mvis1("$P pega uma faca e corta um pedaço de bolo.")
+    criar("i_comidas006", arg0, 1)
+    refvar m = arg0.dono.dentro1.objini("i_templo066")
+    ret 1
+    criar("i_itens036", m, 1)
+  fimse
+
+
+classe i_itens037
+herda comum_itemgrupo
+const nome = "espada longa"
+const descnome = "uma espada longa"
+const nivel = 10
+const armamax = 120
+const armamin = 70
+const armafalha = 10
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const valor = 1200
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 50
+
+
+classe i_itens038
+herda comum_item
+const nome = "óculos escuros"
+const descnome = "um par de óculos escuros"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 12
+const valor = 1500
+const vestir1 = 64 # Aonde vestir: 6-sobre os olhos
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5
+  pmanamax += 5
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 4
+
+
+classe i_itens039
+herda comum_item
+const nome = "escudo de bronze"
+const descnome = "um escudo de bronze"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 25
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 8 # Tipo de item: 3-Vestimenta
+const valor = 6250
+const vestir1 = 1 # Aonde vestir: 0-como escudo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100
+  pmovemax += 100
+  defnorm += 1 * pnivel + 100
+  defesp += 75
+  precisao += 20
+
+
+classe i_itens040
+herda comum_itemgrupo
+const nome = "sorvete"
+const ident = "pote sorvete chocolate morango"
+const descnome = "Um pote de sorvete de morango com chocolate"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_fome = 60
+const f_sede = 40
+const f_diges = 120
+const f_msgperso = "$P aprecia todo o sorvete do pote com muita satisfação, lambendo os lábios \
+em seguida"
+const tipoitem = 1024 # Tipo de item: 10-Poção
+const valor = 65
+
+
+classe i_itens041
+herda comum_itemperso
+const nome = "chaveiro"
+const ident = "chaveiro imblema flamengo"
+const descnome = "Um chaveiro com um imblema do flamengo"
+const descpos = "Um chaveiro com várias chaves foi jogado aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 5000
+const manterperso = 1 # Mantém em jogador: Sim
+
+
+classe i_itens042
+herda comum_itemperso
+const nome = var.z_nome ? var.z_nome : "chaveiro"
+const ident = var.z_nome ? var.z_nome : "chaveiro estrela brilhante"
+const descnome = var.z_nome ? var.z_nome : "um chaveiro com uma estrela brilhante"
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 1000000000
+const vestir1 = 1050624 # Aonde vestir: 11-nas costas, 20-segurando
+
+func msexo
+  ret txt1(descnome) == "um" || txt1(descnome) == "o", 1
+  ret 0
+
+
+classe i_itens043
+herda comum_itemgrupo
+const nome = "rádio portátil"
+const ident = "rádio portátil"
+const descnome = "um rádio portátil"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 10000
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "ligar rádio"
+    ret var.z_ligado_, arg0.msg("O rádio já está ligado.")
+    var.z_ligado_ = 1
+    se dono.jog
+      $mens.p(arg0, nulo, este)
+      $mens.msgsomvis("$P liga o rádio.", "loja2", arg0)
+    senao
+      $mens.p(arg0, nulo, este)
+      $mens.mtodos1("$P aperta o botão on e liga $o.")
+    fimse
+  senao arg1 == "desligar rádio"
+    ret !var.z_ligado_, arg0.msg("O rádio já está desligado.")
+    var.z_ligado_ = 0
+    se dono.jog
+      arg0.msg("Você aperta o botão off e desliga o rádio.")
+    senao
+      $mens.p(arg0, nulo, este)
+      $mens.mtodos1("$P aperta o botão off e desliga o rádio.")
+    fimse
+    ret 1
+  fimse
+
+
+classe i_itens044
+herda comum_itemperso
+const nome = "baú"
+const ident = "baú doações"
+const descnome = "um baú de doações"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "É muito pesado para você pegar, e você não é o super homem!"
+const i_salapegar = $s_rio023
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const i_msgabriu = "$P abriu a tampa do baú."
+const i_msgfechou = "$P fechou a tampa do baú."
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_itens045
+herda comum_itemperso
+const nome = "pacote de folhas"
+const descnome = "um pacote de folhas"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 50000
+const evperso = 1 # Eventos dono perso: Sim
+sav uint16 folhas
+#
+
+func cmd_ini
+  criar("i_carta", este, 100)
+
+
+classe i_itens046
+herda comum_itemgrupo
+const nome = "relógio de pulso"
+const ident = "relógio pulso ouro"
+const descnome = "um relógio de pulso com bracelete de prata"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 105
+const mantersala = 1 # Mantém na sala: Sim
+const vestir1 = 196608 # Aonde vestir: 16-no pulso direito, 17-no pulso esquerdo
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos item: Sim
+#
+
+func descver
+  txt100 lin
+  refvar hora = (misc:hora + 11) % 12 + 1 # Hora MUD de 1 a 12
+  lin = "Está marcando:\n"
+  lin += txt(hora) + (hora == 1 ? " hora e " : " horas e ") + misc:min
+  lin += misc:min == 1 ? " minuto.\n" : " minutos.\n"
+  ret lin
+#
+
+func cmd_hora
+  refvar hora = (arg0 + 11) % 12 + 1 # Hora MUD de 1 a 12
+  se hora == 1
+    dono.msg(descnome + " solta 1 bip.")
+  senao hora == 2
+    dono.msg(" O relógio de pulso dá 2 bips.")
+  senao
+    dono.msg("O relógio de pulso dá " + hora + " bips.")
+  fimse
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 300
+  pmanamax += 200
+  pmovemax += 200
+  pveloc1 += 100
+  precisao += 50
+
+
+classe i_itens047
+herda comum_itemgrupo
+const nome = "cartão de crédito"
+const descnome = "um cartão de crédito"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const valor = 50000000
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_escr
+  se arg1 == "ver limite"
+    se !arg0.var.z_limite_
+      arg0.msg("Você não possui limite no cartão de crédito.")
+    senao
+      arg0.msg("Você possui: $" + arg0.var.z_limite_ + " de limite no cartão de crédito.")
+    fimse
+    ret 1
+  fimse
+
+
+classe i_itens048
+herda comum_itemgrupo
+const nome = "fone de ouvido"
+const ident = "fone ouvido"
+const descnome = "um fone de ouvido"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 2000
+const vestir1 = 384 # Aonde vestir: 7-na orelha direita, 8-na orelha esquerda
+
+
+classe i_itens049
+herda comum_itemgrupo
+const nome = "microfone"
+const descnome = "um microfone"
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 2500
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+const eveste = 1 # Eventos item: sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_escr
+  se txt1(arg1) == "f" && este.var.z_ligado_
+    $mens.p(arg0)
+    se txtfim(txt2(arg1), 1) == "!"
+      $mens.mareatodos1("$P exclama para todos: " + txt2(arg1))
+      ret 1
+    senao txtfim(txt2(arg1), 3) == "..."
+      $mens.mareatodos1("$P pondera para todos: " + txt2(arg1))
+      ret 1
+    senao txtfim(txt2(arg1), 1) == "?"
+      $mens.mareatodos1("$P pergunta para todos: " + txt2(arg1))
+      ret 1
+    senao
+      $mens.mareatodos1("$P fala para todos: " + txt2(arg1))
+      ret 1
+    fimse
+  senao arg1 == "ligar micro"
+    ret var.z_ligado_, arg0.msg("O microfone já está ligado.")
+    var.z_ligado_ = 1
+    arg0.msg("Você ligou o microfone.")
+    ret 1
+  senao arg1 == "desligar micro"
+    ret !var.z_ligado_, arg0.msg("Já está desligado.")
+    var.z_ligado_ = 0
+    arg0.msg("Você desligou o microfone.")
+    ret 1
+  fimse
+#
+
+
+classe i_itens050
+herda comum_itemgrupo
+const nome = "patins"
+const descnome = "um par de patins"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 5000
+const vestir1 = 134217728 # Aonde vestir: 27-nos pés
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_mover
+  se vestpos
+    ret arg0.dono.porta_[arg2] >= 2, arg0.msg("Está fechado.")
+    se arg5
+      ret !arg4, arg0.msg("Não é possível entrar em " + arg5.descnome + ".")
+      $mens.p(arg0, nulo, arg5)
+      $mens.mtodos2("$P patina para dentro $d $o.", "$P patinou para dentro $d $o.")
+      arg0.mudadono(arg4)
+      $mens.p(arg0)
+      $mens.mtodos2("", "$P patinou de fora.")
+      ret 1
+    fimse
+    txt100 lin2
+    txt100 lin
+    txt30 dir
+    txt30 dir2
+    arg2 == "sair" && (dir = "fora")
+    arg2 == "entrar" && (dir = "dentro")
+    arg2 == "b" && (dir = "baixo")
+    arg2 == "c" && (dir = "cima")
+    arg2 == "so" && (dir = "sudoeste")
+    arg2 == "se" && (dir = "sudeste")
+    arg2 == "no" && (dir = "noroeste")
+    arg2 == "ne" && (dir = "nordeste")
+    arg2 == "o" && (dir = "oeste")
+    arg2 == "l" && (dir = "leste")
+    arg2 == "s" && (dir = "sul")
+    arg2 == "o" && (dir2 = "do leste")
+    arg2 == "l" && (dir2 = "do oeste")
+    arg2 == "s" && (dir2 = "do norte")
+    arg2 == "n" && (dir2 = "do sul")
+    arg2 == "sair" && (dir2 = "de dentro")
+    arg2 == "entrar" && (dir2 = "de fora")
+    arg2 == "so" && (dir2 = "do nordeste")
+    arg2 == "se" && (dir2 = "do noroeste")
+    arg2 == "no" && (dir2 = "do sudeste")
+    arg2 == "ne" && (dir2 = "do sudoeste")
+    arg2 == "b" && (dir2 = "de cima")
+    arg2 == "c" && (dir2 = "de baixo")
+    arg2 == "n" && (dir = "norte")
+    se !arg0.var.h_patinar
+      arg0.msg("Você não sabe patinar.")
+      $mens.p(arg0)
+      $mens.mvis1("$P tenta patinar para " + dir + ", mas acaba levando um baita tombo por não \
+saber fazer isso.")
+      arg0.posicao = 6
+      ret 1
+    fimse
+    se rand(9 - arg0.var.h_patinar) == 0
+      lin = arg0.descnome + " patinou para " + dir + "."
+      lin2 = "$P patinou " + dir2 + "."
+      arg0.msg("Você patina para " + dir + ".")
+      arg0.mudadono(arg0.dono.dir_[arg2])
+      arg0.donoantes.msg(lin)
+      $mens.p(arg0)
+      $mens.mvis2("", lin2)
+      ret 1
+    senao
+      $mens.p(arg0)
+      $mens.mvis1("$P tenta patinar para " + dir + ", mas por azar acaba levando um baita \
+tombo!")
+      arg0.posicao = 6
+      ret 1
+    fimse
+  fimse
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100
+  pmovemax += 2 * pnivel + 100
+  pveloc1 += 50
+  evasao += 1 * pnivel + 20
+
+
+classe i_itens051
+herda comum_itemperso
+const nome = "sanduicheira"
+const descnome = "uma sanduicheira"
+const i_itens = "comidas021\ncomidas022\ncomidas023"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const objmax = 1
+const valor = 25000
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "preparar sanduiche" || arg1 == "preparar sanduixe"
+    ret !dentro1, arg0.msg("A sanduicheira está vazia.")
+    misc:tempo("sanduiche", arg0)
+    ret 1
+  fimse
+#
+
+func cmd_fechouobj
+  se arg1 == este
+  fimse
+#
+
+func sanduiche10
+  $mens.p(arg0)
+  $mens.mvis1("$P liga a sanduicheira e o sanduiche começa a ser preparado...")
+
+func sanduiche120
+  se dentro1.objini("i_comidas021")
+    refvar i = criar("i_comidas024", este, 1)
+    apagar(dentro1.objini("i_comidas021"))
+    $mens.p(arg0, nulo, i)
+    $mens.mtodos1("Após um tempo, a sanduicheira é desligada e $o está pronto.")
+  senao dentro1.objini("i_comidas022")
+    refvar i = criar("i_comidas025", este, 1)
+    apagar(dentro1.objini("i_comidas022"))
+    $mens.p(arg0, nulo, i)
+    $mens.mtodos1("Após um tempo, a sanduicheira é desligada e $o está pronto.")
+  senao dentro1.objini("i_comidas023")
+    refvar i = criar("i_comidas026", este, 1)
+    apagar(dentro1.objini("i_comidas023"))
+    $mens.p(arg0, nulo, i)
+    $mens.mtodos1("Após um tempo, a sanduicheira é desligada e $o está pronto.")
+  fimse
+
+
+classe i_itens052
+herda comum_itemperso
+const nome = "lixeira"
+const descnome = "uma lixeira"
+const descpos = "Uma enorme lixeira foi posta em um canto, para receber os itens sem utilidade."
+const i_pegar = "Não pode pegar a lixeira daqui."
+const i_salas = ""
+const i_movel = 3 # Mobília: 3 Sentar confortavelmente
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const i_msgabriu = "$P pisa em um canto da lixeira e ela se abre."
+const i_msgfechou = "$P retira o pé da lixeira e ela se fecha."
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 15000
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_soltouobj
+  se arg1 == este
+    apagar(arg2)
+    var.z_moedas_ = 0
+  fimse
+#
+
+func cmd_descansouobj
+  se arg1 == este
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos1("De repente, $P é puxado para dentro da lixeira!")
+    arg0.mudadono($s_rio012)
+    ret 1
+  fimse
+#
+
+func cmd_sentarobj
+  se arg1 == este
+    $mens.p(arg0, nulo, este)
+    $mens.mvis1("$P descansa $e $o, mas de repente é puxado para dentro dela...")
+    arg0.mudadono(dentro2.objini("s_teste165"))
+    ret 1
+  fimse
+
+
+classe i_itens053
+herda comum_itemgrupo
+const nome = "óculos de infravisão"
+const ident = "especiais óculos infravisão"
+const descnome = "um par de especiais óculos de infravisão"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 100
+const renascer = 1
+const valor = 200000
+const vestir1 = 64 # Aonde vestir: 6-sobre os olhos
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver &= ~32
+  bitver |= 62
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500
+  pmanamax += 500
+  bitver |= 2078
+  atktipo.1 *= 1.05 # Tipos Especiais
+  atktipo.6 *= 1.1 # Fogo
+  atktipo.12 *= 1.1 # Luz
+
+
+classe i_itens054
+herda comum_itemgrupo
+const nome = "sorvete de flocos"
+const descnome = "um pote de sorvete de flocos"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_fome = 50
+const f_sede = 30
+const f_diges = 100
+const f_msgperso = "$p aprecia um delicioso sorvete de flocos lentamente"
+const tipoitem = 1024 # Tipo de item: 10-Poção
+const valor = 50
+
+
+classe i_itens055
+herda comum_itemgrupo
+const nome = "sorvete de pêssego"
+const descnome = "um pote de sorvete de pêssego"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_fome = 50
+const f_sede = 30
+const f_diges = 100
+const f_msgperso = "$p saboreia um cremoso sorvete de pêssego lentamente!"
+const tipoitem = 1024 # Tipo de item: 10-Poção
+const valor = 70
+
+
+classe i_itens056
+herda comum_item
+const nome = "relógio despertador"
+const descnome = "um relógio despertador"
+const descpos = "Um relógio despertador está aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 300
+const valor = 4500
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func descver
+  txt200 t1
+  datahora d
+  d.agora
+  t1 = "Está marcando: "
+  ret t1
+
+
+classe i_itens057
+herda comum_itemperso
+const nome = "cofre"
+const ident = "resistente cofre"
+const descnome = "um resistente cofre"
+const descpos = "um cofre, que parece ser bastante resistente está aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_salapegar = $s_itens001
+const i_salaver = $s_itens001
+const i_abertoini = 4 # Container: 4 Inicialmente trancado
+const i_msgtrancou = "$P fecha o cadeado e tranca $a."
+const i_msgdestrancou = "$P abre o cadeado, destrancando $a."
+const i_tranc = 1 # Trancar: 1 Pode ser trancado
+const i_fechadura = var.z_dono
+const objmax = 2000000000
+const valor = 2500000
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_mudadono
+  se !donoantes && dono.jog
+    var.z_dono = dono.descnome
+  fimse
+
+
+classe i_itens058
+herda comum_item
+const nome = "chave do cofre"
+const descnome = "a chave do cofre"
+const descpos = "uma chave, do tamanho ideal de um cofre está aqui perdida."
+const i_chave = var.z_chave
+const valor = 100
+#
+
+func cmd_mudadono
+  se !donoantes && dono.jog
+    var.z_chave = dono.descnome
+  fimse
+
+
+classe i_itens059
+herda comum_item
+const nome = "câmera fotográfica"
+const ident = "câmera"
+const descnome = "uma câmera fotográfica"
+const valor = 1000000
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 0 # Eventos dono sala: Não
+const i_camera = 1
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se txtsub(arg1, 0, 2) == "tirar foto"
+    ref p
+    ref i
+    refvar alvo = txtsub(arg1, 2, 1)
+    se arg0.dono.dir_[alvo]
+      txt512 lin
+      refvar sala = arg0.dono.dir_[alvo]
+      listaobj l
+      epara l.addfim(sala.dentro2, sala.dentro1), l, l.ini.remove
+        se l.objini.perso
+          l.objini != arg0 && (lin += l.objini.descnome + ",\n")
+        senao l.objini.item
+          l.objini != arg0 && (lin += l.objini.descpos + "\n")
+        fimse
+      efim
+      txt512 lin2
+      listaitem item
+      epara item = arg0.dentro1.fim, item, item.antes
+        refvar i = item.obj
+        continuar !i.visivel(arg0)
+        lin2 = item.obj.descnome + ", "
+      efim
+      txt100 var
+      refvar stitulo = sala.var.z_titulo ? sala.var.z_titulo : sala.s_titulo
+      var = "z_foto=" + stitulo
+      refvar f = criar("i_foto", arg0, 1, var)
+      f.descfoto2(lin, lin2, sala.var.z_desc ? sala.var.z_desc : sala.s_desc)
+      $mens.p(arg0)
+      $mens.mens = cmd_[alvo]:dirsai
+      $mens.mtodos1("\d=camera $P direciona a câmera para $m e...")
+      arg0.dono.msg("Flash!")
+      sala.msg("Flash!")
+      ret 1
+    senao !alvo
+      txt512 lin
+      refvar sala = arg0.dono
+      listaobj l
+      epara l.addfim(sala.dentro2, sala.dentro1), l, l.ini.remove
+        se l.objini.perso
+          l.objini != arg0 && (lin += l.objini.descnome + ",\n")
+        senao l.objini.item
+          l.objini != arg0 && (lin += l.objini.descpos + "\n")
+        fimse
+      efim
+      txt512 lin2
+      listaitem item
+      epara item = arg0.dentro1.fim, item, item.antes
+        refvar i = item.obj
+        continuar !i.visivel(arg0)
+        lin2 = item.obj.descnome + ", "
+      efim
+      txt100 var
+      refvar stitulo = sala.var.z_titulo ? sala.var.z_titulo : sala.s_titulo
+      var = "z_foto=" + stitulo
+      refvar f = criar("i_foto", arg0, 1, var)
+      f.descfoto2(lin, lin2, sala.var.z_desc ? sala.var.z_desc : sala.s_desc)
+      $mens.p(arg0)
+      $mens.mvis1("\d=camera $P procura a melhor posição na sala, direcionando a câmera para \
+todos e...")
+      sala.msg("Flash!")
+      ret 1
+    fimse
+    p = misc:persodono(arg0, alvo)
+    i = misc:itemdono(arg0, alvo)
+    ret arg0 == p, arg0.msg("Você não consegue tirar foto de si mesmo com a câmera.")
+    ret !p && !i, arg0.msg("Você não vê " + alvo + ".")
+    se i
+      $mens.p(arg0, nulo, i)
+      $mens.mvis1("$P aponta sua câmera na direção $d $o e...")
+      arg0.dono.msg("Flash!")
+      refvar f = criar("i_foto", arg0, 1, "z_foto=" + i.descnome)
+      refvar stitulo = arg0.dono.var.z_titulo ? arg0.dono.var.z_titulo : arg0.dono.s_titulo
+      f.descfoto3(i.descver, stitulo)
+      ret 1
+    fimse
+    se p
+      $mens.p(arg0, p, este)
+      refvar m1 = "$P aponta $o na direção $d $a, e..."
+      refvar m2 = "$P aponta $o na sua direção, e..."
+      refvar m3 = "$P aponta $o na direção de $A, e..."
+      $mens.p(arg0, p, este)
+      $mens.mvis1(m1, m2, m3)
+      arg0.dono.msg("\d=camera flash!")
+      txt100 vars
+      vars = "z_foto=" + p.descnome
+      refvar f = criar("i_foto", arg0, 1, vars)
+      txt100 pos
+      refvar lugar = p.poslugar.objlista.descnome
+      se p.posicao == 4
+        pos = (p.msexo ? "ele " : "ela ") + " está dormindo"
+      senao p.posicao == 5
+        pos = (p.msexo ? "ele " : "ela ") + " está descansando"
+      senao p.posicao == "6"
+        pos = (p.msexo ? "ele " : "ela ") + "está sentad" + (p.msexo ? "o" : "a")
+      senao p.posicao == "8"
+        pos = (p.msexo ? "ele " : "ela ") + "está em pé"
+      fimse
+      refvar stitulo = p.dono.var.z_titulo ? p.dono.var.z_titulo : p.dono.s_titulo
+      txt512 usando
+      listaobj i
+      epara i.addfim(p.dentro2), i, i.ini.remove
+        continuar !i.objini.item
+        continuar !i.objini.vestpos
+        usando = misc:equip(i.objini.vestpos)
+      efim
+      arg0.msg(usando)
+      se p.dentro2.objini("e_beijando")
+        refvar acao = p.var.j_beijando
+        f.descfoto(p.var.z_desc, pos, lugar, stitulo, acao)
+      senao p.dentro2.objini("e_bebendo")
+        refvar acao = " bebendo " + p.var.j_bebendo
+        f.descfoto(p.var.z_desc, pos, lugar, stitulo, acao)
+      senao p.dentro2.objini("e_sorrindo")
+        refvar acao = " sorrindo"
+        f.descfoto(p.var.z_desc, pos, lugar, stitulo, acao)
+      senao p.dentro2.objini("e_amamentando")
+        refvar acao = " amamentando"
+        f.descfoto(p.var.z_desc, pos, lugar, stitulo, acao)
+      senao p.dentro2.objini("e_lambendo")
+        refvar acao = p.var.j_lambendo
+        f.descfoto(p.var.z_desc, pos, lugar, stitulo, acao)
+      senao p.dentro2.objini("e_dançando")
+        refvar acao = p.var.j_dançando
+        f.descfoto(p.var.z_desc, pos, lugar, stitulo, acao)
+      senao p.dentro2.objini("e_rolando")
+        refvar acao = " rolando de rir"
+        f.descfoto(p.var.z_desc, pos, lugar, stitulo, acao)
+      senao p.dentro2.objini("e_acariciando")
+        refvar acao = p.var.j_acariciando
+        f.descfoto(p.var.z_desc, pos, lugar, stitulo, acao)
+      senao p.dentro2.objini("e_comendo")
+        refvar acao = " comendo " + p.var.j_comendo
+        f.descfoto(p.var.z_desc, pos, lugar, stitulo, acao)
+      senao p.dentro2.objini("e_caindo")
+        refvar acao = " caindo de bêbad" + (p.msexo ? "o" : "a")
+        f.descfoto(p.var.z_desc, pos, lugar, stitulo, acao)
+      senao p.dentro2.objini("e_abraçando")
+        refvar acao = p.var.j_abraçando
+        f.descfoto(p.var.z_desc, pos, lugar, stitulo, acao)
+      senao p.dentro2.objini("e_estapeando")
+        refvar acao = p.var.j_estapeando
+        f.descfoto(p.var.z_desc, pos, lugar, stitulo, acao)
+      senao
+        f.descfoto(p.var.z_desc, pos, lugar, stitulo, nulo, usando)
+      fimse
+      ret 1
+    fimse
+
+
+classe i_itens060
+herda comum_item
+const nome = "pequeno machado"
+const descnome = "um pequeno machado"
+const descpos = "Um pequeno machado foi jogado aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 60
+const armamax = 220
+const armamin = 80
+const armatipo = 5 # Tipo de arma: 5 Maca e Martelo
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 10000
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se txt1(arg1) == "cortar"
+    se txt2(arg1) == "macieira"
+      refvar m = arg0.dono.dentro1.objini("i_rio011")
+      $mens.p(arg0, nulo, este)
+      $mens.mvis1("$P pega $o e começa a batê-lo várias vezes contra o tronco de uma macieira,  \
+derrubando-a ao chão.")
+      apagar(m)
+    senao txt2(arg1) == "coqueiro"
+      refvar m = arg0.dono.dentro1.objini("i_plantas017")
+      $mens.p(arg0, nulo, este)
+      $mens.mvis1("$P pega $o e começa a batê-lo várias vezes contra o tronco de um coqueiro,  \
+derrubando-o ao chão.")
+      apagar(m)
+    senao txt2(arg1) == " abacateiro"
+      refvar m = arg0.dono.dentro1.objini("i_plantas019")
+      ret !m, arg0.msg("Mas não há nenhum abacateiro plantado aqui.")
+      $mens.p(arg0, nulo, este)
+      $mens.mvis1("$P pega $o e começa a batê-lo várias vezes contra o tronco de um abacateiro,  \
+derrubando-o ao chão.")
+      apagar(m)
+    senao txt2(arg1) == "morangueiro"
+      refvar m = arg0.dono.dentro1.objini("i_plantas028")
+      ret !m, arg0.msg("Mas não há nenhum pé de morangos plantado aqui.")
+      $mens.p(arg0, nulo, este)
+      $mens.mvis1("$P pega $o e começa a batê-lo várias vezes contra o tronco de um morangueiro, \
+ derrubando-o ao chão.")
+      apagar(m)
+    senao txt2(arg1) == "mangueira"
+      refvar m = arg0.dono.dentro1.objini("i_plantas025")
+      $mens.p(arg0, nulo, este)
+      $mens.mvis1("$P pega $o e começa a batê-lo várias vezes contra o tronco de uma mangueira,  \
+derrubando-a ao chão.")
+      apagar(m)
+    senao txt2(arg1) == "laranjeira"
+      refvar m = arg0.dono.dentro1.objini("i_templo069")
+      ret !m, arg0.msg("Mas não há nenhuma laranjeira plantada aqui.")
+      $mens.p(arg0, nulo, este)
+      $mens.mvis1("$P pega $o e começa a batê-lo várias vezes contra o tronco de uma laranjeira, \
+ derrubando-a ao chão.")
+      apagar(m)
+    senao txt2(arg1) == "bananeira"
+      refvar m = arg0.dono.dentro1.objini("i_plantas010")
+      ret !m, arg0.msg("Mas não há nenhuma bananeira plantada aqui.")
+      $mens.p(arg0, nulo, este)
+      $mens.mvis1("$P pega $o e começa a batê-lo várias vezes contra o tronco de uma bananeira,  \
+derrubando-a ao chão.")
+      apagar(m)
+    senao txt2(arg1) == "mamoeiro"
+      refvar m = arg0.dono.dentro1.objini("i_plantas012")
+      $mens.p(arg0, nulo, este)
+      $mens.mvis1("$P pega $o e começa a batê-lo várias vezes contra o tronco de um mamoeiro,  \
+derrubando-a ao chão.")
+      apagar(m)
+    senao txt2(arg1) == "videira"
+      refvar m = arg0.dono.dentro1.objini("i_plantas016")
+      $mens.p(arg0, nulo, este)
+      $mens.mvis1("$P pega $o e começa a batê-lo várias vezes contra o tronco de uma videira,  \
+derrubando-a ao chão.")
+      apagar(m)
+    fimse
+    criar("i_plantas032", arg0.dono, 1)
+    ret 1
+  fimse
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 20
+  pmanamax += 20
+  pveloc1 += 20
+  deftipo.0 *= 0.95 # Tipos Normais
+  deftipo.1 *= 0.95 # Tipos Especiais
+
+
+classe i_itens061
+herda comum_item
+
+
+classe i_itens062
+herda comum_itemperso
+const nome = "porta retrato"
+const descnome = dentro1 ? "um porta retrato com " + dentro1.objini.descnome : "um porta \
+retrato"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 1
+const valor = 500
+const i_msgdentro = "Nele você vê:"
+
+
+classe i_itens063
+herda comum_itemgrupo
+const nome = "chupeta"
+const descnome = "uma chupeta"
+const valor = 500
+const vestir1 = 0 # Aonde vestir:
+const i_msgvestiu = "$P põe $o na boca."
+const i_msgremoveu = "$P tira $o da boca."
+
+
+classe i_itens064
+herda comum_itemperso
+const nome = "máquina de refrigerante"
+const descnome = "uma máquina de refrigerante"
+const i_pegar = "Você não consegue carregar tanto peso."
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_soltarobj
+  se arg1 == este
+    se txt(arg2) != "i_jogos003" && txt(arg2) != "i_jogos004" && txt(arg2) != "i_jogos005"
+      ret arg0.msg("A máquina só aceita fichas.")
+      ret 1
+    fimse
+    ret
+  fimse
+#
+
+func cmd_soltouobj
+  se arg1 == este
+    txt100 lin
+    refvar total = arg2.valor * arg3 / 500
+    $mens.p(arg0)
+    se total == 1
+      $mens.mtodos1("A máquina começa a vibrar, e quando para, uma latinha cai de dentro da \
+máquina.")
+    senao total == 2
+      $mens.mtodos1("A máquina começa a vibrar, e quando para, duas latinhas de refrigerante \
+caem de dentro da máquina.")
+    senao
+      $mens.mtodos1("A máquina começa a vibrar, e quando para, " + total + " latinhas de \
+refrigerante caem de dentro da máquina.")
+    fimse
+    criar("i_rio009", este, total)
+    apagar(arg2)
+  fimse
+
+
+classe i_itens065
+herda comum_itemperso
+const nome = "luminária"
+const descnome = "uma luminária"
+const descpos = "Uma luminária está no teto, iluminando toda a barraca."
+const luzitem = 1 # Tipo de luz: 1 Lanterna (acende/apaga, sem fogo)
+const luzini = -1
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_itens066
+herda comum_item
+const nome = "chave da barraca"
+const descnome = "a chave da barraca"
+const i_chave = var.z_chave
+const valor = 200
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_mudadono
+  se !donoantes && dono.jog
+    var.z_chave = dono.descnome
+  fimse
+
+
+classe i_itens067
+herda comum_item
+const nome = "cartão de crédito"
+const descnome = "um cartão de crédito"
+const descpos = "Um cartão de crédito foi jogado no chão."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const valor = 0
+
+
+classe i_itens068
+herda comum_itemperso
+const nome = dentro1.objini("i_moveis051").nome
+const descnome = dentro1.objini("i_moveis051").descnome
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const objmax = 15
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_soltouobj
+  se arg1 == este && arg1.dentro1.objini("i_moveis051")
+    refvar i = dentro1.objini("i_moveis051")
+    refvar saladentr = i.dentro2.objini("s_moveis003")
+    arg2.mudadono(saladentr)
+  fimse
+
+
+classe i_itens069
+herda comum_item
+const nome = "taça de " + (var.z_conteudo ? var.z_conteudo : "cristal")
+const descnome = "uma taça de " + (var.z_conteudo ? var.z_conteudo : "cristal")
+const descpos = descnome + " foi jogada no chão."
+
+
+classe i_itens070
+herda comum_item
+const nome = "controle"
+const descnome = "o controle do carrinho"
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 200
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const descloja = "um carrinho de controle remoto"
+#
+
+func i_salaver
+  ref i
+  epara i = $i_itens071, i, i = objdepois(i)
+    se var.z_controle == i.var.z_controle && i.dono.s_sala
+      ret i.dono
+    fimse
+  efim
+
+func cmd_escr
+  se txt1(arg1) == "control"
+    refvar dir = txt2(arg1)
+    ref i
+    epara i = $i_itens071, i, i = objdepois(i)
+      se i.var.z_controle == var.z_controle
+        ret !i.dono.dir_[dir], arg0.msg("O carrinho não pode ir por aí.")
+        ret i.dono.porta_[dir] >= 2, arg0.msg("Não dá, a saída para essa direção está fechada ou \
+trancada.")
+        i.var.z_dir = dir
+        se i.persolugar
+          var.z_sentado = i.persolugar.objini.descnome
+          refvar perso = i.persolugar.objini
+          i.mudadono(i.dono.dir_[dir])
+          perso.mudadono(perso.dono.dir_[dir])
+          perso.poslugar = i.persolugar.addfim(perso)
+        senao
+          i.mudadono(i.dono.dir_[dir])
+        fimse
+        ret 1
+      fimse
+    efim
+    $mens.mp("O carrinho não está em nenhum lugar de onde se possa controlar.", arg0)
+    ret 1
+  senao arg1 == "saltar"
+    ref p
+    epara p = $i_itens071, p, p = objdepois(p)
+      se var.z_controle == p.var.z_controle
+        $mens.p(p, dono)
+        se dono.perso
+          p.mudadono(dono.dono)
+          $mens.mtodos1("$P dá uma cambalhota, saltando das mãos de $A.")
+        senao
+          $mens.mtodos1("$P dá uma cambalhota no ar!")
+        fimse
+        ret 1
+      fimse
+    efim
+  senao txt1(arg1) == "mens"
+    ref p
+    epara p = $i_itens071, p, p = objdepois(p)
+      se var.z_controle == p.var.z_controle && p.dono.s_sala
+        $mens.p(p)
+        $mens.mens = txt2(arg1)
+        $mens.mtodos1("$P diz: '$m'")
+        ret 1
+      fimse
+    efim
+    ret 1
+  fimse
+
+
+classe i_itens071
+herda comum_itemperso
+const nome = "carrinho"
+const descnome = "um carrinho de controle remoto"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_movel = 1 # Mobília: 1 Sentar
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 1200000
+const eveste = 1 # Eventos item: Sim
+#
+#
+
+func cmd_mudadono
+  ret dono.jog, nulo
+  ret !donoantes || donoantes.jog, nulo
+  refvar id1 = txtsub($cmd_[var.z_dir].m_sai2, 2, 3)
+  refvar ia1 = txtsub($cmd_[var.z_dir].m_entra2, 2, 3)
+  refvar ia = txttroca(ia1, "$m.", "")
+  refvar id = txttroca(id1, "$m.", "")
+  se persolugar
+    donoantes.msg(persolugar.objini.descnome + " foi " + id + " em " + descnome + ".")
+    dono.msg(persolugar.objini.descnome + " chegou em " + descnome + ", vindo " + ia + ".")
+  senao
+    dono.msg(descnome + " chegou " + ia + ".")
+    donoantes.msg(descnome + " foi " + id + ".")
+  fimse
+#
+
+func controlou
+# arg0 direção
+  refvar dir1 = $cmd_[arg0].dirsai
+  refvar dir2 = $cmd_[arg0].direntra
+  se persolugar
+    $mens.(persolugar.objini, nulo, este)
+    $mens.mens = dir1
+    $mens.mtodos2("", "$P foi $m $e $o.")
+
+
+classe i_itens072
+herda comum_itemperso
+const nome = dono ? "caixa" : "carrinho de controle remoto"
+const descnome = dono ? "a caixa do carrinho" : "um carrinho de controle remoto"
+const msexo = 0 # Sexo Msg: 0 Feminino
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 1250000
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_mudadono
+  se !donoantes && dono.jog
+    var.z_controle = dono.descnome + rand(1000, 9999)
+    criar("i_itens073", este, 1)
+    criar("i_itens070", este, 1, "z_controle=" + var.z_controle)
+    criar("i_itens071", este, 1, "z_controle=" + var.z_controle)
+    ret 1
+  fimse
+
+
+classe i_itens073
+herda comum_item
+const nome = "manual de uso"
+const ident = "manual uso"
+const descnome = "manual de instruções do carrinho"
+const descver = "O produto aqui descrito, o carrinho de controle remoto, vem acompanhado de um \
+controle remoto, claro, além deste próprio manual.\n\
+1. Manuseando o Carrinho\n\
+Para controlar o carrinho pelas salas, digite o comando: 'control', seguido da direção destino. \
+Caso não for possível, ou o carrinho não estiver no chão, uma mensagem indicando que o carrinho \
+não pode se mover será escrita para voc~ê.\n\
+2. Envio de recado Pelo Carrinho\n\
+O carrinho possui uma caixa interna, para pequenos conteúdos,, e que podem ser levados pelo \
+mesmo.\n\
+É possível também mandar uma mensagem pelo carrinho, digitando-se: 'mens', seguido da mensagem. \
+A mensagem será escrita para todos que estiverem na sala onde o carrinho está.\n\
+3. Descobrindo a localização do carrinho\n\
+Para ver onde o carrinho está, basta olhar para o controle."
+
+
+classe i_itens074
+herda comum_itemperso
+const nome = "máquina de xerox"
+const descnome = "uma máquina de xerox"
+const i_itens = "carta\nitens075"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const objmax = 1
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se txtsub(arg1, 0, 2) == "tirar xerox"
+    uint16 q
+    q = txtsub(arg1, 2, 1)
+    !q && q = 1
+    ret txt(intpos(q)) != q, arg0.msg("Digite a quantidade de cópias que deseja tirar, após \
+tirar xerox.")
+    ret q > 30, arg0.msg("A máquina tira no máximo 30 cópias por vez.")
+    refvar item = dentro1.objini("i_carta")
+    ret !item, arg0.msg("Antes, insira o exemplar do qual deseja tirar as cópias.")
+    refvar g = criar("i_itens075", arg0, 1)
+    refvar i = criar("i_xerox", g, q)
+    listaobj l
+    epara l.addfim(g.dentro1), l, l.ini.remove
+      se txt(l.objini) == "i_xerox"
+        l.objini.var.z_titulo = item.var.z_titulo
+        l.objini.var.z_texto = item.var.z_texto
+      fimse
+    efim
+    $mens.p(arg0, este, item)
+    $mens.mtodos2("Ok, cópias $d $o criadas com sucesso.", "$P tira uma xerox.")
+    ret 1
+  fimse
+
+
+classe i_itens075
+herda comum_itemperso
+const nome = "gaveta"
+const descnome = "a gaveta da máquina"
+const i_itens = "carta"
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const objmax = 10
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_soltarobj
+  se arg2 == este && txt1(arg1) != "i_itens074"
+    ret arg0.msg("Coloque a gaveta na máquina de xerox.")
+  fimse
+#
+
+func cabedentro
+  ret 1
+#
+
+func cmd_pegouobj
+  se arg1 == este
+    apagar(este)
+  fimse
+
+
+classe i_itens076
+herda comum_item
+const i_areas_tele = "campo\ncovaleoes\ndragoes\nmidgaard\nrio\ntorvani"
+
+
+classe i_itens077
+herda comum_item
+const nome = "rastreador de barracas"
+const descnome = "um rastreador de barracas"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 0 # Eventos dono sala: Não
+const manterperso = 1 # Mantém em jogador: Sim
+#
+
+func descver
+  ret "um dispositivo oval com uma telinha na parte superior.\nNa parte inferior há um botão de \
+consulta, onde ao ser pressionado, mostra o lugar onde suas barracas estão."
+#
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "consultar"
+  casose "consulta"
+  casose "consult"
+  casose "consul"
+  casose "cunsul"
+  casose "consu"
+  casose "cons"
+    ref b
+    textotxt t
+    epara b = $i_moveis051, b, b = objdepois(b)
+      continuar b.var.z_dono != arg0.descnome
+      t.addfim(b.descnome + " - " + (b.dono.var.z_titulo ? b.dono.var.z_titulo : b.dono.s_titulo)\
+)
+    efim
+#
+    arg0.msg2(t.remove(t.linhas))
+    ret 1
+  casofim
+
+
+classe i_itens078
+herda comum_item
+const nome = "tv"
+const descnome = "uma tv de trinta e duas polegadas"
+const descver = var.z_ligado ? "" : "Liga-se digitando ligar tv, e desliga-se digitando desligar \
+tv.\nPara mudar de canal, digite a letra c, junto com um número de canal, ex:c1. Para ver a \
+lista de canais, digite canais.\n Está desligada."
+const valor = 450000
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func descpos
+  se var.z_ligado_ && var.z_canal
+    refvar stitulo = $s_[var.z_canal].var.z_titulo ? $s_[var.z_canal].var.z_titulo : $s_[var.z_ca\
+nal].s_titulo
+    se txt1(stitulo) == "o" || txt1(stitulo) == "a"
+      ret "Uma tv de trinta e duas polegadas está aqui, mostrando imagens d" + txtmin(stitulo)
+    senao
+      ret "Uma tv de trinta e duas polegadas está aqui, mostrando imagens de " + stitulo
+    fimse
+  senao
+    ret "Uma tv de trinta e duas polegadas está aqui."
+  fimse
+#
+
+func i_salaver
+  ret !var.z_ligado_, nulo
+  ret $s_[var.z_canal]
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  textotxt t
+  textotxt t2
+  ref i
+  epara i = $i_antena, i, i = objdepois(i)
+    se i.dono.s_sala
+      t.addfim(i.dono)
+      t2.addfim(i.dono.var.z_titulo ? i.dono.var.z_titulo : i.dono.s_titulo)
+    fimse
+  efim
+  se arg1 == "canais"
+    arg0.msg2("Lista de canais: " + t2.remove(1000))
+    ret 1
+  senao arg1 == "ligar tv"
+    ret var.z_ligado_, arg0.msg("A tv já está ligada.")
+    $mens.p(arg0, nulo, este)
+    $mens.mvis1som("$P ligou $o.", $s_[var.z_canal].s_som)
+    var.z_ligado_ = 1
+    ret 1
+  senao arg1 == "desligar tv"
+    ret !var.z_ligado_, arg0.msg("A tv já está desligada.")
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos1("\d=off $P desligou $o.")
+    var.z_ligado_ = 0
+    ret 1
+  senao txt1(arg1) == "tv"
+    ret !var.z_ligado, nulo
+    refvar mens1 = txt2(arg1)
+    arg0.msg("Mensagem enviada.")
+    $s_[var.z_canal].msg(arg0.descnome + " falou de uma das televisões: " + mens1)
+    ret 1
+  senao arg1 == "c1"
+    ret !var.z_ligado, arg0.msg("A tv está desligada.")
+    var.z_canal = "rio001"
+    $mens.p(arg0, nulo, este)
+    $mens.mvis1som("$P mudou de canal para o templo do rio.", $s_[var.z_canal].s_som)
+    ret 1
+  senao arg1 == "c2"
+    ret !var.z_ligado, arg0.msg("A tv está desligada.")
+    var.z_canal = "midgaard001"
+    $mens.p(arg0, nulo, este)
+    $mens.mvis1som("$P mudou de canal para o templo de midgaard.", $s_[var.z_canal].s_som)
+    ret 1
+  senao arg1 == "c3"
+    ret !var.z_ligado, arg0.msg("A tv está desligada.")
+    var.z_canal = "torvani001"
+    $mens.p(arg0, nulo, este)
+    $mens.mvis1som("$P mudou de canal para o templo de Torvani.", $s_[var.z_canal].s_som)
+    ret 1
+  senao arg1 == "c4"
+    ret !var.z_ligado, arg0.msg("A tv está desligada.")
+    var.z_canal = "parmilion009"
+    $mens.p(arg0, nulo, este)
+    $mens.mvis1som("$P mudou de canal para o centro de Parmilion.", $s_[var.z_canal].s_som)
+    ret 1
+  senao arg1 == "c5"
+    ret !var.z_ligado, arg0.msg("A tv está desligada.")
+    var.z_canal = "praia001"
+    $mens.p(arg0, nulo, este)
+    $mens.mvis1som("$P mudou de canal para o calçadão da praia.", $s_[var.z_canal].s_som)
+    ret 1
+  fimse
+#
+
+func pegou
+  se arg1.s_sala
+    dono.msg(arg3 + ")" + arg0.descnome + " pegou " + arg2.descnome + " do chão.")
+  senao
+    dono.msg("(" + arg3 + ") " + arg0.descnome + " pegou " + arg2.descnome + " de " + arg1.descno\
+me + ".")
+  fimse
+#
+
+func soltou
+  se arg1.s_sala
+    dono.msg(arg3 + ")" + arg0.descnome + " soltou " + arg2.descnome + " no chão.")
+  senao
+    dono.msg("(" + arg3 + ") " + arg0.descnome + " soltou " + arg2.descnome + " em " + arg1.descn\
+ome + ".")
+  fimse
+#
+
+func socialmsg
+  se dono.perso
+    $mens.p(arg0, arg1)
+    dono.msginv(arg2.perso3 + " (" + arg3 + ")")
+  senao
+    listaobj l
+    epara l.addfim(dono.dentro2), l, l.ini.remove
+      se l.objini.perso
+        $mens.p(arg0, arg1)
+        l.objini.msginv(arg2.perso3 + " (" + arg3 + ")")
+      fimse
+    efim
+  fimse
+#
+
+func socialmsg1
+  se dono.perso
+    $mens.p(arg0)
+    dono.msginv(arg2.sem2 + " (" + arg3 + ")")
+  senao
+    listaobj l
+    epara l.addfim(dono.dentro2), l, l.ini.remove
+      se l.objini.perso
+        $mens.p(arg0, arg1)
+        l.objini.msginv(arg2.sem2 + " (" + arg3 + ")")
+      fimse
+    efim
+  fimse
+#
+
+func deuitem
+  dono.msg("(" + arg3 + ") " + arg0.descnome + " deu " + arg2.descnome + " para " + arg1.descnome\
+ + ".")
+
+
+classe i_itens079
+herda comum_itemperso
+const nome = "capa para teclado"
+const descnome = "a capa do teclado"
+const i_itens = "itens030"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 1
+const valor = 50000
+const vestir1 = "100000" # Aonde vestir: 20-segurando
+const manterperso = 0 # Mantém em jogador: Não
+
+
+classe i_itens080
+herda comum_item
+const nome = "rastreador"
+const descnome = "o rastreador do drone"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 5000
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 0 # Eventos dono sala: Não
+#
+
+func i_salaver
+  ref i
+  epara i = $i_itens081, i, i = objdepois(i)
+    se i.var.z_codigo == var.z_codigo
+      ret i.dono
+    fimse
+  efim
+#
+
+
+classe i_itens081
+herda comum_itemperso
+const nome = "drone"
+const descnome = "um drone"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 2000000
+
+
+classe i_itens082
+herda comum_itemperso
+const nome = "capa para violão"
+const ident = "capa violão"
+const descnome = "uma capa para violão"
+const descpos = "Bem dobrada, solta no chão, há uma capa para violão."
+const i_itens = "itens018"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const i_msgabriu = "$P abre o zíper da capa do violão."
+const i_msgfechou = "$P fecha o zíper da capa do violão."
+const objmax = 1
+const valor = 45000
+const i_som_abre = "abmochila"
+const i_som_fecha = "abmochila"
+
+
+classe i_itens083
+herda comum_item
+const nome = "pandeiro"
+const descnome = "um pandeiro"
+const descpos = "Um pandeiro está jogado no chão."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 18750
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_escr
+  nomeobj c
+  nomeobj i
+  c.ini(txt1(arg1))
+  i.ini(txtsub(arg1, 1, 1))
+  se c.nome("tocar") && i.nome("pandeiro")
+    $mens.p(arg0)
+    $mens.mtodos1("$P começa a bater no pandeiro e chacoalhá-lo, acompanhando o rítmo de um bom \
+samba...")
+    txt200 mus
+    mus = txtsub(arg1, 2)
+    se mus
+      $mens.p(arg0)
+      $mens.mens = mus
+      $mens.mtodos1("Enquanto bate o pandeiro, $P canta: '$m'")
+    fimse
+    ret 1
+  fimse
+
+
+classe i_itens084
+herda comum_itemgrupo
+
+
+classe i_itens085
+herda comum_item
+const nome = "binóculo"
+const descnome = "um binóculo"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const valor = 50000
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func i_salaver
+  se var.z_dir
+    ret dono.perso, dono.dono.dir_[var.z_dir]
+    ret dono.dir_[var.z_dir]
+  fimse
+#
+
+func cmd_escr
+  nomeobj a
+  nomeobj b
+  a.ini(txt1(arg1))
+  b.ini(txtsub(arg1, 1, 1))
+  se a.nome("apontar") && b.nome("binóculo")
+    refvar dir = txtsub(arg1, 2, 1)
+    ret !arg0.dono.dir_[dir], arg0.msg("Não é possível apontar o binóculo para essa direção.")
+    $mens.p(arg0, nulo, este)
+    $mens.mens = cmd_[dir]:dirsai
+    $mens.mvis1("$P aponta $o para $m.")
+    var.z_dir = dir
+    ret 1
+  fimse
+
+
+classe i_itens086
+herda comum_itemperso
+const nome = "mala com rodinhas"
+const ident = "mala rodinhas"
+const descnome = "uma mala com rodinhas"
+const valor = 1250500
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+
+classe i_itens087
+herda comum_item
+
+
+classe i_itens088
+herda comum_itemperso
+const nome = "mesa de som"
+const ident = "mesa som"
+const descnome = "uma mesa de som"
+const i_pegar = "Há um aviso sobre a mesa:\n\
+Essa mesa não pode ser pega por ninguém além de seu dono."
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 1734500
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_mudadono
+  se dono.s_sala
+    listaobj l
+    epara l.addfim(dono.dentro2), l, l.ini.remove
+      l.objini.jog && misc:evento(l.objini)
+    efim
+  fimse
+#
+
+func cmd_escr
+  se txt(arg1, 0, 1) == "&"
+    txt40 som
+    som = txt(arg1, 1)
+    ret !$som_[som], arg0.msg("Esse som não existe.")
+    $mens.p(arg0)
+    $mens.mvis1("$P escolhe um som para tocar na mesa e aperta o botão play.")
+    $mens.p(arg0)
+    $mens.mvis1som("''", som)
+    ret 1
+  fimse
+
+
+classe i_itens089
+herda comum_itemperso
+const nome = "teleporter"
+const ident = "teleporter aparelho"
+const descnome = "Um Teleporter"
+const descpos = "Um pequeno aparelho foi deixado em um canto"
+const descver = "Um aparelho com uma telinha pequena.\nCabe na palma de sua mão.\nNão existem \
+botões. Um tecladinho pode ser visto na tela.\nEm cima, há um pequeno menu.\nDigite 'menu' para \
+obter os nomes das áreas disponíveis até o momento.\nLogo após verificar as áreas, basta digitar \
+o nome de uma delas para se teleportar!\nBom uso!\nNível da bateria: " + pcarga
+const valor = 2000000
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+inttempo carregar
+inttempo cargatel
+#
+
+func cmd_ini
+  cargatel = 12000
+#
+
+func cmd_escr
+  ret arg0.dentro2.objini("e_congelado"), nulo
+  se arg1 == "menu"
+    arg0.msg("Estas são as áreas disponíveis via teleporte.\nmidgaard, o templo de midgaard.\nMid\
+casas, a vila rezidencial de midgaard.\nTorvani, o templo de torvani.\nRio, a cidade do Rio\nAcam\
+pamento, o velho palanque do acampamento.\ninverno, as montanhas de inverno.\nCoca, a praia da \
+coca cola.\nTártaro, O abismo profundo.\nNyx, o reino de nyx.\ngremlins, a cidade destruída dos \
+gremlins.\nElfos, a floresta dos elfos.\nBebês, O reino dos bebês.\nBosque.\nCampo.\ncaverna.\nce\
+mitério\nCova.\ndarkville\nfloresta.\nfornalha.\nGelo.\nMontanha.\nMorro.\nParmilion.\nPraia.\nSu\
+ldan.\nVale.\nViladark.\nVila rio.")
+    ret 1
+  senao arg1 == "interromper carga"
+    ret !var.z_carregando_, arg0.msg("Seu teleporter não está carregando.")
+    var.z_tel_ = 0
+    refvar icarga = var.z_cargaini_ - carregar
+    refvar icarga1 = icarga * 10
+    cargatel = icarga1 + var.z_cargaatual_
+    carregar = 10
+    ret 1
+  senao arg1 == "carregar teleporter"
+    ret arg0.var.z_carregando_, arg0.msg("Seu teleporter já está carregando.")
+    var.z_tel_ = 1
+    $mens.p(arg0)
+    var.z_carregando_ = 1
+    $mens.mtodos2("Você põe seu teleporter para carregar.", "$P põe o teleporter del$v para \
+carregar.")
+    refvar carga1 = 12000 - cargatel
+    refvar carga = carga1 / 10
+    var.z_cargaatual_ = cargatel
+    var.z_cargaini_ = carga
+    carregar = carga
+    ret 1
+  senao arg1 == "midgaard"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_area == "midgaard", arg0.msg("Mas você já está em midgaard...")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos?")
+    ret arg0.posicao == 7, arg0.msg("Não dá, você está lutando pela sua vida.")
+    arg0.msg("Você fixa o olhar na tela, vendo o templo de midgaard.")
+    $mens.p(arg0)
+    $mens.mtodos2("\d=portal01 Teleportando... ", "\d=portal01 $P acaba de se teleportar para o \
+templo de " + arg1 + "")
+    arg0.mudadono($s_midgaard001)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "midcasas"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_area == "adcasas", arg0.msg("Mas você já está na vila rezidencial de \
+midgaard...")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos?")
+    ret arg0.posicao == 7, arg0.msg("Não dá, você está lutando pela sua vida.")
+    arg0.msg("Você fixa o olhar na tela, vendo várias casas de um lado, e um prédio do outro.")
+    $mens.p(arg0)
+    $mens.mtodos2("\d=portal01 Teleportando... ", "\d=portal01 $P acaba de se teleportar para a \
+vila rezidencial de midgaard.")
+    arg0.mudadono($s_adcasas001)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "torvani"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_area == "torvani", arg0.msg("Mas você já está em torvani...")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos?")
+    ret arg0.posicao == 7, arg0.msg("Não dá, você está lutando pela sua vida.")
+    arg0.msg("Você olha para a tela, vendo o pouco movimentado templo de torvani.")
+    $mens.p(arg0)
+    $mens.mtodos2("\d=portal01 teleportando... ", "\d=portal01 $P acaba de se teleportar para o \
+templo de " + arg1 + "")
+    arg0.mudadono($s_torvani001)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "acampamento"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_area == "acampamento", arg0.msg("Mas você já está no acampamento...")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos?")
+    ret arg0.posicao == 7, arg0.msg("Não dá, você está lutando pela sua vida.")
+    arg0.msg("Você olha para a tela e vê um palanque muito antigo.")
+    $mens.p(arg0)
+    $mens.mtodos2("\d=portal01 Teleportando... ", "\d=portal01 $P acaba de se teleportar para o \
+" + arg1 + "")
+    arg0.mudadono($s_acamp113)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "inverno"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_area == "inverno", arg0.msg("Mas você já está nas montanhas de inverno...")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos?")
+    ret arg0.posicao == 7, arg0.msg("Não dá, você está lutando pela sua vida.")
+    arg0.msg("Você visualisa na tela apenas uma estrada.")
+    $mens.p(arg0)
+    $mens.mtodos2("\d=portal01 Teleportando... ", "\d=portal01 $P acaba de se teleportar para as \
+montanhas de inverno!")
+    arg0.mudadono($s_inverno002)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "coca"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_area == "praiacoca", arg0.msg("Mas você já está na praia...")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos?")
+    ret arg0.posicao == 7, arg0.msg("Não dá, você está lutando pela sua vida.")
+    arg0.msg("Você visualisa uma belíssima praia na tela.")
+    $mens.p(arg0)
+    $mens.mtodos2("\d=portal01 Teleportando... ", "\d=portal01 $P acaba de se teleportar para a \
+praia da coca cola!")
+    arg0.mudadono($s_praiacoca001)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "nyx"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_area == "nyx", arg0.msg("Mas você já está nessa área...")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos?")
+    ret arg0.posicao == 7, arg0.msg("Não dá, você está lutando pela sua vida.")
+    arg0.msg("Você visualisa uma cidade com muitos vampiros na tela.")
+    $mens.p(arg0)
+    $mens.mtodos2("\d=portal01 Teleportando... ", "\d=portal01 $P acaba de se teleportar para o \
+reino de " + arg1 + "")
+    arg0.mudadono($s_nyx001)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "gremlins"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_area == "gremlins", arg0.msg("Mas você já está nessa área...")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos?")
+    ret arg0.posicao == 7, arg0.msg("Não dá, você está lutando pela sua vida.")
+    arg0.msg("Você visualisa uma cidade totalmente destruída na tela.")
+    $mens.p(arg0)
+    $mens.mtodos2("\d=portal01 Teleportando... ", "\d=portal01 $P acaba de se teleportar para a \
+cidade destruída dos " + arg1 + "")
+    arg0.mudadono($s_gremlins025)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "gigantes"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_area == "dark", arg0.msg("Mas você já está nessa área...")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos?")
+    ret arg0.posicao == 7, arg0.msg("Não dá, você está lutando pela sua vida.")
+    arg0.msg("Você visualisa uma cidade com muitos gigantes na tela.")
+    $mens.p(arg0)
+    $mens.mtodos2("\d=portal01 Teleportando... ", "\d=portal01 $P acaba de se teleportar para a \
+cidade dos " + arg1 + "")
+    arg0.mudadono($s_dark001)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "elfos"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_area == "elfos", arg0.msg("Mas você já está nessa área...")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos?")
+    ret arg0.posicao == 7, arg0.msg("Não dá, você está lutando pela sua vida.")
+    arg0.msg("Você visualisa uma cidade com vários elfos de vários tipos na tela.")
+    $mens.p(arg0)
+    $mens.mtodos2("\d=portal01 Teleportando... ", "\d=portal01 $P acaba de se teleportar para a \
+floresta dos " + arg1 + "")
+    arg0.mudadono($s_elfos020)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "tártaro"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_area == "tartaro", arg0.msg("Mas você já está no tártaro...")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos?")
+    ret arg0.posicao == 7, arg0.msg("Não dá, você está lutando pela sua vida.")
+    arg0.msg("Você vê uma imagem um pouco incompreenciva, algo como terror, morte, destruição..."\
+)
+    $mens.p(arg0)
+    $mens.mtodos2("\d=portal01 Teleportando... ", "\d=portal01 $P acaba de se teleportar para o \
+" + arg1 + "")
+    arg0.mudadono($s_tartaro020)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "bebês"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_area == "bebes", arg0.msg("Mas você já está no reino dos bebês...")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos?")
+    ret arg0.posicao == 7, arg0.msg("Não dá, você está lutando pela sua vida.")
+    arg0.msg("Você começa a ouvir várias risadas fofas, como se fossem... Pera lá! olhe, são \
+bebês!")
+    $mens.p(arg0)
+    $mens.mtodos2("\d=portal01 Teleportando... ", "\d=portal01 $P acaba de se teleportar para o \
+reino dos " + arg1 + "")
+    arg0.mudadono($s_bebes001)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "rio"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_area == "rio", arg0.msg("Mas você já está no rio...")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos?")
+    ret arg0.posicao == 7, arg0.msg("Não dá, você está lutando pela sua vida.")
+    arg0.msg("Na tela você pode notar várias pessoas, cachorros, e uma grande quantidade de \
+lojas...")
+    $mens.p(arg0)
+    $mens.mtodos2("\d=portal01 Teleportando... ", "\d=portal01 $P acaba de se teleportar para o \
+" + arg1 + "")
+    arg0.mudadono($s_rio001)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "campo"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_area == "campo", arg0.msg("Mas você já está no campo...")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos...")
+    ret arg0.posicao == 7, arg0.msg("Sem chance! Você está lutando pela sua própria vida.")
+    ret arg0.posicao < 7, arg0.msg("Você se sente relaxado demais para fazer isso.")
+    ret arg0.pmana < 50, arg0.msg("Mana insuficiente.")
+    arg0.pmana -= 50
+    $mens.p(arg0)
+    arg0.msg("Você nota um belo campo na tela do teleporter.")
+    $mens.p(arg0)
+    $mens.mtodos2("\d=portal01 teletransportando...", "\d=portal01 $p acaba de se teleportar \
+para o campo.")
+    arg0.mudadono($s_campo001)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $p apareceu aqui.")
+    ret 1
+  fimse
+  se arg1 == "parmilion"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_area == "parmilion", arg0.msg("Mas você já está em parmilion...")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos...")
+    ret arg0.posicao == 7, arg0.msg("Sem chance! Você está lutando pela sua própria vida.")
+    ret arg0.posicao < 7, arg0.msg("Você se sente relaxado demais para fazer isso.")
+    ret arg0.pmana < 50, arg0.msg("Mana insuficiente.")
+    arg0.pmana -= 50
+    $mens.p(arg0)
+    arg0.msg("Você nota uma grande cidade na tela do teleporter.")
+    $mens.p(arg0)
+    $mens.mtodos2("\d=portal01 teletransportando...", "\d=portal01 $p acaba de se teleportar \
+para a cidade de parmilion.")
+    arg0.mudadono($s_parmilion009)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "praia"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_area == "praia", arg0.msg("Mas você já está na praia...")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos...")
+    ret arg0.posicao == 7, arg0.msg("Sem chance! Você está lutando pela sua própria vida.")
+    ret arg0.posicao < 7, arg0.msg("Você se sente relaxado demais para fazer isso.")
+    ret arg0.pmana < 50, arg0.msg("Mana insuficiente.")
+    arg0.pmana -= 50
+    $mens.p(arg0)
+    arg0.msg("Você nota uma linda praia na tela de seu teleporter.")
+    $mens.p(arg0)
+    $mens.mtodos2("\d=portal01 teletransportando...", "\d=portal01 $p acaba de se teleportar \
+para a praia.")
+    arg0.mudadono($s_praia001)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "vila rio"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_area == "vilares", arg0.msg("Mas você já está na vila residencial do \
+rio...")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos...")
+    ret arg0.posicao == 7, arg0.msg("Sem chance! Você está lutando pela sua própria vida.")
+    ret arg0.posicao < 7, arg0.msg("Você se sente relaxado demais para fazer isso.")
+    ret arg0.pmana < 50, arg0.msg("Mana insuficiente.")
+    arg0.pmana -= 50
+    $mens.p(arg0)
+    arg0.msg("Você pode notar na tela de seu teleporter, em tamanho pequeno, várias casas...")
+    $mens.p(arg0)
+    $mens.mtodos2("\d=portal01 teletransportando...", "\d=portal01 $p se teleportou para a vila \
+rezidencial.")
+    arg0.mudadono($s_vilares073)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "vila dark"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_area == "viladark", arg0.msg("Mas você já está na vila residencial de Dark \
+Ville...")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos...")
+    ret arg0.posicao == 7, arg0.msg("Sem chance! Você está lutando pela sua própria vida.")
+    ret arg0.posicao < 7, arg0.msg("Você se sente relaxado demais para fazer isso.")
+    ret arg0.pmana < 50, arg0.msg("Mana insuficiente.")
+    arg0.pmana -= 50
+    $mens.p(arg0)
+    arg0.msg("Você pode notar casas e mais casas, em tamanhos gigantes. Talvez sejam manções...")
+    $mens.p(arg0)
+    $mens.mtodos2("\d=portal01 teletransportando...", "\d=portal01 $p acaba de se teleportar \
+para darkville.")
+    arg0.mudadono($s_viladark001)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "darkville"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_area == "darkville", arg0.msg("Mas você já está em darkville...")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos...")
+    ret arg0.posicao == 7, arg0.msg("Sem chance! Você está lutando pela sua própria vida.")
+    ret arg0.posicao < 7, arg0.msg("Você se sente relaxado demais para fazer isso.")
+    ret arg0.pmana < 50, arg0.msg("Mana insuficiente.")
+    arg0.pmana -= 50
+    $mens.p(arg0)
+    arg0.msg("Você percebe um grande bairro.\nolhando mais atentamente, as casas e prédios \
+parecem bem pequenos, um pouco diferente da imagem de vila dark, talvez por lá ser o início de \
+um condomínio...")
+    $mens.p(arg0)
+    $mens.mtodos2("\d=portal01 Teletransportando...", "\d=portal01 $p acaba de se teleportar \
+para darkville.")
+    arg0.mudadono($s_darkville001)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "fornalha"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_area == "fornalha", arg0.msg("Mas você já está na fornalha...")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos...")
+    ret arg0.posicao == 7, arg0.msg("Sem chance! Você está lutando pela sua própria vida.")
+    ret arg0.posicao < 7, arg0.msg("Você se sente relaxado demais para fazer isso.")
+    ret arg0.pmana < 50, arg0.msg("Mana insuficiente.")
+    arg0.pmana -= 50
+    $mens.p(arg0)
+    arg0.msg("Fogo, fogo, e mais fogo.\nÉ só o que você consegue ver na tela do teleporter.")
+    $mens.p(arg0)
+    $mens.mtodos2("\d=portal01 Teletransportando...", "$p se teleportou para a fornalha.")
+    arg0.mudadono($s_fornalha001)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "suldan"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_area == "suldan", arg0.msg("Mas você já está na suldan...")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos...")
+    ret arg0.posicao == 7, arg0.msg("Sem chance! Você está lutando pela sua própria vida.")
+    ret arg0.posicao < 7, arg0.msg("Você se sente relaxado demais para fazer isso.")
+    ret arg0.pmana < 50, arg0.msg("Mana insuficiente.")
+    arg0.pmana -= 50
+    $mens.p(arg0)
+    arg0.msg("Uma cachoeira...\nUm gramado verde...\nVocê se lembra de já ter ido alguma vez \
+aí...")
+    $mens.p(arg0)
+    $mens.mtodos2("\d=portal01 Teletransportando...", "\d=portal01 $p se teleportou para \
+suldan.")
+    arg0.mudadono($s_suldan014)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "morro"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_area == "morro", arg0.msg("Mas você já está no morro...")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos...")
+    ret arg0.posicao == 7, arg0.msg("Sem chance! Você está lutando pela sua própria vida.")
+    ret arg0.posicao < 7, arg0.msg("Você se sente relaxado demais para fazer isso.")
+    ret arg0.pmana < 50, arg0.msg("Mana insuficiente.")
+    arg0.pmana -= 50
+    $mens.p(arg0)
+    arg0.msg("O que será isso?\nVocê consegue ver manchas de sangue, corpos no chão, e muito, \
+mas muito tiroteio por toda parte.")
+    $mens.p(arg0)
+    $mens.mtodos2("\d=portal01 Teletransportando...", "\d=portal01 $P acaba de se teleportar \
+para o morro.")
+    arg0.mudadono($s_morro001)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "vale"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_area == "vale dos dinossauros", arg0.msg("Mas você já está na vale dos \
+dinossauros...")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos...")
+    ret arg0.posicao == 7, arg0.msg("Sem chance! Você está lutando pela sua própria vida.")
+    ret arg0.posicao < 7, arg0.msg("Você se sente relaxado demais para fazer isso.")
+    ret arg0.pmana < 50, arg0.msg("Mana insuficiente.")
+    arg0.pmana -= 50
+    $mens.p(arg0)
+    arg0.msg("Aparentemente, o que você vê na tela de seu teleporter pode parecer fofo.\nDinossau\
+ros de todos os tipos e tamanho, incluindo fofos bebessauros!\nMas acho que não são tão fofos \
+assim...")
+    $mens.p(arg0)
+    $mens.mtodos2("\d=portal01 Teletransportando...", "\d=portal01 $P acaba de se teleportar \
+para o vale dos dinossauros.")
+    arg0.mudadono($s_dino005)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "floresta"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_area == "floresta", arg0.msg("Mas você já está na floresta...")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos...")
+    ret arg0.posicao == 7, arg0.msg("Sem chance! Você está lutando pela sua própria vida.")
+    ret arg0.posicao < 7, arg0.msg("Você se sente relaxado demais para fazer isso.")
+    ret arg0.pmana < 50, arg0.msg("Mana insuficiente.")
+    arg0.pmana -= 50
+    $mens.p(arg0)
+    arg0.msg("Wow, uma floresta!\nAparentemente, uma linda floresta...")
+    $mens.p(arg0)
+    $mens.mvis2("\d=portal01 Teletransportando...", "\d=portal01 $P Acaba de se teleportar para \
+a floresta.")
+    arg0.mudadono($s_floresta001)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "montanha"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_area == "montanha", arg0.msg("Mas você já está na montanha!")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos...")
+    ret arg0.posicao == 7, arg0.msg("Sem chance! Você está lutando pela sua própria vida.")
+    ret arg0.posicao < 7, arg0.msg("Você se sente relaxado demais para fazer isso.")
+    ret arg0.pmana < 50, arg0.msg("Mana insuficiente.")
+    arg0.pmana -= 50
+    $mens.p(arg0)
+    arg0.msg("Você olha para a tela de seu teleporter, e pode notar uma auta montanha.")
+    $mens.p(arg0)
+    $mens.mvis2("\d=portal01 Teletransportando...", "\d=portal01 $P acaba de se teleportar para \
+a montanha!")
+    arg0.mudadono($s_montanha001)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "bosque"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_area == "bosque", arg0.msg("Mas você já está no bosque...")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos...")
+    ret arg0.posicao == 7, arg0.msg("Sem chance! Você está lutando pela sua própria vida.")
+    ret arg0.posicao < 7, arg0.msg("Você se sente relaxado demais para fazer isso.")
+    ret arg0.pmana < 50, arg0.msg("Mana insuficiente.")
+    arg0.pmana -= 50
+    $mens.p(arg0)
+    arg0.msg("Na tela de seu teleporter, você nota um florido bosque.")
+    $mens.p(arg0)
+    $mens.mtodos2("\d=portal01 Teletransportando...", "\d=portal01 $P acaba de se teleportar \
+para o bosque!")
+    arg0.mudadono($s_bosque001)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "cemitério"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.dono.s_area == "cemiterio", arg0.msg("Mas você já está no cemitério...")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos...")
+    ret arg0.posicao == 7, arg0.msg("Sem chance! Você está lutando pela sua própria vida.")
+    ret arg0.posicao < 7, arg0.msg("Você se sente relaxado demais para fazer isso.")
+    ret arg0.pmana < 50, arg0.msg("Mana insuficiente.")
+    arg0.pmana -= 50
+    $mens.p(arg0)
+    arg0.msg("Que horror!\nVários túmulos e cadáveres por toda parte!")
+    $mens.p(arg0)
+    $mens.mtodos2("\d=portal01 Teletransportando...", "\d=portal01 $P acaba de se teleportar \
+para o cemitério!")
+    arg0.mudadono($s_cemiterio002)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "caverna"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    $mens.p(arg0)
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos...")
+    ret arg0.posicao == 7, arg0.msg("Sem chance! Você está lutando pela sua própria vida.")
+    ret arg0.posicao < 7, arg0.msg("Você se sente relaxado demais para fazer isso.")
+    ret arg0.pmana < 50, arg0.msg("Mana insuficiente.")
+    arg0.pmana -= 50
+    $mens.p(arg0)
+    arg0.msg("Você pode notar na tela, a imagem de uma grande caverna.\nMais ao fundo da imagem, \
+você nota pequenas criaturas.\nElas parecem com...\nDragões!")
+    $mens.p(arg0)
+    $mens.mtodos2("\d=portal01 Teletransportando...", "\d=portal01 $P acaba de se teleportar \
+para a caverna!")
+    arg0.mudadono($s_dragões001)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "cova"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    $mens.p(arg0)
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos...")
+    ret arg0.posicao == 7, arg0.msg("Sem chance! Você está lutando pela sua pr ópria vida.")
+    ret arg0.posicao < 7, arg0.msg("Você se sente relaxado demais para fazer i sso.")
+    arg0.msg("Leões, leões, e mais leões.\nÉ só o que você consegue ver atualmente em seu \
+teleporter.")
+    $mens.p(arg0)
+    $mens.mtodos2("\d=portal01 Teletransportando...", "\d=portal01 $P acaba de se teleportar \
+para a cova!")
+    arg0.mudadono($s_covaleoes001)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+  se arg1 == "gelo"
+    ret var.z_carregando_, arg0.msg("Aguarde, o seu teleporter está carregando...")
+    ret !cargatel, arg0.msg("Seu teleporter está descarregado.")
+    ret arg0.dono.s_retornar == 1, arg0.msg("Impossível teletransportar daqui.")
+    arg0.msg("Area em construção!")
+    ret 1
+    $mens.p(arg0)
+    ret arg0.dono.$s_área == "fim", arg0.msg("Você está morto!!!")
+    ret arg0.posicao == 4, arg0.msg("Nos seus sonhos...")
+    ret arg0.posicao == 7, arg0.msg("Sem chance. Você está lutando pela sua própria vida!")
+    ret arg0.posical < 7, arg0.msg("Você se sente relaxado de mais para fazer isso.")
+    arg0.msg("Você nota a imagem de uma caverna.\nMas essa caverna é totalmente coberta por \
+gelo.")
+    $mens.p(arg0)
+    $mens.mvis2("\d=portal01 Teletransportando", "\d=portal01 $P acaba de se teleportar para a \
+caverna de gelo!")
+    arg0.mudadono($s_gelo001)
+    $mens.p(arg0)
+    $mens.mtodos2("", "\d=portal01 $P aparece aqui.")
+    ret 1
+  fimse
+#
+
+func carregar_exec
+  se var.z_tel_
+    dono.msg("Seu teleporter está agora completamente carregado.")
+    cargatel = 12000
+  senao !var.z_tel_
+    var.z_carregando_ = 0
+    dono.msg("Carga interrompida.")
+    dono.msg("Nível de bateria: " + pcarga)
+  fimse
+  var.z_carregando_ = 0
+
+func cargatel_exec
+  dono.msg("Seu teleporter descarregou! Conecte-o a uma tomada para voltar a usá-lo.")
+#
+
+func pcarga
+  ret var.z_carregando_, "carregando..."
+  uint32 tcarga
+  tcarga = cargatel / 12000 * 100
+  ret tcarga + " por cento."
+
+
+classe i_itens090
+herda comum_itemperso
+const nome = "correntes"
+const ident = "correntes prata par"
+const descnome = "um par de correntes de prata"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const i_tranc = 1 # Trancar: 1 Pode ser trancado
+const i_fechadura = "corrente"
+const vestir1 = 262144 # Aonde vestir: 18-nas mãos
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_escr
+  se txt1(arg1) == "prender"
+    refvar alvo = txt2(arg1)
+    refvar p = misc:persooutro(arg0, alvo)
+    ret !p, arg0.msg("Você não vê " + alvo + ".")
+    $mens.p(arg0, p, este)
+    $mens.mtodos1("$P prende $A com $o.")
+    refvar r = mudadono(p)
+    r.vestir(19)
+    ret 1
+  fimse
+#
+
+const i_msgvestiu = "$P prende $o aos pulsos."
+
+
+classe i_itens091
+herda comum_item
+const nome = "chave das correntes"
+const descnome = "a chave das correntes"
+const i_chave = "corrente"
+
+
+classe i_itens100
+herda comum_itemperso
+const nome = "máquina de escrever"
+const descnome = "uma máquina de escrever"
+const descver = "Esta é uma máquina de escrever, semelhante as máquinas datilográficas. Para\n\
+escrever, coloque uma folha nela e digite etext: Será aberto o editor do\n\
+jogo, semelhante ao editor de descrições, como o pdesc e o sdesc. Após\n\
+salvar o texto, basta pegar a folha e ler seu conteúdo, digitando ler e o\n\
+título da folha."
+const i_itens = "carta"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 1
+const valor = 919550

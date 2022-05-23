@@ -1,0 +1,43 @@
+classe cmd_armar
+herda comando_comum
+#
+const posic = 8
+#
+
+func escr
+  ret txt(arg0.dono, 0, 8) == "s_moveis", arg0.msg("Não pode armar uma barraca dentro de \
+outra.")
+  ret arg0.dono == $s_rio001, arg0.msg("Aqui é um lugar sagrado.")
+  ret arg0.dono.s_area == "hogwarts", arg0.msg("Você não pode armar barracas aqui.")
+  se !arg1
+    arg0.msg("Armar o quê?")
+  senao
+    ref item
+    item = misc:itemtudo(arg0, arg1)
+    ret !item, arg0.msg("Você não vê " + arg1)
+    se txt(item) != "i_moveis051" && txt(item) != "i_itens068"
+      ret arg0.msg("Não é possível armar " + item.descnome + ".")
+    fimse
+    se txt(item) == "i_itens068"
+      refvar barraca = item.dentro1.objini("i_moveis051").mudadono(arg0.dono)
+      apagar(item)
+      $mens.p(arg0, nulo, barraca)
+      $mens.mtodos1("$P arma $o.")
+      ret 1
+    fimse
+    ret item.dentro2.objini("s_moveis003"), arg0.msg(item.descnome + " já está armad" + (item.mse\
+xo ? "o." : "a."))
+    se !item.dentro2.objini("s_moveis003")
+      criar("s_moveis003", item)
+    fimse
+    refvar sala = item.dentro2.objini("s_moveis003")
+    listaobj l
+    se item.dentro1
+      epara l.addfim(item.dentro1), l, l.ini.remove
+        l.objini.item && !l.objini.mudadono(sala, 10000)
+      efim
+    fimse
+    $mens.p(arg0, nulo, item)
+    $mens.mtodos1("$P arma $o.")
+    item.mudadono(arg0.dono)
+  fimse

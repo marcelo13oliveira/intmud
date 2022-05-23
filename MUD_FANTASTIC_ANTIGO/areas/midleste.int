@@ -1,0 +1,226 @@
+classe a_midleste
+herda area
+const a_nome = "Uma estrada para o leste"
+const a_autor = "Equipe Killer Mud"
+const a_tempo = 10
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_midleste
+herda sala
+const s_item = 0
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_pnj = 6
+const s_recup = 2
+const s_reserva = 1 # Comando reserva: Sim
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const s_area = "midleste"
+
+
+classe p_midleste001
+herda comum_persobat
+
+
+classe p_midleste002
+herda comum_persobat
+
+
+classe p_midleste003
+herda comum_persobat
+
+
+classe s_midleste001
+herda b_midleste
+const s_titulo = "Uma estrada para o leste"
+const s_desc = "A oeste avista-se o portão de midgaard.\n\
+A leste o caminho estende-se cercado por um gramado verde.\n\
+O caminho de terra segue de leste a oeste."
+const dir_l = $s_midleste002
+const dir_o = $s_midgaard083
+
+
+classe s_midleste002
+herda b_midleste
+const s_titulo = "Uma estrada para o leste"
+const s_desc = "A leste, ao longe, avista-se uma curva pelo caminho.\n\
+A oeste avista-se ao longe o que parece ser a cidade de midgaard.\n\
+Ao redor do caminho um gramado verde estende-se por todo o campo de midgaard.\n\
+O caminho de terra segue de leste a oeste."
+const dir_l = $s_midleste003
+const dir_o = $s_midleste001
+
+
+classe s_midleste003
+herda b_midleste
+const s_titulo = "Uma estrada para o leste"
+const s_desc = "O caminho aqui faz uma curva, algumas árvores fazem-se presente neste local.\n\
+Aqui a grama verde se estende pelo caminho.\n\
+A sul o caminho parece levar ao que seria um monte, com várias árvores."
+const dir_l = $s_midleste011
+const dir_o = $s_midleste002
+
+
+classe s_midleste004
+herda b_midleste
+const s_titulo = "Uma subida íngreme por entre árvores"
+const s_desc = "Nota-se muitas folhas espalhadas pelo chão, assim como uma grama verde.\n\
+Algumas pedras se fazem presentes aos arredores do caminho.\n\
+O caminho de terra segue de norte a sul."
+const dir_n = $s_midoeste020
+const dir_s = $s_midleste005
+
+
+classe s_midleste005
+herda b_midleste
+const s_titulo = "Uma subida íngreme por entre árvores"
+const s_desc = ""
+const dir_n = $s_midleste004
+const dir_ne = $s_midleste006
+
+
+classe s_midleste006
+herda b_midleste
+const s_titulo = "Um buraco entre as árvores"
+const s_desc = ""
+const dir_so = $s_midleste005
+const dir_s = $s_midleste007
+
+
+classe s_midleste007
+herda b_midleste
+const s_titulo = "Uma subida íngreme por entre árvores"
+const s_desc = ""
+const dir_n = $s_midleste006
+const dir_so = $s_midleste008
+
+
+classe s_midleste008
+herda b_midleste
+const s_titulo = "Uma subida íngreme por entre árvores"
+const s_desc = ""
+const dir_ne = $s_midleste007
+const dir_s = $s_midleste009
+
+
+classe s_midleste009
+herda b_midleste
+const s_titulo = "Um amplo jardim"
+const s_desc = ""
+const dir_n = $s_midleste008
+const dir_l = $s_midleste010
+
+
+classe s_midleste010
+herda b_midleste
+const s_titulo = "Um amplo jardim"
+const s_desc = ""
+const dir_l = $s_admansao001
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_midleste009
+const a_reset = "P 100 mansao001 30 35 1\n\
+E 100 mansao071 0 16\n\
+E 100 mansao069 0 13\n\
+E 100 mansao070 0 26"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_mansao001:objsolto.total < 1
+    p = u = criar("p_mansao001", este, rand(30, 35))
+  fimse
+  se u
+    r = criar("i_mansao071", u, 0), r.vestir(16), u.recalc = 1
+  fimse
+  se u
+    r = criar("i_mansao069", u, 0), r.vestir(13), u.recalc = 1
+  fimse
+  se u
+    r = criar("i_mansao070", u, 0), r.vestir(26), u.recalc = 1
+  fimse
+
+
+classe s_midleste011
+herda b_midleste
+const s_titulo = "uma estrada de terra"
+const dir_l = $s_midleste012
+const dir_o = $s_midleste003
+
+
+classe s_midleste012
+herda b_midleste
+const s_titulo = "continuando pela estrada de terra"
+const dir_l = $s_midleste013
+const dir_o = $s_midleste011
+
+
+classe s_midleste013
+herda b_midleste
+const s_titulo = "ainda na estrada de terra"
+const dir_l = $s_midleste014
+const dir_o = $s_midleste012
+
+
+classe s_midleste014
+herda b_midleste
+const s_titulo = "uma estrada cheia de Matos"
+const dir_n = $s_caverna001
+const dir_s = $s_midleste015
+const dir_l = $s_midleste021
+const dir_o = $s_midleste013
+const dir_b = $s_kazordoon001
+
+
+classe s_midleste015
+herda b_midleste
+const s_titulo = "uma pequena estrada de barro"
+const dir_n = $s_midleste014
+const dir_l = $s_midleste016
+
+
+classe s_midleste016
+herda b_midleste
+const s_titulo = "ainda na pequena estrada de barro"
+const dir_s = $s_midleste017
+const dir_o = $s_midleste015
+
+
+classe s_midleste017
+herda b_midleste
+const s_titulo = "Continuando na estrada de barro"
+const dir_n = $s_midleste016
+const dir_s = $s_midleste018
+
+
+classe s_midleste018
+herda b_midleste
+const s_titulo = "na estrada de barro"
+const dir_n = $s_midleste017
+const dir_o = $s_midleste019
+
+
+classe s_midleste019
+herda b_midleste
+const s_titulo = "ainda na pequena estrada de terra"
+const dir_l = $s_midleste018
+const dir_o = $s_armedrin001
+
+
+classe s_midleste020
+herda b_midleste
+const dir_l = $s_midleste019
+
+
+classe s_midleste021
+herda b_midleste
+const s_titulo = "Uma estrada de terra"
+const dir_l = $s_midleste022
+const dir_o = $s_midleste014
+
+
+classe s_midleste022
+herda b_midleste
+const s_titulo = "Ainda na estrada de terra"
+const dir_s = $s_celestial001
+const dir_o = $s_midleste021

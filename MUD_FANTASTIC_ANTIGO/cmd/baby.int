@@ -1,0 +1,27 @@
+classe cmd_baby
+herda comando_comum
+#
+const posic = 5
+const txtajuda = "\b\c6BABY\b\n\
+Sintaxe: baby <nome do bebê> <comando>\n\
+Faz o bebê executar o comando digitado após o nome do bebê."
+#
+
+func escr
+  se !arg1
+    arg0.msg("Digite 'baby' seguido do nome do bebê e o comando.")
+  senao arg1
+    ref b
+    refvar perso = txt1(arg1)
+    se txt(intpos(perso)) == perso
+      b = misc:persoinfo(arg0, perso)
+    senao
+      b = misc:persooutro(arg0, perso)
+    fimse
+    ret !b, arg0.msg("Você não vê " + perso)
+    ret b.jog, arg0.msg(b.descnome + " é jogador.")
+    ret txt(b) != "p_templo012", arg0.msg(b.descnome + "Não é bebê.")
+    se arg0.descnome == b.var.z_pai || arg0.descnome == b.var.z_mae
+      b.teclou(txt2(arg1))
+    fimse
+  fimse

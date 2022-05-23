@@ -1,0 +1,573 @@
+classe a_santuario
+herda area
+const a_nome = "O SANTUÁRIO SAGRADO DE ATENA"
+const a_tempo = 15
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_santuario
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_area = "santuario"
+
+
+classe i_santuario001
+herda comum_item
+const nome = "elmo de ouro"
+const ident = "elmo ouro chifres touro"
+const descnome = "o elmo de ouro com grandes chifres de touro"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 800
+const renascer = 120
+const vestir1 = 16388 # Aonde vestir: 2-Na cabeça, 14-nos braços
+
+
+classe i_santuario002
+herda comum_item
+const nome = "elmo de ouro de touro"
+const descnome = "o elmo com grandes chifres do cavaleiro de touro"
+
+
+classe p_santuario001
+herda comum_persobat
+const nome = "cavaleiro de áries"
+const descnome = "O cavaleiro de áries"
+const descpadr = "Pronto a defender sua casa e impedir a sua passagem, o cavaleiro de áries está \
+aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 120000
+const p_morreu1 = "Derrotado, $P cai ao chão e pronuncia com dificuldade suas últimas palavras: \
+'Eu falhei. Você me venceu, agora pode prosseguir...'"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10000 * pnivel + 100000000
+  pmanamax += 100000 * pnivel + 1000000
+  pmovemax += 10000 * pnivel + 1000000
+  pveloc1 += 50000
+  atknorm += 10000 * pnivel + 15000000
+  defnorm += 500000000
+  atkesp += 33000000
+  defesp += 500000000
+  evasao += 655535
+  precisao += 65535
+
+const m_atribs1 = "Emanando um poderoso cosmo"
+
+
+classe p_santuario002
+herda comum_persobat
+const nome = "cavaleiro de touro"
+const ident = "cavaleiro ouro touro"
+const descnome = "o cavaleiro de touro"
+const descpadr = "Forte e imponente, o cavaleiro de touro surge diante de você, pronto para \
+impedir a sua passagem."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 1000
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 120000
+const p_morreu1 = "Derrotado, $P cai ao chão e pronuncia com dificuldade suas últimas palavras: \
+'Eu falhei. Você me venceu, agora pode prosseguir...'"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10000 * pnivel + 100000000
+  pmanamax += 100000 * pnivel + 1000000
+  pmovemax += 10000 * pnivel + 1000000
+  pveloc1 += 50000
+  atknorm += 10000 * pnivel + 15000000
+  defnorm += 500000000
+  atkesp += 33000000
+  defesp += 500000000
+  evasao += 655535
+  precisao += 65535
+
+const m_atribs1 = "Emanando um poderoso cosmo"
+
+
+classe p_santuario003
+herda comum_persobat
+const nome = "cavaleiro de gêmeos"
+const descnome = "o cavaleiro de gêmeos"
+
+
+classe p_santuario004
+herda comum_persobat
+const nome = "máscara da morte"
+const ident = "máscara morte câncer cavaleiro ouro"
+const descnome = "Máscara da morte de Câncer"
+const msexo = 1 # Sexo Msg: 1 Masculino
+
+
+classe p_santuario005
+herda comum_persobat
+const nome = "cavaleiro de leão"
+const descnome = "o cavaleiro de leão"
+
+
+classe p_santuario006
+herda comum_persobat
+
+
+classe p_santuario007
+herda comum_persobat
+
+
+classe p_santuario008
+herda comum_persobat
+
+
+classe p_santuario009
+herda comum_persobat
+
+
+classe p_santuario010
+herda comum_persobat
+
+
+classe p_santuario011
+herda comum_persobat
+const nome = "Camus de Aquário"
+const ident = "camus cavaleiro ouro aquário"
+const descnome = "Camus de Aquário"
+const msexo = 1 # Sexo Msg: 1 Masculino
+
+
+classe p_santuario012
+herda comum_persobat
+
+
+classe s_santuario001
+herda b_santuario
+const s_titulo = "a entrada do santuário da grécia"
+const dir_n = $s_santuário002
+
+
+classe s_santuario002
+herda b_santuario
+const s_titulo = "o início do caminho das 12 casas"
+const dir_n = $s_santuário003
+const dir_s = $s_santuario001
+
+
+classe s_santuario003
+herda b_santuario
+const s_titulo = "a caminho da casa de hares"
+const dir_n = $s_santuário004
+const dir_s = $s_santuario002
+
+
+classe s_santuario004
+herda b_santuario
+const s_titulo = "a caminho da casa de hares"
+const dir_s = $s_santuario003
+const dir_c = $s_santuario047
+
+
+classe s_santuario005
+herda b_santuario
+const s_titulo = "DENTRO DA CASA DE ÁRIES."
+const dir_n = $s_santuário006
+const dir_b = $s_santuario047
+const a_reset = "P 100 santuario001 1000 1500 1\nE 87 santuario001 1 15"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_santuario001:objsolto.total < 1
+    p = u = criar("p_santuario001", este, rand(1000, 1500))
+  fimse
+  se u && rand(100) < 87
+    r = criar("i_santuario001", u, 1), r.vestir(15), u.recalc = 1
+  fimse
+
+
+classe s_santuario006
+herda b_santuario
+const s_titulo = "Saindo da casa de áries."
+const dir_n = $s_santuário007
+const dir_s = $s_santuario005
+
+
+classe s_santuario007
+herda b_santuario
+const s_titulo = "A caminho da casa de touro."
+const dir_n = $s_santuario048
+const dir_s = $s_santuario006
+
+
+classe s_santuario008
+herda b_santuario
+const s_titulo = "dentro da casa de touro"
+const dir_sair = $s_santuario009
+const a_reset = "P 100 santuario002 1000 1500 1\nE 87 santuario002 1 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_santuario002:objsolto.total < 1
+    p = u = criar("p_santuario002", este, rand(1000, 1500))
+  fimse
+  se u && rand(100) < 87
+    r = criar("i_santuario002", u, 1), r.vestir(3), u.recalc = 1
+  fimse
+
+
+classe s_santuario009
+herda b_santuario
+const s_titulo = "Saindo da casa de touro."
+const dir_n = $s_santuário010
+const dir_s = $s_santuario008
+
+
+classe s_santuario010
+herda b_santuario
+const s_titulo = "A caminho da casa de Gêmeos"
+const dir_s = $s_santuario009
+const dir_l = $s_santuario055
+const dir_o = $s_santuario052
+
+
+classe s_santuario011
+herda b_santuario
+const s_titulo = "Dentro da casa de Gêmeos"
+const dir_n = $s_santuário012
+
+
+classe s_santuario012
+herda b_santuario
+const s_titulo = "A caminho da casa de Câncer"
+const dir_n = $s_santuário013
+const dir_s = $s_santuario011
+
+
+classe s_santuario013
+herda b_santuario
+const s_titulo = "A caminho da casa de Câncer"
+const dir_n = $s_santuário014
+const dir_s = $s_santuario012
+
+
+classe s_santuario014
+herda b_santuario
+const s_titulo = "Dentro da casa de Câncer"
+const dir_n = $s_santuário015
+const dir_s = $s_santuario013
+
+
+classe s_santuario015
+herda b_santuario
+const s_titulo = "A caminho da casa de Leão"
+const dir_n = $s_santuario016
+const dir_s = $s_santuario014
+
+
+classe s_santuario016
+herda b_santuario
+const s_titulo = "A caminho da casa de Leão"
+const dir_n = $s_santuario017
+const dir_s = $s_santuario015
+
+
+classe s_santuario017
+herda b_santuario
+const s_titulo = "Dentro da casa de Leão"
+const dir_n = $s_santuario018
+const dir_s = $s_santuario016
+
+
+classe s_santuario018
+herda b_santuario
+const s_titulo = "A caminho da casa de Virgem"
+const dir_n = $s_santuario019
+const dir_s = $s_santuario017
+
+
+classe s_santuario019
+herda b_santuario
+const s_titulo = "A caminho da casa de Virgem"
+const dir_n = $s_santuario020
+const dir_s = $s_santuario018
+
+
+classe s_santuario020
+herda b_santuario
+const s_titulo = "Dentro da casa de Virgem"
+const dir_n = $s_santuario021
+const dir_s = $s_santuario019
+const dir_l = $s_santuario046
+
+
+classe s_santuario021
+herda b_santuario
+const s_titulo = "A caminho da casa de Libra"
+const dir_n = $s_santuario022
+const dir_s = $s_santuario020
+
+
+classe s_santuario022
+herda b_santuario
+const s_titulo = "A caminho da casa de Libra"
+const dir_n = $s_santuario023
+const dir_s = $s_santuario021
+
+
+classe s_santuario023
+herda b_santuario
+const s_titulo = "Dentro da casa de Libra"
+const dir_n = $s_santuario024
+const dir_s = $s_santuario022
+
+
+classe s_santuario024
+herda b_santuario
+const s_titulo = "A caminho da casa de Escorpião"
+const dir_n = $s_santuario025
+const dir_s = $s_santuario023
+
+
+classe s_santuario025
+herda b_santuario
+const s_titulo = "A caminho da casa de Escorpião"
+const dir_n = $s_santuario026
+const dir_s = $s_santuario024
+
+
+classe s_santuario026
+herda b_santuario
+const s_titulo = "Dentro da casa de Escorpião"
+const dir_n = $s_santuario027
+const dir_s = $s_santuario025
+
+
+classe s_santuario027
+herda b_santuario
+const s_titulo = "A caminho da casa de Sagitário"
+const dir_n = $s_santuario028
+const dir_s = $s_santuario026
+
+
+classe s_santuario028
+herda b_santuario
+const s_titulo = "A caminho da casa de Sagitário"
+const dir_n = $s_santuario029
+const dir_s = $s_santuario027
+
+
+classe s_santuario029
+herda b_santuario
+const s_titulo = "Dentro da casa de Sagitário"
+const dir_n = $s_santuario030
+const dir_s = $s_santuario028
+
+
+classe s_santuario030
+herda b_santuario
+const s_titulo = "A caminho da casa de Capricórnio"
+const dir_n = $s_santuario031
+const dir_s = $s_santuario029
+
+
+classe s_santuario031
+herda b_santuario
+const s_titulo = "A caminho da casa de Capricórnio"
+const dir_n = $s_santuario032
+const dir_s = $s_santuario030
+
+
+classe s_santuario032
+herda b_santuario
+const s_titulo = "Dentro da casa de Capricórnio"
+const dir_n = $s_santuario033
+const dir_s = $s_santuario031
+
+
+classe s_santuario033
+herda b_santuario
+const s_titulo = "A caminho da casa de Aquário"
+const dir_n = $s_santuario034
+const dir_s = $s_santuario032
+
+
+classe s_santuario034
+herda b_santuario
+const s_titulo = "A caminho da casa de Aquário"
+const dir_n = $s_santuario035
+const dir_s = $s_santuario033
+
+
+classe s_santuario035
+herda b_santuario
+const s_titulo = "Dentro da casa de Aquário"
+const dir_n = $s_santuario036
+const dir_s = $s_santuario034
+
+
+classe s_santuario036
+herda b_santuario
+const s_titulo = "A caminho da casa de Peixes"
+const dir_n = $s_santuario037
+const dir_s = $s_santuario035
+
+
+classe s_santuario037
+herda b_santuario
+const s_titulo = "A caminho da casa de Peixes"
+const dir_n = $s_santuario038
+const dir_s = $s_santuario036
+
+
+classe s_santuario038
+herda b_santuario
+const s_titulo = "Dentro da casa de Peixes"
+const dir_n = $s_santuario039
+const dir_s = $s_santuario037
+
+
+classe s_santuario039
+herda b_santuario
+const s_titulo = "O fim do caminho do Zodíaco"
+const dir_n = $s_santuario040
+const dir_s = $s_santuario038
+
+
+classe s_santuario040
+herda b_santuario
+const s_titulo = "A caminho da sala do mestre"
+const dir_n = $s_santuario041
+const dir_s = $s_santuario039
+
+
+classe s_santuario041
+herda b_santuario
+const s_titulo = "A caminho da sala do mestre"
+const dir_n = $s_santuario042
+const dir_s = $s_santuario040
+
+
+classe s_santuario042
+herda b_santuario
+const s_titulo = "A caminho da sala do mestre"
+const dir_n = $s_santuario043
+const dir_s = $s_santuario041
+
+
+classe s_santuario043
+herda b_santuario
+const s_titulo = "Na escadaria da sala do mestre"
+const dir_s = $s_santuario042
+const dir_c = $s_santuario044
+
+
+classe s_santuario044
+herda b_santuario
+const s_titulo = "A sala do mestre"
+const dir_n = $s_santuario045
+const dir_b = $s_santuario043
+
+
+classe s_santuario045
+herda b_santuario
+const s_titulo = "O templo de Atena"
+const dir_s = $s_santuario044
+
+
+classe s_santuario046
+herda b_santuario
+const s_titulo = "No jardim das árvores gêmeas"
+const dir_o = $s_santuario020
+
+
+classe s_santuario047
+herda b_santuario
+const s_titulo = "SUBINDO A ESCADARIA RUMO À CASA DE ÁRIES."
+const dir_c = $s_santuario005
+const dir_b = $s_santuario004
+
+
+classe s_santuario048
+herda b_santuario
+const s_titulo = "A caminho da casa de Touro."
+const dir_n = $s_santuario049
+const dir_s = $s_santuario007
+
+
+classe s_santuario049
+herda b_santuario
+const s_titulo = "A caminho da casa de touro."
+const dir_s = $s_santuario048
+const dir_c = $s_santuario050
+
+
+classe s_santuario050
+herda b_santuario
+const s_titulo = "Subindo a escadaria da casa de touro."
+const dir_c = $s_santuario051
+const dir_b = $s_santuario049
+
+
+classe s_santuario051
+herda b_santuario
+const s_titulo = "No topo da escadaria."
+const dir_b = $s_santuario050
+const dir_entrar = $s_santuario008
+
+
+classe s_santuario052
+herda b_santuario
+const s_titulo = "A caminho da casa de gêmeos."
+const dir_l = $s_santuario010
+const dir_o = $s_santuario053
+
+
+classe s_santuario053
+herda b_santuario
+const s_titulo = "A caminho da casa de gêmeos."
+const dir_n = $s_santuario054
+const dir_l = $s_santuario052
+
+
+classe s_santuario054
+herda b_santuario
+const s_titulo = "A caminho da casa de gêmeos."
+const dir_s = $s_santuario053
+const dir_ne = $s_santuario058
+
+
+classe s_santuario055
+herda b_santuario
+const s_titulo = "A caminho da casa de gêmeos."
+const dir_l = $s_santuario056
+const dir_o = $s_santuario010
+
+
+classe s_santuario056
+herda b_santuario
+const s_titulo = "A caminho da casa de gêmeos."
+const dir_n = $s_santuario057
+const dir_o = $s_santuario055
+
+
+classe s_santuario057
+herda b_santuario
+const s_titulo = "A caminho da casa de gêmeos."
+const dir_s = $s_santuario056
+const dir_no = $s_santuario058
+
+
+classe s_santuario058
+herda b_santuario
+const s_titulo = "A entrada da casa de gêmeos."
+const dir_se = $s_santuario057
+const dir_so = $s_santuario054
+const dir_entrar = $s_santuario011

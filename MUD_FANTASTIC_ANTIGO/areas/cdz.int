@@ -1,0 +1,42 @@
+classe a_cdz
+herda area
+const a_tempo = 0
+const a_nome = "Santuário"
+
+
+classe b_cdz
+herda sala
+const s_area = "cdz"
+
+
+classe i_cdz001
+herda comum_item
+const nome = "um roquinho de pelúcia"
+const descnome = "um roquinho de pelúcia"
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+
+
+classe p_cdz001
+herda comum_persobat
+const nome = "ris"
+const ident = "ris"
+const descnome = "ris"
+const descpadr = "ris está aqui"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 1000000
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1
+
+
+classe s_cdz001
+herda b_cdz
+const s_titulo = "O santuário."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_b = $s_rio001
+const a_reset = "S 100 cdz001 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_cdz001") && criar("i_cdz001", este, 1)

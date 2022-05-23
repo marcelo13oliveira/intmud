@@ -1,0 +1,4973 @@
+classe a_inverno
+herda area
+const a_nome = "Montanhas de inverno"
+const a_autor = "Animal"
+const a_tempo = 15
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_txtreset = "O vento ecoa alto nas montanhas."
+
+
+classe b_inverno
+herda sala
+const s_item = 4
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_luz = 2 # Luz: 2 Luz do sol
+const s_recup = 2
+const s_reserva = 1 # Comando reserva: Sim
+const s_terreno = 6 # Terreno: 6 Montanha, excessivamente montanhoso - 6mv
+const s_timeeno = 6 # timeeno: 6 Montanha, excessivamente montanhoso - 6mv
+const s_area = "inverno"
+
+
+classe i_inverno001
+herda comum_itemperso
+const nome = "uma fogueira improvisada"
+const ident = "fogueira"
+const descnome = "uma fogueira improvisada"
+const descpos = "Uma fogueira improvisada foi posta ao centro, aquecendo o amontoado de barracas \
+e cozinhando comida do grupo."
+const i_pegar = "a fogueira não pode ser removida de seu lugar."
+const i_abertoini = 1 # Container: 1 Sempre aberto
+
+
+classe i_inverno002
+herda comum_item
+const nome = "Uma tigela cheia de uma mistura estranha"
+const ident = "tigela mistura comida"
+const descnome = "Uma tigela cheia de uma mistura estranha"
+const descpos = "Uma pequena tigela cheia de uma mistura com uma coloração estranha foi servida \
+aqui."
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const f_diges = 30
+const f_msgperso = "Seu estômago revira-se em protesto enquanto você obriga-se a comer todo o \
+conteúdo de sua tigela."
+const f_msgoutros = "$P quase fas vômito ao obrigar-se a comer o conteúdo de sua tigela."
+
+
+classe i_inverno003
+herda comum_itemperso
+const nome = "um colchão de folhas"
+const ident = "colchão folhas"
+const descnome = "um colchão de folhas"
+const descpos = "há Um colchão de folhas trançadas estirado em um canto aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_lugar = 1
+const pesoobj = 13
+
+
+classe i_inverno004
+herda comum_item
+const nome = "Uma chave"
+const ident = "chave"
+const descnome = "Uma chave"
+const descpos = "Uma chave com uma correntinha foi deixada aqui"
+const i_chave = "inverno004"
+
+
+classe i_inverno005
+herda comum_itemperso
+const nome = "Um pedaço de fonte destruída"
+const ident = "pedaço fonte"
+const descnome = "Um pedaço de fonte destruída"
+const descpos = "Uma parte da antiga fonte permanece ao centro, jorrando água suja no chão da \
+praça"
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_sede = -10
+const f_msgperso = "$P engole um pouco de lodo com simento ao tentar beber da água suja de uma \
+fonte quebrada."
+const i_pegar = "Você não poderia retirar a fonte do chão sem se ferir com a pedra irregular"
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_inverno006
+herda comum_item
+const nome = "As botas do explorador"
+const ident = "botas explorador"
+const descnome = "As botas do explorador"
+const descpos = "Um par de groças botas empoeiradas foram esquecidas por algum viajante a beira \
+do caminho."
+const nivel = 400
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 50000
+const vestir1 = "10000000"
+const volobj = 800
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pveloc1 += 20
+  defnorm += 15
+  evasao += 20
+
+
+classe i_inverno007
+herda comum_item
+const nome = "Um elmo com grandes chifres"
+const ident = "elmo chifres"
+const descnome = "Um elmo com grandes chifres"
+const descpos = "Algum bárbaro abandonou seu elmo aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 400
+const pesoobj = 1500
+const tipoitem = 13 # Tipo de produto: 0-Possui metal, 2-Armadura, 3-Vestimenta
+const valor = 100000
+const vestir1 = "2"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmovemax += 15
+  atknorm += 20
+  defnorm += 10
+  precisao += 10
+
+
+classe i_inverno008
+herda comum_itemperso
+const nome = "Um manto de peles remendadas"
+const ident = "manto peles remendadas remendado"
+const descnome = "Um manto de peles remendadas"
+const descpos = "Um groço manto de peles foi amontoado no chão."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 400
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_lugar = 2
+const pesoobj = 100
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 300
+const vestir1 = "800"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  defnorm += 10
+  deftipo.7 *= 0.75 # Água
+  deftipo.8 *= 0.75 # Gelo
+
+
+classe i_inverno009
+herda comum_item
+const nome = "Um par de pesadas perneiras de couro e ferro"
+const ident = "perneira couro ferro pesadas"
+const descnome = "Um par de pesadas perneiras de couro e ferro"
+const descpos = "Um par de perneiras resistentes e pesadas foram atiradas em um canto."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const nivel = 420
+const pesoobj = 4000
+const tipoitem = 13 # Tipo de produto: 0-Possui metal, 2-Armadura, 3-Vestimenta
+const valor = 200000
+const vestir1 = 16777216 # Aonde vestir: 24-nas pernas
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 35
+  pveloc1 += -15
+  defnorm += 20
+  evasao += -15
+  deftipo.2 *= 0.92 # Contusão
+  deftipo.3 *= 0.92 # Luta
+
+
+classe i_inverno010
+herda comum_itemperso
+const nome = "Um visor de longo alcance"
+const ident = "visor longo alcance"
+const descnome = "Um visor de longo alcance"
+const descpos = "Um visor de longo alcance perdeu a utilidade e foi deixado de lado."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 420
+const luzitem = 7 # Tipo de luz: 7 Automático (acende ao vestir, sem fogo)
+const luzini = 20000
+const luztxt = "$O luta para manter-se aces$S, mas logo se apaga por completo."
+const pesoobj = 500
+const tipoitem = 385 # Tipo de produto: 0-Possui metal, 7-Tesouro, 8-Fonte de luz
+const valor = 90000
+const vestir1 = "8"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  defnorm += 15
+
+
+classe i_inverno011
+herda comum_item
+const nome = "Um grande pedaço de broa"
+const ident = "bolo broa pedaço grande"
+const descnome = "Um grande pedaço de broa"
+const descpos = "Ainda em sua embalagem intácta, alguém parece ter acabado de servir um grande \
+pedaço de broa aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 40
+const f_sede = -5
+const f_diges = 24
+const f_msgperso = "$P desembrulha $O e passa a comer lentamente."
+const pesoobj = 10
+const tipoitem = 262144 # Tipo de produto: 18-Comida
+const valor = 200
+
+
+classe i_inverno012
+herda comum_item
+const nome = "Um pão francez"
+const ident = "pão francez"
+const descnome = "Um pão francez"
+const descpos = "Há um pão francez caído aqui, ainda envolvido em um plástico."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 30
+const f_diges = 24
+const pesoobj = 10
+const valor = 150
+
+
+classe i_inverno013
+herda comum_item
+const nome = "Um quadro retratando uma alta montanha"
+const ident = "quadro pintura inverno"
+const descnome = "Um quadro retratando uma alta montanha"
+const descpos = "Um quadro retratando uma alta montanha foi pendurado em uma das paredes."
+const descver = "A pintura retrata um homem a contemplar uma alta montanha a noite.\n\
+O homem está virado para a frente da montanha, olhos voltados para o alto, também admiram o céu \
+claro, enluarado e pontilhado de estrelas.\n\
+Ele veste-se com simplicidade, possue os cabelos muito curtos e a pele bronzeada. Algo brilha \
+fracamente a alguns passos no alto da montanha, para onde dirige-se o olhar do personagem. \
+talvez seja essa a luz de algum explorador que perambula por lá.\n\
+Mais a diante e sem grandes destaques, duas bandeiras parecem tremular, completamente deslocadas \
+na paisagem. vê-se a imagem de alguma criatura por traz delas, apenas um borrão que posta-se \
+escondido nas sombras.\n\
+Logo no topo do quadro junto a moldura, há uma inscrição pequena onde lê-se inverno de inverno, \
+provável nome da inóspita região montanhosa."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 20
+const tipoitem = 0 # Tipo de produto:
+const valor = 500000
+
+
+classe i_inverno014
+herda comum_item
+const nome = "Uma pintura retratando um jardim"
+const ident = "quadro pintura jardim flores"
+const descnome = "Uma pintura retratando um jardim"
+const descpos = "Um quadro retratando um florido jardim foi pendurado em uma das paredes."
+const descver = "A pintura retrata um belo entardecer contemplado aos olhos de uma criança. A \
+garotinha parece sorrir, tocando algumas rosas que se encontram próximas.\n\
+A magia do quadro encontra-se no toque suave da garota, que parece transmitir vida as flores ao \
+seu redor enquanto continua sorrindo, desabrochando como as belas rosas do jardim.\n\
+A criança veste um vestidinho verde de manga curta, tem os cabelos presos em um rabo de cavalo e \
+senta-se de pernas cruzadas próximo a uma rosa, pela qual a personagem aparenta ter muito \
+carinho.\n\
+Enquanto as mãos delicadas tocam a flor, seus olhos miram o por do sol, que encontra-se quase \
+adormecido por completo.\n\
+A moldura de madeira, simples porém bem trabalhada que decora a pintura, tem um relevo delicado \
+e tem contornos que delineiam o desenho com perfeição, suas curvas e curvas se encontrando com \
+precisão e acentando-se muito bem a imagem retratada. Bem ao topo do quadro, um tanto distante \
+da imágem que cerca nossa amável personagem há uma inscrição, Elfa pintora das montanhas de \
+inverno."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const valor = 500000
+
+
+classe i_inverno015
+herda comum_item
+const nome = "Uma poção de infravisão"
+const ident = "poção infravisão pequena garrafinha rotulada garrafa"
+const descnome = "Uma poção de infravisão"
+const descpos = "Uma pequena garrafinha rotulada foi deixada aqui."
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_magia1 = "infravisão"
+const f_nivel1 = 400
+const valor = 100000
+
+
+classe i_inverno016
+herda comum_itemperso
+const nome = "Uma grossa capa de viagem"
+const ident = "capa viagem grossa"
+const descnome = "Uma grossa capa de viagem"
+const descpos = "Uma grossa capa que parece poder aquecer qualquer viajante no inverno foi \
+deixada aqui."
+const nivel = 370
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const objmax = 5
+const pesoobj = 300
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 300000
+const vestir1 = "800"
+const volmax = 50000
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1000
+  defnorm += 15
+  deftipo.7 *= 0.8 # Água
+  deftipo.8 *= 0.8 # Gelo
+
+
+classe i_inverno017
+herda comum_item
+const nome = "Um pergaminho de terremoto"
+const ident = "pergaminho terremoto"
+const descnome = "Um pergaminho de terremoto"
+const descpos = "Um pergaminho contendo uma magia ofenciva foi deixado aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 4 # Tipo: 4 Pergaminho, recitar
+const f_magia1 = "terremoto"
+const f_magia2 = "terremoto"
+const f_nivel1 = 400
+const valor = 1000000
+const f_nivel2 = 400
+const f_magia3 = "terremoto"
+const f_nivel3 = 400
+
+
+classe i_inverno018
+herda comum_item
+const nome = "Um belo vestido de muitos panos"
+const ident = "belo vestido panos"
+const descnome = "Um belo vestido de muitos panos"
+const descpos = "Uma trouxa de panos esquecidos em um canto permanecem acumulando poeira por \
+aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 350
+const pesoobj = 90
+const tipoitem = 131080 # Tipo de produto: 3-Vestimenta, 17-Roupa comum
+const valor = 100000
+const vestir1 = "1000"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  defnorm += 5
+  deftipo.4 *= 0.95 # Cortante
+  deftipo.5 *= 0.95 # Perfurante
+  deftipo.7 *= 0.83 # Água
+  deftipo.8 *= 0.83 # Gelo
+
+
+classe i_inverno019
+herda comum_item
+const nome = "Um cordão com um pingente dourado"
+const ident = "cordão pingente dourado jóia"
+const descnome = "Um cordão com um pingente dourado"
+const descpos = "Você quase pisa sobre Um fino cordão com um pingente dourado."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 400
+const pesoobj = 5
+const tipoitem = 128 # Tipo de produto: 7-Tesouro
+const valor = 200000
+const vestir1 = "300"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 300
+  pmanamax += 300
+  pmovemax += 300
+  defnorm += 12
+  defesp += 12
+
+
+classe i_inverno020
+herda comum_item
+const nome = "um par de manoplas forjadas em ferro e aço"
+const ident = "manopla ferro aço"
+const descnome = "um par de manoplas forjadas em ferro e aço"
+const descpos = "Há uma manopla de ferro e aço atirada no chão."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const nivel = 430
+const pesoobj = 1000
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 600000
+const vestir1 = "40000" # Aonde vestir: 18-Nas mãos
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += -400
+  pmanamax += -400
+  pmovemax += -400
+  pveloc1 += -400
+  atknorm += 20
+  defnorm += 20
+  precisao += 30
+  atktipo.2 *= 1.1 # Contusão
+  atktipo.3 *= 1.1 # Luta
+  deftipo.4 *= 0.9 # Cortante
+  deftipo.5 *= 0.9 # Perfurante
+
+
+classe i_inverno021
+herda comum_item
+const nome = "Um cinto de cordas"
+const ident = "cinto cordas"
+const descnome = "Um cinto de cordas"
+const descpos = "Um cinto de cordas entrelaçadas está meio embolado e torcido no chão."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 100
+const pesoobj = 9
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 300000
+const vestir1 = "1000000"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmanamax += 100
+  defnorm += 10
+  defesp += 15
+
+
+classe i_inverno022
+herda comum_itemperso
+const nome = "Uma mochila de peles"
+const ident = "mochila bolsa peles"
+const descnome = "Uma mochila de peles"
+const descpos = "Há uma espaçosa mochila de peles inutilizada no chão."
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const objmax = 30
+const tipoitem = 2048 # Tipo de produto: 11-Container
+const valor = 350
+const vestir1 = "40000000"
+
+
+classe i_inverno023
+herda comum_item
+const nome = "XTudo"
+const ident = "hamburguer XTudo"
+const descnome = "um delicioso XTudo"
+const descpos = "mas que coisa! um apetitoso XTudo foi largado aqui!"
+const descver = "mas que maravilha, um XTudo!\n\
+ao olhar, você só fica com mais água na boca.\n\
+queijo, presunto, duas carnes...\n\
+isso é o que você consegue notar. fora as outras coisas, que só comendo, pra saber! que tal \
+experimentar?"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 50
+const f_diges = 5
+const f_msgperso = "$p delicia-se ao comer um apetitoso XTudo!"
+const pesoobj = 4
+const valor = 30000
+
+
+classe i_inverno024
+herda comum_item
+const nome = "hamburguer simples"
+const ident = "hamburguer simples"
+const descnome = "um hamburguer simples"
+const descpos = "um apetitoso hamburguer está aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 50
+const f_diges = 2
+const f_msgperso = "$p delicia-se ao comer um simples e apetitoso hamburguer."
+const pesoobj = 2
+const valor = 10000
+
+
+classe p_inverno001
+herda comum_persobat
+const nome = "Um bárbaro batedor"
+const ident = "barbaro bárbaro batedor guerreiro homem humano"
+const descnome = "Um bárbaro batedor"
+const descpadr = "Um homem alto e forte observa o movimento ao redor, procurando algum sinal de \
+perigo para seu povo."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 80000
+const nivel = 820
+const tipo1 = "humano"
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_captura = 0 # Capturar: 0 Não
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 500
+const inivar = "h_segundo_ataque=8,h_socar=3,h_chutar=3,z_moedas=500000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno002
+herda comum_persobat
+const nome = "Um jovem bárbaro"
+const ident = "jovem bárbaro guerreiro homem humano"
+const descnome = "Um jovem bárbaro"
+const descpadr = "Um jovem bárbaro atenta-se aos movimentos dos adultos, a fim de aprender tudo \
+quanto precisa aprender para o orgulho de seu povo."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 50000
+const nivel = 820
+const tipo1 = "humano"
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=8,h_socar=3,h_chutar=3,z_moedas=500000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1000 * pnivel + 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno003
+herda comum_persobat
+const nome = "Um mestre bárbaro"
+const ident = "bárbaro mestre habilidoso homem humano"
+const descnome = "Um mestre bárbaro"
+const descpadr = "Um habilidoso bárbaro aplica seus ensinamentos aos jovens pupilos de forma \
+rígida."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 90000
+const nivel = 820
+const tipo1 = "humano"
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=5,h_terseiro_ataque=5,h_socar=2,h_chutar=2,z_moedas=1000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno004
+herda comum_persobat
+const nome = "Uma mulher grávida"
+const ident = "mulher grávida"
+const descnome = "Uma mulher grávida"
+const descpadr = "Uma mulher grávida, próximo do momento de dar a luz permanece junto as outras \
+mulheres na barraca, contorcendo-se de dor"
+const pesoobj = 45000
+const nivel = 820
+const tipo1 = "humano"
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const p_morreu1 = "$P solta um lamentável urro de dor e cai no chão já sem vida."
+const inivar = "h_socar=5,h_segundo_ataque=3,z_moedas=300000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno005
+herda comum_persobat
+const nome = "Um explorador"
+const ident = "explorador perdido viajante homem humano"
+const descnome = "Um explorador"
+const descpadr = "Um homem perdido observa as montanhas, procurando um ponto para se orientar \
+novamente."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 62000
+const nivel = 820
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_chutar=5,h_segundo_ataque=3,z_moedas=200000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno006
+herda comum_persobat
+const nome = "Um explorador corajoso"
+const ident = "explorador aventureiro corajoso homem humano"
+const descnome = "Um explorador corajoso"
+const descpadr = "Um vigoroso explorador está sentado sobre uma pedra enquanto recupera o \
+fôlego, antes que possa tornar a caminhar."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 51000
+const nivel = 820
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_chutar=5,h_segundo_ataque=3,z_moedas=200000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno007
+herda comum_persobat
+const nome = "Uma curandeira"
+const ident = "mulher curandeira senhora"
+const descnome = "Uma curandeira"
+const descpadr = "Uma senhora carinhosamente cuida de um jovem bárbaro ferido."
+const pesoobj = 48000
+const nivel = 820
+const tipo1 = "humano"
+const tipo2 = "mago"
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=6,z_moedas=300000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno008
+herda comum_persobat
+const nome = "Um bárbaro ferido"
+const ident = "bárbaro ferido homem humano"
+const descnome = "Um bárbaro ferido"
+const descpadr = "Um bárbaro ferido está caído sobre um colchão de folhas, esvaindo-se em sangue \
+e sofrendo espasmos de dor sem sequer gritar."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 71000
+const nivel = 820
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=2,z_moedas=100000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno009
+herda comum_persobat
+const nome = "Uma senhora"
+const ident = "senhora mulher cozinheira"
+const descnome = "Uma senhora"
+const descpadr = "Uma senhora retira da fogueira improvisada uma panela de barro cheia até a \
+borda de uma mistura estranha, servindo os demais com aquilo em uma tigela pequena."
+const pesoobj = 49000
+const nivel = 820
+const tipo1 = "humano"
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=3,z_moedas=50000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno010
+herda comum_persobat
+const nome = "uma curandeira"
+const ident = "mulher senhora curandeira"
+const descnome = "uma curandeira"
+const descpadr = "Uma curandeira dedica total atenção as moças grávidas do acampamento"
+const pesoobj = 45000
+const nivel = 820
+const tipo1 = "humano"
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=3,z_moedas=400000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno011
+herda comum_persobat
+const nome = "Uma mamãe em resguardo"
+const ident = "mulher mamãe"
+const descnome = "Uma mamãe em resguardo"
+const descpadr = "Uma mulher de resguardo recebe os primeiros cuidados numa das camas improvisada\
+s da barraca."
+const pesoobj = 47000
+const nivel = 820
+const tipo1 = "humano"
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=3,z_moedas=350000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno012
+herda comum_persobat
+const nome = "O líder bárbaro"
+const ident = "bárbaro líder homem humano"
+const descnome = "O líder bárbaro"
+const descpadr = "O líder bárbaro está sentado confortavelmente em sua poltrona, enquanto tem \
+seus desejos atendidos por uma bela donzela."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 70000
+const nivel = 820
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=6,h_terseiro_ataque=3,h_chute_invertido=2,z_moedas=2000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno013
+herda comum_persobat
+const nome = "Uma ingênua donzela"
+const ident = "ingênua jovem garota mulher menina donzela pura moça criada"
+const descnome = "Uma ingênua donzela"
+const descpadr = "Uma jovem donzela corre pelas barracas, mantendo a ordem e a limpesa."
+const pesoobj = 43000
+const nivel = 820
+const tipo1 = "humano"
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 280
+const inivar = "z_moedas=350000"
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno014
+herda comum_persobat
+const nome = "Uma ingênua donzela"
+const ident = "ingênua jovem garota mulher menina donzela pura moça criada"
+const descnome = "Uma ingênua donzela"
+const descpadr = "Uma ingênua donzela permanece diante de seu senhor, servindo-o em todos os \
+pequenos caprichos de homem poderoso."
+const pesoobj = 43000
+const nivel = 820
+const tipo1 = "humano"
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=3,z_moedas=350000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno015
+herda comum_persobat
+const nome = "Um gigante"
+const ident = "gigante"
+const descnome = "um gigante"
+const descpadr = "Um gigante cata e atira pedras na direção de seus inimigos, gargalhando de \
+ódio e fúria."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 100000
+const nivel = 820
+const tipo1 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=8,h_terseiro_ataque=8,h_socar=2,h_chutar=2"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno016
+herda comum_persobat
+const nome = "Um explorador das inverno"
+const ident = "explorador homem humano"
+const descnome = "Um explorador das inverno"
+const descpadr = "Um habilidoso explorador atenta-se a cada detalhe a sua volta enquanto \
+percorre o perímetro, em busca de algo desconhecido que lhe atraia."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 61000
+const nivel = 820
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=3,z_moedas=400000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno017
+herda comum_persobat
+const nome = "Uma gigante"
+const ident = "mulher gigante"
+const descnome = "Uma gigante"
+const descpadr = "Uma gigante protege-se sob uma elevação com seus filhos, enquanto chovem \
+pedras por todos os lados."
+const nivel = 820
+const tipo1 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_socar=6,h_segundo_ataque=3,z_moedas=400000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno018
+herda comum_persobat
+const nome = "Um mago solitário"
+const ident = "mago homem humano velho ancião idoso senhor"
+const descnome = "Um mago solitário"
+const descpadr = "Um velho mago perambula pelo porão, executando feitiços a muito esquecidos."
+const nivel = 820
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=2,h_terseiro_ataque=2,z_moedas=500000"
+#
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno019
+herda comum_persobat
+const nome = "Uma criança gigante"
+const ident = "criança gigante"
+const descnome = "Uma criança gigante"
+const descpadr = "Uma criança gigante assustada agarra-se a sua mãe, enquanto fora de seu \
+esconderijo as pedras rolam por todos os lados."
+const nivel = 820
+const tipo1 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=2,h_terseiro_ataque=2,z_moedas=300000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno020
+herda comum_persobat
+const nome = "Um gigante inimigo"
+const ident = "gigante inimigo"
+const descnome = "Um gigante inimigo"
+const descpadr = "Um gigante do território norte avança cuidadosamente rumo a uma entrada \
+desprotegida do território inimigo.."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 120000
+const nivel = 820
+const tipo1 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=3"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno021
+herda comum_persobat
+const nome = "Um gigante inimigo"
+const ident = "gigante inimigo sul território"
+const descnome = "Um gigante inimigo"
+const descpadr = "Um gigante do território sul avança cuidadosamente rumo a uma entrada desproteg\
+ida do território inimigo.."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 120000
+const nivel = 820
+const tipo1 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=3"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno022
+herda comum_persobat
+const nome = "Um guarda robusto"
+const ident = "homem robusto guarda guerreiro"
+const descnome = "Um guarda robusto"
+const descpadr = "Um homem robusto posta-se a frente dos portões, pronto a defender o pequeno \
+vilarejo do que quer que venha das perigosas inverno."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 87000
+const nivel = 820
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=8,h_terseiro_ataque=8,z_moedas=400000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno023
+herda comum_persobat
+const nome = "Um guarda"
+const ident = "homem robusto guarda guerreiro"
+const descnome = "Um guarda"
+const descpadr = "Um homem alto e robusto caminha por todos os lados, cumprindo suas funções de \
+mantenedor da órdem e da paz do vilarejo tranqüilo."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 85000
+const nivel = 820
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 280
+const inivar = "h_segundo_ataque=8,h_chute_invertido=8,h_terseiro_ataque=5,z_moedas=1000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno024
+herda comum_persobat
+const nome = "Um padeiro"
+const ident = "padeiro velho gordo senhor ansião homem atendente vendedor"
+const descnome = "Um padeiro"
+const descpadr = "Um senhor gordinho de avental prepara e serve pães a seus poucos freguezes."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 110000
+const nivel = 820
+const tipo1 = "humano"
+const lojaini = 7
+const lojafim = 19
+const lojaitem = "inverno012 0\ninverno011 0"
+const lojainv = 1 # Produtos inv: Sim
+const taxacompra = 5
+const taxavenda = 5
+const tipoitem = 40960 # Compra produtos: 13-Comida, 15-bebida
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=3,h_chutar=3,h_socar=2,z_moedas=1000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno025
+herda comum_persobat
+const nome = "Uma elfa"
+const ident = "elfa pintora"
+const descnome = "Uma elfa"
+const descpadr = "Uma elfa pintora está sentada diante de uma mesa, totalmente dispersa enquanto \
+pinta uma grande tela."
+const pesoobj = 49000
+const nivel = 820
+const tipo1 = "elfo"
+const tipo2 = "mago"
+const lojaitem = "inverno013 0\ninverno014 0"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=3,h_chutar=3,h_socar=2,z_moedas=1000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno026
+herda comum_persobat
+const nome = "Uma jovem angelical"
+const ident = "jovem doce angelical menina mulher vendedora maga atendente"
+const descnome = "Uma jovem angelical"
+const descpadr = "A doce e angelical nara corre por todos os lados, rotulando e organizando os \
+itens da loja de sua família."
+const pesoobj = 39000
+const nivel = 820
+const tipo1 = "humano"
+const tipo2 = "mago"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=3,h_chutar=3,h_socar=2,z_moedas=1000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno027
+herda comum_persobat
+const nome = "um senhor encurvado"
+const ident = "senhor encurvado velho vendedor mago"
+const descnome = "um senhor encurvado"
+const descpadr = "Um senhor encurvado observa o movimento desinteressante de sua loja, mostrando \
+seus produtos simplórios a clientes em potencial quando os vê chegar."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 71000
+const nivel = 820
+const tipo1 = "humano"
+const tipo2 = "mago"
+const lojaini = 7
+const lojafim = 19
+const lojaitem = "inverno017 0\nitem041 0\nitem061 0"
+const lojainv = 1 # Produtos inv: Sim
+const tipoitem = 1088 # Compra produtos: 6-Pergaminho, 10-Poção
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=3,z_moedas=1000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno028
+herda comum_persobat
+const nome = "Um velho bruxo"
+const ident = "velho bruxo homem idoso senhor"
+const descnome = "Um velho bruxo"
+const descpadr = "Um velho bruxo folheia um livro de poções ao som da água borbulhante de um \
+caldeirão ao fundo da sala"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 61000
+const nivel = 820
+const tipo1 = "humano"
+const tipo2 = "mago"
+const lojaitem = "inverno015 0"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=3,z_moedas=1000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno029
+herda comum_persobat
+const nome = "Madame Mellyn"
+const ident = "madame mellyn mulher costureira"
+const descnome = "Madame Mellyn"
+const descpadr = "Madame Mellyn divide-se entre suas costuras e um ou dois clientes que procuram \
+suas roupas."
+const pesoobj = 120000
+const nivel = 820
+const tipo1 = "humano"
+const lojaitem = "inverno016 0\ninverno018 0"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=4,z_moedas=1000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno030
+herda comum_persobat
+const nome = "O joalheiro"
+const ident = "anão joalheiro"
+const descnome = "O joalheiro"
+const descpadr = "Um velho anão joalheiro admira suas raridades, enquanto aguarda alguém com \
+ouro o suficiente para adquirí-las."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 105000
+const nivel = 820
+const tipo1 = "anão"
+const tipo2 = "guerreiro"
+const lojaitem = "inverno019 0"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=3,h_chutar=3,h_socar=2,z_moedas=1000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno031
+herda comum_persobat
+const nome = "O anão ferreiro"
+const ident = "anão ferreiro jovem vigoroso"
+const descnome = "O anão ferreiro"
+const descpadr = "O anão ferreiro finaliza sua nova arma enquanto aguarda um futuro comprador \
+para as demais."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 103000
+const nivel = 820
+const tipo1 = "anão"
+const tipo2 = "guerreiro"
+const lojaitem = "inverno020 0"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=5,h_terseiro_ataque=5,h_chutar=3,z_moedas=3000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno032
+herda comum_persobat
+const nome = "Um jovem artesão"
+const ident = "artesão jovem homem"
+const descnome = "Um jovem artesão"
+const descpadr = "Um jovem artesão oferece seus produtos em uma pequena banquinha, postada a \
+frente de sua modesta casa."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 64000
+const nivel = 820
+const tipo1 = "humano"
+const lojaitem = "inverno022 0\ninverno021 0"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=3,h_chutar=3,h_socar=2,z_moedas=1000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno033
+herda comum_persobat
+const nome = "Uma mulher distraída"
+const ident = "mulher distraída distraida"
+const descnome = "Uma mulher distraída"
+const descpadr = "Uma mulher distraída caminha pelas ruas do vilarejo enquanto põe ordem nos \
+próprios pensamentos."
+const pesoobj = 93000
+const nivel = 820
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 500
+const inivar = "h_segundo_ataque=3,h_chutar=3,h_socar=2,z_moedas=300000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno034
+herda comum_persobat
+const nome = "Uma menina levada"
+const ident = "menina levada criança humano garota"
+const descnome = "Uma menina levada"
+const descpadr = "Uma menininha corre por todos os lados, atropelando tudo e todos e sorrindo \
+com seu rostinho de anjo."
+const nivel = 820
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 500
+const inivar = "h_segundo_ataque=3,h_chutar=3,h_socar=2,z_moedas=300000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno035
+herda comum_persobat
+const nome = "Um garotinho curioso"
+const ident = "garotinho curioso criança humano"
+const descnome = "Um garotinho curioso"
+const nivel = 820
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=3,h_chutar=3,h_socar=2,z_moedas=300000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno036
+herda comum_persobat
+const nome = "Uma bruxa centenária"
+const ident = "mulher velha anciã idosa bruxa centenária"
+const descnome = "Uma bruxa centenária"
+const descpadr = "Uma bruxa centenária ergue as mãos ao vomitar maldições aos céus em forma de \
+magia."
+const nivel = 820
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=3,z_moedas=100000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno037
+herda comum_persobat
+const nome = "Um bárbaro pequeno"
+const ident = "bárbaro pequeno menino criança garoto garotinho rapaz"
+const descnome = "Um bárbaro pequeno"
+const descpadr = "O pequeno bárbaro agita-se, imitando os gestos de lutas dos mais velhos \
+enquanto ameaça os demais que o repreendem."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 141000
+const nivel = 820
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=3,z_moedas=100000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno038
+herda comum_persobat
+const nome = "Uma criança"
+const ident = "criança humano garota menina moça mulher"
+const descnome = "Uma criança"
+const descpadr = "Uma ágil garota cuida e mantém os mais novos dentro da barraca."
+const pesoobj = 146000
+const nivel = 820
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=3,z_moedas=100000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno039
+herda comum_persobat
+const nome = "Uma mulher atarefada"
+const ident = "mulher atarefada senhora humano"
+const descnome = "Uma mulher atarefada"
+const descpadr = "Uma mulher atarefada corre em seus afazeres, mal dando-se conta da presensa \
+indesejada em sua casa."
+const pesoobj = 153000
+const nivel = 820
+const tipo1 = "humano"
+const tipo2 = "mago"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=3,z_moedas=200000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno040
+herda comum_persobat
+const nome = "O taverneiro"
+const ident = "taverneiro homem humano vendedor atendente balconista"
+const descnome = "O taverneiro"
+const descpadr = "O taverneiro vira-se como pode para dar conta de atender a toda a sua clientela\
+ fiel."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 182000
+const nivel = 820
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const lojaitem = "item046 0\nitem042 0\nmidgaard018 0\nitem072 0"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=6,z_moedas=500000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno041
+herda comum_persobat
+const nome = "Uma garçonete"
+const ident = "garçonete sorridente jovem mulher menina garota moça atendente vendedora"
+const descnome = "Uma garçonete"
+const descpadr = "Uma jovem e sorridente garçonete atende os freguezes com sua habitual simpatia"
+const pesoobj = 149000
+const nivel = 820
+const tipo1 = "humano"
+const lojaini = 7
+const lojafim = 21
+const lojaitem = "inverno023 0\n\
+item031 0\n\
+inverno024 0\n\
+praiacoca029 0\n\
+fierce048 0\n\
+item135 0\n\
+inverno025 0"
+const lojafechada = "Olá, $c! agora estamos fechados, volte amanhã, ta bom? tenha uma boa \
+noite!"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "h_segundo_ataque=6,z_moedas=500000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+
+
+classe p_inverno042
+herda comum_persobat
+const nome = "Um canibal"
+const ident = "homem humano canibal"
+const descnome = "Um canibal"
+const descpadr = "Um canibal admira você, aparentemente preparando-se para jantar."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 195000
+const nivel = 820
+const tipo1 = "humano"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const inivar = "h_segundo_ataque=8,h_terseiro_ataque=8,h_soco=2,h_chutar=2"
+const eveste = 1 # Eventos perso: Sim
+
+func cmd_comeu
+  refvar gexp = rand(1, 40000)
+  ganhaexp(gexp)
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500000
+  pveloc1 += 100 * pnivel
+  atknorm += 900 * pnivel + 10
+  defnorm += 6000 * pnivel + 600000
+  defesp += 6500 * pnivel + 600000
+  evasao += 20 * pnivel + 30000
+  precisao += 50 * pnivel + 30000
+  bitver |= 4156
+
+
+classe s_inverno001
+herda b_inverno
+const s_titulo = "Desviando-se da estrada"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_inverno002
+const dir_s = $s_darkleste009
+
+func cmd_chegou
+  criar("e_montanha", arg0)
+
+
+classe s_inverno002
+herda b_inverno
+const s_titulo = "Montanha a vista"
+const s_desc = ""
+const s_luz = 2 # Luz: 2 Luz do sol
+const dir_n = $s_inverno003
+const dir_s = $s_inverno001
+const a_reset = "P 100 inverno005 0 0 1\nE 60 inverno006 0 29"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_inverno005:objsolto.total < 1
+    p = u = criar("p_inverno005", este, 0)
+  fimse
+  se u && rand(100) < 60
+    r = criar("i_inverno006", u, 0), r.vestir(29), u.recalc = 1
+  fimse
+
+
+classe s_inverno003
+herda b_inverno
+const s_titulo = "Próximo das montanhas dos bárbaros"
+const s_desc = ""
+const dir_s = $s_inverno002
+const dir_c = $s_inverno004
+
+
+classe s_inverno004
+herda b_inverno
+const s_titulo = "Início de uma subida perigosa"
+const s_desc = ""
+const dir_c = $s_inverno005
+const dir_b = $s_inverno003
+
+
+classe s_inverno005
+herda b_inverno
+const s_titulo = "Escalando a montanha"
+const s_desc = ""
+const dir_c = $s_inverno006
+const dir_b = $s_inverno004
+const a_reset = "P 100 inverno006 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno006:objsolto.total < 1
+    criar("p_inverno006", este, 0)
+  fimse
+
+
+classe s_inverno006
+herda b_inverno
+const s_titulo = "Escalando a montanha"
+const s_desc = ""
+const dir_c = $s_inverno007
+const dir_b = $s_inverno005
+
+
+classe s_inverno007
+herda b_inverno
+const s_titulo = "Um ponto seguro na subida"
+const s_desc = ""
+const s_pnj = 0
+const dir_n = $s_inverno014
+const dir_s = $s_inverno041
+const dir_l = $s_inverno008
+const dir_o = $s_inverno029
+const dir_b = $s_inverno006
+const dir_no = $s_inverno056
+
+
+classe s_inverno008
+herda b_inverno
+const s_titulo = "Próximo a um pequeno acampamento"
+const s_desc = ""
+const dir_l = $s_inverno009
+const dir_o = $s_inverno007
+const a_reset = "P 100 inverno001 0 0 2\n\
+E 100 inverno009 0 26\n\
+E 40 inverno007 0 2\n\
+P 100 inverno001 0 0 2\n\
+E 40 inverno007 0 2\n\
+E 100 inverno009 0 26"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_inverno001:objsolto.total < 2
+    p = u = criar("p_inverno001", este, 0)
+  fimse
+  se u
+    r = criar("i_inverno009", u, 0), r.vestir(26), u.recalc = 1
+  fimse
+  se u && rand(100) < 40
+    r = criar("i_inverno007", u, 0), r.vestir(2), u.recalc = 1
+  fimse
+  p = u = nulo
+  se p_inverno001:objsolto.total < 2
+    p = u = criar("p_inverno001", este, 0)
+  fimse
+  se u && rand(100) < 40
+    r = criar("i_inverno007", u, 0), r.vestir(2), u.recalc = 1
+  fimse
+  se u
+    r = criar("i_inverno009", u, 0), r.vestir(26), u.recalc = 1
+  fimse
+
+
+classe s_inverno009
+herda b_inverno
+const s_titulo = "Diante de uma barreira improvisada"
+const s_desc = ""
+const dir_n = $s_inverno157
+const dir_s = $s_inverno158
+const dir_l = $s_inverno010
+const dir_o = $s_inverno008
+const a_reset = "P 100 inverno013 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno013:objsolto.total < 1
+    criar("p_inverno013", este, 0)
+  fimse
+
+
+classe s_inverno010
+herda b_inverno
+const s_titulo = "O centro do acampamento dos bárbaros"
+const s_desc = ""
+const dir_n = $s_inverno012
+const dir_s = $s_inverno011
+const dir_l = $s_inverno013
+const dir_o = $s_inverno009
+const a_reset = "S 100 inverno001 0 S\n\
+S 100 inverno002 0 inverno001\n\
+P 100 inverno009 0 0 1\n\
+E 100 inverno008 0 12"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  !dentro1.objini("i_inverno001") && criar("i_inverno001", este, 0)
+  $i_inverno001 && !$i_inverno001.dentro1.objini("i_inverno002") && criar("i_inverno002", \
+$i_inverno001, 0)
+  se p_inverno009:objsolto.total < 1
+    p = u = criar("p_inverno009", este, 0)
+  fimse
+  se u
+    r = criar("i_inverno008", u, 0), r.vestir(12), u.recalc = 1
+  fimse
+
+
+classe s_inverno011
+herda b_inverno
+const s_titulo = "A barraca do grande líder"
+const s_desc = ""
+const s_pnj = 0
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_inverno010
+const a_reset = "P 100 inverno012 0 0 1\nP 100 inverno014 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno012:objsolto.total < 1
+    criar("p_inverno012", este, 0)
+  fimse
+  se p_inverno014:objsolto.total < 1
+    criar("p_inverno014", este, 0)
+  fimse
+
+
+classe s_inverno012
+herda b_inverno
+const s_titulo = "Uma barraca"
+const s_desc = ""
+const s_pnj = 0
+const dir_s = $s_inverno010
+const a_reset = "S 100 inverno003 0 S\n\
+P 100 inverno007 0 0 1\n\
+E 100 inverno008 0 12\n\
+P 100 inverno008 0 0 1\n\
+P 100 inverno003 0 0 1\n\
+E 100 inverno009 0 26\n\
+P 100 inverno002 0 0 2\n\
+P 100 inverno002 0 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  !dentro1.objini("i_inverno003") && criar("i_inverno003", este, 0)
+  se p_inverno007:objsolto.total < 1
+    p = u = criar("p_inverno007", este, 0)
+  fimse
+  se u
+    r = criar("i_inverno008", u, 0), r.vestir(12), u.recalc = 1
+  fimse
+  se p_inverno008:objsolto.total < 1
+    criar("p_inverno008", este, 0)
+  fimse
+  p = u = nulo
+  se p_inverno003:objsolto.total < 1
+    p = u = criar("p_inverno003", este, 0)
+  fimse
+  se u
+    r = criar("i_inverno009", u, 0), r.vestir(26), u.recalc = 1
+  fimse
+  se p_inverno002:objsolto.total < 2
+    criar("p_inverno002", este, 0)
+  fimse
+  se p_inverno002:objsolto.total < 2
+    criar("p_inverno002", este, 0)
+  fimse
+
+
+classe s_inverno013
+herda b_inverno
+const s_titulo = "Uma barraca"
+const s_desc = ""
+const s_pnj = 0
+const dir_o = $s_inverno010
+const a_reset = "P 100 inverno011 0 0 3\n\
+P 100 inverno011 0 0 3\n\
+P 100 inverno011 0 0 3\n\
+P 100 inverno004 0 0 3\n\
+P 100 inverno004 0 0 3\n\
+P 100 inverno004 0 0 3\n\
+P 100 inverno010 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno011:objsolto.total < 3
+    criar("p_inverno011", este, 0)
+  fimse
+  se p_inverno011:objsolto.total < 3
+    criar("p_inverno011", este, 0)
+  fimse
+  se p_inverno011:objsolto.total < 3
+    criar("p_inverno011", este, 0)
+  fimse
+  se p_inverno004:objsolto.total < 3
+    criar("p_inverno004", este, 0)
+  fimse
+  se p_inverno004:objsolto.total < 3
+    criar("p_inverno004", este, 0)
+  fimse
+  se p_inverno004:objsolto.total < 3
+    criar("p_inverno004", este, 0)
+  fimse
+  se p_inverno010:objsolto.total < 1
+    criar("p_inverno010", este, 0)
+  fimse
+
+
+classe s_inverno014
+herda b_inverno
+const s_titulo = "Circundando pedras soltas"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+const dir_s = $s_inverno007
+const dir_l = $s_inverno015
+const a_reset = "P 100 inverno021 0 0 5"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno021:objsolto.total < 5
+    criar("p_inverno021", este, 0)
+  fimse
+
+func cmd_chegou # Chegou na sala
+  misc:evento(arg0) # Receber eventos do jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou100
+  refvar l = rand(-1, -60)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou200
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou300
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou400
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou500
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou600
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou700
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou800
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou900
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou1000
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+
+classe s_inverno015
+herda b_inverno
+const s_titulo = "Circundando pedras soltas"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_inverno016
+const dir_o = $s_inverno014
+const a_reset = "P 100 inverno021 0 0 5"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno021:objsolto.total < 5
+    criar("p_inverno021", este, 0)
+  fimse
+
+func cmd_chegou # Chegou na sala
+  misc:evento(arg0) # Receber eventos do jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou100
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou200
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou300
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou400
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou500
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou600
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou700
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou800
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou900
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou1000
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+
+classe s_inverno016
+herda b_inverno
+const s_titulo = "Circundando pedras soltas"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+const dir_s = $s_inverno015
+const dir_o = $s_inverno017
+const a_reset = "P 100 inverno021 0 0 5"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno021:objsolto.total < 5
+    criar("p_inverno021", este, 0)
+  fimse
+
+func cmd_chegou # Chegou na sala
+  misc:evento(arg0) # Receber eventos do jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou100
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou200
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou300
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou400
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou500
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou600
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou700
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou800
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou900
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou1000
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+
+classe s_inverno017
+herda b_inverno
+const s_titulo = "Circundando pedras soltas"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_inverno018
+const dir_l = $s_inverno016
+const a_reset = "P 100 inverno021 0 0 5"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno021:objsolto.total < 5
+    criar("p_inverno021", este, 0)
+  fimse
+
+func cmd_chegou # Chegou na sala
+  misc:evento(arg0) # Receber eventos do jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou100
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou200
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou300
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou400
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou500
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou600
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou700
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou800
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou900
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou1000
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+
+classe s_inverno018
+herda b_inverno
+const s_titulo = "Um som estranho nas pedras"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+const dir_s = $s_inverno017
+const dir_l = $s_inverno019
+const a_reset = "P 100 inverno021 0 0 5"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno021:objsolto.total < 5
+    criar("p_inverno021", este, 0)
+  fimse
+
+func cmd_chegou # Chegou na sala
+  misc:evento(arg0) # Receber eventos do jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou100
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou200
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou300
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou400
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou500
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou600
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou700
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou800
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou900
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou1000
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+
+classe s_inverno019
+herda b_inverno
+const s_titulo = "uma pequena elevação na parte plana da montanha"
+const s_desc = ""
+const dir_n = $s_inverno026
+const dir_s = $s_inverno025
+const dir_l = $s_inverno027
+const dir_o = $s_inverno018
+const dir_c = $s_inverno020
+const dir_ne = $s_inverno028
+const a_reset = "P 100 inverno019 0 0 10\nP 100 inverno017 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno019:objsolto.total < 10
+    criar("p_inverno019", este, 0)
+  fimse
+  se p_inverno017:objsolto.total < 10
+    criar("p_inverno017", este, 0)
+  fimse
+
+
+classe s_inverno020
+herda b_inverno
+const s_titulo = "No topo de uma pequena elevação na montanha"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_inverno022
+const dir_s = $s_inverno024
+const dir_l = $s_inverno021
+const dir_o = $s_inverno023
+const dir_b = $s_inverno019
+const a_reset = "P 100 inverno015 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno015:objsolto.total < 10
+    criar("p_inverno015", este, 0)
+  fimse
+
+func cmd_chegou # Chegou na sala
+  misc:evento(arg0) # Receber eventos do jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou100
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou200
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou300
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou400
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou500
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou600
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou700
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou800
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou900
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou1000
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+
+classe s_inverno021
+herda b_inverno
+const s_titulo = "Parte leste de uma pequena elevação"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+const dir_o = $s_inverno020
+const a_reset = "P 100 inverno015 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno015:objsolto.total < 10
+    criar("p_inverno015", este, 0)
+  fimse
+
+func cmd_chegou # Chegou na sala
+  misc:evento(arg0) # Receber eventos do jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou100
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou200
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou300
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou400
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou500
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou600
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou700
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou800
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou900
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou1000
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+
+classe s_inverno022
+herda b_inverno
+const s_titulo = "Parte norte de uma pequena elevação"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+const dir_s = $s_inverno020
+const a_reset = "P 100 inverno015 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno015:objsolto.total < 10
+    criar("p_inverno015", este, 0)
+  fimse
+
+func cmd_chegou # Chegou na sala
+  misc:evento(arg0) # Receber eventos do jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou100
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou200
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou300
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou400
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou500
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou600
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou700
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou800
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou900
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou1000
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+
+classe s_inverno023
+herda b_inverno
+const s_titulo = "Parte oeste de uma pequena elevação"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_inverno020
+const a_reset = "P 100 inverno015 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno015:objsolto.total < 10
+    criar("p_inverno015", este, 0)
+  fimse
+
+func cmd_chegou # Chegou na sala
+  misc:evento(arg0) # Receber eventos do jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou100
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou200
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou300
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou400
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou500
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou600
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou700
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou800
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou900
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou1000
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+
+classe s_inverno024
+herda b_inverno
+const s_titulo = "Parte sul de uma pequena elevação"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_inverno020
+const a_reset = "P 100 inverno015 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno015:objsolto.total < 10
+    criar("p_inverno015", este, 0)
+  fimse
+
+func cmd_chegou # Chegou na sala
+  misc:evento(arg0) # Receber eventos do jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou100
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou200
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou300
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou400
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou500
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou600
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou700
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou800
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou900
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou1000
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+
+classe s_inverno025
+herda b_inverno
+const s_titulo = "Sob a parte sul de uma pequena elevação na montanha"
+const s_desc = ""
+const dir_n = $s_inverno019
+const a_reset = "P 100 inverno019 0 0 10\nP 100 inverno017 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno019:objsolto.total < 10
+    criar("p_inverno019", este, 0)
+  fimse
+  se p_inverno017:objsolto.total < 10
+    criar("p_inverno017", este, 0)
+  fimse
+
+
+classe s_inverno026
+herda b_inverno
+const s_titulo = "Sob a parte norte de uma pequena elevação na montanha"
+const s_desc = ""
+const dir_s = $s_inverno019
+const a_reset = "P 100 inverno019 0 0 10\nP 100 inverno017 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno019:objsolto.total < 10
+    criar("p_inverno019", este, 0)
+  fimse
+  se p_inverno017:objsolto.total < 10
+    criar("p_inverno017", este, 0)
+  fimse
+
+
+classe s_inverno027
+herda b_inverno
+const s_titulo = "Sob a parte leste de uma pequena elevação na montanha"
+const s_desc = ""
+const dir_o = $s_inverno019
+const a_reset = "P 100 inverno019 0 0 10\nP 100 inverno017 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno019:objsolto.total < 10
+    criar("p_inverno019", este, 0)
+  fimse
+  se p_inverno017:objsolto.total < 10
+    criar("p_inverno017", este, 0)
+  fimse
+
+
+classe s_inverno028
+herda b_inverno
+const s_titulo = "Sob uma pequena elevação na parte plana da montanha"
+const s_desc = ""
+const a_reset = "P 100 inverno019 0 0 10\nP 100 inverno017 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno019:objsolto.total < 10
+    criar("p_inverno019", este, 0)
+  fimse
+  se p_inverno017:objsolto.total < 10
+    criar("p_inverno017", este, 0)
+  fimse
+
+const dir_so = $s_inverno019
+
+
+classe s_inverno029
+herda b_inverno
+const s_titulo = "Seguindo rumo a escuridão"
+const s_desc = ""
+const s_pnj = 0
+const dir_l = $s_inverno007
+const dir_o = $s_inverno030
+const a_reset = "P 100 inverno016 0 0 10\nE 20 inverno010 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_inverno016:objsolto.total < 10
+    p = u = criar("p_inverno016", este, 0)
+  fimse
+  se u && rand(100) < 20
+    r = criar("i_inverno010", u, 0), r.vestir(4), u.recalc = 1
+  fimse
+
+
+classe s_inverno030
+herda b_inverno
+const s_titulo = "Seguindo rumo a escuridão"
+const s_desc = ""
+const dir_l = $s_inverno029
+const dir_o = $s_inverno031
+
+
+classe s_inverno031
+herda b_inverno
+const s_titulo = "Um ponto escuro na montanha"
+const s_desc = ""
+const dir_n = $s_inverno032
+const dir_l = $s_inverno030
+const a_reset = "P 100 inverno016 0 0 10\nE 20 inverno010 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_inverno016:objsolto.total < 10
+    p = u = criar("p_inverno016", este, 0)
+  fimse
+  se u && rand(100) < 20
+    r = criar("i_inverno010", u, 0), r.vestir(4), u.recalc = 1
+  fimse
+
+
+classe s_inverno032
+herda b_inverno
+const s_titulo = "Engolido pelas sombras"
+const s_desc = ""
+const dir_n = $s_inverno033
+const dir_s = $s_inverno031
+const a_reset = "P 100 inverno016 0 0 10\nE 20 inverno010 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_inverno016:objsolto.total < 10
+    p = u = criar("p_inverno016", este, 0)
+  fimse
+  se u && rand(100) < 20
+    r = criar("i_inverno010", u, 0), r.vestir(4), u.recalc = 1
+  fimse
+
+
+classe s_inverno033
+herda b_inverno
+const s_titulo = "A entrada de uma caverna"
+const s_desc = ""
+const dir_s = $s_inverno032
+const dir_b = $s_inverno034
+const a_reset = "P 100 inverno016 0 0 10\nE 20 inverno010 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_inverno016:objsolto.total < 10
+    p = u = criar("p_inverno016", este, 0)
+  fimse
+  se u && rand(100) < 20
+    r = criar("i_inverno010", u, 0), r.vestir(4), u.recalc = 1
+  fimse
+
+
+classe s_inverno034
+herda b_inverno
+const s_titulo = "Saltando para as garras da gárgula"
+const s_desc = ""
+const dir_n = $s_inverno035
+const dir_c = $s_inverno033
+const a_reset = "P 100 inverno016 0 0 10\nE 20 inverno010 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_inverno016:objsolto.total < 10
+    p = u = criar("p_inverno016", este, 0)
+  fimse
+  se u && rand(100) < 20
+    r = criar("i_inverno010", u, 0), r.vestir(4), u.recalc = 1
+  fimse
+
+
+classe s_inverno035
+herda b_inverno
+const s_titulo = "Dentro de uma caverna fria"
+const s_desc = ""
+const dir_n = $s_inverno038
+const dir_s = $s_inverno040
+const dir_l = $s_inverno036
+const dir_o = $s_inverno037
+const a_reset = "P 100 inverno016 0 0 10\nE 20 inverno010 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_inverno016:objsolto.total < 10
+    p = u = criar("p_inverno016", este, 0)
+  fimse
+  se u && rand(100) < 20
+    r = criar("i_inverno010", u, 0), r.vestir(4), u.recalc = 1
+  fimse
+
+
+classe s_inverno036
+herda b_inverno
+const s_titulo = "Dentro de uma caverna fria"
+const s_desc = ""
+const dir_o = $s_inverno035
+const a_reset = "P 100 inverno016 0 0 10\nE 20 inverno010 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_inverno016:objsolto.total < 10
+    p = u = criar("p_inverno016", este, 0)
+  fimse
+  se u && rand(100) < 20
+    r = criar("i_inverno010", u, 0), r.vestir(4), u.recalc = 1
+  fimse
+
+
+classe s_inverno037
+herda b_inverno
+const s_titulo = "Uma parte mais úmida da caverna"
+const s_desc = ""
+const dir_l = $s_inverno035
+const a_reset = "P 100 inverno016 0 0 10\nE 20 inverno010 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_inverno016:objsolto.total < 10
+    p = u = criar("p_inverno016", este, 0)
+  fimse
+  se u && rand(100) < 20
+    r = criar("i_inverno010", u, 0), r.vestir(4), u.recalc = 1
+  fimse
+
+
+classe s_inverno038
+herda b_inverno
+const s_titulo = "Aprofundando-se na caverna"
+const s_desc = ""
+const dir_n = $s_inverno039
+const dir_s = $s_inverno035
+
+
+classe s_inverno039
+herda b_inverno
+const s_titulo = "No fundo da caverna"
+const s_desc = ""
+const dir_s = $s_inverno038
+const a_reset = "P 100 inverno016 0 0 10\nE 20 inverno010 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_inverno016:objsolto.total < 10
+    p = u = criar("p_inverno016", este, 0)
+  fimse
+  se u && rand(100) < 20
+    r = criar("i_inverno010", u, 0), r.vestir(4), u.recalc = 1
+  fimse
+
+
+classe s_inverno040
+herda b_inverno
+const s_titulo = "Nas garras da gárgula"
+const s_desc = ""
+const dir_n = $s_inverno035
+const dir_c = $s_inverno033
+const a_reset = "P 100 inverno016 240 250 10 h_segundo_ataque=4,z_moedas=300000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno016:objsolto.total < 10
+    criar("p_inverno016", este, rand(240, 250), "h_segundo_ataque=4,z_moedas=300000")
+  fimse
+
+
+classe s_inverno041
+herda b_inverno
+const s_titulo = "Circundando pedras soltas"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_inverno007
+const dir_l = $s_inverno042
+const a_reset = "P 100 inverno020 0 0 5"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno020:objsolto.total < 5
+    criar("p_inverno020", este, 0)
+  fimse
+
+func cmd_chegou # Chegou na sala
+  misc:evento(arg0) # Receber eventos do jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou100
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou200
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou300
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou400
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou500
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou600
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou700
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou800
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou900
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou1000
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+
+classe s_inverno042
+herda b_inverno
+const s_titulo = "Circundando pedras soltas"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+const dir_s = $s_inverno043
+const dir_o = $s_inverno041
+const a_reset = "P 100 inverno020 0 0 5"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno020:objsolto.total < 5
+    criar("p_inverno020", este, 0)
+  fimse
+
+func cmd_chegou # Chegou na sala
+  misc:evento(arg0) # Receber eventos do jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou100
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou200
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou300
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou400
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou500
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou600
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou700
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou800
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou900
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou1000
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+
+classe s_inverno043
+herda b_inverno
+const s_titulo = "Circundando pedras soltas"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_inverno042
+const dir_o = $s_inverno044
+const a_reset = "P 100 inverno020 0 0 5"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno020:objsolto.total < 5
+    criar("p_inverno020", este, 0)
+  fimse
+
+func cmd_chegou # Chegou na sala
+  misc:evento(arg0) # Receber eventos do jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou100
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou200
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou300
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou400
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou500
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou600
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou700
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou800
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou900
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou1000
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+
+classe s_inverno044
+herda b_inverno
+const s_titulo = "Circundando pedras soltas"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+const dir_s = $s_inverno045
+const dir_l = $s_inverno043
+const a_reset = "P 100 inverno020 0 0 5"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno020:objsolto.total < 5
+    criar("p_inverno020", este, 0)
+  fimse
+
+func cmd_chegou # Chegou na sala
+  misc:evento(arg0) # Receber eventos do jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou100
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou200
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou300
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou400
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou500
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou600
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou700
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou800
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou900
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou1000
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+
+classe s_inverno045
+herda b_inverno
+const s_titulo = "Um som estranho nas pedras"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_inverno044
+const dir_l = $s_inverno046
+const a_reset = "P 100 inverno020 0 0 5"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno020:objsolto.total < 5
+    criar("p_inverno020", este, 0)
+  fimse
+
+func cmd_chegou # Chegou na sala
+  misc:evento(arg0) # Receber eventos do jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou100
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou200
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou300
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou400
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou500
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou600
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou700
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou800
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou900
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou1000
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+
+classe s_inverno046
+herda b_inverno
+const s_titulo = "uma pequena elevação na parte plana da montanha"
+const s_desc = ""
+const dir_n = $s_inverno048
+const dir_s = $s_inverno049
+const dir_l = $s_inverno050
+const dir_o = $s_inverno045
+const dir_c = $s_inverno051
+const dir_ne = $s_inverno047
+const a_reset = "P 100 inverno019 0 0 10\nP 100 inverno017 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno019:objsolto.total < 10
+    criar("p_inverno019", este, 0)
+  fimse
+  se p_inverno017:objsolto.total < 10
+    criar("p_inverno017", este, 0)
+  fimse
+
+
+classe s_inverno047
+herda b_inverno
+const s_titulo = "sob uma pequena elevação na parte plana da montanha"
+const s_desc = ""
+const a_reset = "P 100 inverno019 0 0 10\nP 100 inverno017 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno019:objsolto.total < 10
+    criar("p_inverno019", este, 0)
+  fimse
+  se p_inverno017:objsolto.total < 10
+    criar("p_inverno017", este, 0)
+  fimse
+
+const dir_so = $s_inverno046
+
+
+classe s_inverno048
+herda b_inverno
+const s_titulo = "Sob a parte norte de uma pequena elevação na montanha"
+const s_desc = ""
+const dir_s = $s_inverno046
+const a_reset = "P 100 inverno019 0 0 10\nP 100 inverno017 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno019:objsolto.total < 10
+    criar("p_inverno019", este, 0)
+  fimse
+  se p_inverno017:objsolto.total < 10
+    criar("p_inverno017", este, 0)
+  fimse
+
+
+classe s_inverno049
+herda b_inverno
+const s_titulo = "sob a Parte sul de uma pequena elevação"
+const s_desc = ""
+const dir_n = $s_inverno046
+const a_reset = "P 100 inverno019 0 0 10\nP 100 inverno017 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno019:objsolto.total < 10
+    criar("p_inverno019", este, 0)
+  fimse
+  se p_inverno017:objsolto.total < 10
+    criar("p_inverno017", este, 0)
+  fimse
+
+
+classe s_inverno050
+herda b_inverno
+const s_titulo = "Sob a parte leste de uma pequena elevação na montanha"
+const s_desc = ""
+const dir_o = $s_inverno046
+const a_reset = "P 100 inverno019 0 0 10\nP 100 inverno017 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno019:objsolto.total < 10
+    criar("p_inverno019", este, 0)
+  fimse
+  se p_inverno017:objsolto.total < 10
+    criar("p_inverno017", este, 0)
+  fimse
+
+
+classe s_inverno051
+herda b_inverno
+const s_titulo = "No topo de uma pequena elevação na montanha"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_inverno052
+const dir_s = $s_inverno054
+const dir_l = $s_inverno053
+const dir_o = $s_inverno055
+const dir_b = $s_inverno046
+const a_reset = "P 100 inverno015 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno015:objsolto.total < 10
+    criar("p_inverno015", este, 0)
+  fimse
+
+func cmd_chegou # Chegou na sala
+  misc:evento(arg0) # Receber eventos do jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou100
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou200
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou300
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou400
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou500
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou600
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou700
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou800
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou900
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou1000
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+
+classe s_inverno052
+herda b_inverno
+const s_titulo = "parte norte de uma pequena elevação na montanha"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+const dir_s = $s_inverno051
+const a_reset = "P 100 inverno015 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno015:objsolto.total < 10
+    criar("p_inverno015", este, 0)
+  fimse
+
+func cmd_chegou # Chegou na sala
+  misc:evento(arg0) # Receber eventos do jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou100
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou200
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou300
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou400
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou500
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou600
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou700
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou800
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou900
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou1000
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+
+classe s_inverno053
+herda b_inverno
+const s_titulo = "parte leste de uma pequena elevação na montanha"
+const s_desc = ""
+const dir_o = $s_inverno051
+const a_reset = "P 100 inverno015 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno015:objsolto.total < 10
+    criar("p_inverno015", este, 0)
+  fimse
+
+func cmd_chegou # Chegou na sala
+  misc:evento(arg0) # Receber eventos do jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou100
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou200
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou300
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou400
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou500
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou600
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou700
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou800
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou900
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou1000
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+
+classe s_inverno054
+herda b_inverno
+const s_titulo = "Parte sul de uma pequena elevação"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_inverno051
+const a_reset = "P 100 inverno015 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno015:objsolto.total < 10
+    criar("p_inverno015", este, 0)
+  fimse
+
+func cmd_chegou # Chegou na sala
+  misc:evento(arg0) # Receber eventos do jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou100
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou200
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou300
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou400
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou500
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou600
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou700
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou800
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou900
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou1000
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+
+classe s_inverno055
+herda b_inverno
+const s_titulo = "Parte oeste de uma pequena elevação"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_inverno051
+const a_reset = "P 100 inverno015 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno015:objsolto.total < 10
+    criar("p_inverno015", este, 0)
+  fimse
+
+func cmd_chegou # Chegou na sala
+  misc:evento(arg0) # Receber eventos do jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou100
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou200
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou300
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou400
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou500
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou600
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou700
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou800
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou900
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+func entrou1000
+  refvar l = rand(-1, -50)
+  arg0.pvida += l
+  arg0.msg("Uma pedra pesada vinda do alto lhe acerta a cabeça! " + l + ".")
+
+
+classe s_inverno056
+herda b_inverno
+const s_titulo = "Continuando a escalada"
+const s_desc = ""
+const dir_c = $s_inverno057
+const dir_se = $s_inverno007
+
+
+classe s_inverno057
+herda b_inverno
+const s_titulo = "Uma escada tortuosa"
+const s_desc = ""
+const dir_b = $s_inverno056
+const dir_se = $s_inverno058
+
+
+classe s_inverno058
+herda b_inverno
+const s_titulo = "Uma escada tortuosa"
+const s_desc = ""
+const dir_c = $s_inverno059
+const dir_no = $s_inverno057
+
+
+classe s_inverno059
+herda b_inverno
+const s_titulo = "Uma elevação solta no espaço"
+const s_desc = ""
+const dir_l = $s_inverno060
+const dir_b = $s_inverno058
+
+
+classe s_inverno060
+herda b_inverno
+const s_titulo = "Uma elevação solta no espaço"
+const s_desc = ""
+const dir_n = $s_inverno064
+const dir_o = $s_inverno059
+
+
+classe s_inverno061
+herda b_inverno
+const s_titulo = "Uma queda vertiginosa"
+const s_desc = ""
+const dir_s = $s_inverno059
+
+
+classe s_inverno062
+herda b_inverno
+const s_titulo = "Uma queda vertiginosa"
+const s_desc = ""
+const dir_n = $s_inverno059
+
+
+classe s_inverno063
+herda b_inverno
+const s_titulo = "Uma queda vertiginosa"
+const s_desc = ""
+const dir_c = $s_inverno059
+
+
+classe s_inverno064
+herda b_inverno
+const s_titulo = "Uma elevação solta no espaço"
+const s_desc = ""
+const dir_s = $s_inverno060
+const dir_c = $s_inverno065
+
+
+classe s_inverno065
+herda b_inverno
+const s_titulo = "Um ponto seguro na subida"
+const s_desc = ""
+const dir_n = $s_inverno114
+const dir_o = $s_inverno066
+const dir_b = $s_inverno064
+
+
+classe s_inverno066
+herda b_inverno
+const s_titulo = "Caminho pedregoso"
+const s_desc = ""
+const dir_n = $s_inverno067
+const dir_l = $s_inverno065
+
+
+classe s_inverno067
+herda b_inverno
+const s_titulo = "Caminho pedregoso"
+const s_desc = ""
+const dir_n = $s_inverno068
+const dir_s = $s_inverno066
+
+
+classe s_inverno068
+herda b_inverno
+const s_titulo = "Caminho pedregoso"
+const s_desc = ""
+const dir_n = $s_inverno069
+const dir_s = $s_inverno067
+
+
+classe s_inverno069
+herda b_inverno
+const s_titulo = "Caminho pedregoso"
+const s_desc = ""
+const dir_s = $s_inverno068
+const dir_l = $s_inverno070
+
+
+classe s_inverno070
+herda b_inverno
+const s_titulo = "Caminho pedregoso"
+const s_desc = ""
+const dir_l = $s_inverno071
+const portaini_l = 1 # Estado inicial: 1 Porta aberta
+const portanome_l = "Os portões sul"
+const portaartigo_l = 3 # Artigo porta: 3 os (portões)
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_inverno069
+
+
+classe s_inverno071
+herda b_inverno
+const s_titulo = "O Portão sul"
+const s_desc = ""
+const s_pnj = 0
+const dir_n = $s_inverno072
+const dir_o = $s_inverno070
+const portaini_o = 1 # Estado inicial: 1 Porta aberta
+const portanome_o = "Os portões sul"
+const portaartigo_o = 3 # Artigo porta: 3 os (portões)
+const fecha_o = 1 # Fecha ao passar: Sim
+const a_reset = "P 100 inverno022 0 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno022:objsolto.total < 4
+    criar("p_inverno022", este, 0)
+  fimse
+
+
+classe s_inverno072
+herda b_inverno
+const s_titulo = "Uma rua pavimentada"
+const s_desc = ""
+const dir_n = $s_inverno073
+const dir_s = $s_inverno071
+const a_reset = "P 100 inverno033 0 0 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno033:objsolto.total < 3
+    criar("p_inverno033", este, 0)
+  fimse
+
+
+classe s_inverno073
+herda b_inverno
+const s_titulo = "O jardim da praça central"
+const s_desc = ""
+const dir_n = $s_inverno090
+const dir_s = $s_inverno072
+const dir_l = $s_inverno074
+const dir_o = $s_inverno082
+const a_reset = "P 100 inverno034 0 0 2\nP 100 inverno033 0 0 3\nP 100 inverno023 0 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno034:objsolto.total < 2
+    criar("p_inverno034", este, 0)
+  fimse
+  se p_inverno033:objsolto.total < 3
+    criar("p_inverno033", este, 0)
+  fimse
+  se p_inverno023:objsolto.total < 2
+    criar("p_inverno023", este, 0)
+  fimse
+
+
+classe s_inverno074
+herda b_inverno
+const s_titulo = "Rua leste"
+const s_desc = ""
+const dir_n = $s_inverno076
+const dir_s = $s_inverno075
+const dir_l = $s_inverno077
+const dir_o = $s_inverno073
+
+
+classe s_inverno075
+herda b_inverno
+const s_titulo = "A casa do anão joalheiro"
+const s_desc = ""
+const dir_n = $s_inverno074
+const a_reset = "P 100 inverno030 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno030:objsolto.total < 1
+    criar("p_inverno030", este, 0)
+  fimse
+
+
+classe s_inverno076
+herda b_inverno
+const s_titulo = "A casa da Madame Mellyn"
+const s_desc = ""
+const dir_s = $s_inverno074
+const a_reset = "P 100 inverno029 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno029:objsolto.total < 1
+    criar("p_inverno029", este, 0)
+  fimse
+
+
+classe s_inverno077
+herda b_inverno
+const s_titulo = "Rua leste"
+const s_desc = ""
+const dir_n = $s_inverno078
+const dir_s = $s_inverno079
+const dir_l = $s_inverno080
+const dir_o = $s_inverno074
+const a_reset = "P 100 inverno034 0 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno034:objsolto.total < 2
+    criar("p_inverno034", este, 0)
+  fimse
+
+
+classe s_inverno078
+herda b_inverno
+const s_titulo = "A casa do anão ferreiro"
+const s_desc = ""
+const dir_s = $s_inverno077
+const a_reset = "P 100 inverno031 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno031:objsolto.total < 1
+    criar("p_inverno031", este, 0)
+  fimse
+
+
+classe s_inverno079
+herda b_inverno
+const s_titulo = "A casa do artesão"
+const s_desc = ""
+const dir_n = $s_inverno077
+const a_reset = "P 100 inverno032 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno032:objsolto.total < 1
+    criar("p_inverno032", este, 0)
+  fimse
+
+
+classe s_inverno080
+herda b_inverno
+const s_titulo = "Rua leste"
+const s_desc = ""
+const dir_l = $s_inverno081
+const dir_o = $s_inverno077
+
+
+classe s_inverno081
+herda b_inverno
+const s_titulo = "O portão leste"
+const s_desc = ""
+const s_pnj = 1
+const dir_l = $s_inverno097
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "O portão leste do vilarejo"
+const portaartigo_l = 2 # Artigo porta: 2 o (portão)
+const fechadura_l = "inverno004"
+const comechave_l = 0 # Come chave: Não
+const fugir_l = 1 # Sem fuga: Sim
+const tranc_l = 1 # Trancar: 1 Pode ser trancado
+const dir_o = $s_inverno080
+const a_reset = "D 100 l 3\nP 100 inverno022 0 0 4\nE 100 inverno004 0 9"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  mudaporta("l", 3)
+  se p_inverno022:objsolto.total < 4
+    p = u = criar("p_inverno022", este, 0)
+  fimse
+  se u
+    r = criar("i_inverno004", u, 0), r.vestir(9), u.recalc = 1
+  fimse
+
+
+classe s_inverno082
+herda b_inverno
+const s_titulo = "Rua oeste"
+const s_desc = ""
+const dir_n = $s_inverno083
+const dir_s = $s_inverno084
+const dir_l = $s_inverno073
+const dir_o = $s_inverno085
+
+
+classe s_inverno083
+herda b_inverno
+const s_titulo = "Padaria bom pão"
+const s_desc = ""
+const dir_s = $s_inverno082
+const a_reset = "P 100 inverno024 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno024:objsolto.total < 1
+    criar("p_inverno024", este, 0)
+  fimse
+
+
+classe s_inverno084
+herda b_inverno
+const s_titulo = "Estúdio de pintura"
+const s_desc = ""
+const dir_n = $s_inverno082
+const a_reset = "P 100 inverno025 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno025:objsolto.total < 1
+    criar("p_inverno025", este, 0)
+  fimse
+
+
+classe s_inverno085
+herda b_inverno
+const s_titulo = "Rua oeste"
+const s_desc = ""
+const dir_n = $s_inverno086
+const dir_s = $s_inverno087
+const dir_l = $s_inverno082
+const dir_o = $s_inverno088
+
+
+classe s_inverno086
+herda b_inverno
+const s_titulo = "Loja de magia"
+const s_desc = ""
+const dir_s = $s_inverno085
+const a_reset = "P 100 inverno027 0 0 1\nP 100 inverno026 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno027:objsolto.total < 1
+    criar("p_inverno027", este, 0)
+  fimse
+  se p_inverno026:objsolto.total < 1
+    criar("p_inverno026", este, 0)
+  fimse
+
+
+classe s_inverno087
+herda b_inverno
+const s_titulo = "A casa do velho bruxo"
+const s_desc = ""
+const dir_n = $s_inverno085
+const a_reset = "P 100 inverno028 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno028:objsolto.total < 1
+    criar("p_inverno028", este, 0)
+  fimse
+
+
+classe s_inverno088
+herda b_inverno
+const s_titulo = "Rua oeste"
+const s_desc = ""
+const dir_l = $s_inverno085
+const dir_o = $s_inverno089
+
+
+classe s_inverno089
+herda b_inverno
+const s_titulo = "Portão oeste"
+const s_desc = ""
+const dir_l = $s_inverno088
+const a_reset = "D 100 o 3\nP 100 inverno022 0 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função cri
+
+
+classe s_inverno090
+herda b_inverno
+const s_titulo = "Rua norte"
+const s_desc = ""
+const dir_n = $s_inverno094
+const dir_s = $s_inverno073
+const dir_l = $s_inverno091
+
+
+classe s_inverno091
+herda b_inverno
+const s_titulo = "Um grande pátio"
+const s_desc = ""
+const dir_n = $s_inverno092
+const dir_l = $s_inverno093
+const dir_o = $s_inverno090
+
+
+classe s_inverno092
+herda b_inverno
+const s_titulo = "Uma taverna movimentada"
+const s_desc = ""
+const dir_s = $s_inverno091
+const a_reset = "P 100 inverno040 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno040:objsolto.total < 1
+    criar("p_inverno040", este, 0)
+  fimse
+
+
+classe s_inverno093
+herda b_inverno
+const s_titulo = "Uma lanchonete"
+const s_desc = ""
+const s_luz = 1 # Luz: 1 Claro sem eventos de tempo
+const dir_o = $s_inverno091
+const a_reset = "P 100 inverno041 0 0 1\nS 100 praiacoca023 1 S\nS 100 praiacoca024 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno041:objsolto.total < 1
+    criar("p_inverno041", este, 0)
+  fimse
+  !dentro1.objini("i_praiacoca023") && criar("i_praiacoca023", este, 1)
+  !dentro1.objini("i_praiacoca024") && criar("i_praiacoca024", este, 1)
+
+
+classe s_inverno094
+herda b_inverno
+const s_titulo = "Rua norte"
+const s_desc = ""
+const dir_n = $s_inverno095
+const dir_s = $s_inverno090
+const a_reset = "P 100 inverno033 0 0 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno033:objsolto.total < 3
+    criar("p_inverno033", este, 0)
+  fimse
+
+
+classe s_inverno095
+herda b_inverno
+const s_titulo = "Rua norte"
+const s_desc = ""
+const dir_n = $s_inverno096
+const dir_s = $s_inverno094
+
+
+classe s_inverno096
+herda b_inverno
+const s_titulo = "O portão norte"
+const s_desc = ""
+const dir_s = $s_inverno095
+const a_reset = "P 100 inverno022 0 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno022:objsolto.total < 4
+    criar("p_inverno022", este, 0)
+  fimse
+
+
+classe s_inverno097
+herda b_inverno
+const s_titulo = "Fora da cidade"
+const s_desc = ""
+const dir_s = $s_inverno119
+const dir_l = $s_inverno098
+const dir_o = $s_inverno081
+const portaini_o = 3 # Estado inicial: 3 Porta trancada
+const portanome_o = "O portão leste do vilarejo"
+const portaartigo_o = 2 # Artigo porta: 2 o (portão)
+const fechadura_o = "inverno004"
+const fugir_o = 1 # Sem fuga: Sim
+const tranc_o = 1 # Trancar: 1 Pode ser trancado
+const a_reset = "D 100 o 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("o", 3)
+
+
+classe s_inverno098
+herda b_inverno
+const s_titulo = "Afastando-se da cidadezinha"
+const s_desc = ""
+const dir_l = $s_inverno099
+const dir_o = $s_inverno097
+
+
+classe s_inverno099
+herda b_inverno
+const s_titulo = "Uma curva no caminho"
+const s_desc = ""
+const s_pnj = 0
+const eveste = 0 # Eventos sala: Não
+const dir_n = $s_inverno100
+const dir_o = $s_inverno098
+
+
+classe s_inverno100
+herda b_inverno
+const s_titulo = "Próximo ao território dos goblins"
+const s_desc = ""
+const dir_n = $s_inverno101
+const dir_s = $s_inverno099
+
+
+classe s_inverno101
+herda b_inverno
+const s_titulo = "Uma barreira de goblins"
+const s_desc = ""
+const dir_n = $s_inverno105
+const dir_s = $s_inverno100
+const dir_l = $s_inverno102
+const dir_o = $s_inverno106
+
+
+classe s_inverno102
+herda b_inverno
+const s_titulo = "Um caminho irregular"
+const s_desc = ""
+const dir_l = $s_inverno103
+const dir_o = $s_inverno101
+
+
+classe s_inverno103
+herda b_inverno
+const s_titulo = "Um caminho irregular"
+const s_desc = ""
+const dir_s = $s_inverno104
+const dir_o = $s_inverno102
+
+
+classe s_inverno104
+herda b_inverno
+const s_titulo = "Uma área coberta"
+const s_desc = ""
+const dir_n = $s_inverno103
+const dir_s = $s_inverno110
+const dir_l = $s_inverno108
+const dir_o = $s_inverno109
+
+
+classe s_inverno105
+herda b_inverno
+const s_titulo = "Sobre uma grande pedra"
+const s_desc = ""
+const dir_s = $s_inverno101
+const dir_o = $s_goblins024
+
+func cmd_salaperso
+  criar("e_montanha", arg0)
+
+
+classe s_inverno106
+herda b_inverno
+const s_titulo = "Um caminho irregular"
+const s_desc = ""
+const dir_l = $s_inverno101
+const dir_o = $s_inverno107
+
+
+classe s_inverno107
+herda b_inverno
+const s_titulo = "Um caminho irregular"
+const s_desc = ""
+const dir_l = $s_inverno106
+const dir_o = $s_inverno111
+
+
+classe s_inverno108
+herda b_inverno
+const s_titulo = "Uma pequena barraca improvizada"
+const s_desc = ""
+const dir_o = $s_inverno104
+
+
+classe s_inverno109
+herda b_inverno
+const s_titulo = "Uma pequena barraca improvizada"
+const s_desc = ""
+const dir_l = $s_inverno104
+
+
+classe s_inverno110
+herda b_inverno
+const s_titulo = "Uma pequena barraca improvizada"
+const s_desc = ""
+const dir_n = $s_inverno104
+
+
+classe s_inverno111
+herda b_inverno
+const s_titulo = "Um caminho irregular"
+const s_desc = ""
+const dir_s = $s_inverno112
+const dir_l = $s_inverno107
+
+
+classe s_inverno112
+herda b_inverno
+const s_titulo = "Uma área coberta"
+const s_desc = ""
+const dir_n = $s_inverno111
+
+
+classe s_inverno114
+herda b_inverno
+const s_titulo = "A frente de uma casinha de madeira"
+const s_desc = ""
+const dir_n = $s_inverno115
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "A porta da casa"
+const dir_s = $s_inverno065
+
+
+classe s_inverno115
+herda b_inverno
+const s_titulo = "Dentro de uma casinha de madeira"
+const s_desc = ""
+const dir_s = $s_inverno114
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "A porta da casa"
+const dir_l = $s_inverno116
+const dir_o = $s_inverno117
+const dir_b = $s_inverno118
+
+
+classe s_inverno116
+herda b_inverno
+const s_titulo = "Um quartinho na casinha de madeira"
+const s_desc = ""
+const dir_o = $s_inverno115
+const a_reset = "P 100 inverno036 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno036:objsolto.total < 1
+    criar("p_inverno036", este, 0)
+  fimse
+
+
+classe s_inverno117
+herda b_inverno
+const s_titulo = "Uma cozinha"
+const s_desc = ""
+const dir_l = $s_inverno115
+const a_reset = "P 100 inverno039 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno039:objsolto.total < 1
+    criar("p_inverno039", este, 0)
+  fimse
+
+
+classe s_inverno118
+herda b_inverno
+const s_titulo = "Um porão secreto"
+const s_desc = ""
+const dir_c = $s_inverno115
+const a_reset = "P 100 inverno018 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno018:objsolto.total < 1
+    criar("p_inverno018", este, 0)
+  fimse
+
+
+classe s_inverno119
+herda b_inverno
+const s_titulo = "Um caminho lateral"
+const s_desc = ""
+const dir_n = $s_inverno097
+const dir_s = $s_inverno120
+
+
+classe s_inverno120
+herda b_inverno
+const s_titulo = "Um caminho lateral"
+const s_desc = ""
+const dir_n = $s_inverno119
+const dir_s = $s_inverno121
+
+
+classe s_inverno121
+herda b_inverno
+const s_titulo = "Um caminho lateral"
+const s_desc = ""
+const dir_n = $s_inverno120
+const dir_o = $s_inverno122
+
+
+classe s_inverno122
+herda b_inverno
+const s_titulo = "A entrada de uma vila afastada"
+const s_desc = ""
+const dir_s = $s_inverno123
+const dir_l = $s_inverno121
+
+
+classe s_inverno123
+herda b_inverno
+const s_titulo = "Uma rua pedregosa"
+const s_desc = ""
+const dir_n = $s_inverno122
+const dir_s = $s_inverno128
+const dir_l = $s_inverno124
+const dir_o = $s_inverno127
+const a_reset = "D 100 l 2\nD 100 o 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("l", 2)
+  mudaporta("o", 2)
+
+
+classe s_inverno124
+herda b_inverno
+const s_titulo = "Uma casa queimada"
+const s_desc = ""
+const dir_n = $s_inverno126
+const dir_s = $s_inverno125
+const dir_o = $s_inverno123
+const a_reset = "P 100 inverno042 0 0 13\nD 100 o 2\nD 100 s 2\nD 100 n 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno042:objsolto.total < 13
+    criar("p_inverno042", este, 0)
+  fimse
+  mudaporta("o", 2)
+  mudaporta("s", 2)
+  mudaporta("n", 3)
+
+
+classe s_inverno125
+herda b_inverno
+const s_titulo = "Um quarto destruído"
+const s_desc = ""
+const dir_n = $s_inverno124
+const a_reset = "P 100 inverno042 0 0 13"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno042:objsolto.total < 13
+    criar("p_inverno042", este, 0)
+  fimse
+
+
+classe s_inverno126
+herda b_inverno
+const s_titulo = "Um banheiro fedorento"
+const s_desc = ""
+const dir_s = $s_inverno124
+const a_reset = "P 100 inverno042 0 0 13"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno042:objsolto.total < 13
+    criar("p_inverno042", este, 0)
+  fimse
+
+
+classe s_inverno127
+herda b_inverno
+const s_titulo = "Um barraco de madeira em ruínas"
+const s_desc = ""
+const dir_l = $s_inverno123
+const a_reset = "P 100 inverno042 0 0 13"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno042:objsolto.total < 13
+    criar("p_inverno042", este, 0)
+  fimse
+
+
+classe s_inverno128
+herda b_inverno
+const s_titulo = "Uma rua pedregosa"
+const s_desc = ""
+const dir_n = $s_inverno123
+const dir_s = $s_inverno130
+const dir_l = $s_inverno147
+const dir_o = $s_inverno129
+const a_reset = "D 100 l 2\nD 100 o 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("l", 2)
+  mudaporta("o", 2)
+
+
+classe s_inverno129
+herda b_inverno
+const s_titulo = "Um barraco de madeira em ruínas"
+const s_desc = ""
+const dir_l = $s_inverno128
+const a_reset = "P 100 inverno042 0 0 13"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno042:objsolto.total < 13
+    criar("p_inverno042", este, 0)
+  fimse
+
+
+classe s_inverno130
+herda b_inverno
+const s_titulo = "Uma praça sombria"
+const s_desc = ""
+const dir_n = $s_inverno128
+const dir_s = $s_inverno148
+const dir_l = $s_inverno141
+const dir_o = $s_inverno131
+const a_reset = "S 100 inverno005 0 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_inverno005") && criar("i_inverno005", este, 0)
+
+
+classe s_inverno131
+herda b_inverno
+const s_titulo = "Um beco escuro e apertado"
+const s_desc = ""
+const dir_n = $s_inverno132
+const dir_s = $s_inverno133
+const dir_l = $s_inverno130
+const dir_o = $s_inverno134
+
+
+classe s_inverno132
+herda b_inverno
+const s_titulo = "Uma casa depredada"
+const s_desc = ""
+const dir_s = $s_inverno131
+const a_reset = "P 100 inverno042 0 0 13"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno042:objsolto.total < 13
+    criar("p_inverno042", este, 0)
+  fimse
+
+
+classe s_inverno133
+herda b_inverno
+const s_titulo = "Uma casa depredada"
+const s_desc = ""
+const dir_n = $s_inverno131
+const a_reset = "P 100 inverno042 0 0 14"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno042:objsolto.total < 14
+    criar("p_inverno042", este, 0)
+  fimse
+
+
+classe s_inverno134
+herda b_inverno
+const s_titulo = "Um beco escuro e apertado"
+const s_desc = ""
+const dir_n = $s_inverno135
+const dir_s = $s_inverno136
+const dir_l = $s_inverno131
+const dir_o = $s_inverno137
+
+
+classe s_inverno135
+herda b_inverno
+const s_titulo = "Uma casa depredada"
+const s_desc = ""
+const dir_s = $s_inverno134
+const a_reset = "P 100 inverno042 0 0 18"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno042:objsolto.total < 18
+    criar("p_inverno042", este, 0)
+  fimse
+
+
+classe s_inverno136
+herda b_inverno
+const s_titulo = "Uma casa depredada"
+const s_desc = ""
+const dir_n = $s_inverno134
+const a_reset = "P 100 inverno042 0 0 18"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno042:objsolto.total < 18
+    criar("p_inverno042", este, 0)
+  fimse
+
+
+classe s_inverno137
+herda b_inverno
+const s_titulo = "Um beco escuro e apertado"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_inverno138
+const dir_s = $s_inverno139
+const dir_l = $s_inverno134
+const dir_o = $s_inverno140
+
+func cmd_chegou # Chegou na sala
+  misc:evento(arg0) # Receber eventos do jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou10
+  arg0.msg("Cuidado, há perigo por perto!")
+
+
+classe s_inverno138
+herda b_inverno
+const s_titulo = "Uma casa depredada"
+const s_desc = ""
+const dir_s = $s_inverno137
+const a_reset = "P 100 inverno042 0 0 18"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno042:objsolto.total < 18
+    criar("p_inverno042", este, 0)
+  fimse
+
+
+classe s_inverno139
+herda b_inverno
+const s_titulo = "Uma casa depredada"
+const s_desc = ""
+const dir_n = $s_inverno137
+const a_reset = "P 100 inverno042 0 0 18"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno042:objsolto.total < 18
+    criar("p_inverno042", este, 0)
+  fimse
+
+
+classe s_inverno140
+herda b_inverno
+const s_titulo = "Caindo por entre entulhos de móveis e pedras"
+const s_desc = ""
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+const dir_l = $s_inverno137
+
+
+classe s_inverno141
+herda b_inverno
+const s_titulo = "Um beco escuro e apertado"
+const s_desc = ""
+const dir_n = $s_inverno142
+const dir_s = $s_inverno143
+const dir_l = $s_inverno144
+const dir_o = $s_inverno130
+
+
+classe s_inverno142
+herda b_inverno
+const s_titulo = "Uma casa depredada"
+const s_desc = ""
+const dir_s = $s_inverno141
+const a_reset = "P 100 inverno042 0 0 13"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno042:objsolto.total < 13
+    criar("p_inverno042", este, 0)
+  fimse
+
+
+classe s_inverno143
+herda b_inverno
+const s_titulo = "Uma casa depredada"
+const s_desc = ""
+const dir_n = $s_inverno141
+const a_reset = "P 100 inverno042 0 0 13"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno042:objsolto.total < 13
+    criar("p_inverno042", este, 0)
+  fimse
+
+
+classe s_inverno144
+herda b_inverno
+const s_titulo = "Um beco escuro e apertado"
+const s_desc = ""
+const dir_n = $s_inverno159
+const dir_s = $s_inverno160
+const dir_l = $s_inverno145
+const dir_o = $s_inverno141
+
+
+classe s_inverno145
+herda b_inverno
+const s_titulo = "Um beco escuro e apertado"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_inverno161
+const dir_s = $s_inverno162
+const dir_l = $s_inverno146
+const dir_o = $s_inverno144
+
+func cmd_chegou # Chegou na sala
+  misc:evento(arg0) # Receber eventos do jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou10
+  arg0.msg("Cuidado, há perigo por perto!")
+
+
+classe s_inverno146
+herda b_inverno
+const s_titulo = "Caindo por entre entulhos de móveis e pedras"
+const s_desc = ""
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+const dir_o = $s_inverno145
+
+
+classe s_inverno147
+herda b_inverno
+const s_titulo = "Um barraco de madeira em ruínas"
+const s_desc = ""
+const dir_o = $s_inverno128
+const a_reset = "P 100 inverno042 0 0 13"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno042:objsolto.total < 13
+    criar("p_inverno042", este, 0)
+  fimse
+
+
+classe s_inverno148
+herda b_inverno
+const s_titulo = "Uma rua pedregosa"
+const s_desc = ""
+const dir_n = $s_inverno130
+const dir_s = $s_inverno149
+
+
+classe s_inverno149
+herda b_inverno
+const s_titulo = "Uma rua pedregosa"
+const s_desc = ""
+const s_morre = 0 # Morre ao entrar: 0 Não
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_inverno148
+const dir_s = $s_inverno154
+const dir_l = $s_inverno150
+const voar_l = 0 # Voar: Não
+const dir_o = $s_inverno151
+const voar_o = 0 # Voar: Não
+
+func cmd_chegou # Chegou na sala
+  misc:evento(arg0) # Receber eventos do jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou10
+  arg0.msg("Cuidado, há perigo por perto!")
+
+
+classe s_inverno150
+herda b_inverno
+const s_titulo = "Uma casa depredada"
+const s_desc = ""
+const dir_o = $s_inverno149
+const dir_b = $s_inverno153
+const portaini_b = 2 # Estado inicial: 2 Porta fechada
+const portanome_b = "O alçapão"
+const portaartigo_b = 2 # Artigo porta: 2 o (portão)
+const fugir_b = 1 # Sem fuga: Sim
+const inv_b = 1 # Invisível: Sim
+const a_reset = "P 100 inverno042 0 0 20"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno042:objsolto.total < 20
+    criar("p_inverno042", este, 0)
+  fimse
+
+
+classe s_inverno151
+herda b_inverno
+const s_titulo = "Uma casa depredada"
+const s_desc = ""
+const dir_l = $s_inverno149
+const dir_b = $s_inverno152
+const portaini_b = 2 # Estado inicial: 2 Porta fechada
+const portanome_b = "O alçapão"
+const portaartigo_b = 2 # Artigo porta: 2 o (portão)
+const fugir_b = 1 # Sem fuga: Sim
+const inv_b = 1 # Invisível: Sim
+const a_reset = "P 100 inverno042 0 0 20"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno042:objsolto.total < 20
+    criar("p_inverno042", este, 0)
+  fimse
+
+
+classe s_inverno152
+herda b_inverno
+const s_titulo = "Sob pilhas e mais pilhas de escombros"
+const s_desc = ""
+const dir_c = $s_inverno151
+const portaini_c = 2 # Estado inicial: 2 Porta fechada
+const portanome_c = "O alçapão"
+const portaartigo_c = 2 # Artigo porta: 2 o (portão)
+const fugir_c = 1 # Sem fuga: Sim
+const inv_c = 1 # Invisível: Sim
+const a_reset = "D 100 c 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("c", 2)
+
+
+classe s_inverno153
+herda b_inverno
+const s_titulo = "Sob pilhas e mais pilhas de escombros"
+const s_desc = ""
+const dir_c = $s_inverno150
+const portaini_c = 2 # Estado inicial: 2 Porta fechada
+const portanome_c = "O alçapão"
+const portaartigo_c = 2 # Artigo porta: 2 o (portão)
+const fugir_c = 1 # Sem fuga: Sim
+const inv_c = 1 # Invisível: Sim
+
+
+classe s_inverno154
+herda b_inverno
+const s_titulo = "Caindo por entre entulhos de móveis e pedras"
+const s_desc = ""
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+const dir_n = $s_inverno149
+const dir_b = $s_inverno155
+const portaini_b = 2 # Estado inicial: 2 Porta fechada
+const portanome_b = "O alçapão"
+const portaartigo_b = 2 # Artigo porta: 2 o (portão)
+const fugir_b = 1 # Sem fuga: Sim
+const inv_b = 1 # Invisível: Sim
+const fecha_b = 1 # Fecha ao passar: Sim
+const tranc_b = 1 # Trancar: 1 Pode ser trancado
+
+
+classe s_inverno155
+herda b_inverno
+const s_titulo = "Uma pequena escada em caracol"
+const s_desc = ""
+const dir_b = $s_inverno156
+
+
+classe s_inverno156
+herda b_inverno
+const s_titulo = "Uma pequena escada em caracol"
+const s_desc = ""
+const dir_c = $s_inverno155
+
+
+classe s_inverno157
+herda b_inverno
+const s_titulo = "Uma barraca"
+const s_desc = ""
+const dir_s = $s_inverno009
+const a_reset = "P 100 inverno038 0 0 2\nP 100 inverno037 0 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno038:objsolto.total < 2
+    criar("p_inverno038", este, 0)
+  fimse
+  se p_inverno037:objsolto.total < 2
+    criar("p_inverno037", este, 0)
+  fimse
+
+
+classe s_inverno158
+herda b_inverno
+const s_titulo = "Uma barraca"
+const s_desc = ""
+const dir_n = $s_inverno009
+const a_reset = "P 100 inverno038 0 0 2\nP 100 inverno037 0 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno038:objsolto.total < 2
+    criar("p_inverno038", este, 0)
+  fimse
+  se p_inverno037:objsolto.total < 2
+    criar("p_inverno037", este, 0)
+  fimse
+
+
+classe s_inverno159
+herda b_inverno
+const s_titulo = "Uma casa depredada"
+const s_desc = ""
+const dir_s = $s_inverno144
+const a_reset = "P 100 inverno042 0 0 13"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno042:objsolto.total < 13
+    criar("p_inverno042", este, 0)
+  fimse
+
+
+classe s_inverno160
+herda b_inverno
+const s_titulo = "Uma casa depredada"
+const s_desc = ""
+const dir_n = $s_inverno144
+const a_reset = "P 100 inverno042 0 0 13"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno042:objsolto.total < 13
+    criar("p_inverno042", este, 0)
+  fimse
+
+
+classe s_inverno161
+herda b_inverno
+const s_titulo = "Uma casa depredada"
+const s_desc = ""
+const dir_s = $s_inverno145
+const a_reset = "P 100 inverno042 0 0 13"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno042:objsolto.total < 13
+    criar("p_inverno042", este, 0)
+  fimse
+
+
+classe s_inverno162
+herda b_inverno
+const s_titulo = "Uma casa depredada"
+const s_desc = ""
+const dir_n = $s_inverno145
+const a_reset = "P 100 inverno042 0 0 13"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_inverno042:objsolto.total < 13
+    criar("p_inverno042", este, 0)
+  fimse

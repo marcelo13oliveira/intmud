@@ -1,0 +1,836 @@
+classe a_piramide
+herda area
+const a_nome = "A pirâmide de Osires"
+const a_autor = "Vince"
+const a_tempo = 120
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_piramide
+herda sala
+const s_fome = 1 # Fome e sede: 1 Ausente
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_luz = 3 # Luz: 3 Escuro
+const s_recup = 1
+const s_som = "piramide"
+const s_area = "piramide"
+
+
+classe i_piramide001
+herda comum_itemgrupo
+const nome = "a coroa do senhor dos mortos"
+const ident = "coroa senhor mortos"
+const descnome = "a coroa do senhor dos mortos"
+const msexo = 0 # Sexo Msg: 0 Feminino
+const nivel = 550
+const renascer = 25
+const pesoobj = 2500
+const tipoitem = 8 # Tipo de item: 3-Vestimenta
+const valor = 500000
+const vestir1 = 4 # Aonde vestir: 2-Na cabeça
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  evasao += 15 * pnivel
+  precisao += 20 * pnivel
+  atktipo.0 *= 1.3 # Tipos Normais
+  atktipo.1 *= 1.3 # Tipos Especiais
+  atktipo.2 *= 1.3 # Contusão
+  atktipo.3 *= 1.3 # luta
+  atktipo.13 *= 1.5 # Trevas
+  atktipo.17 *= 1.5 # Veneno
+  deftipo.0 *= 0.77 # Tipos Normais
+  deftipo.1 *= 0.77 # Tipos Especiais
+  deftipo.2 *= 0.8 # Contusão
+  deftipo.3 *= 0.8 # luta
+  deftipo.12 *= 0.85 # Luz
+  deftipo.13 *= 0.66 # Trevas
+  deftipo.17 *= 0.66 # Veneno
+
+
+classe i_piramide002
+herda comum_itemgrupo
+const nome = "a armadura do senhor dos mortos"
+const ident = "armadura senhor mortos"
+const descnome = "a armadura do senhor dos mortos"
+const nivel = 320
+const renascer = 25
+const tipoitem = 4 # Tipo de item: 2-Armadura
+const valor = 1000000
+const vestir1 = 4096 # Aonde vestir: 12-no corpo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100 * pnivel + 5000
+  pmanamax += 100 * pnivel + 2000
+  pveloc1 += 2000
+  defnorm += 1800
+  defesp += 2200
+  evasao += 500
+  precisao += 500
+  pesomax += 2000
+  atktipo.0 *= 1.1 # Tipos Normais
+  atktipo.1 *= 1.15 # Tipos Especiais
+  deftipo.0 *= 0.54 # Tipos Normais
+  deftipo.1 *= 0.54 # Tipos Especiais
+  deftipo.13 *= 0.5 # Trevas
+  deftipo.18 *= 0.5 # Fantasma
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 2
+
+const manterperso = 1 # Mantém em jogador: Sim
+
+
+classe i_piramide101
+herda comum_itemperso
+const nome = "um sarcófago"
+const ident = "sarcófago"
+const descnome = "um sarcófago"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "O sarcófago está preso no solo."
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 250000
+const eveste = 1 # Eventos item: Sim
+inttempo fechar
+#
+
+func cmd_abriuobj
+  se arg1 == este
+    fechar = 600
+  fimse
+#
+
+func fechar_exec
+  i_aberto = 4
+  $mens.p(este)
+  $mens.mtodos1("$P se fechou.")
+
+
+classe i_piramide102
+herda comum_itemperso
+const nome = "um sarcófago"
+const ident = "sarcófago"
+const descnome = "um sarcófago"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "O sarcófago está preso no solo."
+const i_abertoini = 4 # Container: 4 Inicialmente trancado
+const i_tranc = 2 # Trancar: 2 Tranca ao fechar
+const i_fechadura = "múmia1"
+const i_comechave = 1 # Come chave: Sim
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 250000
+const eveste = 1 # Eventos item: Sim
+inttempo fechar
+#
+
+func cmd_abriuobj
+  se arg1 == este
+    fechar = 600
+  fimse
+#
+
+func fechar_exec
+  i_aberto = 4
+  $mens.p(este)
+  $mens.mtodos1("$P se fechou.")
+
+
+classe i_piramide103
+herda comum_itemperso
+const nome = "um sarcófago"
+const ident = "sarcófago"
+const descnome = "um sarcófago"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "O sarcófago está preso no solo."
+const i_abertoini = 4 # Container: 4 Inicialmente trancado
+const i_tranc = 2 # Trancar: 2 Tranca ao fechar
+const i_fechadura = "múmia2"
+const i_comechave = 1 # Come chave: Sim
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 250000
+const eveste = 1 # Eventos item: Sim
+inttempo fechar
+#
+
+func cmd_abriuobj
+  se arg1 == este
+    fechar = 600
+  fimse
+#
+
+func fechar_exec
+  i_aberto = 4
+  $mens.p(este)
+  $mens.mtodos1("$P se fechou.")
+
+
+classe i_piramide104
+herda comum_itemperso
+const nome = "O imenso baú de Osires"
+const i_pegar = "É pesado demais."
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 120000
+
+
+classe i_piramide111
+herda comum_itemperso
+const nome = "uma chave amarela"
+const ident = "chave amarela"
+const descnome = "uma chave amarela"
+const i_chave = "mumia1"
+const objsav = 0 # Para não salvar esse item em arquivo, com o personagem
+sav inttempo tempo # inttempo executa uma função após um tempo
+
+func cmd_mudadono
+  se dono.perso && tempo == 0 # Se pertence a um personagem e tempo é zero
+    tempo = 3000 # Faz tempo ser 3000 (5 minutos)
+  fimse
+
+func tempo_exec
+  apagar(este)
+  se dono.perso # Se pertence a personagem, avisa o personagem
+    $MENS.P(DONO, nulo, este)
+    $MENS.MTODOS2("$O SOME MISTERIOSAMENTE.", "")
+  fimse
+
+
+classe i_piramide112
+herda comum_itemperso
+const nome = "uma chave vermelha"
+const ident = "chave vermelha"
+const descnome = "uma chave vermelha"
+const msexo = 0 # Sexo Msg: 0 Feminino
+const i_chave = "múmia2"
+const objsav = 0 # Para não salvar esse item em arquivo, com o personagem
+sav inttempo tempo # inttempo executa uma função após um tempo
+
+func cmd_mudadono
+  se dono.perso && tempo == 0 # Se pertence a um personagem e tempo é zero
+    tempo = 3000 # Faz tempo ser 3000 (5 minutos)
+  fimse
+
+func tempo_exec
+  apagar(este)
+  se dono.perso # Se pertence a personagem, avisa o personagem
+    $MENS.P(DONO, nulo, este)
+    $MENS.MTODOS2("$O SOME MISTERIOSAMENTE.", "")
+  fimse
+
+
+classe i_piramide113
+herda comum_itemperso
+const nome = "uma chave verde"
+const ident = "chave verde"
+const descnome = "uma chave verde"
+const i_chave = "múmia3"
+const objsav = 0 # Para não salvar esse item em arquivo, com o personagem
+sav inttempo tempo # inttempo executa uma função após um tempo
+
+func cmd_mudadono
+  se dono.perso && tempo == 0 # Se pertence a um personagem e tempo é zero
+    tempo = 3000 # Faz tempo ser 3000 (5 minutos)
+  fimse
+
+func tempo_exec
+  apagar(este)
+  se dono.perso # Se pertence a personagem, avisa o personagem
+    $MENS.P(DONO, nulo, este)
+    $MENS.MTODOS2("$O SOME MISTERIOSAMENTE.", "")
+  fimse
+
+
+classe i_piramide114
+herda comum_itemperso
+const nome = "uma chave de diamante"
+const ident = "chave diamante"
+const descnome = "uma chave de diamante"
+const i_chave = "múmia4"
+
+
+classe p_piramide001
+herda comum_persobat
+const nome = "Uma múmia"
+const ident = "múmia"
+const descnome = "Uma múmia"
+const descpadr = "Caminhando com as costas curvadas, uma horrenda múmia vagarosamente arrasta os \
+pés, soltando gemidos macabros."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const pesoobj = 75000
+const nivel = 600
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_atk_anda = 1 # Anda ataque: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const p_lembra = 1440
+const p_morreu1 = "Perdendo a segunda vida, a múmia violentamente colide as costas no piso, \
+despedaçando-se."
+const p_mover = 2 # Movimentar: 2 Qualquer lugar
+const p_movervel = 600
+const p_naoseguir = 0 # Não podem seguir: Não
+const p_persegue = 2 # Persegue jogadores: 2 Qualquer lugar se atacarem
+const p_perseguevel = 60
+const evhora = 1 # Eventos hora: Sim
+#
+
+func cmd_hora
+  casovar arg0
+  casose "6"
+    apagar(este)
+  casofim
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10000 * pnivel + 4000000
+  pmovemax += 10000
+  pveloc1 += 500 * pnivel
+  atknorm += 2500 * pnivel + 2000000
+  defnorm += 3000 * pnivel + 2500000
+  defesp += 3000 * pnivel + 2500000
+  evasao += 105 * pnivel
+  precisao += 105 * pnivel
+
+
+classe p_piramide100
+herda comum_persobat
+const nome = "Osires, o deus dos mortos"
+const ident = "osires deus mortos"
+const descnome = "Osires, o deus dos mortos"
+const descpadr = "Monopolizando o espírito dos falecidos, Osires encontra-se no centro do salão, \
+provocando medo e pânico nas pupilas vivas que o observam com desespero."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 80000
+const nivel = 800
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_atk_anda = 0 # Anda ataque: Não
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 60000
+const p_morreu1 = "Perdendo a suposta vida, Osires, o deus dos mortos explode, dispersando uma \
+imensa nuvem de poeira sobre o terreno!"
+#
+
+func cmd_ini
+  criar("i_piramide114", este, 1)
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 4000 * pnivel + 10000000
+  atknorm += 100 * pnivel + 4000000
+  defnorm += 200 * pnivel + 25000000
+  atkesp += 2000000
+  defesp += 200 * pnivel + 28000000
+  evasao += 62000
+  precisao += 65150
+
+
+classe s_piramide001
+herda b_piramide
+const s_titulo = "O corredor Osires"
+const s_pnj = 0
+const dir_n = $s_piramide002
+const dir_s = $s_deserto075
+
+
+classe s_piramide002
+herda b_piramide
+const s_titulo = "O corredor Osires"
+const dir_n = $s_piramide003
+const dir_s = $s_piramide001
+
+
+classe s_piramide003
+herda b_piramide
+const s_titulo = "O corredor Osires"
+const dir_n = $s_piramide004
+const dir_s = $s_piramide002
+const dir_o = $s_piramide052
+
+
+classe s_piramide004
+herda b_piramide
+const s_titulo = "O corredor Osires"
+const dir_n = $s_piramide051
+const dir_s = $s_piramide003
+
+
+classe s_piramide005
+herda b_piramide
+const s_titulo = "Uma bifurcação na pirâmide"
+const dir_s = $s_piramide051
+const dir_l = $s_piramide006
+const dir_o = $s_piramide009
+
+
+classe s_piramide006
+herda b_piramide
+const s_titulo = "O corredor Escorpião"
+const dir_l = $s_piramide007
+const dir_o = $s_piramide005
+
+
+classe s_piramide007
+herda b_piramide
+const s_titulo = "O corredor Escorpião"
+const dir_s = $s_piramide049
+const dir_l = $s_piramide008
+const dir_o = $s_piramide006
+
+
+classe s_piramide008
+herda b_piramide
+const s_titulo = "O corredor Escorpião"
+const dir_n = $s_piramide012
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const fechadura_n = "múmia3"
+const comechave_n = 1 # Come chave: Sim
+const fecha_n = 1 # Fecha ao passar: Sim
+const tranc_n = 2 # Trancar: 2 Tranca ao fechar
+const dir_o = $s_piramide007
+
+
+classe s_piramide009
+herda b_piramide
+const s_titulo = "O corredor Serpente"
+const dir_l = $s_piramide005
+const dir_o = $s_piramide010
+
+
+classe s_piramide010
+herda b_piramide
+const s_titulo = "O corredor Serpente"
+const dir_n = $s_piramide050
+const dir_l = $s_piramide009
+const dir_o = $s_piramide011
+
+
+classe s_piramide011
+herda b_piramide
+const s_titulo = "O corredor Serpente"
+const dir_n = $s_piramide053
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const fechadura_n = "múmia4"
+const comechave_n = 1 # Come chave: Sim
+const fecha_n = 1 # Fecha ao passar: Sim
+const tranc_n = 2 # Trancar: 2 Tranca ao fechar
+const dir_l = $s_piramide010
+
+
+classe s_piramide012
+herda b_piramide
+const s_titulo = "A pirâmide de Osires"
+const dir_n = $s_piramide013
+const dir_s = $s_piramide008
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const fechadura_s = "múmia3"
+const comechave_s = 1 # Come chave: Sim
+const fecha_s = 1 # Fecha ao passar: Sim
+const tranc_s = 2 # Trancar: 2 Tranca ao fechar
+const dir_l = $s_piramide021
+const dir_o = $s_piramide031
+
+
+classe s_piramide013
+herda b_piramide
+const s_titulo = "Um corredor sombrio"
+const dir_n = $s_piramide014
+const dir_s = $s_piramide012
+
+
+classe s_piramide014
+herda b_piramide
+const s_titulo = "A pirâmide de Osires"
+const dir_n = $s_piramide015
+const dir_s = $s_piramide013
+const dir_l = $s_piramide041
+const dir_o = $s_piramide042
+
+
+classe s_piramide015
+herda b_piramide
+const s_titulo = "Um corredor sombrio"
+const dir_n = $s_piramide016
+const dir_s = $s_piramide014
+
+
+classe s_piramide016
+herda b_piramide
+const s_titulo = "A pirâmide de Osires"
+const evhora = 1 # Eventos hora: Sim
+const dir_n = $s_piramide017
+const dir_s = $s_piramide015
+const dir_l = $s_piramide043
+const dir_o = $s_piramide044
+#
+
+func cmd_hora
+  casovar arg0
+  casose "18"
+    se p_piramide001:objsolto.total < 12
+      criar("p_piramide001", este, 0)
+    fimse
+    se p_piramide001:objsolto.total < 12
+      criar("p_piramide001", este, 0)
+    fimse
+    se p_piramide001:objsolto.total < 12
+      criar("p_piramide001", este, 0)
+    fimse
+    se p_piramide001:objsolto.total < 12
+      criar("p_piramide001", este, 0)
+    fimse
+    se p_piramide001:objsolto.total < 12
+      criar("p_piramide001", este, 0)
+    fimse
+    se p_piramide001:objsolto.total < 12
+      criar("p_piramide001", este, 0)
+    fimse
+    se p_piramide001:objsolto.total < 12
+      criar("p_piramide001", este, 0)
+    fimse
+    se p_piramide001:objsolto.total < 12
+      criar("p_piramide001", este, 0)
+    fimse
+    se p_piramide001:objsolto.total < 12
+      criar("p_piramide001", este, 0)
+    fimse
+    se p_piramide001:objsolto.total < 12
+      criar("p_piramide001", este, 0)
+    fimse
+    se p_piramide001:objsolto.total < 12
+      criar("p_piramide001", este, 0)
+    fimse
+    se p_piramide001:objsolto.total < 12
+      criar("p_piramide001", este, 0)
+    fimse
+  casofim
+
+
+classe s_piramide017
+herda b_piramide
+const s_titulo = "Um corredor sombrio"
+const dir_n = $s_piramide018
+const dir_s = $s_piramide016
+
+
+classe s_piramide018
+herda b_piramide
+const s_titulo = "A pirâmide de Osires"
+const dir_n = $s_piramide019
+const dir_s = $s_piramide017
+const dir_l = $s_piramide045
+const dir_o = $s_piramide046
+
+
+classe s_piramide019
+herda b_piramide
+const s_titulo = "Um corredor sombrio"
+const dir_n = $s_piramide020
+const dir_s = $s_piramide018
+
+
+classe s_piramide020
+herda b_piramide
+const s_titulo = "A pirâmide de Osires"
+const dir_s = $s_piramide019
+const dir_l = $s_piramide047
+const dir_o = $s_piramide048
+const dir_c = $s_piramide100
+
+
+classe s_piramide021
+herda b_piramide
+const s_titulo = "Um corredor sombrio"
+const dir_l = $s_piramide022
+const dir_o = $s_piramide012
+
+
+classe s_piramide022
+herda b_piramide
+const s_titulo = "A pirâmide de Osires"
+const dir_n = $s_piramide023
+const dir_o = $s_piramide021
+
+
+classe s_piramide023
+herda b_piramide
+const s_titulo = "Um corredor sombrio"
+const dir_n = $s_piramide024
+const dir_s = $s_piramide022
+
+
+classe s_piramide024
+herda b_piramide
+const s_titulo = "A pirâmide de Osires"
+const dir_n = $s_piramide025
+const dir_s = $s_piramide023
+const dir_o = $s_piramide041
+
+
+classe s_piramide025
+herda b_piramide
+const s_titulo = "Um corredor sombrio"
+const dir_n = $s_piramide026
+const dir_s = $s_piramide024
+
+
+classe s_piramide026
+herda b_piramide
+const s_titulo = "A pirâmide de Osires"
+const dir_n = $s_piramide027
+const dir_s = $s_piramide025
+const dir_o = $s_piramide043
+
+
+classe s_piramide027
+herda b_piramide
+const s_titulo = "Um corredor sombrio"
+const dir_n = $s_piramide028
+const dir_s = $s_piramide026
+
+
+classe s_piramide028
+herda b_piramide
+const s_titulo = "A pirâmide de Osires"
+const dir_n = $s_piramide029
+const dir_s = $s_piramide027
+const dir_o = $s_piramide045
+
+
+classe s_piramide029
+herda b_piramide
+const s_titulo = "Um corredor sombrio"
+const dir_n = $s_piramide030
+const dir_s = $s_piramide028
+
+
+classe s_piramide030
+herda b_piramide
+const s_titulo = "A pirâmide de Osires"
+const dir_s = $s_piramide029
+const dir_o = $s_piramide047
+
+
+classe s_piramide031
+herda b_piramide
+const s_titulo = "Um corredor sombrio"
+const dir_l = $s_piramide012
+const dir_o = $s_piramide032
+
+
+classe s_piramide032
+herda b_piramide
+const s_titulo = "A pirâmide de Osires"
+const dir_n = $s_piramide033
+const dir_l = $s_piramide031
+
+
+classe s_piramide033
+herda b_piramide
+const s_titulo = "Um corredor sombrio"
+const dir_n = $s_piramide034
+const dir_s = $s_piramide032
+
+
+classe s_piramide034
+herda b_piramide
+const s_titulo = "A pirâmide de Osires"
+const dir_n = $s_piramide035
+const dir_s = $s_piramide033
+const dir_l = $s_piramide042
+
+
+classe s_piramide035
+herda b_piramide
+const s_titulo = "Um corredor sombrio"
+const dir_n = $s_piramide036
+const dir_s = $s_piramide034
+
+
+classe s_piramide036
+herda b_piramide
+const s_titulo = "A pirâmide de Osires"
+const dir_n = $s_piramide037
+const dir_s = $s_piramide035
+const dir_l = $s_piramide044
+
+
+classe s_piramide037
+herda b_piramide
+const s_titulo = "Um corredor sombrio"
+const dir_n = $s_piramide038
+const dir_s = $s_piramide036
+
+
+classe s_piramide038
+herda b_piramide
+const s_titulo = "A pirâmide de Osires"
+const dir_n = $s_piramide039
+const dir_s = $s_piramide037
+const dir_l = $s_piramide046
+
+
+classe s_piramide039
+herda b_piramide
+const s_titulo = "Um corredor sombrio"
+const dir_n = $s_piramide040
+const dir_s = $s_piramide038
+
+
+classe s_piramide040
+herda b_piramide
+const s_titulo = "A pirâmide de Osires"
+const dir_s = $s_piramide039
+const dir_l = $s_piramide048
+
+
+classe s_piramide041
+herda b_piramide
+const s_titulo = "Um corredor sombrio"
+const dir_l = $s_piramide024
+const dir_o = $s_piramide014
+
+
+classe s_piramide042
+herda b_piramide
+const s_titulo = "Um corredor sombrio"
+const dir_l = $s_piramide014
+const dir_o = $s_piramide034
+
+
+classe s_piramide043
+herda b_piramide
+const s_titulo = "Um corredor sombrio"
+const dir_l = $s_piramide026
+const dir_o = $s_piramide016
+
+
+classe s_piramide044
+herda b_piramide
+const s_titulo = "Um corredor sombrio"
+const dir_l = $s_piramide016
+const dir_o = $s_piramide036
+
+
+classe s_piramide045
+herda b_piramide
+const s_titulo = "Um corredor sombrio"
+const dir_l = $s_piramide028
+const dir_o = $s_piramide018
+
+
+classe s_piramide046
+herda b_piramide
+const s_titulo = "Um corredor sombrio"
+const dir_l = $s_piramide018
+const dir_o = $s_piramide038
+
+
+classe s_piramide047
+herda b_piramide
+const s_titulo = "Um corredor sombrio"
+const dir_l = $s_piramide030
+const dir_o = $s_piramide020
+
+
+classe s_piramide048
+herda b_piramide
+const s_titulo = "Um corredor sombrio"
+const dir_l = $s_piramide020
+const dir_o = $s_piramide040
+
+
+classe s_piramide049
+herda b_piramide
+const s_titulo = "Um beco escuro"
+const dir_n = $s_piramide007
+const a_reset = "S 100 piramide101 1 S\nS 100 piramide111 1 piramide101"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref r # Usado como rascunho
+  !dentro1.objini("i_piramide101") && criar("i_piramide101", este, 1)
+  (r = dentro1.objini("i_piramide101")) && !r.dentro1.objini("i_piramide111") && criar("i_piramid\
+e111", r, 1)
+
+
+classe s_piramide050
+herda b_piramide
+const s_titulo = "Um beco escuro"
+const dir_s = $s_piramide010
+const a_reset = "S 100 piramide102 1 S\nS 100 piramide112 1 piramide102"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref r # Usado como rascunho
+  !dentro1.objini("i_piramide102") && criar("i_piramide102", este, 1)
+  (r = dentro1.objini("i_piramide102")) && !r.dentro1.objini("i_piramide112") && criar("i_piramid\
+e112", r, 1)
+
+
+classe s_piramide051
+herda b_piramide
+const s_titulo = "O corredor Osires"
+const dir_n = $s_piramide005
+const dir_s = $s_piramide004
+
+
+classe s_piramide052
+herda b_piramide
+const s_titulo = "Um beco escuro"
+const dir_l = $s_piramide003
+const a_reset = "S 100 piramide103 1 S\nS 100 piramide113 1 piramide103"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref r # Usado como rascunho
+  !dentro1.objini("i_piramide103") && criar("i_piramide103", este, 1)
+  (r = dentro1.objini("i_piramide103")) && !r.dentro1.objini("i_piramide113") && criar("i_piramid\
+e113", r, 1)
+
+
+classe s_piramide053
+herda b_piramide
+const s_titulo = "A sala do tesouro"
+const dir_s = $s_piramide011
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const fechadura_s = "múmia4"
+const comechave_s = 1 # Come chave: Sim
+const fecha_s = 1 # Fecha ao passar: Sim
+const tranc_s = 2 # Trancar: 2 Tranca ao fechar
+const a_reset = "S 100 piramide104 1 S\n\
+S 100 piramide002 1 piramide104\n\
+S 100 aditem002 1 piramide104"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref r # Usado como rascunho
+  !dentro1.objini("i_piramide104") && criar("i_piramide104", este, 1)
+  (r = dentro1.objini("i_piramide104")) && !r.dentro1.objini("i_piramide002") && criar("i_piramid\
+e002", r, 1)
+  (r = dentro1.objini("i_piramide104")) && !r.dentro1.objini("i_aditem002") && criar("i_aditem002\
+", r, 1)
+
+
+classe s_piramide100
+herda b_piramide
+const s_titulo = "O salão dos mortos"
+const s_pnj = 0
+const dir_b = $s_piramide020
+const a_reset = "P 100 piramide100 0 0 1\nE 100 piramide001 1 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_piramide100:objsolto.total < 1
+    p = u = criar("p_piramide100", este, 0)
+  fimse
+  se u
+    r = criar("i_piramide001", u, 1), r.vestir(3), u.recalc = 1
+  fimse

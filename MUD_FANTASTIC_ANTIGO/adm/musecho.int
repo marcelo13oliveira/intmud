@@ -1,0 +1,16 @@
+classe adm_musecho
+herda comando_adm
+#
+const txtajuda = "\b\c3musecho\b\n\
+Sintaxe: musecho <mensagem>\n\
+Envia uma mensagem para todos os jogadores."
+
+func escr
+  se !arg1
+    arg0.msg("\bTecle o nome do som após musecho.")
+  senao
+    ret !$som_[txt1(arg1)], arg0.msg("Som " + txt1(arg1) + " não existe.")
+    $mens.p(arg0)
+    $mens.mens = "\d=" + arg1
+    $mens.mmud1("$m")
+  fimse

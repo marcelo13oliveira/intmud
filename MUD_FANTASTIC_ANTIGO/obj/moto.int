@@ -1,0 +1,186 @@
+classe i_moto
+herda comum_itemperso
+const i_salas = "moto001"
+const i_movel = 1 # Mobília: 1 Sentar
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 3000000
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func descpos
+  refvar s = dentro2.objini("s_moto001")
+  refvar p = s.dentro2.objini
+  se p
+    se p.descnome == var.z_dono
+      ret p.descnome + " está montad" + (p.msexo ? "o" : "a") + " n" + descnome + " del" + \
+(p.msexo ? "e" : "a") + "."
+    senao
+      ret p.descnome + " está montado n" + descnome + " de " + var.z_dono
+    fimse
+  senao
+    ret descnome + " está estacionada aqui."
+  fimse
+
+func nome
+  se var.z_dono
+    se var.z_modelo
+      ret var.z_modelo + " de " + var.z_dono
+    senao
+      ret "moto " + var.z_dono
+    fimse
+  senao
+    ret "moto turbinada"
+  fimse
+#
+
+func descnome
+  se var.z_dono
+    se var.z_modelo
+      ret var.z_modelo
+    senao
+      ret "a moto de " + var.z_dono
+    fimse
+  senao
+    ret "uma moto turbinada"
+  fimse
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se txt1(arg1) == "montar" || txt1(arg1) == "monta" || txt1(arg1) == "mont"
+    ref item
+    item = misc:itemdono(arg0, txt2(arg1))
+    ret !item.dentro2.objini("s_moto001"), arg0.msg("Não é possível montar em " + item.descnome \
++ ".")
+    refvar s = item.dentro2.objini("s_moto001")
+    ret s.dentro2.total >= 2, arg0.msg("Não cabe mais ninguém na moto.")
+    $mens.p(arg0, "", item)
+    $mens.mtodos1("$P montou em cima $d $o.")
+    arg0.mudadono(item.dentro2.objini("s_moto001"))
+    ret 1
+  senao txt1(arg1) == "mmodelo"
+    ret arg0.descnome != var.z_dono, nulo
+    var.z_modelo = txt2(arg1)
+    arg0.msg("O modelo de sua moto foi alterado para " + var.z_modelo + ".")
+    ret 1
+  fimse
+#
+
+func cmd_mudadono
+  dentro2.objini("s_moto001").msg("Movendo para " + var.z_dir + ".")
+  dentro2.objini("s_moto001").msg(dono.s_titulo)
+  listaobj l
+  refvar sala = dentro2.objini("s_moto001")
+  epara l.addfim(sala.dentro2), l, l.ini.remove
+    se l.objini.perso && l.objini.jogconfig.0 == 1
+      l.objini.msginv(dono.s_desc)
+    fimse
+  efim
+  txt100 lin
+  lin = "Saídas: \n"
+  se dono.dir_n
+    lin += "n "
+  fimse
+  se dono.dir_s
+    lin += "s "
+  fimse
+  se dono.dir_l
+    lin += "l "
+  fimse
+  se dono.dir_o
+    lin += "o "
+  fimse
+  se dono.dir_c
+    lin += "c "
+  fimse
+  se dono.dir_b
+    lin += "b "
+  fimse
+  se dono.dir_ne
+    lin += "ne "
+  fimse
+  se dono.dir_no
+    lin += "no "
+  fimse
+  se dono.dir_se
+    lin += "se "
+  fimse
+  se dono.dir_so
+    lin += "so "
+  fimse
+  se dono.dir_entrar
+    lin += "entrar "
+  fimse
+  se dono.dir_sair
+    lin += "sair "
+  fimse
+  dentro2.objini("s_moto001").msg(lin)
+  refvar r = dentro2.objini("s_moto001")
+  refvar p = r.dentro2.objini
+  se p.descnome == var.z_dono
+    dono.msg(p.descnome + " passou n" + descnome + " del" + (p.msexo ? "e" : "a") + ", vindo " + \
+var.z_dirantes + ".")
+    donoantes.msg(p.descnome + " passou n" + descnome + " del" + (p.msexo ? "e" : "a") + ", indo \
+para " + var.z_dir + ".")
+  senao
+    $mens.p(este, p)
+    $mens.mens = var.z_dirantes
+    $mens.msgsomvis("$A passou $e $P, vindo $m.", este)
+    donoantes.msg(p.descnome + " passou n" + descnome + ", indo para " + var.z_dir + ".")
+  fimse
+#
+
+func cmd_olhar
+  se arg1 == este
+    $mens.p(arg0, nulo, este)
+    $mens.mvis2("", "$P olha para $o.")
+    arg0.msg(descnome)
+    textotxt t
+    listaobj item
+    refvar r = dentro2.objini("s_moto001")
+    epara item.addfim(r.dentro2), item, item.ini.remove
+      refvar i = item.objini
+      continuar !i.visivel(arg0)
+      refvar nn = txtsublin(i.atribs.ini.textolin(2), 1)
+      t.addfim(txt(i.objtot) + i.atribs.ini.texto + txtcopiamai(i.descnome, "A") + nn)
+    efim
+    t.juntalin("(", "x)")
+    se t
+      arg0.msg2("\b\c6montando ela você vê:\b\n" + txttroca(t.remove(1000), "\d+", "\n"))
+    senao
+      arg0.msg("\b está vazia.")
+    fimse
+    ret 1
+  fimse
+
+func cmd_olhar
+  se arg1 == este
+    $mens.p(arg0, "", este)
+    $mens.mtodos1("$P olha para $o.")
+    refvar s = dentro2.objini("s_moto002")
+    textotxt t
+    listaobj l
+    epara l.addfim(s.dentro2), l, l.ini.remove
+      se l.objini.jog || l.objini.perso
+        t.addfim(l.objini.descnome)
+      fimse
+    efim
+    t.addini("Em cima você vê:")
+    arg0.msg2(t.remove(1000))
+    ret 1
+  fimse
+#
+
+func cmd_sentarobj
+  se arg1 == este
+    $mens.p(arg0, nulo, este)
+    $mens.mvis1("$P montou $e $o.")
+    arg0.mudadono(dentro2.objini("s_moto001"))
+    $mens.p(arg0)
+    $mens.mvis2("", "$P montou aqui.")
+    arg0.posicao = 6
+    ret 1
+  fimse

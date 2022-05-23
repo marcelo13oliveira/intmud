@@ -1,0 +1,193 @@
+classe cmd_portanome
+herda comando_comum
+#
+const txtajuda = "\b\c3Portanome\b\n\
+sintaxe: portanome <nome da porta>\n\
+Se dentro de uma barraca, altera o nome da porta de saída dela e a mensagem ao abrir ela."
+#
+
+func escr
+  refvar item = arg0.dono.dono
+  ret txt(item) != "i_moveis051", arg0.msg("Você não está dentro de uma barraca.")
+  ret item.var.z_dono != arg0.descnome, arg0.msg("Você não está em sua barraca.")
+  se !arg1
+    arg0.msg("Digite o nome da porta após portanome.")
+  senao
+    item.var.z_portanome = arg1
+    arg0.msg(item.var.z_portanome ? "O nome da porta da barraca foi alterado." : "O nome da \
+porta da barraca retorna ao valor original.")
+  fimse
+
+
+classe cmd_cporta
+herda comando_comum
+#
+const posic = 8
+const txtajuda = "\b\c3Cporta\b\n\
+Sintaxe: cporta <direção> <nome>\n\
+Cria uma porta dentro da barraca, na direção e com o nome especificados."
+#
+
+func escr
+  ret txt(arg0.dono.dono) != "i_moveis051", arg0.msg("Você não está em uma barraca.")
+  ret arg0.dono.dono.var.z_dono != arg0.descnome, arg0.msg("Você não está dentro de sua barraca."\
+)
+  se !arg1
+    arg0.msg("Digite a direção da porta a criar.")
+  senao
+    refvar dir = txtsub(arg1, 0, 1)
+    refvar nomep = txtsub(arg1, 1)
+    ret !arg0.dono.dir_[dir], arg0.msg("Não há sala nessa direção.")
+    txt2 p2
+    se dir == "n"
+      p2 = "s"
+    senao dir == "c"
+      p2 = "b"
+    senao dir == "b"
+      p2 = "c"
+    senao dir == "s"
+      p2 = "n"
+    senao dir == "l"
+      p2 = "o"
+    senao dir == "o"
+      p2 = "l"
+    senao dir == "ne"
+      p2 = "so"
+    senao dir == "no"
+      p2 = "se"
+    senao dir == "se"
+      p2 = "no"
+    senao dir == "so"
+      p2 = "ne"
+    fimse
+    arg0.msg("Porta criada.")
+    arg0.dono.var.z_portanome_[dir] = nomep
+    arg0.dono.var.z_porta_[dir]_ = 2
+    arg0.dono.dir_[dir].var.z_porta_[p2] = 2
+    arg0.dono.dir_[dir].var.z_portanome_[p2] = nomep
+  fimse
+
+
+classe cmd_aporta
+herda comando_comum
+#
+const posic = 8
+#
+
+func escr
+  refvar item = arg0.dono.dono
+  ret txt(item) != "i_moveis051", arg0.msg("Você não está dentro de uma barraca.")
+  ret item.var.z_dono != arg0.descnome, arg0.msg("Você não está dentro de sua barraca.")
+  se !arg1
+    arg0.msg("Digite a direção da porta que deseja apagar.")
+  senao
+    ret !arg0.dono.var.z_porta_[arg1]_, arg0.msg("Não há porta nessa direção.")
+    refvar dir = arg1
+    txt2 p2
+    se dir == "n"
+      p2 = "s"
+    senao dir == "s"
+      p2 = "n"
+    senao dir == "l"
+      p2 = "o"
+    senao dir == "o"
+      p2 = "l"
+    senao dir == "ne"
+      p2 = "so"
+    senao dir == "no"
+      p2 = "se"
+    senao dir == "se"
+      p2 = "no"
+    senao dir == "so"
+      p2 = "ne"
+    fimse
+    arg0.msg("Porta removida.")
+    arg0.dono.var.z_portanome_[dir] = ""
+    arg0.dono.var.z_porta_[dir]_ = 0
+    arg0.dono.dir_[dir].var.z_porta_[p2] = 0
+    arg0.dono.dir_[dir].var.z_portanome_[p2] = ""
+  fimse
+
+
+classe cmd_ksai
+herda comando_comum
+#
+const posic = 8
+const txtajuda = "\b\c3Ksai\b\n\
+Sintaxe: ksai <direção> <título da sala>\n\
+Cria uma direção para a sala com o título especificado, dentro da barraca."
+#
+
+func escr
+  refvar item = arg0.dono.dono
+  ret txt(item) != "i_moveis051", arg0.msg("Você não está dentro de uma barraca.")
+  ret item.var.z_dono != arg0.descnome, arg0.msg("Você não está dentro de sua barraca.")
+  se !arg1
+    ret arg0.msg("Digite ksai, seguido da direção e do título da sala.")
+  senao !txtsub(arg1, 1)
+    arg0.msg("Digite o título da sala para qual deseja criar a saída.")
+  senao
+    txt2 dir2
+    refvar dir = txtsub(arg1, 0, 1)
+    refvar stit = txtsub(arg1, 1)
+    ret arg0.dono.dir_[dir], arg0.msg("Já há saída nessa direção.")
+    dir == "n" && (dir2 = "s")
+    dir == "s" && (dir2 = "n")
+    dir == "l" && (dir2 = "o")
+    dir == "o" && (dir2 = "l")
+    dir == "ne" && (dir2 = "so")
+    dir == "no" && (dir2 = "se")
+    dir == "se" && (dir2 = "no")
+    dir == "so" && (dir2 = "ne")
+    dir == "c" && (dir2 = "b")
+    dir == "b" && (dir2 = "c")
+    listaobj l
+    epara l.addfim(item.dentro2), l, l.ini.remove
+      continuar !l.objini.s_sala
+      se l.objini.var.z_titulo == stit
+        ret l.objini.dir_[dir2], arg0.msg("Já há uma direção contrária para a sala especificada."\
+)
+        arg0.dono.var.z_[dir] = l.objini
+        l.objini.var.z_[dir2] = arg0.dono
+        arg0.msg("Saída criada com sucesso.")
+        ret 1
+      fimse
+    efim
+    arg0.msg("Nenhuma sala encontrada com o nome especificado na barraca.")
+  fimse
+
+
+classe cmd_dsai
+herda comando_comum
+#
+const posic = 8
+const txtajuda = "\b\c3Dsai\b\n\
+Sintaxe: Dsai <direção>\n\
+Apaga a saída para a sala na direção especificada."
+#
+
+func escr
+  refvar item = arg0.dono.dono
+  ret txt(item) != "i_moveis051", arg0.msg("Você não está em uma barraca.")
+  ret item.var.z_dono != arg0.descnome, arg0.msg("Você não está em sua barraca.")
+  se !arg1
+    arg0.msg("Digite a direção da sala que deseja apagar.")
+  senao
+    txt2 dir2
+    refvar dir = arg1
+    dir == "n" && (dir2 = "s")
+    dir == "s" && (dir2 = "n")
+    dir == "l" && (dir2 = "o")
+    dir == "o" && (dir2 = "l")
+    dir == "ne" && (dir2 = "so")
+    dir == "no" && (dir2 = "se")
+    dir == "se" && (dir2 = "no")
+    dir == "so" && (dir2 = "ne")
+    dir == "c" && (dir2 = "b")
+    dir == "b" && (dir2 = "c")
+    ret arg0.dono.dir_[dir].var.total("z_") <= 2, arg0.msg("Você não pode apagar a saída para \
+essa direção.")
+    arg0.dono.dir_[dir].var.z_[dir2] = ""
+    arg0.dono.var.z_[dir] = ""
+    arg0.msg("Saída apagada com sucesso.")
+  fimse

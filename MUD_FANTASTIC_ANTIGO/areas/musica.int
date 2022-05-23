@@ -1,0 +1,593 @@
+classe a_musica
+herda area
+const a_nome = "A cidade da música"
+const a_autor = "Rock, the creator the fantastic"
+const a_tempo = 5
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_txtreset = "Músicas de todos os gêneros são ouvidas por todos os lados."
+
+
+classe b_musica
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_recup = 10
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const s_area = "musica"
+
+
+classe i_musica001
+herda comum_item
+const nome = "guitarra de iniciante"
+const descnome = "uma guitarra de iniciante"
+const nivel = 5
+const armamax = 50
+const armamin = 15
+const armatipo = 10 # Tipo de arma: 10 musical
+
+
+classe i_musica003
+herda comum_item
+const nome = "fonte"
+const descnome = "uma fonte dourada com uma pedra na forma de uma clave de sol maior"
+const descpos = "No centro da praça, uma bela fonte dourada com uma pedra no formato de uma \
+clave de sol maior jorra água cristalina."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_sede = 120
+const f_diges = 240
+const f_msgperso = "$P se abaixa e aproxima os lábios da fonte, bebendo dela um grande gole de \
+água cristalina."
+const i_pegar = "A fonte faz parte do chão."
+const mantersala = 1 # Mantém na sala: Sim
+const f_liquido = "água"
+
+
+classe p_musica001
+herda comum_persobat
+const nome = "guitarrista iniciante"
+const descnome = "um guitarrista iniciante"
+const descpadr = "Um guitarrista iniciante faz um horrível barulho com sua guitarra, enquanto \
+tenta tirar um som dela."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 5
+const p_exp = 300
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 300
+const p_som_entra = "rock"
+const inivar = "h_socar=5,h_chutar=5,z_moedas=500"
+
+
+classe p_musica002
+herda comum_persobat
+const nome = "tecladista iniciante"
+const descnome = "um tecladista iniciante"
+const descpadr = "Um tecladista caminha de um lado a outro, procurando o melhor lugar para \
+sentar e treinar suas habilidades com o teclado."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 9
+const p_exp = 400
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 300
+const inivar = "h_socar=8,h_chutar=8,z_moedas-500"
+
+
+classe p_musica003
+herda comum_persobat
+const nome = "compositor desconhecido"
+const descnome = "um compositor desconhecido"
+const descpadr = "Um compositor desconhecido tenta rabiscar algumas palavras em uma folha de \
+papel, ora amassando o papel e jogando-os pelo chão."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 1
+const p_exp = 300
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 300
+const inivar = "z_moedas=100"
+
+
+classe p_musica004
+herda p_musica002
+const nome = "sanfoneiro aprendiz"
+const descnome = "um sanfoneiro aprendiz"
+const descpadr = "Um sanfoneiro aprendiz está com sua sanfona aqui, tentando tirar um forrozinho!\
+"
+const p_som_entra = "forró"
+
+
+classe p_musica005
+herda p_musica002
+const nome = "Baterista"
+const ident = "baterista iniciante"
+const descnome = "Um baterista iniciante"
+const descpadr = "Com uma grande maleta em uma das mãos, baqueta na outra, esse baterista \
+procura um bom lugar para montar sua bateria e tentar treinar algo."
+
+
+classe p_musica006
+herda p_musica002
+const nome = "Cavacnista"
+const ident = "cavacnista iniciante aprendiz"
+const descnome = "Um jovem cavacnista"
+const descpadr = "Um alegre jovem cavacnista está aqui, tirando um belo samba com seu cavaquinho.\
+"
+
+
+classe p_musica007
+herda p_musica002
+const nome = "Vocalista desafinado"
+const ident = "vocalista desafinado iniciante aprendiz"
+const descnome = "Um vocalista desafinado"
+const descpadr = "Microfone em uma mão e uma pequena caixa amplificadora na outra, esse vocalista\
+ da o melhor de si para não desafinar em uma música."
+
+
+classe p_musica008
+herda p_musica002
+const nome = "Um violonista"
+const ident = "violonista iniciante aprendiz"
+const descnome = "Um violonista semiproficional"
+const descpadr = "Com um belo violão em mãos, esse violonista toca várias canções, encantando a \
+todos que passam por ele."
+const p_som_entra = "violao01"
+
+
+classe s_musica001
+herda b_musica
+const s_titulo = "O templo musical."
+const s_desc = "Você está no templo da cidade da música. O templo foi construído com pedras\n\
+azúis e bem polidas, tão limpas que você chega a ver o seu reflexo nelas.\n\
+Esculpidos com pedras cinzas, vários instrumentos foram dispostos pelas\n\
+paredes do templo, tornando o lugar bem característico. Para norte você vê o\n\
+altar do templo musical, e para baixo uma escadaria com desenhos de notas\n\
+musicais conduz-lhe até a praça musical."
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_pnj = 0
+const s_recup = 150
+const dir_n = $s_musica018
+const dir_b = $s_musica002
+
+
+classe s_musica002
+herda b_musica
+const s_titulo = "Uma escadaria de pedras em forma de notas musicais."
+const dir_c = $s_musica001
+const dir_b = $s_musica003
+
+
+classe s_musica003
+herda b_musica
+const s_titulo = "A praça da música."
+const s_pnj = 0
+const dir_s = $s_musica004
+const dir_c = $s_musica002
+const s_reset = "S 100 musica003 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_musica003") && criar("i_musica003", este, 1)
+
+
+classe s_musica004
+herda b_musica
+const s_titulo = "O centro da cidade da música."
+const dir_n = $s_musica003
+const dir_s = $s_musica005
+const dir_l = $s_musica020
+const dir_o = $s_musica023
+
+
+classe s_musica005
+herda b_musica
+const s_titulo = "A avenida harmônica."
+const dir_n = $s_musica004
+const dir_s = $s_musica006
+
+
+classe s_musica006
+herda b_musica
+const s_titulo = "A avenida harmÔnica."
+const dir_n = $s_musica005
+const dir_s = $s_musica007
+const dir_l = $s_musica017
+const portaini_l = 1 # Estado inicial: 1 Porta aberta
+const portanome_l = "as portas do clube dos duelos"
+const portaartigo_l = 1 # Artigo porta: 1 as (portas)
+
+
+classe s_musica007
+herda b_musica
+const s_titulo = "A avenida harmÔnica."
+const dir_n = $s_musica006
+const dir_s = $s_musica008
+
+
+classe s_musica008
+herda b_musica
+const s_titulo = "A praça dos músicos."
+const s_pnj = 0
+const dir_n = $s_musica007
+const dir_s = $s_musica032
+const dir_l = $s_musica009
+const dir_o = $s_musica012
+const dir_ne = $s_musica037
+const dir_no = $s_musica041
+const dir_se = $s_musica026
+const dir_so = $s_musica029
+
+
+classe s_musica009
+herda b_musica
+const s_titulo = "A rua dos tecladistas."
+const dir_l = $s_musica010
+const dir_o = $s_musica008
+
+
+classe s_musica010
+herda b_musica
+const s_titulo = "A rua dos tecladistas."
+const dir_l = $s_musica011
+const dir_o = $s_musica009
+const a_reset = "P 100 musica002 0 0 4\nP 100 musica002 0 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_musica002:objsolto.total < 4
+    criar("p_musica002", este, 0)
+  fimse
+  se p_musica002:objsolto.total < 4
+    criar("p_musica002", este, 0)
+  fimse
+
+
+classe s_musica011
+herda b_musica
+const s_titulo = "A rua dos tecladistas."
+const dir_l = $s_musica015
+const dir_o = $s_musica010
+
+
+classe s_musica012
+herda b_musica
+const s_titulo = "A rua dos guitarristas."
+const dir_l = $s_musica008
+const dir_o = $s_musica013
+
+
+classe s_musica013
+herda b_musica
+const s_titulo = "A rua dos guitarristas."
+const dir_l = $s_musica012
+const dir_o = $s_musica014
+
+
+classe s_musica014
+herda b_musica
+const s_titulo = "A rua dos guitarristas."
+const dir_l = $s_musica013
+const dir_o = $s_musica016
+
+
+classe s_musica015
+herda b_musica
+const s_titulo = "O fim da rua dos tecladistas."
+const dir_o = $s_musica011
+const a_reset = "P 100 musica002 0 0 4\nP 100 musica002 0 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_musica002:objsolto.total < 4
+    criar("p_musica002", este, 0)
+  fimse
+  se p_musica002:objsolto.total < 4
+    criar("p_musica002", este, 0)
+  fimse
+
+
+classe s_musica016
+herda b_musica
+const s_titulo = "O fim da rua dos guitarristas."
+const dir_l = $s_musica014
+const a_reset = "P 100 musica001 5 5 8\n\
+E 100 musica001 1 0\n\
+P 100 musica001 0 0 8\n\
+E 100 musica001 1 0\n\
+P 100 musica001 0 0 8\n\
+E 100 musica001 1 0\n\
+P 100 musica001 0 0 8\n\
+E 100 musica001 1 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_musica001:objsolto.total < 8
+    p = u = criar("p_musica001", este, 5)
+  fimse
+  se u
+    r = criar("i_musica001", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+  p = u = nulo
+  se p_musica001:objsolto.total < 8
+    p = u = criar("p_musica001", este, 0)
+  fimse
+  se u
+    r = criar("i_musica001", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+  p = u = nulo
+  se p_musica001:objsolto.total < 8
+    p = u = criar("p_musica001", este, 0)
+  fimse
+  se u
+    r = criar("i_musica001", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+  p = u = nulo
+  se p_musica001:objsolto.total < 8
+    p = u = criar("p_musica001", este, 0)
+  fimse
+  se u
+    r = criar("i_musica001", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_musica017
+herda b_musica
+const s_titulo = "Um clube de duelos musicais."
+const dir_o = $s_musica006
+const portanome_o = "as portas do clube de duelos"
+const portaartigo_o = 1 # Artigo porta: 1 as (portas)
+
+
+classe s_musica018
+herda b_musica
+const s_titulo = "Aos pés do altar."
+const dir_s = $s_musica001
+const dir_c = $s_musica019
+
+
+classe s_musica019
+herda b_musica
+const s_titulo = "O altar do templo da música."
+const dir_b = $s_musica018
+
+
+classe s_musica020
+herda b_musica
+const s_titulo = "A rua das melodias."
+const dir_l = $s_musica021
+const dir_o = $s_musica004
+
+
+classe s_musica021
+herda b_musica
+const s_titulo = "A rua das melodias."
+const dir_l = $s_musica022
+const dir_o = $s_musica020
+
+
+classe s_musica022
+herda b_musica
+const s_titulo = "A rua das melodias."
+const dir_l = $s_musica040
+const dir_o = $s_musica021
+const a_reset = "P 100 musica003 0 0 4\nP 100 musica003 0 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_musica003:objsolto.total < 4
+    criar("p_musica003", este, 0)
+  fimse
+  se p_musica003:objsolto.total < 4
+    criar("p_musica003", este, 0)
+  fimse
+
+
+classe s_musica023
+herda b_musica
+const s_titulo = "A parte oeste da rua das melodias."
+const dir_l = $s_musica004
+const dir_o = $s_musica024
+
+
+classe s_musica024
+herda b_musica
+const s_titulo = "A parte oeste da rua das melodias."
+const dir_l = $s_musica023
+const dir_o = $s_musica025
+
+
+classe s_musica025
+herda b_musica
+const s_titulo = "A parte oeste da rua das melodias."
+const dir_l = $s_musica024
+const a_reset = "P 100 musica003 0 0 4\nP 100 musica003 0 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_musica003:objsolto.total < 4
+    criar("p_musica003", este, 0)
+  fimse
+  se p_musica003:objsolto.total < 4
+    criar("p_musica003", este, 0)
+  fimse
+
+
+classe s_musica026
+herda b_musica
+const s_titulo = "O beco dos sanfoneiros."
+const dir_no = $s_musica008
+const dir_se = $s_musica027
+const a_reset = "P 100 musica004 0 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_musica004:objsolto.total < 4
+    criar("p_musica004", este, 0)
+  fimse
+
+
+classe s_musica027
+herda b_musica
+const s_titulo = "O beco dos sanfoneiros."
+const dir_no = $s_musica026
+const dir_se = $s_musica028
+
+
+classe s_musica028
+herda b_musica
+const s_titulo = "O beco dos sanfoneiros."
+const dir_no = $s_musica027
+const dir_se = $s_musica036
+
+
+classe s_musica029
+herda b_musica
+const s_titulo = "O beco dos cavacnistas."
+const dir_ne = $s_musica008
+const dir_so = $s_musica030
+const a_reset = "P 100 musica006 0 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_musica006:objsolto.total < 4
+    criar("p_musica006", este, 0)
+  fimse
+
+
+classe s_musica030
+herda b_musica
+const s_titulo = "O beco dos cavacnistas."
+const dir_ne = $s_musica029
+const dir_so = $s_musica031
+
+
+classe s_musica031
+herda b_musica
+const s_titulo = "O beco dos cavacnistas."
+const dir_ne = $s_musica030
+
+
+classe s_musica032
+herda b_musica
+const s_titulo = "O beco dos bateristas"
+const dir_n = $s_musica008
+const dir_s = $s_musica033
+const a_reset = "P 100 musica005 0 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_musica005:objsolto.total < 4
+    criar("p_musica005", este, 0)
+  fimse
+
+
+classe s_musica033
+herda b_musica
+const s_titulo = "O beco dos bateristas"
+const dir_n = $s_musica032
+const dir_s = $s_musica034
+
+
+classe s_musica034
+herda b_musica
+const s_titulo = "O beco dos bateristas"
+const dir_n = $s_musica033
+const dir_s = $s_musica035
+
+
+classe s_musica035
+herda b_musica
+const s_titulo = "O fim do beco dos bateristas"
+const dir_n = $s_musica034
+
+
+classe s_musica036
+herda b_musica
+const s_titulo = "O fim do beco dos sanfoneiros"
+const dir_no = $s_musica028
+
+
+classe s_musica037
+herda b_musica
+const s_titulo = "A travessa dos vocalistas."
+const dir_ne = $s_musica038
+const dir_so = $s_musica008
+const a_reset = "P 100 musica007 0 0 4\nP 100 musica007 0 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_musica007:objsolto.total < 4
+    criar("p_musica007", este, 0)
+  fimse
+  se p_musica007:objsolto.total < 4
+    criar("p_musica007", este, 0)
+  fimse
+
+
+classe s_musica038
+herda b_musica
+const s_titulo = "A travessa dos vocalistas."
+const dir_ne = $s_musica039
+const dir_so = $s_musica037
+
+
+classe s_musica039
+herda b_musica
+const s_titulo = "A travessa dos vocalistas."
+const dir_so = $s_musica038
+const dir_ne = $s_musica040
+const a_reset = "P 100 musica007 0 0 4\nP 100 musica007 0 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_musica007:objsolto.total < 4
+    criar("p_musica007", este, 0)
+  fimse
+  se p_musica007:objsolto.total < 4
+    criar("p_musica007", este, 0)
+  fimse
+
+
+classe s_musica040
+herda b_musica
+const s_titulo = "O final leste da rua das melodias."
+const s_pnj = 0
+const dir_o = $s_musica022
+const dir_so = $s_musica039
+
+
+classe s_musica041
+herda b_musica
+const s_titulo = "A travessa dos violonistas"
+const dir_no = $s_musica042
+const dir_se = $s_musica008
+const a_reset = "P 100 musica008 0 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_musica008:objsolto.total < 4
+    criar("p_musica008", este, 0)
+  fimse
+
+
+classe s_musica042
+herda b_musica
+const s_titulo = "A travessa dos violonistas"
+const dir_no = $s_musica043
+const dir_se = $s_musica041
+
+
+classe s_musica043
+herda b_musica
+const s_titulo = "A travessa dos violonistas"
+const dir_no = $s_musica044
+const dir_se = $s_musica042
+
+
+classe s_musica044
+herda b_musica
+const s_titulo = "O fim da travessa"
+const dir_se = $s_musica043

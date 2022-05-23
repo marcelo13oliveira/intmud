@@ -1,0 +1,2640 @@
+classe a_tartaro
+herda area
+const a_nome = "Tártaro, o Abismo profundo"
+const a_autor = "Eragon e Arya"
+const a_tempo = 30
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_txtreset = "5. Mensagem de reset : Com um som abafado semelhante a um gigantesco \
+coração, os mortos um a um se erguem de volta a vida."
+
+
+classe b_tartaro
+herda sala
+const s_doarsalas = "midgaard005\ntorvani101"
+const s_item = 4
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_luz = 3 # Luz: 3 Escuro
+const s_pnj = 40
+const s_recup = 0
+const s_reserva = 1 # Comando reserva: Sim
+const s_retornar = 0 # Comando retornar: 0 Permitido
+const s_semmagia = 0 # Sem magia: Não
+const s_voltar = $s_tartaro012
+const s_area = "tartaro"
+const s_gritar = "Você eleva sua voz para os céus tentando dizer algo, mas as longas paredes \
+negras absorvem suas palavras."
+
+
+classe i_tartaro001
+herda comum_itemperso
+const nome = "Uma pesada chave de bronze"
+const ident = "pesada chave bronze"
+const descpos = "Uma pesada chave de bronze foi deixada aqui."
+const i_chave = "tartaro001"
+
+
+classe i_tartaro002
+herda comum_item
+const nome = "Uma estátua de dois leões dourado"
+const descpos = "Uma estátua de dois leões dourado encontra-se ao centro da sala,, com as \
+mandíbulas escancaradas em um silencioso rugido."
+const i_pegar = "Você tenta se aproximar, mas a estátua lhe da um certo frio na barriga"
+
+
+classe i_tartaro003
+herda comum_itemperso
+const nome = "a armadura flamejante do alvorecer"
+const ident = "armadura flamejante alvorecer"
+const nivel = 135
+const renascer = 1
+const vestir1 = 4096 # Aonde vestir: 12-no corpo
+const vestirnao = "anão\nmago\nnecromante"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 250
+  atknorm += 80
+  precisao += 105
+  deftipo.6 *= 0.75 # Fogo
+
+const quest = 0
+
+
+classe i_tartaro004
+herda comum_itemperso
+const nome = "um pingente prateado com uma pequena pérola enformato de lua cheia"
+const ident = "pingente prateado lua"
+const descpos = "Um cintilante pingente prateado foi deixado aqui."
+const nivel = 320
+const renascer = 1
+const valor = 10000000
+const vestir1 = 512 # Aonde vestir: 9-no pescoço
+const vestirnao = "guerreiro\nhumano"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 150
+  pmanamax += 590
+  atknorm += 92
+  defnorm += 100
+  bitinv &= ~2
+
+
+classe i_tartaro005
+herda comum_itemperso
+const nome = "um cintilante anel cravejado com pequenas esmeraldas em formato de conchas."
+const ident = "anel cintilante concha esmeralda"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 210
+const renascer = 1
+const pesoobj = 500
+const valor = 30000000
+const vestir1 = 6291456 # Aonde vestir: 21-no dedo direito, 22-no dedo esquerdo
+const vestirnao = "haufling"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 110
+  pmanamax += 150
+  precisao += 100
+  pesomax += 2000
+  deftipo.7 *= 0.83 # Água
+
+
+classe i_tartaro006
+herda comum_itemperso
+const nome = "serpenthis, a ancestral espada do mar"
+const ident = "serpenthis espada ancestral"
+const nivel = 190
+const renascer = 1
+const armamax = 0
+const armamin = 490
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const pesoobj = 3000
+const tipoitem = 2 # Tipo de produto: 1-Arma
+const valor = 62000023
+const vestirnao = "mago\nnecromante"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 530
+  pmanamax += -210
+  atknorm += 530
+  evasao += 120
+  precisao += 110
+  atktipo.7 *= 1.5 # Água
+
+const m_atribs1 = "Envolvida por uma cintilante aura azulada"
+const m_atribs2 = "rodead$s por violentos tentáculos de água"
+const armafalha = 7
+
+
+classe i_tartaro007
+herda comum_itemperso
+const nome = "a máscara negra do conhecimento"
+const ident = "mascara negra conhecimento"
+const nivel = 120
+const renascer = 1
+const pesoobj = 900
+const vestir1 = 1024 # Aonde vestir: 10-sobre o rosto
+const vestirnao = "guerreiro"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 125
+  pmanamax += 210
+  defesp += 150
+  precisao += 100
+
+
+classe i_tartaro008
+herda comum_itemperso
+const nome = "um par de manoplas de aço entalhadas com pequenas estrelas de gelo"
+const ident = "manopla aço congelada estrela"
+const descnome = "um par de manoplas de aço entalhadas com pequenas estrelas de gelo"
+const nivel = 190
+const renascer = 1
+const pesoobj = 1000
+const valor = 4000000
+const vestir1 = 262144 # Aonde vestir: 18-nas mãos
+const vestirnao = "anão\nmago\nnecromante"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 110
+  pmanamax += -130
+  atknorm += 115
+  precisao += 80
+  pesomax += 5000
+  atktipo.3 *= 1.2 # Luta
+
+const quest = 0
+
+
+classe i_tartaro009
+herda comum_itemperso
+const nome = "a enigmática capa da inteligência"
+const nivel = 100
+const renascer = 1
+const pesoobj = 1500
+const valor = 20000000
+const vestir1 = 8192 # Aonde vestir: 13-sobre o corpo
+const vestirnao = "guerreiro"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += -110
+  pmanamax += 325
+  pveloc1 += 60
+  atknorm += 95
+
+
+classe i_tartaro010
+herda comum_itemperso
+const nome = "o cajado escarlate do Senhor do Oeste"
+const ident = "cajado escarlate senhor oeste"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 200
+const renascer = 1
+const armamax = 300
+const armamin = 190
+const armatipo = 2 # Tipo de arma: 2 Cajado
+const pesoobj = 2000
+const vestirnao = "guerreiro"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += -70
+  pmanamax += 290
+  atknorm += 53
+  atkesp += 90
+  precisao += 74
+
+const armafalha = 7
+
+
+classe i_tartaro011
+herda comum_item
+const nome = "a balança divina da justiça"
+const ident = "balança divina justiça"
+const nivel = 300
+const renascer = 0
+const pesoobj = 5000
+const valor = 10000000
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+const vestirnao = "necromante"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 12
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 520
+  pmanamax += 390
+  atknorm += 100
+  atkesp += 201
+  precisao += 120
+  pesomax += 20000
+
+
+classe i_tartaro012
+herda comum_itemperso
+const nome = "a majestosa coroa do senhor do tempo"
+const ident = "coroa majestosa tempo"
+const nivel = 500
+const renascer = 3
+const pesoobj = 10000
+const vestir1 = 4 # Aonde vestir: 2-Na cabeça
+const vestirnao = "anao\nhaufling"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv |= 4
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pveloc1 += 420
+  atknorm += 640
+  atkesp += 520
+  defesp += 1200
+  precisao += 250
+  pesomax += 40000
+
+
+classe i_tartaro013
+herda comum_itemperso
+const nome = "o manto alvo dos mil olhos"
+const ident = "manto alvo mil olhos"
+const descpos = "Um manto branco como a neve se encontra jogado aqui, com mil olhos te observando\
+ sabiamente."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 320
+const renascer = 1
+const vestir1 = 8192 # Aonde vestir: 13-sobre o corpo
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv &= ~2
+  bitver |= 14
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmovemax += 492
+  pveloc1 += 350
+  atkesp += 200
+  defesp += 410
+  evasao += 100
+  precisao += 322
+
+
+classe i_tartaro014
+herda comum_itemperso
+const nome = "as correntes negras da rebeldia"
+const ident = "corrente negra rebeldia"
+const nivel = 420
+const renascer = 1
+const vestir1 = "30000"
+const volobj = 2000
+const quest = 0
+
+
+classe p_tartaro001
+herda comum_persobat
+const nome = "Hipérion, O titã do Fogo"
+const descpadr = "Hipérion, o Titã do fogo e o senhor do leste está aqui, acorrentado por longas \
+correntes de gelo."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 550
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 40000
+const inivar = "e_mobsantuario=8,m_bola_de_fogo=8,z_moedas=6000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5000 * pnivel + 3500000
+  pmanamax += 1000000
+  atknorm += 500 * pnivel + 50000
+  defnorm += 600 * pnivel + 40000
+  atkesp += 13000
+  defesp += 600 * pnivel + 20000
+  evasao += 17000
+  precisao += 16000
+  bitver |= 2
+  atktipo.6 *= 1.5 # Fogo
+  deftipo.6 *= 0.5 # Fogo
+  deftipo.8 *= 1.8 # Gelo
+
+
+classe p_tartaro002
+herda comum_persobat
+const nome = "Crio"
+const descpadr = "Crio, o Titã do gelo e o senhor do sul está aqui, acorrentado por longas \
+correntes flamejantes."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 600
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 40000
+const inivar = "e_mobsantuario=8,m_aura_gelada=8,h_terceiro_ataque=8,z_moedas=7000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 6000 * pnivel + 4000000
+  pmanamax += 1000000
+  atknorm += 1500 * pnivel + 60000
+  defnorm += 2000 * pnivel + 60000
+  atkesp += 1500 * pnivel + 60000
+  defesp += 1500 * pnivel + 50000
+  evasao += 50 * pnivel
+  precisao += 15 * pnivel + 15000
+  bitver |= 4126
+  atktipo.8 *= 2 # Gelo
+  deftipo.6 *= 1.8 # Fogo
+  deftipo.8 *= 0.5 # Gelo
+
+
+classe p_tartaro003
+herda comum_persobat
+const nome = "Céos"
+const descpadr = "Céos, o Titã da inteligência está aqui, acorrentado por longas correntes de \
+bronze celestial."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 600
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 35000
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "e_mobsantuario=8,z_moedas=3000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10000 * pnivel + 5000000
+  pmanamax += 1000000
+  atknorm += 1200 * pnivel + 120000
+  defnorm += 2200 * pnivel + 140000
+  atkesp += 1200 * pnivel + 120000
+  defesp += 2400 * pnivel + 160000
+  evasao += 60 * pnivel
+  precisao += 30 * pnivel + 15000
+
+
+classe p_tartaro004
+herda comum_persobat
+const nome = "Jápeto"
+const descpadr = "Jápeto, o titã do oeste está aqui, acorrentado por longas correntes de \
+aço."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 600
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 40000
+const inivar = "e_mobsantuario=8,h_segundo_ataque=8,z_moedas=5000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5000 * pnivel + 6000000
+  pmanamax += 1000000
+  atknorm += 1000 * pnivel + 100000
+  defnorm += 1500 * pnivel + 90000
+  atkesp += 1000 * pnivel + 100000
+  defesp += 1500 * pnivel + 90000
+  evasao += 50 * pnivel
+  precisao += 10 * pnivel + 15000
+
+
+classe p_tartaro005
+herda comum_persobat
+const nome = "Oceano"
+const ident = "oceano titã"
+const descpadr = "Uma grande coluna de água surge no meio da sala e solidifica-se na figura do \
+poderoso titã Oceano."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 550
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 30000
+const inivar = "e_mobsantuario=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500 * pnivel + 6500000
+  pmanamax += 1000000
+  atknorm += 1200 * pnivel + 120000
+  defnorm += 17800 * pnivel + 95000
+  atkesp += 12000 * pnivel + 120000
+  defesp += 1900 * pnivel + 95000
+  evasao += 50 * pnivel
+  precisao += 10 * pnivel + 15000
+
+
+classe p_tartaro006
+herda comum_persobat
+const nome = "Febe, a Titãnide da lua"
+const ident = "mulher titã titãnide bela febe"
+const descpadr = "Uma bela mulher com os seios nus se encontra aqui, acorrentada por longas \
+correntes douradas."
+const descver = "Bela! Nada mais poderia ser dito dessa titãnide, com longos cabelos negros\n\
+que descem esvoaçando ao redor de um rosto alvo e delicado como a própria\n\
+lua e com os olhos azuis crepúsculos, tão lindos e cintilantes como duas\n\
+estrelas no céu na meia noite. Após contemplá-la por alguns instantes você\n\
+nota alguns fatos que não havia observado anteriormente, como essa bela\n\
+mulher de aparência delicada estar com os lábios rubros abertos em um\n\
+silencioso grito de agonia, e ter aproximadamente três metros de altura e\n\
+estar completamente nua da cintura pra cima, deixando a mostra dois enormes\n\
+seios totalmente curvilíneos e brancos como uma pérola, imitindo um leve\n\
+brilho tanto quanto o resto de seu corpo."
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const objmax = 100
+const nivel = 550
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 35000
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "e_mobsantuario=8,h_segundo_ataque=8,z_moedas=3000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 4000 * pnivel + 7000000
+  pmanamax += 100000
+  atknorm += 1500 * pnivel + 130000
+  defnorm += 2300 * pnivel + 140000
+  atkesp += 1500 * pnivel + 130000
+  defesp += 2400 * pnivel + 100000
+  evasao += 70 * pnivel
+  precisao += 150 * pnivel + 20000
+  bitver |= 4638
+
+
+classe p_tartaro007
+herda comum_persobat
+const nome = "Mnemosine"
+const descpadr = "Mnemosine, a personificação da memória se encontra no meio da sala, acorrentada\
+ por longas correntes de bronze celestial."
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const nivel = 550
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 25000
+const inivar = "e_mobsantuario=8,h_segundo_ataque=8,z_moedas=3000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 7500000
+  pmanamax += 1000000
+  atknorm += 140000
+  defnorm += 120000
+  atkesp += 140000
+  defesp += 120000
+  precisao += 15000
+  bitver |= 4126
+
+
+classe p_tartaro008
+herda comum_persobat
+const nome = "Têmis"
+const ident = "titã titãnide têmis ordem justiça"
+const descpadr = "Têmis, a Titãnide da justiça e da ordem encontra-se acorrentada aqui, com uma \
+balança de bronze nas mãos."
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const nivel = 550
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 40000
+const inivar = "e_mobsantuario=8,h_segundo_ataque=8,z_moedas=4000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 3000 * pnivel + 8000000
+  pmanamax += 1000000
+  atknorm += 1600 * pnivel + 160000
+  defnorm += 2400 * pnivel + 150000
+  atkesp += 1600 * pnivel + 160000
+  defesp += 2400 * pnivel + 150000
+  evasao += 50 * pnivel
+  precisao += 30 * pnivel + 15000
+  bitver |= 4126
+
+
+classe p_tartaro009
+herda comum_persobat
+const nome = "Tétis"
+const ident = "titã titãnide tétis mar"
+const descpadr = "Tétis, a Titãnide do mar encontra-se acorrentada aqui, sobre uma enorme concha \
+de marfim."
+const descver = "Possuindo um corpo extremamente curvilíneo de aproximadamente três metros\n\
+de altura e com longos cabelos dourados e encaracolados que molduram seu\n\
+rosto alvo e angelical, Tétis, a Titãnide do mar possui uma beleza sem\n\
+igual, sendo dada raramente essa honra para os olhos mortais contemplar tal\n\
+perfeição. Seus cintilantes olhos verde mar analisam desesperadamente tudo o\n\
+que está ao seu redor, dando apenas para perceber um pequeno traço de\n\
+alegria e felicidade que um dia eles possuíram, assim como evidencia seus\n\
+lábios avermelhados que foram feitos especialmente para sorrir, mas que\n\
+estão levemente separados em um silencioso grito de agonia."
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const nivel = 550
+const equip3 = "0"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 32000
+const inivar = "e_mobsantuario=8,h_segundo_ataque=8,z_moedas=4000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500 * pnivel + 8500000
+  pmanamax += 1000000
+  atknorm += 1800 * pnivel + 180000
+  defnorm += 2000 * pnivel + 140000
+  atkesp += 1800 * pnivel + 180000
+  defesp += 2000 * pnivel + 140000
+  evasao += 60 * pnivel
+  precisao += 50 * pnivel + 15000
+  bitver |= 4638
+
+
+classe p_tartaro010
+herda comum_persobat
+const nome = "Téia"
+const ident = "titãnide téia titã luz visão"
+const descpadr = "Téia, a Titãnide da visão e da luz está aqui, acorrentada por longas correntes \
+negras."
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const nivel = 550
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 42000
+const inivar = "e_mobsantuario=8,z_moedas=3000000,h_segundo_ataque=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2000 * pnivel + 9000000
+  pmanamax += 1000000
+  atknorm += 2000 * pnivel + 200000
+  defnorm += 2500 * pnivel + 200000
+  atkesp += 2000 * pnivel + 200000
+  defesp += 2500 * pnivel + 200000
+  evasao += 100 * pnivel + 20000
+  precisao += 15000
+  bitinv &= ~2
+  bitver |= 4126
+
+
+classe p_tartaro011
+herda comum_persobat
+const nome = "Reia"
+const ident = "reia titã titãnide mãe deuses"
+const descpadr = "Reia, a mãe dos deuses está aqui, ladeada por dois leões dourado."
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const nivel = 600
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "e_mobsantuario=8,h_segundo_ataque=8,z_moedas=7000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 15000000
+  pmanamax += 1000000
+  atknorm += 2500 * pnivel + 250000
+  defnorm += 3000 * pnivel + 300000000
+  atkesp += 2500 * pnivel + 250000
+  defesp += 3000 * pnivel + 300000
+  evasao += 60 * pnivel + 25000
+  precisao += 60 * pnivel + 25000
+  bitver |= 4126
+
+
+classe p_tartaro012
+herda comum_persobat
+const nome = "Crônos"
+const ident = "crônos titã tempo senhor"
+const descpadr = "Crônos, o rei titã e o senhor do tempo está aqui, em eterna agonia."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 600
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const inivar = "e_santuario=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1 * pnivel + 15000000
+  pmanamax += 1000000
+  atknorm += 2500 * pnivel + 250000
+  defnorm += 3000 * pnivel + 300000
+  atkesp += 2500 * pnivel + 250000
+  defesp += 3000 * pnivel + 300000
+  evasao += 60 * pnivel + 25000
+  precisao += 60 * pnivel + 25000
+  bitver |= 4126
+
+
+classe p_tartaro013
+herda comum_persobat
+const nome = "Empousai"
+const descpadr = "Uma Empousai encontra-se aqui, manipulando a mente de suas presas com a \
+névoa."
+const nivel = 450
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 12000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 100
+const inivar = "e_mobsantuario=8,z_moedas=739110,h_segundo_ataque=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1500 * pnivel + 300000
+  atknorm += 600 * pnivel + 60000
+  defnorm += 1000 * pnivel + 180000
+  atkesp += 600 * pnivel + 60000
+  defesp += 1000 * pnivel + 100000
+  evasao += 100 * pnivel + 15000
+  precisao += 50 * pnivel + 25000
+  bitver |= 4126
+
+func cmd_comeu
+  refvar gexp = rand(1, 40000000)
+  ganhaexp(gexp)
+
+
+classe p_tartaro014
+herda comum_persobat
+const nome = "Uma dracaenae"
+const ident = "dracaenae cobra mulher"
+const descpadr = "Uma Dracaenae, a estranha mistura de mulher e cobra encontra-se aqui, lhe \
+fitando ameaçadoramente com seus olhos amarelos."
+const nivel = 450
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 8000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 150
+const inivar = "e_mobsantuario=8,z_moedas=530920"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1000 * pnivel + 500000
+  atknorm += 500 * pnivel + 50000
+  defnorm += 1000 * pnivel + 60000
+  atkesp += 500 * pnivel + 60000
+  defesp += 1000 * pnivel + 60000
+  evasao += 50 * pnivel + 15000
+  precisao += 50 * pnivel + 15000
+
+
+classe p_tartaro015
+herda comum_persobat
+const nome = "Um cão infernal"
+const descpadr = "Um negro cão infernal como a meia noite esgueira-se por aqui, emanando ondas \
+de escuridão por onde passa."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 460
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 0 # Corpo: 0 Não deixa corpo
+const p_exp = 10000
+const p_morreu1 = "$p desentegra-se em uma poça de sombras ao ser magistralmente abatido."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 500
+const inivar = "e_mobsantuario=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5000 * pnivel + 1000000
+  atknorm += 500 * pnivel + 200000
+  defnorm += 1000 * pnivel + 130000
+  atkesp += 500 * pnivel + 200000
+  defesp += 1200 * pnivel + 140000
+  evasao += 40 * pnivel + 18000
+  precisao += 30 * pnivel + 16000
+  bitver |= 4414
+  bitinv |= 4
+
+
+classe p_tartaro016
+herda comum_persobat
+const nome = "Telquine"
+const descpadr = "Um telquine, típico demônio do mar, encontra-se aqui, rastejando com seu corpo \
+disforme."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 420
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 10000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 250
+const inivar = "e_mobsantuario=8,z_moedas=253883"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1500 * pnivel + 5000000
+  atknorm += 1000 * pnivel + 180000
+  defnorm += 2000 * pnivel + 230000
+  atkesp += 1000 * pnivel + 140000
+  defesp += 2100 * pnivel + 18000
+  evasao += 50 * pnivel + 22000
+  precisao += 50 * pnivel + 22000
+  bitver |= 4126
+
+
+classe p_tartaro017
+herda comum_persobat
+const nome = "um dracon"
+const ident = "dragão dracon serpente"
+const descpadr = "uma gigantesca serpente de escamas metálicas rasteja em sua direção, lhe \
+paralizando no lugar com seus terríveis olhos amarelados."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 570
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 4500
+const p_imortal = 0 # Imortal: Não
+const p_morreu1 = "$a agilmente acha uma brecha nas escamas metálicas do Dracon e o golpeia \
+mortalmente, causando sua morte de forma brutal!"
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 800
+const inivar = "m_paralisia=8,h_segundo_ataque=8,z_moedas=15329022"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 45293
+  atknorm += 19992
+  defnorm += 7000
+  precisao += 2900
+  bitver |= 4382
+
+
+classe s_tartaro001
+herda b_tartaro
+const s_titulo = "a margem do rio Styx"
+const s_desc = ""
+const s_ocultar = 1 # Ocultar desc: Sim
+const dir_n = $s_tartaro020
+
+func cmd_salaperso
+  misc:evento(arg0)
+  ret !arg0.jog, nulo
+  criar("e_envenenado", arg0)
+  ret 1
+
+const dir_ = $s_tartaro014
+
+
+classe s_tartaro002
+herda b_tartaro
+const s_titulo = "O extremo sul do tártaro"
+const s_desc = "Você está no extremo sul do Tártaro, com vastos quilômetros de uma planície\n\
+vulcânica negra se estendendo a sua frente, completamente coberta por\n\
+afiados fragmentos de vidro, espinhos e outros metais retorcidos. Aqui as\n\
+rochas e pedras parecem estarem todas completamente destruídas, como se algo\n\
+gigantesco as tivesse esmagado em pequenos insignificantes pedregulhos. Para\n\
+o sul você avista uma enorme caverna congelada, com um longo vento cortante\n\
+saindo de seu interior."
+const dir_n = $s_tartaro013
+const dir_s = $s_tartaro016
+const a_reset = "P 100 tartaro013 0 0 12\nP 100 tartaro015 0 0 8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro013:objsolto.total < 12
+    criar("p_tartaro013", este, 0)
+  fimse
+  se p_tartaro015:objsolto.total < 8
+    criar("p_tartaro015", este, 0)
+  fimse
+
+
+classe s_tartaro003
+herda b_tartaro
+const s_titulo = "A longa queda para o tártaro"
+const s_desc = ""
+const dir_b = $s_tartaro001
+
+func cmd_salaperso
+  misc:evento(arg0)
+  ret !arg0.jog, nulo
+  arg0.msg("Você entra na sala e começa a cair!")
+  misc:tempo("entrou", arg0)
+
+func entrou50
+  arg0.mudadono($s_tartaro001)
+
+func cmd_escr
+  casovar arg2
+  casofim
+  arg0.msg("Você grita e debate-se em desespero mas continua caindo....")
+  ret 1
+
+
+classe s_tartaro004
+herda b_tartaro
+
+
+classe s_tartaro005
+herda b_tartaro
+const s_ocultar = 1 # Ocultar desc: Sim
+
+func cmd_salaperso
+  misc:evento(arg0)
+  arg0.msg("Você rodopia descontroladamente no ar, caindo velozmente para o rio que começa a \
+ficar cada vez mais perto!")
+  misc:tempo("entrou", arg0)
+
+func entrou50
+  arg0.mudadono($s_tartaro001)
+  $mens.p(arg0)
+  $mens.mtodos1("Splash! Com um grande estrondo, $P desaba de cabeça nas negras águas geladas do \
+rio, debatendo-se desesperadamente para ficar na superfície até conseguir nadar até a margem!")
+
+func cmd_escr
+  casovar arg2
+  casofim
+  arg0.msg("Você rodopia descontroladamente pelo espaço vazio, balançando seus braços de um lado \
+ao outro tentando abrandar sua queda mas só continua caindo!")
+  ret 1
+
+
+classe s_tartaro006
+herda b_tartaro
+const s_titulo = "a longa queda para o tártaro"
+const s_ocultar = 1 # Ocultar desc: Sim
+const s_semmagia = 1 # Sem magia: Sim
+
+func cmd_salaperso
+  misc:evento(arg0)
+  arg0.msg("Durante um breve instante você consegue ver as águas negras de um longo rio, dezenas \
+e dezenas de metros abaixo.")
+  misc:tempo("entrou", arg0)
+
+func entrou90
+  arg0.mudadono($s_tartaro005)
+
+func cmd_escr
+  casovar arg2
+  casofim
+  arg0.msg("Você rodopia descontroladamente pelo espaço vazio, balançando seus braços de um lado \
+ao outro tentando abrandar sua queda mas só continua caindo!")
+  ret 1
+
+
+classe s_tartaro007
+herda b_tartaro
+const s_titulo = "A longa queda para o tártaro"
+const s_desc = ""
+const s_ocultar = 1 # Ocultar desc: Sim
+
+func cmd_salaperso
+  misc:evento(arg0)
+  arg0.msg("Você grita e debate-se desesperadamente tentando agarrar algo para abrandar sua \
+queda, mas só continua a cair, cair, e cair!")
+  misc:tempo("entrou", arg0)
+
+func entrou90
+  arg0.mudadono($s_tartaro006)
+
+func cmd_escr
+  casovar arg2
+  casofim
+  arg0.msg("Você rodopia descontroladamente pelo espaço vazio, balançando seus braços de um lado \
+ao outro tentando abrandar sua queda mas só continua caindo!")
+  arg0.msg("Você rodopia descontroladamente pelo espaço vazio, balançando seus braços de um lado \
+ao outro tentando abrandar sua queda mas só continua caindo!")
+
+
+classe s_tartaro008
+herda b_tartaro
+const s_titulo = "A longa queda para o tártaro"
+const s_desc = ""
+const s_ocultar = 1 # Ocultar desc: Sim
+const dir_b = $s_tartaro007
+
+func cmd_salaperso
+  misc:evento(arg0)
+  arg0.msg("Você grita e debate-se desesperadamente tentando agarrar algo para abrandar sua \
+queda, mas só continua a cair, cair, e cair!")
+  misc:tempo("entrou", arg0)
+
+func entrou90
+  arg0.mudadono($s_tartaro007)
+
+func cmd_escr
+  casovar arg2
+  casofim
+  arg0.msg("Você rodopia descontroladamente pelo espaço vazio, balançando seus braços de um lado \
+ao outro tentando abrandar sua queda mas só continua caindo!")
+  ret 1
+
+
+classe s_tartaro009
+herda b_tartaro
+const s_titulo = "A longa queda para o tártaro"
+const s_desc = ""
+const s_ocultar = 1 # Ocultar desc: Sim
+
+func cmd_salaperso
+  misc:evento(arg0)
+  arg0.msg("Os ventos rugem furiosamente em seus ouvidos na medida que você vai caindo mais \
+profundamente, com o ar ficando mais congelante a cada momento que passa!")
+  misc:tempo("entrou", arg0)
+
+func entrou90
+  arg0.mudadono($s_tartaro008)
+
+func cmd_escr
+  casovar arg2
+  casofim
+  arg0.msg("Você rodopia descontroladamente pelo espaço vazio, balançando seus braços de um lado \
+ao outro tentando abrandar sua queda mas só continua caindo!")
+  ret 1
+
+
+classe s_tartaro010
+herda b_tartaro
+const s_titulo = "A longa queda para o tártaro"
+const s_desc = ""
+const s_ocultar = 1 # Ocultar desc: Sim
+
+func cmd_salaperso
+  misc:evento(arg0)
+  arg0.msg("Você grita e debate-se desesperadamente tentando agarrar algo para abrandar sua \
+queda, mas só continua a cair, cair, e cair!")
+  misc:tempo("entrou", arg0)
+
+func entrou90
+  arg0.mudadono($s_tartaro009)
+
+func cmd_escr
+  casovar arg2
+  casofim
+  arg0.msg("Você continua caindo para as profundezas, dando apenas para olhar de relance negras \
+paredes de pedra circulares, semelhante a um poço realmente gigantesco!")
+  ret 1
+
+
+classe s_tartaro011
+herda b_tartaro
+const s_titulo = "A longa queda para o tártaro"
+const s_desc = ""
+const s_ocultar = 1 # Ocultar desc: Sim
+
+func cmd_salaperso
+  misc:evento(arg0)
+  arg0.msg("Você grita e debate-se desesperadamente tentando agarrar algo para abrandar sua \
+queda, mas só continua a cair, cair, e cair!")
+  misc:tempo("entrou", arg0)
+
+func entrou90
+  arg0.mudadono($s_tartaro010)
+
+func cmd_escr
+  casovar arg2
+  casofim
+  arg0.msg("Você rodopia descontroladamente pelo espaço vazio, balançando seus braços de um lado \
+ao outro tentando abrandar sua queda mas só continua caindo!")
+  arg0.msg("Você rodopia descontroladamente pelo espaço vazio, balançando seus braços de um lado \
+ao outro tentando abrandar sua queda mas só continua caindo!")
+
+
+classe s_tartaro012
+herda b_tartaro
+const s_titulo = "Uma caverna gigantesca"
+const s_desc = ""
+const dir_n = $s_midoeste048
+const dir_b = $s_tartaro011
+
+func cmd_salaperso
+  misc:evento(arg0)
+  misc:tempo("entrou", arg0)
+
+func entrou110
+  arg0.msg("Uma rajada de um vento frio aspira de dentro do abismo e lentamente lhe puxa para a \
+sua borda, até que os ventos rodeiam violentamente seu corpo e lhe faz cair para as profundezas \
+do Tártaro.")
+  arg0.mudadono($s_tartaro011)
+
+func cmd_escr
+  casovar arg2
+    cmd_move
+  casofim
+  arg0.msg("Você tenta desesperadamente se afastar da borda do abismo, mas uma força gravitaciona\
+l lhe puxa cada vez mais perto.")
+  ret 1
+
+const dir_ = $s_tartaro014
+
+
+classe s_tartaro013
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_n = $s_tartaro017
+const dir_s = $s_tartaro002
+
+
+classe s_tartaro014
+herda b_tartaro
+const dir_ = $s_tartaro001
+
+
+classe s_tartaro016
+herda b_tartaro
+const s_titulo = "a prisão congelada de Crio"
+const s_desc = ""
+const s_pnj = 1
+const dir_n = $s_tartaro002
+const a_reset = "P 100 tartaro002 0 0 1\nE 83 tartaro008 1 19"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tartaro002:objsolto.total < 1
+    p = u = criar("p_tartaro002", este, 0)
+  fimse
+  se u && rand(100) < 83
+    r = criar("i_tartaro008", u, 1), r.vestir(19), u.recalc = 1
+  fimse
+
+
+classe s_tartaro017
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_n = $s_tartaro018
+const dir_s = $s_tartaro013
+const a_reset = "P 100 tartaro014 0 0 12"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro014:objsolto.total < 12
+    criar("p_tartaro014", este, 0)
+  fimse
+
+
+classe s_tartaro018
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_n = $s_tartaro019
+const dir_s = $s_tartaro017
+
+
+classe s_tartaro019
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_n = $s_tartaro020
+const dir_s = $s_tartaro018
+const a_reset = "P 100 tartaro016 0 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro016:objsolto.total < 4
+    criar("p_tartaro016", este, 0)
+  fimse
+
+
+classe s_tartaro020
+herda b_tartaro
+const s_titulo = "O centro do tártaro"
+const s_desc = "Você caminha pela a paisagem mais horrível que sua imaginação já pôde\n\
+processar, um lugar tão terrível e caótico que nem se você viver por mil\n\
+anos, jamais sairá de sua mente. A sua frente a vastos quilômetros de uma\n\
+planície vulcânica negra, completamente coberta por gigantescas pedras\n\
+pontiagudas e fragmentos afiados de vidro, espinhos e outros metais\n\
+retorcidos, como se fosse uma enorme armadilha apenas para perfurar cada\n\
+centímetro de seu corpo. Você esperançosamente olha para o céu em busca de\n\
+luz do sol, mas o que encontra é um céu apagado completamente cinza, e as\n\
+nuvens escarlates marcam macabramente como manchas de sangue recente. Até\n\
+mesmo o ar deste local é envenenado, como ácido machucando seu pulmão a cada\n\
+respiração que você inspira buscando por oxigênio inexistente. Esta é a\n\
+prisão dos piores monstros, é um lugar que não existe humanidade, que suga a\n\
+vitalidade e felicidade, onde poucos heróis atreveram-se a entrar, esta\n\
+prisão que foi feita para torturar e matar a quem ousar pisar no corpo do\n\
+Deus primordial do caos, o Tártaro."
+const s_retornar = 0 # Comando retornar: 0 Permitido
+const dir_n = $s_tartaro024
+const dir_s = $s_tartaro019
+const dir_l = $s_tartaro025
+const dir_o = $s_tartaro026
+
+
+classe s_tartaro021
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_l = $s_tartaro022
+const dir_o = $s_tartaro066
+
+
+classe s_tartaro022
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar pelo Tártaro, com vastos quilômetros de uma\n\
+planície vulcânica negra se estendendo a sua frente, completamente coberta\n\
+por afiados fragmentos de vidro, espinhos e outros metais retorcidos. Aqui\n\
+as rochas e pedras parecem estarem todas completamente destruídas, como se\n\
+algo gigantesco as tivesse esmagado em pequenos insignificantes pedregulhos.\n\
+Para o norte você avista uma caverna realmente gigantesca, com uma pesada\n\
+grade de bronze fechando a entrada."
+const dir_n = $s_tartaro097
+const portaini_n = 3 # Estado inicial: 3 Porta trancada
+const portanome_n = "Uma grande grade de bronze"
+const fechadura_n = "tartaro001"
+const comechave_n = 1 # Come chave: Sim
+const tranc_n = 2 # Trancar: 2 Tranca ao fechar
+const dir_l = $s_tartaro095
+const dir_o = $s_tartaro021
+const a_reset = "P 70 tartaro017 0 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro017:objsolto.total < 2 && rand(100) < 70
+    criar("p_tartaro017", este, 0)
+  fimse
+
+
+classe s_tartaro023
+herda b_tartaro
+const s_titulo = "Sem nome"
+const s_desc = ""
+const dir_c = $s_tartaro019
+
+
+classe s_tartaro024
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_n = $s_tartaro028
+const dir_s = $s_tartaro020
+const a_reset = "P 100 tartaro016 0 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro016:objsolto.total < 4
+    criar("p_tartaro016", este, 0)
+  fimse
+
+
+classe s_tartaro025
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_l = $s_tartaro032
+const dir_o = $s_tartaro020
+const a_reset = "P 100 tartaro016 0 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro016:objsolto.total < 4
+    criar("p_tartaro016", este, 0)
+  fimse
+
+
+classe s_tartaro026
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_l = $s_tartaro020
+const dir_o = $s_tartaro037
+const a_reset = "P 100 tartaro016 0 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro016:objsolto.total < 4
+    criar("p_tartaro016", este, 0)
+  fimse
+
+
+classe s_tartaro028
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_n = $s_tartaro029
+const dir_s = $s_tartaro024
+
+
+classe s_tartaro029
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_n = $s_tartaro030
+const dir_s = $s_tartaro028
+const a_reset = "P 100 tartaro014 0 0 12"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro014:objsolto.total < 12
+    criar("p_tartaro014", este, 0)
+  fimse
+
+
+classe s_tartaro030
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_n = $s_tartaro031
+const dir_s = $s_tartaro029
+
+
+classe s_tartaro031
+herda b_tartaro
+const s_titulo = "O extremo norte do Tártaro"
+const s_desc = "Você está no extremo norte do Tártaro, com vastos quilômetros de uma\n\
+planície vulcânica negra se estendendo a sua frente, completamente coberta\n\
+por afiados fragmentos de vidro, espinhos e outros metais retorcidos. Aqui\n\
+as rochas e pedras parecem estarem todas completamente destruídas, como se\n\
+algo gigantesco as tivesse esmagado em pequenos insignificantes pedregulhos.\n\
+Para o norte você avista uma enorme caverna, com um longo lamento saindo de\n\
+seu interior."
+const dir_n = $s_tartaro042
+const dir_s = $s_tartaro030
+const a_reset = "P 100 tartaro013 0 0 12\nP 100 tartaro015 0 0 8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro013:objsolto.total < 12
+    criar("p_tartaro013", este, 0)
+  fimse
+  se p_tartaro015:objsolto.total < 8
+    criar("p_tartaro015", este, 0)
+  fimse
+
+
+classe s_tartaro032
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_l = $s_tartaro033
+const dir_o = $s_tartaro025
+
+
+classe s_tartaro033
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos. Você avista outros dois caminhos de pedregulhos,\n\
+indo para sudeste e nordeste."
+const dir_l = $s_tartaro034
+const dir_o = $s_tartaro032
+const dir_ne = $s_tartaro055
+const dir_se = $s_tartaro056
+const a_reset = "P 100 tartaro014 0 0 12\nP 72 tartaro017 0 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro014:objsolto.total < 12
+    criar("p_tartaro014", este, 0)
+  fimse
+  se p_tartaro017:objsolto.total < 2 && rand(100) < 72
+    criar("p_tartaro017", este, 0)
+  fimse
+
+
+classe s_tartaro034
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_l = $s_tartaro035
+const dir_o = $s_tartaro033
+
+
+classe s_tartaro035
+herda b_tartaro
+const s_titulo = "O extremo leste do tártaro"
+const s_desc = "Você está no extremo leste do Tártaro, com vastos quilômetros de uma\n\
+planície vulcânica negra se estendendo a sua frente, completamente coberta\n\
+por afiados fragmentos de vidro, espinhos e outros metais retorcidos. Aqui\n\
+as rochas e pedras parecem estarem todas completamente destruídas, como se\n\
+algo gigantesco as tivesse esmagado em pequenos insignificantes pedregulhos.\n\
+Para o leste você avista uma enorme caverna iluminada, como se tivesse\n\
+completamente envolvida em chamas."
+const dir_l = $s_tartaro036
+const dir_o = $s_tartaro034
+const a_reset = "P 100 tartaro013 0 0 12\nP 100 tartaro015 0 0 8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro013:objsolto.total < 12
+    criar("p_tartaro013", este, 0)
+  fimse
+  se p_tartaro015:objsolto.total < 8
+    criar("p_tartaro015", este, 0)
+  fimse
+
+
+classe s_tartaro036
+herda b_tartaro
+const s_titulo = "A prisão flamejante de Hipérion"
+const s_desc = ""
+const s_luz = 1 # Luz: 1 Claro sem eventos de tempo
+const dir_o = $s_tartaro035
+const a_reset = "P 100 tartaro001 0 0 1\nE 85 tartaro003 1 13"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tartaro001:objsolto.total < 1
+    p = u = criar("p_tartaro001", este, 0)
+  fimse
+  se u && rand(100) < 85
+    r = criar("i_tartaro003", u, 1), r.vestir(13), u.recalc = 1
+  fimse
+
+
+classe s_tartaro037
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_l = $s_tartaro026
+const dir_o = $s_tartaro038
+
+
+classe s_tartaro038
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos. Você avista outros dois caminhos de pedregulhos,\n\
+indo para noroeste e sudoeste."
+const dir_l = $s_tartaro037
+const dir_o = $s_tartaro039
+const dir_no = $s_tartaro043
+const dir_so = $s_tartaro044
+const a_reset = "P 100 tartaro014 0 0 12"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro014:objsolto.total < 12
+    criar("p_tartaro014", este, 0)
+  fimse
+
+
+classe s_tartaro039
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = ". Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos. Você continua a caminhar exaustivamente pelo\n\
+Tártaro, com vastos quilômetros de uma planície vulcânica negra se\n\
+estendendo a sua frente, completamente coberta por gigantescas pedras\n\
+pontiagudas e fragmentos afiados de vidro, espinhos e outros metais\n\
+retorcidos, como se fosse uma enorme armadilha apenas para perfurar cada\n\
+centímetro de seu corpo. Você respira profundamente tentando sugar o máximo\n\
+de oxigênio para os pulmões, mas acaba se engasgando com o cheiro de enxofre\ne ou"
+const dir_l = $s_tartaro038
+const dir_o = $s_tartaro040
+
+
+classe s_tartaro040
+herda b_tartaro
+const s_titulo = "O extremo oeste do tártaro"
+const s_desc = "Você está no extremo oeste do Tártaro, com vastos quilômetros de uma\n\
+planície vulcânica negra se estendendo a sua frente, completamente coberta\n\
+por afiados fragmentos de vidro, espinhos e outros metais retorcidos. Aqui\n\
+as rochas e pedras parecem estarem todas completamente destruídas, como se\n\
+algo gigantesco as tivesse esmagado em pequenos insignificantes pedregulhos.\n\
+Para o oeste você avista uma enorme caverna, com um longo lamento saindo de\n\
+seu interior."
+const dir_l = $s_tartaro039
+const dir_o = $s_tartaro041
+const a_reset = "P 100 tartaro013 0 0 12\nP 100 tartaro015 0 0 8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro013:objsolto.total < 12
+    criar("p_tartaro013", este, 0)
+  fimse
+  se p_tartaro015:objsolto.total < 8
+    criar("p_tartaro015", este, 0)
+  fimse
+
+
+classe s_tartaro041
+herda b_tartaro
+const s_titulo = "A prisão de Jápeto"
+const s_desc = ""
+const s_pnj = 1
+const dir_l = $s_tartaro040
+const a_reset = "P 100 tartaro004 0 0 1\nE 75 tartaro010 1 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tartaro004:objsolto.total < 1
+    p = u = criar("p_tartaro004", este, 0)
+  fimse
+  se u && rand(100) < 75
+    r = criar("i_tartaro010", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_tartaro042
+herda b_tartaro
+const s_titulo = "A prisão de Céos"
+const s_desc = ""
+const s_pnj = 0
+const dir_s = $s_tartaro031
+const a_reset = "P 100 tartaro003 0 0 1\nE 80 tartaro009 1 14"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tartaro003:objsolto.total < 1
+    p = u = criar("p_tartaro003", este, 0)
+  fimse
+  se u && rand(100) < 80
+    r = criar("i_tartaro009", u, 1), r.vestir(14), u.recalc = 1
+  fimse
+
+
+classe s_tartaro043
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_no = $s_tartaro045
+const dir_se = $s_tartaro038
+
+
+classe s_tartaro044
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_ne = $s_tartaro038
+const dir_so = $s_tartaro072
+
+
+classe s_tartaro045
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_no = $s_tartaro046
+const dir_se = $s_tartaro043
+
+
+classe s_tartaro046
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_no = $s_tartaro047
+const dir_se = $s_tartaro045
+const a_reset = "P 100 tartaro014 0 0 12"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro014:objsolto.total < 12
+    criar("p_tartaro014", este, 0)
+  fimse
+
+
+classe s_tartaro047
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_no = $s_tartaro048
+const dir_se = $s_tartaro046
+
+
+classe s_tartaro048
+herda b_tartaro
+const s_titulo = "A extremidade noroeste do tártaro"
+const s_desc = "Você está no extremo noroeste do Tártaro, com vastos quilômetros de uma\n\
+planície vulcânica negra se estendendo a sua frente, completamente coberta\n\
+por afiados fragmentos de vidro, espinhos e outros metais retorcidos. Aqui\n\
+as rochas e pedras parecem estarem todas completamente destruídas, como se\n\
+algo gigantesco as tivesse esmagado em pequenos insignificantes pedregulhos.\n\
+Para o noroeste você avista uma enorme caverna, com um belo cântico saindo\n\
+de seu interior."
+const dir_l = $s_tartaro066
+const dir_c = $s_tartaro098
+const dir_no = $s_tartaro101
+const dir_se = $s_tartaro047
+const a_reset = "P 100 tartaro013 0 0 12\nP 100 tartaro015 0 0 8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro013:objsolto.total < 12
+    criar("p_tartaro013", este, 0)
+  fimse
+  se p_tartaro015:objsolto.total < 8
+    criar("p_tartaro015", este, 0)
+  fimse
+
+
+classe s_tartaro051
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_n = $s_tartaro098
+const dir_s = $s_tartaro052
+
+
+classe s_tartaro052
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_n = $s_tartaro051
+const dir_s = $s_tartaro053
+
+
+classe s_tartaro053
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_n = $s_tartaro052
+const dir_s = $s_tartaro054
+
+
+classe s_tartaro054
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_n = $s_tartaro053
+const dir_s = $s_tartaro063
+
+
+classe s_tartaro055
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_ne = $s_tartaro068
+const dir_so = $s_tartaro033
+
+
+classe s_tartaro056
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_no = $s_tartaro033
+const dir_se = $s_tartaro057
+
+
+classe s_tartaro057
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_no = $s_tartaro056
+const dir_se = $s_tartaro058
+const a_reset = "P 100 tartaro014 0 0 12"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro014:objsolto.total < 12
+    criar("p_tartaro014", este, 0)
+  fimse
+
+
+classe s_tartaro058
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_o = $s_tartaro062
+const dir_no = $s_tartaro057
+const dir_se = $s_tartaro059
+
+
+classe s_tartaro059
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_no = $s_tartaro058
+const dir_se = $s_tartaro060
+
+
+classe s_tartaro060
+herda b_tartaro
+const s_titulo = "A extremidade sudeste do Tártaro"
+const s_desc = "Você está no extremo sudeste do Tártaro, com vastos quilômetros de uma\n\
+planície vulcânica negra se estendendo a sua frente, completamente coberta\n\
+por afiados fragmentos de vidro, espinhos e outros metais retorcidos. Aqui\n\
+as rochas e pedras parecem estarem todas completamente destruídas, como se\n\
+algo gigantesco as tivesse esmagado em pequenos insignificantes pedregulhos.\n\
+Para o sudeste você avista uma enorme caverna toda feita em conchas, com um\n\
+longo lamento saindo de seu interior."
+const dir_o = $s_tartaro096
+const dir_c = $s_tartaro091
+const dir_no = $s_tartaro059
+const dir_se = $s_tartaro061
+const a_reset = "P 100 tartaro013 0 0 12\nP 100 tartaro015 0 0 8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro013:objsolto.total < 12
+    criar("p_tartaro013", este, 0)
+  fimse
+  se p_tartaro015:objsolto.total < 8
+    criar("p_tartaro015", este, 0)
+  fimse
+
+
+classe s_tartaro061
+herda b_tartaro
+const s_titulo = "A prisão de conchas de Tétis"
+const s_desc = "Você se encontra na prisão feita de conchas de Tétis, um lugar que quando\n\
+você entra logo percebe-se que é obviamente mágico, e no mesmo tempo\n\
+incrivelmente belo. O chão é inteiramente feito de mármore polido, tendo\n\
+sobre ele um enorme mosaico de azulejos esverdeados representando uma\n\
+belíssima mulher cavalgando um poderoso garanhão branco sobre as ondas,\n\
+havendo também desenhos abstratos sobre as paredes, feitos de brilhantes\n\
+esmeraldas e reluzentes safiras. No canto mais distante da sala há uma\n\
+cachoeira derramando límpidas águas azuladas sobre um pequeno rio, onde se\n\
+encontra uma grande concha de marfim com uma linda mulher sobre ela,\n\
+acorrentada por grossas correntes prateadas."
+const s_pnj = 1
+const dir_no = $s_tartaro060
+const a_reset = "P 100 tartaro009 0 0 1\nE 77 tartaro005 1 23"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tartaro009:objsolto.total < 1
+    p = u = criar("p_tartaro009", este, 0)
+  fimse
+  se u && rand(100) < 77
+    r = criar("i_tartaro005", u, 1), r.vestir(23), u.recalc = 1
+  fimse
+
+
+classe s_tartaro062
+herda b_tartaro
+const s_titulo = "A prisão de Mnemosine"
+const s_desc = ""
+const s_pnj = 1
+const dir_so = $s_tartaro071
+const a_reset = "P 100 tartaro007 0 0 1\nE 90 tartaro007 1 11"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tartaro007:objsolto.total < 1
+    p = u = criar("p_tartaro007", este, 0)
+  fimse
+  se u && rand(100) < 90
+    r = criar("i_tartaro007", u, 1), r.vestir(11), u.recalc = 1
+  fimse
+
+
+classe s_tartaro063
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar pelo Tártaro, com vastos quilômetros de uma\n\
+planície vulcânica negra se estendendo a sua frente, completamente coberta\n\
+por afiados fragmentos de vidro, espinhos e outros metais retorcidos. Aqui\n\
+as rochas e pedras parecem estarem todas completamente destruídas, como se\n\
+algo gigantesco as tivesse esmagado em pequenos insignificantes pedregulhos.\n\
+Para o oeste você avista uma reluzente caverna, com um longo lamento saindo\n\
+de seu interior."
+const dir_n = $s_tartaro054
+const dir_s = $s_tartaro064
+const dir_o = $s_tartaro100
+const a_reset = "P 100 tartaro013 0 0 12"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro013:objsolto.total < 12
+    criar("p_tartaro013", este, 0)
+  fimse
+
+
+classe s_tartaro064
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_n = $s_tartaro063
+const dir_s = $s_tartaro065
+
+
+classe s_tartaro065
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_n = $s_tartaro064
+const dir_s = $s_tartaro067
+
+
+classe s_tartaro066
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_l = $s_tartaro021
+const dir_o = $s_tartaro048
+
+
+classe s_tartaro067
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_n = $s_tartaro065
+const dir_s = $s_tartaro081
+
+
+classe s_tartaro068
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_ne = $s_tartaro069
+const dir_so = $s_tartaro055
+
+
+classe s_tartaro069
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_ne = $s_tartaro070
+const dir_so = $s_tartaro068
+const a_reset = "P 100 tartaro014 0 0 12"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro014:objsolto.total < 12
+    criar("p_tartaro014", este, 0)
+  fimse
+
+
+classe s_tartaro070
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_ne = $s_tartaro071
+const dir_so = $s_tartaro069
+
+
+classe s_tartaro071
+herda b_tartaro
+const s_titulo = "O extremo nordeste do tártaro"
+const s_desc = "Você está no extremo nordeste do Tártaro, com vastos quilômetros de uma\n\
+planície vulcânica negra se estendendo a sua frente, completamente coberta\n\
+por afiados fragmentos de vidro, espinhos e outros metais retorcidos. Aqui\n\
+as rochas e pedras parecem estarem todas completamente destruídas, como se\n\
+algo gigantesco as tivesse esmagado em pequenos insignificantes pedregulhos.\n\
+Para o nordeste você avista uma enorme caverna, com um longo lamento saindo\n\
+de seu interior."
+const dir_o = $s_tartaro080
+const dir_c = $s_tartaro092
+const dir_ne = $s_tartaro062
+const dir_so = $s_tartaro070
+const a_reset = "P 100 tartaro013 0 0 12\nP 100 tartaro015 0 0 8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro013:objsolto.total < 12
+    criar("p_tartaro013", este, 0)
+  fimse
+  se p_tartaro015:objsolto.total < 8
+    criar("p_tartaro015", este, 0)
+  fimse
+
+
+classe s_tartaro072
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_ne = $s_tartaro044
+const dir_so = $s_tartaro073
+
+
+classe s_tartaro073
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_ne = $s_tartaro072
+const dir_so = $s_tartaro074
+const a_reset = "P 100 tartaro014 0 0 12"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro014:objsolto.total < 12
+    criar("p_tartaro014", este, 0)
+  fimse
+
+
+classe s_tartaro074
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_ne = $s_tartaro073
+const dir_so = $s_tartaro075
+
+
+classe s_tartaro075
+herda b_tartaro
+const s_titulo = "O extremo sudoeste do tártaro"
+const s_desc = "Você está no extremo sudoeste do Tártaro, com vastos quilômetros de uma\n\
+planície vulcânica negra se estendendo a sua frente, completamente coberta\n\
+por afiados fragmentos de vidro, espinhos e outros metais retorcidos. Aqui\n\
+as rochas e pedras parecem estarem todas completamente destruídas, como se\n\
+algo gigantesco as tivesse esmagado em pequenos insignificantes pedregulhos.\n\
+Para o sudoeste você avista uma enorme caverna de corais, com um som\n\
+semelhante a uma cachoeira saindo de seu interior."
+const dir_l = $s_tartaro076
+const dir_c = $s_tartaro099
+const dir_ne = $s_tartaro074
+const dir_so = $s_tartaro103
+const a_reset = "P 100 tartaro013 0 0 12\nP 100 tartaro015 0 0 8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro013:objsolto.total < 12
+    criar("p_tartaro013", este, 0)
+  fimse
+  se p_tartaro015:objsolto.total < 8
+    criar("p_tartaro015", este, 0)
+  fimse
+
+
+classe s_tartaro076
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_l = $s_tartaro077
+const dir_o = $s_tartaro075
+
+
+classe s_tartaro077
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_l = $s_tartaro078
+const dir_o = $s_tartaro076
+
+
+classe s_tartaro078
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar pelo Tártaro com vastos quilômetros de uma\n\
+planície vulcânica negra se estendendo a sua frente, completamente coberta\n\
+por afiados fragmentos de vidro, espinhos e outros metais retorcidos. Aqui\n\
+as rochas e pedras parecem estarem todas completamente destruídas, como se\n\
+algo gigantesco as tivesse esmagado em pequenos insignificantes pedregulhos.\n\
+Para sul você havista uma caverna maior que as anteriores, com um\n\
+longo choro saindo de seu interior."
+const dir_s = $s_tartaro094
+const dir_l = $s_tartaro079
+const dir_o = $s_tartaro077
+const a_reset = "P 100 tartaro013 0 0 12\nP 70 tartaro017 0 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro013:objsolto.total < 12
+    criar("p_tartaro013", este, 0)
+  fimse
+  se p_tartaro017:objsolto.total < 2 && rand(100) < 70
+    criar("p_tartaro017", este, 0)
+  fimse
+
+
+classe s_tartaro079
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_l = $s_tartaro080
+const dir_o = $s_tartaro078
+
+
+classe s_tartaro080
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_l = $s_tartaro071
+const dir_o = $s_tartaro079
+
+
+classe s_tartaro081
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_n = $s_tartaro067
+const dir_s = $s_tartaro099
+
+
+classe s_tartaro082
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_n = $s_tartaro091
+const dir_s = $s_tartaro083
+
+
+classe s_tartaro083
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_n = $s_tartaro082
+const dir_s = $s_tartaro084
+
+
+classe s_tartaro084
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_n = $s_tartaro083
+const dir_s = $s_tartaro085
+
+
+classe s_tartaro085
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_n = $s_tartaro084
+const dir_s = $s_tartaro086
+
+
+classe s_tartaro086
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar pelo Tártaro, com vastos quilômetros de uma\n\
+planície vulcânica negra se estendendo a sua frente, completamente coberta\n\
+por afiados fragmentos de vidro, espinhos e outros metais retorcidos. Aqui\n\
+as rochas e pedras parecem estarem todas completamente destruídas, como se\n\
+algo gigantesco as tivesse esmagado em pequenos insignificantes pedregulhos.\n\
+Para o leste você avista uma enorme caverna toda prateada, com um longo\n\
+lamento saindo de seu interior."
+const dir_n = $s_tartaro085
+const dir_s = $s_tartaro087
+const dir_l = $s_tartaro093
+const a_reset = "P 100 tartaro013 0 0 12"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro013:objsolto.total < 12
+    criar("p_tartaro013", este, 0)
+  fimse
+
+
+classe s_tartaro087
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_n = $s_tartaro086
+const dir_s = $s_tartaro088
+const dir_l = $s_tartaro093
+
+
+classe s_tartaro088
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_n = $s_tartaro087
+const dir_s = $s_tartaro089
+
+
+classe s_tartaro089
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_n = $s_tartaro088
+const dir_s = $s_tartaro090
+
+
+classe s_tartaro090
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_n = $s_tartaro089
+const dir_s = $s_tartaro092
+
+
+classe s_tartaro091
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_s = $s_tartaro082
+const dir_b = $s_tartaro060
+const a_reset = "P 100 tartaro014 0 0 12"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro014:objsolto.total < 12
+    criar("p_tartaro014", este, 0)
+  fimse
+
+
+classe s_tartaro092
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_n = $s_tartaro090
+const dir_b = $s_tartaro071
+const a_reset = "P 100 tartaro014 0 0 12"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro014:objsolto.total < 12
+    criar("p_tartaro014", este, 0)
+  fimse
+
+
+classe s_tartaro093
+herda b_tartaro
+const s_titulo = "A cintilante prisão prateada de Febe"
+const s_desc = "Você acaba de entrar na prisão de Febe, umas das mais raras cintilantes\n\
+prisões que há nesse lugar caótico. Você olha lentamente ao redor e percebe\n\
+que a prisão é realmente imensa e magnífica, com paredes de blocos branco\n\
+decoradas com centenas de desenhos prateados, sendo mais comuns pequenas\n\
+luas de todos os tipos de forma e tamanho, grandes constelações e dezenas de\n\
+estrelas cintilantes. No canto mais afastado da caverna você vê a silhueta\n\
+de uma bela mulher, presa nas paredes por grossas correntes dourada que\n\
+tilintam suavemente na medida que ela se movimenta, obviamente tentando\n\
+libertar-se delas!"
+const s_luz = 1 # Luz: 1 Claro sem eventos de tempo
+const s_pnj = 1
+const dir_o = $s_tartaro086
+const a_reset = "P 100 tartaro006 0 0 1\nE 85 tartaro004 1 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tartaro006:objsolto.total < 1
+    p = u = criar("p_tartaro006", este, 0)
+  fimse
+  se u && rand(100) < 85
+    r = criar("i_tartaro004", u, 1), r.vestir(10), u.recalc = 1
+  fimse
+
+
+classe s_tartaro094
+herda b_tartaro
+const s_titulo = "A prisão de Reia"
+const s_desc = ""
+const s_item = 0
+const s_pnj = 1
+const dir_n = $s_tartaro078
+const a_reset = "P 100 tartaro011 0 0 1\nI 100 tartaro001 1\nS 100 tartaro002 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  se p_tartaro011:objsolto.total < 1
+    p = u = criar("p_tartaro011", este, 0)
+  fimse
+  u && criar("i_tartaro001", u, 1)
+  !dentro1.objini("i_tartaro002") && criar("i_tartaro002", este, 1)
+
+
+classe s_tartaro095
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_l = $s_tartaro096
+const dir_o = $s_tartaro022
+
+
+classe s_tartaro096
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_l = $s_tartaro060
+const dir_o = $s_tartaro095
+
+
+classe s_tartaro097
+herda b_tartaro
+const s_titulo = "A prisão de Crônos forjada em bronze"
+const s_desc = ""
+const s_pnj = 1
+const dir_s = $s_tartaro022
+const portaini_s = 3 # Estado inicial: 3 Porta trancada
+const portanome_s = "Uma grande grade de bronze"
+const comechave_s = 1 # Come chave: Sim
+const tranc_s = 2 # Trancar: 2 Tranca ao fechar
+const a_reset = "P 100 tartaro012 0 0 1\nE 60 tartaro012 1 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tartaro012:objsolto.total < 1
+    p = u = criar("p_tartaro012", este, 0)
+  fimse
+  se u && rand(100) < 60
+    r = criar("i_tartaro012", u, 1), r.vestir(3), u.recalc = 1
+  fimse
+
+
+classe s_tartaro098
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_s = $s_tartaro051
+const dir_b = $s_tartaro048
+const a_reset = "P 100 tartaro014 0 0 12"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro014:objsolto.total < 12
+    criar("p_tartaro014", este, 0)
+  fimse
+
+
+classe s_tartaro099
+herda b_tartaro
+const s_titulo = "Vagando sem rumo pelo tártaro"
+const s_desc = "Você continua a caminhar exaustivamente pelo Tártaro, com vastos\n\
+quilômetros de uma planície vulcânica negra se estendendo a sua frente,\n\
+completamente coberta por gigantescas pedras pontiagudas e fragmentos\n\
+afiados de vidro, espinhos e outros metais retorcidos, como se fosse uma\n\
+enorme armadilha apenas para perfurar cada centímetro de seu corpo. Você\n\
+respira profundamente tentando sugar o máximo de oxigênio para os pulmões,\n\
+mas acaba se engasgando com o cheiro de enxofre e outros odores\n\
+completamente repulsivos."
+const dir_n = $s_tartaro081
+const dir_b = $s_tartaro075
+const a_reset = "P 100 tartaro014 0 0 12"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_tartaro014:objsolto.total < 12
+    criar("p_tartaro014", este, 0)
+  fimse
+
+
+classe s_tartaro100
+herda b_tartaro
+const s_titulo = "A prisão reluzente de Téia"
+const s_desc = ""
+const s_pnj = 1
+const dir_l = $s_tartaro063
+const a_reset = "P 100 tartaro010 0 0 1\nE 75 tartaro013 1 14"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tartaro010:objsolto.total < 1
+    p = u = criar("p_tartaro010", este, 0)
+  fimse
+  se u && rand(100) < 75
+    r = criar("i_tartaro013", u, 1), r.vestir(14), u.recalc = 1
+  fimse
+
+
+classe s_tartaro101
+herda b_tartaro
+const s_titulo = "A prisão de Têmis"
+const s_desc = ""
+const s_pnj = 1
+const dir_se = $s_tartaro048
+const a_reset = "P 100 tartaro008 0 0 1\nE 70 tartaro011 1 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tartaro008:objsolto.total < 1
+    p = u = criar("p_tartaro008", este, 0)
+  fimse
+  se u && rand(100) < 70
+    r = criar("i_tartaro011", u, 1), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_tartaro102
+herda b_tartaro
+const s_titulo = "Sem nome"
+const s_desc = ""
+const dir_l = $s_tartaro104
+const dir_c = $s_tartaro027
+
+
+classe s_tartaro103
+herda b_tartaro
+const s_titulo = "A prisão de corais de Oceano"
+const s_desc = ""
+const s_pnj = 1
+const dir_ne = $s_tartaro075
+const a_reset = "P 100 tartaro005 0 0 1\nE 80 tartaro006 1 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tartaro005:objsolto.total < 1
+    p = u = criar("p_tartaro005", este, 0)
+  fimse
+  se u && rand(100) < 80
+    r = criar("i_tartaro006", u, 1), r.vestir(50), u.recalc = 1
+  fimse

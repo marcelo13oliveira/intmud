@@ -1,0 +1,1049 @@
+classe adm_reset
+herda comando_adm
+# Comandos de reset
+#
+# Formato do texto do reset:
+# Uma linha por comando, entre:
+# P <porcentagem> <personagem> <nível min> <nível max> <limite> [variáveis]
+# A <porcentagem> <personagem> <nível min> <nível max> [variáveis]
+# I <porcentagem> <item> <quantidade> [variáveis]
+# E <porcentagem> <item> <quantidade> <lugar> [variáveis]
+# S <porcentagem> <item> <quantidade> <destino ou s se sala> [variáveis]
+# R <porcentagem> <item>
+# D <porcentagem> <direção> <novo estado>
+# F <porcentagem>
+#
+const txtajuda = "\b\c3Reset\b\n\
+  \c2LRES\b      Lista salas que possuem reset\n\
+  \c2ARES\b      Edita comandos do reset de área\n\
+  \c2SRES\b      Edita comandos do reset de sala\n\
+  \c2IRES\b      Edita comandos do reset inicial (quando a sala é criada)\n\
+  \c2TRES\b      Edita comandos do reset de tipo (raça ou classe)\n\
+  \c2CRES\b      Refaz funções do reset a partir das constantes do reset\n\
+  \c2RESET\b     Executa reset de área\n\n\
+O reset em si é uma sequência de comandos, entre os seguintes:\n\
+P Criar personagem\n\
+A Criar animal no personagem\n\
+Nota: depende do último personagem (comando P) ser criado com sucesso.\n\
+I Criar item em animal ou personagem\n\
+Nota: depende do último personagem ou animal ser criado com sucesso.\n\
+E Equipar animal ou personagem com item\n\
+Nota: depende do último personagem ou animal ser criado com sucesso.\n\
+S Criar item na sala ou em um item da sala\n\
+Nota: não cria se o item já existir.\n\
+R Remover item da sala\n\
+D Mudar porta em uma direção\n\
+F Fim (encerra o reset se criou animal ou personagem)\n\
+Nota: depende do último animal ou personagem ser criado com sucesso."
+
+func escr # Executa reset
+  ref r
+  se !arg1
+    epara r = arg0, !r.s_sala && r.dono, r = r.dono
+    efim
+  senao $s_[arg1]
+    r = $s_[arg1]
+  senao $a_[arg1]
+    $a_[arg1].reset_exec
+    ret arg0.msg("Reset de área efetuado área " + arg1)
+  senao
+    ret arg0.msg("Área ou sala inexistente: " + arg1)
+  fimse
+# $reset.sala(r, r.a_reset)
+  r.a_reset1
+  se r.dono
+    arg0.msg("Reset de área efetuado sala " + txt(r, 2) + " de " + txt(r.dono, 2))
+  senao
+    arg0.msg("Reset de área efetuado sala " + txt(r, 2))
+  fimse
+
+
+classe adm_lres
+herda comando_adm
+const objcmd = arg1.c_lres ? este
+const txtajuda = "\b\c3Lres\b\n\
+Sintaxe: LRES [nome]\n\
+Lista todas as salas que começam com o nome especificado e possuem algum\n\
+comando de reset (sres e/ou ares). Sem argumentos, lista todas as salas\n\
+que possuem algum comando de reset."
+
+func escr # Listar salas com reset
+  refvar txtmais = arg0.sock.txtmais
+  txtmais.limpar
+  prog p
+  txt100 lin
+  refvar naarea = int(arg2.c_lres) < 2
+  refvar prefixo = "s_" + arg0.jogarea
+  se naarea && arg1 == txt(arg0.jogarea, 0, inttotal(arg1))
+    p.iniclasse(prefixo)
+  senao
+    p.iniclasse("s_" + arg1)
+  fimse
+  epara nulo, p.lin, p.depois
+    sair naarea && prefixo + txtfim(p.texto, 3) != p.texto
+    continuar !([p.texto]:s_reset || [p.texto]:a_reset || [p.texto]:i_reset)
+    lin = txt(p.texto, 2) + "  "
+    [p.texto]:a_reset && (lin += "ares ")
+    [p.texto]:s_reset && (lin += "sres ")
+    [p.texto]:i_reset && (lin += "ires ")
+    txtmais.addfim(lin + " " + $[p.texto].s_titulo(arg0))
+    sair txtmais.linhas >= 500
+  efim
+  txtmais.addini(txtmais.linhas ? "\bSalas:" : "\bNenhuma sala encontrada.")
+  arg0.sock.txtmostra
+
+
+classe adm_ares
+herda comando_adm
+const objcmd = arg1.c_ares ? este
+const txtajuda = "\b\c3Ares\b\n\
+Sintaxe: ARES [nome da sala]\n\
+Reset de área. Edita os comandos executados quando ocorre o reset da área.\n\
+Se o nome for omitido, será a sala em que você está.\n\
+Para que o reset de área aconteça, é necessário também editar a área, com\n\
+o comando EAREA, e mudar as opções \"Tempo de reset\" e \"Modo de reset\".\n\
+Nota: Esse comando criada a constante a_reset e a função a_reset1 na sala."
+#
+const opcnome = "Reset "
+const opcvar = "a_reset"
+
+func escr
+  refvar var = arg0.sock.var
+  refvar adm = arg2.c_ares >= 2
+  se !arg1
+    se txt(arg0.dono, 0, 2) != "s_"
+      ret arg0.msg("Você não está em uma sala")
+    senao !adm && "s_" + arg0.jogarea + txtfim(arg0.dono, 3) != arg0.dono
+      ret arg0.msg("Não pode editar o reset dessa sala")
+    fimse
+    var.opcclasse = arg0.dono
+  senao !$s_[arg1] || !adm && arg0.jogarea + txtfim(arg1, 3) != arg1
+    ret arg0.msg("Sala inexistente: " + arg1)
+  senao
+    var.opcclasse = $s_[arg1]
+  fimse
+  var.opcnome = opcnome
+  var.opcvar = opcvar
+  $reset_menu.passo(arg0.sock, "\b")
+
+
+classe adm_sres
+herda adm_ares
+const txtajuda = "\b\c3Sres\b\n\
+Sintaxe: SRES [nome da sala]\n\
+Reset de sala. Edita os comandos executados quando algum jogador entra\n\
+na sala. Se o nome for omitido, será a sala em que você está.\n\
+Nota: Esse comando criada a constante s_reset e a função s_reset1 na sala."
+const opcnome = "Ao entrar "
+const opcvar = "s_reset"
+
+
+classe adm_ires
+herda adm_ares
+const txtajuda = "\b\c3Ires\b\n\
+Sintaxe: SRES [nome da sala]\n\
+Reset de sala em um item. Edita os comandos executados quando a sala\n\
+é criada dentro de um item.\n\
+Nota: Esse comando criada a constante i_reset e a função i_reset1 na sala."
+const opcnome = "Reset de sala em um item "
+const opcvar = "i_reset"
+
+
+classe adm_tres
+herda comando_adm
+const txtajuda = "\b\c3Tres\b\n\
+Sintaxe: TRES [nome do tipo]\n\
+Reset de tipo (raça ou classe). Edita os comandos executados quando algum\n\
+jogador cria um personagem do tipo especificado.\n\
+Nota: Esse comando criada a constante t_reset e a função t_reset1 no tipo.\n\
+Vide também os comandos Ltipo, Ctipo, Etipo e Atipo."
+
+func escr
+  refvar var = arg0.sock.var
+  se !arg1
+    ret arg0.msg("Digite TRES seguido do nome do tipo")
+  senao !$t_[arg1]
+    ret arg0.msg("Tipo inexistente: " + arg1)
+  fimse
+  var.opcclasse = $t_[arg1]
+  var.opcnome = "Jogador criar "
+  var.opcvar = "t_reset"
+  $reset_menu.passo(arg0.sock, "\b")
+
+
+classe adm_cres
+herda comando_adm
+const txtajuda = "\b\c3Cres\b\n\
+Sintaxe: CRES [nome da sala ou da área]\n\
+Refaz as funções de reset (a_reset1 e s_reset1) a partir da constantes\n\
+a_reset e s_reset. Isso é útil se o reset for mudado sem usar os comandos\n\
+ARES e SRES."
+
+func escr
+  prog p
+  se !arg1
+    ref r
+    epara r = arg0, r.dono, r = r.dono
+    efim
+    $reset.atualiza(r, "a_reset", r.a_reset)
+    $reset.atualiza(r, "s_reset", r.s_reset)
+    arg0.msg("Reset atualizado sala " + txt(r, 2))
+  senao $b_[arg1]
+    prog p
+    debug d
+    uint16 x
+    x = d.exec
+    epara p.iniclasse("s_" + arg1), p.lin, p.depois
+      $reset.atualiza(p.texto, "a_reset", [p.texto]:a_reset)
+      $reset.atualiza(p.texto, "s_reset", [p.texto]:s_reset)
+      d.exec = x
+    efim
+    arg0.msg("Reset atualizado área " + arg1)
+  senao $s_[arg1]
+    $reset.atualiza($s_[arg1], "a_reset", $s_[arg1].a_reset)
+    $reset.atualiza($s_[arg1], "s_reset", $s_[arg1].s_reset)
+    arg0.msg("Reset atualizado sala " + arg1)
+  senao
+    arg0.msg("Área ou sala inexistente: " + arg1)
+  fimse
+
+
+classe reset_menu
+herda comando_adm
+
+func passo # Menu de reset
+  arg0.var.opcinserir = ""
+  casovar txtmin(txt(arg1, 0, 1))
+  casose "\b"
+    arg0.teditor.limpar
+    arg0.teditor.addfim([arg0.var.opcclasse]:[arg0.var.opcvar])
+    textopos pos
+    epara pos = arg0.teditor.ini, pos, pos.texto ? pos.depois : pos.remove
+    efim
+  casose ""
+    arg0.passo = este
+    arg0.msg(arg0.var.opcnome + txt(arg0.var.opcclasse, 2) + ", tecle O para saber as opções")
+    ret 1
+  casose "o"
+    arg0.txtmais.limpar
+    arg0.txtmais.addfim(arg0.var.opcnome + txt(arg0.var.opcclasse, 2))
+    textopos pos
+    epara pos = arg0.teditor.ini, pos, pos.depois
+      refvar t1 = $reset.linha(pos.texto)
+      arg0.txtmais.addfim("\c2" + txt(pos.linha + 1) + ".\b" + (pos.linha < 9 ? " ") + t1)
+    efim
+    se pos.linha < 9
+      arg0.txtmais.addfim("\c2" + txt(pos.linha + 1) + ".\b Linha vazia")
+    senao
+      arg0.txtmais.addfim("\c2" + txt(pos.linha + 1) + ".\bLinha vazia")
+    fimse
+    arg0.txtmais.addfim("Tecle E editar, I inserir ou A apagar, seguido do número da linha")
+    arg0.txtmais.addfim("Z Sair, M seguido de um texto executa comando do MUD")
+    arg0.txtmostra
+    ret 1
+  casose "m"
+    arg0.perso.teclou(txtremove(txt(arg1, 1), "E"))
+    ret 1
+  casose "z"
+    ret $reset_sair.passo(arg0, "")
+  casose "a"
+    uint16 lin
+    lin = txt(arg1, 1)
+    se lin == ""
+      arg0.msg("Digite o número da linha após A")
+    senao lin > 0 && lin <= arg0.teditor.linhas
+      arg0.var.opclin = lin
+      $reset_apagar.passo(arg0, "\b")
+    senao arg0.teditor.linhas == 0
+      arg0.msg("Não há nenhuma linha")
+    senao arg0.teditor.linhas == 1
+      arg0.msg("Só existe a linha 1")
+    senao
+      arg0.msg("A linha deve ser um número de 1 a " + arg0.teditor.linhas)
+    fimse
+    ret 1
+  casose "e"
+  casose "i"
+    uint16 lin
+    lin = txt(arg1, 1)
+    se lin == ""
+      arg0.msg("Digite o número da linha após " + txtmai(txt(arg1, 0, 1)))
+    senao lin > 0 && lin <= arg0.teditor.linhas + 1
+      arg0.var.opclin = lin
+      arg0.var.opcinserir_ = txt(arg1, 0, 1) == "i"
+      $reset_chances.passo(arg0, "\b")
+    senao arg0.teditor.linhas == 0
+      arg0.msg("Só existe a linha 1")
+    senao
+      arg0.msg("A linha deve ser um número de 1 a " + (arg0.teditor.linhas + 1))
+    fimse
+    ret 1
+  casofim
+  arg0.msg("Opção inválida: " + arg1)
+  ret 1
+
+
+classe reset_sair
+herda comando_adm
+
+func passo
+  se !arg0.var.opcexec || arg1 == "n"
+  senao arg1 == "s"
+    prog p
+    se arg0.teditor.bytes < 2
+      p.apagar(arg0.var.opcclasse, arg0.var.opcvar)
+      p.apagar(arg0.var.opcclasse, arg0.var.opcvar + "1")
+    senao
+      txt100 t1
+      t1 = "const " + arg0.var.opcvar + "=\""
+      p.criar(arg0.var.opcclasse, t1 + txtvis(arg0.teditor.ini.textolin(1000)) + "\"")
+      $reset.atualiza(arg0.var.opcclasse, arg0.var.opcvar, arg0.teditor.ini.textolin(1000))
+    fimse
+    config:salvar
+    arg0.msg("Alterações salvas")
+    admlog(arg0, "alterou reset classe " + arg0.var.opcclasse)
+  senao arg1 == "z"
+    ret $reset_menu.passo(arg0, "")
+  senao
+    arg0.passo = este
+    arg0.msg("Salvar as alterações? Tecle S ou N, ou Z para cancelar")
+    ret 1
+  fimse
+  arg0.msg("Retornando ao jogo")
+  arg0.passo = ""
+  arg0.var.opcexec = ""
+  arg0.var.opcnome = ""
+  arg0.var.opcclasse = ""
+  arg0.var.opcvar = ""
+  arg0.var.opclin = ""
+  ret 1
+
+
+classe reset_apagar
+herda comando_adm
+
+func passo # Apagar uma linha do reset
+  textopos pos
+  pos = arg0.teditor.ini
+  pos.linha = arg0.var.opclin - 1
+  casovar txtmin(arg1)
+  casose "\b"
+    arg0.msg("Apagar linha " + arg0.var.opclin + "? N não, S sim")
+    arg0.msg(txt(arg0.var.opclin) + ". " + $reset.linha(pos.texto))
+    arg0.passo = este
+    ret 1
+  casose "s"
+    pos.remove, arg0.var.opcexec = 1
+    arg0.msg("Linha " + arg0.var.opclin + " apagada")
+  casose "n"
+    ret $reset_menu.passo(arg0, "")
+  casose
+    arg0.msg("Apagar linha " + arg0.var.opclin + "? Tecle S ou N.")
+    ret 1
+  casofim
+
+
+classe reset_chances
+herda comando_adm
+
+func passo # Inserir ou editar linha do reset
+  uint8 x
+  x = arg1
+  se arg1 == "z"
+    $reset_menu.passo(arg0, "")
+  senao txt(x) != arg1 || x > 100
+    arg0.msg("Chances de acontecer, de 0 (nunca) a 100 (sempre), Z cancela")
+    arg0.passo = este
+  senao
+    arg0.var.opclin += " " + x
+    $reset_tipo.passo(arg0, "\b")
+  fimse
+  ret 1
+
+
+classe reset_tipo
+herda comando_adm
+
+func passo # Tipo
+  casovar txtmin(arg1)
+  casose
+    arg0.msg("Opção inválida")
+  casose "\b"
+  casose ""
+    arg0.passo = este
+    arg0.msg("Entre com o tipo, O mostra as opções, Z cancela")
+    ret 1
+  casose "z"
+    ret $reset_menu.passo(arg0, "")
+  casose "o"
+    arg0.txtmais.limpar
+    arg0.txtmais.addfim(arg0.var.opcnome + txt(arg0.var.opcclasse, 2))
+    arg0.txtmais.addfim("Opções:")
+    se txt(arg0.var.opcclasse, 0, 2) == "s_"
+      arg0.txtmais.addfim("P Criar personagem")
+    fimse
+    arg0.txtmais.addfim("A Criar animal no personagem")
+    arg0.txtmais.addfim("I Criar item em animal ou personagem")
+    arg0.txtmais.addfim("E Equipar animal ou personagem com item")
+    se txt(arg0.var.opcclasse, 0, 2) == "s_"
+      arg0.txtmais.addfim("S Criar item na sala ou em um item da sala")
+      arg0.txtmais.addfim("R Remover item da sala")
+      arg0.txtmais.addfim("D Mudar porta em uma direção")
+    fimse
+    arg0.txtmais.addfim("F Fim (encerra o reset se criou animal ou personagem)")
+    arg0.txtmostra
+    ret 1
+  casose "p"
+  casose "s"
+  casose "r"
+  casose "d"
+    ret txt(arg0.var.opcclasse, 0, 2) != "s_", passo(arg0, "")
+  casose "a"
+  casose "i"
+  casose "e"
+    arg0.var.opclin = txt1(arg0.var.opclin) + " " + txtmai(arg1) + " " + txt2(arg0.var.opclin)
+    ret $reset_opc_[arg1].passo(arg0, "")
+  casose "f"
+    textopos pos
+    pos = arg0.teditor.ini
+    pos.linha = txt1(arg0.var.opclin) - 1
+    !arg0.var.opcinserir && pos.remove
+    pos.add("F " + txt2(arg0.var.opclin)), arg0.var.opcexec = 1
+    ret $reset_menu.passo(arg0, "")
+  casofim
+
+
+classe reset_opc_p
+herda comando_adm
+
+func passo # Personagem
+  uint16 x
+  ret arg1 == "z", $reset_menu.passo(arg0, "")
+  x = arg1
+  arg0.passo = este
+  casovar intsub(arg0.var.opclin)
+  casose "3" # Personagem
+    se arg1 == ""
+      arg0.msg("Entre com o personagem, Z cancela")
+    senao !existe_p(arg0, txts(arg1))
+      arg0.msg("Personagem não existe: " + txts(arg1) + "; entre com outro")
+    senao
+      arg0.var.opclin += " " + txts(arg1)
+      $reset_opc_p.passo(arg0, "")
+    fimse
+    ret 1
+  casose "4" # Nível mínimo
+    se arg1 == "0"
+      arg0.var.opclin += " 0 0", $reset_opc_p.passo(arg0, "")
+    senao txt(x) == arg1
+      arg0.var.opclin += " " + x, $reset_opc_p.passo(arg0, "")
+    senao
+      arg0.msg("Entre com o nível mínimo, 0=manter, Z cancela")
+    fimse
+    ret 1
+  casose "5" # Nível máximo
+    se txt(x) == arg1 && x >= int(txtsub(arg0.var.opclin, 4, 1))
+      arg0.var.opclin += " " + x, $reset_opc_p.passo(arg0, "")
+    senao
+      arg0.msg("Entre com o nível máximo, a partir de " + txtsub(arg0.var.opclin, 4, 1) + ", Z \
+cancela")
+    fimse
+    ret 1
+  casose "6" # Quantidade máxima
+    se txt(x) == arg1
+      arg0.var.opclin += " " + x, $reset_opc_p.passo(arg0, "")
+    senao
+      arg0.msg("Entre com a quantidade máxima, Z cancela")
+    fimse
+    ret 1
+  casose "7" # arg0.variáveis
+    ret $reset_var.passo(arg0, arg1)
+  casofim
+  ret $reset_menu.passo(arg0, "")
+
+
+classe reset_opc_a
+herda comando_adm
+
+func passo # Animal
+  uint16 x
+  ret arg1 == "z", $reset_menu.passo(arg0, "")
+  x = arg1
+  arg0.passo = este
+  casovar intsub(arg0.var.opclin)
+  casose "3" # Personagem
+    se arg1 == ""
+      arg0.msg("Entre com o animal (personagem), Z cancela")
+    senao !existe_p(arg0, txts(arg1))
+      arg0.msg("Personagem não existe: " + txts(arg1) + "; entre com outro")
+    senao
+      arg0.var.opclin += " " + txts(arg1), $reset_opc_a.passo(arg0, "")
+    fimse
+    ret 1
+  casose "4" # Nível mínimo
+    se arg1 == "0"
+      arg0.var.opclin += " 0 0", $reset_opc_a.passo(arg0, "")
+    senao txt(x) == arg1
+      arg0.var.opclin += " " + x, $reset_opc_a.passo(arg0, "")
+    senao
+      arg0.msg("Entre com o nível mínimo, 0=manter, Z cancela")
+    fimse
+    ret 1
+  casose "5" # Nível máximo
+    se txt(x) == arg1 && x >= int(txtsub(arg0.var.opclin, 3, 1))
+      arg0.var.opclin += " " + x, $reset_opc_a.passo(arg0, "")
+    senao
+      arg0.msg("Entre com o nível máximo, a partir de " + txtsub(arg0.var.opclin, 3, 1) + ", Z \
+cancela")
+    fimse
+    ret 1
+  casose "6" # arg0.variáveis
+    ret $reset_var.passo(arg0, arg1)
+  casofim
+  ret $reset_menu.passo(arg0, "")
+
+
+classe reset_opc_i
+herda comando_adm
+
+func passo # Dar item
+  uint16 x
+  ret arg1 == "z", $reset_menu.passo(arg0, "")
+  x = arg1
+  arg0.passo = este
+  casovar intsub(arg0.var.opclin)
+  casose "3" # Item
+    se arg1 == ""
+      arg0.msg("Entre com o item, Z cancela")
+    senao !existe_i(arg0, txts(arg1))
+      arg0.msg("Item não existe: " + txts(arg1) + "; entre com outro")
+    senao
+      arg0.var.opclin += " " + txts(arg1), $reset_opc_i.passo(arg0, "")
+    fimse
+    ret 1
+  casose "4" # Quantidade
+    se i_[txtsub(arg0.var.opclin, 3, 1)]:item == 2 # Quantidade
+      se txt(x) == arg1 && x >= 1 && x <= 255
+        arg0.var.opclin += " " + x, $reset_opc_i.passo(arg0, "")
+      senao
+        arg0.msg("Entre com a quantidade de 1 a 255, Z cancela")
+      fimse
+      ret 1
+    fimse
+    arg0.var.opclin += " 1"
+  casose "5" # Variáveis
+    ret $reset_var.passo(arg0, arg1)
+  casofim
+  ret $reset_menu.passo(arg0, "")
+
+
+classe reset_opc_e
+herda comando_adm
+
+func passo # Equipar personagem
+  uint16 x
+  ret arg1 == "z", $reset_menu.passo(arg0, "")
+  x = arg1
+  arg0.passo = este
+  casovar intsub(arg0.var.opclin)
+  casose "3" # Item
+    se arg1 == ""
+      arg0.msg("Entre com o item, Z cancela")
+    senao !existe_i(arg0, txts(arg1))
+      arg0.msg("Item não existe: " + txts(arg1) + "; entre com outro")
+    senao
+      arg0.var.opclin += " " + txts(arg1)
+      i_[arg1]:item == 2 && (arg0.var.opclin += " 1") # Quantidade
+      $reset_opc_e.passo(arg0, "")
+    fimse
+    ret 1
+  casose "4" # Quantidade; não usado
+    arg0.var.opclin += " 1"
+  casose "5" # Lugar
+    refvar total = intsublin(config:equip_txt)
+    se arg1 == txt(x) && x <= total
+      arg0.var.opclin += " " + x, $reset_opc_e.passo(arg0, "")
+    senao arg1 == "o"
+      arg0.txtmais.limpar
+      arg0.txtmais.addfim("Opções:")
+      uint8 n
+      arg0.txtmais.addfim("0 empunhando")
+      epara n = 0, n < total, n++
+        arg0.txtmais.addfim(txt(n + 1) + " " + txtsublin(config:equip_txt, n, 1))
+      efim
+      arg0.txtmostra
+    senao
+      arg0.msg("Entre com o lugar, O mostra as opções, Z cancela")
+    fimse
+    ret 1
+  casose "6" # arg0.variáveis
+    ret $reset_var.passo(arg0, arg1)
+  casofim
+  ret $reset_menu.passo(arg0, "")
+
+
+classe reset_opc_s
+herda comando_adm
+
+func passo # Criar item na sala ou em outro item
+  uint16 x
+  ret arg1 == "z", $reset_menu.passo(arg0, "")
+  x = arg1
+  arg0.passo = este
+  casovar intsub(arg0.var.opclin)
+  casose "3" # Item
+    se arg1 == ""
+      arg0.msg("Entre com o item, Z cancela")
+    senao !existe_i(arg0, txts(arg1))
+      arg0.msg("Item não existe: " + txts(arg1) + "; entre com outro")
+    senao
+      arg0.var.opclin += " " + txts(arg1), $reset_opc_s.passo(arg0, "")
+    fimse
+    ret 1
+  casose "4" # Quantidade
+    se i_[txtsub(arg0.var.opclin, 3, 1)]:item == 2 # Quantidade
+      se txt(x) == arg1 && x >= 1 && x <= 255
+        arg0.var.opclin += " " + x, passo(arg0, "")
+      senao
+        arg0.msg("Entre com a quantidade de 1 a 255, Z cancela")
+      fimse
+      ret 1
+    fimse
+    arg0.var.opclin += " 1"
+  casose "5" # Destino ou s se sala
+    prog p
+    se arg1 == ""
+      arg0.msg("Entre com o item aonde criar, S para essa sala, Z cancela")
+    senao arg1 == "s"
+      arg0.var.opclin += " S", $reset_opc_s.passo(arg0, "")
+    senao !existe_i(arg0, txts(arg1))
+      arg0.msg("Item não existe: " + txts(arg1) + "; entre com outro")
+    senao
+      arg0.var.opclin += " " + txts(arg1), passo(arg0, "")
+    fimse
+    ret 1
+  casose "6" # arg0.variáveis
+    ret $reset_var.passo(arg0, arg1)
+  casofim
+  ret $reset_menu.passo(arg0, "")
+
+
+classe reset_opc_r
+herda comando_adm
+
+func passo # Remover item da sala
+  ret arg1 == "z", $reset_menu.passo(arg0, "")
+  arg0.passo = este
+  prog p
+  se arg1 == ""
+    arg0.msg("Entre com o item, Z cancela")
+  senao !existe_i(arg0, txts(arg1))
+    arg0.msg("Item não existe: " + txts(arg1) + "; entre com outro")
+  senao
+    textopos pos
+    pos = arg0.teditor.ini, pos.linha = txt1(arg0.var.opclin) - 1
+    !arg0.var.opcinserir && pos.remove
+    pos.add(txt2(arg0.var.opclin) + " " + txts(arg1))
+    arg0.var.opcexec = 1
+    ret $reset_menu.passo(arg0, "")
+  fimse
+  ret 1
+
+
+classe reset_opc_d
+herda comando_adm
+
+func passo # Porta em uma direção
+  ret arg1 == "z", $reset_menu.passo(arg0, "")
+  arg0.passo = este
+  casovar intsub(arg0.var.opclin)
+  casose "3" # Direção
+    se arg1 == ""
+      arg0.msg("Entre com a direção da porta, Z cancela")
+    senao !misc:d1[arg1]
+      arg0.msg("Direção não existe: " + arg1 + "; entre com outra")
+    senao
+      arg0.var.opclin += " " + misc:d1[arg1], passo(arg0, "")
+    fimse
+    ret 1
+  casose "4" # Novo estado
+    casovar txtmin(arg1)
+    casose
+      arg0.msg("Opção inválida")
+    casose ""
+      arg0.msg("Entre com o tipo, O mostra as opções, Z cancela")
+      ret 1
+    casose "o"
+      arg0.msg("Opções: 0 sem porta, 1 aberto, 2 fechado, 3 trancado")
+      ret 1
+    casose "0"
+    casose "1"
+    casose "2"
+    casose "3"
+      textopos pos
+      pos = arg0.teditor.ini, pos.linha = txt1(arg0.var.opclin) - 1
+      !arg0.var.opcinserir && pos.remove
+      pos.add(txt2(arg0.var.opclin) + " " + arg1), arg0.var.opcexec = 1
+      ret $reset_menu.passo(arg0, "")
+    casofim
+  casofim
+  ret $reset_menu.passo(arg0, "")
+
+
+classe reset_var
+herda comando_adm
+
+func passo # Entrar com a lista de variáveis
+  se txtproc(arg1, " ") >= 0
+    arg0.msg("A lista de arg0.variáveis não pode ter espaço no meio")
+    ret 1
+  senao arg1 == ""
+    arg0.msg("Entre com a lista de variáveis, N nenhuma, Z cancela")
+    ret 1
+  senao arg1 != "n"
+    arg0.var.opclin += " " + arg1
+  fimse
+  textopos pos
+  pos = arg0.teditor.ini, pos.linha = txt1(arg0.var.opclin) - 1
+  !arg0.var.opcinserir && pos.remove
+  pos.add(txt2(arg0.var.opclin)), arg0.var.opcexec = 1
+  ret $reset_menu.passo(arg0, "")
+
+
+classe reset
+# Permite criar funções que realizam o reset
+#
+const iniclasse = !$[arg0] && criar(arg0)
+
+func atualiza # Atualiza reset de sala
+# arg0 = nome da sala
+# arg1 = nome da constante
+# arg2 = texto do reset
+  prog p
+  ret !arg2, p.apagar(arg0, arg1 + "1")
+  txt512 t
+  t = "func " + arg1 + "1 # Realiza o reset\n"
+  t += "# Não alterar; função criada automaticamente a partir de " + arg1 + "\n"
+  se txt(arg0, 0, 2) == "s_"
+    t = p.criar(arg0, t + cmdsala(txt(arg2)))
+  senao
+    t = p.criar(arg0, t + cmdperso(txt(arg2)))
+  fimse
+  se !t
+    config:salvar
+  senao
+    t = "(ERRO) ao criar função " + arg0 + ":" + arg1 + "1:\n" + t
+    indiceitem item
+    epara item.ini("un "), txt1(item.txt) == "un", item.depois
+      item.obj.jogperm == "admin" && item.obj.msg(t)
+    efim
+  fimse
+
+func cmdsala # Cria conteúdo de uma função conforme os comandos do reset
+# arg0 = texto do reset
+# Retorna: texto que contém o conteúdo da função, exceto "func xxxx"
+  textotxt t1 # Texto recebido
+  textotxt t2 # Texto sendo criado
+  txt100 l.8 # Linha do texto
+  txt512 lin
+  uint8 mudou # Que variáveis criar: +1 se p/u, +2 se r, +4 se x
+  t1.addfim(arg0)
+  enquanto t1.linhas
+# t2.addfim("# " + txtremove(t1.ini.texto, "EMD"))
+    l.separar(txtremove(t1.remove, "EMD"), " ") # Pega próxima linha e separa
+    casovar txtmai(l.0)
+    casose "P" # <personagem> <nível min> <nível max> <limite> <variáveis>
+      textopos pos
+      uint8 m1 # Será =2 se o personagem terá alguma coisa dentro
+      epara pos = t1.ini, pos && !m1, pos.depois
+        casovar txtmin(pos.texto(0, 1))
+        casose "p"
+          m1 = 1
+          sair
+        casose "a"
+        casose "i"
+        casose "e"
+        casose "f"
+          m1 = 2
+          mudou & 1 ? t2.addfim("p=u=nulo") : (mudou |= 1)
+          sair
+        casofim
+      efim
+      sair int(l.1) <= 0
+      lin = "se p_" + txtvis(l.2) + ":objsolto.total < " + int(l.5)
+# lin += " && dentro2.total - socktot < s_pnj"
+      int(l.1) < 100 && (lin += " && rand(100)<" + int(l.1))
+      t2.addfim(lin)
+      lin = m1 == 2 ? "  p=u=" : "  "
+      lin += "criar(\"p_" + txtvis(l.2) + "\", este, "
+      lin += l.3 == l.4 ? int(l.3) : "rand(" + int(l.3) + ", " + int(l.4) + ")"
+      lin += l.6 ? ", \"" + txtvis(l.6) + "\")" : ")"
+      t2.addfim(lin)
+      t2.addfim("fimse")
+      sair
+    casose "A" # <animal> <nível min> <nível max> <variáveis>
+      sair !(mudou & 1) # Sai se não criou nenhum personagem
+      textopos pos
+      uint8 m1 # Será =2 se o personagem terá alguma coisa dentro
+      epara pos = t1.ini, pos && !m1, pos.depois
+        casovar txtmin(pos.texto(0, 1))
+        casose "p"
+        casose "a"
+          m1 = 1
+          sair
+        casose "i"
+        casose "e"
+        casose "f"
+          m1 = 2, t2.addfim("u=nulo")
+          sair
+        casofim
+      efim
+      sair int(l.1) <= 0
+# mudou |= 4 # Usa a variável x
+      lin = "se p.animalmais"
+      int(l.1) < 100 && (lin += " && rand(100)<" + int(l.1))
+      t2.addfim(lin)
+      lin = m1 == 2 ? "u="
+      lin += "criar(\"p_" + txtvis(l.2) + "\", p, "
+      lin += l.3 == l.4 ? int(l.3) : "rand(" + int(l.3) + ", " + int(l.4) + ")"
+      lin += l.5 ? ", \"" + txtvis(l.5) + "\")" : ")"
+      t2.addfim(lin)
+      t2.addfim("fimse")
+      sair
+    casose "I" # Dar item: <item> <nível> <variáveis>
+      sair !(mudou & 1) # Sai se não criou nenhum personagem
+      sair int(l.1) <= 0
+      lin = "u && "
+      int(l.1) < 100 && (lin += "rand(100)<" + int(l.1) + " && ")
+      lin += "criar(\"i_" + txtvis(l.2) + "\", u, " + txtvis(l.3)
+      lin += l.4 ? ", \"" + txtvis(l.4) + "\")" : ")"
+      t2.addfim(lin)
+      sair
+    casose "E" # Equipar: <item> <nível> <lugar> <variáveis>
+      sair !(mudou & 1) # Sai se não criou nenhum personagem
+      sair int(l.1) <= 0
+      mudou |= 2 # Usa a variável r
+      lin = "se u"
+      int(l.1) < 100 && (lin += " && rand(100)<" + int(l.1))
+      t2.addfim(lin)
+      lin = "  r=criar(\"i_" + txtvis(l.2) + "\", u, " + int(l.3)
+      lin += l.5 ? ", \"" + txtvis(l.5) + "\")" : ")"
+      lin += ", r.vestir(" + int(l.4 == "0" ? 50 : l.4) + "), u.recalc=1"
+      t2.addfim(lin)
+      t2.addfim("fimse")
+      sair
+    casose "S" # Item: <item> <nível> <destino ou s se sala> <variáveis>
+      sair int(l.1) <= 0
+      se l.4 == "s"
+        lin = "!dentro1.objini(\"i_" + txtvis(l.2) + "\") && "
+        int(l.1) < 100 && (lin += "rand(100)<" + int(l.1) + " && ")
+        lin += "criar(\"i_" + txtvis(l.2) + "\", este"
+      senao
+        mudou |= 2 # Usa a variável r
+        lin = "(r = dentro1.objini(\"i_" + txtvis(l.4) + "\")) && "
+        int(l.1) < 100 && (lin += "rand(100)<" + int(l.1) + " && ")
+        lin += "!r.dentro1.objini(\"i_" + txtvis(l.2) + "\") && "
+        lin += "criar(\"i_" + txtvis(l.2) + "\", r"
+      fimse
+      lin += ", " + int(l.3)
+      lin += l.5 ? ", \"" + txtvis(l.5) + "\")" : ")"
+      t2.addfim(lin)
+      sair
+    casose "R" # Remover da sala: <item>
+      sair int(l.1) <= 0
+      mudou |= 2 # Usa a variável r
+      lin = ""
+      int(l.1) < 100 && (lin += "rand(100)<" + int(l.1) + " && ")
+      lin += "(r = dentro1.objini(\"i_" + txtvis(l.2) + "\")) + r.apagar(1000)"
+      t2.addfim(lin)
+      sair
+    casose "D" # Porta em uma direção
+      sair int(l.1) <= 0
+      lin = ""
+      int(l.1) < 100 && (lin += "rand(100)<" + int(l.1) + " && ")
+      lin += "mudaporta(\"" + txtvis(l.2) + "\", " + int(l.3) + ")"
+      t2.addfim(lin)
+      sair
+    casose "F" # Fim
+      sair int(l.1) <= 0
+      lin = "ret u"
+      int(l.1) < 100 && (lin += " && rand(100)<" + int(l.1))
+      lin += ", nulo"
+      t2.addfim(lin)
+      sair
+    casofim
+  efim
+  mudou & 4 ? t2.addini("int8 x # Usado como rascunho")
+  mudou & 2 ? t2.addini("ref r # Usado como rascunho")
+  mudou & 1 ? t2.addini("ref u # Último personagem ou animal criado")
+  mudou & 1 ? t2.addini("ref p # Último personagem criado")
+  ret t2.remove(10000)
+
+func cmdperso # Cria conteúdo de uma função conforme os comandos do reset
+# arg0 = texto do reset
+# Retorna: texto que contém o conteúdo da função, exceto "func xxxx"
+  textotxt t1 # Texto recebido
+  textotxt t2 # Texto sendo criado
+  txt100 l.8 # Linha do texto
+  txt512 lin
+  uint8 mudou # Que variáveis criar: +2 se r, +4 se x
+  t1.addfim(arg0)
+  t2.addfim("u = arg0")
+  enquanto t1.linhas
+    l.separar(txtremove(t1.remove, "EMD"), " ") # Pega próxima linha e separa
+    casovar txtmai(l.0)
+    casose "A" # <animal> <nível min> <nível max> <variáveis>
+      textopos pos
+      uint8 m1 # Será =2 se o personagem terá alguma coisa dentro
+      epara pos = t1.ini, pos && !m1, pos.depois
+        casovar txtmin(pos.texto(0, 1))
+        casose "p"
+        casose "a"
+          m1 = 1
+          sair
+        casose "i"
+        casose "e"
+        casose "f"
+          m1 = 2, t2.addfim("u=nulo")
+          sair
+        casofim
+      efim
+      sair int(l.1) <= 0
+      int(l.1) < 100 && t.addfim("se rand(100)<" + int(l.1))
+      lin = m1 == 2 ? "u="
+      lin += "criar(\"p_" + txtvis(l.2) + "\", arg0, "
+      lin += l.3 == l.4 ? int(l.3) : "rand(" + int(l.3) + ", " + int(l.4) + ")"
+      lin += l.5 ? ", \"" + txtvis(l.5) + "\")" : ")"
+      t2.addfim(lin)
+      sair
+    casose "I" # Dar item: <item> <nível> <variáveis>
+      sair int(l.1) <= 0
+      lin = "u && "
+      int(l.1) < 100 && (lin += "rand(100)<" + int(l.1) + " && ")
+      lin += "criar(\"i_" + txtvis(l.2) + "\", u, " + txtvis(l.3)
+      lin += l.4 ? ", \"" + txtvis(l.4) + "\")" : ")"
+      t2.addfim(lin)
+      sair
+    casose "E" # Equipar: <item> <nível> <lugar> <variáveis>
+      sair int(l.1) <= 0
+      mudou |= 2 # Usa a variável r
+      lin = "se u"
+      int(l.1) < 100 && (lin += " && rand(100)<" + int(l.1))
+      t2.addfim(lin)
+      lin = "  r=criar(\"i_" + txtvis(l.2) + "\", u, " + int(l.3)
+      lin += l.5 ? ", \"" + txtvis(l.5) + "\")" : ")"
+      lin += ", r.vestir(" + int(l.4 == "0" ? 50 : l.4) + "), u.recalc=1"
+      t2.addfim(lin)
+      t2.addfim("fimse")
+      sair
+    casofim
+  efim
+  mudou & 4 ? t2.addini("int8 x # Usado como rascunho")
+  mudou & 2 ? t2.addini("ref r # Usado como rascunho")
+  t2.addini("ref u # Personagem ou último animal criado")
+  ret t2.remove(10000)
+
+func linha # Obtém um texto a partir de uma linha do reset
+# arg0 = texto da linha
+# Retorna: texto da opção
+  txt100 l.8
+  txt200 lin
+  l.separar(txtremove(arg0, "EMD"), " ") # Pega próxima linha e separa
+  se !l.1 || l.1 == 0
+    lin += "NÃO "
+  senao l.1 == 100
+    lin += "    "
+  senao
+    lin += txt(l.1 + "%    ", 0, 4)
+  fimse
+  casovar txtmai(l.0)
+  casose "P" # <personagem> <nível min> <nível max> <limite> <variáveis>
+    lin += "Perso      "
+    lin += txt(l.2 + "(" + p_[l.2]:nome, 0, 30) + ")"
+    lin += "  N" + (l.3 == l.4 ? l.3 : l.3 + "-" + l.4)
+    l.5 && (lin += "  Máx " + l.5)
+    l.6 && (lin += "  Var " + l.6)
+    ret lin
+  casose "A" # <animal> <nível min> <nível max> <variáveis>
+    lin += "Animal     "
+    lin += txt(l.2 + "(" + p_[l.2]:nome, 0, 30) + ")"
+    lin += "  N" + (l.3 == l.4 ? l.3 : l.3 + "-" + l.4)
+    l.5 && (lin += "  Var " + l.5)
+    ret lin
+  casose "I" # Dar item: <item> <quantidade> <variáveis>
+    lin += "Dar item   "
+    lin += txt(l.2 + "(" + i_[l.2]:nome, 0, 30) + ")"
+    lin += "  " + (i_[l.2]:item == 2 ? l.3 + "x" : "1x")
+    l.4 && (lin += "  Var " + l.4)
+    ret lin
+  casose "E" # Equipar: <item> <quantidade> <lugar> <variáveis>
+    lin += "Equipar    "
+    lin += txt(l.2 + "(" + i_[l.2]:nome, 0, 30) + ")"
+    lin += "  " + (i_[l.2]:item == 2 ? l.3 + "x" : "1x")
+    lin += l.4 == "0" ? "  empunhando" : "  " + misc:equip(l.4)
+    l.5 && (lin += "  Var " + l.5)
+    ret lin
+  casose "S" # Item: <item> <nível> <destino ou s se sala> <variáveis>
+    lin += "Item       "
+    lin += txt(l.2 + "(" + i_[l.2]:nome, 0, 30) + ")"
+    lin += "  " + (i_[l.2]:item == 2 ? l.3 + "x" : "1x")
+    se l.4 == "s"
+      lin += "  Nessa sala"
+    senao
+      lin += "  No item da sala " + txt(l.4 + "(" + i_[l.4]:nome, 0, 30) + ")"
+    fimse
+    l.5 && (lin += "  Var " + l.5)
+    ret lin
+  casose "R" # Remover da sala: <item>
+    lin += "Apaga item "
+    lin += txt(l.2 + "(" + i_[l.2]:nome, 0, 30) + ")"
+    sair
+  casose "D" # Porta em uma direção
+    lin += "Direção    "
+    lin += txtmai(l.2)
+    casovar l.3
+    casose "0"
+      lin += "  Sem porta"
+      sair
+    casose "1"
+      lin += "  Porta aberta"
+      sair
+    casose "2"
+      lin += "  Porta fechada"
+      sair
+    casose "3"
+      lin += "  Porta trancada"
+      sair
+    casose
+      lin += "  Estado desconhecido: " + l.3
+    casofim
+    ret lin
+  casose "F" # Fim
+    ret lin + "Fim (se criou personagem/animal com sucesso)"
+  casose
+    ret lin + "Comando desconhecido"
+  casofim
+  ret lin
+
+const reset1 = "S 100 ini006 1 s\n\
+S 30 ini006 10 s abc=1\n\
+S 30 ini006 12 ini004 abc=1\n\
+R 10 ini002\n\
+R 100 ini001\n\
+P 100 ini003 31 31 1\n\
+I 100 ini001 10\n\
+I 90 ini001 10\n\
+I 80 ini001 15 abc=d\n\
+I 0 ini001 10\n\
+P 45 ini003 11 20 1 h_chutar=1\n\
+E 80 ini001 15 2\n\
+E 80 ini001 15 3 abc=d\n\
+A 40 ini002 15 20 h_socar=1\n\
+D 100 N 2\n\
+D 10 SE 0"
+# Exemplo de como testar a função cmdsala
+# func ini
+# telatxt t1
+# t1.msg("func: \n" + cmdsala(reset1))
+# prog p
+# t1.msg("\n\n>" + p.classe("x", "func n\n" + cmdsala(reset1)) + "\n")

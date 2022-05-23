@@ -1,0 +1,96 @@
+classe adm_codpaulo
+herda comando_comum
+const txtajuda = "Vazio"
+const contitem = "# Edição de itens com as opções dos códigos do Paulo\n\
+const nome = \"É um livro\"\n\
+const info = \"Indica que o item é um livro\"\n\
+const tipo = \"opc_simnao\"\n\
+const clas = var.classe1\n\
+const vari = \"i_livro\"\n\
+const nome = \"É uma caneta\"\n\
+const info = \"Indica que o item é um livro\"\n\
+const tipo = \"opc_simnao\"\n\
+const clas = var.classe1\n\
+const vari = \"i_caneta\"\n\
+const nome = \"Se for livro, será selado\"\n\
+const info = \"Livros selados não podem ser editados, só lidos.\"\n\
+const tipo = \"opc_simnao\"\n\
+const clas = var.classe1\n\
+const vari = \"i_selo\""
+#
+const valorini = 60
+#
+intexec aj # Ajustando atualizações
+
+func escr
+  textotxt t
+# Atualizações dos itens
+  t.addfim(contitem)
+  uint8 n
+  prog p
+  textopos p1
+  n = valorini - 1
+  epara p1 = t.ini, p1.lin, p1.depois
+    continuar txt1(p1.texto) != "const"
+    txtsub(p1.texto, 0, 2) == "const nome" && (n += 1)
+    refvar t1 = txtsub(p1.texto, 1, 1)
+    p1.mudar(txttroca(p1.texto, "const " + t1, "const " + t1 + txt(n)))
+  efim
+  txt20 t1
+  se !p.existe("opcoes_ipaulo")
+    p.criar("opcoes_ipaulo\nadm/item\n" + t.remove(100))
+    addheranca("menu_icomum", "opcoes_ipaulo")
+    config:salvar
+    t1 = "adicionadas nos"
+  senao
+    p.apagar("opcoes_ipaulo")
+    t1 = "removidas dos"
+  fimse
+  aj = 1
+  config:salvar
+  arg0.msg("Opções do Paulo " + t1 + " menus.")
+
+func addheranca # Adicionando as heranças dos códigos do Paulo nos respectivos menus
+# Argumentos:
+# ARG0: Classe herdeira
+# ARG1: Classe herdada
+  textotxt t
+  prog p
+  epara p.iniherda(arg0), p.lin, p.depois
+    t.addfim(p.texto)
+  efim
+  t.addfim(arg1)
+  p.apagarlin(arg0, 1)
+  p.criarlin(arg0, 1, "herda " + txttroca(t.remove(100), "\n", ","))
+
+func aj_exec
+  citem
+
+func citem # ajustando função de citem
+# Argumentos:
+# Nenhum
+  prog p
+  se !p.existe("opcoes_ipaulo")
+    p.apagar("adm_citem", "passo_paulo")
+    p.inilinha("adm_citem", "passo"), p.depois
+    txtremove(p.texto, "emd") == "ret passo_paulo(arg0, arg1)" && p.apagarlin("adm_citem", \
+"passo", 1)
+  senao
+    textotxt t
+    epara p.inilinha("adm_citem", "passo"), p.lin, p.depois
+      t.addfim(p.texto)
+    efim
+    textopos p1
+    p1 = t.ini
+    se p1.txtproc("arg0.txtmais.addfim(\"C Completo (luz, mobília, container)\")") >= 0
+      p1.depois
+      p1.add("arg0.txtmais.addfim(\"L Livro (livros, canetas)\")")
+      ret p1.txtproc("casofim") == -1, nulo
+      p1.add("casose \"l\"\nderiv = \"comum_livro\"\nsair")
+      p1 = t.ini, p1.depois
+      p.criar("adm_citem", "func passo_paulo # Passos dos menus do Paulo nos itens\n" + p1.textol\
+in(1000))
+      p.criarlin("adm_citem", "passo", 1, "ret passo_paulo(arg0, arg1)")
+    fimse
+  fimse
+  config:salvar

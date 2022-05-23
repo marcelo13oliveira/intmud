@@ -1,0 +1,776 @@
+classe a_chaves
+herda area
+const a_nome = "vila do chaves"
+const a_tempo = 5
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_chaves
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_area = "chaves"
+
+
+classe i_chaves001
+herda comum_itemperso
+const nome = "barril de madeira"
+const descnome = "um barril de madeira"
+const descpos = "Aqui há um barril de madeira."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_salas = "chaves008"
+const i_abertoini = 1 # Container: 1 Sempre aberto
+
+
+classe i_chaves002
+herda comum_itemperso
+const nome = "sofá"
+const ident = "grande sofá"
+const descnome = "um sofá"
+const descpos = "Encostado à parede, há um grande sofá."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "não pode pegar o sofá daqui."
+const i_movel = 3 # Mobília: 3 Sentar confortavelmente
+
+
+classe i_chaves003
+herda comum_item
+const nome = "chafariz"
+const descnome = "um chafariz"
+const descpos = "Aqui há um chafariz."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_sede = 60
+const f_diges = 120
+const f_msgperso = "$P se abaixa e bebe água do chafariz."
+const i_pegar = "não dá, é parte do chão."
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_chaves004
+herda comum_itemperso
+const nome = "bolsa"
+const ident = "bolsa"
+const descnome = "uma bolsa"
+const descpos = "Uma grande bolsa, aparentando conter várias cartas, foi largada aqui."
+const i_chave = "parmicasas204"
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const mantersala = 0 # Mantém na sala: Não
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+
+classe i_chaves005
+herda comum_item
+
+
+classe i_chaves006
+herda comum_item
+const nome = "carta"
+const descnome = "uma carta"
+const descver = "Esse é um envelope de carta comum. Na frente do envelope você lê as seguintes \
+informações:\n\
+remetente:\n\
+Desconhecido\n\
+Destinatário:\n\
+Senhor madruga"
+const remetente = "seu madruga"
+
+
+classe i_chaves007
+herda comum_item
+const nome = "carta"
+const descnome = "uma carta"
+const descver = "Esse é um envelope de carta comum. Na frente do envelope você lê as seguintes \
+informações:\n\
+remetente:\n\
+Desconhecido\n\
+Destinatário:\n\
+Dona Clotilde"
+const remetente = "dona clotilde"
+#
+
+func cmd_darobj
+  se arg1 == este
+    ret arg2.remetente != "seu madruga", arg0.msg("a dona Clotilde olha para a carta, depois \
+olha para você e diz: Essa carta não é pra mim!")
+    arg0.var.z_entregou_ += 1
+  fimse
+#
+
+func cmd_deuobj
+  se arg1 == este
+    $mens.p(este, arg0)
+    teclou("agradecer " + arg0.descnome)
+    $mens.mvis1("$P diz: Muito obrigado, " + arg0.descnome + ". Esta era a carta que eu estava \
+aguardando!")
+    apagar(arg2)
+  fimse
+
+
+classe i_chaves008
+herda comum_item
+const nome = "carta"
+const descnome = "uma carta"
+const descver = "Esse é um envelope de carta comum. Na frente do envelope você lê as seguintes \
+informações:\n\
+remetente:\n\
+Desconhecido\n\
+Destinatário:\n\
+Dona florinda"
+const remetente = "dona florinda"
+
+
+classe i_chaves009
+herda comum_item
+const nome = "carta"
+const descnome = "uma carta"
+const descver = "Esse é um envelope de carta comum. Na frente do envelope você lê as seguintes \
+informações:\n\
+remetente:\n\
+Desconhecido\n\
+Destinatário:\n\
+Senhor Barriga"
+const remetente = "seu barriga"
+
+
+classe i_chaves010
+herda comum_item
+const nome = "carta"
+const descnome = "uma carta"
+const descver = "Um envelope de carta comum. Na frente da carta, você lê as seguintes informações\
+:\n\
+Remetente:\n\
+Desconhecido\n\
+Destinatário:\n\
+Professor Girafáles"
+const remetente = "professor girafáles"
+
+
+classe i_chaves011
+herda comum_item
+const nome = "chave"
+const i_chave = "parmicasas204"
+
+
+classe p_chaves001
+herda comum_persobat
+const nome = "chaves"
+const descnome = "chaves"
+const descpadr = "Chaves está aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 15
+const eveste = 1 # Eventos perso: Sim
+const frases = "$P diz: Ninguém tem paciência comigo!\n\
+$P diz: pííípipipipíípipipi!\n\
+$P começa a chutar o ar dizendo: 'Tudo eu! Tudo eu!\n\
+$P diz: Foi sem querer querendo...\n\
+$P diz: Tá bom mais não se irriiite!"
+#
+inttempo fala
+#
+
+func cmd_mudadono
+  fala = 600
+#
+
+func fala_exec
+  $mens.p(este)
+  $mens.mvis1(txtsublin(frases, rand(intsublin(frases)), 1))
+  fala = 600
+
+
+classe p_chaves002
+herda comum_persobat
+const nome = "seu madruga"
+const descnome = "seu madruga"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const objmax = 2
+const nivel = 17
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "z_moedas=1000"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_darobj
+  se arg1 == este
+    se arg2.remetente != "seu madruga"
+      ret arg0.msg("O seu madruga olha para a carta, em seguida para você e diz: Essa carta não \
+é para mim.")
+    senao
+      ret
+    fimse
+  fimse
+#
+
+func cmd_deuobj
+  se arg1 == este
+    ret arg4 != arg0, nulo
+    apagar(arg2)
+    $mens.p(este, arg0)
+    $mens.mvis1("$P diz: Muito obrigado, " + arg0.descnome + ". Esta era a carta que eu estava \
+aguardando!")
+    arg0.var.z_entregou_ += 1
+  fimse
+
+
+classe p_chaves003
+herda comum_persobat
+const nome = "chiquinha"
+const descnome = "chiquinha"
+const nivel = 15
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const inivar = "z_moedas=500"
+
+
+classe p_chaves004
+herda comum_persobat
+const nome = "dona florinda"
+const descnome = "dona florinda"
+const nivel = 18
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "z_moedas=2500"
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+inttempo fala
+#
+
+func cmd_mudadono
+  fala = 600
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_darobj
+  se arg1 == este
+    se arg2.remetente != "dona florinda"
+      ret arg0.msg("a dona florinda olha para a carta, depois olha para você e diz: Essa carta \
+não é pra mim!")
+    senao
+      ret
+    fimse
+  fimse
+#
+
+func cmd_deuobj
+  se arg1 == este
+    ret arg4 != arg0, nulo
+    $mens.p(este, arg0)
+    $mens.mvis1("$P diz: Muito obrigada, " + arg0.descnome + ". Esta era a carta que eu estava \
+aguardando!")
+    apagar(arg2)
+    arg0.var.z_entregou_ += 1
+#
+
+func fala_exec
+  misc:tempo("florinda", este)
+#
+
+func florinda30
+  teclou("f Professor Girafáles!")
+#
+
+func florinda80
+  teclou("f que milagre o senhor por aqui!")
+#
+
+func florinda130
+  teclou("F Obrigada, são lindas!")
+#
+
+func florinda150
+  teclou("f não quer entrar para tomar uma xícara de café?")
+#
+
+func florinda180
+  teclou("f Claro que não, pode entrar!")
+  fala = rand(600, 720)
+
+
+classe p_chaves005
+herda comum_persobat
+const nome = "quico"
+const ident = "quico frederico kiko"
+const descnome = "Quico"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 15
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const inivar = "z_moedas=500"
+
+
+classe p_chaves006
+herda comum_persobat
+const nome = "dona clotilde"
+const descnome = "dona clotilde"
+const nivel = 18
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "z_moedas=2500"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_darobj
+  se arg1 == este
+    se arg2.remetente != "dona clotilde"
+      ret arg0.msg("a dona clotilde olha para a carta, depois olha para você e diz: Essa carta \
+não é pra mim!")
+    senao
+      ret
+    fimse
+  fimse
+#
+
+func cmd_deuobj
+  se arg1 == este
+    ret arg4 != arg0, nulo
+    $mens.p(este, arg0)
+    $mens.mvis1("$P diz: Muito obrigada, " + arg0.descnome + ". Esta era a carta que eu estava \
+aguardando!")
+    apagar(arg2)
+    arg0.var.z_entregou_ += 1
+  fimse
+
+
+classe p_chaves007
+herda comum_persobat
+const nome = "professor girafáles"
+const descnome = "professor Girafáles"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 20
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "z_moedas=2500"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_darobj
+  se arg1 == este
+    se arg2.remetente != "professor girafáles"
+      ret arg0.msg("O professor girafáles olha para a carta, depois olha para você e diz: Essa \
+carta não é pra mim!")
+    senao
+      ret
+    fimse
+  fimse
+#
+
+func cmd_deuobj
+  se arg1 == este
+    ret arg4 != arg0, nulo
+    $mens.p(este, arg0)
+    $mens.mvis1("$P diz: Muito obrigado, " + arg0.descnome + ". Esta era a carta que eu estava \
+aguardando!")
+    apagar(arg2)
+    arg0.var.z_entregou_ += 1
+  fimse
+#
+
+func cmd_falou
+  se arg1 == "professor girafáles!"
+    teclou("f Dona florinda!")
+  senao arg1 == "que milagre o senhor por aqui!"
+    teclou("f vim lhe trazer este humilde presente!")
+    dono.msg("O professor girafáles dá um buqueê de flores para a dona Florinda...")
+  senao arg1 == "não quer entrar para tomar uma xícara de café?"
+    teclou("f Não seria muito incômodo?")
+  senao arg1 == "claro que não, pode entrar!"
+    teclou("f Depois da senhora!")
+
+
+classe p_chaves008
+herda comum_persobat
+const nome = "satanás"
+const ident = "satanás cachorro"
+const descnome = "Satanás"
+const descpadr = "Um cachorro caminha pela casa."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 20
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const inivar = "h_morder=5,h_arranhar=5,z_moedas=500"
+
+
+classe p_chaves009
+herda comum_persobat
+const nome = "seu barriga"
+const descnome = "o seu barriga"
+const descpadr = "O senhor barriga anda pela vila, cobrando os aluguéis de seus inquilinos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const objmax = 3
+const nivel = 20
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 300
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "h_socar=4,h_chutar=4,z_moedas=50000"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_darobj
+  se arg1 == este
+    se arg2.remetente != "seu barriga"
+      ret arg0.msg("O seu barriga olha para a carta, depois olha para você e diz: Essa carta não \
+é pra mim!")
+    senao
+      ret
+    fimse
+  fimse
+#
+
+func cmd_deuobj
+  se arg1 == este
+    ret arg4 != arg0, nulo
+    $mens.p(este, arg0)
+    $mens.mvis1("$P diz: Muito obrigado, " + arg0.descnome + ". Esta era a carta que eu estava \
+aguardando!")
+    apagar(arg2)
+    arg0.var.z_entregou_ += 1
+  fimse
+#
+
+
+classe p_chaves010
+herda comum_persobat
+const nome = "Jaiminho"
+const ident = "Jaiminho Carteiro"
+const descnome = "Jaiminho, o carteiro"
+const descpadr = "Jaiminho anda de um lado a outro, entregando as correspondências para os \
+moradores da vila."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const objmax = 3
+const nivel = 20
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_recebe = 0 # Recebe itens: Não
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "conversar carteiro" || arg1 == "conversar jaiminho"
+    ret arg0.var.z_qcarteiro_, arg0.msg(descnome + " diz: Não tenho cartas para você entregar \
+por enquanto.")
+    se arg0.var.z_entregou_ >= 5
+      misc:tempo("fim", arg0)
+    senao
+      ret arg0.var.z_carteiro_, arg0.msg(descnome + " diz: Volte quando tiver entregue todas as \
+cartas.")
+      misc:tempo("carteiro", arg0)
+    fimse
+    ret 1
+  fimse
+#
+
+func carteiro30
+  teclou("descansar")
+  $mens.p(este, arg0)
+  $mens.mvis1("$P cumprimenta $A e diz: Olá, $C! Sou Jaiminho, o carteiro!")
+#
+
+func carteiro60
+  $mens.p(este, arg0)
+  $mens.mvis1("$P diz: Eu vim de tangamandápio!")
+#
+
+func carteiro90
+  $mens.p(este, arg0)
+  $mens.mvis1("$P diz: Estou tentando evitar a fadiga, e queria que você me fizesse o favor de \
+entregar essas cartas para mim.")
+#
+
+func carteiro120
+  $mens.p(este, arg0)
+  $mens.mvis1("$P diz: Volte quando tiver entregue todas as cartas e lhe darei uma boa recompensa\
+ dos tangamandapianos!")
+  arg0.var.z_carteiro_ = 1
+  criar("i_chaves004", arg0, 1)
+  criar("i_chaves006", arg0.dentro1.objini("i_chaves004"), 1)
+  criar("i_chaves007", arg0.dentro1.objini("i_chaves004"), 1)
+  criar("i_chaves008", arg0.dentro1.objini("i_chaves004"), 1)
+  criar("i_chaves009", arg0.dentro1.objini("i_chaves004"), 1)
+  criar("i_chaves010", arg0.dentro1.objini("i_chaves004"), 1)
+  teclou("levantar")
+  $mens.p(este, arg0)
+  $mens.mtodos1("$P entrega uma bolsa para $A.")
+#
+#
+
+func fim30
+  $mens.p(este, arg0)
+  $mens.mvis1("$P Diz: muitíssimo obrigado, " + arg0.descnome + "! Não sei nem como agradecer.")
+#
+
+func fim60
+  $mens.p(este, arg0)
+  $mens.mvis1("$P diz: Mas vamos lá à sua recompensa!")
+  apagar(arg0.dentro1.objini("i_chaves004"))
+  arg0.msg("Você recebe 8 pontos de aventura!")
+  arg0.var.z_quest_ += 8
+  arg0.ganhaexp(rand(200, 1500))
+  arg0.var.z_carteiro_ = 0
+  arg0.var.z_entregou_ = 0
+  arg0.var.z_qcarteiro@ = 48000
+
+
+classe s_chaves001
+herda b_chaves
+const s_titulo = "A entrada da vila do chaves"
+const dir_s = $s_vilares104
+const dir_l = $s_chaves002
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "os portões da vila"
+const portaartigo_l = 3 # Artigo porta: 3 os (portões)
+const fecha_l = 1 # Fecha ao passar: Sim
+
+
+classe s_chaves002
+herda b_chaves
+const s_titulo = "Dentro da vila"
+const dir_l = $s_chaves003
+const dir_o = $s_chaves001
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "os portões da vila"
+const portaartigo_o = 3 # Artigo porta: 3 os (portões)
+const fecha_o = 1 # Fecha ao passar: Sim
+const a_reset = "P 100 Chaves010 0 0 1 h_chutar=6,h_socar=6,z_moedas=100"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_Chaves010:objsolto.total < 1
+    criar("p_Chaves010", este, 0, "h_chutar=6,h_socar=6,z_moedas=100")
+  fimse
+
+
+classe s_chaves003
+herda b_chaves
+const s_titulo = "Em frente a uma escada"
+const dir_l = $s_chaves007
+const dir_o = $s_chaves002
+const dir_c = $s_chaves004
+
+
+classe s_chaves004
+herda b_chaves
+const s_titulo = "Escadas"
+const dir_c = $s_chaves005
+const dir_b = $s_chaves003
+
+
+classe s_chaves005
+herda b_chaves
+const s_titulo = "Em frente a uma porta"
+const dir_n = $s_chaves006
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const fecha_n = 1 # Fecha ao passar: Sim
+const tranc_n = 2 # Trancar: 2 Tranca ao fechar
+const dir_b = $s_chaves004
+
+
+classe s_chaves006
+herda b_chaves
+const s_titulo = "Sala"
+const dir_s = $s_chaves005
+
+
+classe s_chaves007
+herda b_chaves
+const s_titulo = "O pátio da vila"
+const dir_n = $s_chaves017
+const dir_l = $s_chaves009
+const dir_o = $s_chaves003
+const s_reset = "S 100 chaves001 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_chaves001") && criar("i_chaves001", este, 1)
+
+
+classe s_chaves008
+herda b_chaves
+const s_titulo = "Dentro do barril"
+const s_entrada = "entrada do barril"
+const s_reset = "P 100 chaves001 0 0 1 z_moedas=500"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_chaves001:objsolto.total < 1
+    criar("p_chaves001", este, 0, "z_moedas=500")
+  fimse
+
+
+classe s_chaves009
+herda b_chaves
+const s_titulo = "O pátio da vila"
+const dir_n = $s_chaves011
+const dir_l = $s_chaves010
+const dir_o = $s_chaves007
+
+
+classe s_chaves010
+herda b_chaves
+const s_titulo = "Em frente a casa do seu madruga"
+const dir_n = $s_chaves014
+const dir_o = $s_chaves009
+const dir_entrar = $s_chaves018
+const a_reset = "P 100 chaves009 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_chaves009:objsolto.total < 1
+    criar("p_chaves009", este, 0)
+  fimse
+
+
+classe s_chaves011
+herda b_chaves
+const s_titulo = "O pátio da vila"
+const dir_n = $s_chaves012
+const dir_s = $s_chaves009
+const dir_o = $s_chaves017
+
+
+classe s_chaves012
+herda b_chaves
+const s_titulo = "Em frente a casa da dona florinda"
+const dir_s = $s_chaves011
+const dir_l = $s_chaves014
+const dir_o = $s_chaves016
+const dir_entrar = $s_chaves013
+
+
+classe s_chaves013
+herda b_chaves
+const s_titulo = "Dentro da casa da dona florinda"
+const dir_sair = $s_chaves012
+const a_reset = "P 100 chaves004 0 0 1 h_socar=4,h_chutar=4\n\
+P 100 chaves005 1 15 1\n\
+P 80 chaves007 0 0 1 h_socar=4,h_chutar=4\n\
+S 100 chaves002 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_chaves004:objsolto.total < 1
+    criar("p_chaves004", este, 0, "h_socar=4,h_chutar=4")
+  fimse
+  se p_chaves005:objsolto.total < 1
+    criar("p_chaves005", este, rand(1, 15))
+  fimse
+  se p_chaves007:objsolto.total < 1 && rand(100) < 80
+    criar("p_chaves007", este, 0, "h_socar=4,h_chutar=4")
+  fimse
+  !dentro1.objini("i_chaves002") && criar("i_chaves002", este, 1)
+
+
+classe s_chaves014
+herda b_chaves
+const s_titulo = "Em frente a casa da dona clotilde"
+const dir_s = $s_chaves010
+const dir_l = $s_chaves019
+const dir_o = $s_chaves012
+const dir_entrar = $s_chaves015
+const portaini_entrar = 2 # Estado inicial: 2 Porta fechada
+const portanome_entrar = "a porta do 71"
+const fecha_entrar = 1 # Fecha ao passar: Sim
+
+
+classe s_chaves015
+herda b_chaves
+const s_titulo = "Dentro da casa da dona clotilde"
+const s_desc = "Você sente um imenso calafriu ao entrar aqui, cuidado com a bruxa!"
+const eveste = 1 # Eventos sala: Sim
+const dir_sair = $s_chaves014
+const a_reset = "P 100 chaves006 0 0 1\nP 100 chaves008 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_chaves006:objsolto.total < 1
+    criar("p_chaves006", este, 0)
+  fimse
+  se p_chaves008:objsolto.total < 1
+    criar("p_chaves008", este, 0)
+  fimse
+
+func cmd_chegou
+  arg0.msg("Satanaz, é você?")
+  arg0.msg("A bruxa te confunde com seu cãozinho, satanás, e decide abrir a porta.")
+
+
+classe s_chaves016
+herda b_chaves
+const s_titulo = "A lavanderia da vila"
+const dir_s = $s_chaves017
+const dir_l = $s_chaves012
+
+
+classe s_chaves017
+herda b_chaves
+const s_titulo = "o pátio da vila"
+const dir_n = $s_chaves016
+const dir_s = $s_chaves007
+const dir_l = $s_chaves011
+
+
+classe s_chaves018
+herda b_chaves
+const s_titulo = "Dentro da casa do seu madruga"
+const dir_sair = $s_chaves010
+const a_reset = "P 100 chaves002 0 0 1 h_socar=5,h_chutar=5\n\
+P 100 chaves003 0 0 1 h_chutar=4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_chaves002:objsolto.total < 1
+    criar("p_chaves002", este, 0, "h_socar=5,h_chutar=5")
+  fimse
+  se p_chaves003:objsolto.total < 1
+    criar("p_chaves003", este, 0, "h_chutar=4")
+  fimse
+
+
+classe s_chaves019
+herda b_chaves
+const s_titulo = "A entrada para o outro pátio"
+const dir_l = $s_chaves020
+const dir_o = $s_chaves014
+
+
+classe s_chaves020
+herda b_chaves
+const s_titulo = "O outro pátio da vila"
+const dir_o = $s_chaves019
+const s_reset = "S 100 chaves003 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_chaves003") && criar("i_chaves003", este, 1)

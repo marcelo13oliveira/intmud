@@ -1,0 +1,308 @@
+classe a_fim
+herda area
+const a_nome = "Reino da morte"
+
+func escr
+  casovar arg2
+  casose "cmd_chat"
+  casose "cmd_novatos"
+  casose "cmd_telepatia"
+  casose "cmd_schat"
+    arg0.msginv("Você está mort$s, como espera se comunicar com uma pessoa viva? " + arg0.descnom\
+e)
+    ret 1
+  casofim
+
+
+classe b_fim
+herda sala
+const s_falar = "Você tenta falar, mas as palavras se perdem pelo ar!"
+const s_fome = 1 # Fome e sede: 1 Ausente
+const s_item = 1
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const s_semmagia = 1 # Sem magia: Sim
+const s_terreno = 1
+const s_som = "fim"
+const s_area = "fim"
+const s_gritar = "Você tenta gritar, mas de sua boca saem apenas sopros de ar!"
+
+
+classe i_fim001
+herda comum_item
+const nome = "portal mágico"
+const descnome = "um portal mágico"
+const descpos = "um portal é revelado a sua frente."
+const i_pegar = "Você não pode pegar um portal mágico."
+const mantersala = 1 # Mantém na sala: Sim
+#
+
+func i_salaentrar
+  arg0.msg("Você atravessa o portal.")
+  ret $s_fim009
+
+
+classe i_fim002
+herda comum_item
+const nome = "fonte"
+const descnome = "uma fonte"
+const descpos = "Uma fonte está aqui, jorrando um líquido brilhante."
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_msgperso = "$P bebe da fonte sagrada da vida!"
+const i_pegar = "Você deixa suas mãos serem molhadas pela fonte."
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const m_atribs1 = "Rodeada por uma luz prateada"
+#
+
+func cmd_bebeu
+  arg0.msg("Você sente sangue fluindo novamente por suas veias e a vitalidade tomando conta de \
+si!")
+  $mens.p(arg0)
+  $mens.mvis1("\d=teleporter $P é envolvido por uma luz intensa!")
+  $mens.p(arg0)
+  $mens.mtodos2("Você começa a girar velozmente, e quando para, você se vê em:", "$P desapareceu \
+em um flash de luz!")
+  apagar(arg0.dentro2.objini("e_morte"))
+  arg0.mudadono($s_rio001)
+  ret 1
+
+
+classe s_fim001
+herda b_fim
+const s_titulo = "Morto"
+const s_desc = "\d=esqueleto a morte sorri e exclama animada:\n\
+Que ótimo, peguei mais uma alma para minha coleção!"
+const s_ocultar = 1
+# Altera completamente a descrição da sala
+const descsala = arg0.msexo ? "Você está morto." : "Você está morta."
+
+func cmd_salaperso # Personagem chegou
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou30
+  arg0.msg("\d=esqueleto a morte sorri e exclama animada: Que ótimo, peguei mais uma alma para a \
+minha coleção!")
+
+func entrou50
+  arg0.msg("Você está caindo...")
+
+func entrou80
+  arg0.msg("Plaft!")
+  criar("e_morte", arg0)
+  arg0.mudadono($s_fim004)
+  $mens.mvis1("", "$P caiu aqui de repente!")
+  arg0.posicao = 6
+
+
+classe s_fim002
+herda b_fim
+const s_titulo = "Salão de espera"
+const s_desc = "O chão está coberto por uma nuvem branca, de modo que você não consegue\n\
+ver onde pisa. Para todos os outros lugares que você olha, só vê o azul\n\
+celeste do céu. Há claridade, mas não é possível saber de onde vem."
+inttempo espera
+
+func cmd_salaperso # Personagem chegou
+  se espera == 0
+    espera = 10
+  fimse
+
+func espera_exec # Restaura a vida do jogador
+  listaitem item
+  ref r
+  epara item = dentro2.ini, item, item.depois
+    r = item.obj
+    se r.pvida < r.pvidamax / 2
+      r.pvida += 2, espera = 10
+    senao
+      r.mudadono($[r.var.z_salafim] ? $[r.var.z_salafim] : $s_casa001)
+    fimse
+  efim
+
+
+classe s_fim003
+herda b_fim
+const s_titulo = "Sem movimentação"
+const s_desc = "Essa sala bloqueia os comandos dos jogadores que estiverem nela,\n\
+exceto comandos de administração."
+
+func cmd_salaperso # Personagem chegou
+  misc:evento(arg0) # Receber eventos do personagem
+
+func cmd_escr
+  casovar arg2
+  casose "cmd_ver"
+  casose "cmd_olhar"
+  casose "cmd_inv"
+  casose "cmd_equip"
+  casose "cmd_quem"
+    ret
+  casofim
+  arg0.msg("Você está sem movimentação!")
+  ret 1
+
+
+classe s_fim004
+herda b_fim
+const s_titulo = "Caminhando sobre as nuvens"
+const s_desc = "Você está caminhando sobre uma superfície que mais parece ser formada por\n\
+algodões. Para todos os lados, só se vê uma densa névua. Você se sente leve\n\
+como uma pena aqui, como se não tivesse mais corpo."
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_fim005
+const dir_s = $s_fim004
+const dir_l = $s_fim005
+const dir_o = $s_fim004
+#
+
+func cmd_escr
+  casovar arg2
+  casose "adm_tele"
+    arg0.msg("morto.")
+  casofim
+
+
+classe s_fim005
+herda b_fim
+const s_titulo = "Caminhando sobre as nuvens"
+const s_desc = "Você está caminhando sobre uma superfície que mais parece ser formada por\n\
+algodões. Para todos os lados, só se vê uma densa névua. Você se sente leve\n\
+como uma pena aqui, como se não tivesse mais corpo."
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_fim006
+const dir_s = $s_fim004
+const dir_l = $s_fim006
+const dir_o = $s_fim004
+
+
+classe s_fim006
+herda b_fim
+const s_titulo = "Caminhando sobre as nuvens"
+const s_desc = "Você está caminhando sobre uma superfície que mais parece ser formada por\n\
+algodões. Para todos os lados, só se vê uma densa névua. Você se sente leve\n\
+como uma pena aqui, como se não tivesse mais corpo."
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_fim007
+const dir_s = $s_fim005
+const dir_l = $s_fim007
+const dir_o = $s_fim006
+
+
+classe s_fim007
+herda b_fim
+const s_titulo = "Caminhando sobre as nuvens"
+const s_desc = "Você está caminhando sobre uma superfície que mais parece ser formada por\n\
+algodões. Para todos os lados, só se vê uma densa névua. Você se sente leve\n\
+como uma pena aqui, como se não tivesse mais corpo."
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_fim012
+const dir_s = $s_fim006
+const dir_l = $s_fim008
+const dir_o = $s_fim006
+
+
+classe s_fim008
+herda b_fim
+const s_titulo = "Diante de um portal"
+const dir_n = $s_fim004
+const dir_s = $s_fim007
+const dir_l = $s_fim004
+const dir_o = $s_fim007
+const s_reset = "S 100 fim001 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_fim001") && criar("i_fim001", este, 1)
+
+
+classe s_fim009
+herda b_fim
+const s_titulo = "\d=portal01 Você entra no portal que lhe conduz para a restauração de sua \
+alma, e a junção dela a seu corpo terrestre, dando-lhe mais uma chance de vida. Lembre-se. O \
+mundo lá fora precisa de você para exterminar os inimigos! A fonte da vida."
+const s_reset = "S 100 fim002 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_fim002") && criar("i_fim002", este, 1)
+
+
+classe s_fim010
+herda b_fim
+const s_titulo = "Túnel"
+const s_desc = "Ao chegar nesse estranho lugar, você abre os olhos e olha em volta, sem entender \
+direito o que aconteceu e como chegou aqui.\n\
+Aos poucos, sua mente começa clarear e você consegue lembrar-se de alguns segundos atrás.\n\
+De repente, você percebe que suas habilidades se foram e entende que sua vida passada também, \
+dando lugar a uma nova vida cheia de descobertas, aventuras, perigos e é claro, muitos inimigos \
+perigosos pela frente!"
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_midgaard001
+#
+
+func cmd_salaperso
+  se arg0.tipo1 == "vampiro"
+    arg0.var.h_sugar = 8
+  fimse
+#
+
+func cmd_mover
+  se arg2 == "n"
+    $mens.p(arg0)
+    $mens.mvis1("$P caminha na direção de uma luz intensa, que por instantes cega seus olhos!")
+    arg0.mudadono(dir_n)
+    apagar(arg0.dentro2.objini("e_evento"))
+    ret 1
+  fimse
+
+
+classe s_fim011
+herda b_fim
+const s_titulo = "Caminhando sobre as nuvens"
+
+
+classe s_fim012
+herda b_fim
+const s_titulo = "Caminhando sobre as nuvens."
+const s_desc = "Você está caminhando sobre uma superfície que mais parece ser formada por\n\
+algodões. Para todos os lados, só se vê uma densa névua. Você se sente leve\n\
+como uma pena aqui, como se não tivesse mais corpo."
+const dir_n = $s_fim013
+const dir_s = $s_fim007
+const dir_l = $s_fim004
+const dir_o = $s_fim005
+
+
+classe s_fim013
+herda b_fim
+const s_titulo = "Caminhando sobre as nuvens."
+const s_desc = "Você está caminhando sobre uma superfície que mais parece ser formada por\n\
+algodões. Para todos os lados, só se vê uma densa névua. Você se sente leve\n\
+como uma pena aqui, como se não tivesse mais corpo."
+const dir_n = $s_fim008
+const dir_s = $s_fim012
+const dir_l = $s_fim014
+const dir_o = $s_fim007
+
+
+classe s_fim014
+herda b_fim
+const s_titulo = "Caminhando sobre as nuvens."
+const s_desc = "Você está caminhando sobre uma superfície que mais parece ser formada por\n\
+algodões. Para todos os lados, só se vê uma densa névua. Você se sente leve\n\
+como uma pena aqui, como se não tivesse mais corpo."
+const dir_n = $s_fim005
+const dir_s = $s_fim015
+const dir_l = $s_fim006
+const dir_o = $s_fim013
+
+
+classe s_fim015
+herda b_fim
+const s_titulo = "Caminhando sobre as nuvens."
+const s_desc = "Você está caminhando sobre uma superfície que mais parece ser formada por\n\
+algodões. Para todos os lados, só se vê uma densa névua. Você se sente leve\n\
+como uma pena aqui, como se não tivesse mais corpo."
+const dir_n = $s_fim014
+const dir_s = $s_fim008

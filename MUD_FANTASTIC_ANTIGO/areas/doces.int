@@ -1,0 +1,151 @@
+classe a_doces
+herda area
+
+
+classe b_doces
+herda sala
+const s_area = "doces"
+
+
+classe i_doces001
+herda comum_itemgrupo
+const nome = "bem casado"
+const descnome = "um bem casado"
+const descpos = "30"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 30
+const f_sede = 7
+const f_msgperso = "$P saboreia prazerosamente um delicioso bem casado, lambendo o doce de leite \
+dos lábios."
+const valor = 1500
+
+
+classe i_doces002
+herda comum_itemperso
+const nome = "caixa de bem casados"
+const ident = "caixa"
+const descnome = "uma caixa de bem casados"
+const i_itens = "doces001"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const objmax = 50
+const pesoobj = 5000
+const valor = 8250
+const volobj = 1000
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_ini
+  criar("i_doces001", este, 50)
+#
+
+func cmd_pegouobj
+  se arg1 == este && dentro1.total(arg2) == 0
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos1("Por não ter mais nenhuma utilidade, $P atira $o em uma lixeira, descartando-$u\
+.")
+    apagar(este)
+  fimse
+
+
+classe i_doces003
+herda comum_itemgrupo
+const nome = "queijadinha"
+const descnome = "uma queijadinha"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 30
+const f_msgperso = "$P Delicia-se ao saborear uma doce queijadinha, dando um largo sorriso de \
+satisfação."
+const f_msgoutros = "$P delicia-se ao saborear uma doce queijadinha, sorrindo de satisfação."
+const valor = 500
+
+
+classe i_doces004
+herda comum_itemperso
+const nome = "pote de queijadinha"
+const ident = "pote"
+const descnome = "um pote de queijadinhas"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const pesoobj = 5000
+const valor = 8840
+const volobj = 1000
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_ini
+  criar("i_doces003", este, 50)
+#
+
+func cmd_pegouobj
+  se arg1 == este && dentro1.total(arg2) == 0
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos1("Por não ter mais utilidade, $P descarta o pote vazio de queijadinhas em uma \
+lixeira.")
+    apagar(este)
+  fimse
+
+
+classe i_doces005
+herda comum_itemperso
+const nome = "caixa de beijinhos"
+const ident = "caixa beijinhos"
+const descnome = "uma caixa de beijinhos"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const pesoobj = 5000
+const valor = 8550
+const volobj = 1000
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_ini
+  criar("i_festa003", este, 50)
+#
+
+func cmd_pegouobj
+  se arg1 == este && dentro1.total(arg2) == 0
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos1("Por não ter mais utilidade, $P descarta a caixa em uma lixeira.")
+    apagar(este)
+  fimse
+
+
+classe i_doces006
+herda comum_itemperso
+const nome = "pote de cajuzinhos"
+const ident = "pote cajuzinhos"
+const descnome = "um pote de cajuzinhos"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const pesoobj = 5000
+const valor = 9000
+const volobj = 1000
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_ini
+  criar("i_doces007", este, 50)
+#
+
+func cmd_pegouobj
+  se arg1 == este && dentro1.total(arg2) == 0
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos1("Por não ter mais utilidade, $P descarta o pote em uma lixeira.")
+    apagar(este)
+  fimse
+
+
+classe i_doces007
+herda comum_itemgrupo
+const nome = "cajuzinho"
+const ident = "delicioso cajuzinho"
+const descnome = "um delicioso cajuzinho"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 20
+const f_msgperso = "$P põe um cajuzinho na boca e começa a degustá-lo lentamente, deliciando-se \
+com seu sabor adocicado."
+const pesoobj = 100
+const valor = 500
+const volobj = 50

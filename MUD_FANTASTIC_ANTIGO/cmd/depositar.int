@@ -1,0 +1,43 @@
+classe cmd_depositar
+herda comando_comum
+
+func escr
+  se !arg0.dono.dentro1.objini("i_templo022")
+    ret arg0.msg("não a caixa eletrônico por perto")
+  fimse
+  se arg1 == "tudo"
+    ret !arg0.var.z_moedas_, arg0.msg("Você não possui moedas para depositar.")
+    arg0.msg("Você deposita " + arg0.var.z_moedas_ + " moedas em sua conta bancária.")
+    $mens.p(arg0)
+    $mens.mvis2("", "$P faz um depósito no caixa eletrônico.")
+    arg0.var.z_saldo_ += arg0.var.z_moedas_
+    arg0.var.z_moedas_ = 0
+    ret 1
+  fimse
+  ret txt(intpos(arg1)) != arg1, arg0.msg("Digite a quantidade de moedas que deseja depositar.")
+  se arg1 == 0
+    arg0.msg("Não tem como depositar 0 moedas de ouro!")
+    ret 1
+  fimse
+  se arg1 == 1
+    se arg0.var.z_moedas_ < 1
+      arg0.msg("Você não possui uma moeda.")
+      ret 1
+    fimse
+    arg0.var.z_moedas_ = -1
+    arg0.var.z_saldo_ += 1
+    $mens.p(arg0)
+    $mens.mvis2("$P deposita uma moeda em sua conta bancária.", "$P faz um depósito no caixa \
+eletrônico.")
+    ret 1
+  fimse
+  se arg0.var.z_moedas_ < arg1
+    arg0.msg("Você não possui " + arg1 + " moedas.")
+    ret 1
+  fimse
+  arg0.var.z_saldo_ += arg1
+  arg0.var.z_moedas_ -= arg1
+  arg0.msg("Você deposita " + arg1 + " moedas em sua conta bancária.")
+  $mens.p(arg0)
+  $mens.mvis2("", "$P faz um depósito no caixa eletrônico.")
+  ret 1

@@ -1,0 +1,57 @@
+classe i_carta
+herda comum_itemgrupo
+const nome = var.z_titulo ? var.z_titulo : "folha de papel"
+const descnome = var.z_titulo ? var.z_titulo : "uma folha de papel"
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 500
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "apagar"
+    arg0.msg("Você apaga todo o conteúdo da carta.")
+    var.z_texto = ""
+    ret 1
+  fimse
+  se txt1(arg1) == "esc" || txt1(arg1) == "escrever"
+    refvar item = txtsub(arg1, 1, 1)
+    refvar i = misc:itemdentro(arg0, item)
+    ret !i, arg0.msg("Você não tem isso para escrever.")
+    ret txt(i) != "i_carta", arg0.msg("Não se pode escrever em " + i.descnome + ".")
+    txt100 lin
+    ret i != este, nulo
+    lin = txtsub(arg1, 2)
+    ret inttotal(lin) > 80, arg0.msg("A linha não pode conter mais de 80 caracteres.")
+    var.z_texto = var.z_texto ? var.z_texto + "\n" + lin : lin
+    $mens.p(arg0, nulo, este)
+    $mens.mvis1("$P escreve algo $e $o.")
+    ret 1
+  senao txt1(arg1) == "titulo"
+    refvar item = txtsub(arg1, 1, 1)
+    refvar i = misc:itemdentro(arg0, item)
+    ret !i, arg0.msg("Você não possui " + item + ".")
+    ret txt(i) != "i_carta", arg0.msg("Só pode alterar títulos de folhas.")
+    ret i != este, nulo
+    txt100 lintitulo
+    lintitulo = txtsub(arg1, 2)
+    ret inttotal(lintitulo) > 200, arg0.msg("O título não pode passar de 200 caracteres.")
+    var.z_titulo = lintitulo
+    arg0.msg(var.z_titulo ? "título da carta alterado." : "título da carta apagado.")
+    ret 1
+  senao txt1(arg1) == "ler"
+    refvar ler = misc:itemdentro(arg0, txt2(arg1))
+    ret ler != este, nulo
+    $mens.p(arg0, nulo, este)
+    $mens.mvis2("", "$P lê o conteúdo $d $o.")
+    arg0.msg(var.z_titulo ? var.z_titulo : "Sem título")
+    arg0.msg("______________________")
+    arg0.msg2(var.z_texto)
+    ret 1
+  senao arg1 == "fechar carta"
+    ret 1
+  fimse

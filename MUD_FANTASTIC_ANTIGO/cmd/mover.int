@@ -1,0 +1,600 @@
+classe comando_mover
+herda comando_comum
+const m_entra1 = "$P chegou."
+const m_entra2 = m_entra1
+const m_entra3 = m_entra1
+const m_sai1 = "$P foi embora."
+const m_sai2 = m_sai1
+const m_sai3 = m_sai1
+const m_fugir = "$P fugiu."
+const dir = ""
+listaobj lseg # Para não seguir ciclicamente
+int8 andou # Se conseguiu andar (deve fechar a porta)
+txt300 abriu1 # Mensagem, se abriu a porta da casa
+txt300 abriu2
+
+func escr # Executa o comando
+# arg0 = personagem
+# arg1 = o que digitou após a direção
+  $comando_mover.lseg.limpar
+  $comando_mover.andou = 0
+  ref sala = arg0.dono
+# Anda
+  txt100 dir1
+  se !arg0.jog || rand($miscfome.bebedir, $miscfome.cheio) > arg0.p_bebida
+    dir1 = dir
+    refvar saladest = arg0.dono.dirsala(dir1, arg0)
+    ret !mover(arg0, saladest, nulo, arg0.dono.diritem(dir1, arg0)), nulo
+  senao # Bêbado andando em uma direção aleatória
+    dir1 = txt(fugirdir(arg0)) ?? dir
+    refvar saladest = arg0.dono.dirsala(dir1, arg0)
+    ret !$cmd_[dir1].mover(arg0, saladest), nulo
+  fimse
+# Fecha a porta
+  se sala.fecha_[dir1] && sala.porta_[dir1] < 2 && $comando_mover.andou
+    refvar m = sala.porta_[dir1] < 2 ? "\d=fporta $M se $2."
+    sala.mudaporta(dir1, sala.tranc_[dir1](arg0) == 2 ? 3 : 2, m, m)
+  fimse
+# Próximo comando
+  arg1 && arg0.sock.comandos.addini(arg1)
+
+func mover # Personagem anda em uma direção
+# arg0 = personagem
+# arg1 = sala destino (se não for sala, não deixa prosseguir nessa direção)
+# arg2 = item aonde está entrando (na sala origem) ou nulo
+# arg3 = item de onde está saindo (na sala destino) ou nulo
+# Retorna 1 se conseguiu mover ou 0 se não conseguiu
+  refvar perm_msg = $perm_[arg0.jogperm].andar
+  se perm_msg
+    $mensjog.msg(perm_msg, arg0)
+    ret 0
+  fimse
+  listaobj l
+  ref s1 = arg0.dono # Sala aonde está
+  debug dbg
+  dbg.ini
+  $comando_mover.lseg.addfim(arg0)
+  abriu1 = abriu2 = ""
+  se !arg1.s_sala
+    $mens.p(arg0)
+    $mens.mens = txttroca(txtsub($cmd_[dir].m_sai2, 3), "$m", "")
+    se dir == "b"
+      $mens.mtodos1("$P tropeça nos próprios pés, ao tentar descer.")
+    senao dir == "c"
+      $mens.mtodos1("$P levanta um pé, na intenção de subir, mas logo percebe que não dá e acaba \
+quase caindo.")
+    senao
+      $mens.mtodos1("$P bate a cabeça na parede ao tentar seguir para $m.")
+    fimse
+    ret 0
+  senao !arg2 && s1.porta_[dir] & 3 >= 2 && !arg0.j_imortal
+    ret !s1.socktot, 0
+    refvar casa = $c_[s1.fechadura_[dir](arg0)]
+    refvar cod = casa.chave
+    se !cod
+      arg0.msg($mens_porta.mens("$P est$o fechad$a.", s1, dir))
+      ret 0
+    fimse
+    listaitem i
+    epara i = arg0.dentro1.ini, i, i.depois
+      sair cod == i.obj.i_chave && i.obj.visivel(arg0)
+    efim
+    se !i
+      arg0.msg($mens_porta.mens("$P est$o fechad$a.", s1, dir))
+      ret 0
+    fimse
+    casovar casa.infotaxa
+    casose "2" # Casa bloqueada por falta de pagamento
+      $mens.p(arg0)
+      $mens.msginv(config:casamsgbloq, arg0)
+      ret 0
+    casose "1" # Atrasou pagamento da taxa
+      $mens.p(arg0)
+      $mens.msginv(config:casamsgaviso, arg0)
+    casofim
+    abriu1 = config:casaabriu1
+    abriu2 = config:casaabriu2
+    abriu2 && (abriu2 += "\n")
+  senao arg2 && arg2.i_aberto > 2 && !arg0.j_imortal
+    arg0.msg(txtcopiamai(arg2.descnome, "A") + " está fechad" + (item.msexo ? "o." : "a."))
+    ret 0
+  senao !arg0.cabedentro(arg1)
+    arg0.msg("Não tem espaço para seguir nessa direção.")
+    ret 0
+  senao !arg2 && s1.voar_[dir](arg0) && !(arg0.bitver & 512 || arg0.bitinv & 48)
+    arg0.msg("Você não consegue porque não está flutuando.")
+    ret 0
+  fimse
+  uint8 total = s1.totalmove + arg1.totalmove
+  !s1.visivel(arg0) && (total *= 2) # No escuro gasta mais movimentos
+  total *= (2 + $miscfome.f.[arg0.p_sede] + $miscfome.f.[arg0.p_fome]) / 2
+  (arg0.bitver & 512 || arg0.bitinv & 48) && (total /= 2) # Flutuando gasta menos movimentos
+  se arg0.pmove < intdiv((total + 1) / 2)
+    arg0.msg("Você está cansad" + (arg0.msexo ? "o" : "a") + " demais.")
+    ret 0
+  fimse
+  epara l.addfim(arg0.evento), l, l.ini.remove
+    ret l.objini.cmd_mover(arg0, s1, dir, arg0, arg1, arg2, arg3), 0
+  efim
+  epara l.addfim(s1.evento), l, l.ini.remove
+    ret l.objini.cmd_mover(arg0, s1, dir, s1, arg1, arg2, arg3), 0
+  efim
+  epara l.addfim(arg3.evento), l, l.ini.remove
+    ret l.objini.cmd_mover(arg0, s1, dir, arg3, arg1, arg2, arg3), 0
+  efim
+  epara l.addfim(arg1.evento), l, l.ini.remove
+    ret l.objini.cmd_moverdest(arg0, s1, dir, arg1, arg1, arg2, arg3), 0
+  efim
+  epara l.addfim(arg2.evento), l, l.ini.remove
+    ret l.objini.cmd_moverdest(arg0, s1, dir, arg2, arg1, arg2, arg3), 0
+  efim
+  $comando_mover.andou = 1
+  !arg0.j_imortal && (arg0.pmove -= intdiv((total + 1) / 2))
+  arg0.p_espera = intmin(30, total ?? 1) * 2
+  se !(s1.socktot || arg1.socktot) # Não tem jogador por perto
+    arg0.mudadono(arg1)
+  senao arg0.p_bebida >= $miscfome.bebedir - rand(20) # Cambaleando não anda em silêncio
+    $mens.p(arg0) + $mens.mvis2(abriu1, abriu2 + m_sai4)
+    arg0.mudadono(arg1)
+    $mens.p(arg0) + $mens.mvis2("", m_entra4)
+  senao arg0.bitinv & 48 # Voando ou voando alto
+    mover2(arg0, arg1, arg2, arg3, abriu2 + m_sai3, m_entra3)
+  senao arg0.bitver & 0x200 # Flutuando
+    mover2(arg0, arg1, arg2, arg3, abriu2 + m_sai2, m_entra2)
+  senao arg0.p_montar
+    mover2(arg0, arg1, arg2, arg3, abriu2 + m_sai5, m_entra5)
+  senao arg0.p_rastejar
+    mover2(arg0, arg1, arg2, arg3, abriu2 + m_sai6, m_entra6)
+  senao txt(arg0) == "p_templo012"
+    mover2(arg0, arg1, arg2, arg3, abriu2 + m_sai7, m_entra7)
+  senao # Não está voando nem flutuando
+    mover2(arg0, arg1, arg2, arg3, abriu2 + m_sai1, m_entra1)
+  fimse
+  epara l.addfim(arg0.evento), l, l.ini.remove
+    l.objini.cmd_moveu(arg0, arg1, dir, arg0)
+  efim
+  epara l.addfim(arg1.evento), l, l.ini.remove
+    l.objini.cmd_moveu(arg0, arg1, dir, arg1)
+  efim
+# Checa se morre ao entrar
+  casovar arg1.s_morre(arg0)
+  casose "1" # Morre
+    sair arg0.j_imortal
+    arg0.morreu
+    ret 0
+  casose "2" # Perde itens e dinheiro e morre
+    sair arg0.j_imortal
+    arg0.var.z_moedas = ""
+  casose "3" # Perde itens e morre
+    sair arg0.j_imortal
+    epara l.addfim(arg0.dentro1, arg0.dentro2), l, l.ini.remove
+      l.objini.item && !l.objini.manterperso && apagar(l.objini)
+    efim
+    arg0.morreu
+    ret 0
+  casose "4" # Perde dinheiro e morre
+    sair arg0.j_imortal
+    arg0.var.z_moedas = ""
+    arg0.morreu
+    ret 0
+  casofim
+# Seguir
+  epara l.addfim(arg0.lseguir), l, l.ini.remove
+    continuar l.objini.posicao < 8 || l.objini.dono != s1
+    continuar $comando_mover.lseg.possui(l.objini)
+    continuar !arg0.visivel(l.objini) || !s1.visivel(l.objini)
+    l.objini.msg("Você segue " + arg0.descnome + ".")
+    mover(l.objini, arg1, arg2, arg3)
+  efim
+  ret 1
+
+func mover2 # Chamado por mover, para mudar de sala enviando mensagem
+# arg0 = personagem
+# arg1 = sala destino
+# arg2 = item aonde está entrando (na sala origem) ou nulo
+# arg3 = item de onde está saindo (na sala destino) ou nulo
+# arg4 = mensagem saiu da sala origem
+# arg5 = mensagem entrou na sala destino
+# abriu1 = mensagem para o personagem
+  listaobj l
+  $mens.p(arg0, nulo, arg2)
+  abriu1 && $mens.msgvis(abriu1, arg0)
+  refvar ssai = arg0.bitinv & 0x30 ? arg0.p_som_voasai : arg0.p_som_sai
+  refvar sent = arg0.bitinv & 0x30 ? arg0.p_som_voaentra : arg0.p_som_entra
+  se arg0.bitver & 256 # Anda em silêncio
+    refvar msai = txttroca(arg4, "$m", arg2 ? " $e $o em silêncio" : " em silêncio")
+    refvar ment = arg3 ? "$P saiu $d $o em silêncio." : txttroca(arg5, "$m", " em silêncio")
+    l.addfim(arg0.dono.dentro2)
+    epara l.remove(arg0), l, l.ini.remove
+      l.objini.bitver & 0x1000 && $mens.msgsomvis(msai, ssai, l.objini)
+    efim
+    arg0.mudadono(arg1)
+    $mens.p(arg0, nulo, arg3)
+    l.addfim(arg0.dono.dentro2)
+    epara l.remove(arg0), l, l.ini.remove
+      l.objini.bitver & 0x1000 && $mens.msgsomvis(ment, sent, l.objini)
+    efim
+  senao
+    refvar msai = txttroca(arg4, "$m", arg2 ? " $e $o" : "")
+    refvar ment = arg3 ? "$P saiu $d $o." : txttroca(arg5, "$m", "")
+    $mens.mvis2som(msai, ssai)
+    arg0.mudadono(arg1)
+    $mens.p(arg0, nulo, arg3)
+    $mens.mvis2som(ment, sent)
+  fimse
+
+func fugirdir # Obtém direção para onde pode fugir
+# Entrada: arg0 = personagem
+# Retorna: direção ou "" se não há para onde fugir
+  refvar dono = ref(arg0.dono)
+  txt100 t
+  prog p
+  epara p.inifunctudo(dono, "dir_"), p.lin, p.depois
+    continuar !arg0.cabedentro(dono.[p.texto](arg0))
+    refvar y = txt(p.texto, 4)
+    !dono.fugir_[y](arg0) && int(dono.porta_[y]) < 2 && (t += y + " ")
+  efim
+  ret t ? txtsub(t, rand(intsub(t)), 1) : ""
+
+
+classe cmd_n
+herda comando_mover
+const m_entra1 = "$P chegou do sul$m."
+const m_entra2 = "$P flutuou do sul$m."
+const m_entra3 = "$P voou do sul$m."
+const m_entra4 = "$P chegou do sul cambaleando."
+const m_entra6 = "$P rastejou do sul."
+const m_entra7 = "$P engatinhou do sul."
+const m_entra5 = "$P cavalgou do sul."
+const m_sai1 = "$P foi para o norte$m."
+const m_sai2 = "$P flutuou para o norte$m."
+const m_sai3 = "$P voou para o norte$m."
+const m_sai4 = "$P foi para o norte cambaleando."
+const m_sai5 = "$P cavalgou para o norte."
+const m_sai6 = "$P rastejou para o norte."
+const m_sai7 = "$P engatinhou para o norte."
+const m_fugir = "$P fugiu para o norte."
+const m_porta = "a porta norte"
+const dir = "n"
+const dirsai = "o norte"
+const direntra = "do sul"
+
+
+classe cmd_s
+herda comando_mover
+const m_entra1 = "$P chegou do norte$m."
+const m_entra2 = "$P flutuou do norte$m."
+const m_entra3 = "$P voou do norte$m."
+const m_entra4 = "$P chegou do norte cambaleando."
+const m_entra5 = "$P cavalgou do norte."
+const m_entra6 = "$P rastejou do norte."
+const m_entra7 = "$P engatinhou do norte."
+const m_sai1 = "$P foi para o sul$m."
+const m_sai2 = "$P flutuou para o sul$m."
+const m_sai3 = "$P voou para o sul$m."
+const m_sai4 = "$P foi para o sul cambaleando."
+const m_sai5 = "$P cavalgou para o sul."
+const m_sai6 = "$P rastejou para o sul."
+const m_sai7 = "$P engatinhou para o sul."
+const m_fugir = "$P fugiu para o sul."
+const m_porta = "a porta sul"
+const dir = "s"
+const dirsai = "o sul"
+const direntra = "do norte"
+
+
+classe cmd_l
+herda comando_mover
+const m_entra1 = "$P chegou do oeste$m."
+const m_entra2 = "$P flutuou do oeste$m."
+const m_entra3 = "$P voou do oeste$m."
+const m_entra4 = "$P chegou do oeste cambaleando."
+const m_entra5 = "$P cavalgou do oeste."
+const m_entra6 = "$P rastejou do oeste."
+const m_entra7 = "$P engatinhou do oeste."
+const m_sai1 = "$P foi para leste$m."
+const m_sai2 = "$P flutuou para leste$m."
+const m_sai3 = "$P voou para leste$m."
+const m_sai4 = "$P foi para leste cambaleando."
+const m_sai5 = "$P cavalgou para leste."
+const m_sai7 = "$P engatinhou para leste."
+const m_sai6 = "$P rastejou para leste."
+const m_fugir = "$P fugiu para leste."
+const m_porta = "a porta leste"
+const dir = "l"
+const dirsai = "leste"
+const direntra = "do oeste"
+
+
+classe cmd_e
+herda comando_comum
+const objcmd = $cmd_l.objcmd(arg0)
+
+
+classe cmd_o
+herda comando_mover
+const m_entra1 = "$P chegou do leste$m."
+const m_entra2 = "$P flutuou do leste$m."
+const m_entra3 = "$P voou do leste$m."
+const m_entra4 = "$P chegou do leste cambaleando."
+const m_entra6 = "$P rastejou do leste."
+const m_entra7 = "$P engatinhou do leste."
+const m_entra5 = "$P cavalgou do leste."
+const m_sai1 = "$P foi para oeste$m."
+const m_sai2 = "$P flutuou para oeste$m."
+const m_sai3 = "$P voou para oeste$m."
+const m_sai4 = "$P foi para oeste cambaleando."
+const m_sai5 = "$P cavalgou para o oeste."
+const m_sai6 = "$P rastejou para o oeste."
+const m_sai7 = "$P engatinhou para o oeste."
+const m_fugir = "$P fugiu para oeste."
+const m_porta = "a porta oeste"
+const dir = "o"
+const dirsai = "oeste"
+const direntra = "do leste"
+
+
+classe cmd_w
+herda comando_comum
+const objcmd = $cmd_o.objcmd(arg0)
+
+
+classe cmd_c
+herda comando_mover
+const m_entra1 = "$P chegou de baixo$m."
+const m_entra2 = "$P flutuou de baixo$m."
+const m_entra3 = "$P voou de baixo$m."
+const m_entra4 = "$P chegou de baixo cambaleando."
+const m_entra5 = "$P cavalgou de baixo."
+const m_entra6 = "$P rastejou de baixo."
+const m_entra7 = "$P engatinhou de baixo."
+const m_sai1 = "$P subiu$m."
+const m_sai2 = "$P flutuou para cima$m."
+const m_sai3 = "$P voou para cima$m."
+const m_sai4 = "$P subiu cambaleando."
+const m_sai5 = "$P cavalgou para cima."
+const m_sai6 = "$P rastejou para cima."
+const m_sai7 = "$P engatinhou para cima."
+const m_fugir = "$P fugiu para cima."
+const m_porta = "a passagem para cima"
+const dir = "c"
+const dirsai = "cima"
+const direntra = "de baixo"
+
+
+classe cmd_cima
+herda comando_comum
+const objcmd = $cmd_c.objcmd(arg0)
+
+
+classe cmd_u
+herda comando_comum
+const objcmd = $cmd_c.objcmd(arg0)
+
+
+classe cmd_b
+herda comando_mover
+const m_entra1 = "$P chegou de cima$m."
+const m_entra2 = "$P flutuou de cima$m."
+const m_entra3 = "$P voou de cima$m."
+const m_entra4 = "$P chegou de cima cambaleando."
+const m_entra5 = "$P cavalgou de cima."
+const m_entra6 = "$P rastejou de cima."
+const m_entra7 = "$P engatinhou de cima."
+const m_sai1 = "$P desceu$m."
+const m_sai2 = "$P flutuou para baixo$m."
+const m_sai3 = "$P voou para baixo$m."
+const m_sai4 = "$P desceu cambaleando."
+const m_sai5 = "$P cavalgou para baixo."
+const m_sai6 = "$P rastejou para baixo."
+const m_sai7 = "$P engatinhou para baixo."
+const m_fugir = "$P fugiu para baixo."
+const m_porta = "a passagem para baixo"
+const dir = "b"
+const dirsai = "baixo"
+const direntra = "de cima"
+
+
+classe cmd_baixo
+herda comando_comum
+const objcmd = $cmd_b.objcmd(arg0)
+
+
+classe cmd_d
+herda comando_comum
+const objcmd = $cmd_b.objcmd(arg0)
+
+
+classe cmd_ne
+herda comando_mover
+const m_entra1 = "$P chegou do sudoeste$m."
+const m_entra2 = "$P flutuou do sudoeste$m."
+const m_entra3 = "$P voou do sudoeste$m."
+const m_entra4 = "$P chegou do sudoeste cambaleando."
+const m_entra6 = "$P rastejou do sudoeste$m."
+const m_entra3 = "$P voou do sudoeste$m."
+const m_sai1 = "$P foi para o nordeste$m."
+const m_sai2 = "$P flutuou para o nordeste$m."
+const m_sai3 = "$P voou para o nordeste$m."
+const m_sai4 = "$P foi para o nordeste cambaleando."
+const m_sai5 = "$P cavalgou para o nordeste$m."
+const m_sai6 = "$P rastejou para o nordeste$m."
+const m_fugir = "$P fugiu para o nordeste."
+const m_porta = "a porta nordeste"
+const dir = "ne"
+const dirsai = "nordeste"
+const direntra = "do sudoeste"
+
+
+classe cmd_no
+herda comando_mover
+const m_entra1 = "$P chegou do sudeste$m."
+const m_entra2 = "$P flutuou do sudeste$m."
+const m_entra3 = "$P voou do sudeste$m."
+const m_entra4 = "$P chegou do sudeste cambaleando."
+const m_entra5 = "$P cavalgou do sudeste$m."
+const m_entra6 = "$P rastejou do sudeste$m."
+const m_sai1 = "$P foi para o noroeste$m."
+const m_sai2 = "$P flutuou para o noroeste$m."
+const m_sai3 = "$P voou para o noroeste$m."
+const m_sai4 = "$P foi para o noroeste cambaleando."
+const m_sai5 = "$P cavalgou para o noroeste$m."
+const m_sai6 = "$P rastejou para o noroeste$m."
+const m_fugir = "$P fugiu para o noroeste."
+const m_porta = "a porta noroeste"
+const dir = "no"
+const dirsai = "noroeste"
+const direntra = "do sudeste"
+
+
+classe cmd_nw
+herda comando_comum
+const objcmd = $cmd_no.objcmd(arg0)
+
+
+classe cmd_se
+herda comando_mover
+const m_entra1 = "$P chegou do noroeste$m."
+const m_entra2 = "$P flutuou do noroeste$m."
+const m_entra3 = "$P voou do noroeste$m."
+const m_entra4 = "$P chegou do noroeste cambaleando."
+const m_sai1 = "$P foi para o sudeste$m."
+const m_sai2 = "$P flutuou para o sudeste$m."
+const m_sai3 = "$P voou para o sudeste$m."
+const m_sai4 = "$P foi para o sudeste cambaleando."
+const m_fugir = "$P fugiu para o sudeste."
+const m_porta = "a porta sudeste"
+const dir = "se"
+const dirsai = "sudeste"
+const direntra = "do noroeste"
+
+
+classe cmd_so
+herda comando_mover
+const m_entra1 = "$P chegou do nordeste$m."
+const m_entra2 = "$P flutuou do nordeste$m."
+const m_entra3 = "$P voou do nordeste$m."
+const m_entra4 = "$P chegou do nordeste cambaleando."
+const m_entra5 = "$P cavalgou do nordeste$m."
+const m_entra6 = "$P rastejou do nordeste$m."
+const m_sai1 = "$P foi para o sudoeste$m."
+const m_sai2 = "$P flutuou para o sudoeste$m."
+const m_sai3 = "$P voou para o sudoeste$m."
+const m_sai4 = "$P foi para o sudoeste cambaleando."
+const m_sai5 = "$P cavalgou para o sudoeste$m."
+const m_sai6 = "$P rastejou para o sudoeste$m."
+const m_fugir = "$P fugiu para o sudoeste."
+const m_porta = "a porta sudoeste"
+const dir = "so"
+const dirsai = "sudoeste"
+const direntra = "do nordeste"
+
+
+classe cmd_sw
+herda comando_comum
+const objcmd = $cmd_so.objcmd(arg0)
+
+
+classe cmd_entrar
+herda comando_mover
+const m_entra1 = "$P entrou aqui$m."
+const m_entra2 = "$P flutuou de fora$m."
+const m_entra3 = "$P voou de fora$m."
+const m_entra4 = "$P entrou aqui cambaleando."
+const m_entra5 = "$P cavalgou de fora."
+const m_entra6 = "$P rastejou de fora."
+const m_sai1 = "$P entrou$m."
+const m_sai2 = "$P flutuou para dentro$m."
+const m_sai3 = "$P voou para dentro$m."
+const m_sai4 = "$P entrou cambaleando."
+const m_sai5 = "$P cavalgou para dentro."
+const m_sai6 = "$P rastejou para dentro."
+const m_fugir = "$P fugiu para dentro."
+const m_porta = "dentro"
+const dir = "entrar"
+
+func escr # Executa o comando
+# arg0 = personagem
+# arg1 = o que digitou após a direção
+  ret !arg1, comando_mover:escr(arg0, arg1)
+# Obtém o item e a sala
+  ref item = misc:itemdono(arg0, txt1(arg1))
+  ref dest = item.i_salaentrar
+  ret !item, arg0.msg("Você não vê " + arg1 + ".")
+  $mens.p(arg0, nulo, item)
+# Obtém a porta
+  se !dest || txt2(arg1)
+    listaitem i # Para verificar as salas
+    int8 portas # Número de portas
+    epara i = item.dentro2.ini, i, i.depois
+      portas += i.obj.s_sala && i.obj.s_entrada
+    efim
+    se portas == 1
+      epara i = item.dentro2.ini, i, i.depois
+        sair i.obj.s_sala && i.obj.s_entrada
+      efim
+      dest = i.obj
+    senao portas > 1 && txt2(arg1)
+      nomeobj n
+      n.ini(txt2(arg1), 1)
+      epara i = item.dentro2.ini, i, i.depois
+        sair i.obj.s_sala && i.obj.s_entrada && n.nome(i.obj.s_entrada, 1)
+      efim
+      dest = i.obj
+      se !dest
+        $mens.mens = txt2(arg1)
+        ret $mens.msginv("Não é possível entrar $e $o por $M.", arg0)
+      senao int(dest.porta_sair) >= 2
+        $mens.mens = txt2(arg1)
+        ret $mens.msginv("A entrada $M $d $o está fechada.", arg0)
+      fimse
+    senao portas > 1
+      arg0.msg(txtcopiamai(item.descnome, "A") + " possui as seguintes entradas:")
+      epara i = item.dentro2.ini, i, i.depois
+        i.obj.s_sala && i.obj.s_entrada && arg0.msg(i.obj.s_entrada)
+      efim
+      ret
+    fimse
+  fimse
+# Checa se pode entrar
+  se !(dest.s_sala || dest.item && dest.dono.s_sala)
+    ret $mens.msginv("Não é possível entrar $e $o.", arg0)
+  senao item.i_aberto > 2 && !arg0.j_imortal
+    ret $mens.msginv("$O está fechad$s.", arg0)
+  fimse
+# Checa se está bêbado
+  se arg0.jog && rand($miscfome.bebedir, $miscfome.cheio) <= arg0.p_bebida
+    ret $mens.msginv("Você não consegue achar a entrada $d $o.", arg0)
+  fimse
+# Entra
+  $comando_mover.lseg.limpar
+  $comando_mover.andou = 0
+  se dest.item
+    ret !mover(arg0, dest.dono, item, dest)
+  senao
+    ret !mover(arg0, dest, item), nulo
+  fimse
+
+const dirsai = "dentro"
+const direntra = "de fora"
+
+
+classe cmd_sair
+herda comando_mover
+const m_entra1 = "$P chegou de dentro$m."
+const m_entra2 = "$P flutuou de dentro$m."
+const m_entra3 = "$P voou de dentro$m."
+const m_entra4 = "$P chegou de dentro cambaleando."
+const m_entra5 = "$P cavalgou de dentro."
+const m_entra6 = "$P rastejou de dentro."
+const m_sai1 = "$P saiu$m."
+const m_sai2 = "$P flutuou para fora$m."
+const m_sai3 = "$P voou para fora$m."
+const m_sai4 = "$P saiu cambaleando."
+const m_sai5 = "$P cavalgou para fora."
+const m_sai6 = "$P rastejou para fora."
+const m_fugir = "$P fugiu para fora."
+const m_porta = "fora"
+const dir = "sair"
+const dirsai = "fora"
+const direntra = "de dentro"

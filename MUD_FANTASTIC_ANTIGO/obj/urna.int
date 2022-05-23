@@ -1,0 +1,29 @@
+classe i_urna
+herda comum_item
+const nome = "urna eletrônic"
+const descnome = "Uma urna eletrônica"
+const descpos = "Uma urna eletrônica foi colocada sobre um suporte em um canto, para que os \
+jogadores possam fazer sua escolha na votação."
+const i_pegar = "Deixe a urna aí. Apenas faça sua escolha."
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const nomes = "Valente\nRock\nImperador\nVioleiro\nLuan"
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  nomeobj c
+  c.ini(txt1(arg1))
+  se c.nome("votar")
+    refvar num = txt2(arg1)
+    ret num > intsublin(nomes), arg0.msg("Digite votar, seguido de um número de 1 a " + intsublin\
+(nomes) + ".")
+    arg0.msg("Ok. Você votou em " + txtsublin(nomes, num - 1, 1) + ".")
+    var.z_[txts(txtsublin(nomes, num - 1, 1))]_ += 1
+    ret 1
+  fimse

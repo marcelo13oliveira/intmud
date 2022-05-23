@@ -1,0 +1,3721 @@
+classe cmd_adaga
+herda comando_ataque
+const nomevar = "h_ADAGA"
+const tipoalvo = 8 # Alvo: 8 Ataque automático
+const aulaini = 0
+const aulafim = 0
+const tipoarma = 1024 # Requer arma: 10-adaga
+const tipobonus = "assassino\nladrão"
+const valor = 1
+const msgatk0 = "\n\n\n\
+$P fura $a com $o, $m\n\n\
+Você fura $A com $O, $m.\n\
+$P fura você com $O, $m.\n\
+$P fura $A com $O.\n\
+$P perfura e mata $A com $O.\n\n\n\
+$P tenta furar $a com $o, mas erra\n\n\n\
+$P tenta furar $a com $o, sem sucesso"
+const msgatk1 = "\n\n\n\n\n\
+Você perfura a cabeça de $A com $O, $M.\n\
+$P perfura a sua cabeça com $O, $M.\n\
+$P perfura a cabeça de $A com $O.\n\
+Você faz uma perfuração mortal no crânio de $A com $O!\n\
+$P faz uma perfuração mortal em seu crânio com $O!\n\
+$P faz uma perfuração mortal no crânio de $A com $O!\n\
+Você tenta inutilmente acertar a cabeça de $A com $O.\n\
+$P tenta inutilmente acertar a sua cabeça com $O.\n\
+$P tenta inutilmente acertar a cabeça de $A com $O.\n\
+$P rela $o quando tentava perfurar $A."
+
+func cmd_atacar
+  ret defender(arg0, arg1), 1
+  fimse
+  ret desvgolpe(arg0, arg1), 1
+
+
+classe cmd_agilidade
+herda comando_ataque
+const nomevar = "h_Agilidade"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "agilidade"
+const c_move1 = 20
+const c_move2 = 10
+const aulaini = 30
+const aulafim = 30
+const precisao = 100
+const valor = 30
+
+
+classe cmd_ampliar_força
+herda comando_ataque
+const nomevar = "h_Ampliar força"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_cond = 2 # Condição: 2 Nenhuma condição
+const a_efeito1 = "ampliar força"
+const aulaini = 25
+const aulafim = 25
+const valor = 25
+const msgatk0 = "\n\n\n\n\n\n\n\n\
+$P ataca e mata $a, $m\n\n\n\
+$P ataca $a, errou\n\n\n\
+$P ataca $a, nada acontece"
+const txtajuda = "Habilidade Ampliar força:\n\
+O personagem afetado por essa habilidade fica com sua força, seu ataque e sua defesa ampliados.\n\
+Veja também:\n\
+Intimidar, envenenar."
+
+
+classe cmd_apunhalar
+herda comando_ataque
+const nomevar = "h_Apunhalar"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const c_espera = 5
+const c_move1 = 10
+const c_move2 = 5
+const ataque = 190
+const aulaini = 15
+const aulafim = 15
+const precisao = 100
+const tipoarma = 1032 # Requer arma: 3-Lâmina curta, 10-adaga
+const tipoatk = 3 # Tipo: 3 Perfurante
+const tipobonus = "assassino\nladrão\norc"
+const valor = 15
+const vel = 70
+const msgatk0 = "\n\n\n\
+$P ataca $a, $m\n\n\
+$P apunhala $a violentamente, $m.\n\
+Você é apunhalad$v por $P violentamente, $m\n\
+$P apunhala $A violentamente.\n\
+$A grita de dor enquanto você lhe apunhala violentamente, mas logo se cala e desfalece!\n\
+Você grita de dor enquanto $P lhe apunhala violentamente. A dor é enorme e você não aguenta e \
+cai ao chão, sem vida.\n\
+$a grita de dor enquanto $P lhe apunhala violentamente, mas logo se cala e desfalece!\n\
+$P tenta inutilmente apunhalar $a, que se desvia facilmente.\n\
+$P tenta inutilmente lhe apunhalar, mas você se desvia facilmente.\n\
+$P tenta inutilmente apunhalar $a, que se desvia facilmente.\n\
+$P apunhala $a, mas nada acontece!\n\
+$P lhe apunhala, mas nada acontece!\n\
+$P apunhala $a, mas nada acontece!"
+const msgatk1 = "\n\n\n\n\n\
+Você apunhala fortemente os braços de $A, $M.\n\
+$P apunhala fortemente os seus braços, $m.\n\
+$P apunhala fortemente os braços de $A."
+
+
+classe cmd_arma_exótica
+herda comando_ataque
+const nomevar = "h_arma_exótica"
+const tipoalvo = 8 # Alvo: 8 Ataque automático
+const aulaini = 55
+const aulafim = 55
+const tipoarma = 256 # Usa arma: 8-Arma exótica
+const valor = 60
+const msgatk0 = "\n\n\n\n\n\
+$P ataca $a, $m\n\n\n\
+$P ataca $a, $m\n\n\n\
+$P ataca $a, errou\n\n\n\
+$P ataca $a, nada acontece"
+
+func cmd_atacar
+  ret defender(arg0, arg1), 1
+  fimse
+  ret desvgolpe(arg0, arg1), 1
+
+
+classe cmd_arremessar
+herda comando_ataque
+const nomevar = "h_Arremessar"
+const c_move1 = 15
+const c_move2 = 1
+const ataque = 80
+const aulaini = 15
+const aulafim = 15
+const tipoatk = 0 # Normal
+const valor = 15
+const vel = 30
+const msgextra = "Golpe físico de força"
+const msgatk0 = "\n\n\n\
+$P se joga contra $a, $m\n\n\
+Você se joga brutalmente contra $A, $m.\n\
+$P se joga brutalmente contra você, $m.\n\
+$P se joga brutalmente contra $A.\n\
+Você se joga brutalmente contra $A, que não aguenta a pancada e cai sem vida!\n\
+$P se joga brutalmente contra você, que não aguenta a pancada e cai sem vida!\n\
+$P se joga brutalmente contra $A, que não aguenta a pancada e cai sem vida!\n\
+Você se joga brutalmente contra $A, mais erra por milímetros!\n\
+$P se joga brutalmente contra você, mais erra por milímetros!\n\
+$P se joga brutalmente contra $A, mais erra por milímetros!\n\
+$P se joga contra $a, nada acontece"
+
+
+classe cmd_ataque_concentrado
+herda comando_ataque
+const nomevar = "h_Ataque concentrado"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const c_move1 = 3000
+const c_move2 = 3000
+const ataque = 620
+const aulaini = 190
+const aulafim = 190
+const tipoarma = 2046 # Requer arma: 1-Varinha, 2-Cajado, 3-Lâmina curta, 4-Lâmina longa, 5-Maca \
+e Martelo, 6-Mangual, 7-Chicote e Corren
+const tipobonus = "ladrão"
+const valor = 190
+const vel = 90
+const msgatk0 = "$P eleva sua concentração ao máximo.\n\n\n\n\n\
+Após isso, você deposita todas as suas energias em um único golpe contra $A, $m\n\
+Após isso, $P deposita todas suas energias em um único ataque contra você,$M\n\
+Após isso, $P deposita todas as suas energias em um único ataque contra $A.\n\
+$P é tão preciso que leva $A à morte com um único golpe.\n\n\n\
+Um pequeno ruído faz com que $P perca a concentração e erre o seu golpe em $A.\n\n\n\
+$P não conseguiu se concentrar."
+
+
+classe cmd_ataque_furtivo
+herda comando_ataque
+const nomevar = "h_Ataque furtivo"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const c_move1 = 60
+const c_move2 = 60
+const ataque = 450
+const aulaini = 75
+const aulafim = 75
+const depende = "h_furtividade"
+const precisao = 100
+const tipoarma = 8 # Requer arma: 3-Lâmina curta
+const tipoatk = 0 # Tipo: 0 Contusão
+const tipobonus = "ladrao"
+const tipoperso = "assassino\nladrao"
+const valor = 70
+const vel = 905
+const msgatk0 = "\n\n\n\n\n\
+Com movimentos rápidos e silenciosos, você crava $O nas costas de $A, $m\n\
+Com movimentos rápidos e silenciosos, $P crava $O em suas costas, $m\n\
+Com movimentos rápidos e silenciosos, $P crava $O nas costas de $A.\n\
+Silenciosamente você crava $O nas costas de $A, causando-lhe morte imediata.\n\
+Silenciosamente $P crava $O nas suas costas, causando-lhe morte imediata.\n\
+Silenciosamente $P crava $O nas costas de $A, causando-lhe morte imediata.\n\
+$P faz muito barulho na tentativa de atacar $A."
+const txtajuda = "Ataque Furtivo\n\
+Nível: 75 para ladrão. Com um ataque forte e surpreso, o ladrão acerta a\n\
+adaga no alvo com toda a sua força, graças estar escondido, e o alvo não\n\
+preparado para receber um golpe tão poderoso."
+
+
+classe cmd_atordoar
+herda comando_ataque
+const nomevar = "h_Atordoar"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const a_efeito1 = "atordoado"
+const c_move1 = 51
+const c_move2 = 51
+const ataque = 305
+const aulaini = 80
+const aulafim = 80
+const depende = "h_lamina_longa"
+const precisao = 45
+const tipoarma = 16 # Requer arma: 4-Lâmina longa
+const tipoatk = 2 # Tipo: 2 cortante
+const tipobonus = "espadachim\nguerreiro"
+const tipoperso = "guerreiro"
+const valor = 1000
+const vel = 88
+const msgatk0 = "$P segura sua espada com as duas mãos.\n\n\n\
+$P ataca $a, $m\n\n\
+Você acerta o cabo de sua espada em $A, deixando-$t atorduad$t, $m.\n\
+$P acerta o cabo de sua espada em você, te deixando atordoad$s, $m.\n\
+$P acerta o cabo de sua espada em $A, atordoand-$t.\n\
+Você acerta o cabo de sua espada na cabeça de $A fortemente, que não aguenta e cai sem vida!\n\
+$P gargalha diabolicamente quando acerta a espada del$w em sua cabeça fortemente, e você cai sem \
+vida!\n\
+$P gargalha diabolicamente quando acerta a espada del$w na cabeça de $A fortemente, que não \
+resiste à pancada e morre!\n\
+Quando você tenta acertar o cabo de sua espada em $A, el$w se abaixa, desviando-se.\n\
+Você se abaixa, desviando-se da tentativa de $P te atordoar.\n\
+$A se abaixa, desviando-se da tentativa de $P atordoa-l$t.\n\
+$P ataca $a, nada acontece"
+
+
+classe cmd_Bater
+herda comando_ataque
+const nomevar = "h_Bater"
+const tipoalvo = 8 # Alvo: 8 Ataque automático
+const ataque = 100
+const precisao = 80
+const msgatk0 = "\n\n\n\
+$P acerta $A, $m.\n\
+$P acerta $A.\n\
+$P acerta $A, $M.\n\n\
+$P acerta $A.\n\
+$P acerta $A com tanta força que divide seu pescoço em dois.\n\
+$P acerta você com tanta força que divide seu pescoço em dois.\n\n\
+$P tenta acertar $A, mas erra.\n\n\n\
+$P não consegue acertar $A."
+
+func cmd_atacar
+  ret defender(arg0, arg1), 1
+  fimse
+  ret desvgolpe(arg0, arg1), 1
+
+
+classe cmd_bloquear
+herda comando_ataque
+const nomevar = "h_Bloquear"
+const msgatk0 = "\n\n\n\
+$P ataca $a, $m\n\n\
+$P ataca $a, $m\n\n\n\
+$P ataca e mata $a, $m\n\n\n\
+$P ataca $a, errou\n\n\n\
+$P ataca $a, nada acontece\n\n\n"
+
+
+classe cmd_braço_estrangulador
+herda comando_ataque
+const nomevar = "h_Braço estrangulador"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const a_batalha = 1 # Condição: 1 Durante a batalha
+const c_move1 = 80
+const c_move2 = 80
+const ataque = 410
+const valor = 90
+const vel = 80
+const msgatk0 = "Com uma velocidade imprecionante, $P avança em direção ao pescoço de $A, \
+segurando-o e dando um salto incrível.\n\
+Com uma velocidade imprecionante, $P avança em direção ao seu pescoço, segurando-$s e dando um \
+salto incrível.\n\n\n\n\
+Logo em seguida você começa a girar seus braços, e com uma força avassaladora lança $A em \
+direção ao solo, $m\n\
+Logo em seguida $P começa a girar seus braços, e com uma força avassaladora lança você em \
+direção ao solo, $m\n\
+Logo em seguida $P começa a girar seus braços, e com uma força avassaladora lança $A em direção \
+ao solo.\n\
+$P torce brutalmente o seu pescoço, e com força total $s arremessa contra o solo, fazendo com \
+que esmigalhe seus ossos.\n\n\
+$P torce brutalmente o pescoço de $A, e com força total $t arremessa contra o solo, fazendo com \
+que esmigalhe seus ossos.\n\
+$A é mais rápido do que você, e assim consegue escapar de sua tentativa de estrangular-l$t.\n\
+Você é mais rápido do que $P, e assim consegue escapar de sua tentativa de estrangulamento.\n\
+$A é mais rápido do que $P, e assim consegue se desviar da tentativa de estrangulamento del$w."
+
+
+classe cmd_brasa
+herda comando_ataque
+const nomevar = "h_Brasa"
+const c_mana1 = 30
+const c_mana2 = 20
+const a_efeito1 = "Queimando"
+const a_prob1 = 10
+const tipoatk = 4 # Ataque tipo: 4 Fogo
+const msgextra = "Pode causar queimaduras."
+const tipoalvo = 0 # Alvo: 0 Qualquer um; ataque
+
+
+classe cmd_cajado
+herda comando_ataque
+const nomevar = "h_cajado"
+const tipoalvo = 8 # Alvo: 8 Ataque automático
+const aulaini = 1
+const aulafim = 1
+const tipoarma = 4 # Usa arma: 2-Cajado
+const valor = 1
+const msgatk0 = "\n\n\n\
+$P lança um raio com um cajado em $a, $m\n\n\
+Você golpeia $A com $O, $M.\n\
+$P golpeia você com $O, $M.\n\
+$P golpeia $A com $O.\n\
+Você esmaga o crânio de $A com $o, levando-$t a morte!\n\
+$P esmaga o seu crânio com $o, levando-$s a morte!\n\
+$P esmaga o crânio de $A com $o, levando-$t a morte!\n\
+Você erra o corpo de $A com $O por milímitros!\n\
+$P erra o seu corpo com $o por milímitros!\n\
+$P erra o corpo de $A com $O por milímitros!\n\
+$P lança um raio com um cajado em $a mas nada acontece"
+
+func cmd_atacar
+  ret defender(arg0, arg1), 1
+  fimse
+  ret desvgolpe(arg0, arg1), 1
+
+
+classe cmd_capeta
+herda comando_ataque
+const nomevar = "h_Capeta"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const a_batalha = 0 # Condição: 0 Nenhuma
+const a_efeito1 = "confundir"
+const a_efeito2 = "atordoado"
+const a_prob1 = 100
+const c_move1 = 200
+const c_move2 = 200
+const ataque = 200
+const aulaini = 150
+const aulafim = 150
+const precisao = 100
+const tipoarma = 29 # Requer arma: 0-Sem armas, 2-Cajado, 3-Lâmina curta, 4-Lâmina longa
+const valor = 150
+const vel = 90
+const msgatk0 = "\n\n\n\n\n\
+\d=critico Você acerta $A bem forte com uma sequência furiosa de golpes!!!\n\
+\d=critico $P $t acerta bem forte com uma sequência furiosa de golpes!!!\n\
+\d=critico $P acerta $A bem forte com uma sequência furiosa de golpes!!!\n\
+O impacto do ataque é tão grande, que $P leva $A à morte com um único golpe.\n\n\n\
+$P não é rápido o bastante, e acaba errando seu golpe.\n\n\n\
+Não teve efeito."
+
+
+classe cmd_chicote_e_corrente
+herda comando_ataque
+const nomevar = "h_chicote_e_corrente"
+const tipoalvo = 8 # Alvo: 8 Ataque automático
+const aulaini = 21
+const aulafim = 21
+const tipoarma = 128 # Usa arma: 7-Chicote e Corrente
+const valor = 21
+const msgatk0 = "\n\n\n\
+$P ataca $a, $m\n\n\
+$P ataca $a, $m\n\n\n\
+$P ataca $a, $m\n\n\n\
+$P ataca $a, errou\n\n\n\
+$P ataca $a, nada acontece"
+
+func cmd_atacar
+  ret defender(arg0, arg1), 1
+  fimse
+  ret desvgolpe(arg0, arg1), 1
+
+
+classe cmd_choque
+herda comando_ataque
+const nomevar = "h_Choque"
+const tipoatk = 12 # Ataque tipo: 12 Elétrico
+const msgextra = "Dá uma descarta elétrica que pode paralisar."
+const a_efeito1 = "paralisado"
+const a_prob1 = 10
+const msgatk0 = "\n\n\n\
+$P dá um choque em $a, $m\n\n\
+$P dá um choque em $a, $m\n\n\n\
+$P dá um choque em $a, $m\n\n\n\
+$P erra um choque em $a, errou\n\n\n\
+$P dá um choque em $a, nada acontece"
+
+
+classe cmd_chutar
+herda comando_ataque
+const nomevar = "h_Chutar"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const c_move1 = 10
+const c_move2 = 1
+const ataque = 70
+const aulaini = 4
+const aulafim = 4
+const tipoatk = 0 # Normal
+const valor = 4
+const vel = 50
+const msgextra = "Golpe físico de força"
+const msgatk0 = "\n\n\n\
+$P chuta $a, $m\n\n\
+Você da um poderoso chute no peito de $A, $m.\n\
+$P da um poderoso chute em seu peito, $m.\n\
+$P da um poderoso chute no peito de $A.\n\
+Você da um poderoso chute que atravessa o peito de $A, levando-$t a morte!\n\
+$P da um poderoso chute que atravessa o seu peito, levando-$s a morte!\n\
+$P da um poderoso chute que atravessa o peito de $A, levando-$s a morte!\n\
+$P chuta $a, errou\n\n\n\
+$P mostra para $a como se chuta"
+
+
+classe cmd_chute_élfico
+herda comando_ataque
+const nomevar = "h_Chute élfico"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const ataque = 60
+const msgextra = "Consome 20 pontos de movimento. Se você não tiver movimento\n\
+suficiente, consome 20 pontos de vida.\n\
+Se usado contra elfos, é uma magia de cura.\n\
+Se usado contra anões, é um chute comum.\n\
+Contra outras raças, chuta e lança o efeito Dreno de Mana."
+const msgatk0 = "\n\n\n\
+$P chuta $a, $m\n\n\
+$P chuta $a, $m\n\n\n\
+$P chuta $a, $m\n\n\n\
+$P chuta $a, errou\n\n\n\
+$P mostra para $a como se chuta"
+
+func cmd_atacar # Vai atacar
+# Consome 20 pontos de movimentos. Se não tiver, consome 20 pontos de vida.
+# Nota: para consumir mana ao invés de movimentos, substituir pmove por pmana.
+  se arg0.pmove >= 20
+    arg0.pmove -= 20
+  senao arg0.pvida > 20
+    $mens.p(arg0)
+    arg0.msginv("Você se sente mais frac$s.")
+    arg0.pvida -= 20
+  senao
+    arg0.msg("Pontos de movimento e vida insuficientes.")
+    ret 1 # Cancela o ataque
+  fimse
+# Se for usado contra elfos, vira habilidade de cura
+  se arg1.tipo1 == "elfo"
+    $mens.p(arg0, arg1)
+    $mens.mtodos1("$P dá um chute direto e $a se sente melhor.")
+    arg1.pvida = intmin(arg1.pvida + 20, arg1.pvidamax)
+    arg1.acertapos(1) # Acerta posição de arg1
+    arg0.acertapos(1) # Checa se arg0 morreu e acerta posição de arg0
+    ret 1 # Cancela o ataque
+  fimse
+  ret desvgolpe(arg0, arg1), 1
+
+func cmd_atacou # Realizou o ataque
+  se !arg2.result && arg1.tipo1 != "anão"
+    criar("e_dreno_de_mana", arg1, 0) # Cria efeito Dreno de Mana nível 0 em arg1
+  fimse
+
+
+classe cmd_circundar
+herda comando_ataque
+const nomevar = "h_Circundar"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const a_batalha = 1 # Condição: 1 Durante a batalha
+const c_move1 = 150
+const c_move2 = 150
+const ataque = 430
+const aulaini = 100
+const aulafim = 100
+const depende = "h_furtividade\nh_golpe_traiçoeiro"
+const precisao = 99
+const tipoarma = 8 # Requer arma: 3-Lâmina curta
+const tipoatk = 3 # Tipo: 3 Perfurante
+const tipobonus = "assassino\nladrão\norc"
+const valor = 1000
+const msgextra = "Circundar\n\
+É um complemento da habilidade Golpe traiçoeiro, e essa habilidade Pode ser\n\
+usada somente na batalha. Com muita agilidade, o assassino apunhala as\n\
+costas do oponente usando toda a sua técnica de velocidade, tirando muita\n\
+vida.\n\
+Veja também: Habilidade Golpe traiçoeiro."
+const msgatk0 = "Com uma agilidade incrível $P aparece atrás de $A.\n\n\n\n\n\
+Após isso, você crava $O nas costas de $A, $m.\n\
+Após isso, $P crava $O em suas costas, $m.\n\
+Após isso, $P crava $O nas costas de $A.\n\
+Após isso, $P é tão preciso que faz com que $O atravesse o corpo de $A, causando-lhe morte \
+imediata.\n\n\n\
+$P não consegue ser rápido o bastante, e acaba errando seu golpe em $A.\n\n\n\
+Nada acontece."
+
+
+classe cmd_coice
+herda comando_ataque
+const nomevar = "h_Coice"
+const tipoalvo = 8 # Alvo: 8 Ataque automático
+const ataque = 100
+const vel = 66
+const msgatk0 = "\n\n\n\
+$P ataca $a, $m\n\n\
+Você da um fortíssimo coice em $A, $m.\n\
+$P da um fortíssimo coice em você, $m.\n\
+$P da um fortíssimo coice em $A.\n\
+Você da um fortíssimo coice em $A, que atraveça o peito del$w. R.I.T.\n\
+$P da um fortíssimo coice em você, que atraveça o seu peito. R.I.T\n\
+$P da um fortíssimo coice em $A, que atraveça o peito del$W, espalhando sangue para todos os \
+lados!\n\
+O seu coice passa raspando o peito de $A!\n\
+Ufa! O coice de $A passa raspando o seu peito.\n\
+O coice de $P passa raspando o peito de $A.\n\
+$P da um coice em $A, de nada adianta."
+
+
+classe cmd_confundir
+herda comando_ataque
+const nomevar = "h_Confundir"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "confundir"
+const c_move1 = 200
+const c_move2 = 200
+const ataque = 400
+const aulaini = 150
+const aulafim = 150
+const depende = "h_agilidade"
+const precisao = 100
+const tipoarma = 29 # Requer arma: 0-Sem armas, 2-Cajado, 3-Lâmina curta, 4-Lâmina longa
+const valor = 150
+const vel = 90
+const msgatk0 = "\n\n\n\n\n\
+Com movimentos rápidos, você acerta o cabo de $O na cabeça de $A, $m\n\
+Com movimentos rápidos, $P acerta o cabo de $O na sua cabeça, $m\n\
+Com movimentos rápidos, $P acerta o cabo de $O na cabeça de $A.\n\
+O impacto do ataque é tão grande, que $P leva $A à morte com um único golpe.\n\n\n\
+$P não é rápido o bastante, e acaba errando seu golpe.\n\n\n\
+Não teve efeito."
+
+
+classe cmd_cortar
+herda comando_ataque
+const nomevar = "h_Cortar"
+const c_move1 = 5
+const c_move2 = 5
+const aulaini = 12
+const aulafim = 12
+const tipoarma = 24 # Requer arma: 3-Lâmina curta, 4-Lâmina longa
+const tipoatk = 2 # Tipo: 2 Cortante
+const valor = 12
+const msgatk0 = "\n\n\n\
+$P corta $a, $m\n\n\
+\d=espada Você corta a cabeça de $A, $m.\n\
+\d=espada $P corta a sua cabeça, $m.\n\
+\d=espada $P corta a cabeça de $A.\n\
+Você faz um corte profundo na cabeça de $A, e el$w não resiste aos ferimentos...\n\
+$P faz um corte profundo em sua cabeça, e você não resiste aos ferimentos...\n\
+$P faz um corte profundo na cabeça de $A, e el$w não resiste aos ferimentos...\n\
+$P tenta cortar $a, errou\n\n\n\
+$P corta $a, nada acontece"
+const msgatk1 = "\n\n\n\n\n\
+Você corta o peito de $A com $o, $m.\n\
+$P corta seu peito com $O, $m.\n\
+$P corta o peito de $A com $O.\n\
+Você atraveça $O no coração de $A, e gargalha muito enquanto o sangue de sua lâmina pinga no \
+chão!\n\
+$P atraveça $O em seu coração, e gargalha muito enquanto o sangue de sua lâmina pinga no \
+chão!\n\
+$P atraveça $O no coração de $A, e gargalha muito enquanto o sangue de sua lâmina pinga no \
+chão!\n\
+Você tenta cortar o peito de $A com $O, mas el$w desvia e debocha de sua cara.\n\
+$P tenta cortar seu peito com $O, mas você desvia e debocha da cara del$w.\n\
+$P tenta cortar o peito de $A com $O, mas el$v desvia.\n\
+Você tenta cortar $A, mas nada acontece.\n\
+$P tenta cortar você, mas nada acontece.\n\
+$P tenta cortar $A, mas nada acontece."
+
+
+classe cmd_corte_múltiplo
+herda comando_ataque
+const nomevar = "h_Corte múltiplo"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const c_espera = 10
+const c_move1 = 30
+const c_move2 = 10
+const ataque = 160
+const aulaini = 60
+const aulafim = 60
+const tipoarma = 16 # Requer arma: 4-Lâmina longa
+const tipoatk = 2 # Tipo: 2 cortante
+const tipobonus = "espadachim\nguerreiro"
+const valor = 60
+const vel = 60
+const msgatk0 = "Você saca sua espada e executa movimentos rápidos.\n\
+$P saca sua espada e execulta movimentos rápidos!\n\
+$P saca sua espada e execulta movimentos rápidos!\n\n\n\
+Você continua movimentando-se, levando a espada na direção de $A, causando-lhe múltiplos cortes. \
+$m\n\
+$P continua se movimentando, trazendo a espada em sua direção, lhe fazendo múltiplos cortes. \
+$M\n\
+$P continua movimentando-se, levando a espada na direção de $A, causando-lhe múltiplos cortes.\n\
+Você continua movimentando-se, levando a espada na direção de $A, Fazendo vários cortes em seu \
+corpo, que lhe causam a morte.\n\
+$P continua se movimentando, trazendo a espada em sua direção, causando múltiplos cortes em seu \
+corpo, que lhe levam a morte.\n\
+$P continua movimentando-se, levando a espada na direção de $A, causando-lhe múltiplos cortes,que\
+ causam sua morte.\n\
+Logo em seguida você perde o equilíbrio, não conseguindo continuar seu golpe.\n\
+Logo em seguida $P perde o equilíbrio, não conseguindo continuar seu golpe.\n\
+Logo em seguida $P perde o equilíbrio, não conseguindo continuar seu golpe."
+
+
+classe cmd_cratera
+herda comando_ataque
+const nomevar = "h_Cratera"
+const tipoalvo = 5 # Alvo: 5 Outros sem dividir o ataque
+const c_espera = 5
+const c_move1 = 115
+const c_move2 = 190
+const ataque = 320
+const aulaini = 140
+const aulafim = 140
+const depende = "h_lamina_longa"
+const tipoarma = 16 # Requer arma: 4-Lâmina longa
+const tipoatk = 2 # Tipo: 2 cortante
+const tipobonus = "espadachim"
+const valor = 140
+const vel = 88
+const msgatk0 = "Com uma enorme fúria, $P crava sua espada no chão, fazendo um enorme buraco.\n\n\
+\n\n\n\
+A cratera feita apartir de sua espada se abre logo abaixo dos pés de $A, fazendo que el$w sofra \
+uma queda orrível, $m.\n\
+A cratera feita apartir da espada de $P se abre logo abaixo de seus pés, fazendo que você sofra \
+uma queda orrível, $m.\n\
+A cratera feita apartir da espada de $P se abre logo abaixo dos pés de $A, fazendo que el$w \
+sofra uma queda orrível.\n\
+A cratera feita apartir de sua espada se abre logo abaixo dos pés de $A, fazendo que el$w caia \
+de mau jeito e quebre sua espinha.\n\
+A cratera feita apartir da espada de $A se abre logo abaixo dos seus pés, fazendo que você caia \
+de mau jeito e quebre sua espinha...\n\
+A cratera feita apartir da espada de $P se abre logo abaixo dos pés de $A, fazendo que el$w caia \
+de mau jeito e quebre sua espinha!\n\
+$P rapidamente percebe uma cratera abrindo sob seus pés, e com uma enorme velocidade salta pro \
+lado.\n\n\n\
+$P ataca $a, nada acontece"
+
+
+classe cmd_dano_máximo
+herda comando_ataque
+const nomevar = "h_Dano máximo"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "dano máximo"
+const c_move1 = 120
+const c_move2 = 120
+const aulaini = 100
+const aulafim = 100
+const valor = 100
+const msgatk0 = "$P concentra todas as suas energias em um único ponto do corpo.\n\n\n\n\n\n\n\n\n\
+\n\n\n\n\n\
+$P não conseguiu se concentrar o suficiente."
+
+
+classe cmd_defender
+herda comando_ataque
+const nomevar = "h_Defender"
+const tipoalvo = 8 # Alvo: 8 Ataque automático
+const aulaini = 35
+const aulafim = 35
+const tipoarma = 508 # Requer arma: 2-Cajado, 3-Lâmina curta, 4-Lâmina longa, 5-Maca e Martelo, \
+6-Mangual, 7-Chicote e Corrente, 8-Arma
+const valor = 35
+const msgatk0 = "\n\n\n\
+$P ataca $a, $m\n\n\
+$P ataca $a, $m\n\n\n\
+$P ataca e mata $a, $m\n\n\n\
+$P ataca $a, errou\n\n\n\
+$P ataca $a, nada acontece\n\n\n\
+Você defende o ataque de $A.\n\
+$P defende o seu ataque.\n\
+$P defende o ataque de $A."
+
+
+classe cmd_derrubar
+herda comando_ataque
+const nomevar = "h_Derrubar"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const a_efeito1 = "caido"
+const c_espera = 10
+const c_move1 = 100
+const c_move2 = 20
+const ataque = 55
+const aulaini = 60
+const aulafim = 60
+const depende = "h_arremessar"
+const precisao = 100
+const tipoarma = 0 # Requer arma:
+const tipobonus = "espadachim\nguerreiro"
+const valor = 60
+const msgatk0 = "\n\n\n\n\n\
+Você dá um fortícimo soco em $A, que cai sentado no chão. $m\n\
+$P lhe aplica um fortícimo soco, levando você ao chão. $m\n\
+$P aplica um forte soco em $a o levando ao chão.\n\
+Você dá um fortícimo soco em $A, que cai ao chão e não se levanta mais.\n\
+$P lhe aplica um soco fortícimo, que joga seu corpo ao chão e sua vida fora.\n\
+$P aplica um soco fortícimo em $A, que cai no chão e não se levanta mais.\n\
+Você tenta aplicar um soco em $A, mas não é bom o bastante.\n\
+$P tenta aplicar um soco fortícimo em você, mas não consegue ser bom o bastante.\n\
+$P tenta aplicar um soco fortícimo em $A, mas não consegue ser bom o bastante."
+
+
+classe cmd_desarmar
+herda comando_ataque
+const nomevar = "h_Desarmar"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const aulaini = 160
+const aulafim = 160
+const precisao = 100
+const valor = 160
+const msgatk0 = "\n\n\n\
+$P ataca $a, $m\n\n\n\n\n\
+$P ataca e mata $a, $m\n\n\n\
+$P ataca $a, errou\n\n\n\
+$P ataca $a, nada acontece"
+
+func cmd_atacar
+  se arg1.iempu
+    $mens.p(arg0, arg1, nulo, arg1.iempu.obj)
+    $mens.mvis1("$P desarma $A!")
+    arg1.iempu.obj.vestir(0)
+    ret 1
+  fimse
+  $mens.p(arg0, arg1)
+  $mens.mvis2("$A já está desarmad$t!", "")
+
+
+classe cmd_desvia
+herda comando_ataque
+const nomevar = "h_Desvia"
+const tipoalvo = 8 # Alvo: 8 Ataque automático
+const aulaini = 20
+const aulafim = 20
+const valor = 20
+
+func cmd_atacar
+  ret defender(arg0, arg1), 1
+  fimse
+  ret desvgolpe(arg0, arg1), 1
+
+
+classe cmd_drenar
+herda comando_ataque
+const nomevar = "h_Drenar"
+const tipoatk = 13 # Ataque tipo: 13 Vegetal
+const c_move1 = 10
+const c_move2 = 5
+const msgextra = "Absorve metade dos danos que causa."
+const msgatk0 = "\n\n\n\
+$P drena $a, $m\n\n\
+$P drena $a, $m\n\n\n\
+$P drena $a, $m\n\n\n\
+$P tenta drena $a, errou\n\n\n\
+$P drena $a, nada acontece"
+int32 pontos
+
+func cmd_atkenv
+  pontos = arg1.pvida
+
+func cmd_atacou
+  refvar vida = arg0.pvida
+  refvar max = arg0.pvidamax
+  se !arg2.result && vida && vida < max
+    pontos = intpos(pontos - arg1.pvida) / 2
+    vida += pontos
+    vida > max && (vida = max)
+
+
+classe cmd_endurecer
+herda comando_ataque
+const nomevar = "h_Endurecer"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const a_batalha = 1 # Condição: 1 Durante a batalha
+const a_efeito1 = "endurecer"
+const c_espera = 40
+const c_move1 = 15
+const c_move2 = 5
+const aulaini = 46
+const aulafim = 46
+const valor = 46
+const msgextra = "Endurece os músculos para melhorar a sua defesa.\n\
+Só pode ser usado durante uma batalha."
+const msgatk0 = "\n\n\n\
+$P endurece.\n\n\
+$P endurece.\n\n\n\
+$P endurece.\n\n\n\
+$P tenta endurecer.\n\n\n\
+$P parece tão dur$s quanto antes."
+
+
+classe cmd_espiar
+herda comando_ataque
+const nomevar = "h_Espiar"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const c_move1 = 170
+const c_move2 = 170
+const aulaini = 170
+const aulafim = 170
+const valor = 300
+
+func escr
+  ret !arg1, arg0.msg("Espiar o que?")
+  textovar v
+  v.norte = "n", v.sul = "s", v.leste = "l", v.oeste = "o"
+  v.nordeste = "ne", v.noroeste = "no", v.sudeste = "se", v.sudoeste = "so"
+  v.cima = "c", v.baixo = "b"
+  v.n = "n", v.s = "s", v.l = "l", v.o = "o"
+  v.ne = "ne", v.no = "no", v.se = "se", v.so = "so"
+  v.c = "c", v.b = "b"
+  v.t_n = "norte", v.t_s = "sul", v.t_l = "leste", v.t_o = "oeste"
+  v.t_ne = "nordeste", v.t_no = "noroeste", v.t_se = "sudeste", v.t_so = "sudoeste"
+  v.t_c = "cima", v.t_b = "baixo"
+  refvar tdir = txt(v.[arg1])
+  se tdir
+    ref dir
+    dir = arg0.dono.dir_[tdir]
+    se !dir
+      ret arg0.msg("Direção inexistente.")
+    senao dir.porta_[misc:d2[tdir]] > 1
+      ret arg0.msg($mens_porta.mens("$P está fechad$a.", dir, misc:d1[tdir]))
+    fimse
+    $mens.p(arg0)
+    $mens.o_1 = (tdir != "c" && tdir != "b" ? "o " : "") + v.t_[tdir]
+    $mens.mtodos2("", "$P espia a sala a$1.")
+    textotxt texto
+    texto.addfim("Você se concentra, e usando todas as suas habilidades, espia a sala:")
+    texto.addfim("Usando toda a sua experiência, você espia a sala a$1 e vê:")
+    texto.addfim("Com sua agilidade, você rapidamente espia a sala a$1:")
+    texto.addfim("Você espia a sala a$1 e vê:")
+    texto.addfim("Usando as suas práticas, você espia a sala a$1 e vê:")
+    texto.rand
+    $mens.mperso(texto.remove)
+    arg0.msg(dir.descsala(arg0, 7))
+  senao # Caso tenha digitado outro texto, considera como o nome de algum personagem
+    refvar r = misc:objperso(arg0, arg1)
+    ret !r, arg0.msg("Esta pessoa não está aqui.")
+    textotxt t
+    listaitem item
+    epara item = r.dentro1.fim, item, item.antes
+      continuar !item.obj.visivel(arg0)
+      refvar nn = item.obj.atribs.linhas ? " (" + txttroca(item.obj.atribs.ini.textolin(100), \
+"\n", " ") + ") " : " "
+      t.addfim(txt(item.obj.objtot) + nn + txtcopiamai(item.obj.descnome, "A"))
+    efim
+    t.juntalin("(", "x)")
+    $mens.p(arg0, r)
+    se t
+      $mens.mperso("\b\c6$A está carregando:\b\n" + t.remove(1000))
+    senao
+      $mens.mperso("\b$A não está carregando nada.")
+    fimse
+
+
+classe cmd_espiar_completo
+herda comando_ataque
+const nomevar = "h_Espiar completo"
+
+func cmd_alvofim
+  textotxt t
+  textotxt h
+  txt100 t1
+# Obtém o personagem
+  refvar r = misc:objperso(arg0, arg1)
+  ret !r, nulo
+  t.addfim("\b\c6Estatísticas de \"" + r.nome + "\"\b")
+# Vida, mana e vigor
+  t1 = "Vida " + r.pvida + "/" + r.pvidamax
+  t1 += "  Mana " + r.pmana + "/" + r.pmanamax
+  t1 += "  Vigor " + r.pmove + "/" + r.pmovemax
+  t.addfim(t1)
+# Fome, sede e embriaguês, somente para administradores
+  se arg0.jogconfig.23 && r.jog
+    t1 = "Sede " + r.p_sede + " fome " + r.p_fome + " embriaguês " + r.p_bebida
+    t1 += " digestão " + r.p_diges + "; máximo é " + $miscfome.cheio
+    t.addfim(t1)
+  fimse
+# Tipo
+  r.tipo1 && h.addfim(txtcopiamai(txte(r.tipo1), "A"))
+  r.tipo2 && h.addfim(txtcopiamai(txte(r.tipo2), "A"))
+  r.tipo3 && h.addfim(txtcopiamai(txte(r.tipo3), "A"))
+  h.linhas && t.addfim("Tipo/raça/classe: " + txttroca(h.remove(10), "\n", ", "))
+  t.addfim("Sexo:             " + (r.psexo ? "Masculino" : "Feminino"))
+# Quem pegou
+  se r != r.contr && r.var.z_dono
+    t1 = "Pego por:         " + txte(r.var.z_dono)
+    t.addfim(t1 + " (no nível " + int(r.var.z_pnivel) + ")")
+  fimse
+# Moedas e pontos de aulas
+  r.var.z_moedas_ && t.addfim("Moedas:           " + txtnum(r.var.z_moedas_, "."))
+  r.var.z_aulas_ && t.addfim("Aulas:            " + txtnum(r.var.z_aulas_, "."))
+# Nível
+  t.addfim("Nível:            " + r.pnivel)
+  t.addfim("Experiência:      " + r.expatual + "/" + r.expmax)
+# Batalha
+  t1 = "Ataque/defesa:    " + int(r.atknorm * r.atktipo.0) + "/"
+  se !r.deftipo.0
+    t.addfim(t1 + "Imune")
+  senao
+    t.addfim(t1 + int(r.defnorm / r.deftipo.0))
+  fimse
+# t.addfim("Ataque/defesa:    " + r.atknorm + "/" + r.defnorm)
+  t1 = "Atq/def especial: " + int(r.atkesp * r.atktipo.1) + "/"
+  se !r.deftipo.1
+    t.addfim(t1 + "Imune")
+  senao
+    t.addfim(t1 + int(r.defesp / r.deftipo.1))
+  fimse
+# t.addfim("Atq/def especial: " + r.atkesp + "/" + r.defesp)
+  t.addfim("Precisão/evasão:  " + r.precisao + "/" + r.evasao)
+  t.addfim("Velocidade:       " + r.pveloc)
+# Mortes
+  se r == r.contr
+    t.addfim("Mortes:           " + r.mortes)
+  senao
+    t.addfim("Desmaios:         " + r.mortes)
+  fimse
+# Carregando
+  t.addfim("Peso total:       " + txtnum((r.pesoden + r.pesoobj) / 1000, "0") + " Kg")
+  t1 = "Carregando:       " + r.dentro1.total + "/" + r.objmax
+  t1 += r.objmax == 1 ? " item" : " itens"
+  t1 += ", " + txtnum((r.pesoden - r.pesoveste) / 1000, "0")
+  t1 += "/" + txtnum(r.pesomax / 1000, "0") + " Kg"
+  t.addfim(t1)
+# Teeleentra e telesai
+  r.var.z_teleentra && t.addfim("Teleentra:        " + r.var.z_teleentra)
+  r.var.z_telesai && t.addfim("Telesai:          " + r.var.z_telesai)
+# Mensagem para o usuário
+  arg0.msg2(t.remove(1000))
+
+
+classe cmd_espiar_inventário
+herda comando_ataque
+const nomevar = "h_Espiar inventário"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const c_move1 = 100
+const c_move2 = 40
+const ataque = 0
+const aulaini = 115
+const aulafim = 115
+const valor = 115
+const msgatk0 = "\n\n\n\n\n\n\n\n\
+$P ataca e mata $a, $m\n\n\n\
+$P ataca $a, errou\n\n\n\
+$P ataca $a, nada acontece"
+
+func cmd_alvofim
+  textotxt t
+  listaitem item
+  refvar r = arg1
+  ret !r, nulo
+  epara item = r.dentro1.fim, item, item.antes
+    continuar !item.obj.visivel(arg0)
+    refvar nn = item.obj.atribs.linhas ? " (" + txttroca(item.obj.atribs.ini.textolin(100), \
+"\n", " ") + ") " : " "
+    t.addfim(txt(item.obj.objtot) + nn + txtcopiamai(item.obj.descnome, "A"))
+  efim
+  t.juntalin("(", "x)")
+  refvar nome = r == arg0 ? "Você" : txtcopiamai(r.nome, "A")
+  se t
+    arg0.msg2("\b\c6" + nome + " carrega:\b\n" + t.remove(1000))
+  senao
+    arg0.msg("Nada.")
+  fimse
+
+
+classe cmd_estocada
+herda comando_ataque
+const nomevar = "h_Estocada"
+const tipoalvo = 2 # Alvo: 2 Todos dividindo o ataque
+const c_espera = 10
+const c_move1 = 200
+const c_move2 = 100
+const ataque = 280
+const aulaini = 130
+const aulafim = 130
+const tipoarma = 16 # Requer arma: 4-Lâmina longa
+const tipoatk = 2 # Tipo: 2 cortante
+const tipobonus = "espadachim\nguerreiro"
+const valor = 130
+const vel = 100
+const msgatk0 = "Você segura sua espada com as duas mãos, e se prepara.\n\
+$P segura sua espada com as duas mãos.\n\
+$P segura sua espada com as duas mãos.\n\
+$p empunha sua $a e atinge $\n\n\
+Você usa toda sua força, e com sua espada disfere uma poderosa estocada em $a causando um grande \
+estrago $m\n\
+Você vê $P partindo em sua direção com a arma em punho, causando um golpe devastador em você \
+$M\n\
+$P com a arma em punho disfere uma poderosa estocada em $a causando um grande estrago.\n\
+Você usa toda sua força aplicando uma poderosa estocada em $a que se vê atravessado pela lâmina \
+de sua espada.\n\
+$P com a arma em punho aplica uma poderosa estocada em você, atravessando seu corpo completamente\
+.\n\
+$P com a arma em punho, aplica uma poderosa estocada em $a, que não resiste e morre!\n\
+Você tenta aplicar uma estocada em $a, mas acerta apenas o vento.\n\
+$P tenta lhe aplicar uma estocada, mas não é bom o bastante, e passa longe de você.\n\
+$P tenta aplicar uma estocada em $a, mas acerta apenas o vento.\n\
+$P ataca $a, nada acontece"
+
+
+classe cmd_excluir
+herda comando_ataque
+const nomevar = "h_Excluir"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_remove = "maldição\ndoença\nqueimando\nenvenenado\nsem fala\npunição\ncongelado"
+const precisao = 101
+
+
+classe cmd_explodir
+herda comando_ataque
+const nomevar = "h_Explodir"
+const ataque = 200
+const precisao = 200
+const vel = 100
+const msgextra = "Extremamente forte, mas quem aplica esse golpe desmaia."
+const msgatk0 = "\n\n\n\
+$P explodiu na direção de $a, $m\n\n\
+Você explodiu na direção de $A, $m.\n\
+$P explodiu em sua direção, $m.\n\
+$P explodiu na direção de $A.\n\
+Você explodiu na direção de $A.\n\
+$P explodiu em sua direção, $m.\n\
+$P explodiu na direção de $A.\n\
+$P explodiu mas $a desviou em tempo., errou\n\n\n\
+$P explodiu, nada acontece com $a, nada acontece"
+
+func cmd_atacou # Desmaia após o ataque
+  arg0.pvida = 0
+
+
+classe cmd_facas_perfurantes
+herda comando_ataque
+const nomevar = "h_Facas perfurantes"
+const tipoalvo = 5 # Alvo: 5 Outros sem dividir o ataque
+const c_espera = 5
+const c_move1 = 50
+const c_move2 = 12
+const ataque = 120
+const aulaini = 50
+const aulafim = 50
+const tipoarma = 8 # Requer arma: 3-Lâmina curta
+const tipoatk = 3 # Tipo: 3 Perfurante
+const tipobonus = "assassino\nladrão"
+const valor = 50
+const vel = 70
+const msgatk0 = "Certo...\n\
+$P com uma habilidade incrível saca várias facas e atira contra todos\n\
+$P com uma habilidade incrível saca várias facas e atira contra todos\n\
+$P ataca $a, $m\n\n\
+as facas atiradas por você perfura o corpo de $a, $m\n\
+as facas atiradas por $P perfura o seu corpo, $m\n\
+as facas atiradas por $P perfura o corpo de $a\n\
+As facas atiradas por você perfuram o corpo de $a brutalmente até a morte...\n\
+As facas atiradas por $P perfuram o seu corpo até a morte...\n\
+As facas atiradas por $P perfuram o corpo de $a brutalmente até a morte...\n\
+Por um milagre, as facas atiradas por você erram o corpo de $a.\n\
+Ufa! As facas atiradas por $P erram o seu corpo.\n\
+Por um milagre, as facas atiradas por $P erram  o corpo de $a.\n\
+Nada acontece\n\
+as facadas de $P não tem efeito.\n\
+as facadas de $P não tem efeito"
+
+
+classe cmd_foda
+herda comando_ataque
+const nomevar = "h_Foda"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_remove = "proteção divina\n\
+barreira de espinhos\n\
+barreira espinhos\n\
+aura branca\n\
+aura negra\n\
+armadura arcana\n\
+armadura da fé\n\
+velocidade\n\
+velox\n\
+pele amolecida\n\
+escudo ossos\n\
+escudo de ossos\n\
+barreira areia\n\
+barreira água\n\
+armadura ossos\n\
+chama protetora\n\
+barreira fogo\n\
+escudo ar\n\
+escudo de ar\n\
+cegueira\n\
+armadura da fé"
+
+
+classe cmd_furtar
+herda comando_ataque
+const nomevar = "h_Furtar"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const c_move1 = 140
+const c_move2 = 140
+const aulaini = 140
+const aulafim = 140
+const depende = "h_agilidade"
+const valor = 140
+
+func cmd_alvofim
+  listaobj l
+  epara l.addfim(arg1.dentro1, arg1.dentro2), l, l.ini.remove
+  efim
+  arg0.dono.var.z_moedas_ += arg1.var.z_moedas_
+  arg1.var.z_moedas_ = 0
+  $mens.p(arg0, arg1)
+  $mens.mvis3("Você rouba as moedas de $A!", "$P rouba as suas moedas!", "$P rouba as moedas de \
+$A!")
+  arg0.var.z_ladrão = "Ladrão"
+  ret 1
+
+
+classe cmd_furtividade
+herda comando_ataque
+const nomevar = "h_Furtividade"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "furtividade"
+const c_move1 = 15
+const c_move2 = 5
+const aulaini = 10
+const aulafim = 10
+const valor = 10
+
+
+classe cmd_gás_tóxico
+herda comando_ataque
+const nomevar = "h_Gás tóxico"
+const tipoatk = 15 # Ataque tipo: 15 Veneno
+const c_move1 = 5
+const c_move2 = 2
+const c_mana1 = 10
+const c_mana2 = 5
+const a_efeito1 = "envenenado"
+const a_prob1 = 70
+const msgextra = "Tem grandes chances de envenenar."
+const msgatk0 = "\n\n\n\
+$P lança gás tóxico em $a, $m\n\n\
+$P lança gás tóxico em $a, $m\n\n\n\
+$P lança gás tóxico em $a, $m\n\n\n\
+$P lança gás tóxico em $a, errou\n\n\n\
+$P lança gás tóxico em $a, nada acontece"
+
+
+classe cmd_giratória
+herda comando_ataque
+const nomevar = "h_Giratória"
+const tipoalvo = 3 # Alvo: 3 Outros dividindo o ataque
+const c_move1 = 100
+const c_move2 = 100
+const ataque = 200
+const aulaini = 110
+const aulafim = 110
+const tipoarma = 16 # Requer arma: 4-Lâmina longa
+const tipoatk = 2 # Tipo: 2 Cortante
+const tipobonus = "guerreiro"
+const valor = 110
+const vel = 80
+const msgatk0 = "$P começa a girar sua espada, fazendo com que surja várias lâminas em torno \
+dela.\n\n\n\n\n\
+As lâminas de sua espada se soltam, e acertam brutalmente o rosto de $A, $m\n\
+As lâminas da espada de $P se soltam, e acertam brutalmente o seu rosto, $m\n\
+As lâminas da espada de $P se soltam, e acertam brutalmente o rosto de $A.\n\
+As lâminas de sua espada se soltam, e brutalmente acertam a cabeça de $A, matando o estantaneamen\
+te!\n\
+As lâminas da espada de $P se soltam, e brutalmente acertam sua cabeça, matando o estantaneamente\
+!\n\
+As lâminas da espada de $P se soltam, e brutalmente acertam a cabeça de $A, matando o estantaneam\
+ente!\n\
+As lâminas se dividem e passam raspando a cabeça de todos na sala."
+
+
+classe cmd_golpe_traiçoeiro
+herda comando_ataque
+const nomevar = "h_Golpe traiçoeiro"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const c_move1 = 80
+const c_move2 = 80
+const ataque = 120
+const aulaini = 30
+const aulafim = 30
+const depende = "h_furtividade"
+const tipoarma = 8 # Requer arma: 3-Lâmina curta
+const tipoatk = 3 # Tipo: 3 Perfurante
+const tipobonus = "espadachim"
+const valor = 30
+const msgatk0 = "Agilmente $P surge por de trás de $A.\n\n\n\
+$P ataca $a, $m\n\n\
+Após isso você crava $O nas costas de $A, $m.\n\
+Após isso $P crava $o em suas costas, $m.\n\
+Após isso $P crava $O nas costas de $A.\n\
+$P é tão preciso que $O atravessa o corpo de $A, levando-o à morte.\n\n\n\
+$P quase acerta a se mesmo na tentativa de cravar $O nas costas de $A.\n\n\n\
+Nada acontece."
+
+
+classe cmd_grito_de_guerra
+herda comando_ataque
+const nomevar = "h_Grito de guerra"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "grito de guerra"
+const c_espera = 5
+const c_move1 = 7
+const c_move2 = 4
+const aulaini = 8
+const aulafim = 8
+const precisao = 101
+const valor = 8
+
+
+classe cmd_identificar
+herda comando_identificar
+const nomevar = "h_Identificar"
+const msgextra = "Obtém informações sobre itens e personagens."
+const msgperso1 = "Você olha $a com atenção."
+const msgobj1 = "Você olha $o com atenção."
+const msgerrou1 = "A magia falhou."
+const msgnulo1 = "A magia não teve efeito."
+
+
+classe cmd_imagens
+herda comando_ataque
+const nomevar = "h_Imagens"
+const msgatk0 = "\n\n\n\
+$P ataca $a, $m\n\n\
+$P ataca $a, $m\n\n\n\
+$P ataca e mata $a, $m\n\n\n\
+$P ataca $a, errou\n\n\n\
+$P ataca $a, nada acontece\n\n\n"
+
+
+classe cmd_imobilizar
+herda comando_ataque
+const nomevar = "h_Imobilizar"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const a_efeito1 = "imobilizado"
+const c_espera = 15
+const c_move1 = 500
+const c_move2 = 200
+const ataque = 200
+const aulaini = 160
+const aulafim = 160
+const valor = 4500
+const msgatk0 = "\n\n\n\n\n\
+Você aplica uma chave de braço em $A $t imobilizando, $m.\n\
+$P aplica uma chave de braço em você, que não consegue se movimentar com maestria, $m.\n\
+$P aplica uma chave de braço em $A que perde partes dos movimentos.\n\
+Você aplica um mata leão em $a que não resiste aos ferimentos e morre!\n\
+$P aplica um mata leão em você, fazendo sua respiração parar, e o lenvando a óbito\n\
+$P aplica um mata leão fatal em $a o matando!\n\
+Você tenta imobilizar $a, mas não consegue se rápido o bastante\n\
+$P tenta lhe imobilizar, mas você escapa com maestria\n\
+$P tenta imobilizar $a, mas escapa com maestria"
+
+
+classe cmd_intimidar
+herda comando_ataque
+const nomevar = "h_Intimidar"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_cond = 2 # Condição: 2 Nenhuma condição
+const a_efeito1 = "intimidar"
+const ataque = 0
+const aulaini = 31
+const aulafim = 31
+const precisao = 101
+const valor = 31
+const msgatk0 = "Você olha para $A desafiadoramente.\n\
+$P olha para você desafiadoramente.\n\
+$P olha para $A desafiadoramente.\n\n\n\
+$A parece sentir medo de você.\n\
+Você sente medo de $P.\n\
+$A parece sentir medo de $P.\n\n\n\n\n\n\n\
+O seu olhar não foi o suficiente para intimidar $P...\n\
+O olhar de $A não foi o suficiente para te intimidar..."
+
+
+classe cmd_joelhada
+herda comando_ataque
+const nomevar = "h_Joelhada"
+const tipoalvo = 0 # Alvo: 0 Qualquer um; ataque
+const c_espera = 5
+const c_move1 = 10
+const c_move2 = 2
+const ataque = 75
+const aulaini = 10
+const aulafim = 10
+const addprecisao = 100
+const tipobonus = "assassino\nespadachim\nguerreiro\nladrão\norc"
+const valor = 10
+const msgatk0 = "\n\n\n\n\n\
+$P acerta uma poderosa joelhada em $A, $m\n\
+Você recebe uma poderosa joelhada de $P, $m\n\
+$P acerta uma poderosa joelhada em $a\n\
+$P acerta uma joelhada fatal na cabeça de $a que morre.\n\
+Você recebe uma joelhada fatal de $P que o leva a morte.\n\
+$P acerta uma joelhada fatal em $a levando $a a morte.\n\
+$P erra sua joelhada em $a que se esquiva facilmente.\n\
+Você se esquiva facilmente da joelhada de $P.\n\
+$P erra sua joelhada em $a que se esquiva facilmente.\n\
+$P acerta uma joelhada em $a que não teve efeito.\n\
+Você recebe uma joelhada de $P que para sua sorte, não teve efeito!\n\
+$P acerta uma joelhada em $a que não teve efeito."
+
+
+classe cmd_lâmina_curta
+herda comando_ataque
+const nomevar = "h_lâmina_curta"
+const tipoalvo = 8 # Alvo: 8 Ataque automático
+const aulaini = 0
+const aulafim = 0
+const tipoarma = 8 # Usa arma: 3-Lâmina curta
+const tipobonus = "assassino\nladrão\norc"
+const valor = 1
+const msgatk0 = "\n\n\n\
+$P fura $a com $o, $m\n\n\
+Você fura $A com $O, $m.\n\
+$P fura você com $O, $m.\n\
+$P fura $A com $O.\n\
+$P perfura e mata $A com $O.\n\n\n\
+$P tenta furar $a com $o, mas erra\n\n\n\
+$P tenta furar $a com $o, sem sucesso"
+const msgatk1 = "\n\n\n\n\n\
+Você perfura a cabeça de $A com $O, $M.\n\
+$P perfura a sua cabeça com $O, $M.\n\
+$P perfura a cabeça de $A com $O.\n\
+Você faz uma perfuração mortal no crânio de $A com $O!\n\
+$P faz uma perfuração mortal em seu crânio com $O!\n\
+$P faz uma perfuração mortal no crânio de $A com $O!\n\
+Você tenta inutilmente acertar a cabeça de $A com $O.\n\
+$P tenta inutilmente acertar a sua cabeça com $O.\n\
+$P tenta inutilmente acertar a cabeça de $A com $O.\n\
+$P rela $o quando tentava perfurar $A."
+
+func cmd_atacar
+  ret defender(arg0, arg1), 1
+  fimse
+  ret desvgolpe(arg0, arg1), 1
+
+
+classe cmd_lâmina_longa
+herda comando_ataque
+const nomevar = "h_lâmina_longa"
+const tipoalvo = 8 # Alvo: 8 Ataque automático
+const aulaini = 1
+const aulafim = 1
+const tipoarma = 16 # Usa arma: 4-Lâmina longa
+const tipobonus = "espadachim\nguerreiro"
+const valor = 1
+const msgatk0 = "\n\n\n\
+$P corta $a, $m\n\n\
+Você corta a cabeça de $A com $O, $m.\n\
+$P corta a sua cabeça com $O, $m.\n\
+$P corta a cabeça de $A com $O.\n\
+Você abre o crânio de $A com um fantástico corte!\n\
+$P abre o seu crânio com um fantástico corte!\n\
+$P abre o crânio de $A com um fantástico corte!\n\
+$P tenta cortar $a, mas erra\n\n\n\
+$P tenta cortar $a, sem sucesso"
+
+func cmd_atacar
+  ret defender(arg0, arg1), 1
+  fimse
+  ret desvgolpe(arg0, arg1), 1
+
+
+classe cmd_maca_e_martelo
+herda comando_ataque
+const nomevar = "h_maca_e_martelo"
+const tipoalvo = 8 # Alvo: 8 Ataque automático
+const aulaini = 10
+const aulafim = 10
+const tipoarma = 32 # Usa arma: 5-Maca e Martelo
+const valor = 10
+const msgatk0 = "\n\n\n\n\n\
+Você esmaga o ombro de $A com $O, $m\n\
+$P esmaga o seu ombro com $O, $m\n\
+$P esmaga o ombro de $A com $O.\n\
+Você esmaga o crânio de $A com $O, levando-o à morte.\n\
+$P esmaga o seu crânio com $O, levando-o à morte.\n\
+$P esmaga o crânio de $A com $O, levando-o à morte.\n\
+Você quase vai ao chão na tentativa de esmagar o ombro de $A.\n\
+$P quase vai ao chão na tentativa de esmagar o seu ombro.\n\
+$P quase vai ao chão na tentativa de esmagar o ombro de $A."
+
+func cmd_atacar
+  ret defender(arg0, arg1), 1
+  fimse
+  ret desvgolpe(arg0, arg1), 1
+
+
+classe cmd_mangual
+herda comando_ataque
+const nomevar = "h_mangual"
+const tipoalvo = 8 # Alvo: 8 Ataque automático
+const aulaini = 43
+const aulafim = 43
+const tipoarma = 64 # Usa arma: 6-Mangual
+const valor = 43
+const msgatk0 = "\n\n\n\
+$P ataca $a, $m\n\n\
+$P ataca $a, $m\n\n\n\
+$P ataca $a, $m\n\n\n\
+$P ataca $a, errou\n\n\n\
+$P ataca $a, nada acontece"
+
+func cmd_atacar
+  ret defender(arg0, arg1), 1
+  fimse
+  ret desvgolpe(arg0, arg1), 1
+
+
+classe cmd_meditar
+herda comando_ataque
+const nomevar = "h_Meditar"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "meditando"
+const ataque = 0
+const aulaini = 10
+const aulafim = 10
+const precisao = 101
+const valor = 10
+const msgatk0 = "\n\n\n\
+$P começa a meditar...\n\n\
+$P começa a meditar...\n\n\n\
+$P começa a meditar...\n\n\n\n\n\n\
+$P tenta meditar, em vão."
+const posic = 6
+
+
+classe cmd_morder
+herda comando_ataque
+const nomevar = "h_Morder"
+const tipoalvo = 8 # Alvo: 8 Ataque automático
+const ataque = 80
+const tipoatk = 2 # Ataque tipo: 2 Cortante
+const valor = 120
+const vel = 60
+const msgextra = "Golpe físico de força"
+const msgatk0 = "\n\n\n\
+$P morde $a, $m\n\n\
+$P da uma forte mordida na perna de $A,$m.\n\
+$P da uma forte mordida na sua perna, $m.\n\
+$P da uma forte mordida na perna de $A.\n\
+Você da uma forte mordida no pescoço de $A, levando-o a morte.\n\
+$P da uma forte mordida no seu pescoço, levando-o a morte.\n\
+$P da uma forte mordida no pescoço de $A, levando-o a morte.\n\
+$A escapa por um triz da mordida de $P.\n\n\n\
+$P morde $a, nada acontece"
+
+
+classe cmd_multissoco
+herda comando_ataque
+const nomevar = "h_Multissoco"
+const tipoalvo = 3 # Alvo: 3 Outros dividindo o ataque
+const ataque = 70
+const precisao = 70
+const tipoatk = 1 # Tipo: 1 Luta
+const msgatk0 = "\n\n\n\
+$P acerta um belo soco em si mesm$s, $m\n\n\
+$P dá um soco múltiplo em $a, $m\n\n\n\
+$P mata $a com um multissoco, $m\n\n\n\
+$P dá um multissoco em $a, errou\n\n\n\
+$P dá um multissoco em $a, nada acontece"
+
+
+classe cmd_ocultar
+herda comando_ataque
+const nomevar = "h_Ocultar"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "ocultar"
+const c_move1 = 20
+const c_move2 = 10
+const aulaini = 17
+const aulafim = 17
+const valor = 17
+
+
+classe cmd_onda_trovão
+herda comando_ataque
+const nomevar = "h_Onda trovão"
+const ataque = 0
+const a_efeito1 = "paralisado"
+const c_mana1 = 20
+const c_mana2 = 5
+const msgextra = "Paralisa com uma descarta elétrica."
+const tipoatk = 12 # Ataque tipo: 12 Elétrico
+
+
+classe cmd_perfeição_com_adaga
+herda comando_ataque
+const nomevar = "h_Perfeição com adaga"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const a_efeito1 = "Perfeição com adaga"
+const c_move1 = 130
+const c_move2 = 130
+const aulaini = 130
+const aulafim = 130
+const precisao = 101
+const tipoarma = 8 # Requer arma: 3-Lâmina curta
+const valor = 130
+
+
+classe cmd_perfeição_com_espada
+herda comando_ataque
+const nomevar = "h_Perfeição com espada"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "perfeição com espada"
+const c_move1 = 130
+const c_move2 = 130
+const aulaini = 130
+const aulafim = 130
+const precisao = 101
+const tipoarma = 16 # Requer arma: 4-Lâmina longa
+const valor = 130
+
+
+classe cmd_perfuração_profunda
+herda comando_ataque
+const nomevar = "h_Perfuração profunda"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "perfuração profunda"
+const c_move1 = 68
+const c_move2 = 68
+const aulaini = 60
+const tipoarma = 8 # Requer arma: 3-Lâmina curta
+const tipoatk = 3 # Tipo: 3 Perfurante
+const valor = 67
+const msgatk0 = "$P direciona todas as suas energias para sua arma.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
+$P não conseguiu se concentrar o suficiente."
+
+
+classe cmd_picada
+herda comando_ataque
+const nomevar = "h_Picada"
+const tipoalvo = 8 # Alvo: 8 Ataque automático
+const a_efeito1 = "envenenado"
+const a_prob1 = 44
+const ataque = 80
+const vel = 60
+const msgatk0 = "\n\n\n\
+$P ataca $a, $m\n\n\
+Você pica poderosamente o braço de $A, $m.\n\
+$P da uma poderosa picada em seu braço, $m.\n\
+$P pica poderosamente o braço de $A, que grita de dor.\n\
+Você da uma picada fatal no braço de $A, que tira a vida del$w em segundos!\n\
+$P da uma picada fatal no seu braço, que tira a sua vida rapidamente!\n\
+Você assiste a picada fatal de $P tirar a vida de $A instantaneamente!\n\
+Sua picada atinge $A, mais el$w nem reage de tão fraca que foi!\n\
+A picada de $P atinge você, que debocha da cara del$w.\n\
+A picada de $P atinge $A, que ri muito.\n\
+$P pica $A, que nem se move."
+
+
+classe cmd_quarto_ataque
+herda comando_ataque
+const nomevar = "h_Quarto ataque"
+const tipoalvo = 8 # Alvo: 8 Ataque automático
+const ataque = 0
+const aulaini = 130
+const aulafim = 120
+const depende = "h_segundo_ataque\nh_terceiro_ataque"
+const precisao = 100
+const valor = 130
+const msgatk0 = "\n\n\n\n\n\n\n\n\
+$P ataca e mata $a, $m\n\n\n\
+$P ataca $a, errou\n\n\n\
+$P ataca $a, nada acontece"
+
+
+classe cmd_quinto_ataque
+herda comando_ataque
+const nomevar = "h_Quinto ataque"
+const tipoalvo = 8 # Alvo: 8 Ataque automático
+const aulaini = 150
+const aulafim = 150
+const valor = 150
+
+
+classe cmd_rasteira
+herda comando_ataque
+const nomevar = "h_Rasteira"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const a_efeito1 = "caido"
+const c_espera = 10
+const c_move1 = 40
+const c_move2 = 10
+const ataque = 45
+const aulaini = 40
+const aulafim = 40
+const depende = "h_agilidade"
+const tipoatk = 1 # Tipo: 1 Luta
+const tipobonus = "assassino\nladrão"
+const valor = 40
+const msgatk0 = "\n\n\n\n\n\
+Com uma agilidade imprecionante, você aplica uma rasteira em $A, que se estatela no chão. \
+$m\n\
+Com uma agilidade imprecionante, $P aplica uma rasteira em você, que se estatela no chão. \
+$m\n\
+Com uma agilidade imprecionante, $P aplica uma rasteira em $A, que se estatela no chão.\n\
+Você aplica uma rasteira em $A, que cai de cabeça, morrendo na hora.\n\
+$P aplica uma rasteira em você, lhe levando a morte.\n\
+$P aplica uma rasteira em $A, que cai de cabeça, morrendo na hora.\n\
+Você tenta aplicar uma rasteira em $A, mas não é rápido o bastante.\n\
+$P tenta aplicar uma rasteira em você, mas não é rápido o bastante.\n\
+$P tenta aplicar uma rasteira em $A, mas não é rápido o bastante."
+
+
+classe cmd_recuar
+herda comando_ataque
+const nomevar = "h_Recuar"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const aulaini = 150
+const aulafim = 150
+const valor = 200
+
+func escr
+  se arg0.posicao != 7
+    arg0.msg("Mas você não está lutando!")
+  senao
+    ret !arg1, arg0.msg("Digite a direção para onde deseja recuar.")
+    ret arg0.dono.s_naorec, arg0.msg("Aqui não é possível recuar.")
+    refvar ndir = $comando_mover.recdir(arg0)
+    ref dir
+    dir = arg0.dono.dir_[arg1]
+    se !dir
+      arg0.msg("Direção inexistente: " + dir + ".")
+      ret 1
+    fimse
+    ret arg0.dono.rec_[arg1], arg0.msg("Você não pode recuar por esta direção.")
+    refvar m = rand(1, 100)
+    se m <= 50
+      arg0.batalhafim
+      $mens.p(arg0)
+      $mens.mtodos1("$P recua.")
+      arg0.mudadono(dir)
+    senao
+      arg0.msg("Você não consegue recuar.")
+    fimse
+
+
+classe cmd_retornar
+herda comando_retornar
+const nomevar = "h_Retornar"
+const nivel = 10
+const precisao = 101
+const msgextra = "Teletransporta o seu personagem para o ponto de retorno, geralmente sua\n\
+cidade natal. Esse comando existe para jogadores até o nível 10."
+const msgerrou1 = "Você não consegue retornar."
+const msgnulo1 = "Você não consegue retornar."
+
+
+classe cmd_roncar
+herda comando_ataque
+const nomevar = "h_Roncar"
+const tipoalvo = 4 # Alvo: 4 Todos sem dividir o ataque
+const c_move1 = 10
+const c_move2 = 4
+const ataque = 70
+const precisao = 200
+const tipoatk = 9 # Tipo: 9 Aéreo/vento
+const msgextra = "Só pode ser usado enquanto estiver dormindo."
+const msgatk0 = "\n\n\n\
+$P ronca alto e se machuca, $m\n\n\
+Seu ronco potente atinge $a, $m\n\
+O ronco potente de $p atinge $a, $m\n\
+O ronco potente de $p atinge $a, $m\n\
+$A sucumbe com o seu ronco ensurdecedor, $m\n\
+$A sucumbe com o ronco ensurdecedor de $P, $m\n\
+$A sucumbe com o ronco ensurdecedor de $P, $m\n\
+$P ronca alto mas $a se afasta a tempo.\n\n\n\
+$A apenas observa $p roncando alto."
+const posic = 4
+
+func cmd_atacar
+  se arg0.posicao > 4
+    $mens.p(arg0)
+    arg0.msginv("$P não consegue roncar estando acordad$s.")
+    ret 1
+
+
+classe cmd_rosnar
+herda comando_ataque
+const nomevar = "h_Rosnar"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const a_efeito1 = "medo"
+const c_espera = 40
+const c_move1 = 15
+const c_move2 = 5
+const msgextra = "Rosna para diminuir o ataque do adversário por um tempo.\n\
+Só pode ser usado durante uma batalha."
+const msgatk0 = "\n\n\n\
+$P rosna e se assusta.\n\n\
+$P rosna para $a.\n\n\n\
+$P mata $a rosnando.\n\n\n\
+$P rosna para onde $a estava.\n\n\n\
+$A não entende por que $p rosnou."
+
+
+classe cmd_salto_mortal
+herda comando_ataque
+const nomevar = "h_Salto mortal"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const a_batalha = 1 # Condição: 1 Durante a batalha
+const c_espera = 10
+const c_move1 = 80
+const c_move2 = 45
+const ataque = 400
+const aulaini = 90
+const aulafim = 90
+const depende = "h_agilidade\nh_apunhalar"
+const tipoarma = 9 # Requer arma: 0-Sem armas, 3-Lâmina curta
+const tipobonus = "assassino\nladrão\norc"
+const valor = 75
+const vel = 88
+const msgatk0 = "Você corre na direção de $A, saltando bem auto!\n\
+$P corre em sua direção, saltando bem auto!\n\
+$P corre na direção de $A, saltando bem auto!\n\n\n\
+Logo depois você crava sua arma no pescoço de $A, tirando muito sangue. $m\n\
+Logo depois $P crava sua arma em seu pescoço, lhe causando muita dor. $m\n\
+Logo depois $P crava sua arma no pescoço de $A, fazendo jorrar muito sangue.\n\
+\d=facadamorre Com muita destreza, $P atravessa o pescoço de $A com sua arma, retirando sua \
+vida!\n\n\n\
+O seu salto não é auto o bastante. E você cai no chão, na frente de $A.\n\
+Em seguida $P não consegue completar seu salto, e cai na frente de $A.\n\
+Em seguida $P não consegue completar seu salto, caindo na frente de $A."
+
+
+classe cmd_segundo_ataque
+herda comando_ataque
+const nomevar = "h_Segundo ataque"
+const tipoalvo = 8 # Alvo: 8 Ataque automático
+const ataque = 0
+const aulaini = 20
+const aulafim = 20
+const valor = 20
+
+
+classe cmd_semfala
+herda comando_ataque
+const nomevar = "h_Semfala"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_efeito1 = "sem fala"
+
+
+classe cmd_socar
+herda comando_ataque
+const nomevar = "h_Socar"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const c_espera = 5
+const c_mana2 = 0
+const c_move1 = 10
+const c_move2 = 2
+const ataque = 40
+const aulaini = 1
+const aulafim = 1
+const tipoatk = 0 # Normal
+const tipobonus = "assassino\nespadachim\nguerreiro\nladrão\norc"
+const valor = 1
+const vel = 80
+const msgextra = "Golpe físico de força"
+const msgatk0 = "\n\n\n\
+$P soca $a, $m\n\n\
+$P soca $a, $m\n\n\n\
+$P soca $a, $m\n\n\n\
+$P soca $a, errou\n\n\n\
+$P dá um soco de demonstração em $a"
+
+
+classe cmd_soneca
+herda comando_ataque
+const nomevar = "h_Soneca"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const a_vida1 = 10000
+const a_efeito1 = "soneca"
+const msgextra = "Recupera os pontos de vida e dorme por 15 segundos\n\
+Depois disso, você deve teclar acorar para acordar"
+const msgatk0 = "\n\n\n\
+$P boceja, $m\n\n\
+$P boceja, $m\n\n\n\
+$P boceja, $m\n\n\n\
+$P boceja, errou\n\n\n\
+$P boceja, nada acontece"
+
+
+classe cmd_terceiro_ataque
+herda comando_ataque
+const nomevar = "h_Terceiro ataque"
+const tipoalvo = 8 # Alvo: 8 Ataque automático
+const ataque = 0
+const aulaini = 45
+const aulafim = 45
+const depende = "h_segundo_ataque"
+const valor = 45
+const msgatk0 = "\n\n\n$P ataca $a, $m"
+const txtajuda = "Habilidade Terceiro ataque:\n\
+Com essa habilidade, o personagem realiza três ataques automáticos seguidos.\n\
+Veja também:\n\
+Segundo ataque"
+
+
+classe cmd_varinha
+herda comando_ataque
+const nomevar = "h_varinha"
+const tipoalvo = 8 # Alvo: 8 Ataque automático
+const tipoarma = 2 # Usa arma: 1-Varinha
+const msgatk0 = "\n\n\n\
+$P lança um feitiço em $a, $m\n\n\
+$P lança um feitiço em $a, $m\n\n\n\
+$P lança um feitiço em $a, $m\n\n\n\
+$P lança um feitiço na direção de $a\n\n\n\
+$P lança um feitiço em $a mas nada acontece"
+
+func cmd_atacar
+  ret defender(arg0, arg1), 1
+  fimse
+  ret desvgolpe(arg0, arg1), 1
+
+
+classe cmd_velocidade
+herda comando_ataque
+const nomevar = "h_Velocidade"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "velox"
+const c_move1 = 300
+const c_move2 = 150
+const aulaini = 100
+const aulafim = 100
+const valor = 1200
+
+
+classe cmd_visivel
+herda comando_ataque
+const nomevar = "h_Visivel"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_remove = "invisibilidade"
+const msgatk0 = "\n\n\n\n\n\
+$P fica visível., $m\n\n\n\
+$P fica visível., $m\n\n\n\
+$P fica visível., errou\n\n\n\
+$P fica visível., nada acontece"
+
+
+classe cmd_voadora
+herda comando_ataque
+const nomevar = "h_Voadora"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const c_espera = 5
+const c_move1 = 17
+const c_move2 = 1
+const ataque = 90
+const aulaini = 17
+const aulafim = 17
+const depende = "h_chutar"
+const valor = 17
+const vel = 40
+const msgatk0 = "Você toma distância de $A!\n\
+$A toma distância de você!\n\
+$P toma distância de $A!\n\
+$P dá uma voadora em $a, $m\n\n\
+Você acerta uma voadora no peito de $A com muita agilidade, $m.\n\
+$P acerta uma voadora no seu peito com muita agilidade, $m.\n\
+$P acerta uma voadora no peito de $A com muita agilidade.\n\
+A sua voadora em $A $t mata na hora!\n\
+A  voadora de $P te mata na hora!\n\
+A voadora de $P mata $A na hora!\n\
+Você erra a voadora em $A por milímetros!\n\
+$P erra a voadora em você por milímetros!\n\
+$P erra a voadora em $A por milímetros!\n\
+$P dá uma voadora em $a, nada acontece"
+
+
+classe magia_adaga_envenenada
+herda comando_ataque
+const nomevar = "m_Adaga envenenada"
+const msgatk0 = "\n\n\n\
+$P ataca $a, $m\n\n\
+$P ataca $a, $m\n\n\n\
+$P ataca e mata $a, $m\n\n\n\
+$P ataca $a, errou\n\n\n\
+$P ataca $a, nada acontece\n\n\n"
+
+
+classe magia_aethelum
+herda comando_ataque
+const nomevar = "m_Aethelum"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const a_vida1 = -10000
+const ataque = 100
+const addprecisao = 100
+const tipoarma = 0 # Requer arma:
+const tipoatk = 11 # Tipo: 11 Trevas
+const vel = 100
+const msgatk0 = "$P aponta Aethelum, o cajado do inferno para $a.\n\
+$P aponta Aethelum, o cajado do inferno para $a.\n\
+$P aponta Aethelum, o cajado do inferno para $a.\n\
+Repentinamente, $a começa a gritar e a se debater enquanto suas energias parecem ser sugadas por \
+forças invisíveis! $m\n\n\
+Repentinamente, $a começa a gritar e a se contorcer, enquanto suas energias parecem ser sugadas \
+por forças invisíveis! $m\n\n\n\
+$a começa a gritar e a se contorcer, mas logo se cala e cai no chão, sem vida!\n\n\n\
+Um forte estrondo pode ser ouvido, mas nada parece acontecer.\n\n\n\
+Um forte estrondo pode ser ouvido, mas nada parece acontecer."
+
+
+classe magia_amolecer_pele
+herda comando_ataque
+const nomevar = "m_Amolecer pele"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "pele amolecida"
+const c_mana1 = 200
+const c_mana2 = 200
+const aulaini = 70
+const aulafim = 70
+const tipoatk = 11 # Tipo: 11 Trevas
+const valor = 70
+const msgatk0 = "$P conjura as palavras: 'Weaklend fleche'\n\n\n\n\n\n\n\n\n\n\n\
+$P errou o alvo.\n\n\n\
+Sua magia não teve efeito.\n\
+A magia de $P não teve efeito.\n\
+A magia de $P não teve efeito."
+
+
+classe magia_armadura
+herda comando_ataque
+const nomevar = "m_Armadura"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "armadura"
+const c_mana1 = 5
+const c_mana2 = 5
+const aulaini = 1
+const aulafim = 1
+const msgatk0 = "$P conjura as palavras: ' Armdclodsfawsjast '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
+$P ataca $a, nada acontece"
+
+
+classe magia_armadura_arcana
+herda comando_ataque
+const nomevar = "m_Armadura Arcana"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "Armadura Arcana"
+const c_mana1 = 60
+const c_mana2 = 30
+const aulaini = 46
+const aulafim = 46
+const precisao = 100
+const tipoarma = 29 # Requer arma: 0-Sem armas, 2-Cajado, 3-Lâmina curta, 4-Lâmina longa
+const valor = 46
+const msgatk0 = "Certo!\n\
+$P olha para você e expressa as palavras: 'Armadwbl'.\n\
+$P fecha seus olhos e expressa as palavras: 'Armadwbl'.\n\n\
+$P olha para $A e expressa as palavras: 'Armadwbl'.\n\n\n\n\n\n\n\n\n\n\
+Sua magia falha e desaparece.\n\
+A magia de $P falha e desaparece.\n\
+A magia de $P falha e desaparece."
+
+
+classe magia_armadura_da_fé
+herda comando_ataque
+const nomevar = "m_Armadura da fé"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_efeito1 = "armadura da fé"
+const c_mana1 = 30
+const c_mana2 = 15
+const aulaini = 20
+const aulafim = 20
+const valor = 20
+const msgatk0 = "Certo!\n\
+$P olha para você e expressa as palavras: 'Armacwbl\n\
+$P fecha seus olhos e expressa as palavras: 'Armacwbl'\n\n\
+$P olha para $A e expressa as palavras: 'Armacwbl'"
+
+
+classe magia_armadura_de_ossos
+herda comando_ataque
+const nomevar = "m_ARMADURA DE OSSOS"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "armadura de ossos"
+const c_mana1 = 50
+const c_mana2 = 50
+const aulaini = 15
+const aulafim = 15
+const valor = 15
+const msgatk0 = "$P conjura as palavras: 'Armadwklofacadja'\n\n\n\n\n\n\n\n\n\n\n\
+$P errou o seu alvo.\n\n\n\
+Sua magia não teve efeito.\n\
+A magia de $P não teve efeito.\n\
+A magia de $P não teve efeito."
+
+
+classe magia_aura_flamejante
+herda comando_ataque
+const nomevar = "m_Aura flamejante"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "aura flamejante"
+const c_mana1 = 500
+const c_mana2 = 500
+const aulaini = 190
+const aulafim = 190
+const depende = "m_flecha_de_fogo"
+const valor = 190
+const msgatk0 = "$P olha para se mesmo e conjura as palavras: 'Furocafinawdjaceyn fuoconish \
+'\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
+Sua magia falha e desaparece.\n\
+A magia de $P falha e desaparece.\n\
+A magia de $P falha e desaparece."
+
+
+classe magia_aura_negra
+herda comando_ataque
+const nomevar = "m_Aura negra"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "aura negra"
+const c_mana1 = 70
+const c_mana2 = 70
+const c_move1 = 0
+const c_move2 = 0
+const aulaini = 50
+const aulafim = 50
+const valor = 50
+const msgatk0 = "\n\n\n\
+Você olha para si mesm$s e conjura as palavras: 'autrvkaldjuwl'.\n\n\
+$P olha para $A e conjura as palavras: 'autrvkaldjuwl'.\n\n\n\
+$P ataca e mata $a, $m\n\n\n\
+$P ataca $a, errou\n\n\n\
+\d=magiadesaparece A sua magia falha e desaparece.\n\
+\d=magiadesaparece A magia de $P falha e desaparece.\n\
+\d=magiadesaparece A magia de $P falha e desaparece."
+
+
+classe magia_barreira_de_areia
+herda comando_ataque
+const nomevar = "m_Barreira de areia"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "barreira de areia"
+const c_mana1 = 120
+const c_mana2 = 70
+const ataque = 0
+const aulaini = 55
+const aulafim = 55
+const precisao = 100
+const tipoarma = 29 # Requer arma: 0-Sem armas, 2-Cajado, 3-Lâmina curta, 4-Lâmina longa
+const valor = 55
+const msgatk0 = "Certo!\n\n\
+$P expressa as palavras: 'Uplnord'.\n\n\n\n\n\n\n\n\n\n\n\n\
+Sua magia falha e desaparece.\n\
+A magia de $P falha e desaparece.\n\
+A magia de $P falha e desaparece."
+
+
+classe magia_barreira_de_espinhos
+herda comando_ataque
+const nomevar = "m_Barreira de espinhos"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "barreira de espinhos"
+const c_mana1 = 80
+const c_mana2 = 50
+const aulaini = 43
+const aulafim = 43
+const precisao = 100
+const tipoarma = 29 # Requer arma: 0-Sem armas, 2-Cajado, 3-Lâmina curta, 4-Lâmina longa
+const valor = 43
+const msgatk0 = "Certo!\n\
+$P olha para você e expressa as palavras: 'Looc Drawsh'.\n\
+$P olha para $A e expressa as palavras: 'Looc Drawsh'.\n\n\
+$P fecha seus olhos e expressa as palavras: 'Looc Drawsh'."
+
+
+classe magia_barreira_de_mana
+herda comando_ataque
+const nomevar = "m_Barreira de mana"
+const msgatk0 = "\n\n\n\
+$P ataca $a, $m\n\n\
+$P ataca $a, $m\n\n\n\
+$P ataca e mata $a, $m\n\n\n\
+$P ataca $a, errou\n\n\n\
+$P ataca $a, nada acontece\n\n\n"
+
+
+classe magia_calor_divino
+herda comando_ataque
+const nomevar = "m_Calor divino"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_mana1 = 0
+const a_vida1 = 200
+const a_vida2 = 2
+const c_espera = 15
+const c_mana1 = 150
+const c_mana2 = 100
+const ataque = 0
+const aulaini = 120
+const aulafim = 120
+const tipoarma = 29 # Requer arma: 0-Sem armas, 2-Cajado, 3-Lâmina curta, 4-Lâmina longa
+const tipobonus = "bispo\nclerigo\nelfo"
+const valor = 120
+const msgatk0 = "\n\n\n\
+Certo. [$m] Você se sente muito mais saldável.\n\
+$p olha para $a e conjura as palavras: dround. $a se sente muito mais saldáveu\n\
+Você olha para $A e conjura as palavras: 'dround'. $A se sente muito melhor, $m.\n\
+$P olha para você e conjura as palavras: 'dround'. você se sente muito melhor, $m.\n\
+$P olha para $A e conjura as palavras: 'dround'. $A se sente muito melhor!\n\
+$P ataca e mata $a, $m\n\n\n\
+$P não conseguiu se concentrar.\n\n\n\
+$P não conseguiu se concentrar."
+
+
+classe magia_cegueira
+herda comando_ataque
+const nomevar = "m_Cegueira"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const c_mana1 = 30
+const c_mana2 = 15
+const ataque = 0
+const aulaini = 27
+const aulafim = 27
+const tipoarma = 29 # Requer arma: 0-Sem armas, 2-Cajado, 3-Lâmina curta, 4-Lâmina longa
+const tipoatk = 14 # Ataque tipo: 14 Psíquico
+const valor = 27
+const msgatk0 = "certo!\n\
+$P olha para você e pronuncia as palavras BLINDNES\n\
+$P olha para $a e pronuncia as palavras BLINdNes"
+
+func cmd_alvofim
+  se arg1.jogconfig.14 == 1
+    $mens.p(arg0)
+    $mens.mtodos1("$P não consegue afetar um imortal!")
+    ret 1
+  fimse
+  criar("e_cegueira", arg1)
+
+
+classe magia_chama_protetora
+herda comando_ataque
+const nomevar = "m_Chama Protetora"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_efeito1 = "Chama Protetora"
+const c_mana1 = 50
+const c_mana2 = 20
+const aulaini = 22
+const aulafim = 22
+const tipoarma = 29 # Requer arma: 0-Sem armas, 2-Cajado, 3-Lâmina curta, 4-Lâmina longa
+const tipoatk = 4 # Tipo: 4 Fogo
+const valor = 22
+const msgatk0 = "$P esfrega as mãos até aparecer uma pequena chama.\n\n\n\
+$P fecha os olhos e a chama cresce, até ficar totalmente transparente.\n\n\
+$P separa as mãos e a chama caminha em direção a $a.\n\n\n\
+$P ataca e mata $a, $m\n\n\n\
+$P perde a concentração e a chama diminui até desaparecer.\n\n\n\
+$P separa as mãos e a chama desaparece, enquanto segue em direção a $a."
+#
+# Nota: nas habilidades/magias ofensivas (ataques), usar a função cmd_atacar
+# ao invés da função cmd_alvo.
+
+func cmd_alvo
+  se arg1.dentro2.objini("e_chama_protetora") # Se o alvo está com o efeito
+    mensinicio(arg0, arg1) # Envia mensagem inicial
+    result = 1 # Resultado: 0=acertou o alvo, 1=não teve efeito, 2=errou o alvo
+    mensgolpe(arg0, arg1) # Envia mensagem de acordo com a variável result
+    ret 1 # Para cancelar a magiaclasse magia_curar
+
+
+classe magia_chuva_de_espinhos
+herda comando_ataque
+const nomevar = "m_Chuva de espinhos"
+const tipoalvo = 2 # Alvo: 2 Todos dividindo o ataque
+const c_mana1 = 120
+const c_mana2 = 120
+const ataque = 240
+const aulaini = 100
+const aulafim = 100
+const precisao = 80
+const tipoatk = 3 # Tipo: 3 Perfurante
+const tipobonus = "necromante"
+const valor = 100
+const msgatk0 = "$P pronuncia as palavras: 'Espwndrend Chanewskivc'\n\n\n\n\n\
+Uma chuva de espinhos começa a cair do céu, ferindo há todos na sala, $m.\n\n\n\
+Um turbilhão de espinhos começa a cair do céu, acertando $A mortalmente.\n\n\n\
+Os espinhos convocados por $P passam raspando a cabeça de $A.\n\
+Os espinhos convocados por $P passam raspando a sua cabeça.\n\
+Os espinhos convocados por $P passam raspando a cabeça de $A.\n\
+Sua magia não teve efeito.\n\
+A magia de $P não teve efeito.\n\
+A magia de $P não teve efeito."
+
+
+classe magia_coluna_de_pedra
+herda comando_ataque
+const nomevar = "m_Coluna de pedra"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const c_espera = 10
+const ataque = 180
+const tipoatk = 8 # Tipo: 8 Pedra
+const msgatk0 = "Certo!\n\
+$P junta suas mãos na frente do corpo, levantando até a autura da cabeça.\n\
+$P junta suas mãos na frente do corpo, levantando até a autura da cabeça.\n\n\n\
+De suas mãos saem pedras que formam uma coluna. A coluna vai na direção de $A, machucando-o \
+muito. $m\n\
+Do chão sobem pedras, que formam uma coluna até as mãos de $P, Que com um jesto simples as lança \
+contra você. $M\n\
+Pedras sobem do chão até as mãos de $P, que com um jesto simples, as lança contra $A.\n\
+A coluna de pedras que sai de suas mãos, esmaga $A até a morte.\n\
+A coluna de pedras lançada por $P, esmaga seus ossos até a morte.\n\
+A coluna de pedras de $P, esmaga $A até a morte.\n\
+Sua coluna de pedras erra $A.\n\
+A coluna de pedras de $P erra você.\n\
+A coluna de pedras de $P erra $A.\n\
+$P ataca $a, nada acontece"
+
+
+classe magia_contorcer
+herda comando_ataque
+const nomevar = "m_Contorcer"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const c_mana1 = 5
+const c_mana2 = 5
+const ataque = 65
+const aulaini = 1
+const aulafim = 1
+const tipoatk = 14 # Tipo: 14 Psíquico
+const valor = 1
+const vel = 53
+const msgatk0 = "$P pronuncia as palavras: 'Contórceclws'\n\n\n\n\n\
+$A se contorce em dores, $m.\n\n\n\
+$A não suporta a dor e desfalece.\n\n\n\
+$P errou o alvo.\n\n\n\
+Sua magia não teve efeito.\n\
+A magia de $P não teve efeito.\n\
+A magia de $P não teve efeito."
+
+
+classe magia_corrente_de_ar
+herda comando_ataque
+const nomevar = "m_Corrente de ar"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const c_mana1 = 20
+const c_mana2 = 20
+const ataque = 76
+const aulaini = 10
+const aulafim = 10
+const valor = 5
+const vel = 50
+const msgatk0 = "$P conjura as palavras: ' Fluonjadsoid ventuclowsd '\n\n\n\n\n\
+Uma violenta corrente de ar atinge o rosto de $A, $m.\n\
+Uma violenta corrente de ar atinge o seu rosto, $m.\n\
+Uma violenta corrente de ar atinge o rosto de $A.\n\
+Uma violenta corrente de ar deixa o corpo de $A em pedaços... Era uma vez!\n\
+Uma violenta corrente de ar despedaça o seu corpo por completo, guiando-o diretamente ao \
+inferno.\n\
+Uma violenta corrente de ar deixa o corpo de $A em pedaços... Era uma vez!\n\
+Uma rajada de vento balança os cabelos de $A.\n\
+Uma rajada de vento balança os seus cabelos.\n\
+Uma rajada de vento balança os cabelos de $A.\n\
+Sua magia falha e desaparece.\n\
+A magia de $P falha e desaparece.\n\
+A magia de $P falha e desaparece."
+
+
+classe magia_corrente_elétrica
+herda comando_ataque
+const nomevar = "m_Corrente elétrica"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const a_mana1 = -100
+const a_move1 = -100
+const a_vida1 = -100
+const c_espera = 5
+const c_mana1 = 250
+const c_mana2 = 180
+const ataque = 360
+const aulaini = 150
+const aulafim = 150
+const depende = "h_cajado"
+const precisao = 100
+const tipoarma = 4 # Requer arma: 2-Cajado
+const tipoatk = 12 # Tipo: 12 Elétrico
+const valor = 150
+const vel = 88
+const msgatk0 = "Certo!\n\
+$P conjura as palavras: ' Shacty Eléfroguws '.\n\
+$P conjura as palavras: ' Shacty Eléfroguws '.\n\n\n\
+A descarga elétrica invocada por você adentra o corpo de $A e detona a consciência del$w, $m.\n\
+A descarga elétrica invocada por $P adentra pelo seu corpo e detona sua consciência, $M.\n\
+A descarga elétrica invocada por $P adentra o corpo de $A e detona a sua consciência.\n\
+A descarga elétrica invocada por $P adentra o corpo de $A e destrói todos os seus neurônios.\n\n\n\
+\n\n\n\
+$P ataca $a, nada acontece"
+
+
+classe magia_cósmo
+herda comando_ataque
+const nomevar = "m_Cósmo"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "força bruta"
+
+
+classe magia_criar_fonte
+herda comando_ataque
+const nomevar = "m_Criar fonte"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const c_mana1 = 15
+const c_mana2 = 5
+const precisao = 101
+const msgatk0 = "\n\n\n\
+$P faz um gesto circular com as mãos.\n\n\
+$P faz um gesto circular com as mãos."
+
+func cmd_alvofim
+  refvar sala = arg0.contr.dono # sala = sala aonde o personagem está
+  se sala.dentro1.total("i_teste042") < 5
+    criar("i_teste042", sala)
+    $mens.p(arg0)
+    $mens.mtodos1("Aos poucos, uma fonte brota do chão.")
+  fimse
+
+
+classe magia_criar_pão
+herda comando_ataque
+const nomevar = "m_Criar pão"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const msgatk0 = "\n\n\n\
+$P ataca $a, $m\n\n\
+$P ataca $a, $m\n\n\n\
+$P ataca e mata $a, $m\n\n\n\
+$P ataca $a, errou\n\n\n\
+$P ataca $a, nada acontece\n\n\n"
+
+
+classe magia_cura_luz
+herda comando_ataque
+const nomevar = "m_Cura luz"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const c_mana1 = 10
+const c_mana2 = 10
+const ataque = 0
+const aulaini = 8
+const aulafim = 8
+const valor = 8
+const msgatk0 = "$P conjura as palavras: ' Curesting blengboslight '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
+$P ataca $a, nada acontece"
+
+func cmd_alvofim
+  refvar g = rand(10, 15)
+  $mens.p(arg1)
+  $mens.mtodos2("$P se sente melhor, +" + g + ".", "$P se sente melhor.")
+  arg1.pvida += g
+
+
+classe magia_curar
+herda comando_ataque
+const nomevar = "m_Curar"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_cond = 0 # Condição: 0 Um ou mais pontos de vida
+const a_efeito1 = "curar"
+const a_vida1 = 40
+const c_mana1 = 30
+const c_mana2 = 12
+const aulaini = 15
+const aulafim = 15
+const valor = 15
+const msgatk0 = "Certo!\n\
+$P olha para você e expressa as palavras: 'Revitalitice'.\n\
+$P fecha seus olhos e expressa as palavras: 'Revitalitice'.\n\n\
+$P olha para $A e expressa as palavras: Revitalitice'."
+
+
+classe magia_curar_cegueira
+herda comando_ataque
+const nomevar = "m_Curar cegueira"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_remove = "cegueira"
+const c_mana1 = 40
+const c_mana2 = 20
+const aulaini = 30
+const aulafim = 30
+const tipoarma = 29 # Requer arma: 0-Sem armas, 2-Cajado, 3-Lâmina curta, 4-Lâmina longa
+const valor = 30
+const msgatk0 = "$P fala solenemente 'Curar Cegueira'"
+
+
+classe magia_danificar
+herda comando_ataque
+const nomevar = "m_Danificar"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const c_espera = 5
+const c_mana1 = 69
+const c_mana2 = 40
+const ataque = 180
+const aulaini = 45
+const aulafim = 45
+const tipoarma = 4 # Requer arma: 2-Cajado
+const tipoatk = 10 # Tipo: 10 Luz
+const tipobonus = "bispo\nclérigo"
+const valor = 45
+const msgatk0 = "Você olha para $A e conjura as palavras: 'danificawld'\n\
+$P olha para você e conjura as palavras: 'danificawld'\n\
+$P olha para $A e conjura as palavras: 'danificawld'\n\
+$P ataca $a, $m\n\n\
+Você ri diabolicamente ao ver a sua magia danificando $A, $m.\n\
+$P ri diabolicamente ao ver a magia del$w danificando você, $m.\n\
+$P ri diabolicamente, ao ver a sua magia danificando $A.\n\
+Você ri diabolicamente ao ver $A mort$t, danificado pela sua magia.\n\
+Você vê $P rindo diabolicamente quando você morre, danificado pela magia del$w.\n\
+$P ri diabolicamente ao ver $A sem vida, danificado pela magia del$v.\n\
+Você quase acerta $A, que desvia e não fica danificado pela sua magia.\n\
+Ufa! você desvia a tempo de $P não danificar você.\n\
+$P quase acerta $A, que desvia e não fica danificado.\n\
+Sua magia falha e desaparece.\n\
+A magia de $P falha e desaparece.\n\
+A magia de $P falha e desaparece."
+
+
+classe magia_doença
+herda comando_ataque
+const nomevar = "m_Doença"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "doença"
+const c_mana1 = 140
+const c_mana2 = 75
+const aulaini = 60
+const aulafim = 60
+const precisao = 100
+const tipoarma = 29 # Requer arma: 0-Sem armas, 2-Cajado, 3-Lâmina curta, 4-Lâmina longa
+const tipoatk = 11 # Tipo: 11 Trevas
+const valor = 60
+const msgatk0 = "Certo!\n\
+$P olha para você e conjura as palavras: 'valdrovadwld'\n\
+$P olha para $A e conjura as palavras: 'valdrovadwld'"
+
+
+classe magia_drenar
+herda comando_ataque
+const nomevar = "m_Drenar"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const a_batalha = 0 # Condição: 0 Nenhuma
+const a_efeito1 = "drenar"
+const c_mana1 = 100
+const c_mana2 = 100
+const ataque = 100
+const aulaini = 90
+const aulafim = 90
+const valor = 90
+const msgatk0 = "$P pronuncia as palavras: 'Rooksbanrd'\n\n\n\n\n\
+Você drena a energia de $A, $M.\n\
+$P drena sua energia, $m.\n\
+$P drena a energia de $A.\n\
+Você drena a energia de $A até à morte.\n\
+$P drena sua energia até à morte.\n\
+$P drena a energia de $A até à morte.\n\
+$P errou seu alvo\n\n\n\
+Sua magia não teve efeito.\n\
+A magia de $P não teve efeito.\n\
+A magia de $P não teve efeito."
+int32 pontos
+
+func cmd_atkenv
+  pontos = arg1.pvida
+
+func cmd_atacou
+  refvar vida = arg0.pvida
+  refvar max = arg0.pvidamax
+  se !arg2.result && vida && vida < max
+    pontos = intpos(pontos - arg1.pvida) / 2
+    vida += pontos
+    vida > max && (vida = max)
+
+
+classe magia_drenar_energia
+herda comando_ataque
+const nomevar = "m_Drenar energia"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const c_mana1 = 30
+const c_mana2 = 10
+const ataque = 0
+const tipoatk = 11 # Tipo: 11 Trevas
+const msgextra = "Retira parte do mana e do vigor do alvo."
+const msgatk0 = "\n\n\n\
+$P se sente cansad$s.\n\n\
+$P deixa $a cansad$t.\n\n\n\
+$P esgota as últimas energias de $a.\n\n\n\
+$P se cansou à toa.\n\n\n\
+$A parece tão cansad$t quanto antes."
+
+func cmd_atacou
+  se !arg2.result
+    arg1.pmana *= 0.6
+    arg1.pmove *= 0.6
+
+
+classe magia_drenar_vida
+herda comando_ataque
+const nomevar = "m_Drenar vida"
+const tipoalvo = 0 # Alvo: 0 Qualquer um; ataque
+const a_vida1 = -500
+const c_espera = 10
+const c_vida1 = 500
+const c_vida2 = 500
+const ataque = 190
+const vel = 300
+const msgatk0 = "Certo!\n\
+$P olha para você e expressa as palavras: 'Roockp'.\n\
+$P olha para $A e expressa as palavras: 'Roockp'.\n\n\n\
+Você suga a vitalidade de $A com suas presas vampíricas. $M\n\
+$P suga sua vitalidade com suas presas vampíricas. $M\n\
+$P suga a vitalidade de $A com suas presas vampíricas.\n\
+Você suga a vida de $A até o fim.\n\
+$P suga sua vida completamente.\n\
+$P suga a vida de $A até o fim.\n\
+Sua tentativa de sugar $A falha.\n\
+A tentativa de $P te sugar falha.\n\
+A tentativa de $P sugar $A falha."
+const evperso = 1 # Eventos perso: Sim
+
+
+classe magia_envenenar
+herda comando_ataque
+const nomevar = "m_Envenenar"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "envenenado"
+const c_mana1 = 30
+const c_mana2 = 15
+const ataque = 0
+const aulaini = 25
+const aulafim = 25
+const precisao = 101
+const tipoarma = 29 # Requer arma: 0-Sem armas, 2-Cajado, 3-Lâmina curta, 4-Lâmina longa
+const valor = 25
+const msgatk0 = "Certo...\n\
+$P olha para você e conjura as palavras: 'envdrad'\n\
+$P olha para $A e conjura as palavras: 'envdrad'\n\
+O veneno enviado por você começa a te consumir...\n\
+O veneno enviado por $P começa a possuir el$v mesm$s...\n\
+O veneno enviado por você começa a possuir $A...\n\
+O veneno enviado por $P começa a te possuir...\n\
+O veneno enviado por $P começa a possuir $A...\n\
+$P ataca e mata $a, $m\n\n\n\
+$P ataca $a, errou\n\n\n\
+Sua magia falha e desaparece.\n\
+A magia de $P falha e desaparece.\n\
+A magia de $P falha e desaparece."
+
+
+classe magia_escudo_de_ar
+herda comando_ataque
+const nomevar = "m_Escudo de ar"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "Escudo de ar"
+const c_mana1 = 60
+const c_mana2 = 30
+const ataque = 0
+const aulaini = 35
+const aulafim = 35
+const precisao = 80
+const valor = 35
+const msgatk0 = "Certo!\n\n\
+$P levanta os braços e conjura as palavras: 'Audray Ventus'.\n\n\n\n\n\n\n\n\n\n\n\n\
+Sua magia falha e desaparece.\n\
+A magia de $P falha e desaparece.\n\
+A magia de $P falha e desaparece."
+
+
+classe magia_escudo_de_ossos
+herda comando_ataque
+const nomevar = "m_Escudo de ossos"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "escudo de ossos"
+const c_mana1 = 100
+const c_mana2 = 100
+const aulaini = 80
+const aulafim = 80
+const valor = 80
+const msgatk0 = "$P conjura as palavras: 'Esclawsh byenigmates'\n\n\n\n\n\n\n\n\n\n\n\
+$P errou o alvo.\n\n\n\
+Sua magia não teve efeito.\n\
+A magia de $P não teve efeito\n\
+A magia de $P não teve efeito"
+
+
+classe magia_espíritos_infernais
+herda comando_ataque
+const nomevar = "m_Espíritos infernais"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "espíritos infernais"
+const c_mana1 = 200
+const c_mana2 = 200
+const aulaini = 110
+const aulafim = 110
+const tipoarma = 29 # Requer arma: 0-Sem armas, 2-Cajado, 3-Lâmina curta, 4-Lâmina longa
+const valor = 110
+const msgatk0 = "$P conjura as palavras: 'Spirity draynish'\n\n\n\n\n\n\n\n\n\n\n\
+$P errou o alvo.\n\n\n\
+Sua magia não teve efeito.\n\
+A magia de $P não teve efeito.\n\
+A magia de $P não teve efeito."
+
+
+classe magia_explosão_de_luz
+herda comando_ataque
+const nomevar = "m_Explosão de luz"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const a_efeito1 = "cegueira"
+const c_espera = 5
+const c_mana1 = 200
+const c_mana2 = 80
+const ataque = 300
+const aulaini = 80
+const aulafim = 80
+const precisao = 100
+const tipoarma = 0 # Requer arma:
+const tipoatk = 10 # Tipo: 10 Luz
+const tipobonus = "bispo\nclérigo\nelfo"
+const tipoperso = "bispo\nclerigo"
+const valor = 80
+const vel = 88
+const msgatk0 = "Certo!\n\
+$P junta suas mãos, logo em seguida as separa lentamente.\n\
+$P junta suas mãos, logo em seguida as separa lentamente.\n\n\n\
+De suas mãos sai uma bola de energia branca, que explode e acerta $A. $m\n\
+Uma bola de energia branca se forma entre as mãos de $P, que a lança em sua direção , causando \
+uma grande explosão de luz. $m\n\
+Uma bola de energia branca se forma entre as mãos de $P, que a lança na direção de $A, causando \
+uma grande explosão de luz.\n\
+De suas mãos sai uma bola de energia branca, que explode e mata $A.\n\
+Uma bola de energia branca se forma entre as mãos de $P, que a lança em sua direção, causando \
+uma grande explosão de luz mortal.\n\
+Uma bola de energia branca se forma entre as mãos de $P, que a lança na direção de $A, causando \
+uma grande explosão de luz mortal.\n\
+A bola de energia branca que se formava em suas mãos, explode antes do tempo, errando $A.\n\
+A bola de energia branca que se formava nas mãos de $P, se explode antes do tempo, errando \
+você.\n\
+A bola de energia branca que se formava nas mãos de $P, se explode antes do tempo, errando \
+$A.\n\
+$P ataca $a, nada acontece"
+
+
+classe magia_feridas_crítica
+herda comando_ataque
+const nomevar = "m_Feridas crítica"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const c_espera = 5
+const c_mana1 = 25
+const c_mana2 = 12
+const ataque = 120
+const aulaini = 17
+const aulafim = 17
+const tipoarma = 4 # Requer arma: 2-Cajado
+const tipoatk = 10 # Tipo: 10 Luz
+const valor = 17
+const msgatk0 = "certo!\n\
+$P olha para você e conjura as palavras: 'kardvakatus'\n\
+$P olha para $A e conjura as palavras: 'kardvakatus'\n\n\n\
+As palavras que você conjura fazem $A urrar de dor. $m\n\
+As palavras conjuradas de $P fazem você urrar de dor. $m\n\
+As palavras conjuradas de $P fazem $A urrar de dor.\n\
+As palavras que você conjura fazem $A gritar até a morte.\n\
+As palavras conjuradas por $P fazem você gritar até a morte.\n\
+As palavras conjuradas por $P fazem $A gritar até a morte.\n\
+As suas palavras não foram suficientes para causar feridas em $A.\n\
+As palavras de $P não foram suficientes para causar feridas em você.\n\
+As palavras de $P não foram suficientes para causar feridas em $A.\n\
+A sua magia falha e desaparece.\n\
+A magia de $P falha e desaparece.\n\
+A magia de $P falha e desaparece."
+
+
+classe magia_flecha_de_fogo
+herda comando_ataque
+const nomevar = "m_Flecha de fogo"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const a_batalha = 1 # Condição: 1 Durante a batalha
+const c_mana1 = 300
+const c_mana2 = 300
+const ataque = 440
+const aulaini = 180
+const aulafim = 180
+const tipoarma = 4 # Requer arma: 2-Cajado
+const tipoatk = 7 # Tipo: 7 Terra
+const tipobonus = "feiticeiro"
+const valor = 180
+const vel = 100
+const msgatk0 = "$P conjura as palavras: ' Fire arcowdjacent '\n\n\n\n\n\
+De repente surge no céu uma flecha ardente, que atinge diretamente o peito de $A, $m.\n\
+De repente surge no céu uma flecha ardente, que atinge diretamente o seu peito, $m.\n\
+De repente surge no céu uma flecha ardente, que atinge diretamente o peito de $A.\n\
+A flecha flamejante invocada por você atinge diretamente o coração de $A, levando-o instantaneame\
+nte à morte.\n\
+A flecha flamejante invocada por $P atinge diretamente o seu coração, levando-o instantaneamente \
+à morte.\n\
+A flecha flamejante invocada por $P atinge diretamente o coração de $A, levando-o instantaneament\
+e à morte.\n\
+Uma flecha de fogo rasga os céus, e logo após explode no ar.\n\n\n\
+Sua magia falha e desaparece.\n\
+A magia de $P falha e desaparece.\n\
+A magia de $P falha e desaparece."
+
+
+classe magia_flutuar
+herda comando_ataque
+const nomevar = "m_Flutuar"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_efeito1 = "flutuar"
+const a_remove = "voar"
+const c_mana1 = 20
+const c_mana2 = 5
+const aulaini = 30
+const aulafim = 30
+const tipoarma = 29 # Requer arma: 0-Sem armas, 2-Cajado, 3-Lâmina curta, 4-Lâmina longa
+const valor = 30
+const msgatk0 = "Certo!\n\
+$P olha para você e expressa as palavras: 'Ix Kounguap'.\n\
+$P olha para $A e expressa as palavras: 'Ix Konguap'.\n\n\
+$P fecha seus olhos e expressa as palavras: 'Ix Konguap'."
+
+
+classe magia_fogo
+herda comando_ataque
+const nomevar = "m_Fogo"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const c_espera = 5
+const c_mana1 = 8
+const c_mana2 = 5
+const ataque = 64
+const aulaini = 1
+const aulafim = 1
+const tipoarma = 0 # Requer arma:
+const tipoatk = 4 # Tipo de ataque: 4 Fogo
+const valor = 1
+const msgatk0 = "\n\n\n\
+$P lança fogo em si mesm$s, $m\n\n\
+$P lança fogo em $a, $m\n\n\n\
+$P assa $a em fogo alto, $m\n\n\n\
+$P lança fogo em $a mas erra.\n\n\n\
+$P lança fogo em $a mas nada acontece."
+
+
+classe magia_força
+herda comando_ataque
+const nomevar = "m_Força"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_efeito1 = "força"
+
+
+classe magia_furacão
+herda comando_ataque
+const nomevar = "m_Furacão"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const c_espera = 10
+const ataque = 160
+const tipoatk = 9 # Tipo: 9 Aéreo/vento
+const msgatk0 = "Certo!\n\
+$P faz jestos circulares com a mão, generalizando um enorme furacão.\n\
+$P faz jestos circulares com a mão, generalizando um enorme furacão.\n\n\n\
+Você lança o furacão em suas mãos contra $A. $m\n\
+$P lança seu braço para frente, fazendo os ventos do furacão virem em sua direção. $m\n\
+$P empurra seu braço para frente, fazendo os ventos do furacão irem de encontro a $A.\n\
+Ao lançar o furacão de suas mãos na direção de $A,seu corpo é lançado para puta que pario\n\
+O furacão de $P vem em sua direção, levando seu corpo para o espaço.\n\
+O furacão de $P vai de encontro com $A, levando seu corpo para o espaço.\n\
+Seu furacão erra $A.\n\
+o furacão de $P erra você.\n\
+O furacão de $P erra $A.\n\
+$P ataca $a, nada acontece"
+
+
+classe magia_identificar
+herda comando_identificar
+const nomevar = "m_Identificar"
+const c_mana1 = 20
+const c_mana2 = 5
+const aulaini = 15
+const aulafim = 15
+const tipoarma = 0 # Requer arma:
+const valor = 15
+const msgextra = "Obtém informações sobre itens e personagens."
+const msgperso1 = "Você olha $a com atenção."
+const msgobj1 = "Você olha $o com atenção."
+const msgerrou1 = "A magia falhou."
+const msgnulo1 = "A magia não teve efeito."
+
+
+classe magia_imagens_espelhadas
+herda comando_ataque
+const nomevar = "m_Imagens espelhadas"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const a_efeito1 = "imagens espelhadas"
+const depende = "h_imagens"
+const msgatk0 = "Certo...\n\n\
+$P olha para el$v mesm$s e conjura as palavras: 'Chenickisbie'\n\
+Algumas imagens semelhantes a você começam a se locomover por aqui.\n\
+Algumas imagens semelhantes a $P começam a se locomover por aqui.\n\
+$P ataca $a, $m\n\n\n\
+$P ataca e mata $a, $m\n\n\n\
+Você não conseguiu se concentrar!\n\
+$P não conseguiu se concentrar!\n\
+$P não conseguiu se concentrar!\n\
+$P ataca $a, nada acontece"
+
+
+classe magia_invisibilidade
+herda comando_ataque
+const nomevar = "m_Invisibilidade"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "invisibilidade"
+const c_mana1 = 20
+const c_mana2 = 10
+const aulaini = 17
+const aulafim = 17
+const valor = 17
+const msgatk0 = "$P fala solenemente 'Inv'"
+
+
+classe magia_invocação_dos_espíritos
+herda comando_ataque
+const nomevar = "m_Invocação dos espíritos"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const c_mana1 = 70
+const c_mana2 = 70
+const ataque = 130
+const aulaini = 30
+const aulafim = 30
+const precisao = 80
+const tipoatk = 11 # Tipo: 11 Trevas
+const valor = 30
+const vel = 70
+const msgatk0 = "$P olha para $A e conjura as palavras: 'ilakdjkauwl'.\n\n\n\
+$P ataca $a, $m\n\n\
+Após isso, espíritos aparecem do além e começam a atacar $A com enorme fúria, $m.\n\
+Após isso, espíritos aparecem do além e começam a te atacar com enorme fúria, $m.\n\
+Após isso, espíritos aparecem do além e começam a atacar $A com enorme fúria.\n\
+Espíritos surgem do além e atacam $A com força total, que não resiste aos golpes e morre \
+subitamente.\n\n\n\
+Espíritos surgem do além e completamente desnorteados começam a seguir diferentes direções, \
+sumindo no horizonte.\n\n\n\
+Sua magia falha e desaparece.\n\
+A magia de $P falha e desaparece.\n\
+A magia de $P falha e desaparece."
+
+
+classe magia_juventude
+herda comando_ataque
+const nomevar = "m_Juventude"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_vida1 = 2000
+const c_espera = 20
+const c_mana1 = 2000
+const c_mana2 = 2000
+const ataque = 0
+const aulaini = 190
+const aulafim = 190
+const valor = 190
+const msgatk0 = "$P conjura a palavra: 'rejuvenation'\n\n\n\
+$P se sente mais jovem.\n\n\
+$P se sente mais jovem.\n\n\n\n\n\n\n\n\n\
+Sua magia falha e desaparece."
+
+
+classe magia_lentidão
+herda comando_ataque
+const nomevar = "m_Lentidão"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "lento"
+const c_espera = 5
+const c_mana1 = 700
+const c_mana2 = 350
+const aulaini = 145
+const aulafim = 145
+const precisao = 100
+const tipoarma = 29 # Requer arma: 0-Sem armas, 2-Cajado, 3-Lâmina curta, 4-Lâmina longa
+const tipobonus = "feiticeiro\nmago"
+const valor = 5000
+const msgatk0 = "Certo!\n\
+Você endurece a medida que $P conjura palavras malignas sobre você\n\
+$P olha para $a e pronuncia as palavras: \"slow\""
+
+
+classe magia_luz_celestial
+herda comando_ataque
+const nomevar = "m_Luz celestial"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "luz celestial"
+const c_mana1 = 100
+const c_mana2 = 10
+const aulaini = 90
+const aulafim = 90
+const tipoperso = "clérigo"
+const valor = 90
+const msgatk0 = "\n\n\n\
+$P olha para se mesmo e conjura as palavras: 'Lyokness Cenopsdrawn'\n\n\n\n\n\n\n\n\
+$P errou a pontaria.\n\n\n\
+Sua magia não teve efeito.\n\n\
+A magia de $P não teve efeito."
+
+
+classe magia_maldição
+herda comando_ataque
+const nomevar = "m_Maldição"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_efeito1 = "maldição"
+const c_mana1 = 80
+const c_mana2 = 40
+const ataque = 0
+const aulaini = 40
+const aulafim = 40
+const precisao = 100
+const tipoarma = 29 # Requer arma: 0-Sem armas, 2-Cajado, 3-Lâmina curta, 4-Lâmina longa
+const valor = 40
+const msgatk0 = "Certo...\n\
+$P olha para você e expressa as palavras: 'Papwiuwl'.\n\
+$P olha para $A e expressa as palavras: 'Papwiuwl'.\n\n\n\n\n\n\n\n\n\n\n\n\
+Sua magia falha e desaparece.\n\
+A magia de $P falha e desaparece.\n\
+A magia de $P falha e desaparece."
+
+
+classe magia_manimus
+herda comando_ataque
+const nomevar = "m_Manimus"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "manimus"
+const c_espera = 15
+const c_mana1 = 600
+const c_mana2 = 300
+const aulaini = 120
+const aulafim = 120
+const precisao = 100
+const tipoarma = 29 # Requer arma: 0-Sem armas, 2-Cajado, 3-Lâmina curta, 4-Lâmina longa
+const tipobonus = ""
+const valor = 120
+const msgatk0 = "certo!\n\n\
+$P fecha seus olhos e pronuncia as palavras: \"Manimusmeridiunus\"\n\n\n\n\n\n\n\n\n\n\n\n\
+$P ataca $a, nada acontece"
+
+
+classe magia_mão_de_ossos
+herda comando_ataque
+const nomevar = "m_Mão de ossos"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "Mão de ossos"
+const c_mana1 = 15
+const c_mana2 = 15
+const aulaini = 10
+const aulafim = 10
+const valor = 10
+const msgatk0 = "$P conjura as palavras: 'Furufarocadja'\n\n\n\n\n\n\n\n\n\n\n\
+$P errou seu alvo.\n\n\n\
+Sua magia não teve efeito.\n\
+A magia de $P não teve efeito.\n\
+A magia de $P não teve efeito."
+
+
+classe magia_mísseis_mágicos
+herda comando_ataque
+const nomevar = "m_Mísseis mágicos"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const c_espera = 5
+const c_mana1 = 12
+const c_mana2 = 7
+const ataque = 90
+const aulaini = 5
+const aulafim = 5
+const tipoatk = 14 # Tipo: 14 Psíquico
+const valor = 5
+const msgatk0 = "Certo...\n\
+$P olha para você e pronuncia as palavras 'incetdgoodrie dribaadriv'\n\
+$P olha para $A e pronuncia as palavras 'incetdgoodrie dribaadriv'\n\
+$P ataca $a, $m\n\n\
+Os Mísseis conjurados por você acerta $A em cheio, $M.\n\
+$P lança Mísseis em cheio contra você, $m.\n\
+$P lança Mísseis, que acerta $A em cheio.\n\
+Você lança Mísseis que atinge e mata $A na hora!\n\
+$P lança Mísseis que atinge e mata você na hora!\n\
+$P lança Mísseis que atinge e mata $A na hora!\n\
+Você lança Mísseis na reta de $A, mas ele muda de direção.\n\
+$P lança Mísseis em sua reta, mas ele muda de direção.\n\
+$P lança Mísseis na reta de $A, mas ele muda de direção.\n\
+Sua magia falha e desaparece!\n\
+A magia de $P falha e desaparece.\n\
+A magia de $P falha e desaparece."
+
+
+classe magia_onda_das_trevas
+herda comando_ataque
+const nomevar = "m_Onda das trevas"
+const tipoalvo = 5 # Alvo: 5 Outros sem dividir o ataque
+const c_mana1 = 300
+const c_mana2 = 150
+const ataque = 430
+const aulaini = 140
+const aulafim = 140
+const tipoarma = 29 # Requer arma: 0-Sem armas, 2-Cajado, 3-Lâmina curta, 4-Lâmina longa
+const tipoatk = 11 # Tipo: 11 Trevas
+const tipobonus = "feiticeiro"
+const valor = 140
+const msgatk0 = "Certo!\n\
+$P abre seus braços e da uma risada malígna.\n\
+$P abre seus braços e da uma risada malígna.\n\n\n\
+Você abre seus braços e lança uma onda de energia das trevas contra $A. $m\n\
+Uma onda de energia das trevas sai dos braços de $P, acertando você. $m\n\
+Uma onda de energia das trevas sai dos braços de $P, acertando $A.\n\
+Você abre seus braços e lança uma onda de energia das trevas contra $A, que leva sua alma \
+embora.\n\
+A onda das trevas de $P acerta você, levando-o para o submundo.\n\
+A onda das trevas de $P acerta $A, levando-o para o submundo.\n\
+Você lança uma onda de energia das trevas, que erra $A.\n\
+A onda das trevas de $P erra você.\n\
+A ondas das trevas de $P erra $A."
+
+
+classe magia_onda_divina
+herda comando_ataque
+const nomevar = "m_Onda divina"
+const tipoalvo = 5 # Alvo: 5 Outros sem dividir o ataque
+const c_espera = 5
+const c_mana1 = 120
+const c_mana2 = 80
+const ataque = 160
+const aulaini = 60
+const aulafim = 60
+const tipoarma = 4 # Requer arma: 2-Cajado
+const tipoatk = 10 # Tipo: 10 Luz
+const tipobonus = "clerigo\nfeiticeiro"
+const valor = 60
+const msgatk0 = "Certo!\n\
+$P expressa as palavras: 'Divinus Expurgo'.\n\
+$P expressa as palavras: 'Divinus Expurgo'.\n\n\n\
+Sua onda divina acerta $a. $m\n\
+A onda divina de $p acerta você, machucando seu espírito. $m\n\
+A onda divina lançada por $P, acerta $A, que grita de dor.\n\
+A sua onda divina acerta $A, levando sua alma com ela.\n\
+A onda divina lançada por $P acerta você, levando seu espírito.\n\
+A onda divina lançada por $P leva a alma de $a, matando-o.\n\
+Sua onda de energia divina erra $a.\n\
+A onda divina passa a metros de você.\n\
+A onda de $P erra $A.\n\
+Sua magia falha e desaparece.\n\
+A magia de $P falha e desaparece.\n\
+A magia de $P falha e desaparece."
+
+
+classe magia_poção_de_cura
+herda comando_ataque
+const nomevar = "m_Poção de cura"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_vida1 = 70
+const ataque = 0
+const msgatk0 = "\n\n\n\
+$P se sente mais saldável.\n\n\
+$P se sente melhor. $m\n\n\n\
+$P ataca e mata $a, $m\n\n\n\
+$P ataca $a, errou\n\n\n\
+Sua magia falha e desaparece.\n\
+A magia de $P falha e desaparece.\n\
+A magia de $P falha e desaparece."
+
+
+classe magia_portal
+herda comando_hab
+const nomevar = "m_Portal"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const aulaini = 190
+const aulafim = 190
+const tipoarma = 4 # Requer arma: 2-Cajado
+const msgatk0 = "\n\n\n\
+$P ataca $a, $m\n\n\
+$P ataca $a, $m\n\n\n\
+$P ataca e mata $a, $m\n\n\n\
+$P ataca $a, errou\n\n\n\
+$P ataca $a, nada acontece\n\n\n"
+
+func escr
+  arg0.msg("Bom dia")
+  ret 1
+
+
+classe magia_proteção_divina
+herda comando_ataque
+const nomevar = "m_Proteção divina"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_efeito1 = "proteção divina"
+const c_mana1 = 100
+const c_mana2 = 30
+const aulaini = 50
+const aulafim = 50
+const precisao = 100
+const tipoarma = 29 # Requer arma: 0-Sem armas, 2-Cajado, 3-Lâmina curta, 4-Lâmina longa
+const valor = 50
+const msgatk0 = "Certo!\n\
+$p olha para você e expressa as palavras: 'yucandusvines'.\n\
+$P olha para $A e expressa as palavras: 'Yucandusvines'.\n\n\
+$P fecha seus olhos e expressa as palavras: 'Yucandusvines'."
+
+
+classe magia_qretorno
+herda comando_ataque
+const nomevar = "m_Qretorno"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const precisao = 101
+
+func cmd_alvofim
+  refvar r = $[arg1.var.z_salaqretorno]
+  se r # Se tem ponto de retorno
+    arg1.mudadono(r)
+    $mens.p(arg1)
+    $mens.mmud1("$P foi retornad$s.")
+    ret 1
+
+
+classe magia_rajada_da_fé
+herda comando_ataque
+const nomevar = "m_Rajada da fé"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const a_batalha = 0 # Condição: 0 Nenhuma
+const c_espera = 5
+const c_mana1 = 10
+const c_mana2 = 5
+const ataque = 90
+const aulaini = 1
+const aulafim = 1
+const precisao = 100
+const addprecisao = 100
+const tipoarma = 0 # Requer arma:
+const tipoatk = 10 # Tipo: 10 Luz
+const tipobonus = ""
+const valor = 1
+const vel = 70
+const msgatk0 = "Você olha para $A e conjura as palavras: 'candruwd'\n\
+$P olha para você e conjura as palavras: 'candruwd'\n\
+$P olha para $A e conjura as palavras: 'candruwd'\n\
+$P ataca $a, $m\n\n\
+Você lança uma rajada da fé contra $A, $m.\n\
+$P lança uma rajada da fé contra você, $m.\n\
+$P lança uma rajada da fé contra $A.\n\
+Sua rajada da fé leva $A à morte!\n\
+A rajada da fé de $P leva você à morte!\n\
+A rajada da fé de $P leva $A à morte!\n\
+A sua rajada da fé passa raspando o corpo de $A.\n\
+Ufa! A rajada da fé de $P passa raspando o seu corpo!\n\
+A rajada da fé de $P passa raspando o corpo de $A.\n\
+Sua magia falha e desaparece.\n\
+A magia de $P falha e desaparece.\n\
+A magia de $P falha e desaparece."
+
+
+classe magia_relâmpago
+herda comando_ataque
+const nomevar = "m_Relâmpago"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const c_espera = 5
+const c_mana1 = 100
+const c_mana2 = 80
+const ataque = 450
+const aulaini = 100
+const aulafim = 100
+const tipoarma = 29 # Requer arma: 0-Sem armas, 2-Cajado, 3-Lâmina curta, 4-Lâmina longa
+const tipoatk = 12 # Tipo: 12 Elétrico
+const tipobonus = "feiticeiro\nmago"
+const valor = 2000
+const vel = 100
+const msgatk0 = "Certo...\n\
+$P olha para o céu e conjura as palavras: 'retrups'.\n\
+$P olha para o céu e conjura as palavras: 'retrups'.\n\
+$P ataca $a, $m\n\n\
+Um relâmpago misterioso cai sobre $A, $m.\n\
+Após isso, um relâmpago misterioso cai sobre você, $m.\n\
+Após isso, um relâmpago misterioso cai sobre $A, $m.\n\
+Um relâmpago misterioso cai sobre $A, tirando-lhe a vida!\n\
+Após isso, um relâmpago misterioso cai sobre você, tirando sua vida instantaneamente!\n\
+Após isso, um relâmpago misterioso cai sobre $A, tirando-lhe a vida instantaneamente!\n\
+Por um motivo inexplicável, o relâmpago conjurado por você erra o corpo de $A.\n\
+Por um motivo inexplicável, o relâmpago conjurado por $P erra o seu corpo.\n\
+Por um motivo inexplicável, o relâmpago conjurado por $P erra o corpo de $A.\n\
+Sua magia falha e desaparece.\n\
+A magia de $P falha e desaparece.\n\
+A magia de $P falha e desaparece."
+
+
+classe magia_remover_doença
+herda comando_ataque
+const nomevar = "m_Remover doença"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_remove = "doença"
+const c_mana1 = 100
+const c_mana2 = 50
+const aulaini = 140
+const aulafim = 140
+const depende = "m_curar_cegueira"
+const tipoarma = 4 # Requer arma: 2-Cajado
+const tipoperso = "bispo"
+const valor = 140
+const msgatk0 = "Certo!\n\
+$P olha para $A e conjura as palavras: 'ífigo on groob'.\n\
+$P olha para $A e conjura as palavras: 'ífigo on groob'.\n\n\n\n\n\n\
+$P ataca e mata $a, $m\n\n\n\n\n\n\
+Sua magia falha e desaparece.\n\
+A magia de $P falha e desaparece.\n\
+A magia de $P falha e desaparece."
+
+
+classe magia_remover_maldição
+herda comando_ataque
+const nomevar = "m_Remover maldição"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_remove = "maldição"
+const c_mana1 = 120
+const c_mana2 = 70
+const aulaini = 115
+const aulafim = 115
+const precisao = 101
+const tipoarma = 4 # Requer arma: 2-Cajado
+const valor = 115
+const msgatk0 = "Certo!\n\
+$P olha para $A e conjura as palavras: 'Groob Papwiuwl'.\n\
+$P olha para $A e conjura as palavras: 'Groob Papwiuwl'.\n\n\n\n\n\n\
+$P ataca e mata $a, $m\n\n\n\
+$P ataca $a, errou\n\n\n\
+Sua magia falha e desaparece.\n\
+A magia de $P falha e desaparece.\n\
+A magia de $P falha e desaparece."
+
+
+classe magia_remover_veneno
+herda comando_ataque
+const nomevar = "m_Remover veneno"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_remove = "envenenado"
+const c_mana1 = 100
+const c_mana2 = 80
+const aulaini = 105
+const aulafim = 105
+const precisao = 101
+const tipoarma = 29 # Requer arma: 0-Sem armas, 2-Cajado, 3-Lâmina curta, 4-Lâmina longa
+const tipoperso = "bispo"
+const valor = 105
+const msgatk0 = "Certo!\n\
+$P olha para $A e conjura as palavras: 'Grood Envdrad'.\n\
+$P olha para $A e conjura as palavras: 'Grood Envdrad'.\n\n\n\n\n\n\
+$P ataca e mata $a, $m\n\n\n\
+$P ataca $a, errou\n\n\n\
+Sua magia falha e desaparece.\n\
+A magia de $P falha e desaparece.\n\
+A magia de $P falha e desaparece."
+
+
+classe magia_restaurar_vitalidade
+herda comando_ataque
+const nomevar = "m_Restaurar vitalidade"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const a_move1 = 20
+const a_move2 = 3
+const c_mana1 = 12
+const c_mana2 = 5
+const tipoatk = 10 # Tipo: 10 Luz
+const msgextra = "Recupera alguns pontos de vigor."
+const msgatk0 = "\n\n\n\
+$P faz um gesto e se sente mais descansad$s.\n\n\
+$P ataca $a, $m\n\n\n\
+$P ataca e mata $a, $m\n\n\n\
+$P faz um gesto esquisito.\n\n\n\
+$P faz um gesto e se sente tão descansad$s quanto antes."
+
+
+classe magia_retornar
+herda comando_ataque
+const nomevar = "M_retornar"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const c_mana1 = 90
+const c_mana2 = 40
+const precisao = 101
+const tipoarma = 29 # Requer arma: 0-Sem armas, 2-Cajado, 3-Lâmina curta, 4-Lâmina longa
+const valor = 10
+const msgatk0 = "\n\n\n\
+$P olha para se mesm$s e conjura as palavras: 'Retornkwdf'\n\n\
+$P olha para $A e conjura as palavras: 'Retornkwdf'\n\n\n\
+$P ataca e mata $a, $m\n\n\n\
+A magia de $P falhou.\n\n\n\
+A magia de $P falha e desaparece."
+
+func cmd_alvofim
+  refvar r = $[arg1.var.z_salafim]
+  se r # Se tem ponto de retorno
+    se r == arg1.dono
+      $mens.p(arg0)
+      $mens.mtodos1("A magia falhou.")
+      ret 1
+    fimse
+    $mens.p(arg1)
+    $mens.mvis2("", "$P desaparece.")
+    se arg0.atkenv
+      refvar p = rand(arg0.pnivel * 2000, arg0.pnivel * 10000)
+      arg0.expatual -= p
+      arg0.msg("Você perdeu " + p + " pontos de experiências graças a sua fuga.")
+    fimse
+    arg1.mudadono(r)
+    $mens.p(arg1)
+    $mens.mtodos2("", "Repentinamente $P aparece no meio da sala.")
+    ret 1
+
+
+classe magia_retorno_dourado
+herda comando_retornar
+const nomevar = "m_Retorno dourado"
+const precisao = 101
+const tipoalvo = 6 # Alvo: 6 Qualquer um
+const msgatk0 = "\n\n\n\
+$P ataca $a, $m\n\n\
+$P ataca $a, $m\n\n\n\
+$P ataca e mata $a, $m\n\n\n\
+$P ataca $a, errou\n\n\n\
+$P ataca $a, nada acontece\n\n\n"
+
+
+classe magia_sanctuary
+herda comando_ataque
+const nomevar = "m_Sanctuary"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "sanctuary"
+const c_mana1 = 70
+const c_mana2 = 40
+const ataque = 0
+const aulaini = 40
+const aulafim = 40
+const valor = 40
+const msgatk0 = "Certo!\n\
+$P olha para você e expressa as palavras: 'Sanctuary'.\n\
+$P olha para $A e expressa as palavras: 'Sanctuary'.\n\n\
+$P fecha seus olhos e expressa as palavras: 'Sanctuary'."
+
+
+classe magia_santificação
+herda comando_ataque
+const nomevar = "m_Santificação"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_batalha = 0 # Condição: 0 Nenhuma
+const a_cond = 0 # Condição: 0 Um ou mais pontos de vida
+const a_remove = "cegueira\nenvenenado\ndoença"
+const a_vida2 = 1
+const c_mana1 = 120
+const c_mana2 = 60
+const aulaini = 55
+const aulafim = 55
+const precisao = 100
+const valor = 55
+const msgatk0 = "Certo!\n\
+$P fecha os olhos e expressa as palavras: 'heallingdivine'\n\
+$P fecha os olhos e expressa as palavras: 'heallingdivine'\n\
+($m) Uma onda quente sobe pelo seu corpo.\n\
+Uma onda quente sobe pelo corpo de $P.\n\
+($m) Uma onda quente sobe pelo corpo de $A.\n\
+($m) Uma onda quente sobe pelo seu corpo.\n\
+Uma onda quente sobe pelo corpo de $A.\n\n\n\n\n\n\n\
+sua magia falha e desaparece\n\
+magia de $P falha e desaparece\n\
+a magia de $P falha e desaparece"
+
+
+classe magia_sono_profundo
+herda comando_ataque
+const nomevar = "m_Sono profundo"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "sono profundo"
+const c_espera = 5
+const c_mana1 = 20
+const c_mana2 = 5
+const ataque = 0
+const aulaini = 57
+const aulafim = 57
+const precisao = 100
+const tipoatk = 14 # Ataque tipo: 14 Psíquico
+const tipobonus = "feiticeiro\nmago"
+const valor = 57
+const msgatk0 = "$P inicia uma canção de ninar para $a."
+
+
+classe magia_sopro_de_gelo
+herda comando_ataque
+const nomevar = "m_Sopro de gelo"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const a_batalha = 0 # Condição: 0 Nenhuma
+const a_efeito1 = "congelado"
+const a_prob1 = 51
+const c_espera = 5
+const c_mana1 = 100
+const c_mana2 = 60
+const ataque = 140
+const aulaini = 50
+const aulafim = 50
+const precisao = 100
+const tipoarma = 29 # Requer arma: 0-Sem armas, 2-Cajado, 3-Lâmina curta, 4-Lâmina longa
+const tipoatk = 6 # Ataque tipo: 6 Gelo
+const tipobonus = "elfo\nfeiticeiro\nmago"
+const valor = 50
+const msgextra = "Pode congelar."
+const msgatk0 = "Certo!\n\
+$P olha para você e expressa as palavras: 'Ghcdkandtrus'.\n\
+$P olha para $A e expressa as palavras: 'Ghckandtrus'.\n\n\n\
+Você lança um sopro de gelo em $A. $m\n\
+$P lança um sopro de gelo em você. $m\n\
+$P lança um sopro de gelo em $A.\n\
+Seu sopro de gelo congela o corpo de $A, levando-o a morte.\n\
+O sopro de gelo lançado por $P congela todo o seu corpo, levando você a morte.\n\
+O sopro de gelo lançado por $P mata $A congelado.\n\
+Seu sopro de gelo erra $A.\n\
+O sopro de gelo de $P erra você.\n\
+O sopro de gelo de $P erra $A.\n\
+Sua magia falha e desaparece.\n\
+A magia de $P falha e desaparece.\n\
+A magia de $P falha e desaparece."
+
+
+classe magia_tempestade_de_fogo
+herda comando_ataque
+const nomevar = "m_Tempestade de fogo"
+const tipoalvo = 4 # Alvo: 4 Todos sem dividir o ataque
+const a_efeito1 = "queimando"
+const c_espera = 10
+const c_mana1 = 200
+const c_mana2 = 100
+const ataque = 190
+const aulaini = 75
+const aulafim = 75
+const depende = "m_fogo"
+const precisao = 100
+const tipoarma = 0 # Requer arma:
+const tipoatk = 4 # Tipo: 4 Fogo
+const tipobonus = "feiticeiro\nmago"
+const valor = 75
+const msgatk0 = "Certo!\n\
+$P levanta os braços, invocando uma tempestade de fogo\n\
+$P levanta os braços, invocando uma tempestade de fogo\n\n\n\
+Você lança sua tempestade de fogo contra $A, queimando todo seu corpo. $m\n\
+$P lança sua tempestade de fogo contra você, queimando seu corpo. $M\n\
+$P lança sua tempestade de fogo contra $A, lhe queimando todo o corpo.\n\
+Sua tempestade de fogo vai na direção de $A, queimando o seu corpo até a morte.\n\
+$P queima totalmente o seu corpo e sua alma, com uma tempestade de fogo.\n\
+$P envia sua tempestade de fogo na direção de $A, queimando todo seu corpo até a morte.\n\
+Sua tempestade de fogo erra $A\n\
+A tempestade de fogo de $P erra você.\n\
+A tempestade de fogo de $P erra $A.\n\
+$P ataca $a, nada acontece"
+
+
+classe magia_terremoto
+herda comando_ataque
+const nomevar = "m_Terremoto"
+const tipoalvo = 3 # Alvo: 3 Outros dividindo o ataque
+const a_efeito1 = "caído"
+const a_prob1 = 50
+const c_mana1 = 150
+const c_mana2 = 150
+const ataque = 220
+const aulaini = 100
+const aulafim = 100
+const tipoatk = 7 # Tipo: 7 Terra
+const valor = 100
+const vel = 89
+const msgatk0 = "$P conjura as palavras: 'earthquake'\n\n\n\n\n\
+Fazendo breves gestos com as mãos, você conjura um forte tremor de terra, derrubando todos ao \
+seu redor, $m\n\
+Fazendo breves gestos com as mãos, $P conjura um forte tremor de terra, derrubando todos ao seu \
+redor, $m\n\
+Fazendo breves gestos com as mãos, $P conjura um forte tremor de terra, derrubando todos ao seu \
+redor.\n\
+Após ser arremessado a centenas de metros pelo terremoto conjurado por você, $A cai no chão \
+atordoado enquanto uma cratera se abre em baixo de seus pés e $t engole.\n\
+Após ser arremessado a centenas de metros pelo terremoto conjurado por $P, você cai no chão \
+atordoado enquanto uma cratera se abre em baixo de seus pés e $t engole.\n\
+Após ser arremessado a centenas de metros pelo terremoto conjurado por $P, $A cai no chão \
+atordoado enquanto uma cratera se abre em baixo de seus pés e $t engole.\n\
+$A salta, conseguindo escapar de seu terremoto.\n\
+Você salta, conseguindo escapar do terremoto de $P.\n\
+$A salta, conseguindo escapar do terremoto de $P.\n\
+Sua magia não teve efeito."
+
+
+classe magia_tsunami
+herda comando_ataque
+const nomevar = "m_Tsunami"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const c_espera = 10
+const ataque = 170
+const tipoatk = 5 # Tipo: 5 Água
+const msgatk0 = "Certo!\n\
+$P se concentra e puxa seus braços para trás do corpo.\n\
+$P se concentra e puxa seus braços para trás do corpo.\n\n\n\
+Você empurra seus braços para frente, generalizando um tsunami contra $A. $m\n\
+Quando $P traz seus braços para frente, um enorme tsunami é lançado contra você. $M\n\
+Quando $P traz seus braços para frente, um enorme tsunami é lançado contra $A.\n\
+O seu tsunami vai na direção de $A, afogando-o.\n\
+O tsunami de $P vem em sua direção, te matando afogado.\n\
+O tsunami de $P vai na direção de $A, afogando-o até a morte.\n\
+Seu tsunami erra $A.\n\
+O tsunami de $P erra você.\n\
+O tsunami de $P erra $A.\n\
+$P ataca $a, nada acontece"
+
+
+classe magia_velocidade
+herda comando_ataque
+const nomevar = "m_Velocidade"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "velocidade"
+const c_mana1 = 200
+const c_mana2 = 120
+const aulaini = 136
+const aulafim = 136
+const tipoarma = 1053 # Requer arma: 0-Sem armas, 2-Cajado, 3-Lâmina curta, 4-Lâmina longa, \
+10-adaga
+const tipobonus = "bispo\nclerigo\nelfo\nfeiticeiro\nmago"
+const valor = 2000
+const msgextra = "Esta magia faz com que o alvo fique muito mais veloz, assim, podendo executar \
+habilidades e magias com mais destreza."
+const msgatk0 = "Certo!\n\
+$P olha para você e pronuncia as palavras: \"hast\"\n\
+$P fecha os olhos e pronuncia as palavras: \"Hast\""
+
+
+classe magia_ventania
+herda comando_ataque
+const nomevar = "m_Ventania"
+const tipoalvo = 1 # Alvo: 1 Exceto o personagem; ataque
+const a_batalha = 0 # Condição: 0 Nenhuma
+const c_espera = 5
+const c_mana1 = 15
+const c_mana2 = 10
+const ataque = 120
+const aulaini = 10
+const aulafim = 10
+const tipoarma = 4 # Requer arma: 2-Cajado
+const tipoatk = 9 # Tipo: 9 Aéreo/vento
+const tipobonus = "elfo\nfeiticeiro\nmago"
+const valor = 10
+const vel = 50
+const msgatk0 = "Certo...\n\
+$P olha para você e conjura as palavras: 'condvdrud'\n\
+$P olha para $A e conjura as palavras: 'condvdrud'\n\
+$P ataca $a, $m\n\n\
+O vento enviado por você arrasta $A por alguns metros, $m.\n\
+O vento enviado por $P arrasta você por alguns metros, $m.\n\
+O vento enviado por $P arrasta $A por alguns metros.\n\
+O vento enviado por você arrasta $A por alguns metros, que não aguenta e morre...\n\
+O vento enviado por $P arrasta você por alguns metros, que não aguenta e morre...\n\
+O vento enviado por $P arrasta $A por alguns metros, que não aguenta e morre...\n\
+O vento enviado por você passa raspando o corpo de $A.\n\
+O vento enviado por $P passa raspando o seu corpo.\n\
+O vento enviado por $P passa raspando o corpo de $A.\n\
+Sua magia falha e desaparece!\n\
+A magia de $P falha e desaparece.\n\
+A magia de $P falha e desaparece."
+
+
+classe magia_ver_invisivel
+herda comando_ataque
+const nomevar = "m_Ver Invisível"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const a_efeito1 = "ver invisível"
+const c_mana1 = 30
+const c_mana2 = 4
+const aulaini = 19
+const aulafim = 19
+const valor = 19
+const msgatk0 = "$P fala solenemente 'Ver Inv'\n\n\n\n\n\
+Seus olhos brilham.\n\
+Os olhos de $P brilham.\n\
+Os olhos de $P brilham."
+
+
+classe magia_ver_oculto
+herda comando_ataque
+const nomevar = "m_Ver Oculto"
+const tipoalvo = 7 # Alvo: 7 O personagem; não é ataque
+const a_efeito1 = "ver oculto"
+const c_mana1 = 20
+const c_mana2 = 10
+const aulaini = 25
+const aulafim = 25
+const tipoarma = 4 # Requer arma: 2-Cajado
+const valor = 25
+const msgatk0 = "$P fala solenemente 'Ver Oculto'"
+
+
+classe magia_vida_divina
+herda comando_ataque
+const nomevar = "m_Vida divina"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_batalha = 2 # Condição: 2 Fora da batalha
+const a_efeito1 = "vida divina"
+const a_vida1 = 300
+const a_vida2 = 1
+const c_mana1 = 120
+const c_mana2 = 120
+const ataque = 0
+const aulaini = 120
+const aulafim = 120
+const valor = 120
+const msgatk0 = "$P conjura as palavras: 'Diviny Life'\n\n\n\
+[$m] $P sente um calor passando por suas veias, e sua vitalidade almenta!\n\
+[$m] $A sente um calor passando por suas veias, e sua vitalidade almenta!\n\
+[$m] $A sente um calor passando por suas veias, e sua vitalidade almenta!\n\
+[$m] Você sente um calor passando por suas veias, e sua vitalidade almenta!\n\
+$P sente um calor passando por suas veias, e sua vitalidade almenta!\n\n\n\n\
+$P não encontrou $A.\n\n\n\
+Sua magia não teve efeito.\n\
+A magia de $P não teve efeito.\n\
+A magia de $P não teve efeito."
+
+
+classe magia_vitalidade
+herda comando_ataque
+const nomevar = "m_Vitalidade"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_move1 = 100
+const a_move2 = 1
+const a_vida1 = 0
+const c_mana1 = 40
+const c_mana2 = 20
+const aulaini = 34
+const aulafim = 34
+const tipobonus = "bispo\nclerigo"
+const valor = 34
+const msgatk0 = "Certo!\n\
+$P olha para você e pronuncia as palavras: \"revitaliusius\"\n\
+$P olha para $a e pronuncia as palavras: \"revitalisius\"\n\
+Você se sente vitalizado!\n\
+$P se sente revitalizado\n\n\n\n\n\n\n\n\n\n\
+Sua magia falha e desaparece.\n\
+A magia de $P falha e desaparece.\n\
+A magia de $P falha e desaparece."
+
+
+classe magia_voar
+herda comando_ataque
+const nomevar = "m_Voar"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const a_efeito1 = "voar"
+const a_remove = "flutuar"
+const c_mana1 = 40
+const c_mana2 = 10
+const aulaini = 52
+const aulafim = 52
+const precisao = 100
+const tipoarma = 29 # Requer arma: 0-Sem armas, 2-Cajado, 3-Lâmina curta, 4-Lâmina longa
+const valor = 52
+const msgatk0 = "Certo!\n\
+$P olha para você e expressa as palavras: 'Flya'.\n\
+$P fecha seus olhos e expressa as palavras: 'Flya'.\n\n\
+$P olha para $A e expressa as palavras: 'Flya'."
+
+
+classe magia_volta
+herda comando_ataque
+const nomevar = "m_Volta"
+const tipoalvo = 6 # Alvo: 6 Qualquer um; não é ataque
+const msgatk0 = "\n\n\n$P volta.\n\n\n$P faz $a voltar."
+
+func cmd_alvofim
+  arg1.contr.mudadono($s_casa002)
+  $mens.p(arg1)
+  $mens.mtodos1("$P caiu aqui.")

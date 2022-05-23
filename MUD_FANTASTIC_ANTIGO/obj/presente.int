@@ -1,0 +1,147 @@
+classe i_presente
+herda comum_item
+const nome = "presente"
+const ident = "presente caixa"
+const descnome = "uma caixa"
+const descpos = "Uma caixa está aqui"
+const descver = "digite abrir caixa para ver seu conteúdo!"
+const mantersala = 1 # Mantém na sala: Sim
+const inivar = "e_apagar=2"
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const semdoar = 1
+
+func cmd_soltarobj
+  se arg2 == este
+    arg0.msg("Não é permitido soltar " + descnome + ".")
+    ret 1
+  fimse
+
+func cmd_darobj
+  se arg2 == este
+    arg0.msg("Não é permitido dar " + descnome + " a ninguém.")
+    ret 1
+  fimse
+
+func cmd_pegarobj
+  se arg2 == este
+    se arg0.dentro1.objini("i_presente")
+      arg0.msg("Como você já tem uma caixa, não pode pegar esta.")
+      ret 1
+    senao
+      $mens.p(arg0)
+      $mens.mens = arg1
+      $mens.mtodostodos1("$P pegou uma caixa com presente!")
+      $mens.mtodostodos1("\d=fgift")
+      criar("i_presente", arg0)
+      este.apagar
+      ret 1
+    fimse
+
+func cmd_escr
+  se arg1 == "abrir caixa"
+    $mens.p(arg0)
+    refvar w = txtsublin(d, rand(intsublin(d)), 1)
+    refvar p = rand(1, 90000)
+    refvar grana = rand(1, 80000)
+    $mens.mtodos2("Ao abrir a caixa, ela desaparece!", "$P abre " + descnome + ".")
+    $mens.mtodos1("\d=gift")
+    arg0.msg("Presente de: " + w + "!")
+    refvar i = rand(1, 12)
+    se i == 1
+      arg0.restaurar
+      arg0.msg("Você foi totalmente restaurado.")
+      apagar(este)
+      ret 1
+    senao
+      se i == 2
+        arg0.msg("Você ganhou um enorme pão recheado!")
+        criar("i_midgaard019", arg0)
+        apagar(este)
+        ret 1
+      senao
+        se i == 3
+          criar("e_voar", arg0)
+          apagar(este)
+          ret 1
+        senao
+          se i == 4
+            arg0.msg("Você recebe " + grana + " moedas.")
+            arg0.var.z_moedas_ += grana
+            apagar(este)
+            ret 1
+          senao
+            se i == 5
+              arg0.ganhaexp(p)
+              apagar(este)
+              ret 1
+            senao
+              se i == 6
+                arg0.msg("você ganhou um picolé de chocolate!")
+                criar("i_praiacoca016", arg0)
+                apagar(este)
+                ret 1
+              senao
+                se i == 7
+                  arg0.msg("Você ganhou um cachorro quente completo!")
+                  criar("i_aditemm066", arg0)
+                  apagar(este)
+                  ret 1
+                senao
+                  se i == 8
+                    arg0.msg("você ganhou uma latinha de coca cola!")
+                    criar("i_aditemm042", arg0)
+                    apagar(este)
+                    ret 1
+                  senao
+                    se i == 9
+                      arg0.msg("você ganhou uma caixa de bis!")
+                      criar("i_fabi010", arg0)
+                      apagar(este)
+                      ret 1
+                    senao
+                      se i == 10
+                        arg0.msg("você ganhou uma fatia de torta de pêssego e creme!")
+                        criar("i_aditemm108", arg0)
+                        apagar(este)
+                        ret 1
+                      senao
+                        se i == 11
+                          criar("e_chama_protetora", arg0)
+                          apagar(este)
+                          ret 1
+                        senao
+                          se i == 12
+                            refvar qst = rand(1, 30)
+                            $mens.p(arg0)
+                            arg0.msg("Você ganha " + qst + "Pontos de quest!")
+                            apagar(este)
+                            ret 1
+
+const d = "Um fido bestial\n\
+o padeiro\n\
+linda, a vendedora de flores\n\
+O dono da estalagem\n\
+Um apreçado viajante\n\
+Ginna\n\
+Eldon\n\
+Jaric\n\
+Robert\n\
+Hobert\n\
+Ronald\n\n\
+Um guarda renomado\n\
+O mago louco\n\
+tia tana\n\
+uma camponesa\n\
+joabe\n\
+Junior\n\
+Caio, o vendedor de cachorro quente\n\
+Um policial de killer dark\n\
+a deusa nyx\n\
+Fabi\n\
+Skirlion\n\
+um surfista\n\
+Chris\n\
+Lucas\n\
+um cidadão de torvani\n\
+Um cidadão de torvani"

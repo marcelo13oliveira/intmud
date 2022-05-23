@@ -1,0 +1,106 @@
+classe a_caldeirao
+herda area
+
+
+classe b_caldeirao
+herda sala
+const s_area = "caldeirao"
+
+
+classe p_caldeirao001
+herda comum_perso
+const nome = "Tom"
+const descnome = "Tom"
+const descpadr = "Tom está aqui, atendendo a clientela."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 40
+
+
+classe s_caldeirao001
+herda b_caldeirao
+const s_titulo = "Na Entrada do Caldeirão Furado"
+const s_desc = "Você está parado em frente a um bar muito sujo.\n\
+Pessoas passam por ele sem ao menos notá-lo.\n\
+Gente de todos os tipos passam por você em direção do bar.\n\
+Para norte, há uma grande rua movimentada."
+const dir_n = $s_caldeirao005
+const dir_entrar = $s_caldeirao002
+
+
+classe s_caldeirao002
+herda b_caldeirao
+const s_titulo = "Dentro do Bar"
+const s_desc = "Você está dentro do Caldeirão furado.\n\
+O bar é escuro e um pouco mizerável.\n\
+Para sul, você vai aos fundos do bar."
+const dir_s = $s_caldeirao003
+const dir_sair = $s_caldeirao001
+const a_reset = "P 100 Caldeirão001 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_Caldeirão001:objsolto.total < 1
+    criar("p_Caldeirão001", este, 0)
+  fimse
+
+
+classe s_caldeirao003
+herda b_caldeirao
+const s_titulo = "No Pátio murado"
+const s_desc = "Você está nos fundos do Caldeirão Furado, em um pátio murado.\n\
+Aqui, há um latão de lixo e um pouco de mato."
+const dir_n = $s_caldeirao002
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "bater"
+    $mens.p(arg0)
+    $mens.mvis1("$P bate com sua varinha em um tijolo acima do latão de lixo.")
+    $mens.mvis1("O tijolo estremece e começa se retorcer.")
+    $mens.mvis1("Uma pequena fenda aparece na parede e aos poucos vai se alargando, revelando a \
+entrada para o Beco Diagonal.")
+    $mens.p(arg0)
+    $mens.mvis2("", "$P atravessa apassagem recentemente aberta e desaparece.")
+    arg0.mudadono($s_diagonal001)
+    $mens.p(arg0)
+    $mens.mvis2("", "$P emergiu de uma passagem ao norte!")
+    ret 1
+  fimse
+
+
+classe s_caldeirao004
+herda b_caldeirao
+const dir_n = $s_caldeirao003
+
+
+classe s_caldeirao005
+herda b_caldeirao
+const s_titulo = "Uma rua movimentada"
+const dir_s = $s_caldeirao001
+const dir_b = $s_caldeirao006
+
+
+classe s_caldeirao006
+herda b_caldeirao
+const s_titulo = "Escadas"
+const dir_c = $s_caldeirao005
+const dir_b = $s_caldeirao007
+
+
+classe s_caldeirao007
+herda b_caldeirao
+const s_titulo = "No meio das escadas"
+const dir_c = $s_caldeirao006
+const dir_b = $s_caldeirao008
+
+
+classe s_caldeirao008
+herda b_caldeirao
+const s_titulo = "No fim das escadas"
+const dir_n = $s_estacao001
+const dir_c = $s_caldeirao007

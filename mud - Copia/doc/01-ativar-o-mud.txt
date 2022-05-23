@@ -1,0 +1,85 @@
+Índice
+1. Rodando o MUD no Windows
+2. Rodando o MUD no Linux
+3. Primeiros passos após rodar o programa
+
+
+1. Rodando o MUD no Windows
+
+Copiar o arquivo intmud.exe para o diretório mud (o diretório que
+contém o arquivo mud.int).
+
+Renomear esse arquivo (intmud.exe do diretório mud) para mud.exe
+
+Executar o mud.exe.
+
+
+2. Rodando o MUD no Linux
+
+Há pelo menos três formas de baixar e compilar o IntMUD:
+
+2.1. Baixar a última revisão pelo servidor, com o programa wget
+
+São os seguinte comandos, nessa ordem:
+wget https://github.com/ed2martin/intmud/archive/master.zip
+unzip master.zip
+cd intmud-master
+./configure && make
+
+Pode acontecer do wget salvar o arquivo como master ao invés de master.zip.
+Nesse caso, o comando para descompacter muda de unzip master.zip para
+unzip master
+
+2.2. Baixar a última revisão pelo servidor, com o programa git
+
+São os seguinte comandos, nessa ordem:
+git clone git://github.com/ed2martin/intmud
+unzip master.zip
+cd intmud
+./configure && make
+
+2.3. Baixar o código fonte e copiar para o servidor
+
+A última versão lançada está em:
+https://github.com/ed2martin/intmud/releases
+Mais especificamente no botão Download ZIP, ou o endereço:
+wget https://github.com/ed2martin/intmud/archive/master.zip
+
+Depois copiar o arquivo master.zip para o servidor e digitar os comandos:
+unzip master.zip
+cd intmud-master
+./configure && make
+
+2.4. Após compilar
+
+Copiar o IntMUD para o diretório mud, mas com outro nome:
+cp intmud mud/mud
+
+Entrar no diretório mud e executar o programa:
+cd mud
+./mud
+
+Para manter o MUD funcionando mesmo depois de fechar o terminal, edite
+o arquivo mud.int e mude a seguinte linha:
+telatxt = 1
+Para:
+telatxt = 0
+
+Nesse caso, para fechar o MUD, será necessário digitar:
+killall mud
+
+
+3. Primeiros passos após rodar o programa
+
+Crie um personagem e tecle x2. Deverá vir uma mensagem assim:
+Você virou administrador, tecle ADM para saber os comandos.
+Depois tecle ECONFIG para mudar as configurações do MUD, principalmente
+a senha de administração, que inicialmente é x2. Para outros jogadores
+conectarem-se ao MUD, é necessário ativar pelo menos uma das opções:
+jogar em uma porta ou jogar em um chat.
+
+O programa em si não produz som, portanto deficientes visuais deverão
+usar um leitor de telas, como o NVDA ou o JAWS. Se isso não for possível,
+antes de rodar o MUD, altere as configurações abrindo o arquivo
+config/config.int em um editor de texto. As opções estão definidas a partir
+da linha 9 desse arquivo.

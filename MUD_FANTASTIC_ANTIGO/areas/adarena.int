@@ -1,0 +1,155 @@
+classe s_adarena001
+herda b_adarena
+const s_titulo = "sala de preparação"
+const s_desc = "Esta é a sala de preparação, onde os lutadores se preparam para o combate.\n\
+Imagens de lutas entre gladiadores, povoam todas as paredes.\n\
+De modo que você só vê uma porta a oeste como saída."
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_pnj = 0
+const s_recup = 4000
+const eveste = 1 # Eventos sala: Sim
+const dir_o = $s_adarena002
+const dir_sair = $s_midgaard001
+const inv_sair = 1 # Invisível: Sim
+
+func cmd_mover
+  se arg2 == "sair"
+    arg0.msg("O mundo de batalhas ao seu redor se desfaz...")
+    arg0.msg("você vê")
+  fimse
+
+
+classe s_adarena003
+herda b_adarena
+const s_titulo = "canto sul da arena"
+const s_desc = "esse é o canto sul da arena"
+const s_jog = 2
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_adarena002
+const dir_sair = $s_midgaard001
+const inv_sair = 1 # Invisível: Sim
+
+
+classe s_adarena004
+herda b_adarena
+const s_titulo = "canto norte da arena"
+const s_desc = "esse é o canto norte da arena"
+const s_jog = 2
+const eveste = 1
+const dir_s = $s_adarena002
+const dir_sair = $s_midgaard001
+const inv_sair = 1 # Invisível: Sim
+
+
+classe s_adarena005
+herda b_adarena
+const s_titulo = "arquibancadas"
+const s_desc = "essas são as arquibancadas\n\
+pré preparadas para suportar o maior número de espectadores.\n\
+um pouco a direita, você vê uma banca, onde ficam os apostadores.\n\
+e a esqerda, só que bem mais acima, fica o camarote dos deuses."
+const s_jog = 2
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_adarena002
+const dir_sair = $s_midgaard001
+const inv_sair = 1 # Invisível: Sim
+const eveste = 1
+
+
+classe s_adarena006
+herda b_adarena
+const s_titulo = "canto noroeste da arena"
+const s_desc = "este é o canto noroeste da arena"
+const s_jog = 2
+const eveste = 1
+const dir_se = $s_adarena002
+const dir_sair = $s_midgaard001
+const inv_sair = 1 # Invisível: Sim
+
+
+classe s_adarena007
+herda b_adarena
+const s_titulo = "Canto Nordeste da Arena"
+const s_desc = ""
+const eveste = 1
+const dir_so = $s_adarena002
+const dir_sair = $s_midgaard001
+const inv_sair = 1 # Invisível: Sim
+
+
+classe s_adarena008
+herda b_adarena
+const s_titulo = "canto sudeste da arena"
+const s_desc = "esse é o canto sudeste da arena\n"
+const eveste = 1 # Eventos sala: Sim
+const dir_no = $s_adarena002
+const dir_sair = $s_midgaard001
+const inv_sair = 1 # Invisível: Sim
+
+
+classe s_adarena009
+herda b_adarena
+const s_titulo = "canto sudoeste da arena"
+const s_desc = "esse é o canto sudoeste da arena\n"
+const eveste = 1
+const dir_ne = $s_adarena002
+const dir_sair = $s_midgaard001
+const inv_sair = 1 # Invisível: Sim
+const eveste = 1
+
+
+classe a_adarena
+herda area
+const a_nome = "arena adventuremud"
+const eveste = 1
+
+
+classe b_adarena
+herda sala
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_jog = 30
+const s_recup = 0
+const s_reserva = 1 # Comando reserva: Sim
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const s_som = "arena"
+const eveste = 1
+const s_area = "arena"
+
+func cmd_mover
+  se arg2 == "sair"
+    se dentro2.total > 1
+      arg0.msg("Há mais pessoas para você derrotar, não pode sair até matar seu último oponente."\
+)
+      ret 1
+    fimse
+    $mens.p(arg0)
+    $mens.mens = arg1
+    $mens.mmudtodos1("*arena* $P Saiu.")
+    arg0.msg("O mundo de batalhas ao seu redor se desfaz...")
+    arg0.msg("você vê")
+    arg0.mudadono($s_midgaard001)
+    ret 1
+  fimse
+
+
+classe s_adarena002
+herda b_adarena
+const s_titulo = "Arena"
+const s_desc = "Você está em uma arena.\n\
+esse lugar lembra bastante o colizeu romano, principalmente pelo formato abobadado\n\
+Você pode ver manchas de sangue por todos os lados, enquanto vários espíritos de guerreiros \
+perambulam por aqui.\n\
+É um lugar onde os deuses consagraram a luta."
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_recup = 0
+const s_som = "vide adm som"
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_adarena004
+const dir_s = $s_adarena003
+const dir_o = $s_adarena005
+const dir_ne = $s_adarena007
+const dir_no = $s_adarena006
+const dir_se = $s_adarena008
+const dir_so = $s_adarena009
+const dir_sair = $s_midgaard001
+const inv_sair = 1 # Invisível: Sim

@@ -1,0 +1,1043 @@
+classe a_bosque
+herda area
+const a_nome = "bosque"
+const a_tempo = 20
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_bosque
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_recup = 1
+const s_area = "bosque"
+
+
+classe i_bosque001
+herda comum_itemgrupo
+const nome = "cenoura"
+const descnome = "uma cenoura"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_sede = 30
+const f_msgperso = "$P começa a roer avidamente uma cenoura, devorando-a rapidamente em várias \
+dentadas."
+const i_captura = 45
+
+
+classe i_bosque002
+herda comum_itemperso
+const nome = "cadeira de balanço"
+const descnome = "uma cadeira de balanço"
+const descpos = "Uma cadeira de balanço foi posta aqui na sala."
+const i_movel = 3 # Mobília: 3 Sentar confortavelmente
+
+
+classe i_bosque003
+herda comum_item
+const nome = "pele de coelho"
+const ident = "pele coelho"
+const descnome = "uma pele de coelho"
+const descpos = "Uma pele de coelho foi jogada no chão."
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_bosque004
+herda comum_itemgrupo
+const nome = "beterraba"
+const descnome = "uma beterraba"
+
+
+classe p_bosque001
+herda comum_persobat
+const nome = "esquilo"
+const descnome = "um esquilo"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 30
+const p_atktipo = "morder"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 700
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 300
+const inivar = "h_morder=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1800
+  atknorm += 450
+  defnorm += 550
+  defesp += 500
+
+
+classe p_bosque002
+herda comum_persobat
+const msexo = 1 # Sexo Msg: 1 Masculino
+const objmax = 15
+const nivel = 30
+const p_atktipo = "morder"
+const p_captura = 3 # Capturar: 3 Normal
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 700
+const p_mover = var.z_dono ? 0 : 1
+const p_movervel = 200
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "h_morder=4,h_arranhar=4"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const segurar = 1
+sav txt32 tipo1
+sav txt32 tipo2
+sav txt32 tipo3
+sav uint16 prenascer
+#
+
+func cmd_ini
+  prenascer = 0
+  arg0.jog && (var.z_dono = arg0.descnome)
+#
+#
+
+func nome
+  se var.z_dono
+    ret var.z_nome, "coelho " + var.z_nome
+    ret "coelho de " + var.z_dono
+  senao
+    ret "coelho"
+  fimse
+#
+
+func descnome
+  se var.z_dono
+    ret var.z_nome, var.z_nome + ", o coelho de " + var.z_dono
+    ret "o coelho de " + var.z_dono
+  senao
+    ret "Um coelho de pele branca"
+  fimse
+#
+
+func descpadr
+  se var.z_dono
+    ret descnome + " está aqui, aguardando as ordens de seu dono."
+  senao
+    ret "Um coelho de pele branca corre pelo bosque a procura de cenouras para devorar."
+  fimse
+#
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  se arg0.descnome == var.z_dono
+    seguirjog(arg0)
+  fimse
+#
+
+func cmd_escr
+  se txt1(arg1) == "coelho"
+    ret arg0.descnome != var.z_dono, nulo
+    se txt2(arg1) == "casa"
+      $mens.p(este)
+      $mens.mvis2("Seu coelho dá um pulinho e desaparece de repente.", "$P dá um pulinho e \
+desaparece de repente.")
+      mudadono($s_bosque056)
+      ret 1
+    senao txt2(arg1) == "reviver"
+      ret arg0.descnome != var.z_dono, nulo
+      ret posicao > 1, arg0.msg("seu animal não está morto.")
+      $mens.p(arg0, este)
+      $mens.mvis1("$P faz várias orações aos deuses, pedindo para que $A retorne a vida!")
+      dono.msg("Milagre!\nDe repente, " + descnome + " abre os olhos, como se tivesse acordado \
+de um longo sono e retornando à vida!")
+      posicao = 5
+      restaurar
+      ret 1
+    senao txt2(arg1) == "dispensar"
+      ret arg0.descnome != var.z_dono, nulo
+      $mens.p(arg0, este)
+      $mens.mvis1("$P se despede de $A e $A vai embora.")
+      apagar(este)
+      ret 1
+    senao txt2(arg1) == "hab"
+      refvar r = este
+      txt100 n
+#
+      textotxt h
+      txt100 t1
+      txt100 t2
+      epara t1 = r.var.ini("h_"), t1, t1 = r.var.depois(t1, "h_")
+        t2 = txte(txt(t1, 2)) # , t2 += txtesp(30 - inttotal(t2))
+        t2 += " / " + txtsublin(misc:aulas, r.var.[t1]_, 1)
+        txt2(r.var.[t1]) && (t2 += " R" + txt2(ar.[t1]))
+        h.addfim(t2)
+      efim
+      ret !h.linhas, arg0.msg("\b" + nome + "Não possui nenhuma habilidade.")
+      h.addini("\b\c6Habilidades de " + nome + ":\b")
+      arg0.msg2(h.remove(1000))
+      ret 1
+    senao txt2(arg1) == "moedas soltar"
+      ret arg0.descnome != var.z_dono, nulo
+      teclou("dar " + var.z_moedas + " moedas " + arg0.descnome)
+      ret 1
+    senao txt2(arg1) == "moedas"
+      ret arg0.descnome != var.z_dono, nulo
+      ret !var.z_moedas_, arg0.msg(nome + " não possui moedas.")
+      ret var.z_moedas_ == 1, arg0.msg(nome + " possui uma moeda.")
+      arg0.msg(nome + " possui " + var.z_moedas + " moedas.")
+      ret 1
+    senao txt2(arg1) == "inv"
+      textotxt t
+      listaitem item
+      refvar r = misc:persoinfo(arg0, arg1)
+      ret !r, nulo
+      epara item = r.dentro1.fim, item, item.antes
+        refvar i = item.obj
+        continuar !i.visivel(arg0)
+        refvar nn = txtsublin(i.atribs.ini.textolin(2), 1)
+        t.addfim(txt(i.objtot) + i.atribs.ini.texto + txtcopiamai(i.descnome, "a") + nn)
+      efim
+      t.juntalin("(", "x)")
+      se t
+        arg0.msg2("\b\c6" + nome + " carrega:\b\n" + txttroca(t.remove(1000), "\d+", "\n"))
+      senao
+        arg0.msg("\b" + nome + " não está carregando nada.")
+      fimse
+      ret 1
+    senao txt2(arg1) == "lista"
+      arg0.msg("\b" + nome + " diz: Digite coelho seguido de um dos comandos a seguir, ou de uma \
+ordem qualquer:")
+      arg0.msg("\b" + nome + " diz: casa:")
+      arg0.msg(nome + " diz: desc seguido de uma curta descrição:")
+      arg0.msg("Muda ou insere uma curta descrição do meu personagem.")
+      arg0.msg("Me manda de volta para a jaula dos leões.")
+      arg0.msg("\b" + nome + " diz: moedas:")
+      arg0.msg("Mostra quantas moedas estou carregando.")
+      arg0.msg("\b" + nome + " diz: moedas soltar:")
+      arg0.msg("Eu te entrego as moedas que estou carregando.")
+      arg0.msg("\b" + nome + " diz: hab:")
+      arg0.msg("Eu te mostro as minhas habilidades.")
+      arg0.msg("\b" + nome + " diz: inv:")
+      arg0.msg("Eu te mostro o que estou carregando.")
+      arg0.msg("\b" + nome + " diz: lista:")
+      arg0.msg("Eu te digo quais são os meus comandos.")
+      arg0.msg("\b" + nome + " diz: nomear seguido de um nome:")
+      arg0.msg("Muda o meu nome para o nome digitado.")
+      ret 1
+    senao
+      refvar n = txt2(arg1)
+      se txt1(n) == "nomear"
+        var.z_nome = txt2(n)
+        arg0.msg("O nome do seu coelho mudou para " + var.z_nome + ".")
+      senao txt1(n) == "desc"
+        var.z_desc = txt2(n)
+        arg0.msg("Descrição mudada.")
+        ret 1
+      senao
+        teclou(txt2(arg1))
+      fimse
+      ret 1
+    fimse
+  fimse
+#
+
+func cmd_soltaranim
+  se arg2 == este && arg0 == dono
+    arg2.mudadono(arg0.dono)
+    $mens.p(arg0, arg2)
+    $mens.mvis1("$P solta $A.")
+    ret 1
+  fimse
+#
+
+func cmd_pegouanim
+  se arg1 == este
+    var.z_dono = arg0.descnome
+  fimse
+#
+
+func cmd_morrer
+  se arg0 == este
+    ret !var.z_dono, nulo
+    ret arg0.dono.jog, nulo
+    arg0.mudadono($s_bosque056)
+    ret 1
+  fimse
+
+func cabedentro
+  ret var.z_dono, 1
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10 * pnivel + 2000
+  atknorm += 555
+  defnorm += 550
+  defesp += 545
+
+
+classe p_bosque003
+herda comum_persobat
+const nome = "piranha"
+const descnome = "uma piranha"
+const descpadr = "uma piranha está nadando ameaçadoramente aqui."
+const nivel = 50
+const p_atktipo = "bolhas"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 900
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 250
+const inivar = "h_morder=5"
+
+
+classe p_bosque004
+herda comum_persobat
+const nome = "lambari"
+const ident = "peixe lambari"
+const descnome = "um lambari"
+const descpadr = "Um lambari está nadando aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 55
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 850
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 270
+
+
+classe p_bosque005
+herda comum_persobat
+const p_exp = 100
+
+
+classe p_bosque006
+herda comum_persobat
+const nome = "arranha gigante"
+const descnome = "uma aranha gigantesca"
+const nivel = 70
+
+
+classe p_bosque007
+herda comum_persobat
+const nome = "castor"
+const descnome = "um castor"
+const descpadr = "Um castor está aqui, roendo tudo que vê por sua frente."
+const nivel = 45
+const p_atktipo = "morder"
+const p_exp = 800
+const p_mover = 1 # Movimentar: 1 Somente na área
+const inivar = "h_morder=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 4000
+  atknorm += 650
+  defnorm += 700
+  defesp += 695
+  precisao += 100
+
+
+classe p_bosque008
+herda comum_persobat
+const nome = "águia mãe"
+const ident = "águia mãe adulta"
+const descnome = "uma mamãe águia"
+const descpadr = "A águia mamãe atenta-se aos movimentos ao redor do ninho, a fim de proteger \
+seus filhotes contra ataque de predadores."
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_atktipo = "bicar"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 750
+const inivar = "h_bicar=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2000
+  atknorm += 520
+  defnorm += 610
+  defesp += 600
+
+
+classe p_bosque009
+herda comum_persobat
+const nome = "filhote de águia"
+const descnome = "um filhote de águia"
+const descpadr = "um filhote de águia encolhe-se por baixo das asas da mãe."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 30
+const p_atktipo = "bicar"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 550
+const inivar = "h_bicar=8,h_arranhar=4"
+
+
+classe p_bosque010
+herda comum_perso
+const nome = "velho caçador"
+const descnome = "um velho caçador"
+const descpadr = "Um velho caçador encontra-se sentado em uma cadeira de balanço."
+const pospadr = 6 # Posição padrão: 6 Sentado
+const p_recebe = 1 # Recebe itens: Sim
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "conversar velho" || arg1 == "conversar caçador"
+    se arg0.var.z_qcacador_
+      ret arg0.msg(descnome + " diz: Já lhe falei o que preciso, " + arg0.descnome + ".")
+      ret 1
+    senao arg0.var.z_tcacador@
+      ret arg0.msg(descnome + " diz: No momento, não preciso de sua ajuda, " + arg0.descnome + \
+".")
+    senao
+      misc:tempo("conversoucacador", arg0)
+      ret 1
+    fimse
+#
+
+func conversoucacador30
+  arg0.msg(descnome + " diz: Olá " + arg0.descnome + ". Eu passei toda a minha vida vivendo da \
+caça de coelhos neste bosque.")
+#
+
+func conversoucacador60
+  arg0.msg(descnome + " diz: Hoje em dia estou muito velho, mas preciso de peles de coelhos para \
+confeccionar tecidos, e já não sou tão bom na caça como anos atrás.")
+#
+
+func conversoucacador90
+  arg0.msg(descnome + " diz: Bem. Notei que você deve ser muito bom na caça, pelo que tenho \
+visto daqui.")
+  arg0.msg(descnome + " diz: Será que você poderia conseguir peles de coelho para mim?")
+#
+
+func conversoucacador120
+  arg0.msg(descnome + " diz: Ah! E tentarei recompensá-lo da melhor forma.")
+  arg0.var.z_qcacador_ = 1
+#
+
+func cmd_darobj
+  se arg1 == este && txt(arg2) != "i_bosque003"
+    ret arg0.msg("O caçador diz chateado: Não foi isso que pedi, " + arg0.descnome + ".")
+  fimse
+#
+
+func cmd_deuobj
+  se arg1 == este
+    apagar(arg2)
+    ret arg4 != arg0, nulo
+    misc:tempo("deupele", arg0)
+  fimse
+#
+
+func deupele30
+  arg0.msg("Muito obrigado, " + arg0.descnome + "! Era isso mesmo!")
+#
+
+func deupele60
+  arg0.msg("Agora vamos a sua recompensa.")
+#
+
+func deupele90
+  arg0.msg("Você recebe 5 pontos de aventura.")
+  arg0.var.z_quest_ += 5
+  refvar xp = rand(500, 5000)
+  arg0.msg("Você recebe " + xp + " pontos de experiência.")
+  arg0.expatual += xp
+  arg0.recalc = 1
+  arg0.var.z_qcacador_ = 0
+  arg0.var.z_tcacador@ = 48000
+#
+
+
+classe p_bosque011
+herda comum_persobat
+const nome = "Lobo"
+const ident = "Lobo"
+const descnome = "um lobo"
+const descpadr = "Um lobo faminto anda por aqui, caçando seu alimento."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 47
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+
+classe p_bosque012
+herda comum_persobat
+const nome = "arara azul"
+const descnome = "uma arara azul"
+const descpadr = "Uma arara azul protege-se como pode dos predadores."
+const nivel = 45
+const tipo1 = "ave"
+const p_atktipo = "bicar"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 300
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50 * pnivel + 15000
+  atknorm += 50 * pnivel
+  defnorm += 50 * pnivel
+  defesp += 50 * pnivel
+  evasao += 20 * pnivel
+  precisao += 20 * pnivel
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv |= 16
+
+
+classe s_bosque001
+herda b_bosque
+const s_titulo = "A entrada do bosque."
+const s_desc = "Você está parado na entrada de um maravilhoso bosque. Aqui há belas árvores\n\
+e muitos animais, desde fofos coelhos até animais selvagens como tigres e\n\
+leões. Uma placa foi fixada ao chão, tecle ver placa para ler o que há nela."
+const s_pnj = 0
+const dir_n = $s_rio072
+const dir_s = $s_bosque003
+const dir_o = $s_bosque056
+const ver_placa = "Atenção!\nO bosque está passando por algumas reformas em seu mapa."
+
+
+classe s_bosque002
+herda b_bosque
+const s_titulo = "NO TOPO DA ÁRVORE"
+const dir_b = $s_bosque026
+const s_reset = "P 100 animais001 70 40 200 z_moedas=5000"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_animais001:objsolto.total < 200
+    criar("p_animais001", este, rand(70, 40), "z_moedas=5000")
+  fimse
+
+
+classe s_bosque003
+herda b_bosque
+const s_titulo = "Em um bosque atrás da cidade"
+const dir_n = $s_bosque001
+const dir_s = $s_bosque006
+const dir_l = $s_bosque004
+const dir_o = $s_bosque023
+const a_reset = "P 100 bosque001 0 0 4 h_arranhar=8,h_morder=8,z_moedas=40000\n\
+P 100 animais007 0 0 4 h_arranhar=8,h_morder=8,h_arremessar=8,z_moedas=80000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_bosque001:objsolto.total < 4
+    criar("p_bosque001", este, 0, "h_arranhar=8,h_morder=8,z_moedas=40000")
+  fimse
+  se p_animais007:objsolto.total < 4
+    criar("p_animais007", este, 0, "h_arranhar=8,h_morder=8,h_arremessar=8,z_moedas=80000")
+  fimse
+
+
+classe s_bosque004
+herda b_bosque
+const s_titulo = "uma plantação de legumes."
+const dir_s = $s_bosque025
+const dir_l = $s_bosque030
+const dir_o = $s_bosque003
+const dir_b = $s_bosque005
+const a_reset = "S 100 bosque001 5 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_bosque001") && criar("i_bosque001", este, 5)
+
+
+classe s_bosque005
+herda b_bosque
+const s_titulo = "uma toca"
+const s_pnj = 0
+const dir_c = $s_bosque004
+const a_reset = "P 100 bosque002 30 38 4\n\
+I 100 bosque003 1\n\
+P 100 bosque002 30 38 4\n\
+I 100 bosque003 1\n\
+P 100 bosque002 30 38 4\n\
+I 100 bosque003 1\n\
+P 100 bosque002 30 38 4\n\
+I 100 bosque003 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  se p_bosque002:objsolto.total < 4
+    p = u = criar("p_bosque002", este, rand(30, 38))
+  fimse
+  u && criar("i_bosque003", u, 1)
+  p = u = nulo
+  se p_bosque002:objsolto.total < 4
+    p = u = criar("p_bosque002", este, rand(30, 38))
+  fimse
+  u && criar("i_bosque003", u, 1)
+  p = u = nulo
+  se p_bosque002:objsolto.total < 4
+    p = u = criar("p_bosque002", este, rand(30, 38))
+  fimse
+  u && criar("i_bosque003", u, 1)
+  p = u = nulo
+  se p_bosque002:objsolto.total < 4
+    p = u = criar("p_bosque002", este, rand(30, 38))
+  fimse
+  u && criar("i_bosque003", u, 1)
+
+
+classe s_bosque006
+herda b_bosque
+const s_titulo = "CAMINHANDO PELO BOSQUE"
+const s_desc = "Você caminha pelo bosque, cercado por árvores verdes e belos arbustos.\n\
+Cuidado, pois o perigo está em toda parte!"
+const dir_n = $s_bosque003
+const dir_s = $s_bosque007
+const a_reset = "P 100 Bosque011 0 0 4 h_arranhar=8,h_morder=8,h_arremessar=8,z_moedas=70000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_Bosque011:objsolto.total < 4
+    criar("p_Bosque011", este, 0, "h_arranhar=8,h_morder=8,h_arremessar=8,z_moedas=70000")
+  fimse
+
+
+classe s_bosque007
+herda b_bosque
+const s_titulo = "CAMINHANDO PELO BOSQUE"
+const dir_n = $s_bosque006
+const dir_s = $s_bosque008
+const dir_l = $s_bosque039
+const dir_o = $s_bosque009
+
+
+classe s_bosque008
+herda b_bosque
+const s_titulo = "CAMINHANDO PELO BOSQUE"
+const dir_n = $s_bosque007
+
+
+classe s_bosque009
+herda b_bosque
+const s_titulo = "CAMINHANDO PELO BOSQUE"
+const dir_l = $s_bosque007
+const dir_o = $s_bosque011
+
+
+classe s_bosque010
+herda b_bosque
+const s_titulo = "Uma parte com mais água."
+const dir_n = $s_bosque008
+const dir_o = $s_bosque045
+
+
+classe s_bosque011
+herda b_bosque
+const s_titulo = "CAMINHANDO PELO BOSQUE"
+const dir_n = $s_bosque012
+const dir_s = $s_bosque037
+const dir_l = $s_bosque009
+const dir_o = $s_bosque036
+
+
+classe s_bosque012
+herda b_bosque
+const s_titulo = "CAMINHANDO PELO BOSQUE"
+const dir_n = $s_bosque013
+const dir_s = $s_bosque011
+
+
+classe s_bosque013
+herda b_bosque
+const s_titulo = "CAMINHANDO PELO BOSQUE"
+const dir_s = $s_bosque012
+const dir_l = $s_bosque023
+const dir_o = $s_bosque027
+
+
+classe s_bosque014
+herda b_bosque
+const s_titulo = "AOS PÉS DE UMA ÁRVORE"
+const dir_c = $s_bosque015
+const a_reset = "P 100 bosque007 0 0 8 h_morder=8,h_roer=8,z_moedas=10000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_bosque007:objsolto.total < 8
+    criar("p_bosque007", este, 0, "h_morder=8,h_roer=8,z_moedas=10000")
+  fimse
+
+const dir_n = $s_bosque027
+
+
+classe s_bosque015
+herda b_bosque
+const s_titulo = "por sobre uma árvore"
+const dir_n = $s_bosque016
+const dir_o = $s_bosque017
+const dir_b = $s_bosque014
+
+
+classe s_bosque016
+herda b_bosque
+const s_titulo = "um ninho de águias."
+const s_pnj = 0
+const dir_s = $s_bosque015
+const a_reset = "P 100 bosque008 0 0 1 h_bicar=8,z_moedas=50000\n\
+P 100 bosque009 0 0 4 h_bicar=8,h_arranhar=4,z_moedas=10000\n\
+P 100 bosque009 0 0 4 h_bicar=8,h_arranhar=4,z_moedas=10000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_bosque008:objsolto.total < 1
+    criar("p_bosque008", este, 0, "h_bicar=8,z_moedas=50000")
+  fimse
+  se p_bosque009:objsolto.total < 4
+    criar("p_bosque009", este, 0, "h_bicar=8,h_arranhar=4,z_moedas=10000")
+  fimse
+  se p_bosque009:objsolto.total < 4
+    criar("p_bosque009", este, 0, "h_bicar=8,h_arranhar=4,z_moedas=10000")
+  fimse
+
+
+classe s_bosque017
+herda b_bosque
+const s_titulo = "Outro ninho"
+const s_pnj = 0
+const dir_l = $s_bosque015
+
+
+classe s_bosque018
+herda b_bosque
+const s_titulo = "Uma estradinha no bosque"
+const dir_n = $s_bosque038
+const dir_s = $s_bosque019
+
+
+classe s_bosque019
+herda b_bosque
+const s_titulo = "Uma estradinha no bosque"
+const dir_n = $s_bosque018
+const dir_s = $s_bosque020
+
+
+classe s_bosque020
+herda b_bosque
+const s_titulo = "No fim da estradinha"
+const dir_n = $s_bosque019
+const dir_o = $s_bosque021
+
+
+classe s_bosque021
+herda b_bosque
+const s_titulo = "Em frente a uma cabana de madeira"
+const dir_l = $s_bosque020
+const dir_entrar = $s_bosque022
+
+
+classe s_bosque022
+herda b_bosque
+const s_titulo = "Dentro da cabana de madeira"
+const s_desc = "Você adentra uma pequena casa de madeira muito bem feita.\n\
+O cheiro de carne sendo preparada que vem do fogão invade suas narinas e há carne de animais em \
+cima de uma pequena mesa."
+const s_pnj = 0
+const dir_sair = $s_bosque021
+const s_reset = "P 100 bosque010 0 0 1\nS 100 bosque002 1 S\nP 100 bosque010 60 70 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_bosque010:objsolto.total < 1
+    criar("p_bosque010", este, 0)
+  fimse
+  !dentro1.objini("i_bosque002") && criar("i_bosque002", este, 1)
+  se p_bosque010:objsolto.total < 1
+    criar("p_bosque010", este, rand(60, 70))
+  fimse
+
+
+classe s_bosque023
+herda b_bosque
+const s_titulo = "CAMINHANDO ENTRE ÁRVORES NO BOSQUE"
+const dir_s = $s_bosque024
+const dir_l = $s_bosque003
+const dir_o = $s_bosque013
+
+
+classe s_bosque024
+herda b_bosque
+const s_titulo = "AOS PÉS DE UMA ÁRVORE"
+const dir_n = $s_bosque023
+const dir_c = $s_bosque026
+
+
+classe s_bosque025
+herda b_bosque
+const s_titulo = "Uma plantação de legumes"
+const dir_n = $s_bosque004
+const dir_l = $s_bosque028
+const dir_b = $s_bosque031
+
+
+classe s_bosque026
+herda b_bosque
+const s_titulo = "ESCALANDO A ÁRVORE"
+const dir_c = $s_bosque002
+const dir_b = $s_bosque024
+
+
+classe s_bosque027
+herda b_bosque
+const s_titulo = "CAMINHANDO ENTRE ÁRVORES NO BOSQUE"
+const dir_s = $s_bosque014
+const dir_l = $s_bosque013
+const dir_o = $s_bosque029
+
+
+classe s_bosque028
+herda b_bosque
+const s_titulo = "UMA PLANTAÇÃO DE LEGUMES"
+const dir_n = $s_bosque030
+const dir_o = $s_bosque025
+const dir_b = $s_bosque033
+
+
+classe s_bosque029
+herda b_bosque
+const s_titulo = "CAMINHANDO PELO BOSQUE"
+const dir_s = $s_bosque034
+const dir_l = $s_bosque027
+const dir_o = $s_bosque048
+
+
+classe s_bosque030
+herda b_bosque
+const s_titulo = "UMA PLANTAÇÃO DE LEGUMES"
+const dir_s = $s_bosque028
+const dir_o = $s_bosque004
+const dir_b = $s_bosque032
+const a_reset = "S 100 bosque004 5 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_bosque004") && criar("i_bosque004", este, 5)
+
+
+classe s_bosque031
+herda b_bosque
+const s_titulo = "Mais uma toca"
+const dir_c = $s_bosque025
+
+
+classe s_bosque032
+herda b_bosque
+const s_titulo = "OUTRA TOCA"
+const dir_c = $s_bosque030
+const a_reset = "P 100 bosque002 30 38 4\nI 100 bosque003 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  se p_bosque002:objsolto.total < 4
+    p = u = criar("p_bosque002", este, rand(30, 38))
+  fimse
+  u && criar("i_bosque003", u, 1)
+
+
+classe s_bosque033
+herda b_bosque
+const s_titulo = "UMA TOCA"
+const dir_c = $s_bosque028
+const a_reset = "P 100 bosque002 30 38 50\nI 100 bosque003 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  se p_bosque002:objsolto.total < 50
+    p = u = criar("p_bosque002", este, rand(30, 38))
+  fimse
+  u && criar("i_bosque003", u, 1)
+
+
+classe s_bosque034
+herda b_bosque
+const s_titulo = "CAMINHANDO PELO BOSQUE"
+const dir_n = $s_bosque029
+const dir_s = $s_bosque035
+
+
+classe s_bosque035
+herda b_bosque
+const s_titulo = "CAMINHANDO PELO BOSQUE"
+const dir_n = $s_bosque034
+const dir_l = $s_bosque036
+const dir_o = $s_bosque055
+
+
+classe s_bosque036
+herda b_bosque
+const s_titulo = "CAMINHANDO PELO BOSQUE"
+const dir_l = $s_bosque011
+const dir_o = $s_bosque035
+
+
+classe s_bosque037
+herda b_bosque
+const s_titulo = "Atravessando uma ponte sobre o riacho"
+const dir_n = $s_bosque011
+const dir_s = $s_bosque038
+
+
+classe s_bosque038
+herda b_bosque
+const s_titulo = "DO OUTRO LADO DA PONTE"
+const dir_n = $s_bosque037
+const dir_s = $s_bosque018
+const dir_l = $s_bosque042
+
+
+classe s_bosque039
+herda b_bosque
+const s_titulo = "CAMINHANDO PELO BOSQUE"
+const dir_l = $s_bosque040
+const dir_o = $s_bosque007
+
+
+classe s_bosque040
+herda b_bosque
+const s_titulo = "CAMINHANDO PELO BOSQUE"
+const dir_l = $s_bosque041
+const dir_o = $s_bosque039
+
+
+classe s_bosque041
+herda b_bosque
+const s_titulo = "CAMINHANDO PELO BOSQUE"
+const dir_o = $s_bosque040
+
+
+classe s_bosque042
+herda b_bosque
+const s_titulo = "Descendo um barranco"
+const s_pnj = 0
+const dir_o = $s_bosque038
+const dir_b = $s_bosque043
+
+
+classe s_bosque043
+herda b_bosque
+const s_titulo = "Dentro do riacho"
+const dir_l = $s_bosque044
+const dir_c = $s_bosque042
+
+
+classe s_bosque044
+herda b_bosque
+const s_titulo = "Dentro do riacho"
+const dir_l = $s_bosque045
+const dir_o = $s_bosque043
+const a_reset = "P 100 bosque003 0 0 8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_bosque003:objsolto.total < 8
+    criar("p_bosque003", este, 0)
+  fimse
+
+
+classe s_bosque045
+herda b_bosque
+const s_titulo = "Dentro do riacho"
+const dir_o = $s_bosque044
+const dir_se = $s_bosque046
+
+
+classe s_bosque046
+herda b_bosque
+const s_titulo = "Um desvio dentro do riacho"
+const dir_no = $s_bosque045
+const dir_se = $s_bosque047
+
+
+classe s_bosque047
+herda b_bosque
+const s_titulo = "Continuando pelo riacho"
+const dir_no = $s_bosque046
+
+
+classe s_bosque048
+herda b_bosque
+const s_titulo = "Caminhando pelo bosque"
+const dir_s = $s_bosque051
+const dir_l = $s_bosque029
+const dir_o = $s_bosque049
+
+
+classe s_bosque049
+herda b_bosque
+const s_titulo = "Caminhando pelo bosque"
+const dir_s = $s_bosque050
+const dir_l = $s_bosque048
+
+
+classe s_bosque050
+herda b_bosque
+const s_titulo = "Caminhando pelo bosque"
+const dir_n = $s_bosque049
+const dir_s = $s_bosque054
+
+
+classe s_bosque051
+herda b_bosque
+const s_titulo = "Aos pés de mais uma árvore"
+const dir_n = $s_bosque048
+const dir_c = $s_bosque052
+
+
+classe s_bosque052
+herda b_bosque
+const s_titulo = "Escalando a árvore"
+const dir_c = $s_bosque053
+const dir_b = $s_bosque051
+
+
+classe s_bosque053
+herda b_bosque
+const s_titulo = "No topo da árvore"
+const dir_b = $s_bosque052
+const a_reset = "P 100 bosque012 0 0 4\nP 100 bosque012 0 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_bosque012:objsolto.total < 4
+    criar("p_bosque012", este, 0)
+  fimse
+  se p_bosque012:objsolto.total < 4
+    criar("p_bosque012", este, 0)
+  fimse
+
+
+classe s_bosque054
+herda b_bosque
+const s_titulo = "Caminhando pelo bosque"
+const dir_n = $s_bosque050
+const dir_l = $s_bosque055
+
+
+classe s_bosque055
+herda b_bosque
+const s_titulo = "Caminhando pelo bosque"
+const dir_l = $s_bosque035
+const dir_o = $s_bosque054
+
+
+classe s_bosque056
+herda b_bosque
+const s_titulo = "Um viveiro"
+const dir_l = $s_bosque001

@@ -1,0 +1,47 @@
+classe adm_conta
+herda comando_adm, comando_comum
+const txtajuda = "conta:\n\
+sintaxe:\n\
+Conta nome do jogador, mostra quanto ele possui no banco."
+sav textovar var # Variáveis criadas sob demanda
+sav txt20 nome # Nome do personagem
+txt100 cnome # Para obter o nome codificado
+sav txt20 salanome
+sav int1 psexo
+sav uint16 pnivel
+sav uint16 prenascer
+sav txt32 tipo1
+sav txt32 tipo2
+sav txt32 tipo3
+sav int32 tempojogo1
+sav uint16 tempojogo2
+
+func escr
+  ret !arg1, arg0.msg("Digite o nome do jogador após conta.")
+# Obtém: p = objeto do personagem
+  ref p
+  enquanto 1
+    refvar nomesav = txts(txtnome(arg1))
+    indiceitem item
+    p = indice.obj("pn " + nomesav)
+    sair p
+    se intnome(arg1)
+      arg0.msg("Nome inválido para jogador: " + arg1)
+      ret 1
+    fimse
+    arqsav sav1
+    listaobj l1
+    p = este, l1.addfim(p)
+    p.cnome = "x " + nomesav
+    sair sav1.ler("sav1/" + nomesav + ".sav", l1, 1)
+    ret arg0.msg("Jogador não encontrado: " + arg1)
+  efim
+  txt100 lin
+  arg0.msg("Personagem " + p.nome + ":")
+  arg0.msg("Valor depositado no banco: " + p.var.z_saldo_ + ".")
+  arg0.msg("Moedas atualmente na mão: " + p.var.z_moedas + ".")
+  arg0.msg("Pontos de quest: " + p.var.z_quest + ".")
+  arg0.msg("Pontos de aula " + p.var.z_aulas + ".")
+  arg0.msg("Este personagem foi salvo em " + p.salanome + ".")
+  arg0.msg("Ponto de retorno atual: " + p.var.z_salafim + ".")
+  arg0.msg("descrição: \n" + p.var.z_desc + "")

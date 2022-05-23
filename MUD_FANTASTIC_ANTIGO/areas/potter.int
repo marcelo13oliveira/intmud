@@ -1,0 +1,472 @@
+classe a_potter
+herda area
+
+
+classe b_potter
+herda sala
+const s_area = "potter"
+
+
+classe i_potter001
+herda comum_itemperso
+const nome = "poltrona"
+const descnome = "uma confortável poltrona de couro"
+const descpos = "Uma confortável poltrona de couro foi posta em um canto da sala."
+const i_movel = 1 # Mobília: 1 Sentar
+
+
+classe i_potter002
+herda comum_itemgrupo
+const nome = "pedra da ressureição"
+const descnome = "uma pedra da ressurreição"
+
+
+classe i_potter003
+herda comum_item
+const nome = "nôitibus"
+const ident = "noitebus bus ônibus"
+const descnome = "o nôitibus andante"
+const descpos = "um ônibus de três andares, roxo berrante, está parado aqui."
+const descver = "No parabrisa, está escrito com letras douradas:\nO NOITIBUS ANDANTE."
+const i_salas = "potter021\npotter022\npotter023"
+inttempo tempo
+#
+
+func cmd_mudadono
+  tempo = 300
+  $mens.p(este)
+  $mens.mtodos1("Um ônibus de três andares, roxo berrante, acaba de estacionar aqui!")
+#
+
+func tempo_exec
+  tempo = 300
+  mudadono($s_noitibus001)
+  misc:tempo("entrou", dentro2.objini)
+#
+
+func entrou30
+  dentro2.objini.msg("Você sente o ônibus se movendo rapidamente, sem ao menos se importar com \
+os obstáculos no caminho, que saltam para longe à sua passagem!")
+#
+
+func entrou60
+  dentro2.objini.msg("Movendo...")
+#
+
+func entrou120
+  dentro2.objini.msg("Movendo...")
+#
+
+func entrou250
+#
+  mudadono($s_caldeirao001)
+  dentro2.objini.msg("A voz de Lalau anuncia a chegada do nôitibus andante no caldeirão furado!")
+  ret 1
+#
+
+func entrou180
+  dentro2.objini.mudadono(dentro2.objini.dono.dir_sair)
+
+
+classe i_potter004
+herda comum_item
+const nome = "portal"
+const descnome = "um portal"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "não pode pegar o portal, não é sólido!"
+const i_salaentrar = $s_rio068
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_potter005
+herda comum_item
+const nome = "saquinho de pó de flu"
+const ident = "saquinho pó flu"
+const descnome = "um saquinho de pó de flu"
+
+
+classe p_potter001
+herda comum_persobat
+const nome = "Dobby"
+const descnome = "Dobby"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 5
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+
+classe p_potter002
+herda comum_persobat
+const nome = "dementador"
+const descnome = "um dementador"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 50
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 2560
+
+
+classe p_potter003
+herda comum_persobat
+const nome = "Valter Dursley"
+const descnome = "Valter Dursley"
+const descpadr = "O senhor Dursley está sentado confortavelmente em sua poltrona, lendo um \
+jornal e observando tudo atentamente ao seu redor."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 1
+const pospadr = 6 # Posição padrão: 6 Sentado
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+  misc:tempo("entrou", arg0)
+#
+
+func entrou60
+  $mens.p(este, arg0)
+  $mens.mvis1("$p olha desconfiado para $a...")
+#
+
+func entrou100
+  teclou("leva")
+  $mens.p(este, arg0)
+  $mens.mvis1("$p diz: O que você está fazendo em minha casa $c? Aposto que é mais um dos \
+amiguinhos do Potter!")
+#
+
+
+classe p_potter004
+herda comum_persobat
+const nome = "tia petúnia"
+const descnome = "tia Petúnia"
+const descpadr = "Tia Petúnia está próxima ao fogão, preparando a refeição."
+const nivel = 1
+
+
+classe p_potter005
+herda comum_persobat
+const nome = "Duda"
+const descnome = "Duda"
+const descpadr = "Um garoto gorducho e mimado tenta chamar a atenção dos pais do jeito que \
+pode."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 1
+
+
+classe p_potter006
+herda comum_persobat
+const nome = "harry potter"
+const descnome = "Harry Potter"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 10
+const p_recebe = 1 # Recebe itens: Sim
+
+
+classe p_potter007
+herda comum_persobat
+const nome = "lord voldemort"
+const descnome = "lord voldemort"
+const nivel = 1000
+
+
+classe p_potter008
+herda comum_persobat
+const nome = "nagine"
+const descnome = "nagine"
+const msexo = 0 # Sexo Msg: 0 Feminino
+const nivel = 500
+
+
+classe s_potter001
+herda b_potter
+const s_titulo = "Dentro do portal"
+const eveste = 1 # Eventos sala: Sim
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+  se arg0.donoantes != s_potter002
+    misc:tempo("entrou", arg0)
+  fimse
+#
+
+func entrou30
+  arg0.msg("Após passar pelo portal, você sente tudo a sua volta girar rapidamente!")
+#
+
+func entrou60
+  arg0.msg("Você não consegue distinguir nenhuma imagem ao seu redor e continua girando, cada \
+vez mais rápido")
+#
+
+func entrou100
+  arg0.msg("De repente, você sente que está caindo, caindo e caindo...")
+#
+
+func entrou140
+  arg0.msg("puf!")
+  arg0.mudadono($s_potter002)
+
+
+classe s_potter002
+herda b_potter
+const s_titulo = "Rua Dos Alfeneiros"
+const s_desc = "Após sua queda, você se vê parado em uma rua estranha.\n\
+Esta é a Rua Dos Alfeneiros.\n\
+Você olha ao redor e fica surpreso com os jardins das casas bem cuidados e os carros luxuosos \
+nas garagens perfeitamente limpos.\n\
+Você nota que é impossível voltar de onde você veio.\n\
+Você percebe que o único jeito é continuar seguindo em frente para tentar encontrar a saída \
+desse estranho lugar."
+const dir_l = $s_potter003
+
+
+classe s_potter003
+herda b_potter
+const s_titulo = "rua dos alfeneiros"
+const dir_l = $s_potter004
+const dir_o = $s_potter002
+
+
+classe s_potter004
+herda b_potter
+const s_titulo = "O Fim da Rua"
+const s_desc = "Inesperadamente, você se vê parado no fim da Rua Dos Alfeneiros.\n\
+Depois de tanto andar, você chega ao fim da rua."
+const dir_n = $s_potter005
+const dir_s = $s_potter017
+const dir_o = $s_potter003
+const a_reset = "D 100 n 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("n", 2)
+
+
+classe s_potter005
+herda b_potter
+const s_titulo = "Em Frente a Casa Dos Dursley"
+const s_desc = "Você está parado em frente a uma magnífica casa.\n\
+Ao expiar os jardins, você se impressiona com o capricho dos moradores desse lugar.\n\
+Para oeste você volta.\n\
+Para norte você adentra os jardins.\n\
+E para leste você continua andando pela rua."
+const dir_n = $s_potter006
+const dir_s = $s_potter004
+const a_reset = "D 100 n 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("n", 2)
+
+
+classe s_potter006
+herda b_potter
+const s_titulo = "o jardim dos dursley"
+const s_desc = "Você adentra o magnífico jardim dos Dursley.\n\
+Você olha em volta e admira o gramado bem aparado e algumas sebes por todos os lados fazendo \
+sombra."
+const dir_s = $s_potter005
+const dir_entrar = $s_potter008
+const portaini_entrar = 2 # Estado inicial: 2 Porta fechada
+const portanome_entrar = "A porta da casa dos Dursley"
+const fecha_entrar = 1 # Fecha ao passar: Sim
+
+
+classe s_potter007
+herda b_potter
+const dir_o = $s_potter006
+
+
+classe s_potter008
+herda b_potter
+const s_titulo = "Na Sala de Estar"
+const s_desc = "Você adentra a aconchegante e confortável sala de estar dos Dursley.\n\
+Seus olhos passeiam pelo local, examinando tudo com atenção.\n\
+Há uma lareira elétrica a um canto e em cima dela, há várias fotos de um menino gordo, obviamente\
+ filho dos donos da casa.\n\
+Em uma poltrona, está sentado um homem lendo seu jornal e após sua entrada, o olha com estranhame\
+nto."
+const dir_s = $s_potter009
+const dir_sair = $s_potter006
+const portaini_sair = 2 # Estado inicial: 2 Porta fechada
+const portanome_sair = "a porta da casa dos Dursley"
+const fecha_sair = 1 # Fecha ao passar: Sim
+const s_reset = "P 100 potter003 0 0 1\nS 100 potter001 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_potter003:objsolto.total < 1
+    criar("p_potter003", este, 0)
+  fimse
+  !dentro1.objini("i_potter001") && criar("i_potter001", este, 1)
+
+
+classe s_potter009
+herda b_potter
+const s_titulo = "Cozinha Dos Dursley"
+const s_desc = "Você está na grande cozinha dos Dursley.\n\
+Ao olhar o lugar, você nota uma televisão a um canto, uma grande mesa no centro da cozinha.\n\
+Os móveis estão tão limpos que o seu rosto se reflete no microondas.\n\
+Perto de um fogão, uma mulher prepara o a refeição.\n\
+Para sul, há uma escada que conduz para o segundo andar da casa e para norte você volta para a \
+sala de estar."
+const dir_n = $s_potter008
+const dir_s = $s_potter010
+
+
+classe s_potter010
+herda b_potter
+const s_titulo = "Escada"
+const s_desc = "Você está no início de uma escada.\n\
+Para cima, você vai para o segundo andar da casa.\n\
+Para o norte você volta para a cozinha.\n\
+Ao olhar para baixo, você nota um armário, que antigamente um garoto dormia."
+const dir_n = $s_potter009
+const dir_c = $s_potter011
+
+
+classe s_potter011
+herda b_potter
+const s_titulo = "No Meio da Escada"
+const s_desc = "Você está no meio da escadaria, rumo ao segundo andar.\n\
+Para cima, há o fim da escada.\n\
+E para baixo você volta ao início da escadaria."
+const dir_c = $s_potter012
+const dir_b = $s_potter010
+
+
+classe s_potter012
+herda b_potter
+const s_titulo = "O Fim da Escada"
+const s_desc = "Você está no fim da escada.\n\
+Para oeste, há um banheiro.\n\
+Para sul, há um corredor, que leva aos quartos.\n\
+E para baixo você volta."
+const dir_s = $s_potter013
+const dir_b = $s_potter011
+
+
+classe s_potter013
+herda b_potter
+const s_titulo = "Corredor Dos Quartos"
+const s_desc = "Você está no corredor dos quartos.\n\
+Para leste, há o quarto do casal.\n\
+Para oeste, há o quarto de Duda.\n\
+Para sul, o corredor continua.\n\
+E para norte, você sai do corredor."
+const dir_n = $s_potter012
+const dir_s = $s_potter014
+
+
+classe s_potter014
+herda b_potter
+const s_titulo = "O Fim do Corredor"
+const s_desc = "Você está no fim do corredor dos quartos.\n\
+Para leste, há um quarto de hóspedes.\n\
+Para oeste, há o que parece ser o menor quarto da casa.\n\
+Para o norte, você volta ao início do corredor."
+const dir_n = $s_potter013
+const dir_o = $s_potter015
+
+
+classe s_potter015
+herda b_potter
+const s_titulo = "Em Frente ao Menor Quarto da Casa"
+const s_desc = "Você está em frente ao menor quarto da casa.\n\
+Para sul, você entra.\n\
+Para leste você volta."
+const dir_s = $s_potter016
+const dir_l = $s_potter014
+
+
+classe s_potter016
+herda b_potter
+const s_titulo = "Menor Quarto da Casa"
+const s_desc = "Você está dentro do que parece ser o menor quarto da casa.\n\
+Diferente dos quartos anteriores, esse quarto está um pouco bagunçado.\n\
+O chão está coberto de penas, pergaminhos e alguns livros escolares.\n\
+Em uma escrivaninha a um canto, há tinteiros, penas, pergaminhos e uma grande gaiola com uma \
+coruja branca adormecida dentro.\n\
+O quarto é iluminado pelos raios de sol que entram pela janela aberta.\n\
+Sentado em frente a escrivaninha, há um garoto escrevendo em um pergaminho."
+const dir_n = $s_potter015
+
+
+classe s_potter017
+herda b_potter
+const s_titulo = "À Caminho da Rua Magnólia"
+const s_desc = "Após sair da Rua Dos Alfeneiros, você se vê parado em uma pequena estrada.\n\
+Para sul, ela continua."
+const dir_n = $s_potter004
+const dir_s = $s_potter018
+
+
+classe s_potter018
+herda b_potter
+const s_titulo = "O Fim da Estrada"
+const s_desc = "Inesperadamente, você se vê no fim da estrada.\n\
+Ao olhar em volta, você não encontra nada interessante.\n\
+Para leste, há a rua Magnólia.\n\
+E para norte você volta."
+const dir_n = $s_potter017
+const dir_l = $s_potter019
+
+
+classe s_potter019
+herda b_potter
+const s_titulo = "Na Rua Magnólia"
+const s_desc = "Você está na rua Magnólia, uma rua curva de prédios geminados.\n\
+Para sul, ela continua e para oeste você volta."
+const dir_s = $s_potter020
+const dir_o = $s_potter018
+#
+
+func cmd_salaperso
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "chamar noitibus"
+    arg0.msg("Você ergue sua varinha para o alto!")
+    arg0.msg("Inesperadamente, uma forte luz cega seus olhos, e ao se dicipar, você nota que um \
+ônibus de três andares, roxo berrante, se materializou diante de você!")
+    criar("i_potter003", este, 1)
+    ret 1
+  fimse
+
+
+classe s_potter020
+herda b_potter
+const dir_n = $s_potter019
+
+
+classe s_potter021
+herda b_potter
+const s_titulo = "Dentro do nôitibus andante"
+const s_desc = "Você está dentro do Nôitibus Andante.\n\
+Dispostas a esmo pelos três andares do ônibus, há uma variedade de cadeiras desparelhadas em \
+torno das janelas."
+const s_noite = "Você está dentro do Nôitibus Andante.\n\
+Ao longo das grandes janelas protegidas por cortinas, há meia dúzia de estrados de latão.\n\
+Ao lado de cada cama, há velas em suportes que iluminam as paredes revestidas de painéis."
+const s_entrada = "A entrada do noite bus"
+const dir_c = $s_potter022
+
+
+classe s_potter022
+herda b_potter
+const s_titulo = "No segundo andar do ônibus"
+const dir_c = $s_potter023
+const dir_b = $s_potter021
+
+
+classe s_potter023
+herda b_potter
+const s_titulo = "Terceiro andar do ônibus"
+const dir_b = $s_potter022

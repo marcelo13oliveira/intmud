@@ -1,0 +1,2038 @@
+classe a_animais
+herda area
+
+
+classe b_animais
+herda sala
+const s_area = "animais"
+
+
+classe i_animais001
+herda comum_itemgrupo
+const nome = "ferraduras"
+const descnome = "um par de ferraduras"
+const nivel = 10
+const valor = 500
+const vestir1 = 262144 # Aonde vestir: 18-nos pés
+
+
+classe i_animais002
+herda comum_item
+const nome = "cachorro"
+const ident = "fofo cachorro cachorrinho cão cãozinho"
+const descnome = "um fofo cachorrinho"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const valor = 24000
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_mudadono
+  se !donoantes && dono.jog
+    criar("p_" + txtsub(txte(txt(este)), 1, 1), dono, 10)
+    apagar(este)
+  fimse
+
+
+classe i_animais003
+herda comum_item
+const nome = ""
+const ident = "lindo  gato gatinho  "
+const descnome = "um lindo gatinho"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const valor = 24000
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_mudadono
+  se !donoantes && dono.jog
+    criar("p_" + txtsub(txte(txt(este)), 1, 1), dono, 10)
+    apagar(este)
+  fimse
+
+
+classe i_animais004
+herda comum_itemgrupo
+const nome = "armadura"
+const descnome = "uma armadura de águia"
+const mantersala = 1 # Mantém na sala: Sim
+const vestir1 = 4096 # Aonde vestir: 12-no corpo
+const manterperso = 1 # Mantém em jogador: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 20 * pnivel + 100
+  defnorm += 100
+  defesp += 100
+  deftipo.0 *= 0.95 # Tipos Normais
+  deftipo.1 *= 0.95 # Tipos Especiais
+
+
+classe i_animais005
+herda comum_item
+const nome = "lacinho rosa"
+const descnome = "um lacinho rosa"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 15
+const vestir1 = 4 # Aonde vestir: 2-Na cabeça
+
+
+classe i_animais006
+herda comum_item
+const nome = "punhado de ração"
+const ident = "punhado ração"
+const descnome = "um punhado de ração"
+const descpos = "Um punhado de ração foi jogado de qualquer jeito em um canto"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const valor = 500
+
+
+classe p_animais001
+herda comum_persobat
+const nome = "gavião"
+const descnome = "um gavião"
+const descpadr = "Um gavião está sobre uma árvore, observando o movimento ao redor do bosque."
+const nivel = 22
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_atk_anda = 1 # Anda ataque: Sim
+const p_comecorpo = 1 # Come corpos: Sim
+const p_fugir = 5
+
+
+classe p_animais002
+herda comum_persobat
+const objmax = 15
+const nivel = 2
+const p_atktipo = "bater"
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "h_morder=3,h_arranhar=3,h_arremessar=3"
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const objsav = 1
+#
+#
+const segurar = 1
+sav txt32 tipo1
+sav txt32 tipo2
+sav uint16 prenascer
+#
+
+func cmd_ini
+  se arg0.jog
+    var.z_dono = arg0.descnome
+    seguirjog(arg0)
+  fimse
+  tipo1 = "canino"
+  prenascer = 0
+#
+
+func msexo
+  ret var.z_sexo_, var.z_sexo_
+  ret 0
+#
+
+func psexo
+  ret var.z_sexo_, var.z_sexo_
+  ret 0
+
+func nome
+  ret var.z_nome, var.z_nome
+  ret "cachorro"
+#
+
+func descnome
+  ret dono.jog && !var.z_sexo_, "cadela " + var.z_nome
+  ret dono.jog, "cachorro " + var.z_nome
+  se var.z_dono
+    se var.z_nome
+      ret !var.z_sexo_, var.z_nome + ", a cadela de " + var.z_dono
+      ret var.z_nome + ", o cachorro de " + var.z_dono
+    senao
+      ret !var.z_sexo_, "a cadela de " + var.z_dono
+      ret "o cachorro de " + var.z_dono
+    fimse
+  senao
+    ret !var.z_sexo_, "uma cadela"
+    ret "um cachorro"
+  fimse
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  se arg0.descnome == var.z_dono
+    seguirjog(arg0)
+  fimse
+#
+
+func seguirjog
+  misc:evento(arg0)
+  seguir(arg0)
+  arg0.tseguir = 2
+  tseguir = 1
+#
+
+func cmd_mudadono
+  misc:evento(iseguir.objlista)
+#
+
+func cabedentro
+  ret 1
+#
+
+func cmd_escr
+  se txt1(arg1) == "cachorro" || txt1(arg1) == "cadela"
+    ret arg0.descnome != var.z_dono, nulo
+    se txt2(arg1) == "casa"
+      $mens.p(este)
+      dono.msgsom("latido")
+      $mens.mvis1("$p dá um latido e desaparece.")
+      mudadono($s_zoo021)
+      ret 1
+    senao txt2(arg1) == "reviver"
+      ret arg0.descnome != var.z_dono, nulo
+      ret posicao > 1, arg0.msg("seu animal não está morto.")
+      $mens.p(arg0, este)
+      $mens.mvis1("$P faz várias orações aos deuses, pedindo para que $A retorne a vida!")
+      dono.msg("Milagre!\nDe repente, " + descnome + " abre os olhos, como se tivesse acordado \
+de um longo sono e retornando à vida!")
+      posicao = 5
+      restaurar
+      ret 1
+    senao txt2(arg1) == "dispensar"
+      ret arg0.descnome != var.z_dono, nulo
+      $mens.p(arg0, este)
+      $mens.mvis1("$P se despede de $A e $A vai embora.")
+      apagar(este)
+      ret 1
+    senao txt2(arg1) == "hab"
+      refvar r = este
+      txt100 n
+#
+      textotxt h
+      txt100 t1
+      txt100 t2
+      epara t1 = r.var.ini("h_"), t1, t1 = r.var.depois(t1, "h_")
+        t2 = txte(txt(t1, 2)) # , t2 += txtesp(30 - inttotal(t2))
+        t2 += " / " + txtsublin(misc:aulas, r.var.[t1]_, 1)
+        txt2(r.var.[t1]) && (t2 += " R" + txt2(ar.[t1]))
+        h.addfim(t2)
+      efim
+      ret !h.linhas, arg0.msg("\b" + nome + "Não possui nenhuma habilidade.")
+      h.addini("\b\c6Habilidades de " + nome + ":\b")
+      arg0.msg2(h.remove(1000))
+      ret 1
+    senao txt2(arg1) == "moedas soltar"
+      ret arg0.descnome != var.z_dono, nulo
+      teclou("dar " + var.z_moedas + " moedas " + arg0.descnome)
+      ret 1
+    senao txt2(arg1) == "moedas"
+      ret arg0.descnome != var.z_dono, nulo
+      ret !var.z_moedas_, arg0.msg(nome + " não possui moedas.")
+      ret var.z_moedas_ == 1, arg0.msg(nome + " possui uma moeda.")
+      arg0.msg(nome + " possui " + var.z_moedas + " moedas.")
+      ret 1
+    senao txt2(arg1) == "inv"
+      textotxt t
+      listaitem item
+      refvar r = misc:persoinfo(arg0, arg1)
+      ret !r, nulo
+      epara item = r.dentro1.fim, item, item.antes
+        refvar i = item.obj
+        continuar !i.visivel(arg0)
+        refvar nn = txtsublin(i.atribs.ini.textolin(2), 1)
+        t.addfim(txt(i.objtot) + i.atribs.ini.texto + txtcopiamai(i.descnome, "a") + nn)
+      efim
+      t.juntalin("(", "x)")
+      se t
+        arg0.msg2("\b\c6" + nome + " carrega:\b\n" + txttroca(t.remove(1000), "\d+", "\n"))
+      senao
+        arg0.msg("\b" + nome + " não está carregando nada.")
+      fimse
+      ret 1
+    senao txt2(arg1) == "lista"
+      arg0.msg("\b" + nome + " diz: Digite cachorro seguido de um dos comandos a seguir, ou de \
+uma ordem qualquer:")
+      arg0.msg("\b" + nome + " diz: casa:")
+      arg0.msg(nome + " diz: desc seguido de uma curta descrição:")
+      arg0.msg("Muda ou insere uma curta descrição do meu personagem.")
+      arg0.msg("Me manda de volta para a jaula dos leões.")
+      arg0.msg("\b" + nome + " diz: moedas:")
+      arg0.msg("Mostra quantas moedas estou carregando.")
+      arg0.msg("\b" + nome + " diz: moedas soltar:")
+      arg0.msg("Eu te entrego as moedas que estou carregando.")
+      arg0.msg("\b" + nome + " diz: hab:")
+      arg0.msg("Eu te mostro as minhas habilidades.")
+      arg0.msg("\b" + nome + " diz: inv:")
+      arg0.msg("Eu te mostro o que estou carregando.")
+      arg0.msg("\b" + nome + " diz: lista:")
+      arg0.msg("Eu te digo quais são os meus comandos.")
+      arg0.msg("\b" + nome + " diz: nomear seguido de um nome:")
+      arg0.msg("Muda o meu nome para o nome digitado.")
+      ret 1
+    senao
+      refvar n = txt2(arg1)
+      se txt1(n) == "nomear"
+        var.z_nome = txt2(n)
+        arg0.msg("O nome do seu cachorro mudou para " + var.z_nome + ".")
+      senao txt1(n) == "sexo"
+        se txt2(n) == "m" || txt2(n) == "1"
+          var.z_sexo_ = 1
+          arg0.msg("O sexo do seu cachorro mudou para masculino.")
+        senao txt2(n) == "f" || txt2(n) == "0"
+          var.z_sexo_ = 0
+          arg0.msg("O sexo de sua cadela mudou para feminino.")
+        senao
+          ret arg0.msg("Opção inválida para sexo: " + txt2(n))
+        fimse
+        ret1
+      senao txt1(n) == "desc"
+        var.z_desc = txt2(n)
+        arg0.msg("Descrição mudada.")
+        ret 1
+      senao
+        teclou(txt2(arg1))
+      fimse
+      ret 1
+    fimse
+  fimse
+#
+
+func cmd_soltaranim
+  se arg2 == este && arg0 == dono
+    arg2.mudadono(arg0.dono)
+    $mens.p(arg0, arg2)
+    $mens.mvis1("$P solta $A.")
+    ret 1
+  fimse
+#
+
+func cmd_morrer
+  se arg0 == este
+    ret arg0.dono.jog, nulo
+    arg0.mudadono($s_templo005)
+    ret 1
+  fimse
+
+func cmd_falou
+  se arg1 == "senta!" || arg1 == "sente!"
+    ret arg0.descnome != var.z_dono, nulo
+    teclou("sentar")
+  senao arg1 == "levante!" || arg1 == "levanta!"
+    ret arg0.descnome != var.z_dono, nulo
+    teclou("levantar")
+  fimse
+#
+
+func cmd_hora
+  se !iseguir.objlista
+    ret dono.jog, nulo
+    ret dono == $s_zoo021, nulo
+    mudadono($s_zoo021)
+  fimse
+
+
+classe p_animais003
+herda comum_persobat
+const objmax = 15
+const nivel = 5
+const p_recebe = 1 # Recebe itens: Sim
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const psexo = msexo
+const segurar = 1
+sav txt32 tipo1
+sav txt32 tipo2
+sav uint16 prenascer
+#
+
+func cmd_ini
+  tipo1 = "felino"
+  prenascer = 0
+#
+
+func msexo
+  ret var.z_sexo_, var.z_sexo_
+  ret !var.z_sexo_, 0
+#
+
+func nome
+  ret var.z_nome, var.z_nome
+  ret "gatinho"
+#
+
+func descnome
+  ret dono.jog && !var.z_sexo_, "gatinha " + var.z_nome
+  ret dono.jog, "gatinho " + var.z_nome
+  se var.z_dono
+    se var.z_nome
+      ret !var.z_sexo_, var.z_nome + ", a gatinha de " + var.z_dono
+      ret var.z_nome + ", o gatinho de " + var.z_dono
+    senao
+      ret !var.z_sexo_, "a gatinha de " + var.z_dono
+      ret "o gatinho de " + var.z_dono
+    fimse
+  senao
+    ret !var.z_sexo_, "uma gatinha"
+    ret "um gatinho"
+  fimse
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  se arg0.descnome == var.z_dono
+    seguirjog(arg0)
+  fimse
+#
+
+func seguirjog
+  misc:evento(arg0)
+  seguir(arg0)
+  arg0.tseguir = 2
+  tseguir = 1
+#
+
+func cmd_mudadono
+  se !donoantes && dono.jog
+    var.z_dono = arg0.descnome
+    seguirjog(arg0)
+  fimse
+  misc:evento(iseguir.objlista)
+#
+
+func cabedentro
+  ret 1
+#
+
+func cmd_escr
+  se txt1(arg1) == "gato" || txt1(arg1) == "gata"
+    ret arg0.descnome != var.z_dono, nulo
+    se txt2(arg1) == "casa"
+      $mens.p(este)
+      $mens.mvis1("Miando, $P desaparece em um flash de luz.")
+      mudadono($s_templo005)
+      ret 1
+    senao txt2(arg1) == "reviver"
+      ret arg0.descnome != var.z_dono, nulo
+      ret posicao > 1, arg0.msg("seu animal não está morto.")
+      $mens.p(arg0, este)
+      $mens.mvis1("$P faz várias orações aos deuses, pedindo para que $A retorne a vida!")
+      dono.msg("Milagre!\nDe repente, " + descnome + " abre os olhos, como se tivesse acordado \
+de um longo sono e retornando à vida!")
+      posicao = 5
+      restaurar
+      ret 1
+    senao txt2(arg1) == "dispensar"
+      ret arg0.descnome != var.z_dono, nulo
+      $mens.p(arg0, este)
+      $mens.mvis1("$P se despede de $A e $A vai embora.")
+      apagar(este)
+      ret 1
+    senao txt2(arg1) == "hab"
+      refvar r = este
+      txt100 n
+#
+      textotxt h
+      txt100 t1
+      txt100 t2
+      epara t1 = r.var.ini("h_"), t1, t1 = r.var.depois(t1, "h_")
+        t2 = txte(txt(t1, 2)) # , t2 += txtesp(30 - inttotal(t2))
+        t2 += " / " + txtsublin(misc:aulas, r.var.[t1]_, 1)
+        txt2(r.var.[t1]) && (t2 += " R" + txt2(ar.[t1]))
+        h.addfim(t2)
+      efim
+      ret !h.linhas, arg0.msg("\b" + nome + "Não possui nenhuma habilidade.")
+      h.addini("\b\c6Habilidades de " + nome + ":\b")
+      arg0.msg2(h.remove(1000))
+      ret 1
+    senao txt2(arg1) == "moedas soltar"
+      ret arg0.descnome != var.z_dono, nulo
+      teclou("dar " + var.z_moedas + " moedas " + arg0.descnome)
+      ret 1
+    senao txt2(arg1) == "moedas"
+      ret arg0.descnome != var.z_dono, nulo
+      ret !var.z_moedas_, arg0.msg(nome + " não possui moedas.")
+      ret var.z_moedas_ == 1, arg0.msg(nome + " possui uma moeda.")
+      arg0.msg(nome + " possui " + var.z_moedas + " moedas.")
+      ret 1
+    senao txt2(arg1) == "inv"
+      textotxt t
+      listaitem item
+      refvar r = misc:persoinfo(arg0, arg1)
+      ret !r, nulo
+      epara item = r.dentro1.fim, item, item.antes
+        refvar i = item.obj
+        continuar !i.visivel(arg0)
+        refvar nn = txtsublin(i.atribs.ini.textolin(2), 1)
+        t.addfim(txt(i.objtot) + i.atribs.ini.texto + txtcopiamai(i.descnome, "a") + nn)
+      efim
+      t.juntalin("(", "x)")
+      se t
+        arg0.msg2("\b\c6" + nome + " carrega:\b\n" + txttroca(t.remove(1000), "\d+", "\n"))
+      senao
+        arg0.msg("\b" + nome + " não está carregando nada.")
+      fimse
+      ret 1
+    senao txt2(arg1) == "lista"
+      arg0.msg("\b" + nome + " diz: Digite gatinho seguido de um dos comandos a seguir, ou de \
+uma ordem qualquer:")
+      arg0.msg("\b" + nome + " diz: casa:")
+      arg0.msg(nome + " diz: desc seguido de uma curta descrição:")
+      arg0.msg("Muda ou insere uma curta descrição do meu personagem.")
+      arg0.msg("Me manda de volta para a jaula dos leões.")
+      arg0.msg("\b" + nome + " diz: moedas:")
+      arg0.msg("Mostra quantas moedas estou carregando.")
+      arg0.msg("\b" + nome + " diz: moedas soltar:")
+      arg0.msg("Eu te entrego as moedas que estou carregando.")
+      arg0.msg("\b" + nome + " diz: hab:")
+      arg0.msg("Eu te mostro as minhas habilidades.")
+      arg0.msg("\b" + nome + " diz: inv:")
+      arg0.msg("Eu te mostro o que estou carregando.")
+      arg0.msg("\b" + nome + " diz: lista:")
+      arg0.msg("Eu te digo quais são os meus comandos.")
+      arg0.msg("\b" + nome + " diz: nomear seguido de um nome:")
+      arg0.msg("Muda o meu nome para o nome digitado.")
+      ret 1
+    senao
+      refvar n = txt2(arg1)
+      se txt1(n) == "nomear"
+        var.z_nome = txt2(n)
+        arg0.msg("O nome do seu gatinho mudou para " + var.z_nome + ".")
+      senao txt1(n) == "sexo"
+        se txt2(n) == "m" || txt2(n) == "1"
+          var.z_sexo_ = 1
+          arg0.msg("O sexo do seu gatinho mudou para masculino.")
+        senao txt2(n) == "f" || txt2(n) == "0"
+          var.z_sexo_ = 0
+          arg0.msg("O sexo de sua gatinha mudou para feminino.")
+        senao
+          ret arg0.msg("Opção inválida para sexo: " + txt2(n))
+        fimse
+        ret1
+      senao txt1(n) == "desc"
+        var.z_desc = txt2(n)
+        arg0.msg("Descrição mudada.")
+        ret 1
+      senao
+        teclou(txt2(arg1))
+      fimse
+      ret 1
+    fimse
+  fimse
+
+func cmd_atacar
+  ret !arg0.jog, nulo
+  se arg1 == este
+    $mens.p(arg0)
+    $mens.mvis1("Um gatinho estraçalha $p com seus dentes afiados.")
+    arg0.morreu
+    ret 1
+  fimse
+#
+
+func cmd_soltaranim
+  se arg2 == este && arg0 == dono
+    arg2.mudadono(arg0.dono)
+    $mens.p(arg0, arg2)
+    $mens.mvis1("$P solta $A.")
+    seguirjog(arg0)
+    ret 1
+  fimse
+#
+
+func cmd_morrer
+  se arg0 == este
+    ret dono.jog, nulo
+    mudadono($s_templo005)
+    ret 1
+  fimse
+#
+
+func cmd_falou
+  se arg1 == "senta!" || arg1 == "sente!"
+    teclou("sentar")
+  senao arg1 == "levante!" || arg1 == "levanta!"
+    teclou("levantar")
+  fimse
+
+
+classe p_animais004
+herda comum_persobat
+const msexo = 1 # Sexo Msg: 1 Masculino
+const objmax = 15
+const nivel = 8
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_recebe = 1 # Recebe itens: Sim
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const segurar = 1
+sav uint16 prenascer
+sav txt32 tipo1
+sav txt32 tipo2
+sav txt32 tipo3
+#
+
+func cmd_ini
+  prenascer = 0
+  tipo1 = "primata"
+#
+
+func nome
+  se var.z_nome
+    ret var.z_nome
+  senao
+    ret "macaquinho"
+  fimse
+#
+
+func descnome
+  se var.z_dono
+    se var.z_nome
+      ret var.z_nome + ", o macaquinho de " + var.z_dono
+    senao
+      ret "o macaquinho de " + var.z_dono
+    fimse
+  senao
+    ret "um macaquinho"
+  fimse
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  se arg0.descnome == var.z_dono
+    seguir(arg0)
+    ret 1
+  fimse
+#
+
+func seguirjog
+  misc:evento(arg0)
+  seguir(arg0)
+#
+
+func cmd_mudadono
+  misc:evento(iseguir.objlista)
+#
+
+func cabedentro
+  ret 1
+#
+
+func cmd_escr
+  se txt1(arg1) == "macaco"
+    ret arg0.descnome != var.z_dono, nulo
+    se txt2(arg1) == "lista" || !txt2(arg1)
+      arg0.msg("Meus comandos são os seguintes:")
+      arg0.msg("macaco seguido de um comando:")
+      arg0.msg("Eu executo o comando digitado.")
+      arg0.msg("macaco casa")
+      arg0.msg("Me manda de volta para a jaula dos macacoss.")
+      arg0.msg(nome + " diz: macaco desc seguido de uma curta macaco descrição:")
+      arg0.msg("Muda ou insere uma curta descrição do meu personagem.")
+      arg0.msg("\b" + nome + " diz: macaco moedas:")
+      arg0.msg("Mostra quantas moedas estou carregando.")
+      arg0.msg("\b" + nome + " diz: macaco moedas soltar:")
+      arg0.msg("Eu te entrego as moedas que estou carregando.")
+      arg0.msg("macaco lista")
+      arg0.msg("Lista todos os meus comandos.")
+      arg0.msg("macaco inv")
+      arg0.msg("Mostra o que estou carregando.")
+      ret 1
+    senao txt2(arg1) == "dispensar"
+      ret arg0.descnome != var.z_dono, nulo
+      $mens.p(arg0, este)
+      $mens.mvis1("$P se despede $d $A e $A vai embora.")
+      apagar(este)
+      ret 1
+    senao txt2(arg1) == "hab"
+      ref r
+      r = este
+      txt100 n
+#
+      textotxt h
+      txt100 t1
+      txt100 t2
+      epara t1 = r.var.ini("h_"), t1, t1 = r.var.depois(t1, "h_")
+        t2 = txte(txt(t1, 2)) # , t2 += txtesp(30 - inttotal(t2))
+        t2 += " / " + txtsublin(misc:aulas, r.var.[t1]_, 1)
+        txt2(r.var.[t1]) && (t2 += " R" + txt2(ar.[t1]))
+        h.addfim(t2)
+      efim
+      ret !h.linhas, arg0.msg("\b" + nome + "Não possui nenhuma habilidade.")
+      h.addini("\b\c6Habilidades de " + nome + ":\b")
+      arg0.msg2(h.remove(1000))
+      ret 1
+    senao txt2(arg1) == "moedas soltar"
+      ret arg0.descnome != var.z_dono, nulo
+      teclou("dar " + var.z_moedas + " moedas " + arg0.descnome)
+      ret 1
+    senao txt2(arg1) == "moedas"
+      ret arg0.descnome != var.z_dono, nulo
+      ret !var.z_moedas_, arg0.msg(nome + " não possui moedas.")
+      ret var.z_moedas_ == 1, arg0.msg(nome + " possui uma moeda.")
+      arg0.msg(nome + " possui " + var.z_moedas + " moedas.")
+      ret 1
+    senao txt2(arg1) == "inv"
+      ret arg0.descnome != var.z_dono, nulo
+      textotxt t
+      listaitem item
+      refvar r = misc:persoinfo(arg0, arg1)
+      ret !r, nulo
+      epara item = r.dentro1.fim, item, item.antes
+        refvar i = item.obj
+        continuar !i.visivel(arg0)
+        refvar nn = txtsublin(i.atribs.ini.textolin(2), 1)
+        t.addfim(txt(i.objtot) + i.atribs.ini.texto + txtcopiamai(i.descnome, "A") + nn)
+      efim
+      t.juntalin("(", "x)")
+      se t
+        arg0.msg2("\b\c6" + nome + " carrega:\b\n" + txttroca(t.remove(1000), "\d+", "\n"))
+      senao
+        arg0.msg("\b" + nome + " não está carregando nada.")
+      fimse
+      ret 1
+    senao txt2(arg1) == "casa"
+      $mens.p(este, arg0)
+      $mens.mvis1("$p bate no peito, pega seu cipó e desaparece.")
+      mudadono($s_zoo007)
+      ret 1
+    senao
+      refvar n = txt2(arg1)
+      se txt1(n) == "nomear"
+        var.z_nome = txt2(n)
+        arg0.msg("O nome do seu macaco mudou para " + var.z_nome + ".")
+      senao txt1(n) == "desc"
+        var.z_desc = txt2(n)
+        arg0.msg("Descrição mudada.")
+        ret 1
+      senao
+        teclou(txt2(arg1))
+      fimse
+      ret 1
+    fimse
+  fimse
+#
+
+func cmd_atacar
+  ret !arg0.jog, nulo
+  se arg1 == este
+    $mens.p(este, arg0)
+    refvar msg1 = "$P pega seu cipó e te rasga o pescoço, fazendo sua cabeça rolar pelo chão!"
+    refvar msg2 = "$P pega seu cipó e rasga o pescoço de $A, fazendo sua cabeça rolar pelo \
+chão!"
+    $mens.mvis3("", msg1, msg2)
+    arg0.morreu
+    ret 1
+  fimse
+#
+
+func cmd_morreu
+  se arg0 == este
+    txt100 lin
+    lin = "z_dono=" + var.z_dono
+    lin += ",z_nome=" + var.z_nome
+    lin += ",z_moedas=" + var.z_moedas
+    criar(este, $s_zoo007, pnivel - 1, lin)
+    ret 1
+  fimse
+
+func cmd_soltaranim
+  se arg2 == este && arg0 == dono
+    arg2.mudadono(arg0.dono)
+    $mens.p(arg0, arg2)
+    $mens.mvis1("$P solta $A.")
+    ret 1
+  fimse
+
+
+classe p_animais005
+herda comum_persobat
+const nome = "elefante"
+const descnome = "um elefante"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 30
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se txt1(arg1) == nome
+    teclou(txt2(arg1))
+    ret 1
+  fimse
+
+
+classe p_animais006
+herda comum_persobat
+const nome = var.z_nome ? var.z_nome : "coruja de " + var.z_dono
+const descnome = var.z_nome ? var.z_nome + ", a coruja de " + var.z_dono : "a coruja de " + \
+var.z_dono
+const msexo = 0 # Sexo Msg: 0 Feminino
+const objmax = 15
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "h_bicar=8,h_arranhar=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const p_pet = 1
+const objsav = 1
+const segurar = 1
+sav uint16 prenascer
+sav txt32 tipo1
+sav txt32 tipo2
+sav txt32 tipo3
+#
+
+func cmd_ini
+  prenascer = 0
+  tipo1 = "ave"
+#
+
+func cmd_fim
+  mudadono($s_hogwarts054)
+  ret 1
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+  se arg0.descnome == var.z_dono
+    seguirjog(arg0)
+  fimse
+#
+
+func cmd_escr
+  casovar txtmin(txt1(arg1))
+  casose "entrega"
+  casose "entregar"
+  casose "entregue"
+  casose "entregu"
+  casose "entreg"
+  casose "entre"
+    ret arg0.descnome != var.z_dono, nulo
+    misc:separa(txt2(arg1))
+    refvar ientr = misc:sep1
+    refvar jentr = misc:sep2
+    refvar i = misc:itemdentro(este, ientr)
+    ref p
+    refvar nomesav = txts(txtnome(jentr))
+    indiceitem item
+    item.ini("pn " + nomesav)
+    p = item.obj
+    ret !p, arg0.msg("Jogador inexistente ou ausente: " + jentr)
+    se p.dono != dono
+      $mens.p(este)
+      $mens.mvis1("$P estende as enormes asas e levanta vôo, desaparecendo logo em seguida.")
+      mudadono(p.dono)
+      $mens.p(este, p)
+      $mens.mvis1("$P pousou na sala, diante $d $A.")
+    fimse
+    p.msg(descnome + " diz a você: Meu dono me mandou te entregar isso...")
+    teclou("dar " + ientr + " " + jentr)
+    mudadono(arg0.dono)
+    $mens.mvis1("$P aparece de repente aqui, pousando ao lado de seu dono.")
+    ret 1
+  casofim
+  se txt1(arg1) == "coruja"
+    ret arg0.descnome != var.z_dono, nulo
+    se txt2(arg1) == "casa"
+      $mens.p(arg0, este)
+      refvar m1 = "Sua coruja estende as belas e enormes asas e levanta vôo, desaparecendo no \
+céu logo em seguida."
+      refvar m2 = "$A estende suas belas e enormes asas e levanta vôo, desaparecendo no céu logo \
+em seguida."
+      $mens.mvis2("\d=coruja " + m1, "\d=coruja " + m2)
+      mudadono($s_hogwarts064)
+      ret 1
+    senao txt2(arg1) == "dispensar"
+      ret arg0.descnome != var.z_dono, nulo
+      $mens.p(arg0, este)
+      $mens.mvis1("$P se despede de $A e $A vai embora.")
+      apagar(este)
+      ret 1
+    senao txt2(arg1) == "hab"
+      refvar r = este
+      txt100 n
+#
+      textotxt h
+      txt100 t1
+      txt100 t2
+      epara t1 = r.var.ini("h_"), t1, t1 = r.var.depois(t1, "h_")
+        t2 = txte(txt(t1, 2)) # , t2 += txtesp(30 - inttotal(t2))
+        t2 += " / " + txtsublin(misc:aulas, r.var.[t1]_, 1)
+        txt2(r.var.[t1]) && (t2 += " R" + txt2(ar.[t1]))
+        h.addfim(t2)
+      efim
+      ret !h.linhas, arg0.msg("\b" + nome + "Não possui nenhuma habilidade.")
+      h.addini("\b\c6Habilidades de " + nome + ":\b")
+      arg0.msg2(h.remove(1000))
+      ret 1
+    senao txt2(arg1) == "reviver"
+      ret arg0.descnome != var.z_dono, nulo
+      ret posicao >= 4, arg0.msg(descnome + " não está morta.")
+      $mens.p(arg0, este)
+      $mens.mtodos1("$P faz várias orações aos deuses, pedindo que sua coruja volte à vida...")
+      dono.msg("Milagre!\n" + descnome + " abre os olhos, como se tivesse acordado de um longo \
+sono, após retornar à vida!")
+      posicao == 8
+      restaurar
+      ret 1
+    senao txt2(arg1) == "moedas soltar"
+      ret arg0.descnome != var.z_dono, nulo
+      teclou("dar " + var.z_moedas + " moedas " + arg0.descnome)
+      ret 1
+    senao txt2(arg1) == "moedas"
+      ret arg0.descnome != var.z_dono, nulo
+      ret !var.z_moedas_, arg0.msg(nome + " não possui moedas.")
+      ret var.z_moedas_ == 1, arg0.msg(nome + " possui uma moeda.")
+      arg0.msg(nome + " possui " + var.z_moedas + " moedas.")
+      ret 1
+    senao txt2(arg1) == "inv"
+      textotxt t
+      listaitem item
+      refvar r = misc:persoinfo(arg0, arg1)
+      ret !r, nulo
+      epara item = r.dentro1.fim, item, item.antes
+        refvar i = item.obj
+        continuar !i.visivel(arg0)
+        refvar nn = txtsublin(i.atribs.ini.textolin(2), 1)
+        t.addfim(txt(i.objtot) + i.atribs.ini.texto + txtcopiamai(i.descnome, "a") + nn)
+      efim
+      t.juntalin("(", "x)")
+      se t
+        arg0.msg2("\b\c6" + nome + " carrega:\b\n" + txttroca(t.remove(1000), "\d+", "\n"))
+      senao
+        arg0.msg("\b" + nome + " não está carregando nada.")
+      fimse
+      ret 1
+    senao txt2(arg1) == "lista"
+      arg0.msg("\b" + nome + " diz: Digite coruja seguido de um dos comandos a seguir, ou de uma \
+ordem qualquer:")
+      arg0.msg("\b" + nome + " dis: entregue, seguido do nome de um item e o nome de um jogador:"\
+)
+      arg0.msg("\b" + nome + " diz: eu entrego o item ao jogador informado.")
+      arg0.msg("\b" + nome + " diz: casa.")
+      arg0.msg("Me manda de volta para o corujal.")
+      arg0.msg("\b" + nome + " diz: moedas:")
+      arg0.msg("Mostra quantas moedas estou carregando.")
+      arg0.msg("\b" + nome + " diz: moedas soltar:")
+      arg0.msg("Eu te entrego as moedas que estou carregando.")
+      arg0.msg("\b" + nome + " diz: hab:")
+      arg0.msg("Eu te mostro as minhas habilidades.")
+      arg0.msg("\b" + nome + " diz: inv:")
+      arg0.msg("Eu te mostro o que estou carregando.")
+      arg0.msg("\b" + nome + " diz: lista:")
+      arg0.msg("Eu te digo quais são os meus comandos.")
+      arg0.msg("\b" + nome + " diz: nomear seguido de um nome:")
+      arg0.msg("Muda o meu nome para o nome digitado.")
+      ret 1
+    senao
+      refvar n = txt2(arg1)
+      se txt1(n) == "nomear"
+        var.z_nome = txt2(n)
+        arg0.msg("O nome de sua coruja mudou para " + var.z_nome + ".")
+      senao txt1(n) == "desc"
+        var.z_desc = txt2(n)
+        arg0.msg("Descrição mudada.")
+        ret 1
+      senao txt1(n) == "entregue" || txt1(n) == "entrega"
+        ret arg0.descnome != var.z_dono, nulo
+        ret !txt2(n) && !arg0.psexo, arg0.msg("Entregar o quê, a quem, minha ama?")
+        ret !txt2(n), arg0.msg("Entregar o quê, a quem, meu amo?")
+        misc:separa(txt2(n))
+        refvar jogentr = misc:sep2
+        refvar objentr = misc:sep1
+        ref p
+        refvar nomesav = txts(txtnome(jogentr))
+        ret nomesav == "ahi", nulo
+        ret nomesav == "ahieuli", nulo
+        ret nomesav == "rok", nulo
+        indiceitem item
+        item.ini("pn " + nomesav)
+        p = item.obj
+        ret p.jogperm == "admin", nulo
+        ret !p, arg0.msg(descnome + " diz: " + jogentr + " não está no jogo.")
+        ret p.dono.s_area == "templo", arg0.msg(nome + " diz: Não consigo chegar onde " + \
+p.descnome + " está.")
+        se dono != p.dono
+          $mens.p(este)
+          $mens.mvis2("Sua coruja levanta vôo, desaparecendo logo em seguida.", "$P levanta vôo, \
+desaparecendo logo em seguida.")
+          mudadono(p.dono)
+          $mens.p(este, p)
+          $mens.mvis1("$p pousou aqui, diante de $a!")
+        fimse
+        p.msg("\b" + descnome + " diz: " + var.z_dono + " me mandou te entregar isso...")
+        teclou("dar " + objentr + " " + p.descnome)
+        se dono != arg0.dono
+          $mens.p(este)
+          $mens.mvis1("$P curva-se diante de todos e levanta vôo, desaparecendo no céu logo em \
+seguida.")
+          mudadono(arg0.dono)
+          $mens.p(este, arg0)
+          $mens.mvis1("$p dá um belo razante, vindo pousar diante de $a!")
+        fimse
+        ret 1
+      senao
+        teclou(txt2(arg1))
+      fimse
+      ret 1
+    fimse
+  fimse
+
+func cmd_atacar
+  ret !arg0.jog, nulo
+  se arg1 == este
+    $mens.p(arg0)
+    $mens.mvis1("Um coruja estraçalha $p com seus dentes afiados.")
+    arg0.morreu
+    ret 1
+  fimse
+#
+
+func seguirjog
+  seguir(arg0)
+  misc:evento(arg0)
+  arg0.tseguir = 2
+  tseguir = 1
+#
+
+func cmd_mudadono
+  misc:evento(iseguir.objlista)
+#
+
+func cabedentro
+  ret 1
+#
+
+func cmd_soltaranim
+  se arg2 == este && arg0 == dono
+    arg2.mudadono(arg0.dono)
+    $mens.p(arg0, arg2)
+    $mens.mvis1("$P solta $A.")
+    ret 1
+  fimse
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 62
+  bitinv |= 16
+
+func cmd_morrer
+  se arg0 == este
+    ret arg0.dono.jog, nulo
+    arg0.mudadono($s_hogwarts064)
+    ret 1
+  fimse
+
+
+classe p_animais007
+herda comum_persobat
+const nome = "Leão"
+const ident = "Leão"
+const descnome = "um leão"
+const descpadr = "Um grande leão anda furtivamente pelo bosque à procura de algum animal para \
+devorar."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 50
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_persegue = 2 # Persegue jogadores: 2 Qualquer lugar se atacarem
+
+
+classe p_animais008
+herda comum_persobat
+const volobj = 1000
+const objmax = 15
+const nivel = 5
+const p_recebe = 1 # Recebe itens: Sim
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const segurar = 1
+sav txt32 tipo1
+sav txt32 tipo2
+sav uint16 prenascer
+#
+
+func cmd_ini
+  prenascer = 0
+#
+
+func nome
+  ret var.z_nome, var.z_nome
+  ret "coelho"
+#
+
+func descnome
+  se var.z_dono
+    se var.z_nome
+      ret var.z_nome + ", o coelho de " + var.z_dono
+    senao
+      ret "o coelho de " + var.z_dono
+    fimse
+  senao
+    ret "um coelho"
+  fimse
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  se arg0.descnome == var.z_dono
+    seguirjog(arg0)
+  fimse
+#
+
+func seguirjog
+  misc:evento(arg0)
+  seguir(arg0)
+  arg0.tseguir = 2
+  tseguir = 1
+#
+
+func cmd_mudadono
+  misc:evento(iseguir.objlista)
+#
+
+func cabedentro
+  ret 1
+#
+
+func cmd_escr
+  se txt1(arg1) == "coelho"
+    ret arg0.descnome != var.z_dono, nulo
+    se txt2(arg1) == "casa"
+      $mens.p(este)
+      $mens.mvis1("$p dá um rugido e desaparece em um flash de luz.")
+      mudadono($s_templo005)
+      ret 1
+    senao txt2(arg1) == "reviver"
+      ret arg0.descnome != var.z_dono, nulo
+      ret posicao > 1, arg0.msg("seu animal não está morto.")
+      $mens.p(arg0, este)
+      $mens.mvis1("$P faz várias orações aos deuses, pedindo para que $A retorne a vida!")
+      dono.msg("Milagre!\nDe repente, " + descnome + " abre os olhos, como se tivesse acordado \
+de um longo sono e retornando à vida!")
+      posicao = 5
+      restaurar
+      ret 1
+    senao txt2(arg1) == "dispensar"
+      ret arg0.descnome != var.z_dono, nulo
+      $mens.p(arg0, este)
+      $mens.mvis1("$P se despede de $A e $A vai embora.")
+      apagar(este)
+      ret 1
+    senao txt2(arg1) == "hab"
+      refvar r = este
+      txt100 n
+#
+      textotxt h
+      txt100 t1
+      txt100 t2
+      epara t1 = r.var.ini("h_"), t1, t1 = r.var.depois(t1, "h_")
+        t2 = txte(txt(t1, 2)) # , t2 += txtesp(30 - inttotal(t2))
+        t2 += " / " + txtsublin(misc:aulas, r.var.[t1]_, 1)
+        txt2(r.var.[t1]) && (t2 += " R" + txt2(ar.[t1]))
+        h.addfim(t2)
+      efim
+      ret !h.linhas, arg0.msg("\b" + nome + "Não possui nenhuma habilidade.")
+      h.addini("\b\c6Habilidades de " + nome + ":\b")
+      arg0.msg2(h.remove(1000))
+      ret 1
+    senao txt2(arg1) == "moedas soltar"
+      ret arg0.descnome != var.z_dono, nulo
+      teclou("dar " + var.z_moedas + " moedas " + arg0.descnome)
+      ret 1
+    senao txt2(arg1) == "moedas"
+      ret arg0.descnome != var.z_dono, nulo
+      ret !var.z_moedas_, arg0.msg(nome + " não possui moedas.")
+      ret var.z_moedas_ == 1, arg0.msg(nome + " possui uma moeda.")
+      arg0.msg(nome + " possui " + var.z_moedas + " moedas.")
+      ret 1
+    senao txt2(arg1) == "inv"
+      textotxt t
+      listaitem item
+      refvar r = misc:persoinfo(arg0, arg1)
+      ret !r, nulo
+      epara item = r.dentro1.fim, item, item.antes
+        refvar i = item.obj
+        continuar !i.visivel(arg0)
+        refvar nn = txtsublin(i.atribs.ini.textolin(2), 1)
+        t.addfim(txt(i.objtot) + i.atribs.ini.texto + txtcopiamai(i.descnome, "a") + nn)
+      efim
+      t.juntalin("(", "x)")
+      se t
+        arg0.msg2("\b\c6" + nome + " carrega:\b\n" + txttroca(t.remove(1000), "\d+", "\n"))
+      senao
+        arg0.msg("\b" + nome + " não está carregando nada.")
+      fimse
+      ret 1
+    senao txt2(arg1) == "lista"
+      arg0.msg("\b" + nome + " diz: Digite coelho seguido de um dos comandos a seguir, ou de uma \
+ordem qualquer:")
+      arg0.msg("\b" + nome + " diz: casa:")
+      arg0.msg("Me manda para a o cantinho dos coelhos;")
+      arg0.msg(nome + " diz: desc seguido de uma curta descrição:")
+      arg0.msg("Muda ou insere uma curta descrição do meu personagem.")
+      arg0.msg2("\b" + nome + " diz: moedas:")
+      arg0.msg2("Mostra quantas moedas estou carregando.")
+      arg0.msg2("\b" + nome + " diz: moedas soltar:")
+      arg0.msg2("Eu te entrego as moedas que estou carregando.")
+      arg0.msg2("\b" + nome + " diz: hab:")
+      arg0.msg2("Eu te mostro as minhas habilidades.")
+      arg0.msg2("\b" + nome + " diz: inv:")
+      arg0.msg2("Eu te mostro o que estou carregando.")
+      arg0.msg2("\b" + nome + " diz: lista:")
+      arg0.msg2("Eu te digo quais são os meus comandos.")
+      arg0.msg2("\b" + nome + " diz: nomear seguido de um nome:")
+      arg0.msg2("Muda o meu nome para o nome digitado.")
+      ret 1
+    senao
+      refvar n = txt2(arg1)
+      se txt1(n) == "nomear"
+        var.z_nome = txt2(n)
+        arg0.msg("O nome do seu coelho mudou para " + var.z_nome + ".")
+      senao txt1(n) == "desc"
+        var.z_desc = txt2(n)
+        arg0.msg("Descrição mudada.")
+        ret 1
+      senao
+        teclou(txt2(arg1))
+      fimse
+      ret 1
+    fimse
+  fimse
+
+func cmd_atacar
+  ret !arg0.jog, nulo
+  se arg1 == este
+    arg0.msg("Não pode atacar pet de outro jogador.")
+    ret 1
+  fimse
+#
+
+func cmd_soltaranim
+  se arg2 == este && arg0 == dono
+    arg2.mudadono(arg0.dono)
+    $mens.p(arg0, arg2)
+    refvar m1 = "$P solta $A com bastante cuidado no chão."
+    $mens.mvis1(m1)
+    ret 1
+  fimse
+#
+
+func cmd_morrer
+  se arg0 == este
+    ret arg0.dono.jog, nulo
+    arg0.mudadono($s_templo005)
+    ret 1
+  fimse
+
+
+classe p_animais009
+herda comum_persoanimal
+const nome = var.z_nome ? var.z_nome : "fênix"
+const ident = "fênix " + var.z_nome + var.z_dono
+const descnome = var.z_nome ? var.z_nome + ", a fênix de " + var.z_dono : "a fênix de " + \
+var.z_dono
+const descver = "Essa fênix possui lindas penas vermelhas e douradas.\n\
+Suas lágrimas têm poderes curativos.\n\
+É capaz de sustentar cargas muito pesadas e também, muito leal ao seu dono."
+const objmax = 15
+const p_morreu1 = "Após ser envolvida por uma bola de fogo, $P dá um grito de agonia e desaparece\
+, deixando apenas cinzas fumegantes no chão."
+const p_recebe = 1 # Recebe itens: Sim
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const p_pet = 1
+const objsav = 1
+const segurar = 1
+sav uint16 prenascer
+sav txt32 tipo1
+sav txt32 tipo2
+sav txt32 tipo3
+#
+
+func cmd_ini
+  prenascer = 0
+  tipo1 = "ave"
+  se arg0.jog
+    var.z_dono = arg0.descnome
+    seguirjog(arg0)
+  fimse
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+  se arg0.descnome == var.z_dono
+    seguirjog(arg0)
+  fimse
+#
+
+func cmd_escr
+  se txt1(arg1) == "fênix"
+    ret arg0.descnome != var.z_dono, nulo
+    se txt2(arg1) == "lista"
+      arg0.msg(descnome + " diz: Lista de comandos:")
+      arg0.msg("'fênix lista'")
+      arg0.msg(descnome + " diz: 'Mostra todos os meus comandos.")
+      arg0.msg("fênix <comando>")
+      arg0.msg(descnome + " diz: 'Faz eu executar o comando digitado.'")
+      arg0.msg("Por exemplo: 'fenix matar cachorro', faz com que eu execute o comando matar \
+cachorro, atacando o personagem chamado cachorro.")
+      arg0.msg("Nomear seguido do novo nome")
+      arg0.msg(descnome + " diz: 'Atribui a mim um nome.")
+      arg0.msg("fênix dispensar")
+      arg0.msg(descnome + " diz: Me dispensa, fazendo-me ir embora.")
+      ret 1
+    senao txt2(arg1) == "casa"
+      ret arg0.descnome != var.z_dono, nulo
+      $mens.p(arg0, este)
+      $mens.mtodos1("$P segura $A e a solta, fazendo-$t voar para longe, rumo ao desconhecido.")
+      mudadono($s_hogwarts112)
+      $mens.p(este)
+      $mens.mvis1("$P pousou aqui.")
+      ret 1
+    senao txt2(arg1) == "reviver"
+      ret arg0.descnome != var.z_dono, nulo
+      $mens.p(arg0, este)
+      $mens.mtodos1("$P faz várias orações aos deuses pela cura de sua fênix. De repente, $A \
+entra em chamas, e das cinzas renasce.")
+      posicao = 8
+      restaurar
+      ret 1
+    senao txtsub(arg1, 1, 1) == "nomear"
+      var.z_nome = txtsub(arg1, 2)
+      arg0.msg(var.z_nome ? "nome trocado." : "nome apagado.")
+      ret 1
+    senao txt2(arg1) == "dispensar"
+      $mens.p(arg0, este)
+      $mens.mtodos1("$P dispensa $A, fazendo-$t ir embora.")
+      apagar(este)
+      ret 1
+    senao
+      teclou(txt2(arg1))
+      ret 1
+    fimse
+  fimse
+
+func seguirjog
+  seguir(arg0)
+  misc:evento(arg0)
+  se pnivel - arg0.pnivel <= 200
+    arg0.tseguir = 2
+    tseguir = 1
+  fimse
+#
+
+func cmd_mudadono
+  misc:evento(iseguir.objlista)
+#
+
+func cabedentro
+  ret 1
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv &= ~2
+  bitver |= 62
+  bitinv |= 16
+
+func cmd_soltaranim
+  se arg2 == este
+    $mens.p(arg0, arg2)
+    $mens.mtodos1("$P solta $B.")
+    arg2.mudadono(arg0.dono)
+    ret 1
+  fimse
+#
+
+func cmd_morrer
+  se arg0 == este
+    arg0.mudadono($s_hogwarts112)
+    ret 1
+  fimse
+#
+
+func cmd_falou
+  se txt1(arg1) == "cure"
+    ret arg0.descnome != var.z_dono, nulo
+    refvar perso = txt2(arg1)
+    refvar p = misc:persooutro(este, perso)
+    se !p
+      ret arg0.msg("Sua fênix não vê " + perso + ".")
+      ret arg0.msg("Sua fênix não vê " + perso + ".")
+    fimse
+    p.msg(descnome + " aproxima a cabeça de suas feridas e começa a derramar pocinhas de \
+lágrimas peroladas sobre elas.\nVocê foi totalmente restaurado!")
+    p.p_bebida = 0
+    p.restaurar, p.recalc = 1
+  fimse
+#
+
+func cmd_hora
+  se !iseguir.objlista && dono != $s_hogwarts112
+    $mens.p(arg0)
+    $mens.p(arg0)
+    $mens.mtodos1("$P estende as belas asas douradas e levanta vôo, senguindo rumo à sua \
+casa.")
+    mudadono($s_hogwarts112)
+    $mens.p(arg0)
+    $mens.mtodos1("Você olha ao céu e nota um brilho de asas douradas vindo em sua direção.")
+  fimse
+
+
+classe p_animais010
+herda comum_perso
+const nome = "Vendedor de animais"
+const descnome = "o vendedor de animais"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const lojaitem = "animais001 0"
+
+
+classe p_animais011
+herda comum_persobat
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const pesoobj = 5000
+const objmax = 18
+const nivel = 100
+const equip2 = 48 # Equip adicionar: 4-no olho direito, 5-no olho esquerdo
+const p_atktipo = "bicar"
+const p_comecorpo = 0 # Come corpos: Não
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "h_bicar=8,h_arranhar=8"
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const segurar = 1
+sav uint8 p_diges
+sav uint8 p_bebida
+sav uint16 prenascer
+sav txt32 tipo1
+sav txt32 tipo2
+sav txt32 tipo3
+#
+
+func cmd_ini
+  p_bebida = 0 = p_diges = 0
+  tipo1 = "ave"
+  prenascer = 0
+#
+
+func ident
+  se var.z_nome
+    ret "morcego " + var.z_nome
+  senao
+    ret " morcego "
+  fimse
+
+func nome
+  ref nomemorcego
+  se var.z_nome
+    ret var.z_nome
+  senao
+    se var.z_dono
+      ret "morcego de " + var.z_dono
+      ret "morcego"
+    fimse
+  fimse
+#
+
+func descnome
+  se var.z_dono
+    se var.z_nome
+      ret dono.jog, "o morcego " + var.z_nome
+      ret var.z_nome + ", o morcego de " + var.z_dono
+    senao
+      ret "o morcego de " + var.z_dono
+    fimse
+  senao dono.jog
+    ret var.z_nome + ", o morcego"
+  senao
+    ret "um morcego"
+  fimse
+#
+
+func cmd_falou
+  se arg1 == "senta!"
+    ret arg0.descnome != var.z_dono, nulo
+    se posicao > 4 && posicao < 7
+      teclou("sus " + arg0.descnome + " eu já estou sentada.")
+    senao posicao == 4
+      arg0.msg(descnome + " está dormindo.")
+    senao
+      teclou("sentar")
+    fimse
+    ret 1
+  senao arg1 == "levante!" || arg1 == "levanta!"
+    teclou("levantar")
+    ret 1
+  fimse
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  se arg0.descnome == var.z_dono
+    seguir(arg0)
+    tseguir = 1
+    arg0.tseguir = 2
+  fimse
+#
+
+func seguirjog
+  misc:evento(arg0)
+  seguir(arg0)
+  tseguir = 1
+  arg0.tseguir = 2
+#
+
+func cmd_mudadono
+  misc:evento(iseguir.objlista)
+  tseguir = 1
+  arg0.tseguir = 2
+#
+
+func cabedentro
+  ret 1
+#
+
+func cmd_escr
+  se txt1(arg1) == "ordem"
+    ret arg0.descnome != var.z_dono, nulo
+    teclou(txt2(arg1))
+    ret 1
+  senao txt1(arg1) == "morcego"
+    refvar n = txt2(arg1)
+    se txt1(n) == "desc"
+      var.z_desc = txt2(n)
+      arg0.msg("Descrição mudada.")
+      ret 1
+    fimse
+  fimse
+  se arg1 == "morcego dispensar"
+    ret arg0.descnome != var.z_dono, nulo
+    $mens.p(arg0, este)
+    $mens.mvis1("$P se despede $d $A e $A vai embora.")
+    apagar(este)
+    ret 1
+  fimse
+  se arg1 == "morcego hab"
+    ret arg0.descnome != var.z_dono, nulo
+    ref r
+    r = este
+    txt100 n
+    textotxt h
+    txt100 t1
+    txt100 t2
+    epara t1 = r.var.ini("h_"), t1, t1 = r.var.depois(t1, "h_")
+      t2 = txte(txt(t1, 2)) # , t2 += txtesp(30 - inttotal(t2))
+      t2 += " / " + txtsublin(misc:aulas, r.var.[t1]_, 1)
+      txt2(r.var.[t1]) && (t2 += " r" + txt2(r.var.[t1]))
+      h.addfim(t2)
+    efim
+    ret !h.linhas, arg0.msg("Suo morcego não possui nenhuma habilidade.")
+    h.addini("\b\c6Habilidades de " + nome + ":\b")
+    arg0.msg2(h.remove(1000))
+    ret 1
+  senao arg1 == "morcego reviver"
+    ret arg0.descnome != var.z_dono, nulo
+    ret posicao > 1, arg0.msg("Suo morcego não está morta.")
+    $mens.p(arg0, este)
+    $mens.mvis1("$P faz várias orações aos deuses, pedindo para que suo morcego retorne a \
+vida!")
+    dono.msg("Milagre!\nDe repente, " + descnome + " abre os olhos, como se tivesse acordado de \
+um longo sono e retornando à vida!")
+    posicao = 5
+    restaurar
+    ret 1
+  senao arg1 == "morcego mag"
+    ret arg0.descnome != var.z_dono, nulo
+    ref r
+    r = este
+    txt100 n
+    textotxt h
+    txt100 t1
+    txt100 t2
+    epara t1 = r.var.ini("m_"), t1, t1 = r.var.depois(t1, "m_")
+      t2 = txte(txt(t1, 2)) # , t2 += txtesp(30 - inttotal(t2))
+      t2 += " / " + txtsublin(misc:aulas, r.var.[t1]_, 1)
+      txt2(r.var.[t1]) && (t2 += " r" + txt2(r.var.[t1]))
+      h.addfim(t2)
+    efim
+    ret !h.linhas, arg0.msg("Suo morcego não possui nenhuma magia.")
+    h.addini("\b\c6magias de " + nome + ":\b")
+    arg0.msg2(h.remove(1000))
+    ret 1
+  senao arg1 == "morcego quest"
+    txt100 lin
+    se !var.z_quest_
+      lin = "nenhum ponto de aventura."
+    senao var.z_quest_ == 1
+      lin = "Um ponto de aventura."
+    senao
+      lin = var.z_quest + " pontos de aventura."
+    fimse
+    arg0.msg(lin)
+  senao arg1 == "morcego xp"
+    ret arg0.descnome != var.z_dono, nulo
+    arg0.msg("Experiência de " + nome + ": " + expatual + "de" + expmax)
+    ret 1
+  senao arg1 == "morcego inv"
+    ret arg0.descnome != var.z_dono, nulo
+    textotxt t
+    listaitem item
+    refvar r = misc:persoinfo(este, arg1)
+    ret !r, nulo
+    epara item = r.dentro1.fim, item, item.antes
+      refvar i = item.obj
+      continuar !i.visivel(este)
+      refvar nn = txtsublin(i.atribs.ini.textolin(2), 1)
+      t.addfim(txt(i.objtot) + i.atribs.ini.texto + txtcopiamai(i.descnome, "a") + nn)
+    efim
+    t.juntalin("(", "x)")
+    se t
+      arg0.msg2("\b\c6" + nome + " carrega: \b\n" + txttroca(t.remove(1000), "\d+", "\n"))
+    senao
+      arg0.msg("\b" + nome + " não está carregando nada.")
+    fimse
+    ret 1
+  fimse
+  se txt1(arg1) == "encontre"
+    ret arg0.descnome != var.z_dono, nulo
+    ret !txt2(arg1), arg0.msg("encontrar quem?")
+    ref p
+    refvar nomesav = txts(txtnome(txt2(arg1)))
+    ret nomesav == "ahi", nulo
+    ret nomesav == "ahieuli", nulo
+    ret nomesav == "nik", nulo
+    ret nomesav == "rok", nulo
+    indiceitem item
+    item.ini("pn " + nomesav)
+    p = item.obj
+    ret p.jogperm == "admin", nulo
+    ret p.dono.s_area == "templo", arg0.msg(descnome + " diz: Não consigo chegar onde " + \
+p.descnome + " está.")
+    ret p.dentrocasa, arg0.msg(descnome + " diz: Não dá.")
+    ret !p.visivel(este), arg0.msg(descnome + " diz: Eu não vejo " + p.descnome + ".")
+    ret !p, arg0.msg("Suo morcego diz: " + txt2(arg1) + " não pode ser encontrado, meu amo.")
+    $mens.p(este)
+    $mens.mtodos1("$p estende as enormes asas e levanta vôo, desaparecendo no céu.")
+    mudadono(p.dono)
+    $mens.p(este)
+    $mens.mvis1("$p dá um belo rasante e pousa aqui diante de você.")
+    p.msg("morcego de " + iseguir.objlista.descnome + " diz: Olá " + p.descnome + ". Estou aqui \
+a mando de meu dono.")
+    $mens.p(este)
+    $mens.mvis1("$p levanta vôo e desaparece novamente no céu.")
+    mudadono(iseguir.objlista.dono)
+    iseguir.objlista.msg("Suo morcego retorna dizendo: Voltei meu amo. " + p.descnome + " está \
+em " + p.dono.s_titulo + ".")
+    ret 1
+  senao arg1 == "morcego moedas"
+    ret arg0.descnome != var.z_dono, nulo
+    arg0.msg(descnome + " possui " + var.z_moedas_ + " moedas.")
+    ret 1
+  senao arg1 == "lista"
+    ret arg0.descnome != var.z_dono, nulo
+    arg0.msg(nome + " diz: Meus comandos são:")
+    arg0.msg("morcego inv:")
+    arg0.msg("Mostra o que estou carregando.")
+    arg0.msg2("morcego REVIVER")
+    arg0.MSG("Traz o morcego de volta à vida, após uma morte.")
+    arg0.msg("morcego hab:")
+    arg0.msg("Lista minhas habilidades.")
+    arg0.msg("ordem seguido do comando, me dá uma ordem.")
+    arg0.msg("encontre seguido de um jogador online eu vou até ele e te digo onde ele está.")
+    arg0.msg("Casa - me manda para a câmara das morcegos, no alto da torre.")
+    arg0.msg("entregue , o nome de um item e o nome de um jogador online:")
+    arg0.msg("Eu entrego o item para o jogador, se estiver no meu inventário.")
+    arg0.msg("nomear seguido de um nome")
+    arg0.msg("Muda meu nome para esse nome.")
+    arg0.msg(nome + " diz: Mais comandos serão adicionados em breve!")
+    ret 1
+  senao txt1(arg1) == "entregue" || txt1(arg1) == "entrega"
+    ret arg0.descnome != var.z_dono, nulo
+    ret !txt2(arg1) && !arg0.psexo, arg0.msg("Entregar o quê, a quem, minha ama?")
+    ret !txt2(arg1), arg0.msg("Entregar o quê, a quem, meu amo?")
+    misc:separa(txt2(arg1))
+    refvar jogentr = misc:sep2
+    refvar objentr = misc:sep1
+    ref p
+    refvar nomesav = txts(txtnome(jogentr))
+    ret nomesav == "ahi", nulo
+    ret nomesav == "ahieuli", nulo
+    ret nomesav == "rok", nulo
+    indiceitem item
+    item.ini("pn " + nomesav)
+    p = item.obj
+    ret p.jogperm == "admin", nulo
+    ret !p, arg0.msg(descnome + " diz: " + jogentr + " não está no jogo.")
+    ret p.dono.s_area == "templo", arg0.msg(nome + " diz: Não consigo chegar onde " + p.descnome \
++ " está.")
+    se dono != p.dono
+      $mens.p(este)
+      $mens.mvis2("Suo morcego levanta vôo, desaparecendo logo em seguida.", "$P levanta vôo, \
+desaparecendo logo em seguida.")
+      mudadono(p.dono)
+      $mens.p(este, p)
+      $mens.mvis1("$p pousou aqui, diante de $a!")
+    fimse
+    p.msg("\b" + descnome + " diz: " + var.z_dono + " me mandou te entregar isso...")
+    teclou("dar " + objentr + " " + p.descnome)
+    se dono != arg0.dono
+      $mens.p(este)
+      $mens.mvis1("$P curva-se diante de todos e levanta vôo, desaparecendo no céu logo em \
+seguida.")
+      mudadono(arg0.dono)
+      $mens.p(este, arg0)
+      $mens.mvis1("$p dá um belo razante, vindo pousar diante de $a!")
+    fimse
+    ret 1
+  senao txt1(arg1) == "nomear"
+    ret arg0.descnome != var.z_dono, nulo
+    se txt2(arg1)
+      var.z_nome = txt2(arg1)
+      arg0.msg("O nome da suo morcego foi mudado para " + var.z_nome + ".")
+      ret 1
+    fimse
+  senao arg1 == "casa"
+    ret arg0.descnome != var.z_dono, nulo
+    $mens.p(este)
+    $mens.mtodos1("$P curva-se diante de todos e levanta vôo, desaparecendo no céu logo em \
+seguida.")
+    mudadono($s_rio101)
+    ret 1
+  fimse
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 6206
+  bitinv |= 16
+
+func cmd_darobj
+  ret arg1 != este, nulo
+  se arg0.descnome != var.z_dono
+    arg0.msg(descnome + " diz: Só recebo itens de meu dono.")
+    ret 1
+  senao
+    ret
+  fimse
+#
+
+func cmd_atacar
+  ret !arg0.jog, nulo
+  se arg1 == este
+    ret dono.s_luta == 2, nulo
+    arg0.batalhafim
+    arg0.msg("Não pode atacar Animal de jogador.")
+    ret 1
+  fimse
+#
+#
+
+func cmd_soltaranim
+  se arg2 == este && arg0 == dono
+    arg2.mudadono(arg0.dono)
+    $mens.p(arg0, arg2)
+    $mens.mvis1("$P solta $A.")
+    ret 1
+  fimse
+
+func cmd_morrer
+  se arg0 == este
+    ret dono.jog, nulo
+    arg0.mudadono($s_rio101)
+    ret 1
+  fimse
+  ret
+#
+#
+#
+
+func cmd_hora
+  se !iseguir.objlista
+    ret dono.jog, nulo
+    ret dono == $s_rio101, nulo
+    mudadono($s_rio101)
+  fimse
+
+
+classe p_animais012
+herda comum_persobat
+const msexo = 1 # Sexo Msg: 1 Masculino
+const objmax = 15
+const p_atktipo = "mordida"
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "h_morder=8,h_arranhar=8,h_arremessar=8"
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const p_pet = 1
+const objsav = 1
+const segurar = 1
+sav uint16 prenascer
+sav txt32 tipo1
+sav txt32 tipo2
+sav txt32 tipo3
+#
+
+func cmd_ini
+  tipo1 = "felino"
+  prenascer = 0
+#
+
+func nome
+  ret var.z_nome, var.z_nome
+  ret "rato"
+#
+
+func descnome
+  se var.z_dono
+    se var.z_nome
+      ret var.z_nome + ", o rato de " + var.z_dono
+    senao
+      ret "o rato de " + var.z_dono
+    fimse
+  senao
+    ret "um rato"
+  fimse
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  se arg0.descnome == var.z_dono
+    seguirjog(arg0)
+  fimse
+#
+
+func seguirjog
+  misc:evento(arg0)
+  seguir(arg0)
+  arg0.tseguir = 2
+  tseguir = 1
+#
+
+func cmd_mudadono
+  misc:evento(iseguir.objlista)
+#
+
+func cabedentro
+  ret 1
+#
+
+func cmd_escr
+  se txt1(arg1) == "rato"
+    ret arg0.descnome != var.z_dono, nulo
+    se txt2(arg1) == "casa"
+      $mens.p(este)
+      $mens.mvis1("$p entra em um buraco e desaparece pelos esgotos..")
+      mudadono($s_subterreo023)
+      ret 1
+    senao txt2(arg1) == "reviver"
+      ret arg0.descnome != var.z_dono, nulo
+      ret posicao > 1, arg0.msg("seu animal não está morto.")
+      $mens.p(arg0, este)
+      $mens.mvis1("$P faz várias orações aos deuses, pedindo para que $A retorne a vida!")
+      dono.msg("Milagre!\nDe repente, " + descnome + " abre os olhos, como se tivesse acordado \
+de um longo sono e retornando à vida!")
+      posicao = 5
+      restaurar
+      ret 1
+    senao txt2(arg1) == "dispensar"
+      ret arg0.descnome != var.z_dono, nulo
+      $mens.p(arg0, este)
+      $mens.mvis1("$P se despede de $A e $A vai embora.")
+      apagar(este)
+      ret 1
+    senao txt2(arg1) == "hab"
+      refvar r = este
+      txt100 n
+#
+      textotxt h
+      txt100 t1
+      txt100 t2
+      epara t1 = r.var.ini("h_"), t1, t1 = r.var.depois(t1, "h_")
+        t2 = txte(txt(t1, 2)) # , t2 += txtesp(30 - inttotal(t2))
+        t2 += " / " + txtsublin(misc:aulas, r.var.[t1]_, 1)
+        txt2(r.var.[t1]) && (t2 += " R" + txt2(ar.[t1]))
+        h.addfim(t2)
+      efim
+      ret !h.linhas, arg0.msg("\b" + nome + "Não possui nenhuma habilidade.")
+      h.addini("\b\c6Habilidades de " + nome + ":\b")
+      arg0.msg2(h.remove(1000))
+      ret 1
+    senao txt2(arg1) == "moedas soltar"
+      ret arg0.descnome != var.z_dono, nulo
+      teclou("dar " + var.z_moedas + " moedas " + arg0.descnome)
+      ret 1
+    senao txt2(arg1) == "moedas"
+      ret arg0.descnome != var.z_dono, nulo
+      ret !var.z_moedas_, arg0.msg(nome + " não possui moedas.")
+      ret var.z_moedas_ == 1, arg0.msg(nome + " possui uma moeda.")
+      arg0.msg(nome + " possui " + var.z_moedas + " moedas.")
+      ret 1
+    senao txt2(arg1) == "inv"
+      textotxt t
+      listaitem item
+      refvar r = misc:persoinfo(arg0, arg1)
+      ret !r, nulo
+      epara item = r.dentro1.fim, item, item.antes
+        refvar i = item.obj
+        continuar !i.visivel(arg0)
+        refvar nn = txtsublin(i.atribs.ini.textolin(2), 1)
+        t.addfim(txt(i.objtot) + i.atribs.ini.texto + txtcopiamai(i.descnome, "a") + nn)
+      efim
+      t.juntalin("(", "x)")
+      se t
+        arg0.msg2("\b\c6" + nome + " carrega:\b\n" + txttroca(t.remove(1000), "\d+", "\n"))
+      senao
+        arg0.msg("\b" + nome + " não está carregando nada.")
+      fimse
+      ret 1
+    senao txt2(arg1) == "lista"
+      arg0.msg("\b" + nome + " diz: Digite rato seguido de um dos comandos a seguir, ou de uma \
+ordem qualquer:")
+      arg0.msg("\b" + nome + " diz: casa:")
+      arg0.msg(nome + " diz: desc seguido de uma curta descrição:")
+      arg0.msg("Muda ou insere uma curta descrição do meu personagem.")
+      arg0.msg("Me manda de volta para a jaula dos leões.")
+      arg0.msg("\b" + nome + " diz: moedas:")
+      arg0.msg("Mostra quantas moedas estou carregando.")
+      arg0.msg("\b" + nome + " diz: moedas soltar:")
+      arg0.msg("Eu te entrego as moedas que estou carregando.")
+      arg0.msg("\b" + nome + " diz: hab:")
+      arg0.msg("Eu te mostro as minhas habilidades.")
+      arg0.msg("\b" + nome + " diz: inv:")
+      arg0.msg("Eu te mostro o que estou carregando.")
+      arg0.msg("\b" + nome + " diz: lista:")
+      arg0.msg("Eu te digo quais são os meus comandos.")
+      arg0.msg("\b" + nome + " diz: nomear seguido de um nome:")
+      arg0.msg("Muda o meu nome para o nome digitado.")
+      ret 1
+    senao
+      refvar n = txt2(arg1)
+      se txt1(n) == "nomear"
+        var.z_nome = txt2(n)
+        arg0.msg("O nome do seu rato mudou para " + var.z_nome + ".")
+      senao txt1(n) == "desc"
+        var.z_desc = txt2(n)
+        arg0.msg("Descrição mudada.")
+        ret 1
+      senao
+        teclou(txt2(arg1))
+      fimse
+      ret 1
+    fimse
+  fimse
+
+func cmd_atacar
+  se arg1 == este
+    ret !arg0.jog, nulo
+    ret dono.s_luta == 2, nulo
+    ret arg0.msg("Não pode atacar pet de jogador aqui.")
+  senao arg0 == este
+    ret !arg1.jog, nulo
+    ret arg0.msg("Não pode atacar outro jogador.")
+  fimse
+#
+
+func cmd_soltaranim
+  se arg2 == este
+    arg2.mudadono(arg0.dono)
+    $mens.p(arg0, arg2)
+    $mens.mvis1("$P solta $A.")
+    ret 1
+  fimse
+#
+
+func cmd_morrer
+  se arg0 == este
+    arg0.mudadono($s_subterreo023)
+    ret 1
+  fimse
+
+func cmd_hora
+  se !iseguir.objlista
+    ret dono.jog, nulo
+    ret dono == $s_subterreo023, nulo
+    mudadono($s_subterreo023)
+  fimse
+
+
+classe s_animais001
+herda b_animais
+const s_titulo = "Arena"
+
+
+classe s_animais002
+herda b_animais
+const s_titulo = "Saída"
+const dir_l = $s_animais003
+const dir_o = $s_animais001
+
+
+classe s_animais003
+herda b_animais
+const s_titulo = "Fora do laboratório"
+const dir_o = $s_animais002
+
+
+classe s_animais004
+herda b_animais
+const dir_b = dono
+#
+
+func s_titulo
+  se txt1(dono.descnome) == "o" || txt1(dono.descnome) == "a"
+    ret "Em cima d" + dono.descnome
+  senao
+    ret "Em cima de " + dono.descnome
+  fimse
+#
+
+
+classe s_animais010
+herda b_animais
+const s_titulo = dono.dono.s_titulo
+const s_desc = dono.dono.s_desc
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "desmontar" || arg1 == "descer"
+    arg0.mudadono(dono.dono)
+    $mens.p(arg0, arg0.donoantes.dono)
+    $mens.mvis1("$P desmontou de $A.")
+    ret 1
+  fimse

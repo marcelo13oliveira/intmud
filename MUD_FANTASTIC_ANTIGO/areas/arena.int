@@ -1,0 +1,407 @@
+classe a_arena
+herda area
+const a_nome = "arena"
+const a_tempo = 5
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_arena
+herda sala
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_recup = 1
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const s_area = "arena"
+
+
+classe i_arena001
+herda comum_itemperso
+const nome = "um auto-falante"
+const descnome = "Um auto-falante"
+const descpos = "Uma caixa de som, está presa a parede."
+const i_pegar = "está preso a parede."
+
+
+classe p_arena001
+herda comum_perso
+const nome = "fotógrafo da arena"
+const descnome = "O fotógrafo da arena"
+const descpadr = "Um senhor observa o movimento na arena, fotografando todos os combatentes que \
+por aqui passam."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 999
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_ini
+  criar("i_itens059", este, 1)
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:tempo("tirarfoto", arg0)
+#
+
+func tirarfoto10
+  teclou("tirar foto " + arg0.descnome)
+  teclou("f Tome " + arg0.descnome + ": pegue sua foto!")
+  teclou("dar foto_" + arg0.descnome + " " + arg0.descnome)
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 46
+
+
+classe s_arena001
+herda b_arena
+const s_titulo = "A arena fantástic:"
+const s_desc = "Você acaba de entrar na arena.\n\
+Para o norte você segue em direção ao corredor dos vestiários onde os guerreiros se preparam \
+para o combate,\n\
+e para baixo você vai para o centro da arena."
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_semmagia = 0 # Sem magia: Não
+const s_som = "arena"
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_arena011
+const dir_s = $s_arena037
+const dir_b = $s_arena014
+
+
+classe s_arena002
+herda b_arena
+const s_titulo = "Centro da arena."
+const s_recup = 0
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_arena003
+const dir_s = $s_arena004
+const dir_l = $s_arena005
+const dir_o = $s_arena006
+const dir_ne = $s_arena007
+const dir_no = $s_arena008
+const dir_se = $s_arena009
+const dir_so = $s_arena010
+const a_reset = "P 100 arena001 0 0 1"
+const s_reset = "E 100 dracula012 1 0"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_arena001:objsolto.total < 1
+    criar("p_arena001", este, 0)
+  fimse
+#
+
+func cmd_salaperso
+# misc:evento(arg0)
+  se arg0.donoantes == $s_arena015
+    $mens.mmud1("\b\c6\d=avisaluta $P entrou na arena!\b")
+  fimse
+
+func cmd_morreu
+  $mens.p(arg0, arg1)
+  $mens.mtodos1("$P matou $A!")
+  ret 1
+
+
+classe s_arena003
+herda b_arena
+const s_titulo = "Parte norte da arena"
+const s_desc = "Você está na parte norte da gigantesca arena."
+const dir_s = $s_arena002
+const dir_sair = $s_rio001
+
+
+classe s_arena004
+herda b_arena
+const s_titulo = "Parte sul da arena."
+const s_desc = "Você se encontra na extremidade sul da arena."
+const dir_n = $s_arena002
+const dir_sair = $s_rio001
+
+
+classe s_arena005
+herda b_arena
+const s_titulo = "Parte leste da arena."
+const dir_o = $s_arena002
+const dir_sair = $s_rio001
+const portaini_sair = 2 # Estado inicial: 2 Porta fechada
+
+
+classe s_arena006
+herda b_arena
+const s_titulo = "Parte oeste da arena."
+const dir_l = $s_arena002
+const dir_sair = $s_rio001
+
+
+classe s_arena007
+herda b_arena
+const s_titulo = "Parte nordeste da arena"
+const dir_so = $s_arena002
+const dir_sair = $s_rio001
+
+
+classe s_arena008
+herda b_arena
+const s_titulo = "Parte noroeste da arena"
+const dir_se = $s_arena002
+
+
+classe s_arena009
+herda b_arena
+const s_titulo = "Parte sudeste da arena"
+const dir_no = $s_arena002
+
+
+classe s_arena010
+herda b_arena
+const s_titulo = "Parte sudoeste da arena"
+const dir_ne = $s_arena002
+
+
+classe s_arena011
+herda b_arena
+const s_titulo = "Em frente os vestiários:"
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_pnj = 0
+const s_semmagia = 1 # Sem magia: Sim
+const dir_s = $s_arena001
+const dir_ne = $s_arena013
+const dir_so = $s_arena012
+
+
+classe s_arena012
+herda b_arena
+const s_titulo = "Vestiário masculino:"
+const s_luta = 0 # Batalha: 0 Pacífico
+const dir_s = $s_arena035
+const dir_ne = $s_arena011
+
+
+classe s_arena013
+herda b_arena
+const s_titulo = "Vestiário feminino:"
+const s_luta = 0 # Batalha: 0 Pacífico
+const dir_s = $s_arena036
+const dir_so = $s_arena011
+
+
+classe s_arena014
+herda b_arena
+const s_titulo = "Descendo as escadas em direção ao centro da arena:"
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_pnj = 0
+const s_semmagia = 1 # Sem magia: Sim
+const dir_c = $s_arena001
+const dir_b = $s_arena015
+
+
+classe s_arena015
+herda b_arena
+const s_titulo = "Nas escadas da arena:"
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_semmagia = 1 # Sem magia: Sim
+const dir_c = $s_arena014
+const dir_b = $s_arena002
+
+
+classe s_arena016
+herda b_arena
+const s_titulo = "Nas arquibancadas."
+const s_luta = 0 # Batalha: 0 Pacífico
+const dir_n = $s_arena017
+const dir_s = $s_arena018
+const dir_b = $s_arena006
+
+
+classe s_arena017
+herda b_arena
+const s_titulo = "Nas Arquibancadas."
+const s_luta = 0 # Batalha: 0 Pacífico
+const dir_s = $s_arena016
+const dir_l = $s_arena025
+const dir_b = $s_arena008
+const dir_sair = $s_arena034
+
+
+classe s_arena018
+herda b_arena
+const s_titulo = "Nas arquibancadas."
+const s_luta = 0 # Batalha: 0 Pacífico
+const dir_n = $s_arena016
+const dir_l = $s_arena019
+const dir_b = $s_arena010
+
+
+classe s_arena019
+herda b_arena
+const s_titulo = "Nas arquibancadas."
+const s_luta = 0 # Batalha: 0 Pacífico
+const dir_l = $s_arena020
+const dir_o = $s_arena018
+const dir_b = $s_arena004
+
+
+classe s_arena020
+herda b_arena
+const s_titulo = "Nas arquibancadas."
+const s_luta = 0 # Batalha: 0 Pacífico
+const dir_n = $s_arena021
+const dir_o = $s_arena019
+const dir_b = $s_arena009
+const dir_sair = $s_arena033
+
+
+classe s_arena021
+herda b_arena
+const s_titulo = "Nas arquibancadas."
+const s_luta = 0 # Batalha: 0 Pacífico
+const dir_n = $s_arena022
+const dir_s = $s_arena020
+const dir_b = $s_arena005
+
+
+classe s_arena022
+herda b_arena
+const s_titulo = "Nas Arquibancadas."
+const s_luta = 0 # Batalha: 0 Pacífico
+const dir_s = $s_arena021
+const dir_b = $s_arena007
+const dir_o = $s_arena025
+
+
+classe s_arena023
+herda b_arena
+const s_titulo = "Um corredor de cabines"
+const dir_n = $s_arena027
+const dir_s = $s_arena012
+const dir_l = $s_arena024
+const dir_o = $s_arena026
+
+
+classe s_arena024
+herda b_arena
+const s_titulo = "Uma cabine"
+const dir_o = $s_arena023
+
+
+classe s_arena025
+herda b_arena
+const s_titulo = "Nas Arquibancadas."
+const dir_l = $s_arena022
+const dir_o = $s_arena017
+const dir_b = $s_arena003
+
+
+classe s_arena026
+herda b_arena
+const s_titulo = "Outra cabine"
+const dir_l = $s_arena023
+
+
+classe s_arena027
+herda b_arena
+const s_titulo = "continuando no corredor"
+const dir_n = $s_arena030
+const dir_s = $s_arena023
+const dir_l = $s_arena028
+const dir_o = $s_arena029
+
+
+classe s_arena028
+herda b_arena
+const s_titulo = "Mais uma cabine"
+const dir_o = $s_arena027
+
+
+classe s_arena029
+herda b_arena
+const s_titulo = "Mais uma cabine"
+const dir_l = $s_arena027
+
+
+classe s_arena030
+herda b_arena
+const s_titulo = "final do corredor de cabines"
+const dir_s = $s_arena027
+const dir_l = $s_arena031
+const dir_o = $s_arena032
+
+
+classe s_arena031
+herda b_arena
+const s_titulo = "uma das últimas cabines"
+const dir_o = $s_arena030
+
+
+classe s_arena032
+herda b_arena
+const s_titulo = "A última cabine"
+const dir_l = $s_arena030
+
+
+classe s_arena033
+herda b_arena
+const s_titulo = "A entrada das arquibancadas."
+const dir_entrar = $s_arena020
+const portaini_entrar = 2 # Estado inicial: 2 Porta fechada
+const portanome_entrar = "Os portões de bronze das arquibancadas"
+const som_abrir_entrar = "abportão01"
+
+
+classe s_arena034
+herda b_arena
+const s_titulo = "A saída das Arquibancadas da Arena."
+const dir_sair = $s_rio001
+
+
+classe s_arena035
+herda b_arena
+const s_titulo = ""
+const dir_n = $s_arena012
+
+
+classe s_arena036
+herda b_arena
+const s_titulo = ""
+const dir_n = $s_arena013
+
+
+classe s_arena037
+herda b_arena
+const s_titulo = "Na rampa da arena:"
+const dir_n = $s_arena001
+const dir_s = $s_arena038
+
+
+classe s_arena038
+herda b_arena
+const s_titulo = "Na rampa da arena:"
+const dir_n = $s_arena037
+const dir_s = $s_arena039
+const s_reset = "P 100 arena001 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_arena001:objsolto.total < 1
+    criar("p_arena001", este, 0)
+  fimse
+
+
+classe s_arena039
+herda b_arena
+const s_titulo = "Na rampa da arena:"
+const dir_n = $s_arena038
+const dir_s = $s_arena040
+
+
+classe s_arena040
+herda b_arena
+const s_titulo = "Em uma rampa, na entrada da arena:"
+const s_pnj = 0
+const dir_n = $s_arena039
+const dir_ne = $s_rio005

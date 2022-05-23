@@ -1,0 +1,1656 @@
+classe a_campo
+herda area
+const a_tempo = 25
+const a_nome = "o campo"
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_campo
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_recup = 1
+const s_som = "campo"
+const s_area = "campo"
+
+
+classe i_campo001
+herda comum_item
+const nome = "feijoeiro"
+const descnome = "um pé de feijão"
+const descpos = "Um pé de feijão está aqui, repleto de feijões verdes."
+const descver = "Você vê várias vagens de feijões empenduradas sobre ele."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_pegarobj
+  ret arg2 != este, nulo
+  criar("i_campo002", arg0)
+  $mens.p(arg0)
+  $mens.mvis1("$p pega um feijão do feijoeiro.")
+  ret 1
+
+
+classe i_campo002
+herda comum_itemgrupo
+const nome = "feijão"
+const descnome = "um feijão"
+const descpos = "um caroço de feijão está caído no chão."
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 50
+const evperso = 1 # Eventos dono perso: Sim
+
+
+classe i_campo003
+herda comum_item
+const nome = "milho"
+const descnome = "um pé de milho"
+const descpos = "Um vigoroso pé de milho pende ao peso de várias espigas de milho."
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_pegarobj
+  se arg2 == este
+    refvar i = criar("i_campo004", arg0, 1)
+    $mens.p(arg0, nulo, i)
+    $mens.mvis1("$P colhe $o do pé de milho.")
+    ret 1
+  fimse
+
+
+classe i_campo004
+herda comum_itemgrupo
+const nome = "espiga de milho"
+const ident = "espiga milho"
+const descnome = "uma espiga de milho"
+const descpos = "Uma espiga de milho está aqui no chão."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 90
+const f_msgperso = "$p come uma espiga de milho em várias dentadas."
+const eveste = 1 # Eventos item: Sim
+
+
+classe i_campo005
+herda comum_itemgrupo
+const nome = "carne de galinha"
+const descnome = "uma carne de galinha"
+const descpos = "Uma galinha foi abatida aqui, parece darum bom ensopado."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 180
+const f_msgperso = "$p devora avidamente uma carne crua de galinha."
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "assar frango"
+    ret !arg0.dentro1.objini("i_itens015"), arg0.msg("Você precisa de uma frigideira para assar \
+o frango.")
+    ret !arg0.dono.dentro1.objini("i_templo019"), arg0.msg("Não há um fogão por perto.")
+    $mens.p(arg0)
+    $mens.mtodos1("$p põe o frango na frigideira e põe para assar sobre o fogão...")
+    misc:tempo("assar", arg0)
+    ret 1
+  fimse
+#
+#
+
+func assar200
+  $mens.p(arg0)
+  $mens.mtodos1("$p deixa o frango assando por alguns minutos.")
+#
+
+func assar300
+  $mens.p(arg0)
+  $mens.mtodos1("Após passado alguns minutos, $p retira o frango assado com um pano e o serve em \
+um prato.")
+  apagar(este)
+  criar("i_campo007", arg0)
+
+
+classe i_campo006
+herda comum_itemgrupo
+const nome = "ovo"
+const descnome = "um ovo de galinha"
+const descpos = "um ovo está aqui, sendo chocado."
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_escr
+  se arg1 == "quebrar ovo"
+    ret 1
+  fimse
+#
+
+func cmd_soltouobj
+  se arg1.s_sala && arg4 == arg1
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos1("Ao cair no chão, o ovo se quebra, e uma gema sai rolando pelo chão.")
+    criar("i_campo014", dono, arg3)
+    apagar(arg2)
+  fimse
+
+
+classe i_campo007
+herda comum_itemgrupo
+const nome = "frango assado"
+const descnome = "um frango assado"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 200
+const evsala = 1 # Eventos dono sala: Sim
+
+
+classe i_campo008
+herda comum_itemgrupo
+const nome = "facão"
+const descnome = "um facão"
+const nivel = 30
+const armamax = 210
+const armamin = 150
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20
+  evasao += 10
+
+
+classe i_campo009
+herda comum_itemgrupo
+
+
+classe i_campo010
+herda comum_itemgrupo
+const nome = "arroz"
+const descnome = "um grão de arroz"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_escr
+  se arg1 == "jogar arroz"
+    $mens.p(arg0)
+    $mens.mtodos1("$P joga arroz sobre a noiva!")
+    ret 1
+  fimse
+
+
+classe i_campo011
+herda comum_item
+const nome = "vasilha"
+const ident = "vasilha vazilha"
+const descnome = "uma vasilha"
+const f_tipo = 5 # Tipo: 5 Container, beber
+const valor = 1000
+const evperso = 1 # Eventos dono perso: Sim
+const f_totalml = 2000
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+#
+
+func cmd_escr
+  se arg1 == "tirar leite"
+    ret !arg0.dono.dentro2.objini("p_campo003") && !arg0.dono.dentro2.objini("p_campo015"), \
+arg0.msg("Tirar leite de onde?")
+    misc:tempo("tirarleite", arg0)
+    ret 1
+  fimse
+#
+
+func tirarleite10
+  $mens.p(arg0)
+  $mens.mvis1("$P põe a vasilha embaixo das tetas da vaca e começa a apertá-las e puxá-las para \
+baixo, fazendo o leite escorrer para dentro da vasilha...")
+#
+
+func tirarleite50
+  $mens.p(arg0)
+  $mens.mvis1("$P aguarda até que a vasilha esteja totalmente cheia e a recolhe.")
+  apagar(este)
+  criar("i_campo012", arg0)
+
+
+classe i_campo012
+herda comum_itemgrupo
+const nome = "vasilha de leite"
+const descnome = "uma vasilha de leite"
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_fome = 30
+const f_sede = 30
+const f_diges = 120
+const f_msgoutros = f_msgperso
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+sav uint8 bebeu
+#
+
+func f_msgperso
+  ret bebeu < 7, "$p bebe leite da vasilha."
+  ret "$p beb o restinho de leite da vasilha."
+#
+
+func cmd_escr
+  se arg1 == "colocar leite liquidificador" || arg1 == "colocar leite liq"
+    ret !arg0.dentro1.objini("i_moveis043"), arg0.msg("Não tem um liquidificador.")
+    $mens.p(arg0)
+    $mens.mvis1("$P coloca um pouco de leite da vasilha dentro de um liquidificador.")
+    bebeu += 1
+    arg0.dentro1.objini("i_moveis043").var.z_leite_ = 1
+    ret 1
+  fimse
+#
+
+func cmd_bebeu
+  bebeu += 1
+  se bebeu >= 8
+    apagar(este)
+    criar("i_campo011", arg0)
+  fimse
+
+const f_liquido = "leite"
+
+
+classe i_campo013
+herda comum_itemperso
+const nome = "chocadeira"
+const descnome = "uma chocadeira"
+const descver = "Esta é uma chocadeira, uma máquina para chocar ovos.\n\
+Em sua superfície, você vê alguns botões e ao lado direito a uma cavidade onde são colocados os \
+ovos.\n\
+Esta chocadeira suporta chocar um ovo por vez. Solte-o nela e em seguida digite apertar botão,\n\
+para apertar o botão de acionamento dela."
+const i_itens = "campo006"
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "apertar botão"
+    ret !dentro1.objini("i_campo006"), arg0.msg("Não há ovos dentro para serem chocados.")
+    $mens.p(arg0)
+    $mens.mvis1("$p aperta o botão da chocadeira e ela liga!")
+    misc:tempo("ligou", arg0)
+    ret 1
+  fimse
+#
+
+func ligou30
+  $mens.p(arg0)
+  $mens.mvis1("A chocadeira começa a esquentar e os ovos a serem chocados...")
+#
+
+func ligou90
+  $mens.p(arg0)
+  $mens.mvis1("A chocadeira continua chocando os ovos....")
+#
+
+func ligou180
+  $mens.p(arg0)
+  $mens.mvis1("piu! piu! piu! piu!")
+#
+#
+
+func ligou200
+  $mens.p(arg0)
+  $mens.p(arg0)
+  $mens.mvis1("Finalmente após um tempo a chocadeira é desligada e de dentro do ovo sai um \
+pequenino pintinho!")
+  apagar(dentro1.objini("i_campo006"))
+  criar("p_campo012", dono, 10)
+
+
+classe i_campo014
+herda comum_itemgrupo
+const nome = "gema de ovo"
+const descnome = "uma gema de ovo"
+const descpos = "Alguém quebrou um ovo e deixou a gema caída no chão."
+const mantersala = 0 # Mantém na sala: Não
+
+
+classe p_campo001
+herda comum_persobat
+const nome = "cavalo"
+const descnome = "um cavalo"
+const descpadr = "um cavalo está galopando por aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 15
+const p_atktipo = "coice"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 300
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 300
+const inivar = "h_coice=8"
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "montar cavalo"
+    arg0.seguir(este)
+    $mens.p(arg0)
+    $mens.mvis1("$p se apoia nas costas de um cavalo e monta em cima dele.")
+    ret 1
+  senao arg1 == "descer"
+    $mens.p(arg0)
+    $mens.mtodos1("$p desce do cavalo.")
+    ret 1
+  fimse
+
+
+classe p_campo002
+herda comum_persobat
+const nome = "peão"
+const descnome = "um peão do campo"
+const descpadr = "Um peão do campo está caminhando por aqui, a procura de cavalos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 16
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 500
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 250
+
+
+classe p_campo003
+herda comum_persobat
+const nome = "vaca"
+const descnome = "uma vaca"
+const descpadr = "Uma vaca está aqui, amamentando seus bezerros."
+const nivel = 20
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 600
+const inivar = "h_morder=8,h_chifrada=8"
+const evsala = 1 # Eventos dono sala: Sim
+const segurar = 1
+
+
+classe p_campo004
+herda comum_persobat
+const nome = "boi"
+const descnome = "um boi"
+const descpadr = "Um boi está descansando aqui."
+const nivel = 21
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 550
+
+
+classe p_campo005
+herda comum_persobat
+const nome = "tatu bola"
+const descnome = "um tatu bola"
+const descpadr = "um tatu bola está rolando por aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 450
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 280
+
+
+classe p_campo006
+herda comum_persobat
+const nome = "porco"
+const descnome = "um porco"
+const descpadr = "um porco está aqui, rolando na lama."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 20
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 550
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_soltouobj
+  se arg2.nome == "arroz"
+    teclou("pegar arroz")
+    teclou("comer arroz")
+    ret 1
+  fimse
+
+
+classe p_campo007
+herda comum_persobat
+const nome = "galinha"
+const descnome = "uma galinha"
+const descpadr = "Uma galinha está aqui, chocando seus ovos."
+const nivel = 12
+const tipo2 = "3"
+const p_exp = 520
+const p_morreu1 = "$p cai, abatida e imóvel no chão."
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_pegarobj
+  se arg2.nome == "ovo"
+    arg0.msg("As galinhas protegem os ovos para que você não os pegue.")
+    ret 1
+
+func cmd_morreu
+  criar("i_campo005", dono, 1)
+  ret 1
+
+
+classe p_campo008
+herda comum_persobat
+const nome = "galinha"
+const descnome = "uma galinha caipira"
+const descpadr = "uma galinha caipira corre pelo campo catando migalhas."
+const nivel = 13
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 200
+const p_morreu1 = "$p cai, imóvel."
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+
+classe p_campo009
+herda comum_persobat
+const nome = "velho viajante"
+const descnome = "um velho viajante"
+const descpadr = "Um velho viajante cansado segue pela estrada."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 30
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 1500
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 150
+
+
+classe p_campo010
+herda comum_persobat
+const nome = "leiteiro"
+const descnome = "um leiteiro"
+const descpadr = "Um leiteiro está tirando leite das vacas."
+const nivel = 18
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 550
+const evsala = 1 # Eventos dono sala: Sim
+
+
+classe p_campo011
+herda comum_persobat
+const nome = "cavalo"
+const descnome = "Um belo cavalo"
+const descpadr = "Um belo cavalo está aqui, puxando uma carruagem"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const p_imortal = 1 # Imortal: Sim
+const p_mover = 2 # Movimentar: 2 Qualquer lugar
+const p_movervel = 300
+#
+
+func cabedentro
+  ret 1
+#
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 4126
+
+func cmd_moveu
+  ret arg0 == este, nulo
+  se arg2 == "entrar"
+    var.z_dentro = arg0
+  fimse
+  se arg0 == este
+    se var.z_dentro
+      var.z_dentro.msg(arg2)
+      var.z_dentro(dono.dono.s_titulo)
+    fimse
+
+
+classe p_campo012
+herda comum_persobat
+const nome = "pinto"
+const descnome = "um pinto recém chocado"
+const descpadr = "Um pinto recém chocado está aqui, piando alto!"
+
+
+classe p_campo013
+herda comum_persobat
+const nome = "bezerro"
+const ident = "bezerro"
+const descnome = "Um bezerro"
+const descpadr = "Um pequeno bezerro está aqui, tentando mamar."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 10
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+
+
+classe p_campo014
+herda comum_perso
+const nome = "cavalo alasão"
+const descnome = "um cavalo alasão"
+const descpadr = "Um belo cavalo alasão está aqui, conduzindo uma carruagem."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 100
+inttempo andar
+#
+#
+
+func cmd_mudadono
+  se dono == $s_rio003 || dono == $s_rio001
+    andar = 300
+    refvar listadir1 = txtvis(rastrearsala($s_campo025))
+    refvar listadir2 = txttroca(listadir1, "\\n", " ")
+    var.z_listadir = listadir2
+    var.z_início = "rio"
+  senao dono == $s_campo025
+    se var.z_início == "rio"
+      andar = 100
+      refvar listadir1 = txtvis(rastrearsala($s_rural013))
+      refvar listadir2 = txttroca(listadir1, "\\n", " ")
+      var.z_listadir = listadir2
+    senao var.z_início == "rural"
+      andar = 100
+      refvar listadir1 = txtvis(rastrearsala($s_rio003))
+      refvar listadir2 = txttroca(listadir1, "\\n", " ")
+      var.z_listadir = listadir2
+    fimse
+  senao dono == $s_rural013
+    andar = 500
+    refvar listadir1 = txtvis(rastrearsala($s_campo025))
+    refvar listadir2 = txttroca(listadir1, "\\n", " ")
+    var.z_listadir = listadir2
+    var.z_início = "rural"
+  fimse
+#
+
+func andar_exec
+  se posicao == 5
+    teclou("levantar")
+  fimse
+  se !var.z_listadir
+    andar = 1200
+    ret 1
+  fimse
+  refvar dirs = var.z_listadir
+  refvar dir = txt1(dirs)
+  var.z_listadir = txt2(dirs)
+  se dono.porta_[dir] >= 2
+    dono.mudaporta(dir, 1, "$m se abriu.", "$m se abriu.")
+  fimse
+  teclou(dir)
+  se !var.z_listadir
+    andar = 1200
+  senao
+    andar = 50
+  fimse
+#
+
+func cabedentro
+  ret 1
+
+
+classe p_campo015
+herda comum_persobat
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const segurar = 1
+#
+
+func nome
+  ret var.z_nome, var.z_nome
+  ret "vaca"
+#
+
+func descnome
+  se var.z_dono
+    se dono.jog
+      ret var.z_nome, "a vaquinha " + var.z_nome
+      ret "Vaquinha"
+    senao
+      ret var.z_nome, var.z_nome + ", a vaquinha de " + var.z_dono
+      ret "a vaquinha de " + var.z_dono
+    fimse
+  senao
+    ret "uma vaquinha"
+  fimse
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  se arg0.descnome == var.z_dono
+    seguirjog(arg0)
+  fimse
+
+func cmd_escr
+  se txt1(arg1) == "vaca" || txt1(arg1) == "vaquinha"
+    ret arg0.descnome != var.z_dono, nulo
+    se txtsub(arg1, 1, 1) == "nomear"
+      var.z_nome = txtsub(arg1, 2)
+      arg0.msg("O nome de sua vaquinha foi alterado para " + var.z_nome + ".")
+      ret 1
+    senao
+      teclou(txt2(arg1))
+      ret 1
+    senao txt1(arg1) == "vaca"
+      ret arg0.descnome != var.z_dono, nulo
+      se txt2(arg1) == "casa"
+        $mens.p(este)
+        $mens.mvis1("Soltando um breve mugido, $P caminha vagarosamente para sua casa.")
+        mudadono($s_campo050)
+        ret 1
+      senao
+        arg0.msg("Tecle o comando após 'vaca'")
+      fimse
+    fimse
+#
+
+func seguirjog
+  misc:evento(arg0)
+  seguir(arg0)
+#
+#
+
+func cmd_mudadono
+  se !donoantes && dono.jog
+    var.z_dono = arg0.descnome
+  fimse
+  misc:evento(iseguir.objlista)
+#
+
+func cabedentro
+  ret 1
+#
+
+func cmd_soltaranim
+  se arg2 == este
+    $mens.p(arg0, este)
+    $mens.mtodos1("$P solta $A.")
+    arg2.mudadono(arg0.dono)
+    misc:evento(arg0)
+    seguirjog(arg0)
+    ret 1
+  fimse
+#
+
+func cmd_morrer
+  se arg0 == este
+    $mens.p(arg0)
+    $mens.mmud1("$P morreu.")
+    se iseguir.objlista
+      mudadono(iseguir.objlista)
+    senao
+      mudadono($s_campo002)
+    fimse
+  fimse
+
+
+classe p_campo016
+herda comum_persobat
+const msexo = 1 # Sexo Msg: 1 Masculino
+const inivar = "h_morder=8,h_chifrada=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const segurar = 1
+#
+
+func nome
+  se var.z_dono
+    se dono.jog
+      ret var.z_nome, "o boi " + var.z_nome
+      ret "boi"
+    senao
+      ret var.z_nome, var.z_nome + ", o boi de " + var.z_dono
+      ret "o boi de " + var.z_dono
+    fimse
+  senao
+    ret "umo boi"
+  fimse
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  se arg0.descnome == var.z_dono
+    seguirjog(arg0)
+  fimse
+
+func cmd_escr
+  se txt1(arg1) == "boi" || txt1(arg1) == "boi"
+    ret arg0.descnome != var.z_dono, nulo
+    se txtsub(arg1, 1, 1) == "nomear"
+      var.z_nome = txtsub(arg1, 2)
+      arg0.msg("O nome de seu boi foi alterado para " + var.z_nome + ".")
+      ret 1
+    senao
+      ret arg0.descnome != var.z_dono, nulo
+      se txt2(arg1) == "casa"
+        $mens.p(este)
+        $mens.mvis1("batendo as patas no chão, $P retorna para sua casa.")
+        mudadono($s_campo049)
+        ret 1
+      senao txtsub(arg1, 1, 1) == "dispensar"
+        $mens.p(arg0, este)
+        $mens.mtodos1("$P dispensa $A e el$w vai embora.")
+        apagar(este)
+        ret 1
+      senao
+        teclou(txt2(arg1))
+        ret 1
+      senao
+        arg0.msg("Tecle o comando após 'boi'")
+      fimse
+    fimse
+#
+
+func seguirjog
+  misc:evento(arg0)
+  seguir(arg0)
+#
+#
+
+func cmd_mudadono
+  se !donoantes && dono.jog
+    var.z_dono = arg0.descnome
+  fimse
+  misc:evento(iseguir.objlista)
+#
+
+func cabedentro
+  ret 1
+#
+
+func cmd_soltaranim
+  se arg2 == este
+    $mens.p(arg0, este)
+    $mens.mtodos1("$P solta $A.")
+    arg2.mudadono(arg0.dono)
+    misc:evento(arg0)
+    seguirjog(arg0)
+    ret 1
+  fimse
+
+
+classe p_campo017
+herda comum_persobat
+const msexo = 1 # Sexo Msg: 1 Masculino
+const p_som_entra = "cavalgou"
+const p_som_sai = "cavalgou"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const p_montar = 1
+const segurar = 1
+#
+
+func nome
+  se var.z_dono
+    se dono.jog
+      ret var.z_nome, "o cavalo " + var.z_nome
+      ret "cavalo"
+    senao
+      ret var.z_nome, var.z_nome + ", o cavalo de " + var.z_dono
+      ret "o cavalo de " + var.z_dono
+    fimse
+  senao
+    ret "umo cavalo"
+  fimse
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  se arg0.descnome == var.z_dono
+    seguirjog(arg0)
+  fimse
+
+func cmd_escr
+  se txt1(arg1) == "cavalo" || txt1(arg1) == "cavalo"
+    ret arg0.descnome != var.z_dono, nulo
+    se txtsub(arg1, 1, 1) == "nomear"
+      var.z_nome = txtsub(arg1, 2)
+      arg0.msg("O nome de seu cavalo foi alterado para " + var.z_nome + ".")
+      ret 1
+    senao txtsub(arg1, 1, 1) == "dispensar"
+      $mens.p(arg0, este)
+      $mens.mtodos1("$P dispensa $A e el$w vai embora.")
+      apagar(este)
+      ret 1
+    senao
+      teclou(txt2(arg1))
+      ret 1
+    senao
+      arg0.msg("Tecle o comando após 'cavalo'")
+    fimse
+  fimse
+#
+
+func seguirjog
+  misc:evento(arg0)
+  seguir(arg0)
+#
+#
+
+func cmd_mudadono
+  se !donoantes && dono.jog
+    var.z_dono = arg0.descnome
+  fimse
+  misc:evento(iseguir.objlista)
+#
+
+func cabedentro
+  ret 1
+#
+
+func cmd_soltaranim
+  se arg2 == este
+    $mens.p(arg0, este)
+    $mens.mtodos1("$P solta $A.")
+    arg2.mudadono(arg0.dono)
+    misc:evento(arg0)
+    seguirjog(arg0)
+    ret 1
+  fimse
+
+
+classe p_campo018
+herda comum_persobat
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const segurar = 1
+const p_montar = 1
+#
+
+func nome
+  ret var.z_nome, var.z_nome
+  ret "égua"
+#
+
+func descnome
+  se var.z_dono
+    se dono.jog
+      ret var.z_nome, "a eguinha " + var.z_nome
+      ret "eguinha"
+    senao
+      ret var.z_nome, var.z_nome + ", a égua de " + var.z_dono
+      ret "a égua de " + var.z_dono
+    fimse
+  senao
+    ret "uma eguinha"
+  fimse
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  se arg0.descnome == var.z_dono
+    seguirjog(arg0)
+  fimse
+
+func cmd_escr
+  se txt1(arg1) == "égua" || txt1(arg1) == "eguinha"
+    ret arg0.descnome != var.z_dono, nulo
+    se txtsub(arg1, 1, 1) == "nomear"
+      var.z_nome = txtsub(arg1, 2)
+      arg0.msg("O nome de sua eguinha foi alterado para " + var.z_nome + ".")
+      ret 1
+    senao
+      teclou(txt2(arg1))
+      ret 1
+    senao
+      arg0.msg("Tecle o comando após 'égua'")
+    fimse
+  fimse
+#
+
+func seguirjog
+  misc:evento(arg0)
+  seguir(arg0)
+#
+#
+
+func cmd_mudadono
+  se !donoantes && dono.jog
+    var.z_dono = arg0.descnome
+  fimse
+  misc:evento(iseguir.objlista)
+#
+
+func cabedentro
+  ret 1
+#
+
+func cmd_soltaranim
+  se arg2 == este
+    $mens.p(arg0, este)
+    $mens.mtodos1("$P solta $A.")
+    arg2.mudadono(arg0.dono)
+    misc:evento(arg0)
+    seguirjog(arg0)
+    ret 1
+  fimse
+
+
+classe s_campo001
+herda b_campo
+const s_titulo = "nos criadouros"
+const dir_n = $s_campo015
+const dir_s = $s_campo004
+const dir_l = $s_campo002
+const dir_o = $s_campo003
+const a_reset = "P 100 campo001 15 18 5 z_moedas=500"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_campo001:objsolto.total < 5
+    criar("p_campo001", este, rand(15, 18), "z_moedas=500")
+  fimse
+
+
+classe s_campo002
+herda b_campo
+const s_titulo = "Um curral de vacas"
+const s_pnj = 0
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_campo050
+const dir_o = $s_campo001
+const a_reset = "P 100 campo003 0 0 5 z_moedas=900\n\
+P 100 campo003 0 0 4 z_moedas=900\n\
+P 100 campo003 0 0 5 z_moedas=900\n\
+P 100 campo003 0 0 5 z_moedas=900\n\
+P 100 campo003 0 0 5 z_moedas=900\n\
+P 100 campo010 0 0 5 h_socar=2,h_chutar=2,z_moedas=50000\n\
+I 100 campo011 1\n\
+P 100 Campo013 0 0 5 h_arremessar=2,h_morder=2,z_moedas=450"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  se p_campo003:objsolto.total < 5
+    criar("p_campo003", este, 0, "z_moedas=900")
+  fimse
+  se p_campo003:objsolto.total < 4
+    criar("p_campo003", este, 0, "z_moedas=900")
+  fimse
+  se p_campo003:objsolto.total < 5
+    criar("p_campo003", este, 0, "z_moedas=900")
+  fimse
+  se p_campo003:objsolto.total < 5
+    criar("p_campo003", este, 0, "z_moedas=900")
+  fimse
+  se p_campo003:objsolto.total < 5
+    criar("p_campo003", este, 0, "z_moedas=900")
+  fimse
+  se p_campo010:objsolto.total < 5
+    p = u = criar("p_campo010", este, 0, "h_socar=2,h_chutar=2,z_moedas=50000")
+  fimse
+  u && criar("i_campo011", u, 1)
+  se p_Campo013:objsolto.total < 5
+    criar("p_Campo013", este, 0, "h_arremessar=2,h_morder=2,z_moedas=450")
+  fimse
+#
+
+func cmd_salaperso
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "comprar vaca" || arg1 == "comprar vaquinha"
+    ret arg0.var.z_moedas_ < 200000, arg0.msg("Você não tem 200000 moedas.")
+    refvar v = criar("p_campo015", arg0, 0)
+    $mens.p(arg0, v)
+    $mens.mtodos1("$P paga algumas moedas ao fazendeiro e compra $A.")
+    ret 1
+  fimse
+
+
+classe s_campo003
+herda b_campo
+const s_titulo = "Um curral de bois"
+const s_pnj = 5
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_campo001
+const dir_o = $s_campo049
+const a_reset = "P 100 campo004 21 26 5 z_moedas=900\n\
+P 100 campo004 22 27 5 z_moedas=1000\n\
+P 100 campo004 21 26 5 z_moedas=900\n\
+P 100 campo004 22 28 10 h_chutar=4,z_moedas=30000\n\
+P 100 campo004 20 25 5 z_moedas=1200"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_campo004:objsolto.total < 5
+    criar("p_campo004", este, rand(21, 26), "z_moedas=900")
+  fimse
+  se p_campo004:objsolto.total < 5
+    criar("p_campo004", este, rand(22, 27), "z_moedas=1000")
+  fimse
+  se p_campo004:objsolto.total < 5
+    criar("p_campo004", este, rand(21, 26), "z_moedas=900")
+  fimse
+  se p_campo004:objsolto.total < 10
+    criar("p_campo004", este, rand(22, 28), "h_chutar=4,z_moedas=30000")
+  fimse
+  se p_campo004:objsolto.total < 5
+    criar("p_campo004", este, rand(20, 25), "z_moedas=1200")
+  fimse
+
+func cmd_salaperso
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "comprar boi" || arg1 == "comprar vaquinha"
+    ret arg0.var.z_moedas_ < 200000, arg0.msg("Você não tem 200000 moedas.")
+    refvar v = criar("p_campo016", arg0, 0)
+    $mens.p(arg0, v)
+    $mens.mtodos1("$P paga algumas moedas ao fazendeiro e compra $A.")
+    ret 1
+  fimse
+
+
+classe s_campo004
+herda b_campo
+const s_titulo = "Uma estrada de terra"
+const dir_n = $s_campo001
+const dir_s = $s_campo005
+const dir_l = $s_campo006
+const dir_o = $s_campo007
+const a_reset = "P 100 campo002 16 19 5 z_moedas=10000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_campo002:objsolto.total < 5
+    criar("p_campo002", este, rand(16, 19), "z_moedas=10000")
+  fimse
+
+
+classe s_campo005
+herda b_campo
+const s_titulo = "Uma estrada de terra"
+const dir_n = $s_campo004
+const dir_s = $s_campo014
+const dir_l = $s_campo012
+const dir_o = $s_campo010
+
+
+classe s_campo006
+herda b_campo
+const s_titulo = "Caminhando por uma plantação de feijão."
+const dir_s = $s_campo012
+const dir_l = $s_campo008
+const dir_o = $s_campo004
+const s_reset = "S 100 campo001 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_campo001") && criar("i_campo001", este, 1)
+
+
+classe s_campo007
+herda b_campo
+const s_titulo = "Um milharal."
+const dir_s = $s_campo010
+const dir_l = $s_campo004
+const dir_o = $s_campo009
+
+
+classe s_campo008
+herda b_campo
+const s_titulo = "Caminhando por uma plantação de feijão."
+const dir_s = $s_campo013
+const dir_l = $s_campo028
+const dir_o = $s_campo006
+const s_reset = "S 100 campo001 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_campo001") && criar("i_campo001", este, 1)
+
+
+classe s_campo009
+herda b_campo
+const s_titulo = "Um milharal."
+const dir_s = $s_campo011
+const dir_l = $s_campo007
+
+
+classe s_campo010
+herda b_campo
+const s_titulo = "Um milharal."
+const dir_n = $s_campo007
+const dir_l = $s_campo005
+const dir_o = $s_campo011
+const s_reset = "S 100 campo003 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_campo003") && criar("i_campo003", este, 1)
+
+
+classe s_campo011
+herda b_campo
+const s_titulo = "Um milharal."
+const dir_n = $s_campo009
+const dir_l = $s_campo010
+
+
+classe s_campo012
+herda b_campo
+const s_titulo = "Caminhando por uma plantação de feijão."
+const dir_n = $s_campo006
+const dir_l = $s_campo013
+const dir_o = $s_campo005
+const s_reset = "S 100 campo001 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_campo001") && criar("i_campo001", este, 1)
+
+
+classe s_campo013
+herda b_campo
+const s_titulo = "Caminhando por uma plantação de feijão."
+const dir_n = $s_campo008
+const dir_o = $s_campo012
+const s_reset = "S 100 campo001 1 S\nS 100 campo013 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_campo001") && criar("i_campo001", este, 1)
+  !dentro1.objini("i_campo013") && criar("i_campo013", este, 1)
+
+
+classe s_campo014
+herda b_campo
+const s_titulo = "Uma estrada de terra"
+const s_pnj = 0
+const dir_n = $s_campo005
+const dir_s = $s_campo021
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "a porteira"
+const fecha_s = 1 # Fecha ao passar: Sim
+const dir_l = $s_campo043
+const dir_o = $s_campo046
+const a_reset = "P 100 campo005 12 15 4 z_moedas=15000\n\
+P 100 campo005 12 15 4 z_moedas=15000\n\
+P 100 campo005 12 15 4 z_moedas=5000\n\
+P 100 campo005 12 15 4 z_moedas=15000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_campo005:objsolto.total < 4
+    criar("p_campo005", este, rand(12, 15), "z_moedas=15000")
+  fimse
+  se p_campo005:objsolto.total < 4
+    criar("p_campo005", este, rand(12, 15), "z_moedas=15000")
+  fimse
+  se p_campo005:objsolto.total < 4
+    criar("p_campo005", este, rand(12, 15), "z_moedas=5000")
+  fimse
+  se p_campo005:objsolto.total < 4
+    criar("p_campo005", este, rand(12, 15), "z_moedas=15000")
+  fimse
+
+
+classe s_campo015
+herda b_campo
+const s_titulo = "Nos criadouros"
+const dir_n = $s_campo018
+const dir_s = $s_campo001
+const dir_l = $s_campo016
+const dir_o = $s_campo017
+
+
+classe s_campo016
+herda b_campo
+const s_titulo = "Um estábulo"
+const s_pnj = 10
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_campo035
+const dir_o = $s_campo017
+#
+
+func cmd_salaperso
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "comprar cavalo" || arg1 == "comprar cavalinho"
+    ret arg0.var.z_moedas_ < 200000, arg0.msg("Você não tem 200000 moedas.")
+    refvar v = criar("p_campo017", arg0, 0)
+    $mens.p(arg0, v)
+    $mens.mtodos1("$P paga algumas moedas ao fazendeiro e compra $A.")
+    ret 1
+  senao arg1 == "comprar égua" || arg1 == "comprar eguinha"
+    ret arg0.var.z_moedas_ < 200000, arg0.msg("Você não tem 200000 moedas.")
+    refvar v = criar("p_campo018", arg0, 0)
+    $mens.p(arg0, v)
+    $mens.mtodos1("$P paga algumas moedas ao fazendeiro e compra $A.")
+    ret 1
+  fimse
+
+
+classe s_campo017
+herda b_campo
+const s_titulo = "Um chiqueiro"
+const s_pnj = 0
+const dir_l = $s_campo015
+const a_reset = "P 100 campo006 0 0 10 z_moedas=15000\n\
+P 100 campo006 0 0 10 z_moedas=15000\n\
+P 100 campo006 0 0 10 z_moedas=15000\n\
+P 100 campo006 0 0 10 z_moedas=15000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_campo006:objsolto.total < 10
+    criar("p_campo006", este, 0, "z_moedas=15000")
+  fimse
+  se p_campo006:objsolto.total < 10
+    criar("p_campo006", este, 0, "z_moedas=15000")
+  fimse
+  se p_campo006:objsolto.total < 10
+    criar("p_campo006", este, 0, "z_moedas=15000")
+  fimse
+  se p_campo006:objsolto.total < 10
+    criar("p_campo006", este, 0, "z_moedas=15000")
+  fimse
+
+
+classe s_campo018
+herda b_campo
+const s_titulo = "Nos criadouros"
+const dir_n = $s_campo027
+const dir_s = $s_campo015
+const dir_l = $s_campo019
+const dir_o = $s_campo020
+
+
+classe s_campo019
+herda b_campo
+const s_titulo = "Umgalinheiro"
+const s_pnj = 0
+const dir_o = $s_campo018
+const a_reset = "P 100 campo007 0 0 5 h_arranhar=2,zh_arranhar=1,z_moedas=10000\n\
+P 100 campo007 0 0 5 h_arranhar=1,z_moedas=10000\n\
+P 100 campo007 0 0 5 h_arranhar=1,z_moedas=10000\n\
+P 100 campo007 0 0 5 h_arranhar=1\n\
+P 100 campo007 0 0 5 h_arranhar=1\n\
+S 100 campo006 5 S\n\
+S 100 campo006 5 S\n\
+S 100 campo006 5 S\n\
+S 100 campo006 5 S\n\
+S 100 campo006 5 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_campo007:objsolto.total < 5
+    criar("p_campo007", este, 0, "h_arranhar=2,zh_arranhar=1,z_moedas=10000")
+  fimse
+  se p_campo007:objsolto.total < 5
+    criar("p_campo007", este, 0, "h_arranhar=1,z_moedas=10000")
+  fimse
+  se p_campo007:objsolto.total < 5
+    criar("p_campo007", este, 0, "h_arranhar=1,z_moedas=10000")
+  fimse
+  se p_campo007:objsolto.total < 5
+    criar("p_campo007", este, 0, "h_arranhar=1")
+  fimse
+  se p_campo007:objsolto.total < 5
+    criar("p_campo007", este, 0, "h_arranhar=1")
+  fimse
+  !dentro1.objini("i_campo006") && criar("i_campo006", este, 5)
+  !dentro1.objini("i_campo006") && criar("i_campo006", este, 5)
+  !dentro1.objini("i_campo006") && criar("i_campo006", este, 5)
+  !dentro1.objini("i_campo006") && criar("i_campo006", este, 5)
+  !dentro1.objini("i_campo006") && criar("i_campo006", este, 5)
+
+
+classe s_campo020
+herda b_campo
+const s_titulo = "Outro galinheiro"
+const dir_l = $s_campo018
+const a_reset = "P 100 campo008 0 0 5 h_arranhar=1,z_moedas=10000\n\
+I 100 campo006 1\n\
+P 100 campo008 0 0 5 h_arranhar=1,z_moedas=10000\n\
+I 100 campo006 1\n\
+P 100 campo008 0 0 5 h_arranhar=1,z_moedas=10000\n\
+I 100 campo006 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  se p_campo008:objsolto.total < 5
+    p = u = criar("p_campo008", este, 0, "h_arranhar=1,z_moedas=10000")
+  fimse
+  u && criar("i_campo006", u, 1)
+  p = u = nulo
+  se p_campo008:objsolto.total < 5
+    p = u = criar("p_campo008", este, 0, "h_arranhar=1,z_moedas=10000")
+  fimse
+  u && criar("i_campo006", u, 1)
+  p = u = nulo
+  se p_campo008:objsolto.total < 5
+    p = u = criar("p_campo008", este, 0, "h_arranhar=1,z_moedas=10000")
+  fimse
+  u && criar("i_campo006", u, 1)
+
+
+classe s_campo021
+herda b_campo
+const s_titulo = "Na estrada do campo"
+const dir_n = $s_campo014
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "a porteira"
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_l = $s_campo025
+const dir_o = $s_campo022
+
+
+classe s_campo022
+herda b_campo
+const s_titulo = "A estrada do campo"
+const dir_l = $s_campo021
+const dir_o = $s_campo023
+
+
+classe s_campo023
+herda b_campo
+const s_titulo = "A estrada do campo"
+const dir_l = $s_campo022
+const dir_o = $s_campo024
+
+
+classe s_campo024
+herda b_campo
+const s_titulo = "O início da estrada do campo"
+const s_pnj = 0
+const dir_l = $s_campo023
+const dir_o = $s_rio028
+
+
+classe s_campo025
+herda b_campo
+const s_titulo = "A continuação da estrada"
+const dir_l = $s_campo026
+const dir_o = $s_campo021
+
+
+classe s_campo026
+herda b_campo
+const s_titulo = "Na estrada do campo"
+const dir_l = $s_campo037
+const dir_o = $s_campo025
+const a_reset = "P 100 campo009 0 0 10 h_lâmina_longa=2,h_socar=2,z_moedas=100000\n\
+E 100 campo008 1 0\n\
+P 100 campo009 0 0 10 h_socar=4,z_moedas=500000\n\
+P 100 campo009 0 0 10 h_socar=4,z_moedas=500000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_campo009:objsolto.total < 10
+    p = u = criar("p_campo009", este, 0, "h_lâmina_longa=2,h_socar=2,z_moedas=100000")
+  fimse
+  se u
+    r = criar("i_campo008", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+  se p_campo009:objsolto.total < 10
+    criar("p_campo009", este, 0, "h_socar=4,z_moedas=500000")
+  fimse
+  se p_campo009:objsolto.total < 10
+    criar("p_campo009", este, 0, "h_socar=4,z_moedas=500000")
+  fimse
+
+
+classe s_campo027
+herda b_campo
+const s_titulo = "Saindo dos criadouros"
+const dir_s = $s_campo018
+const dir_l = $s_campo034
+
+
+classe s_campo028
+herda b_campo
+const s_titulo = "Subindo uma rampa de terra"
+const dir_o = $s_campo008
+const dir_c = $s_campo029
+
+
+classe s_campo029
+herda b_campo
+const s_titulo = "Subindo uma rampa de terra"
+const dir_c = $s_campo030
+const dir_b = $s_campo028
+
+
+classe s_campo030
+herda b_campo
+const s_titulo = "Estrada do casarão"
+const dir_n = $s_campo031
+const dir_b = $s_campo029
+
+
+classe s_campo031
+herda b_campo
+const s_titulo = "estrada do casarão"
+const dir_n = $s_campo032
+const dir_s = $s_campo030
+
+
+classe s_campo032
+herda b_campo
+const s_titulo = "estrada do casarão"
+const dir_n = $s_campo033
+const dir_s = $s_campo031
+
+
+classe s_campo033
+herda b_campo
+const s_titulo = "No portão do casarão"
+const dir_n = $s_casarao001
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "o portão do casarão"
+const portaartigo_n = 2 # Artigo porta: 2 o (portão)
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_s = $s_campo032
+
+
+classe s_campo034
+herda b_campo
+const s_titulo = "Uma granja"
+const s_pnj = 0
+const dir_o = $s_campo027
+const s_reset = "S 100 campo013 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_campo013") && criar("i_campo013", este, 1)
+
+
+classe s_campo035
+herda b_campo
+const s_titulo = "Dentro do estábulo"
+const dir_o = $s_campo016
+
+
+classe s_campo036
+herda b_campo
+const s_titulo = "reset"
+const dir_n = $s_campo001
+const dir_s = $s_campo005
+const dir_l = $s_campo010
+const dir_o = $s_campo015
+const dir_ne = $s_campo020
+const dir_no = $s_campo035
+const dir_se = $s_campo025
+const dir_so = $s_campo030
+const a_reset = "P 100 evento009 15 200 30\n\
+P 100 evento009 15 200 30\n\
+P 100 evento009 15 200 30\n\
+P 100 evento009 15 200 30\n\
+P 100 evento009 15 200 30"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_evento009:objsolto.total < 30
+    criar("p_evento009", este, rand(15, 200))
+  fimse
+  se p_evento009:objsolto.total < 30
+    criar("p_evento009", este, rand(15, 200))
+  fimse
+  se p_evento009:objsolto.total < 30
+    criar("p_evento009", este, rand(15, 200))
+  fimse
+  se p_evento009:objsolto.total < 30
+    criar("p_evento009", este, rand(15, 200))
+  fimse
+  se p_evento009:objsolto.total < 30
+    criar("p_evento009", este, rand(15, 200))
+  fimse
+
+
+classe s_campo037
+herda b_campo
+const s_titulo = "Um desvio na estrada"
+const dir_n = $s_campo038
+const dir_o = $s_campo026
+
+
+classe s_campo038
+herda b_campo
+const s_titulo = "Um caminho na estrada"
+const dir_n = $s_campo039
+const dir_s = $s_campo037
+
+
+classe s_campo039
+herda b_campo
+const s_titulo = "No meio do caminho"
+const dir_n = $s_campo040
+const dir_s = $s_campo038
+
+
+classe s_campo040
+herda b_campo
+const s_titulo = "O fim do caminho"
+const dir_s = $s_campo039
+const dir_l = $s_campo041
+
+
+classe s_campo041
+herda b_campo
+const s_titulo = "Aproximando-se da área rural"
+const dir_l = $s_campo042
+const dir_o = $s_campo040
+
+
+classe s_campo042
+herda b_campo
+const s_titulo = "À frente de uma porteira"
+const dir_l = $s_rural001
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "a porteira"
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_campo041
+const a_reset = "D 100 l 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("l", 2)
+
+
+classe s_campo043
+herda b_campo
+const s_titulo = "Caminhando sobre a grama do campo"
+const dir_l = $s_campo044
+const dir_o = $s_campo014
+
+
+classe s_campo044
+herda b_campo
+const s_titulo = "Caminhando sobre a grama do campo"
+const dir_l = $s_campo045
+const dir_o = $s_campo043
+
+
+classe s_campo045
+herda b_campo
+const s_titulo = "Caminhando sobre a grama do campo"
+const dir_o = $s_campo044
+
+
+classe s_campo046
+herda b_campo
+const s_titulo = "Caminhando sobre a grama do campo"
+const dir_l = $s_campo014
+const dir_o = $s_campo047
+
+
+classe s_campo047
+herda b_campo
+const s_titulo = "Caminhando sobre a grama do campo"
+const dir_l = $s_campo046
+const dir_o = $s_campo048
+
+
+classe s_campo048
+herda b_campo
+const s_titulo = "Caminhando sobre a grama do campo"
+const dir_l = $s_campo047
+
+
+classe s_campo049
+herda b_campo
+const s_titulo = "Um cercado de bois"
+const s_desc = "você está no meio de um belo campo, onde há vários tipos de bois.\n\
+diferentes raças, cores e tamanhos.\n\
+nota-se que aqui é o lugar onde os donos poderosos de outras fazendas ou lugares deixam seu \
+rebanho."
+const dir_l = $s_campo003
+
+
+classe s_campo050
+herda b_campo
+const s_titulo = "um rebanho de vacas"
+const dir_o = $s_campo002

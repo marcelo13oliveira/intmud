@@ -1,0 +1,3997 @@
+classe a_natal
+herda area
+const a_nome = "pista de gelo"
+const a_txtreset = "A neve começa a cair com mais intencidade"
+const a_tempo = 40
+
+
+classe b_natal
+herda sala
+const s_luz = 1 # Luz: 1 Claro sem eventos de tempo
+const s_semmagia = 1 # Sem magia: Sim
+const eveste = 1
+const s_area = "natal"
+
+func cmd_salaperso
+  misc:evento(arg0)
+  misc:tempo("neve", arg0)
+
+func neve1
+  criar("e_animal", arg0)
+  arg0.var.h_jogar = 8
+  refvar n = rand(1, 20)
+  se n < 14
+    criar("i_natal002", arg0.dono)
+    ret 1
+  senao
+    criar("i_natal003", arg0.dono)
+    ret 1
+  fimse
+
+func cmd_escr
+  se arg1 == "fazer bola"
+    se !arg0.dentro1.objini("i_natal002")
+      arg0.msg("Você não tem neve para isso.")
+      ret 1
+    senao arg0.dentro1.total("i_natal001") == 8
+      arg0.msg("Você só pode fazer 8 bolas por vez.")
+      ret 1
+    senao
+      $mens.p(arg0)
+      $mens.mtodos1("$P junta as mãos e faz uma bola de neve.")
+      apagar(arg0.dentro1.objini("i_natal002"))
+      criar("i_natal001", arg0)
+      ret 1
+    fimse
+  fimse
+
+func cmd_mover
+  se arg2 == "n" || arg2 == "s" || arg2 == "l" || arg2 == "o"
+    se !arg0.dentro2.objini("i_natal006")
+      $mens.p(arg0)
+      $mens.mtodos1("Como $P não vestiu as botas, Escorregou e está rolando no gelo!")
+      arg0.posicao = 6
+      ret 1
+    fimse
+  fimse
+
+func cmd_falou
+  $mens.mens = arg1
+  $mens.mareatodoss("A voz de $P ecoa pela pista: '$m'")
+
+func cmd_animal
+  arg0.msg("você não pode escolher animais.")
+  ret 1
+
+
+classe i_natal001
+herda comum_itemperso
+const nome = "neve"
+const ident = "bola neve gelo"
+const descnome = "Uma bola de neve"
+const descpos = "Um montante de neve está derretendo aqui... isso daria uma grande bola de \
+neve!"
+sav inttempo tempo # inttempo executa uma função após um tempo
+
+func cmd_mudadono
+  se dono.perso
+    !tempo && (tempo = 1200)
+  senao !item.dono
+    tempo = 0
+  fimse
+
+func tempo_exec
+  apagar(este)
+  se dono.perso
+    $mens.p(este)
+    $mens.mtodos1("A bola de neve nas mãos de $R tornou-se uma possa de água no chão.")
+  fimse
+
+func cmd_guardarobj
+  se arg2.nome == "caicha"
+    arg0.msg("Uma bola de neve certamente derreteria se armazenada em recipiente impróprio")
+    ret 1
+  fimse
+
+
+classe i_natal002
+herda comum_itemperso
+const nome = "neve"
+const ident = "neve gelo"
+const descnome = "um monte de neve"
+const inivar = "e_apagar=2"
+
+
+classe i_natal003
+herda comum_itemperso
+const nome = "neve"
+const ident = "neve gelo"
+const descnome = "Um monte de neve"
+const descpos = "Você quase não nota uma pedra de gelo, que agora faz parte do chão."
+const i_pegar = "A neve já virou gelo não da para pegar."
+const inivar = "e_apagar=2"
+
+
+classe i_natal004
+herda comum_itemperso
+const nome = "caixa"
+const ident = "caixa caicha isopor izopor"
+const descnome = "Uma caixa de isopor"
+const descpos = "Aqui há uma caixa de isopor, talvez armazenando algo bem refrescante."
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+
+
+classe i_natal005
+herda comum_itemperso
+const nome = "Árvore de natal"
+const ident = "Árvore Natal"
+const descnome = "Uma bela Árvore de natal"
+const descpos = "Uma bela Árvore de natal encontra-se aqui, esalando sua beleza para todos!"
+const descver = "Ela é tão bem trabalhada, com seus galhos enfeitados com pequenas bolas de \
+cristal.\n\
+em algums galhos mais autos você nota um emaranhado do que parece ser uma imitação de bolas de \
+neve, e em volta das mesmas, umas pequenas caichinhas imitando presentes.\n\
+Você nota também, um pequeno papai-noel pendurado no alto da árvore. Ao seu lado, esistem \
+algumas bolinhas de cristal brilhantes, esalando suas luzes.\n\
+o papai noel pendurado ali, segura uma pequena placa feita de cristais brancos com os seguintes \
+dizeres\n\
+um bom natal, prosperidade no novo ano e que vocês alcancem todos seus objetivos. que deus em \
+sua infinita bondade, abençoe e encha de paz nossos corações na noite de natal. boas festas, e \
+um feliz natal!"
+const i_pegar = "Não pode pegá-la!"
+const luzfim = 0 # Sem luz item some: Não
+const luzliga = "4"
+const luztxt = "os pisca-piscas da árvore vão ficando fracos até se apagarem totalmente"
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 10000
+
+
+classe i_natal006
+herda comum_item
+const nome = "botas"
+const ident = "botas neve gelo para"
+const descnome = "Um par de botas para neve"
+const descpos = "Um par de botas de neve espera por pés para caussá-las"
+const vestir1 = "20000000"
+const semdoar = 1
+
+
+classe i_natal007
+herda comum_item
+const nome = "presente"
+
+
+classe i_natal009
+herda comum_item
+const nome = "patas"
+const ident = "patas"
+const descnome = "As velozes patas de urso"
+const descpos = "Um par de patas de urso foram deixadas aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 100
+const i_pegar = "você não pode simplesmente pegar o ítem. pode só identificá-lo"
+const pesoobj = 100
+const tipoitem = 12 # Tipo de produto: 2-Armadura, 3-Vestimenta
+const valor = 100000000
+const vestir1 = "10000000"
+const eveste = 1 # Eventos item: Sim
+const semdoar = 1
+const manterperso = 1 # Mantém em jogador: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmovemax += 150
+  atknorm += 30
+  defnorm += 15
+  defesp += 15
+  precisao += 30
+  pesomax += 200
+
+func cmd_soltarobj
+  se arg2 == este
+    ret txt(arg1) == "i_quest001", nulo
+    ret arg0.msg("Você não pode soltar " + descnome + ".")
+  fimse
+
+func cmd_guardarobj
+  se arg2 == este
+    ret txt(arg1) == "i_quest001", nulo
+    ret $mens.mp("Você não pode guardar $o dentro $d $a.", arg0, arg1, arg2)
+  fimse
+
+func cmd_darobj
+  se arg2 == este
+    ret arg0.msg("Não é permitido dar " + descnome + "para ninguém.")
+  fimse
+
+
+classe i_natal010
+herda comum_item
+const nome = "anel"
+const ident = "Anel"
+const descnome = "Um abençoado anel puro ouro"
+const descpos = "O reluzente anel puro ouro repouza delicadamente no chão."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 200
+const renascer = 2
+const i_pegar = "você não pode simplesmente pegar o ítem. Pode só identificá-lo"
+const pesoobj = 1
+const tipoitem = 132 # Tipo de produto: 2-Armadura, 7-Tesouro
+const vestir1 = "c00000"
+const eveste = 1 # Eventos item: Sim
+const manterperso = 1 # Mantém em jogador: Sim
+const semdoar = 1
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100
+  pmanamax += 100
+  pmovemax += 100
+  pveloc1 += 100
+  atknorm += 10
+  defnorm += 30
+  evasao += 100
+  precisao += 10
+  pesomax += 50 * pnivel + 100
+
+func cmd_soltarobj
+  se arg2 == este
+    arg0.msg("Você não pode soltar " + descnome + ".")
+    ret 1
+
+func cmd_guardarobj
+  se arg2 == este
+    arg0.msg("Você não pode guardar " + descnome + ".")
+    ret 1
+
+func cmd_darobj
+  se arg2 == este
+    arg0.msg("Não é permitido dar " + descnome + "para ninguém.")
+    ret 1
+
+
+classe i_natal011
+herda comum_item
+const nome = "armadura"
+const ident = "armadura"
+const descnome = "Uma pesada armadura completa"
+const descpos = "Uma pesada armadura de batalha está aqui, escorada em uma parede."
+const nivel = 150
+const renascer = 1
+const i_pegar = "você não pode simplesmente pegar o ítem. pode só identificá-lo"
+const tipoitem = 5 # Tipo de produto: 0-Possui metal, 2-Armadura
+const vestir1 = "1000"
+const volobj = 1000
+const eveste = 1 # Eventos item: Sim
+const manterperso = 1 # Mantém em jogador: Sim
+const semdoar = 1
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 45
+  precisao += 30
+  atktipo.0 *= 1.05 # Tipos Normais
+  atktipo.2 *= 1.05 # Contusão
+  atktipo.3 *= 1.05 # Luta
+  atktipo.4 *= 1.05 # Cortante
+  atktipo.5 *= 1.05 # Perfurante
+
+func cmd_soltarobj
+  se arg2 == este
+    ret txt(arg1) == "i_quest001", nulo
+    ret arg0.msg("Você não pode soltar " + descnome + ".")
+  fimse
+
+func cmd_guardarobj
+  se arg2 == este
+    ret txt(arg1) == "i_quest001", nulo
+    ret $mens.mp("Você não pode guardar $o dentro $d $a.", arg0, arg1, arg2)
+  fimse
+
+func cmd_darobj
+  se arg2 == este
+    ret arg0.msg("Não é permitido dar " + descnome + "para ninguém.")
+  fimse
+
+func cmd_chegou
+  misc:evento(arg0)
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "soltar"
+    arg0.msg("Você não pode soltar " + descnome + ".")
+    ret 1
+  casose "soltar"
+    arg0.msg("Você não pode soltar " + descnome + ".")
+    ret 1
+  casose "trocar armadura"
+  casose "troca armadura"
+  casose "troc armadura"
+  casose "tro armadura"
+  casose "trocar armadur"
+  casose "troca armadur"
+  casose "troc armadur"
+  casose "tro armadur"
+  casose "trocar armadu"
+  casose "troca armadu"
+  casose "troc armadu"
+  casose "tro armadu"
+  casose "trocar armad"
+  casose "troca armad"
+  casose "troc armad"
+  casose "tro armad"
+  casose "trocar arma"
+  casose "troca arma"
+  casose "troc arma"
+  casose "tro arma"
+  casose "trocar arm"
+  casose "troca arm"
+  casose "troc arm"
+  casose "tro arm"
+  casose "trocar ar"
+  casose "troca ar"
+  casose "troc ar"
+  casose "tro ar"
+  casose "trocar a"
+  casose "troca a"
+  casose "troc a"
+  casose "tro a"
+    arg0.msg("Você não pode dar " + descnome + " para seu animal.")
+    ret 1
+  casofim
+
+
+classe i_natal012
+herda comum_itemperso
+const nome = "caixa"
+const descnome = "a caixa com os nomes dos participantes do amigo oculto"
+const descpos = "Em um canto, há uma grande caixa, recebendo os nomes dos participantes do amigo \
+oculto."
+const descver = "Uma bela caixa azul, onde podem ser vistas estrelas prateadas cintilando ao seu \
+redor. Olhando com atenção, você nota que as estrelas se unem formando a palavra: 'amigo'."
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const nomes = "Apolo\n\
+Aryelle\n\
+Bianca\n\
+Boneca\n\
+Brayn\n\
+Brenda\n\
+Draco\n\
+Elianai\n\
+Eve\n\
+Fadaglobal\n\
+Fabi\n\
+Ferrare\n\
+Godaco\n\
+Harrypotter\n\
+chris\n\
+esmeralda\n\
+Hermione\n\
+Hitler\n\
+jonas\n\
+Júnior\n\
+Kate\n\
+Lana\n\
+Leandro\n\
+Luara\n\
+Maiara\n\
+Meliodas\n\
+Mionny\n\
+Natie\n\
+Nayuri\n\
+Nvda\n\
+Nyx\n\
+Onir\n\
+Pérola\n\
+Rayn\n\
+Reinaldo\n\
+Rock\n\
+Roni\n\
+Sininho\n\
+Tissuname\n\
+Victoria\n\
+Vipel\nWilson"
+#
+
+func cmd_ini
+  epara var.z_nomes = nomes, var.z_nomes, var.z_nomes = txtsublin(var.z_nomes, 1)
+    refvar i = criar("i_natal013", este, 1)
+    i.var.z_nome = txtsublin(var.z_nomes, 0, 1)
+  efim
+
+const manterperso = 1 # Mantém em jogador: Sim
+
+
+classe i_natal013
+herda comum_item
+const nome = "folhinha"
+const ident = "folhinha folha"
+const descnome = "uma folhinha"
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const manterperso = 1 # Mantém em jogador: Sim
+#
+
+func descver
+  ret "Uma folha no formato de uma nuvem.\nEm um canto, você nota que há um nome escrito:\n" + \
+var.z_nome + "."
+
+
+classe i_natal014
+herda comum_itemperso
+const nome = "sino dourado"
+const descnome = "um sino dourado"
+const descpos = "Alguns sinos dourados foram pendurados à árvore, e balançam tilintando e \
+produzindo um belo som."
+const mantersala = 1 # Mantém na sala: Sim
+const inivar = "1"
+
+
+classe p_natal001
+herda comum_perso
+const nome = "Papai Noel"
+const ident = "Papai Noel"
+const descnome = "Papai Noel"
+const evhora = 0 # Eventos hora: Não
+
+func cmd_hora
+  refvar hora = (arg0 + 11) % 12 + 1 # Hora MUD de 1 a 12
+  refvar n = txtsublin(a, rand(intsublin(a)), 1)
+  se hora == 1
+    $mens.p(arg0)
+    $mens.mens = arg1
+    $mens.mmud1("O Papai Noel grita: " + n + "!")
+    ret 1
+  senao
+  fimse
+
+const a = "Feliz ano novo\n\
+Vou dar presente a vocês logo\n\
+O natal já passou mas ainda estou pelo mundo de Killer Mud"
+
+
+classe s_natal001
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal002
+const dir_s = $s_natal021
+const dir_l = $s_natal041
+const dir_sair = $s_torvani001
+
+func cmd_mover
+  se arg2 == "sair"
+    $mens.p(arg0)
+    $mens.mmudtodos1("*Atenção, $P saiu da pista.")
+    arg0.mudadono($s_torvani001)
+    ret 1
+
+
+classe s_natal002
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal003
+const dir_s = $s_natal001
+const dir_l = $s_natal042
+
+
+classe s_natal003
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal004
+const dir_s = $s_natal002
+const dir_l = $s_natal043
+
+
+classe s_natal004
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal005
+const dir_s = $s_natal003
+const dir_l = $s_natal044
+
+
+classe s_natal005
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal006
+const dir_s = $s_natal004
+const dir_l = $s_natal045
+
+
+classe s_natal006
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal007
+const dir_s = $s_natal005
+const dir_l = $s_natal046
+
+
+classe s_natal007
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal008
+const dir_s = $s_natal006
+const dir_l = $s_natal047
+
+
+classe s_natal008
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal009
+const dir_s = $s_natal007
+const dir_l = $s_natal048
+
+
+classe s_natal009
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal010
+const dir_s = $s_natal008
+const dir_l = $s_natal049
+
+
+classe s_natal010
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal011
+const dir_s = $s_natal009
+const dir_l = $s_natal050
+
+
+classe s_natal011
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal012
+const dir_s = $s_natal010
+const dir_l = $s_natal051
+
+
+classe s_natal012
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal013
+const dir_s = $s_natal011
+const dir_l = $s_natal052
+
+
+classe s_natal013
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal014
+const dir_s = $s_natal012
+const dir_l = $s_natal053
+
+
+classe s_natal014
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal015
+const dir_s = $s_natal013
+const dir_l = $s_natal054
+
+
+classe s_natal015
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal016
+const dir_s = $s_natal014
+const dir_l = $s_natal055
+
+
+classe s_natal016
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal017
+const dir_s = $s_natal015
+const dir_l = $s_natal056
+
+
+classe s_natal017
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal018
+const dir_s = $s_natal016
+const dir_l = $s_natal057
+
+
+classe s_natal018
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal019
+const dir_s = $s_natal017
+const dir_l = $s_natal058
+
+
+classe s_natal019
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal020
+const dir_s = $s_natal018
+const dir_l = $s_natal059
+
+
+classe s_natal020
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_s = $s_natal019
+const dir_l = $s_natal060
+const dir_sair = $s_torvani001
+
+func cmd_mover
+  se arg2 == "sair"
+    $mens.p(arg0)
+    $mens.mmudtodos1("*Atenção, $P saiu da pista.")
+    arg0.mudadono($s_torvani001)
+    ret 1
+
+
+classe s_natal021
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal001
+const dir_s = $s_natal022
+const dir_l = $s_natal061
+
+
+classe s_natal022
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal021
+const dir_s = $s_natal023
+const dir_l = $s_natal062
+
+
+classe s_natal023
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal022
+const dir_s = $s_natal024
+const dir_l = $s_natal063
+
+
+classe s_natal024
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal023
+const dir_s = $s_natal025
+const dir_l = $s_natal064
+
+
+classe s_natal025
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal024
+const dir_s = $s_natal026
+const dir_l = $s_natal065
+
+
+classe s_natal026
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal025
+const dir_s = $s_natal027
+const dir_l = $s_natal066
+
+
+classe s_natal027
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal026
+const dir_s = $s_natal028
+const dir_l = $s_natal067
+
+
+classe s_natal028
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal027
+const dir_s = $s_natal029
+const dir_l = $s_natal068
+
+
+classe s_natal029
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal028
+const dir_s = $s_natal030
+const dir_l = $s_natal069
+
+
+classe s_natal030
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal029
+const dir_s = $s_natal031
+const dir_l = $s_natal070
+
+
+classe s_natal031
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal030
+const dir_s = $s_natal032
+const dir_l = $s_natal071
+
+
+classe s_natal032
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal031
+const dir_s = $s_natal033
+const dir_l = $s_natal072
+
+
+classe s_natal033
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal032
+const dir_s = $s_natal034
+const dir_l = $s_natal073
+
+
+classe s_natal034
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal033
+const dir_s = $s_natal035
+const dir_l = $s_natal074
+
+
+classe s_natal035
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal034
+const dir_s = $s_natal036
+const dir_l = $s_natal075
+
+
+classe s_natal036
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal035
+const dir_s = $s_natal037
+const dir_l = $s_natal076
+
+
+classe s_natal037
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal036
+const dir_s = $s_natal038
+const dir_l = $s_natal077
+
+
+classe s_natal038
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal037
+const dir_s = $s_natal039
+const dir_l = $s_natal078
+
+
+classe s_natal039
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal038
+const dir_s = $s_natal040
+const dir_l = $s_natal079
+
+
+classe s_natal040
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal039
+const dir_l = $s_natal080
+const dir_sair = $s_torvani001
+
+func cmd_mover
+  se arg2 == "sair"
+    $mens.p(arg0)
+    $mens.mmudtodos1("*Atenção, $P saiu da pista.")
+    arg0.mudadono($s_torvani001)
+    ret 1
+
+
+classe s_natal041
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal042
+const dir_s = $s_natal061
+const dir_l = $s_natal081
+const dir_o = $s_natal001
+
+
+classe s_natal042
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal043
+const dir_s = $s_natal041
+const dir_l = $s_natal082
+const dir_o = $s_natal002
+
+
+classe s_natal043
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal044
+const dir_s = $s_natal042
+const dir_l = $s_natal083
+const dir_o = $s_natal003
+
+
+classe s_natal044
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal045
+const dir_s = $s_natal043
+const dir_l = $s_natal084
+const dir_o = $s_natal004
+
+
+classe s_natal045
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal046
+const dir_s = $s_natal044
+const dir_l = $s_natal085
+const dir_o = $s_natal005
+
+
+classe s_natal046
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal047
+const dir_s = $s_natal045
+const dir_l = $s_natal086
+const dir_o = $s_natal006
+
+
+classe s_natal047
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal048
+const dir_s = $s_natal046
+const dir_l = $s_natal087
+const dir_o = $s_natal007
+
+
+classe s_natal048
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal049
+const dir_s = $s_natal047
+const dir_l = $s_natal088
+const dir_o = $s_natal008
+
+
+classe s_natal049
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal050
+const dir_s = $s_natal048
+const dir_l = $s_natal089
+const dir_o = $s_natal009
+
+
+classe s_natal050
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal051
+const dir_s = $s_natal049
+const dir_l = $s_natal090
+const dir_o = $s_natal010
+
+
+classe s_natal051
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal052
+const dir_s = $s_natal050
+const dir_l = $s_natal091
+const dir_o = $s_natal011
+
+
+classe s_natal052
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal053
+const dir_s = $s_natal051
+const dir_l = $s_natal092
+const dir_o = $s_natal092
+
+
+classe s_natal053
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal054
+const dir_s = $s_natal052
+const dir_l = $s_natal093
+const dir_o = $s_natal013
+
+
+classe s_natal054
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal055
+const dir_s = $s_natal053
+const dir_l = $s_natal094
+const dir_o = $s_natal014
+
+
+classe s_natal055
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal056
+const dir_s = $s_natal054
+const dir_l = $s_natal095
+const dir_o = $s_natal015
+
+
+classe s_natal056
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal057
+const dir_s = $s_natal055
+const dir_l = $s_natal096
+const dir_o = $s_natal016
+
+
+classe s_natal057
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal058
+const dir_s = $s_natal056
+const dir_l = $s_natal097
+const dir_o = $s_natal017
+
+
+classe s_natal058
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal059
+const dir_s = $s_natal057
+const dir_l = $s_natal098
+const dir_o = $s_natal018
+
+
+classe s_natal059
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal060
+const dir_s = $s_natal058
+const dir_l = $s_natal099
+const dir_o = $s_natal019
+
+
+classe s_natal060
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_s = $s_natal059
+const dir_l = $s_natal100
+const dir_o = $s_natal020
+
+
+classe s_natal061
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal041
+const dir_s = $s_natal062
+const dir_l = $s_natal101
+const dir_o = $s_natal021
+
+
+classe s_natal062
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal061
+const dir_s = $s_natal063
+const dir_l = $s_natal102
+const dir_o = $s_natal022
+
+
+classe s_natal063
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal062
+const dir_s = $s_natal064
+const dir_l = $s_natal103
+const dir_o = $s_natal023
+
+
+classe s_natal064
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal063
+const dir_s = $s_natal065
+const dir_l = $s_natal104
+const dir_o = $s_natal024
+
+
+classe s_natal065
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal064
+const dir_s = $s_natal066
+const dir_l = $s_natal105
+const dir_o = $s_natal025
+
+
+classe s_natal066
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal065
+const dir_s = $s_natal067
+const dir_l = $s_natal106
+const dir_o = $s_natal026
+
+
+classe s_natal067
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal066
+const dir_s = $s_natal068
+const dir_l = $s_natal107
+const dir_o = $s_natal027
+
+
+classe s_natal068
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal067
+const dir_s = $s_natal069
+const dir_l = $s_natal108
+const dir_o = $s_natal028
+
+
+classe s_natal069
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal068
+const dir_s = $s_natal070
+const dir_l = $s_natal109
+const dir_o = $s_natal029
+
+
+classe s_natal070
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal069
+const dir_s = $s_natal071
+const dir_l = $s_natal110
+const dir_o = $s_natal030
+
+
+classe s_natal071
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal070
+const dir_s = $s_natal072
+const dir_l = $s_natal111
+const dir_o = $s_natal031
+
+
+classe s_natal072
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal071
+const dir_s = $s_natal073
+const dir_l = $s_natal112
+const dir_o = $s_natal032
+
+
+classe s_natal073
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal072
+const dir_s = $s_natal074
+const dir_l = $s_natal113
+const dir_o = $s_natal033
+
+
+classe s_natal074
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal073
+const dir_s = $s_natal075
+const dir_l = $s_natal114
+const dir_o = $s_natal034
+
+
+classe s_natal075
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal074
+const dir_s = $s_natal076
+const dir_l = $s_natal115
+const dir_o = $s_natal035
+
+
+classe s_natal076
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal075
+const dir_s = $s_natal077
+const dir_l = $s_natal116
+const dir_o = $s_natal036
+
+
+classe s_natal077
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal076
+const dir_s = $s_natal078
+const dir_l = $s_natal117
+const dir_o = $s_natal037
+
+
+classe s_natal078
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal077
+const dir_s = $s_natal079
+const dir_l = $s_natal118
+const dir_o = $s_natal038
+
+
+classe s_natal079
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal078
+const dir_s = $s_natal080
+const dir_l = $s_natal119
+const dir_o = $s_natal039
+
+
+classe s_natal080
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal079
+const dir_l = $s_natal120
+const dir_o = $s_natal040
+
+
+classe s_natal081
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal082
+const dir_s = $s_natal101
+const dir_l = $s_natal121
+const dir_o = $s_natal041
+
+
+classe s_natal082
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal083
+const dir_s = $s_natal081
+const dir_o = $s_natal042
+const dir_l = $s_natal122
+
+
+classe s_natal083
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal084
+const dir_s = $s_natal082
+const dir_l = $s_natal123
+const dir_o = $s_natal043
+
+
+classe s_natal084
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal085
+const dir_s = $s_natal083
+const dir_l = $s_natal124
+const dir_o = $s_natal044
+
+
+classe s_natal085
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal086
+const dir_s = $s_natal084
+const dir_l = $s_natal125
+const dir_o = $s_natal045
+
+
+classe s_natal086
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal087
+const dir_s = $s_natal085
+const dir_l = $s_natal126
+const dir_o = $s_natal046
+
+
+classe s_natal087
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal088
+const dir_s = $s_natal086
+const dir_l = $s_natal127
+const dir_o = $s_natal047
+
+
+classe s_natal088
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal089
+const dir_s = $s_natal087
+const dir_l = $s_natal128
+const dir_o = $s_natal048
+
+
+classe s_natal089
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal090
+const dir_s = $s_natal088
+const dir_l = $s_natal129
+const dir_o = $s_natal049
+
+
+classe s_natal090
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal091
+const dir_s = $s_natal089
+const dir_l = $s_natal130
+const dir_o = $s_natal050
+
+
+classe s_natal091
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal092
+const dir_s = $s_natal090
+const dir_l = $s_natal131
+const dir_o = $s_natal051
+
+
+classe s_natal092
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal093
+const dir_s = $s_natal091
+const dir_l = $s_natal132
+const dir_o = $s_natal052
+
+
+classe s_natal093
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal094
+const dir_s = $s_natal092
+const dir_l = $s_natal133
+const dir_o = $s_natal053
+
+
+classe s_natal094
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal095
+const dir_s = $s_natal093
+const dir_l = $s_natal134
+const dir_o = $s_natal054
+
+
+classe s_natal095
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal096
+const dir_s = $s_natal094
+const dir_l = $s_natal135
+const dir_o = $s_natal055
+
+
+classe s_natal096
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal097
+const dir_s = $s_natal095
+const dir_l = $s_natal136
+const dir_o = $s_natal056
+
+
+classe s_natal097
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal098
+const dir_s = $s_natal096
+const dir_l = $s_natal137
+const dir_o = $s_natal057
+
+
+classe s_natal098
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal099
+const dir_s = $s_natal097
+const dir_l = $s_natal138
+const dir_o = $s_natal058
+
+
+classe s_natal099
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal100
+const dir_s = $s_natal098
+const dir_l = $s_natal139
+const dir_o = $s_natal059
+
+
+classe s_natal100
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_s = $s_natal099
+const dir_l = $s_natal140
+const dir_o = $s_natal060
+
+
+classe s_natal101
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal081
+const dir_s = $s_natal102
+const dir_l = $s_natal141
+const dir_o = $s_natal061
+
+
+classe s_natal102
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal101
+const dir_s = $s_natal103
+const dir_l = $s_natal142
+const dir_o = $s_natal062
+
+
+classe s_natal103
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal102
+const dir_s = $s_natal104
+const dir_l = $s_natal143
+const dir_o = $s_natal063
+
+
+classe s_natal104
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal103
+const dir_s = $s_natal105
+const dir_l = $s_natal144
+const dir_o = $s_natal064
+
+
+classe s_natal105
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal104
+const dir_s = $s_natal106
+const dir_l = $s_natal145
+const dir_o = $s_natal065
+
+
+classe s_natal106
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal105
+const dir_s = $s_natal107
+const dir_l = $s_natal146
+const dir_o = $s_natal066
+
+
+classe s_natal107
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal106
+const dir_s = $s_natal108
+const dir_l = $s_natal147
+const dir_o = $s_natal067
+
+
+classe s_natal108
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal107
+const dir_s = $s_natal109
+const dir_l = $s_natal148
+const dir_o = $s_natal068
+
+
+classe s_natal109
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal108
+const dir_s = $s_natal110
+const dir_l = $s_natal149
+const dir_o = $s_natal069
+
+
+classe s_natal110
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal109
+const dir_s = $s_natal111
+const dir_l = $s_natal150
+const dir_o = $s_natal070
+
+
+classe s_natal111
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal110
+const dir_s = $s_natal112
+const dir_l = $s_natal151
+const dir_o = $s_natal071
+
+
+classe s_natal112
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal111
+const dir_s = $s_natal113
+const dir_l = $s_natal152
+const dir_o = $s_natal072
+
+
+classe s_natal113
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal112
+const dir_s = $s_natal114
+const dir_l = $s_natal153
+const dir_o = $s_natal073
+
+
+classe s_natal114
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal113
+const dir_s = $s_natal115
+const dir_l = $s_natal154
+const dir_o = $s_natal074
+
+
+classe s_natal115
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal114
+const dir_s = $s_natal116
+const dir_l = $s_natal155
+const dir_o = $s_natal075
+
+
+classe s_natal116
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal115
+const dir_s = $s_natal117
+const dir_l = $s_natal156
+const dir_o = $s_natal076
+
+
+classe s_natal117
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal116
+const dir_s = $s_natal118
+const dir_l = $s_natal157
+const dir_o = $s_natal077
+
+
+classe s_natal118
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal117
+const dir_s = $s_natal119
+const dir_l = $s_natal158
+const dir_o = $s_natal078
+
+
+classe s_natal119
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal118
+const dir_s = $s_natal120
+const dir_l = $s_natal159
+const dir_o = $s_natal079
+
+
+classe s_natal120
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal119
+const dir_l = $s_natal160
+const dir_o = $s_natal080
+
+
+classe s_natal121
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal122
+const dir_s = $s_natal141
+const dir_l = $s_natal161
+const dir_o = $s_natal081
+
+
+classe s_natal122
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal123
+const dir_s = $s_natal121
+const dir_l = $s_natal162
+const dir_o = $s_natal082
+
+
+classe s_natal123
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal124
+const dir_s = $s_natal122
+const dir_l = $s_natal163
+const dir_o = $s_natal083
+
+
+classe s_natal124
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal125
+const dir_s = $s_natal123
+const dir_l = $s_natal164
+const dir_o = $s_natal084
+
+
+classe s_natal125
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal126
+const dir_s = $s_natal124
+const dir_l = $s_natal165
+const dir_o = $s_natal085
+
+
+classe s_natal126
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal127
+const dir_s = $s_natal125
+const dir_l = $s_natal166
+const dir_o = $s_natal086
+
+
+classe s_natal127
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal128
+const dir_s = $s_natal126
+const dir_l = $s_natal167
+const dir_o = $s_natal087
+
+
+classe s_natal128
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal129
+const dir_s = $s_natal127
+const dir_l = $s_natal168
+const dir_o = $s_natal088
+
+
+classe s_natal129
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal130
+const dir_s = $s_natal128
+const dir_l = $s_natal169
+const dir_o = $s_natal089
+
+
+classe s_natal130
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal131
+const dir_s = $s_natal129
+const dir_l = $s_natal170
+const dir_o = $s_natal090
+
+
+classe s_natal131
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal132
+const dir_s = $s_natal130
+const dir_l = $s_natal171
+const dir_o = $s_natal091
+
+
+classe s_natal132
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal133
+const dir_s = $s_natal131
+const dir_l = $s_natal172
+const dir_o = $s_natal092
+
+
+classe s_natal133
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal134
+const dir_s = $s_natal132
+const dir_l = $s_natal173
+const dir_o = $s_natal093
+
+
+classe s_natal134
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal135
+const dir_s = $s_natal133
+const dir_l = $s_natal174
+const dir_o = $s_natal094
+
+
+classe s_natal135
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal136
+const dir_s = $s_natal134
+const dir_l = $s_natal175
+const dir_o = $s_natal095
+
+
+classe s_natal136
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal137
+const dir_s = $s_natal135
+const dir_l = $s_natal176
+const dir_o = $s_natal096
+
+
+classe s_natal137
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal138
+const dir_s = $s_natal136
+const dir_l = $s_natal177
+const dir_o = $s_natal097
+
+
+classe s_natal138
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal139
+const dir_s = $s_natal137
+const dir_l = $s_natal178
+const dir_o = $s_natal098
+
+
+classe s_natal139
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal140
+const dir_s = $s_natal138
+const dir_l = $s_natal179
+const dir_o = $s_natal099
+
+
+classe s_natal140
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_s = $s_natal139
+const dir_l = $s_natal180
+const dir_o = $s_natal100
+
+
+classe s_natal141
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal121
+const dir_s = $s_natal142
+const dir_l = $s_natal181
+const dir_o = $s_natal101
+
+
+classe s_natal142
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal141
+const dir_s = $s_natal143
+const dir_l = $s_natal182
+const dir_o = $s_natal102
+
+
+classe s_natal143
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal142
+const dir_s = $s_natal144
+const dir_l = $s_natal183
+const dir_o = $s_natal103
+
+
+classe s_natal144
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal143
+const dir_s = $s_natal145
+const dir_l = $s_natal184
+const dir_o = $s_natal104
+
+
+classe s_natal145
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal144
+const dir_s = $s_natal146
+const dir_l = $s_natal185
+const dir_o = $s_natal105
+
+
+classe s_natal146
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal145
+const dir_s = $s_natal147
+const dir_l = $s_natal186
+const dir_o = $s_natal106
+
+
+classe s_natal147
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal146
+const dir_s = $s_natal148
+const dir_l = $s_natal187
+const dir_o = $s_natal107
+
+
+classe s_natal148
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal147
+const dir_s = $s_natal149
+const dir_l = $s_natal188
+const dir_o = $s_natal108
+
+
+classe s_natal149
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal148
+const dir_s = $s_natal150
+const dir_l = $s_natal189
+const dir_o = $s_natal109
+
+
+classe s_natal150
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal149
+const dir_s = $s_natal151
+const dir_l = $s_natal190
+const dir_o = $s_natal110
+
+
+classe s_natal151
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal150
+const dir_s = $s_natal152
+const dir_l = $s_natal191
+const dir_o = $s_natal111
+
+
+classe s_natal152
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal151
+const dir_s = $s_natal153
+const dir_l = $s_natal192
+const dir_o = $s_natal112
+
+
+classe s_natal153
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal152
+const dir_s = $s_natal154
+const dir_l = $s_natal193
+const dir_o = $s_natal113
+
+
+classe s_natal154
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal153
+const dir_s = $s_natal155
+const dir_l = $s_natal194
+const dir_o = $s_natal114
+
+
+classe s_natal155
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal154
+const dir_s = $s_natal156
+const dir_l = $s_natal195
+const dir_o = $s_natal115
+
+
+classe s_natal156
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal155
+const dir_s = $s_natal157
+const dir_l = $s_natal196
+const dir_o = $s_natal116
+
+
+classe s_natal157
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal156
+const dir_s = $s_natal158
+const dir_l = $s_natal197
+const dir_o = $s_natal117
+
+
+classe s_natal158
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal157
+const dir_s = $s_natal159
+const dir_l = $s_natal198
+const dir_o = $s_natal118
+
+
+classe s_natal159
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal158
+const dir_s = $s_natal160
+const dir_l = $s_natal199
+const dir_o = $s_natal119
+
+
+classe s_natal160
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal159
+const dir_l = $s_natal200
+const dir_o = $s_natal120
+
+
+classe s_natal161
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal162
+const dir_s = $s_natal181
+const dir_l = $s_natal201
+const dir_o = $s_natal121
+
+
+classe s_natal162
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal163
+const dir_s = $s_natal161
+const dir_l = $s_natal202
+const dir_o = $s_natal122
+
+
+classe s_natal163
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal164
+const dir_s = $s_natal162
+const dir_l = $s_natal203
+const dir_o = $s_natal123
+
+
+classe s_natal164
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal165
+const dir_s = $s_natal163
+const dir_l = $s_natal204
+const dir_o = $s_natal124
+
+
+classe s_natal165
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal166
+const dir_s = $s_natal164
+const dir_l = $s_natal205
+const dir_o = $s_natal125
+
+
+classe s_natal166
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal167
+const dir_s = $s_natal165
+const dir_l = $s_natal206
+const dir_o = $s_natal126
+
+
+classe s_natal167
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal168
+const dir_s = $s_natal166
+const dir_l = $s_natal207
+const dir_o = $s_natal127
+
+
+classe s_natal168
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal169
+const dir_s = $s_natal167
+const dir_l = $s_natal208
+const dir_o = $s_natal128
+
+
+classe s_natal169
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal170
+const dir_s = $s_natal168
+const dir_l = $s_natal209
+const dir_o = $s_natal129
+
+
+classe s_natal170
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal171
+const dir_s = $s_natal169
+const dir_l = $s_natal210
+const dir_o = $s_natal130
+
+
+classe s_natal171
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal172
+const dir_s = $s_natal170
+const dir_l = $s_natal211
+const dir_o = $s_natal131
+
+
+classe s_natal172
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal173
+const dir_s = $s_natal171
+const dir_l = $s_natal212
+const dir_o = $s_natal132
+
+
+classe s_natal173
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal174
+const dir_s = $s_natal172
+const dir_l = $s_natal213
+const dir_o = $s_natal133
+
+
+classe s_natal174
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal175
+const dir_s = $s_natal173
+const dir_l = $s_natal214
+const dir_o = $s_natal134
+
+
+classe s_natal175
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal176
+const dir_s = $s_natal174
+const dir_l = $s_natal215
+const dir_o = $s_natal135
+
+
+classe s_natal176
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal177
+const dir_s = $s_natal175
+const dir_l = $s_natal216
+const dir_o = $s_natal136
+
+
+classe s_natal177
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal178
+const dir_s = $s_natal176
+const dir_l = $s_natal217
+const dir_o = $s_natal137
+
+
+classe s_natal178
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal179
+const dir_s = $s_natal177
+const dir_l = $s_natal218
+const dir_o = $s_natal138
+
+
+classe s_natal179
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal180
+const dir_s = $s_natal178
+const dir_l = $s_natal219
+const dir_o = $s_natal139
+
+
+classe s_natal180
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_s = $s_natal179
+const dir_l = $s_natal220
+const dir_o = $s_natal140
+
+
+classe s_natal181
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal161
+const dir_s = $s_natal182
+const dir_l = $s_natal221
+const dir_o = $s_natal141
+
+
+classe s_natal182
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal181
+const dir_s = $s_natal183
+const dir_l = $s_natal222
+const dir_o = $s_natal142
+
+
+classe s_natal183
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal182
+const dir_s = $s_natal184
+const dir_l = $s_natal223
+const dir_o = $s_natal143
+
+
+classe s_natal184
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal183
+const dir_s = $s_natal185
+const dir_l = $s_natal224
+const dir_o = $s_natal144
+
+
+classe s_natal185
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal184
+const dir_s = $s_natal186
+const dir_l = $s_natal225
+const dir_o = $s_natal145
+
+
+classe s_natal186
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal185
+const dir_s = $s_natal187
+const dir_l = $s_natal226
+const dir_o = $s_natal146
+
+
+classe s_natal187
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal186
+const dir_s = $s_natal188
+const dir_l = $s_natal227
+const dir_o = $s_natal147
+
+
+classe s_natal188
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal187
+const dir_s = $s_natal189
+const dir_l = $s_natal228
+const dir_o = $s_natal148
+
+
+classe s_natal189
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal188
+const dir_s = $s_natal190
+const dir_l = $s_natal229
+const dir_o = $s_natal149
+
+
+classe s_natal190
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal189
+const dir_s = $s_natal191
+const dir_l = $s_natal230
+const dir_o = $s_natal150
+
+
+classe s_natal191
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal190
+const dir_s = $s_natal192
+const dir_l = $s_natal231
+const dir_o = $s_natal151
+
+
+classe s_natal192
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal191
+const dir_s = $s_natal193
+const dir_l = $s_natal232
+const dir_o = $s_natal152
+
+
+classe s_natal193
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal192
+const dir_s = $s_natal194
+const dir_l = $s_natal233
+const dir_o = $s_natal153
+
+
+classe s_natal194
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal193
+const dir_s = $s_natal195
+const dir_l = $s_natal234
+const dir_o = $s_natal154
+
+
+classe s_natal195
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal194
+const dir_s = $s_natal196
+const dir_l = $s_natal235
+const dir_o = $s_natal155
+
+
+classe s_natal196
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal195
+const dir_s = $s_natal197
+const dir_l = $s_natal236
+const dir_o = $s_natal156
+
+
+classe s_natal197
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal196
+const dir_s = $s_natal198
+const dir_l = $s_natal237
+const dir_o = $s_natal157
+
+
+classe s_natal198
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal197
+const dir_s = $s_natal199
+const dir_l = $s_natal238
+const dir_o = $s_natal158
+
+
+classe s_natal199
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal198
+const dir_s = $s_natal200
+const dir_l = $s_natal239
+const dir_o = $s_natal159
+
+
+classe s_natal200
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal199
+const dir_l = $s_natal240
+const dir_o = $s_natal160
+
+
+classe s_natal201
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal202
+const dir_s = $s_natal221
+const dir_l = $s_natal241
+const dir_o = $s_natal161
+
+
+classe s_natal202
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal203
+const dir_s = $s_natal201
+const dir_l = $s_natal242
+const dir_o = $s_natal162
+
+
+classe s_natal203
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal204
+const dir_s = $s_natal202
+const dir_l = $s_natal243
+const dir_o = $s_natal163
+
+
+classe s_natal204
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal205
+const dir_s = $s_natal203
+const dir_l = $s_natal244
+const dir_o = $s_natal164
+
+
+classe s_natal205
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal206
+const dir_s = $s_natal204
+const dir_l = $s_natal245
+const dir_o = $s_natal165
+
+
+classe s_natal206
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal207
+const dir_s = $s_natal205
+const dir_l = $s_natal246
+const dir_o = $s_natal166
+
+
+classe s_natal207
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal208
+const dir_s = $s_natal206
+const dir_l = $s_natal247
+const dir_o = $s_natal167
+
+
+classe s_natal208
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal209
+const dir_s = $s_natal207
+const dir_l = $s_natal248
+const dir_o = $s_natal168
+
+
+classe s_natal209
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal210
+const dir_s = $s_natal208
+const dir_l = $s_natal249
+const dir_o = $s_natal169
+
+
+classe s_natal210
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal211
+const dir_s = $s_natal209
+const dir_l = $s_natal250
+const dir_o = $s_natal170
+
+
+classe s_natal211
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal212
+const dir_s = $s_natal210
+const dir_l = $s_natal251
+const dir_o = $s_natal171
+
+
+classe s_natal212
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal213
+const dir_s = $s_natal211
+const dir_l = $s_natal252
+const dir_o = $s_natal172
+
+
+classe s_natal213
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal214
+const dir_s = $s_natal212
+const dir_l = $s_natal253
+const dir_o = $s_natal173
+
+
+classe s_natal214
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal215
+const dir_s = $s_natal213
+const dir_l = $s_natal254
+const dir_o = $s_natal174
+
+
+classe s_natal215
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal216
+const dir_s = $s_natal214
+const dir_l = $s_natal255
+const dir_o = $s_natal175
+
+
+classe s_natal216
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal217
+const dir_s = $s_natal215
+const dir_l = $s_natal256
+const dir_o = $s_natal176
+
+
+classe s_natal217
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal218
+const dir_s = $s_natal216
+const dir_l = $s_natal257
+const dir_o = $s_natal177
+
+
+classe s_natal218
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal219
+const dir_s = $s_natal217
+const dir_l = $s_natal258
+const dir_o = $s_natal178
+
+
+classe s_natal219
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal220
+const dir_s = $s_natal218
+const dir_l = $s_natal259
+const dir_o = $s_natal179
+
+
+classe s_natal220
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_s = $s_natal219
+const dir_l = $s_natal260
+const dir_o = $s_natal180
+
+
+classe s_natal221
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal201
+const dir_s = $s_natal222
+const dir_l = $s_natal262
+const dir_o = $s_natal181
+
+
+classe s_natal222
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal221
+const dir_s = $s_natal223
+const dir_l = $s_natal263
+const dir_o = $s_natal182
+
+
+classe s_natal223
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal222
+const dir_s = $s_natal224
+const dir_l = $s_natal264
+const dir_o = $s_natal183
+
+
+classe s_natal224
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal223
+const dir_s = $s_natal225
+const dir_l = $s_natal265
+const dir_o = $s_natal184
+
+
+classe s_natal225
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal224
+const dir_s = $s_natal226
+const dir_l = $s_natal266
+const dir_o = $s_natal185
+
+
+classe s_natal226
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal225
+const dir_s = $s_natal227
+const dir_l = $s_natal267
+const dir_o = $s_natal186
+
+
+classe s_natal227
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal226
+const dir_s = $s_natal228
+const dir_l = $s_natal268
+const dir_o = $s_natal187
+
+
+classe s_natal228
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal227
+const dir_s = $s_natal229
+const dir_l = $s_natal269
+const dir_o = $s_natal188
+
+
+classe s_natal229
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal228
+const dir_s = $s_natal230
+const dir_l = $s_natal270
+const dir_o = $s_natal189
+
+
+classe s_natal230
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal229
+const dir_s = $s_natal231
+const dir_l = $s_natal271
+const dir_o = $s_natal190
+
+
+classe s_natal231
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal230
+const dir_s = $s_natal232
+const dir_l = $s_natal272
+const dir_o = $s_natal191
+
+
+classe s_natal232
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal231
+const dir_s = $s_natal233
+const dir_l = $s_natal273
+const dir_o = $s_natal192
+
+
+classe s_natal233
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal232
+const dir_s = $s_natal234
+const dir_l = $s_natal274
+const dir_o = $s_natal193
+
+
+classe s_natal234
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal233
+const dir_s = $s_natal235
+const dir_l = $s_natal275
+const dir_o = $s_natal194
+
+
+classe s_natal235
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal234
+const dir_s = $s_natal236
+const dir_l = $s_natal276
+const dir_o = $s_natal195
+
+
+classe s_natal236
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal235
+const dir_s = $s_natal237
+const dir_l = $s_natal277
+const dir_o = $s_natal196
+
+
+classe s_natal237
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal236
+const dir_s = $s_natal238
+const dir_l = $s_natal278
+const dir_o = $s_natal197
+
+
+classe s_natal238
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal237
+const dir_s = $s_natal239
+const dir_l = $s_natal279
+const dir_o = $s_natal198
+
+
+classe s_natal239
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal238
+const dir_s = $s_natal240
+const dir_l = $s_natal280
+const dir_o = $s_natal199
+
+
+classe s_natal240
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal239
+const dir_l = $s_natal319
+const dir_o = $s_natal200
+
+
+classe s_natal241
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal242
+const dir_s = $s_natal262
+const dir_l = $s_natal281
+const dir_o = $s_natal201
+
+
+classe s_natal242
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal243
+const dir_s = $s_natal241
+const dir_l = $s_natal282
+const dir_o = $s_natal202
+
+
+classe s_natal243
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal244
+const dir_s = $s_natal242
+const dir_l = $s_natal283
+const dir_o = $s_natal203
+
+
+classe s_natal244
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal245
+const dir_s = $s_natal243
+const dir_l = $s_natal284
+const dir_o = $s_natal204
+
+
+classe s_natal245
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal246
+const dir_s = $s_natal244
+const dir_l = $s_natal285
+const dir_o = $s_natal205
+
+
+classe s_natal246
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal247
+const dir_s = $s_natal245
+const dir_l = $s_natal286
+const dir_o = $s_natal206
+
+
+classe s_natal247
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal248
+const dir_s = $s_natal246
+const dir_l = $s_natal287
+const dir_o = $s_natal207
+
+
+classe s_natal248
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal249
+const dir_s = $s_natal247
+const dir_l = $s_natal288
+const dir_o = $s_natal208
+
+
+classe s_natal249
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal250
+const dir_s = $s_natal248
+const dir_l = $s_natal289
+const dir_o = $s_natal209
+
+
+classe s_natal250
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal251
+const dir_s = $s_natal249
+const dir_l = $s_natal290
+const dir_o = $s_natal210
+
+
+classe s_natal251
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal252
+const dir_s = $s_natal250
+const dir_l = $s_natal291
+const dir_o = $s_natal211
+
+
+classe s_natal252
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal253
+const dir_s = $s_natal251
+const dir_l = $s_natal292
+const dir_o = $s_natal212
+
+
+classe s_natal253
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal254
+const dir_s = $s_natal252
+const dir_l = $s_natal293
+const dir_o = $s_natal213
+
+
+classe s_natal254
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal255
+const dir_s = $s_natal253
+const dir_l = $s_natal294
+const dir_o = $s_natal214
+
+
+classe s_natal255
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal256
+const dir_s = $s_natal254
+const dir_l = $s_natal295
+const dir_o = $s_natal215
+
+
+classe s_natal256
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal257
+const dir_s = $s_natal255
+const dir_l = $s_natal296
+const dir_o = $s_natal216
+
+
+classe s_natal257
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal258
+const dir_s = $s_natal256
+const dir_l = $s_natal297
+const dir_o = $s_natal217
+
+
+classe s_natal258
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal259
+const dir_s = $s_natal257
+const dir_l = $s_natal298
+const dir_o = $s_natal218
+
+
+classe s_natal259
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal260
+const dir_s = $s_natal258
+const dir_l = $s_natal299
+const dir_o = $s_natal219
+
+
+classe s_natal260
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_s = $s_natal259
+const dir_l = $s_natal300
+const dir_o = $s_natal260
+
+
+classe s_natal261
+herda b_natal
+const dir_s = $s_natal260
+
+
+classe s_natal262
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal241
+const dir_s = $s_natal263
+const dir_l = $s_natal301
+const dir_o = $s_natal221
+
+
+classe s_natal263
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal262
+const dir_s = $s_natal264
+const dir_l = $s_natal302
+const dir_o = $s_natal222
+
+
+classe s_natal264
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal263
+const dir_s = $s_natal265
+const dir_l = $s_natal303
+const dir_o = $s_natal223
+
+
+classe s_natal265
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal264
+const dir_s = $s_natal266
+const dir_l = $s_natal304
+const dir_o = $s_natal224
+
+
+classe s_natal266
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal265
+const dir_s = $s_natal267
+const dir_l = $s_natal305
+const dir_o = $s_natal225
+
+
+classe s_natal267
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal266
+const dir_s = $s_natal268
+const dir_l = $s_natal306
+const dir_o = $s_natal226
+
+
+classe s_natal268
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal267
+const dir_s = $s_natal269
+const dir_l = $s_natal307
+const dir_o = $s_natal227
+
+
+classe s_natal269
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal268
+const dir_s = $s_natal270
+const dir_l = $s_natal308
+const dir_o = $s_natal228
+
+
+classe s_natal270
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal269
+const dir_s = $s_natal271
+const dir_l = $s_natal309
+const dir_o = $s_natal229
+
+
+classe s_natal271
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal270
+const dir_s = $s_natal272
+const dir_l = $s_natal310
+const dir_o = $s_natal230
+
+
+classe s_natal272
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal271
+const dir_s = $s_natal273
+const dir_l = $s_natal311
+const dir_o = $s_natal231
+
+
+classe s_natal273
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal272
+const dir_s = $s_natal274
+const dir_l = $s_natal311
+const dir_o = $s_natal232
+
+
+classe s_natal274
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal273
+const dir_s = $s_natal275
+const dir_l = $s_natal312
+const dir_o = $s_natal233
+
+
+classe s_natal275
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal274
+const dir_s = $s_natal276
+const dir_l = $s_natal313
+const dir_o = $s_natal234
+
+
+classe s_natal276
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal275
+const dir_s = $s_natal277
+const dir_l = $s_natal314
+const dir_o = $s_natal235
+
+
+classe s_natal277
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal276
+const dir_s = $s_natal278
+const dir_l = $s_natal315
+const dir_o = $s_natal236
+
+
+classe s_natal278
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal277
+const dir_s = $s_natal279
+const dir_l = $s_natal316
+const dir_o = $s_natal237
+
+
+classe s_natal279
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal278
+const dir_s = $s_natal280
+const dir_l = $s_natal317
+const dir_o = $s_natal238
+
+
+classe s_natal280
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal279
+const dir_s = $s_natal319
+const dir_l = $s_natal318
+const dir_o = $s_natal239
+
+
+classe s_natal281
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal282
+const dir_s = $s_natal301
+const dir_l = $s_natal321
+const dir_o = $s_natal241
+
+
+classe s_natal282
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal283
+const dir_s = $s_natal281
+const dir_l = $s_natal322
+const dir_o = $s_natal242
+
+
+classe s_natal283
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal284
+const dir_s = $s_natal282
+const dir_l = $s_natal323
+const dir_o = $s_natal243
+
+
+classe s_natal284
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal285
+const dir_s = $s_natal283
+const dir_l = $s_natal324
+const dir_o = $s_natal244
+
+
+classe s_natal285
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal286
+const dir_s = $s_natal284
+const dir_l = $s_natal325
+const dir_o = $s_natal245
+
+
+classe s_natal286
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal287
+const dir_s = $s_natal285
+const dir_l = $s_natal326
+const dir_o = $s_natal246
+
+
+classe s_natal287
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal288
+const dir_s = $s_natal286
+const dir_l = $s_natal327
+const dir_o = $s_natal247
+
+
+classe s_natal288
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal289
+const dir_s = $s_natal287
+const dir_l = $s_natal328
+const dir_o = $s_natal248
+
+
+classe s_natal289
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal290
+const dir_s = $s_natal288
+const dir_l = $s_natal329
+const dir_o = $s_natal249
+
+
+classe s_natal290
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal291
+const dir_s = $s_natal289
+const dir_l = $s_natal330
+const dir_o = $s_natal250
+
+
+classe s_natal291
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal292
+const dir_s = $s_natal290
+const dir_l = $s_natal331
+const dir_o = $s_natal251
+
+
+classe s_natal292
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal293
+const dir_s = $s_natal291
+const dir_l = $s_natal332
+const dir_o = $s_natal252
+
+
+classe s_natal293
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal294
+const dir_s = $s_natal292
+const dir_l = $s_natal333
+const dir_o = $s_natal253
+
+
+classe s_natal294
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal295
+const dir_s = $s_natal293
+const dir_l = $s_natal334
+const dir_o = $s_natal254
+
+
+classe s_natal295
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal296
+const dir_s = $s_natal294
+const dir_l = $s_natal335
+const dir_o = $s_natal255
+
+
+classe s_natal296
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal297
+const dir_s = $s_natal295
+const dir_l = $s_natal336
+const dir_o = $s_natal256
+
+
+classe s_natal297
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal298
+const dir_s = $s_natal296
+const dir_l = $s_natal337
+const dir_o = $s_natal258
+
+
+classe s_natal298
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal299
+const dir_s = $s_natal297
+const dir_l = $s_natal338
+const dir_o = $s_natal258
+
+
+classe s_natal299
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal300
+const dir_s = $s_natal298
+const dir_l = $s_natal339
+const dir_o = $s_natal259
+
+
+classe s_natal300
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_s = $s_natal299
+const dir_l = $s_natal340
+const dir_o = $s_natal260
+
+
+classe s_natal301
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal281
+const dir_s = $s_natal302
+const dir_l = $s_natal341
+const dir_o = $s_natal262
+
+
+classe s_natal302
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal301
+const dir_s = $s_natal303
+const dir_l = $s_natal342
+const dir_o = $s_natal263
+
+
+classe s_natal303
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal302
+const dir_s = $s_natal304
+const dir_l = $s_natal343
+const dir_o = $s_natal264
+
+
+classe s_natal304
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal303
+const dir_s = $s_natal305
+const dir_l = $s_natal344
+const dir_o = $s_natal265
+
+
+classe s_natal305
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal304
+const dir_s = $s_natal306
+const dir_l = $s_natal345
+const dir_o = $s_natal266
+
+
+classe s_natal306
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal305
+const dir_s = $s_natal307
+const dir_l = $s_natal346
+const dir_o = $s_natal267
+
+
+classe s_natal307
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal306
+const dir_s = $s_natal308
+const dir_l = $s_natal347
+const dir_o = $s_natal268
+
+
+classe s_natal308
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal307
+const dir_s = $s_natal309
+const dir_l = $s_natal348
+const dir_o = $s_natal269
+
+
+classe s_natal309
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal308
+const dir_s = $s_natal310
+const dir_l = $s_natal349
+const dir_o = $s_natal270
+
+
+classe s_natal310
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal309
+const dir_s = $s_natal311
+const dir_l = $s_natal350
+const dir_o = $s_natal271
+
+
+classe s_natal311
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal310
+const dir_s = $s_natal312
+const dir_l = $s_natal351
+const dir_o = $s_natal273
+
+
+classe s_natal312
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal311
+const dir_s = $s_natal313
+const dir_l = $s_natal352
+const dir_o = $s_natal274
+
+
+classe s_natal313
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal312
+const dir_s = $s_natal314
+const dir_l = $s_natal353
+const dir_o = $s_natal275
+
+
+classe s_natal314
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal313
+const dir_s = $s_natal315
+const dir_l = $s_natal354
+const dir_o = $s_natal276
+
+
+classe s_natal315
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal314
+const dir_s = $s_natal316
+const dir_l = $s_natal355
+const dir_o = $s_natal277
+
+
+classe s_natal316
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal315
+const dir_s = $s_natal317
+const dir_l = $s_natal356
+const dir_o = $s_natal278
+
+
+classe s_natal317
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal316
+const dir_s = $s_natal318
+const dir_l = $s_natal357
+const dir_o = $s_natal279
+
+
+classe s_natal318
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal317
+const dir_s = $s_natal320
+const dir_l = $s_natal358
+const dir_o = $s_natal280
+
+
+classe s_natal319
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal280
+const dir_l = $s_natal320
+const dir_o = $s_natal240
+
+
+classe s_natal320
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal318
+const dir_l = $s_natal359
+const dir_o = $s_natal319
+
+
+classe s_natal321
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal322
+const dir_s = $s_natal341
+const dir_l = $s_natal360
+const dir_o = $s_natal281
+
+
+classe s_natal322
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal323
+const dir_s = $s_natal321
+const dir_l = $s_natal361
+const dir_o = $s_natal282
+
+
+classe s_natal323
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal324
+const dir_s = $s_natal322
+const dir_l = $s_natal362
+const dir_o = $s_natal283
+
+
+classe s_natal324
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal325
+const dir_s = $s_natal323
+const dir_l = $s_natal363
+const dir_o = $s_natal284
+
+
+classe s_natal325
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal326
+const dir_s = $s_natal324
+const dir_l = $s_natal364
+const dir_o = $s_natal285
+
+
+classe s_natal326
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal327
+const dir_s = $s_natal325
+const dir_l = $s_natal365
+const dir_o = $s_natal286
+
+
+classe s_natal327
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal328
+const dir_s = $s_natal326
+const dir_l = $s_natal366
+const dir_o = $s_natal287
+
+
+classe s_natal328
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal329
+const dir_s = $s_natal327
+const dir_l = $s_natal367
+const dir_o = $s_natal288
+
+
+classe s_natal329
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal330
+const dir_s = $s_natal328
+const dir_l = $s_natal368
+const dir_o = $s_natal289
+
+
+classe s_natal330
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal331
+const dir_s = $s_natal329
+const dir_l = $s_natal369
+const dir_o = $s_natal290
+
+
+classe s_natal331
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal332
+const dir_s = $s_natal330
+const dir_l = $s_natal370
+const dir_o = $s_natal291
+
+
+classe s_natal332
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal333
+const dir_s = $s_natal331
+const dir_l = $s_natal371
+const dir_o = $s_natal292
+
+
+classe s_natal333
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal334
+const dir_s = $s_natal332
+const dir_l = $s_natal371
+const dir_o = $s_natal293
+
+
+classe s_natal334
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal335
+const dir_s = $s_natal333
+const dir_l = $s_natal372
+const dir_o = $s_natal294
+
+
+classe s_natal335
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal336
+const dir_s = $s_natal334
+const dir_l = $s_natal373
+const dir_o = $s_natal295
+
+
+classe s_natal336
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal337
+const dir_s = $s_natal335
+const dir_l = $s_natal374
+const dir_o = $s_natal296
+
+
+classe s_natal337
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal338
+const dir_s = $s_natal336
+const dir_l = $s_natal375
+const dir_o = $s_natal297
+
+
+classe s_natal338
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal339
+const dir_s = $s_natal337
+const dir_l = $s_natal376
+const dir_o = $s_natal298
+
+
+classe s_natal339
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal340
+const dir_s = $s_natal338
+const dir_l = $s_natal377
+const dir_o = $s_natal299
+
+
+classe s_natal340
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_s = $s_natal339
+const dir_l = $s_natal378
+const dir_o = $s_natal300
+
+
+classe s_natal341
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal321
+const dir_s = $s_natal342
+const dir_l = $s_natal379
+const dir_o = $s_natal301
+
+
+classe s_natal342
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal341
+const dir_s = $s_natal343
+const dir_l = $s_natal380
+const dir_o = $s_natal302
+
+
+classe s_natal343
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal342
+const dir_s = $s_natal344
+const dir_l = $s_natal381
+const dir_o = $s_natal303
+
+
+classe s_natal344
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal343
+const dir_s = $s_natal345
+const dir_l = $s_natal382
+const dir_o = $s_natal304
+
+
+classe s_natal345
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal344
+const dir_s = $s_natal346
+const dir_l = $s_natal383
+const dir_o = $s_natal305
+
+
+classe s_natal346
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal345
+const dir_s = $s_natal347
+const dir_l = $s_natal384
+const dir_o = $s_natal306
+
+
+classe s_natal347
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal346
+const dir_s = $s_natal348
+const dir_l = $s_natal385
+const dir_o = $s_natal307
+
+
+classe s_natal348
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal347
+const dir_s = $s_natal349
+const dir_l = $s_natal386
+const dir_o = $s_natal308
+
+
+classe s_natal349
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal348
+const dir_s = $s_natal350
+const dir_l = $s_natal387
+const dir_o = $s_natal309
+
+
+classe s_natal350
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal349
+const dir_s = $s_natal351
+const dir_l = $s_natal388
+const dir_o = $s_natal310
+
+
+classe s_natal351
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal350
+const dir_s = $s_natal352
+const dir_l = $s_natal389
+const dir_o = $s_natal311
+
+
+classe s_natal352
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal351
+const dir_s = $s_natal353
+const dir_l = $s_natal390
+const dir_o = $s_natal312
+
+
+classe s_natal353
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal352
+const dir_s = $s_natal354
+const dir_l = $s_natal391
+const dir_o = $s_natal313
+
+
+classe s_natal354
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal353
+const dir_s = $s_natal355
+const dir_l = $s_natal392
+const dir_o = $s_natal314
+
+
+classe s_natal355
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal354
+const dir_s = $s_natal356
+const dir_l = $s_natal393
+const dir_o = $s_natal315
+
+
+classe s_natal356
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal355
+const dir_s = $s_natal357
+const dir_l = $s_natal394
+const dir_o = $s_natal316
+
+
+classe s_natal357
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal356
+const dir_s = $s_natal358
+const dir_l = $s_natal395
+const dir_o = $s_natal317
+
+
+classe s_natal358
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal357
+const dir_s = $s_natal359
+const dir_l = $s_natal396
+const dir_o = $s_natal318
+
+
+classe s_natal359
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal358
+const dir_l = $s_natal397
+const dir_o = $s_natal320
+
+
+classe s_natal360
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal361
+const dir_s = $s_natal379
+const dir_o = $s_natal321
+const dir_sair = $s_torvani001
+
+func cmd_mover
+  se arg2 == "sair"
+    $mens.p(arg0)
+    $mens.mmudtodos1("*Atenção, $P saiu da pista.")
+    arg0.mudadono($s_torvani001)
+    ret 1
+
+
+classe s_natal361
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal362
+const dir_s = $s_natal360
+const dir_o = $s_natal322
+
+
+classe s_natal362
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal363
+const dir_s = $s_natal361
+const dir_o = $s_natal323
+
+
+classe s_natal363
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal364
+const dir_s = $s_natal362
+const dir_o = $s_natal324
+
+
+classe s_natal364
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal365
+const dir_s = $s_natal363
+const dir_o = $s_natal325
+
+
+classe s_natal365
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal366
+const dir_s = $s_natal364
+const dir_o = $s_natal326
+
+
+classe s_natal366
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal367
+const dir_s = $s_natal365
+const dir_o = $s_natal327
+
+
+classe s_natal367
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal368
+const dir_s = $s_natal366
+const dir_o = $s_natal328
+
+
+classe s_natal368
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal369
+const dir_s = $s_natal367
+const dir_o = $s_natal329
+
+
+classe s_natal369
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal370
+const dir_s = $s_natal368
+const dir_o = $s_natal330
+
+
+classe s_natal370
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal371
+const dir_s = $s_natal369
+const dir_o = $s_natal331
+
+
+classe s_natal371
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal372
+const dir_s = $s_natal370
+const dir_o = $s_natal333
+
+
+classe s_natal372
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal373
+const dir_s = $s_natal371
+const dir_o = $s_natal334
+
+
+classe s_natal373
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal374
+const dir_s = $s_natal372
+const dir_o = $s_natal335
+
+
+classe s_natal374
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal375
+const dir_s = $s_natal373
+const dir_o = $s_natal336
+
+
+classe s_natal375
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal376
+const dir_s = $s_natal374
+const dir_o = $s_natal337
+
+
+classe s_natal376
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal377
+const dir_s = $s_natal375
+const dir_o = $s_natal338
+
+
+classe s_natal377
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal378
+const dir_s = $s_natal376
+const dir_o = $s_natal339
+
+
+classe s_natal378
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_s = $s_natal377
+const dir_o = $s_natal340
+const dir_sair = $s_torvani001
+const inv_sair = 1 # Invisível: Sim
+
+func cmd_mover
+  se arg2 == "sair"
+    $mens.p(arg0)
+    $mens.mmudtodos1("*Atenção, $P saiu da pista.")
+    arg0.mudadono($s_torvani001)
+    ret 1
+
+
+classe s_natal379
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal360
+const dir_s = $s_natal380
+const dir_o = $s_natal341
+
+
+classe s_natal380
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal379
+const dir_s = $s_natal381
+const dir_o = $s_natal342
+
+
+classe s_natal381
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal380
+const dir_s = $s_natal382
+const dir_o = $s_natal343
+
+
+classe s_natal382
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal381
+const dir_s = $s_natal383
+const dir_o = $s_natal344
+
+
+classe s_natal383
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal382
+const dir_s = $s_natal384
+const dir_o = $s_natal345
+
+
+classe s_natal384
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal383
+const dir_s = $s_natal385
+const dir_o = $s_natal346
+
+
+classe s_natal385
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal384
+const dir_s = $s_natal386
+const dir_o = $s_natal347
+
+
+classe s_natal386
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal385
+const dir_s = $s_natal387
+const dir_o = $s_natal348
+
+
+classe s_natal387
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal386
+const dir_s = $s_natal388
+const dir_o = $s_natal349
+
+
+classe s_natal388
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal387
+const dir_s = $s_natal389
+const dir_o = $s_natal350
+
+
+classe s_natal389
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal388
+const dir_s = $s_natal390
+const dir_o = $s_natal351
+
+
+classe s_natal390
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal389
+const dir_s = $s_natal391
+const dir_o = $s_natal352
+
+
+classe s_natal391
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal390
+const dir_s = $s_natal392
+const dir_o = $s_natal353
+
+
+classe s_natal392
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal391
+const dir_s = $s_natal393
+const dir_o = $s_natal354
+
+
+classe s_natal393
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal392
+const dir_s = $s_natal394
+const dir_o = $s_natal355
+
+
+classe s_natal394
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal393
+const dir_s = $s_natal395
+const dir_o = $s_natal356
+
+
+classe s_natal395
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal394
+const dir_s = $s_natal396
+const dir_o = $s_natal357
+
+
+classe s_natal396
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal395
+const dir_s = $s_natal397
+const dir_o = $s_natal358
+
+
+classe s_natal397
+herda b_natal
+const s_titulo = "Em uma pista de neve"
+const dir_n = $s_natal396
+const dir_o = $s_natal359
+const dir_sair = $s_torvani001
+
+func cmd_mover
+  se arg2 == "sair"
+    $mens.p(arg0)
+    $mens.mmudtodos1("*Atenção, $P saiu da pista.")
+    arg0.mudadono($s_torvani001)
+    ret 1
+
+
+classe s_natal398
+herda b_evento
+const s_titulo = "Um grande salão de eventos."
+const dir_n = $s_evento101
+#
+
+func cmd_salaperso
+  se !arg0.jog
+    arg0.msg("Animais não podem entrar.")
+    $mens.p(arg0)
+    $mens.mtodos2("Retornando...", "$P é sugad$s por um portal invisível e retorna para o lugar \
+de onde veio.")
+    arg0.mudadono($[arg0.donoantes])
+  fimse
+
+
+classe s_natal399
+herda b_evento
+const s_titulo = "Um largo corredor iluminado."
+const dir_s = $s_evento100

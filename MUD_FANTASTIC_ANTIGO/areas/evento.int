@@ -1,0 +1,1926 @@
+classe a_evento
+herda area
+const a_nome = "evento"
+
+
+classe b_evento
+herda sala
+const s_area = "evento"
+
+
+classe i_evento001
+herda comum_item
+const nome = "saco"
+const descnome = "o saco do papai noel"
+const descpos = "Um saco vermelho aparentando estar cheio de presentes foi perdido aqui."
+
+
+classe i_evento002
+herda comum_item
+const nome = "árvore"
+const descnome = "Uma frondosa árvore"
+const descpos = "Uma frondosa árvore está aqui, fornecendo sombra aos moradores da cabana."
+const i_pegar = "As raízes da árvore estão presas ao solo."
+
+
+classe i_evento003
+herda comum_itemperso
+const nome = "árvore de natal"
+const descnome = "Uma árvore de natal"
+const descpos = "Há uma bela árvore de natal enfeitando o lugar."
+const mantersala = 1 # Mantém na sala: Sim
+const evhora = 1 # Eventos hora: Sim
+#
+
+func cmd_hora
+  $mens.p(este)
+  $mens.mvis1("Luzes coloridas piscam ao redor da árvore de natal!")
+
+
+classe i_evento004
+herda comum_itemperso
+const nome = "presente"
+const ident = "belo embrulho caixa presente"
+const descnome = "um presente"
+const descpos = "x"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const eveste = 1 # Eventos item: Sim
+const evsala = 0 # Eventos dono sala: Não
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  ret arg0.var.z_presente@, nulo
+  ret arg0.dentro1.total(este) >= 1, nulo
+  arg0.teclou("pegar presente")
+  arg0.var.z_presente@ = 3000
+#
+
+func cmd_abrirobj
+  se arg1 == este
+    apagar(este)
+    $mens.p(arg0)
+    $mens.mvis1("$P rasga o embrulho e abre o presente!")
+    refvar pres = rand(1, 3)
+    se pres == "1"
+      refvar din = rand(5000, 4000000)
+      $mens.p(arg0)
+      $mens.mvis1("$P ganha " + din + " moedas de ouro!")
+      arg0.var.z_moedas_ += din
+      ret 1
+    senao pres == "2"
+      refvar pquest = rand(1, 15)
+      $mens.p(arg0)
+      $mens.mvis1("$P recebe " + pquest + " pontos de aventura.")
+      arg0.var.z_quest_ += pquest
+      ret 1
+    senao pres == "3"
+      refvar xp = rand(100000, 4000000)
+      arg0.ganhaexp(xp)
+      ret 1
+    fimse
+  fimse
+#
+
+func cmd_pegarobj
+  se arg1 == este
+    ret arg0.var.z_presente@, arg0.msg("Aguarde mais um pouco para pegar outro presente.")
+    ret arg0.dentro1.objini.total(este) >= 1, arg0.msg("Você já está carregando um presente!")
+  fimse
+
+
+classe i_evento005
+herda comum_item
+const nome = "cabana"
+const descnome = "Uma cabana de madeira"
+const descpos = "Há uma pequena cabana de madeira na beira da estrada."
+const i_salas = "evento052\nevento053\nevento054\nevento055"
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_evento006
+herda comum_itemperso
+const nome = "Uma confortável poltrona de couro"
+const descnome = "uma confortável poltrona de couro"
+const descpos = "Uma confortável poltrona de couro foi colocada aqui."
+const i_pegar = "Você toca suas mãos sobre a poltrona do papai noel."
+const i_movel = 1 # Mobília: 1 Sentar
+const i_lugar = 2
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_evento007
+herda comum_item
+const nome = "radar de coelho"
+const descnome = "um radar de coelhos"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 2500000
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_olhar
+  se arg1 == este
+    $mens.p(arg0, "", arg1)
+    $mens.mtodos2("", "$P consulta $o.")
+    listaobj l
+    arg0.msg("Você consulta o radar de coelhos e obtêm os seguintes resultados:")
+    epara l.addfim(p_evento007:objsolto), l, l.ini.remove
+      arg0.msg(l.objini.descnome + ": Nível: " + l.objini.pnivel + " em:")
+      arg0.msg(l.objini.dono.s_titulo)
+    efim
+    ret 1
+  fimse
+
+
+classe i_evento008
+herda comum_item
+const nome = "patas de coelho"
+const ident = "patas coelho par"
+const descnome = "um par de patas de coelho"
+const descpos = "Um belo lustre de cristal ilumina o ambiente."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 130
+const i_pegar = "É muito alto para você pegar."
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 750000
+const evhora = 1 # Eventos hora: Sim
+const m_atribs1 = "Brilhando"
+#
+
+func cmd_hora
+  refvar i = rand(2)
+  ret i != 1, nulo
+  $mens.p(este)
+  $mens.mvis1("Confetes e serpentinas começam a cair de dentro de um lustre de cristal.")
+  refvar c = rand(3, 7)
+  refvar s = rand(3, 7)
+  criar("i_evento009", dono, c)
+  criar("i_evento010", dono, s)
+
+
+classe i_evento009
+herda comum_itemgrupo
+const nome = "par de patas de coelho"
+const ident = "par patas coelho"
+const descnome = "um par de patas de coelho"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 130
+const valor = 750000
+const vestir1 = 134217728 # Aonde vestir: 27-nos pés
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10 * pnivel + 200
+  pmanamax += 10 * pnivel + 200
+  pmovemax += 15 * pnivel
+  pveloc1 += 300
+  atktipo.1 *= 1.5 # Tipos Especiais
+  deftipo.0 *= 1.5 # Tipos Normais
+  deftipo.1 *= 1.5 # Tipos Especiais
+
+const i_msgvestiu = "$P troca seus pés por $o."
+const i_msgremoveu = "$P remove $o, colocando os pés de volta no lugar."
+
+
+classe i_evento010
+herda comum_itemgrupo
+const nome = "orelha de coelho"
+const ident = "orelha coelho"
+const descnome = "uma orelha de coelho"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 100
+const renascer = 1
+const valor = 50000
+const vestir1 = 384 # Aonde vestir: 7-na orelha direita, 8-na orelha esquerda
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 40 * pnivel
+  pmanamax += 40 * pnivel
+  pmovemax += 25 * pnivel
+  precisao += 2 * pnivel + 100
+  bitver |= 4096
+  atktipo.1 *= 1.05 # Tipos Especiais
+  atktipo.11 *= 1.05 # Aéreo/vento
+  atktipo.15 *= 1.05 # Vegetal
+  deftipo.1 *= 0.95 # Tipos Especiais
+
+const i_msgvestiu = "$P troca uma de suas orelhas por uma orelha de coelho."
+const i_msgremoveu = "$P remove uma orelha de coelho, recolocando a outra de volta no lugar."
+
+
+classe i_evento011
+herda comum_itemperso
+const nome = "ombreiras celestiais"
+const ident = "par ombreiras ouro celestiais"
+const descnome = "um par de ombreiras de ouro celestial"
+const descpos = "um belo par de ombreiras douradas emanam um brilho intenso."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 320
+const renascer = 10
+const luzitem = 7 # Tipo de luz: 7 Automático (acende ao vestir, sem fogo)
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 1000000000
+const vestir1 = 8 # Aonde vestir: 3-Sobre os ombros
+const eveste = 1 # Eventos item: Sim
+const quest = 320
+const manterperso = 1 # Mantém em jogador: Sim
+const m_atribs2 = "Rodead$s por uma luz sintilante"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2000
+  pmanamax += 2000
+  pmovemax += 1000
+  pveloc1 += 300
+  precisao += 200
+  atktipo.0 *= 1.33 # Tipos Normais
+  atktipo.1 *= 1.45 # Tipos Especiais
+  atktipo.6 *= 1.3 # Fogo
+  atktipo.12 *= 1.3 # Luz
+  deftipo.0 *= 0.72 # Tipos Normais
+  deftipo.1 *= 0.67 # Tipos Especiais
+  deftipo.6 *= 0.75 # Fogo
+#
+
+func i_pegar
+  ret !dono.item, "você não consegue pegar " + descnome + " do chão."
+  ret nulo
+#
+
+func cmd_darobj
+  se arg2 == este
+    ret arg0.j_imortal, nulo
+    ret arg0.msg("Você não pode dar " + descnome + " a ninguém.")
+  fimse
+#
+
+func cmd_soltarobj
+  se arg2 == este && arg1.nome != "mochila de aventureiro"
+    ret arg0.msg("Você não pode soltar " + descnome + " aqui.")
+  fimse
+#
+
+func cmd_doarobj
+  se arg2 == este
+    ret arg0.msg("Você não pode doar " + descnome + ".")
+  fimse
+
+
+classe i_evento012
+herda comum_itemperso
+const nome = "cinto dourado"
+const ident = "cinto dourado ouro justiça"
+const descnome = "O cinto dourado da justiça"
+const descpos = "Um belo cinto dourado encanta os olhos de quem o vê com seu brilho intenso."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 210
+const renascer = 4
+const luzitem = 7 # Tipo de luz: 7 Automático (acende ao vestir, sem fogo)
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 1000000000
+const vestir1 = 8388608 # Aonde vestir: 23-na cintura
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const quest = 320
+const manterperso = 1 # Mantém em jogador: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1000
+  pmanamax += 800
+  pmovemax += 1000
+  atknorm += 300
+  defnorm += 200
+  atkesp += 300
+  defesp += 2 * pnivel + 400
+  precisao += 100
+  bitinv &= ~2
+  atktipo.1 *= 1.18 # Tipos Especiais
+
+func cmd_soltarobj
+  se arg2 == este && arg1.nome != "mochila de aventureiro"
+    ret arg0.dentrocasa, nulo
+    ret arg0.msg("Não é possível soltar " + descnome + " aqui.")
+  fimse
+#
+
+func i_pegar
+  ret !dono.item, "Você não consegue pegar " + descnome + " do chão."
+  ret nulo
+#
+
+func cmd_doarobj
+  se arg2 == este
+    ret arg0.msg("Não é possível doar " + descnome + ".")
+  fimse
+#
+
+func cmd_darobj
+  se arg2 == este
+    ret arg1.j_imortal, nulo
+    ret arg0.j_imortal, nulo
+    ret arg0.msg("Não é possível dar " + descnome + " a ninguém.")
+  fimse
+
+const m_atribs2 = "* ... el$v está rodead$s por raios de luz"
+
+
+classe i_evento013
+herda comum_item
+const nome = "casaco de pele de coelho"
+const ident = "casaco pele coelho"
+const descnome = "um casaco de pele de coelho"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 120
+const tipoitem = 8 # Tipo de item: 3-Vestimenta
+const vestir1 = 8192 # Aonde vestir: 13-sobre o corpo
+const manterperso = 1 # Mantém em jogador: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200
+  pmanamax += 100
+  pmovemax += 100
+  atknorm += 100
+  defnorm += 200
+  atkesp += 100
+  defesp += 200
+  precisao += 50
+  bitver |= 4614
+
+
+classe i_evento014
+herda comum_item
+const nome = "parte da frente do cartão"
+const ident = "parte frente cartão"
+const descnome = "A parte da frente do cartão"
+const descpos = "Uma das partes de um belo cartão está jogada aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const evperso = 1 # Eventos dono perso: Sim
+
+
+classe i_evento015
+herda comum_item
+const nome = "cabana de madeira"
+const ident = "cabana madeira"
+const descnome = "uma pequena cabana de madeira"
+const i_salas = "evento057"
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_evento016
+herda comum_item
+const nome = "parte de trás do cartão"
+const ident = "parte trás cartão"
+const descpos = "Uma das partes de um belo cartão está jogada aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const evperso = 1 # Eventos dono perso: Sim
+
+
+classe i_evento017
+herda comum_item
+const nome = "laço do cartão"
+const ident = "laço cartão"
+const descnome = "o laço do cartão"
+const descpos = "Uma das partes de um cartão está jogada aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const evperso = 1 # Eventos dono perso: Sim
+
+
+classe i_evento018
+herda comum_item
+const nome = "o anel da velocidade"
+const descnome = "o anel da velocidade"
+const descpos = "um brilhante anel circundado por pequenos raios chama sua atenção"
+const nivel = 200
+const vestir1 = 6291456 # Aonde vestir: 21-no dedo direito, 22-no dedo esquerdo
+const manterperso = 1 # Mantém em jogador: Sim
+const i_msgvestiu = "$P veste $o sentindo uma enorme descarga de energia atravessar todo seu \
+corpo!"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 15 * pnivel + 1000
+  pmanamax += 10 * pnivel + 1000
+  pmovemax += 20 * pnivel + 1500
+  pveloc1 += 100
+  atknorm += 2 * pnivel + 200
+  defnorm += 200
+  atkesp += 2 * pnivel + 200
+  defesp += 200
+  evasao += 60
+  precisao += 60
+  atktipo.0 *= 1.08 # Tipos Normais
+  atktipo.1 *= 1.08 # Tipos Especiais
+  atktipo.4 *= 1.08 # Cortante
+  atktipo.5 *= 1.08 # Perfurante
+
+
+classe i_evento020
+herda comum_itemgrupo
+const nome = "ovo de páscoa"
+const ident = "ovo páscoa"
+const descnome = "um ovo de páscoa"
+const descpos = "Um belo ovo de páscoa está no chão, esperando alguém para devorá-lo!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 120
+const f_sede = 30
+const f_diges = 240
+const f_msgperso = "$P rasga toda a embalagem do ovo rapidamente e o devora com muita satisfação!\
+"
+const valor = 1000000
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_comeu
+  se arg1 == este
+    refvar ovo = rand(3)
+    se ovo == "0"
+      refvar moedas = rand(1000, 1000000)
+      arg0.msg("Parabéns! Você acaba de ganhar " + moedas + " moedas de ouro!")
+      arg0.var.z_moedas_ += moedas
+    senao ovo == 1
+      refvar quest = rand(2, 30)
+      arg0.msg("Parabéns! Você acabou de ganhar " + quest + " pontos de aventura!")
+      arg0.var.z_quest_ += quest
+    senao
+      refvar xp = rand(500, 50000)
+      arg0.msg("Parabéns!")
+      arg0.ganhaexp(xp)
+    fimse
+  fimse
+
+
+classe i_evento021
+herda comum_item
+const nome = "Bola de futebol"
+const ident = "bola futebol"
+const descnome = "uma bola de futebol"
+const descpos = "uma bola está rolando pelo chão."
+const valor = 2000
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_mudadono
+  se dono.s_sala
+    listaobj l
+    epara l.addfim(dono.dentro2), l, l.ini.remove
+      se l.objini.perso
+        misc:evento(l.objini)
+      fimse
+    efim
+  fimse
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se txt1(arg1) == "chu" || txt1(arg1) == "chut" || txt1(arg1) == "chuta" || txt1(arg1) == \
+"chutar"
+    refvar dir = txtsub(arg1, 1, 1)
+    ret !dono.dir_[dir], arg0.msg("Não dá para chutar nessa direção.")
+    refvar ndirp = txttroca(txtsub($cmd_[dir].m_sai2, 3), "$m", "")
+    refvar ndira = txttroca(txtsub($cmd_[dir].m_entra2, 2), "$m", "")
+    $mens.p(arg0, nulo, este)
+    $mens.mens = ndirp
+    $mens.mtodos1("$P chuta a bola para $m.")
+    mudadono(dono.dir_[dir])
+    $mens.p(este)
+    $mens.mens = ndira
+    $mens.mtodos1("$P chegou $m.")
+    ret 1
+  fimse
+
+
+classe i_evento022
+herda comum_item
+const nome = "boneca"
+const ident = "boneca bonequinha"
+const descnome = "uma bonequinha"
+const descpos = "Uma bonequinha repousa suavemente no chão, com os olhinhos abertos e um \
+sorrisinho nos lábios."
+const valor = 2200
+const eveste = 1 # Eventos item: Sim
+
+
+classe i_evento023
+herda comum_item
+const nome = "carrinho"
+const descnome = "um carrinho"
+const descpos = "Um carrinho foi largado no chão."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const valor = 3000
+const eveste = 1 # Eventos item: Sim
+
+
+classe p_evento001
+herda comum_persobat
+const nome = "papai noel"
+const descnome = "o papainoel"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 500
+const p_agressivo = 0 # Agressivo: 0 Pacífico
+const p_imortal = 1 # Imortal: Sim
+const p_mover = 2 # Movimentar: 2 Qualquer lugar
+const p_movervel = 600
+const p_recebe = 1 # Recebe itens: Sim
+const evsala = 1 # Eventos dono sala: Sim
+inttempo tempo
+#
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 2094
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  ret arg0.var.z_presente_, nulo
+  misc:tempo("darpresente", arg0)
+#
+
+func darpresente30
+  se arg0.dentro1.objini.total("i_evento004") >= 1
+    arg0.msg("O papai noel diz: Não posso te dar outro presente, " + arg0.descnome + ". Você já \
+tem um!")
+    ret 1
+  fimse
+  teclou("sor " + arg0.nome)
+  $mens.p(este, arg0)
+  $mens.mvis1("$P diz a $A: Feliz natal $C! Pegue seu presente!")
+  criar("i_evento004", este, 1)
+  teclou("dar presente " + arg0.descnome)
+  teclou("abraçar " + arg0.nome)
+  arg0.var.z_presente@ = 6000
+#
+
+func cmd_mudadono
+#
+  $mens.p(este)
+  $mens.mvis1("$P diz: Rou, Rou, Rou! Papai noel chegou!")
+  listaobj l
+  epara l.addfim(dono.dentro2), l, l.ini.remove
+    se l.objini.jog
+      continuar l.objini.var.z_presente_
+      continuar l.objini.dentro1.total("i_evento004") >= 1
+      $mens.p(este, l.objini)
+      $mens.mvis1("$P diz a $A: Feliz natal!")
+      criar("i_evento004", este, 1)
+      teclou("dar presente " + l.objini.nome)
+      l.objini.var.z_presente@ = 3000
+    fimse
+  efim
+  ret 1
+#
+
+func cabedentro
+  ret 1
+
+
+classe p_evento002
+herda comum_persobat
+const nome = "guarda florestal"
+const descnome = "Um guarda florestal"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 120
+
+
+classe p_evento003
+herda comum_persobat
+
+
+classe p_evento004
+herda comum_persobat
+const nome = "Duende"
+const descnome = "um pequeno duende"
+const descpadr = "Um pequenino e sorridente duende está caminhando por aqui!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 100
+const p_agressivo = 0 # Agressivo: 0 Pacífico
+const p_mover = 2 # Movimentar: 2 Qualquer lugar
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_mudadono
+
+
+classe p_evento005
+herda comum_persobat
+const nome = "papai noel"
+const descnome = "O papai noel"
+const descpadr = "O papai noel está aqui, procurando seu saco de presentes perdido!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 5
+const p_agressivo = 0 # Agressivo: 0 Pacífico
+const p_recebe = 1 # Recebe itens: Sim
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+inttempo tempo
+#
+#
+
+func cmd_darobj
+  se arg1 == este
+    ret arg2 != $i_evento001, arg0.msg("Esse não é meu saco de presentes, " + arg0.descnome + \
+"!")
+  fimse
+#
+
+func cmd_deuobj
+  se arg1 == este
+    apagar(arg2)
+    teclou("f Obrigado " + arg0.descnome + "! Nem sei como agradecê-lo por ter encontrado o meu \
+saco de presentes!")
+    teclou("f Acho que o mínimo que posso fazer é isso, espero que goste...")
+    teclou("emo pega um presente de dentro de um enorme saco vermelho.")
+    criar("i_evento004", este, 1)
+    teclou("dar presente " + arg0.descnome)
+    misc:tempo("criarsaco", este)
+  fimse
+#
+
+func criarsaco300
+  $mens.p(este)
+  $mens.mmud1("Papai noel: Filhinhos e filhinhas! Salvem o natal! perdi o meu saco com presentes \
+e não posso deixar de entregar os presentes de natal!")
+
+func criarsaco330
+  $mens.p(este)
+  $mens.mmud1("Papai Noel: Procurem-no, e quando encontrarem venham até a mim e me entreguem!")
+#
+  refvar s = rand(1, 51)
+  se s < 10
+    criar("i_evento001", $s_evento00[s], 1)
+  senao
+    criar("i_evento001", $s_evento0[s], 1)
+  fimse
+
+
+classe p_evento006
+herda comum_persobat
+const nome = "vendedor de máscaras"
+const descnome = "o vendedor de máscaras"
+const descpadr = "Um homem usando uma fantasia estranha está em pé atrás de um balcão, exibindo \
+suas máscaras."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 10
+const lojaini = 9
+const lojafim = 18
+const lojaitem = "evento007 10"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 20 * pnivel + 200
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+  arg0.msgsom("carnaval")
+
+
+classe p_evento007
+herda comum_persobat
+const nome = "coelho"
+const ident = "coelho páscoa"
+const descnome = "um coelho da páscoa"
+const descpadr = "o coelho da páscoa salta por todos os cantos, carregando ovos de chocolates \
+nos braços."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 15
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 1000
+const p_fugir = 70
+const p_mover = 2 # Movimentar: 2 Qualquer lugar
+const p_movervel = 20
+const inivar = "h_morder=8,h_arranhar=8,z_moedas=500"
+const eveste = 1 # Eventos perso: Sim
+#
+
+func cabedentro
+  ret 1
+#
+
+func cmd_morreu
+  se arg0 == este
+    ret !arg1, nulo
+    refvar o = criar("i_evento020", arg1)
+    $mens.p(arg1, arg0, o)
+    $mens.mtodos1("$P pegou $o de dentro do corpo de $a!")
+    arg1.var.z_coelho_ += 1
+  fimse
+
+
+classe p_evento008
+herda comum_perso
+const nome = "vendedor ambulante"
+const ident = "sílvio santos camelô vendedor"
+const descnome = "Sílvio Santos"
+const descpadr = "Um camelÔ está aqui, vendendo diversas bugigangas."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 25
+const lojaitem = "evento007 10"
+const evhora = 0 # Eventos hora: Não
+#
+
+func cmd_hora
+  teclou("sor")
+  teclou("grita marroê! Arrai!")
+  teclou("f Olá!")
+  teclou("f Quer obter mais êxito em suas caçadas por coelhos da páscoa?")
+  teclou("f Então compre meu super, hiper, mega radar de coelhos!")
+  teclou("F Com eles, você poderá ver a localização de todos os coelhos que estão espalhados \
+apenas olhando para o item!")
+
+
+classe p_evento009
+herda comum_perso
+const nome = "pomba"
+const descnome = "uma pomba"
+const descpadr = "Uma bela pomba está voando por aqui, agitando suas asas alegremente."
+const nivel = 100
+
+
+classe p_evento010
+herda comum_perso
+const nome = "pai José"
+const descnome = "o pai José"
+const descpadr = "Um velho pai está por aqui, aguardando a visita de seus filhos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const p_recebe = 1 # Recebe itens: Sim
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const presentes = "uma camisa preta\n\
+uma calça jeans azul\n\
+uma calça jeans preta\n\
+um par de sapatos de couro marrom\n\
+um par de sapatos de couro preto\n\
+um belo chapéu preto\n\
+uma gravata com bolinhas\n\
+um celular\n\
+um relógio digital de pulso\n\
+um anel de prata\n\
+um anel dourado\n\
+um par de óculos escuros com armação prateada\n\
+um cinto de couro com fivela dourada\n\
+uma camisa azul com bolsos\n\
+uma camisa verde com bolsos\n\
+uma jaqueta de couro\n\
+um casaco de pele\n\
+uma carteira branca\n\
+uma carteira preta\n\
+uma câmera fotográfica\n\
+um perfume"
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_darobj
+  ret !arg0.jog, arg0.msg("Não posso aceitar.")
+  ret !arg0.dentro2.objini("e_evento"), arg0.msg("Você não está participando do evento.")
+  se arg1 == este && txt(arg2) != "i_evento016"
+    ret arg0.msg(descnome + " abre um sorriso e diz: Obrigado, filhinh" + (arg0.msexo ? "o \
+querido, " : "a querida, ") + " mas não posso aceitar isso.")
+  fimse
+#
+
+func cmd_deuobj
+  se !arg0.jog
+    apagar(arg2)
+    ret 1
+  fimse
+  se arg1 == este && arg4 == arg1
+    apagar(arg2)
+    misc:tempo("deupresente", arg0)
+    ret 1
+  fimse
+#
+
+func deupresente10
+  teclou("abraçar " + arg0.descnome)
+  teclou("f Muito obrigado, " + (arg0.msexo ? "meu " : "minha ") + " querid" + (arg0.msexo ? "o \
+filho" : "a filha") + "!")
+#
+
+func deupresente40
+  teclou("f Saiba que fico muito grato por ter lembrado de mim nesta data tão especial, pois \
+represento todos os pais!")
+#
+
+func deupresente70
+  teclou("f Agora vamos ver o que temos aqui!")
+#
+
+func deupresente100
+  teclou("emo rasga o embrulho do presente e o abre com cuidado...")
+#
+
+func deupresente130
+  teclou("emo sorri, ao retirar " + txtsublin(presentes, rand(intsublin(presentes)), 1) + " da \
+caixa.")
+  arg0.ganhaexp(rand(5000, 200000))
+  refvar xp = rand(2, 15)
+  arg0.msg("Você recebe " + xp + " pontos de aventura!")
+  arg0.var.z_quest_ += xp
+
+
+classe p_evento011
+herda comum_persobat
+const nome = "jovem namorada"
+const ident = "jovem moça namorada noiva"
+const descnome = "uma jovem namorada"
+const descpadr = "Uma jovem moça caminha de mãos dadas com seu namorado pelas ruas."
+const nivel = 100
+const p_agressivo = 0 # Agressivo: 0 Pacífico
+const p_imortal = 1 # Imortal: Sim
+const p_recebe = 1 # Recebe itens: Sim
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_alvofim
+  se arg1 == este
+    arg0.msg("A moça sorri para você e uma bola de gelo começa a rodear o seu corpo.")
+    criar("e_congelado", arg0)
+    ret 1
+  fimse
+
+func cmd_darobj
+  se arg1 == este
+    se txt(arg2) != "i_evento050"
+      ret arg0.msg("A moça olha para você e diz: esta não é a aliança que precisamos.")
+    fimse
+    ret !arg0.dentro2.objini("e_cupido"), arg0.msg("A moça indaga: Sem estar participando do \
+evento?")
+    ret arg3 > 1, arg0.msg("A moça diz: apenas uma, " + arg0.descnome + ".")
+    se arg0.var.z_mn_
+      arg0.msg("A moça diz: Você já me entregou a aliança, " + arg0.descnome + ", agora entregue \
+a outra para o meu namorado.")
+      ret 1
+    fimse
+  fimse
+#
+#
+
+func cmd_deuobj
+  se arg1 == este && arg4 == arg0
+    apagar(arg2)
+    arg0.var.z_mn_ += 1
+    se arg0.var.z_rn_ && arg0.var.z_mn_
+      arg0.var.z_evento_ += 1
+      teclou("f Muito obrigada por nos dar as alianças, " + arg0.descnome + "!")
+      dono.msg("A moça e seu namorado trocam as alianças de compromisso, e logo em seguida se \
+beijam apaixonadamente!")
+      arg0.var.z_rn_ = 0
+      arg0.var.z_mn_ = 0
+      refvar qst = rand(10, 30)
+      arg0.var.z_quest_ += qst
+      arg0.msg("Você recebe " + qst + " pontos de aventura!")
+      arg0.ganhaexp(rand(100, 500))
+      ret 1
+    senao
+      arg0.msg("A moça agradece a você, mostrando um sorriso de contentamento no rosto!")
+    fimse
+  fimse
+#
+
+func cabedentro
+  ret 1
+
+
+classe p_evento012
+herda comum_perso
+const nome = "Fantasivaldo"
+const descnome = "fantasivaldo, o vendedor de fantasias"
+const descpadr = "Fantasivaldo, o vendedor de fantasia está em pé aqui, confecionando novas \
+fantasias para os seus clientes."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_mudadono
+  se dono.s_sala
+    listaobj l
+    epara l.addfim(dono.dentro2), l, l.ini.remove
+      se l.objini.jog
+        misc:evento(l.objini)
+      fimse
+    efim
+  fimse
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  casovar txtmin(txt1(arg1))
+  casose "listar"
+  casose "lista"
+  casose "list"
+  casose "lis"
+    arg0.msg(descnome + " diz: Digite comprar, seguido do nome do personagem que deseja assumir \
+ao vestir a fantasia:\nPor exemplo:\nSe desejar assumir o personagem chamado: Lanterna verde, \
+digite:\nComprar o lanterna verde")
+    ret 1
+  casose "comprar"
+  casose "compr"
+  casose "comp"
+    arqsav sav1
+    txt20 nomef.2
+    nomef.0 = txtmaimin(txt2(arg1))
+    nomef.1 = txts(txtnome(nomef.0))
+    ret arg0.var.z_moedas_ < 1000000, arg0.msg("Você não possui $1000000.")
+    ret sav1.existe("sav1/" + nomef.1 + ".sav"), arg0.msg(descnome + " diz: Não posso vender \
+essa fantasia. Esse nome já pertence a um jogador.")
+    refvar i = criar("i_roupas028", arg0, 1, "z_fantasia=" + nomef.0)
+    i.var.z_fantasia = nomef.0
+    arg0.var.z_moedas_ -= 1000000
+    $mens.p(arg0, este, i)
+    $mens.mtodos1("$P compra $o $d $A.")
+    ret 1
+  casofim
+
+
+classe p_evento020
+herda comum_persobat
+const nome = "bringel"
+const ident = "bringel vendedor senhor"
+const descnome = "Bringel, o vendedor de brinquedos"
+const descpadr = "Um senhor está em pé aqui, gritando para todos e mostrando seus brinquedos à \
+venda."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const lojaitem = "evento021 10\nevento022 10\nevento023 10"
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 300
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+inttempo tempo
+#
+
+func cmd_ini
+  tempo = 3000
+#
+
+func cabedentro
+  ret 1
+#
+
+
+classe p_evento021
+herda comum_persobat
+const nome = "Joãozinho"
+const descnome = "Joãozinho"
+const descpadr = "Um menininho muito esperto está correndo por aqui, chutando uma latinha vazia \
+e gritando alto."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const p_agressivo = 0 # Agressivo: 0 Pacífico
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 400
+const p_recebe = 1 # Recebe itens: Sim
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+inttempo tempo
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_mudadono
+  listaobj l
+  epara l.addfim(dono.dentro2), l, l.ini.remove
+    se l.objini.jog
+      misc:evento(l.objini)
+    fimse
+  efim
+#
+
+func cmd_darobj
+  se arg1 == este
+    ret !arg0.jog, arg0.msg("Você não pode participar do evento.")
+    se arg0.var.z_crianca_
+      ret arg0.msg("Aguarde mais um pouco para refazer a quest.")
+    fimse
+    se arg0.var.z_bola_
+      ret arg0.msg("Joãozinho diz: Você já me deu a bola que eu queria, " + arg0.descnome + ", \
+obrigado.")
+    fimse
+    se txt(arg2) != "i_evento021"
+      ret !arg0.jog, arg0.msg("Você não pode participar do evento.")
+      $mens.mp("$A olha para você e diz: não era isso que eu queria, $R.", arg0, este)
+      ret 1
+    fimse
+  fimse
+#
+#
+
+func cmd_deuobj
+  se arg4 == arg1
+    se arg1 == este
+      arg0.var.z_bola_ = 1
+      apagar(arg2)
+      arg0.var.z_brincs_ += 1
+      teclou("pular")
+      $mens.p(este, arg0)
+      $mens.mtodos1("$P abraça $A.")
+      se arg0.var.z_brincs_ == 3
+        arg0.msg("Parabéns, " + arg0.descnome + ", você completou a aventura!")
+        refvar qst = rand(5, 25)
+        arg0.var.z_quest_ += qst
+        arg0.ganhaexp(rand(10000, 50000))
+        $mens.mens = qst
+        $mens.mp("$P recebe $m pontos de aventura!", arg0)
+        arg0.var.z_crianca@ = 3000
+        arg0.var.z_bola_ = 0
+        arg0.var.z_boneca_ = 0
+        arg0.var.z_carrinho_ = 0
+        arg0.var.z_brincs_ = 0
+      fimse
+    fimse
+  fimse
+#
+
+func cabedentro
+  ret 1
+
+
+classe p_evento022
+herda comum_persobat
+const nome = "Mariazinha"
+const descnome = "Mariazinha"
+const descpadr = "Uma linda menininha está caminhando por aqui, carregando um lençol embrulhado \
+nos braços."
+const nivel = 10
+const p_agressivo = 0 # Agressivo: 0 Pacífico
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 400
+const p_recebe = 1 # Recebe itens: Sim
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+inttempo tempo
+#
+
+func cmd_ini
+  tempo = 300
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_mudadono
+  listaobj l
+  epara l.addfim(dono.dentro2), l, l.ini.remove
+    se l.objini.jog
+      misc:evento(l.objini)
+    fimse
+  efim
+#
+
+func cmd_darobj
+  se arg1 == este
+    ret !arg0.jog, arg0.msg("Você não pode participar do evento.")
+    se arg0.var.z_crianca_
+      ret arg0.msg("Aguarde um pouco para fazer a quest novamente.")
+    fimse
+    se arg0.var.z_boneca_
+      ret arg0.msg("Mariazinha diz: Obrigada, " + arg0.descnome + ", você já me deu a boneca que \
+eu queria.")
+    fimse
+    se txt(arg2) != "i_evento022"
+      ret !arg0.jog, arg0.msg("Você não pode participar do evento.")
+      $mens.mp("$A olha para você e diz: não era isso que eu queria, $P.", arg0, este)
+      ret 1
+    fimse
+  fimse
+#
+
+func cmd_deuobj
+  se arg4 == arg1
+    se arg1 == este
+      apagar(arg2)
+      arg0.var.z_boneca_ = 1
+      arg0.var.z_brincs_ += 1
+      teclou("pular")
+      $mens.p(este, arg0)
+      $mens.mtodos1("$P abraça $A.")
+      se arg0.var.z_brincs_ == 3
+        arg0.msg("Parabéns, " + arg0.descnome + ", você completou a aventura!")
+        refvar qst = rand(5, 25)
+        arg0.var.z_quest_ += qst
+        arg0.ganhaexp(rand(10000, 50000))
+        $mens.mens = qst
+        $mens.mp("$P recebe $m pontos de aventura!", arg0)
+        arg0.var.z_boneca_ = 0
+        arg0.var.z_carrinho_ = 0
+        arg0.var.z_crianca@ = 3000
+        arg0.var.z_bola_ = 0
+        arg0.var.z_brincs_ = 0
+      fimse
+    fimse
+  fimse
+#
+
+func tempo_exec
+  teclou("f Eu queria tanto uma bonequinha...")
+  teclou("emo balança os braços vazios, imaginando uma bonequinha neles.")
+  tempo = 300
+#
+
+func cabedentro
+  ret 1
+
+
+classe p_evento023
+herda comum_persobat
+const nome = "Zezinho"
+const descnome = "Zezinho"
+const descpadr = "Um garotinho está agaxado aqui, brincando com uma garrafa, imaginando ser um \
+carrinho."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 10
+const p_agressivo = 0 # Agressivo: 0 Pacífico
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 400
+const p_recebe = 1 # Recebe itens: Sim
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+inttempo tempo
+#
+
+func cmd_ini
+  tempo = 300
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_mudadono
+  listaobj l
+  epara l.addfim(dono.dentro2), l, l.ini.remove
+    se l.objini.jog
+      misc:evento(l.objini)
+    fimse
+  efim
+#
+
+func cmd_darobj
+  se arg1 == este && arg4 == arg1
+    se arg0.var.z_crianca_
+      ret arg0.msg("Aguarde um pouco para fazer a quest novamente.")
+    fimse
+    se arg0.var.z_carrinho_
+      ret arg0.msg("Zezinho diz: Muito obrigado, " + arg0.desnome + ", mas você já me deu o \
+carrinho que eu queria.")
+    fimse
+    se !arg0.jog
+      ret arg0.msg("Você não pode participar do evento.")
+    fimse
+    se txt(arg2) != "i_evento023"
+      ret arg0.msg("Zezinho olha para você e diz: Não era isso que eu queria, " + arg0.descnome \
++ "...")
+    fimse
+  fimse
+#
+
+func cmd_deuobj
+  se arg4 == arg1
+    se arg1 == este
+      apagar(arg2)
+      arg0.var.z_carrinho_ = 1
+      arg0.var.z_brincs_ += 1
+      teclou("pular")
+      $mens.p(este, arg0)
+      $mens.mtodos1("$P abraça $A.")
+      se arg0.var.z_brincs_ == 3
+        arg0.msg("Parabéns, " + arg0.descnome + ", você completou a aventura!")
+        refvar qst = rand(5, 25)
+        arg0.var.z_quest_ += qst
+        arg0.ganhaexp(rand(10000, 50000))
+        $mens.mens = qst
+        $mens.mp("$P recebe $m pontos de aventura!", arg0)
+        arg0.var.z_bola_ = 0
+        arg0.var.z_crianca@ = 3000
+        arg0.var.z_boneca_ = 0
+        arg0.var.z_carrinho_ = 0
+        arg0.var.z_brincs_ = 0
+      fimse
+    fimse
+  fimse
+#
+
+func tempo_exec
+  teclou("f Ah, hoje eu queria um carrinho para brincar...")
+  teclou("emo empurra uma latinha no chão, como se fosse seu carrinho.")
+  tempo = 300
+#
+
+func cabedentro
+  ret 1
+
+
+classe p_evento062
+herda comum_perso
+const nome = "Ernesto"
+const descnome = "Ernesto, o vendedor de roupas masculinas"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const lojasala = "evento064"
+
+
+classe p_evento063
+herda comum_perso
+const nome = "Regina"
+const descnome = "Regina, a vendedora"
+const lojasala = "evento065"
+
+
+classe s_evento001
+herda b_evento
+const s_titulo = "Em um Caminho de Neve"
+const s_desc = "Você está caminhando por um longo caminho coberto de neve.\n\
+O frio deixa seus músculos enregecidos e o chão está tão escorregadio que é quase impossível \
+andar por aqui.\n\
+Para leste o caminho continua."
+const evhora = 0 # Eventos hora: Não
+const dir_l = $s_evento002
+#
+
+func cmd_hora
+  se p_evento007:objsolto.total < 25
+    refvar r = rand(1, 50)
+    se r < 10
+      criar("p_evento007", $s_bosque00[r], rand(15, 30))
+    senao
+      criar("p_evento007", $s_bosque0[r], rand(45, 60))
+    fimse
+    refvar s = rand(1, 98)
+    se s < 10
+      criar("p_evento007", $s_rio00[s], rand(175, 100))
+    senao
+      criar("p_evento007", $s_rio0[s], rand(15, 150))
+    fimse
+    refvar t = rand(1, 98)
+    se t < 10
+      criar("p_evento007", $s_rio00[t], rand(15, 150))
+    senao
+      criar("p_evento007", $s_rio0[t], rand(15, 150))
+    fimse
+    refvar n = rand(1, 50)
+    se n < 10
+      criar("p_evento007", $s_montanha00[n], rand(15, 150))
+    senao
+      criar("p_evento007", $s_montanha0[n], rand(15, 150))
+    fimse
+    refvar q = rand(1, 50)
+    se q < 10
+      criar("p_evento007", $s_parmilion00[q], rand(15, 150))
+    senao
+      criar("p_evento007", $s_parmilion0[q], rand(15, 150))
+    fimse
+    refvar k = rand(1, 14)
+    se k < 10
+      criar("p_evento007", $s_floresta00[k], rand(15, 150))
+    senao
+      criar("p_evento007", $s_floresta0[k], rand(15, 150))
+    fimse
+    refvar m = rand(1, 70)
+    se m < 10
+      criar("p_evento007", $s_parmilion00[m], rand(15, 150))
+    senao
+      criar("p_evento007", $s_parmilion0[m], rand(15, 150))
+    fimse
+    refvar l = rand(1, 40)
+    se l < 10
+      criar("p_evento007", $s_cemiterio00[l], rand(15, 150))
+    senao
+      criar("p_evento007", $s_cemiterio0[l], rand(15, 150))
+    fimse
+    refvar p = rand(1, 50)
+    se p < 10
+      criar("p_evento007", $s_parmilion00[p], rand(15, 150))
+    senao
+      criar("p_evento007", $s_parmilion0[p], rand(15, 150))
+    fimse
+    refvar u = rand(1, 98)
+    se u < 10
+      criar("p_evento007", $s_rio00[u], rand(15, 150))
+    senao
+      criar("p_evento007", $s_rio0[u], rand(15, 150))
+    fimse
+    refvar v = rand(1, 65)
+    se v < 10
+      criar("p_evento007", $s_praia00[v], rand(15, 150))
+    senao
+      criar("p_evento007", $s_praia0[v], rand(15, 150))
+    fimse
+    $mens.p(este)
+    $mens.mmud1(msgcoelho)
+  fimse
+#
+
+func msgcoelho
+  ret rand(2) == 0, "Os coelhos se reproduzem e se espalham!"
+  ret "Coelhos começam a surgir por todos os lados!"
+
+
+classe s_evento002
+herda b_evento
+const s_titulo = "caminho de neve"
+const evhora = 0 # Eventos hora: Não
+const dir_l = $s_evento003
+const dir_o = $s_evento001
+#
+
+func cmd_hora
+  se p_evento009:objsolto.total < 10
+    refvar sala1 = txtfim("000" + rand(1, 100), 3)
+    refvar sala2 = txtfim("000" + rand(1, 100), 3)
+    refvar sala3 = txtfim("000" + rand(1, 100), 3)
+    refvar sala4 = txtfim("000" + rand(1, 100), 3)
+    refvar sala5 = txtfim("000" + rand(1, 100), 3)
+    refvar sala6 = txtfim("000" + rand(1, 60), 3)
+    refvar sala7 = txtfim("000" + rand(1, 60), 3)
+    refvar sala8 = txtfim("000" + rand(1, 60), 3)
+    refvar 60 = txtfim("000" + rand(1, 100), 3)
+    refvar sala10 = txtfim("000" + rand(1, 60), 3)
+    criar("p_evento009", $s_rio[sala1], rand(15, 150))
+    criar("p_evento009", $s_parmilion[sala2], rand(15, 150))
+    criar("p_evento009", $s_rio[sala3], rand(15, 150))
+    criar("p_evento009", $s_rio[sala4], rand(15, 150))
+    criar("p_evento009", $s_rio[sala5], rand(15, 150))
+    criar("p_evento009", $s_parmilion[sala6], rand(15, 150))
+    criar("p_evento009", $s_parmilion[sala7], rand(15, 150))
+    criar("p_evento009", $s_parmilion[sala8], rand(15, 150))
+    criar("p_evento009", $s_parmilion[sala9], rand(15, 150))
+    criar("p_evento009", $s_rio[sala10], rand(15, 150))
+  fimse
+
+
+classe s_evento003
+herda b_evento
+const s_titulo = "caminho de neve"
+const s_desc = "Você está pisando em um chão coberto de neve.\nAqui faz muito frio."
+const dir_n = $s_evento005
+const dir_s = $s_evento006
+const dir_l = $s_evento004
+const dir_o = $s_evento002
+const dir_entrar = $s_evento013
+
+
+classe s_evento004
+herda b_evento
+const s_titulo = "Caminho de neve"
+const dir_n = $s_evento014
+const dir_s = $s_evento015
+const dir_l = $s_evento018
+const dir_o = $s_evento003
+
+
+classe s_evento005
+herda b_evento
+const s_titulo = "uma cabana"
+const dir_s = $s_evento003
+
+
+classe s_evento006
+herda b_evento
+const s_titulo = "uma cabana"
+const dir_n = $s_evento003
+
+
+classe s_evento007
+herda b_evento
+const dir_b = $s_evento003
+
+
+classe s_evento008
+herda b_evento
+const dir_c = $s_evento003
+
+
+classe s_evento009
+herda b_evento
+const s_titulo = "uma cabana"
+const dir_no = $s_evento003
+
+
+classe s_evento010
+herda b_evento
+const s_titulo = "entrando em uma enorme floresta."
+const dir_n = $s_evento011
+const dir_o = $s_evento019
+
+
+classe s_evento011
+herda b_evento
+const s_titulo = "na floresta."
+const dir_n = $s_evento012
+const dir_s = $s_evento010
+
+
+classe s_evento012
+herda b_evento
+const s_titulo = "na floresta."
+const dir_s = $s_evento011
+const dir_l = $s_evento020
+
+
+classe s_evento013
+herda b_evento
+const s_titulo = "uma cabana"
+const dir_sair = $s_evento003
+
+
+classe s_evento014
+herda b_evento
+const s_titulo = "Uma cabana"
+const dir_s = $s_evento004
+
+
+classe s_evento015
+herda b_evento
+const s_titulo = "Uma cabana"
+const dir_n = $s_evento004
+const dir_s = $s_evento016
+
+
+classe s_evento016
+herda b_evento
+const s_titulo = "Nos fundos da cabana"
+const dir_n = $s_evento015
+const dir_sair = $s_evento017
+
+
+classe s_evento017
+herda b_evento
+const s_titulo = "Atrás da cabana"
+const dir_s = $s_evento025
+const dir_l = $s_evento033
+const dir_entrar = $s_evento016
+
+
+classe s_evento018
+herda b_evento
+const s_titulo = "ainda no caminho de neve"
+const dir_l = $s_evento019
+const dir_o = $s_evento004
+
+
+classe s_evento019
+herda b_evento
+const s_titulo = "Próximo a uma floresta"
+const dir_l = $s_evento010
+const dir_o = $s_evento018
+
+
+classe s_evento020
+herda b_evento
+const s_titulo = "entre árvores."
+const dir_l = $s_evento021
+const dir_o = $s_evento012
+
+
+classe s_evento021
+herda b_evento
+const s_titulo = "se aprofundando na floresta."
+const dir_n = $s_evento022
+const dir_o = $s_evento020
+
+
+classe s_evento022
+herda b_evento
+const s_titulo = "uma divisão entre 2 caminhos."
+const dir_n = $s_evento023
+const dir_s = $s_evento021
+const dir_l = $s_evento024
+
+
+classe s_evento023
+herda b_evento
+const s_titulo = "um caminho sem saída."
+const dir_s = $s_evento022
+
+
+classe s_evento024
+herda b_evento
+const s_titulo = "sercado por árvores e mato."
+const dir_o = $s_evento022
+const dir_no = $s_evento028
+
+
+classe s_evento025
+herda b_evento
+const s_titulo = "distanciando-se da cabana"
+const dir_n = $s_evento017
+const dir_s = $s_evento026
+
+
+classe s_evento026
+herda b_evento
+const s_titulo = "aproximando-se de um bosque"
+const dir_n = $s_evento025
+const dir_s = $s_evento027
+
+
+classe s_evento027
+herda b_evento
+const s_titulo = "A entrada do bosque"
+const dir_n = $s_evento026
+const dir_s = $s_evento030
+
+
+classe s_evento028
+herda b_evento
+const s_titulo = "as árvores diminuem."
+const dir_o = $s_evento029
+const dir_se = $s_evento024
+
+
+classe s_evento029
+herda b_evento
+const s_titulo = "próximo ao fim da floresta."
+const dir_n = $s_evento031
+const dir_l = $s_evento028
+
+
+classe s_evento030
+herda b_evento
+const s_titulo = "O bosque"
+const dir_n = $s_evento027
+const dir_o = $s_evento035
+
+
+classe s_evento031
+herda b_evento
+const s_titulo = "andando rumo ao fim da floresta."
+const dir_s = $s_evento029
+const dir_l = $s_evento032
+
+
+classe s_evento032
+herda b_evento
+const s_titulo = "ainda rumo ao fim da floresta."
+const dir_n = $s_evento034
+const dir_o = $s_evento031
+
+
+classe s_evento033
+herda b_evento
+const s_titulo = "A estalagem do lenhador"
+const dir_o = $s_evento017
+
+
+classe s_evento034
+herda b_evento
+const s_titulo = "o fim da floresta."
+const dir_s = $s_evento032
+
+
+classe s_evento035
+herda b_evento
+const s_titulo = "Caminhando pelo bosque"
+const dir_n = $s_evento036
+const dir_l = $s_evento030
+const dir_o = $s_evento038
+
+
+classe s_evento036
+herda b_evento
+const s_titulo = "Na entrada de uma toca"
+const dir_s = $s_evento035
+const dir_b = $s_evento037
+
+
+classe s_evento037
+herda b_evento
+const s_titulo = "A toca dos coelhos"
+const dir_c = $s_evento036
+
+
+classe s_evento038
+herda b_evento
+const s_titulo = "Diante de uma grande árvore"
+const s_desc = "Você está diante de uma grande árvore de carvalho. Você pode subir por ela\n\
+ou prosseguir o caminho do bosque a sudoeste."
+const dir_l = $s_evento035
+const dir_c = $s_evento039
+const dir_so = $s_evento042
+
+
+classe s_evento039
+herda b_evento
+const s_titulo = "No alto da árvore"
+const dir_n = $s_evento041
+const dir_b = $s_evento038
+
+
+classe s_evento040
+herda b_evento
+const s_titulo = "Caindo de cima da árvore"
+const s_morre = 1 # Morre ao entrar: 1 Sim
+const s_pnj = 0
+const s_terreno = 10 # Terreno: 10 Ar, itens e personagens caem - 10mv
+const dir_n = $s_evento039
+
+
+classe s_evento041
+herda b_evento
+const s_titulo = "Pisando em um galho seco"
+const dir_s = $s_evento039
+#
+
+func cmd_salaperso
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+  misc:tempo("entrou", arg0)
+#
+
+func entrou10
+  arg0.msg("Você pisa em um galho seco e extremamente fraco e percebe que ele está se quebrando..\
+.")
+#
+
+func entrou30
+  arg0.msg("O galho não suporta o seu peso se rompe, fazendo-lhe cair de cima da árvore, já sem \
+vida!")
+  arg0.morreu
+
+
+classe s_evento042
+herda b_evento
+const s_titulo = "caminho do bosque"
+const dir_s = $s_evento043
+const dir_ne = $s_evento038
+
+
+classe s_evento043
+herda b_evento
+const s_titulo = "Continuando o caminho do bosque"
+const dir_n = $s_evento042
+const dir_s = $s_evento044
+
+
+classe s_evento044
+herda b_evento
+const s_titulo = "Aproximando-se de um lago"
+const dir_n = $s_evento043
+const dir_s = $s_evento045
+
+
+classe s_evento045
+herda b_evento
+const s_titulo = "Na beira do lago"
+const dir_n = $s_evento044
+const dir_l = $s_evento046
+
+
+classe s_evento046
+herda b_evento
+const s_titulo = "Diante de uma ponte de madeira"
+const dir_s = $s_evento047
+const dir_o = $s_evento045
+
+
+classe s_evento047
+herda b_evento
+const s_titulo = "No início da ponte"
+const dir_n = $s_evento046
+const dir_s = $s_evento048
+
+
+classe s_evento048
+herda b_evento
+const s_titulo = "No meio da ponte"
+const dir_n = $s_evento047
+const dir_s = $s_evento049
+
+
+classe s_evento049
+herda b_evento
+const s_titulo = "No fim da ponte"
+const dir_n = $s_evento048
+const dir_s = $s_evento050
+
+
+classe s_evento050
+herda b_evento
+const s_titulo = "Do outro lado da ponte"
+const dir_n = $s_evento049
+const dir_o = $s_evento051
+
+
+classe s_evento051
+herda b_evento
+const s_titulo = "Na outra margem do lago"
+const dir_l = $s_evento050
+
+
+classe s_evento052
+herda b_evento
+const s_titulo = "A entrada da cabana"
+const s_desc = "Você adentra uma pequenina cabana. Aqui o chão e paredes são feitos de\n\
+madeira e você se sente bem aquecido. Para leste há uma pequenina salinha e\n\
+para o sul há um quartinho."
+const s_entrada = "entrada da cabana"
+const dir_s = $s_evento054
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "a porta do quartinho"
+const dir_l = $s_evento053
+
+
+classe s_evento053
+herda b_evento
+const s_titulo = "uma salinha aconchegante."
+const dir_s = $s_evento055
+const dir_o = $s_evento052
+
+
+classe s_evento054
+herda b_evento
+const s_titulo = "o quarto do papai noel"
+const dir_n = $s_evento052
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "a porta do quarto"
+
+
+classe s_evento055
+herda b_evento
+const s_titulo = "Uma cozinha apertada."
+const dir_n = $s_evento053
+
+
+classe s_evento056
+herda b_evento
+const s_titulo = "Loja de máscaras"
+const dir_n = $s_rio015
+const s_reset = "P 100 evento006 10 15 1 h_socar=4,h_chutar=4,z_moedas=10000"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_evento006:objsolto.total < 1
+    criar("p_evento006", este, rand(10, 15), "h_socar=4,h_chutar=4,z_moedas=10000")
+  fimse
+
+
+classe s_evento057
+herda b_evento
+const s_titulo = "Dentro da cabana"
+const s_entrada = "entrada"
+const s_reset = "P 100 evento010 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_evento010:objsolto.total < 1
+    criar("p_evento010", este, 0)
+  fimse
+
+
+classe s_evento058
+herda b_evento
+const s_titulo = "Um largo corredor iluminado"
+const dir_n = $s_evento059
+const dir_s = $s_evento100
+
+
+classe s_evento059
+herda b_evento
+const s_titulo = "No centro de um corredor leste oeste de lojas."
+const dir_s = $s_evento058
+const dir_l = $s_evento060
+const dir_o = $s_evento061
+
+
+classe s_evento060
+herda b_evento
+const s_titulo = "No corredor das lojas."
+const s_desc = "Você está caminhando por um longo corredor de lojas, indo de leste a oeste.\n\
+Ao norte você vê uma loja de roupas masculinas, enquanto ao sul fica uma\n\
+loja de roupas e acessórios femininos."
+const dir_n = $s_evento062
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "a porta de vidro da loja"
+const fecha_n = 1 # Fecha ao passar: Sim
+const som_abrir_n = "abporta02"
+const som_fechar_n = "fporta02"
+const dir_s = $s_evento063
+const portanome_s = "a porta de vidro da loja"
+const fecha_s = 1 # Fecha ao passar: Sim
+const som_abrir_s = "abporta02"
+const som_fechar_s = "fporta02"
+const dir_o = $s_evento059
+
+
+classe s_evento061
+herda b_evento
+const s_titulo = "No corredor das lojas."
+const dir_l = $s_evento059
+
+
+classe s_evento062
+herda b_evento
+const s_titulo = "Loja de roupas masculinas."
+const s_som = "loja1"
+const dir_n = $s_evento064
+const portaini_n = 3 # Estado inicial: 3 Porta trancada
+const portanome_n = "uma pesada porta de aço"
+const fechadura_n = "evento001"
+const tranc_n = 1 # Trancar: 1 Pode ser trancado
+const dir_s = $s_evento060
+const portanome_s = "a porta de vidro da loja"
+const fecha_s = 1 # Fecha ao passar: Sim
+const som_abrir_s = "abporta02"
+const som_fechar_s = "fporta02"
+const s_reset = "P 100 evento062 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_evento062:objsolto.total < 1
+    criar("p_evento062", este, 0)
+  fimse
+
+
+classe s_evento063
+herda b_evento
+const s_titulo = "Loja de roupas femininas."
+const s_som = "loja2"
+const dir_n = $s_evento060
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "a porta de vidro da loja"
+const fecha_n = 1 # Fecha ao passar: Sim
+const som_abrir_n = "abporta02"
+const som_fechar_n = "fporta02"
+const dir_s = $s_evento065
+const portaini_s = 3 # Estado inicial: 3 Porta trancada
+const portanome_s = "uma pesada porta de aço"
+const fechadura_s = "evento001"
+const fecha_s = 1 # Fecha ao passar: Sim
+const tranc_s = 1 # Trancar: 1 Pode ser trancado
+const s_reset = "P 100 evento063 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_evento063:objsolto.total < 1
+    criar("p_evento063", este, 0)
+  fimse
+
+
+classe s_evento064
+herda b_evento
+const s_titulo = "Nos fundos da loja."
+const dir_s = $s_evento062
+const portaini_s = 3 # Estado inicial: 3 Porta trancada
+const portanome_s = "uma pesada porta de aço"
+const fechadura_s = "evento001"
+const fecha_s = 1 # Fecha ao passar: Sim
+const tranc_s = 1 # Trancar: 1 Pode ser trancado
+
+
+classe s_evento065
+herda b_evento
+const s_titulo = "nos fundos da loja."
+const dir_n = $s_evento063
+
+
+classe s_evento100
+herda b_evento
+const s_titulo = "Um grande salão de eventos"
+const s_fome = 1 # Fome e sede: 1 Ausente
+const s_som = "natal"
+const eveste = 1 # Eventos sala: Sim
+#
+const dir_so = $s_rio001
+
+
+classe s_evento101
+herda b_evento

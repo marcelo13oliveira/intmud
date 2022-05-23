@@ -1,0 +1,77 @@
+classe a_pingpong
+herda area
+const a_nome = "ping pong"
+const a_autor = "Ulrich, Júnior, e Fabi."
+const a_txtreset = "as bolinhas voltam a quicar!"
+
+
+classe b_pingpong
+herda sala
+const s_item = 0
+const s_area = "pingpong"
+
+
+classe i_pingpong001
+herda comum_itemperso
+const nome = "mesa"
+const ident = "mesa"
+const descnome = "uma mesa de pingpong"
+const descpos = "uma mesa de ping pong está montada aqui."
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+uint32 nome
+uint32 name
+
+func cmd_ini
+  name = 0
+  nome = 0
+
+func cmd_chegou
+  misc:evento(arg0)
+# func cmd_escr
+# casovar txtmin(arg1)
+# casose "jogar"
+# se nome == 1 && name == 1
+# arg0.msg("Já existem dois jogadores jogando aqui.")
+# ret 1
+# senao
+# arg0.msg("ok!")
+# arg0.var.h_rebater = 8
+# nome = 1
+# ret 1
+# senao
+# name = "1"
+# arg0.msg("Ok!")
+# arg0.var.h_rebater = 8
+# ret 1
+# casofim
+
+
+classe i_pingpong002
+herda comum_itemperso
+const nome = "bolinha"
+const ident = "bolinha"
+const descnome = "uma bolinha de pingpong"
+const descpos = "uma bolinha de pingpong está quicando aqui, esperando ser rebatida por alguém!"
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+
+classe i_pingpong003
+herda comum_itemperso
+const nome = "raquete"
+const ident = "raquete"
+const descnome = "uma raquete de pingpong"
+const descpos = "uma raquete está sobre a mesa de pingpong, esperando um jogador pegá-la."
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+
+classe s_pingpong001
+herda b_pingpong
+const s_titulo = "a sala de pingpong"
+const a_reset = "S 100 pingpong001 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_pingpong001") && criar("i_pingpong001", este, 1)

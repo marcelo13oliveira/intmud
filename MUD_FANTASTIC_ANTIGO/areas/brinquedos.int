@@ -1,0 +1,37 @@
+classe a_brinquedos
+herda area
+
+
+classe b_brinquedos
+herda sala
+const s_area = "brinquedos"
+
+
+classe i_brinquedos001
+herda comum_item
+const nome = "boneca babaloo"
+const ident = "boneca, babaloo"
+const descnome = "uma boneca babaloo"
+const descpos = "Uma linda bonequinha está sentadinha n chão."
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 50000
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const frases = "$A pergunta: Quer ser minha amiguinha?\n\
+$A pergunta: Me pega no colo?\n\
+$A exclama: Ai! Eu estou tão feliz!!\n\
+$A diz: gosto muito de você.\n\
+$A diz: Meu nome é Babaloo. Qual é o seu nome?"
+#
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "apertar boneca"
+  casose "apertar babaloo"
+  casose "apertar babalu"
+    $mens.p(arg0, este)
+    $mens.mtodos1("$P aperta $A.")
+    $mens.p(arg0, este)
+    $mens.mtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+    ret 1
+  casofim

@@ -1,0 +1,1550 @@
+classe a_cemiterio
+herda area
+const a_nome = "Cemitério"
+const a_tempo = 10
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_txtreset = "Sons horripilantes ecoam por todo o cemitério."
+
+
+classe b_cemiterio
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_recup = 1
+const s_area = "cemiterio"
+
+
+classe i_cemiterio001
+herda comum_itemgrupo
+const nome = "chave dos portões"
+const descnome = "a chave dos portões do cemitério"
+const i_chave = "cmt001"
+
+
+classe i_cemiterio002
+herda comum_itemperso
+const nome = "caixão de madeira"
+const descnome = "um caixão de madeira"
+const descpos = "Um caixão de madeira foi posto aqui, com um corpo dentro."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_salapegar = dentro2.objini("s_cemiterio042")
+const i_salaver = dentro2.objini("s_cemiterio042")
+const i_salas = "cemiterio042"
+const i_movel = 2 # Mobília: 2 Sentar e dormir
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+
+
+classe i_cemiterio003
+herda comum_itemperso
+const nome = "caixão de madeira"
+const descnome = "um caixão de madeira"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_olhar
+  arg0.msg("Você sente um calafrio ao olhar para o caixão.")
+  misc:tempo("olhou", arg0)
+#
+
+func olhou10
+  criar("p_cemiterio004", dono, "posicao=4")
+  teclou("acordar")
+
+
+classe i_cemiterio004
+herda comum_itemgrupo
+const nome = "crucifixo"
+const descnome = "um crucifixo"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 120
+const renascer = 0
+const valor = 50000
+const vestir1 = 512 # Aonde vestir: 9-no pescoço
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10 * pnivel + 100
+  pmanamax += 10 * pnivel + 200
+  bitver |= 2048
+
+
+classe i_cemiterio005
+herda comum_itemgrupo
+const nome = "anel de brilhantes"
+const descnome = "um anel de brilhantes"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 150
+const tipoitem = 65536 # Tipo de produto: 16-joia
+const valor = 1500000
+const vestir1 = 6291456 # Aonde vestir: 21-no dedo direito, 22-no dedo esquerdo
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv &= ~2
+  bitver |= 2
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10 * pnivel + 500
+  pmanamax += 10 * pnivel + 500
+  pmovemax += 10 * pnivel + 500
+  atknorm += 150
+  defnorm += 150
+  atkesp += 150
+  defesp += 100
+  evasao += 50
+  precisao += 50
+  atktipo.0 *= 1.05 # Tipos Normais
+  atktipo.1 *= 1.05 # Tipos Especiais
+  atktipo.2 *= 1.05 # Contusão
+  atktipo.3 *= 1.05 # luta
+  atktipo.4 *= 1.03 # Cortante
+
+
+classe i_cemiterio006
+herda comum_itemgrupo
+const nome = "fonte"
+const descnome = "a fonte da imortalidade"
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_msgperso = "$P bebe da fonte da imortalidade!"
+
+
+classe i_cemiterio007
+herda comum_item
+const nome = "cova"
+const descnome = "uma cova raza"
+const descpos = "Uma cova raza foi aberta aqui."
+const i_salas = "cemiterio021"
+
+
+classe i_cemiterio008
+herda comum_itemperso
+const nome = "cova funda"
+const descnome = "uma cova funda"
+const descpos = "Uma funda cova foi cavada aqui."
+const i_salas = "cemiterio020"
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+
+
+classe i_cemiterio009
+herda comum_item
+const nome = "espada cravejada de ossos afiados"
+const descnome = "uma espada cravejada de ossos afiados"
+const nivel = 250
+const renascer = 0
+const armamax = 300
+const armamin = 150
+const armafalha = 5
+const armaaddprecisao = 100
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const m_atribs2 = "Rodead$s por uma aura negra"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10 * pnivel + 200
+  pmanamax += 15 * pnivel + 300
+  atkesp += 300
+  defesp += 200
+  atktipo.1 *= 1.5 # Tipos Especiais
+  atktipo.13 *= 2 # Trevas
+
+
+classe i_cemiterio010
+herda comum_item
+const nome = "Uma chave feita de sombras"
+const ident = "chave feita sombras negra"
+const descnome = "Uma chave feita de sombras"
+const descpos = "As sombras se reunem ao seus pés, transformando-se em uma chave negra."
+const i_chave = "demônio"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv |= 12
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv |= 12
+
+
+classe i_cemiterio011
+herda comum_itemperso
+const nome = "caixão de madeira"
+const descnome = "um caixão de madeira"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "Você não vai pegar o caixão porque você não tem permissão para isso."
+const i_salapegar = $s_cemiterio086
+const i_salaver = $s_cemiterio086
+const i_salas = "cemiterio086"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const i_msgabriu = "$P abriu a tampa $d $a."
+const i_msgfechou = "$P fechou a tampa $d $a."
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_pegarobj
+  se arg1 == este && arg4 == arg1
+    ret arg0.msg("Você tenta aproximar sua mão do caixão para pegar algo, mas um medo repentino \
+invade todo seu corpo.")
+  fimse
+
+
+classe p_cemiterio001
+herda comum_persobat
+const nome = "porteiro do cemitério"
+const ident = "porteiro homem cadavérico cemitério"
+const descnome = "o porteiro do cemitério"
+const descpadr = "Um porteiro guarda os portões do cemitério, impedindo a passagem de intrusos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 100
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 2000
+const inivar = "h_socar=5,h_chutar=5,z_moedas=50000"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  misc:tempo("entrou", arg0)
+#
+
+func entrou20
+  $mens.p(este, arg0)
+  $mens.mvis1("$p diz a $a: Vá embora daqui, $c. Este lugar é mal assombrado e muito perigoso.")
+  $mens.p(este, arg0)
+  $mens.mtodos1("$p diz: Mas se quiser prosseguir, vai ter que antes passar por cima do meu \
+cadáver.")
+#
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 70 * pnivel + 200
+  atknorm += 2000
+  defnorm += 5000
+#
+
+func cmd_morrer
+  teclou("f Tudo bem, você me venceu. agora pode passar.")
+
+
+classe p_cemiterio002
+herda comum_persobat
+const nome = "caveira"
+const ident = "caveira"
+const descnome = "uma caveira"
+const descpadr = "uma caveira desengonçada está se movendo por aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 120
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_exp = 3500
+const p_morreu1 = "$p dá uma última risada antes de cair imóvel no chão."
+const p_som_entra = "esqueleto"
+const inivar = "h_socar=6,h_chutar=5,z_moedas=100000"
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+#
+  misc:tempo("entrou", arg0)
+#
+
+func entrou30
+  $mens.p(este, arg0)
+  $mens.mtodos2("$p olha para $a e começa a gargalhar insanamente.", "")
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 75 * pnivel + 3000
+  atknorm += 2000
+
+
+classe p_cemiterio003
+herda comum_persobat
+const nome = "coveiro"
+const descnome = "um coveiro"
+const descpadr = "Um coveiro limpa o suor do rosto, enquanto termina de cavar mais uma cova."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 122
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 4000
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 70 * pnivel + 4000
+  atknorm += 2200
+  defnorm += 66000
+
+
+classe p_cemiterio004
+herda comum_persobat
+const nome = "espírito"
+const descnome = "um espírito"
+const descpadr = "Um espírito vaga pelo cemitério"
+const nivel = 115
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_exp = 200
+const p_morreu1 = "$p deixa de existir, tornando-se nada mais que fumaça."
+const inivar = "m_sopro_de_gelo=5,z_moedas=100000"
+const m_atribs1 = "rodeado por uma fraca luz cinzenta"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 70 * pnivel + 2000
+  atknorm += 2000
+  defnorm += 5000
+  bitver |= 512
+
+
+classe p_cemiterio005
+herda comum_persobat
+const nome = "cão negro"
+const descnome = "um enorme cão negro"
+const descpadr = "Um enorme cão, de pelos negros de aspecto sombrio ronda o cemitério a procura \
+de almas para devorar."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 150
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 4500
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 400
+const inivar = "h_morder=6"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50 * pnivel + 2000
+  atknorm += 2000
+  defnorm += 5000
+  defesp += 5000
+
+
+classe p_cemiterio006
+herda comum_persobat
+const nome = "morto vivo"
+const descnome = "um morto vivo"
+const descpadr = "Um morto vivo começa a se mexer dentro do caixão, levantando-se repentinamente!\
+"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 120
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 5000
+const inivar = "h_chutar=6,h_socar=6,z_moedas=500000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 40 * pnivel + 4000
+  atknorm += 3000
+  defnorm += 5000
+  defesp += 5000
+  bitver |= 12
+
+
+classe p_cemiterio007
+herda comum_persobat
+const nome = "cadáver"
+const descnome = "um cadáver"
+const descpadr = "Um cadáver está aqui dentro de um caixão de madeira."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 180
+const pospadr = 4 # Posição padrão: 4 Dormindo
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 5500
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+  misc:tempo("entrou", arg0)
+#
+
+func entrou60
+  teclou("acordar")
+#
+
+func entrou90
+  teclou("lev")
+#
+
+func cmd_pegarobj
+  se arg2.nome == "crucifixo"
+    $mens.p(este, arg0)
+    $mens.mtodos2("", "$p agarra sua mão fortemente e não deixa que você pegue o crucifixo.")
+    ret 1
+  fimse
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 40 * pnivel + 4000
+  atknorm += 2500
+  defnorm += 5000
+  defesp += 5000
+  bitver |= 12
+
+
+classe p_cemiterio008
+herda comum_persobat
+const nome = "cadáver de uma moça"
+const ident = "cadáver moça emmilian"
+const descnome = "o cadáver de uma moça"
+const descpadr = "O cadáver de uma moça repousa dentro de um caixão."
+const nivel = 175
+const pospadr = 4 # Posição padrão: 4 Dormindo
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 5550
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+  misc:tempo("entrou", arg0)
+#
+
+func entrou30
+  teclou("acordar")
+#
+
+func entrou60
+  $mens.p(este, arg0)
+  $mens.mvis2("", "$P olha para $a e diz: o que vieste fazer em meu túmulo, $C")
+#
+
+func entrou90
+  teclou("lev")
+#
+
+func entrou120
+  teclou("f Ande! Vamos resolver isso lá fora!")
+  teclou("sair")
+#
+
+func cmd_pegar
+  $mens.p(este, arg0)
+  $mens.mvis2("", "$p agarra suas mãos fortemente e impede que você o pegue.")
+  ret 1
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50 * pnivel + 4000
+  atknorm += 2250
+  defnorm += 4500
+  defesp += 5000
+
+
+classe p_cemiterio009
+herda comum_persobat
+const nome = "corvo"
+const descnome = "um corvo negro"
+const descpadr = "Um corvo negro sobrevoa as covas, em busca de corpos sem vida para devorar."
+const nivel = 140
+const tipo1 = "140"
+const p_exp = 4300
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 40 * pnivel + 4500
+  atknorm += 2400
+  defnorm += 4500
+  defesp += 4500
+  bitver &= ~32
+  bitinv |= 16
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 28
+
+
+classe p_cemiterio010
+herda comum_persobat
+const nome = "zumbi"
+const descnome = "Um zumbi vaga pelo furioso pelo cemitério."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 160
+const p_exp = 4250
+
+
+classe p_cemiterio011
+herda comum_persobat
+const nome = "morcego"
+const descnome = "um enorme morcego de asas rajadas de sangue"
+const nivel = 200
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_atktipo = "absolver_sangue"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 4000
+const inivar = "h_absolver_sangue=8,h_morder=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 6144
+  bitinv |= 16
+
+
+classe p_cemiterio012
+herda comum_persobat
+const nome = "guarda necromante"
+const descnome = "Um guarda necromante"
+const descpadr = "Um necromante guarda os portões do cemitério."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 270
+const tipo1 = "humano"
+const tipo2 = "necromante"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 5000
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50 * pnivel + 5000
+  atknorm += 2000
+  defnorm += 4000
+  defesp += 4000
+  bitver &= ~16
+  bitver |= 2078
+
+func cmd_mover
+  se arg2 == "l"
+    $mens.p(este, arg0)
+    $mens.mvis2("", "$P diz: Antes terá que me derrotar, $C!")
+    ret 1
+  fimse
+
+
+classe p_cemiterio013
+herda comum_perso
+const nome = "guardião"
+const descnome = "O guardião necromante"
+const descpadr = "Um enorme homem com aspectos cadavéricos posta-se diante da porta, afim de \
+impedir a passagem de indesejados."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 200
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_mover
+  se arg2 == "o" && arg0.tipo2 != "necromante"
+    $mens.p(este, arg0)
+    $mens.mtodos1("$P olha para $A e exclama: 'Suma daqui, $C! Aqui só entram necromantes!'")
+    ret 1
+  fimse
+
+
+classe p_cemiterio014
+herda comum_persobat
+const nome = "Um demônio escarlate"
+const ident = "demônio vermelho rubro escarlate"
+const descnome = "Um aterrorizante demônio escarlate"
+const descpadr = "Roendo um osso que aparenta ser de um ser humano, essa criatura solta um \
+rugido gutural, enquanto observa sua chegada com as mandíbulas bem abertas!"
+
+
+classe p_cemiterio015
+herda comum_persobat
+const nome = "demonio escarlate"
+const ident = "demônio escarlate rubro vermelho"
+const descnome = "Um aterrorizante demônio escarlate"
+const descpadr = "Roendo um osso que aparenta ser de um ser humano, essa criatura solta um \
+rugido gutural, enquanto observa sua chegada com as mandíbulas bem abertas!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 600
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 60000
+const inivar = "h_gancho=8,h_chicote_do_dragão=8,h_ataque_confusao=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100000 * pnivel + 2000000
+  pmovemax += 10000 * pnivel + 60000
+  pveloc1 += 60000 * pnivel + 60000
+  atknorm += 50000 * pnivel + 300000
+  defnorm += 50000 * pnivel + 350000
+  atkesp += 15000 * pnivel + 300000
+  defesp += 50000 * pnivel + 350000
+  precisao += 600 * pnivel + 120000
+  bitver |= 6446
+  bitinv |= 12
+
+
+classe p_cemiterio016
+herda comum_persobat
+const nome = "Gwendalyn, a feiticeira obscura"
+const ident = "gwendalyn feiticeira obscura"
+const descnome = "Gwendalyn, a feiticeira obscura"
+const descpadr = "Um turbilhão de sombras emana do meio do salão e se funde, formando Gwendalyn, \
+a feiticeira obscura."
+const descver = "Malignamente bela. É o que você pensa ao vê-la. Sua beleza prova que os\n\
+rumores que alegam que as criaturas das sombras são fascinantemente perfeitas são genuinamente \
+verdadeiros.\n\
+O rosto de feições desenhadas carrega uma expressão sombria porém calma, como se estivesse \
+apenas esperando por um sinal errôneo seu para atacar e matar.\n\
+Em sua testa está permanentemente tatuada uma lua crescente e prateada,\n\
+contrastando lindamente com o tom pálido impecável da sua pele. Os olhos\n\
+são de um tom raro, que lhe causa arrepios de temor e assombro.\n\
+Castanhos avermelhados, tão singulares e excepcionalmente belos que você tem a impressão que \
+jamais os esquecerá.\n\
+Os cabelos rubros como uma chama viva descem por suas costas, contornando o rosto qual cascata \
+de fogo feroz.\n\
+Um vestido negro de tecido suave envolve suas curvas voluptuosas com primor, exibindo os seios \
+fartos em um decote generoso.\n\
+Uma gargalhada divertida escapa dos lábios vermelhos como morangos\n\
+maduros quando ela observa seu olhar encantado, e Gwendalin retira sabe\n\
+se lá de onde um cetro mortalmente obscuro e te analisa com olhos\n\
+atentos e interessados, parecendo sondar até a sua alma. É, se você não deveria estar aqui, \
+apenas corra, enquanto há tempo!"
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const nivel = 700
+const tipo1 = "vampira"
+const tipo2 = "Necromante"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 120000
+const inivar = "m_vunerabilidade=8,m_ataque_fantasma=8,m_fogo=8,m_lâminas_flamejantes=8,m_drenar_\
+energia=8,m_cegueira=8,m_garras_retalhadoras=8,m_prisão_de_teia=8,m_envenenar=8,z_moedas=10000000\
+00,h_segundo_ataque=8,h_terceiro_ataque=8,h_cajado=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500000 * pnivel + 2000000
+  pmanamax += 100000 * pnivel + 50000000
+  pmovemax += 10000 * pnivel + 100000
+  pveloc1 += 50000 * pnivel + 100000
+  atknorm += 15000 * pnivel + 300000
+  defnorm += 50000 * pnivel + 350000
+  atkesp += 100000 * pnivel + 1000000
+  defesp += 50000 * pnivel + 350000
+  evasao += 3000 * pnivel + 100000
+  precisao += 1000 * pnivel + 150000
+  bitinv &= ~2
+  bitver |= 6206
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 2048
+
+
+classe s_cemiterio001
+herda b_cemiterio
+const s_titulo = "A entrada para o semitério."
+const s_desc = "Você está na entrada do cemitério.\n\
+Daqui você pode ouvir terríveis sons vindos de dentro deste lugar."
+const dir_l = $s_cemiterio002
+const portaini_l = 3 # Estado inicial: 3 Porta trancada
+const portanome_l = "os portões do cemitério"
+const portaartigo_l = 3 # Artigo porta: 3 os (portões)
+const fechadura_l = "cmt001"
+const comechave_l = 1 # Come chave: Sim
+const fecha_l = 1 # Fecha ao passar: Sim
+const tranc_l = 2 # Trancar: 2 Tranca ao fechar
+const dir_o = $s_rio048
+const a_reset = "P 100 cemiterio001 100 104 2\nI 100 cemiterio001 1 o\nD 100 l 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  se p_cemiterio001:objsolto.total < 2
+    p = u = criar("p_cemiterio001", este, rand(100, 104))
+  fimse
+  u && criar("i_cemiterio001", u, 1, "o")
+  mudaporta("l", 3)
+
+
+classe s_cemiterio002
+herda b_cemiterio
+const s_titulo = "Diante dos portões do cemitério."
+const s_pnj = 0
+const dir_l = $s_cemiterio003
+const dir_o = $s_cemiterio001
+const portaini_o = 3 # Estado inicial: 3 Porta trancada
+const portanome_o = "os portões do cemitério"
+const portaartigo_o = 3 # Artigo porta: 3 os (portões)
+const fecha_o = 1 # Fecha ao passar: Sim
+const tranc_o = 2 # Trancar: 2 Tranca ao fechar
+const a_reset = "P 100 cemiterio001 100 104 2\nI 100 cemiterio001 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  se p_cemiterio001:objsolto.total < 2
+    p = u = criar("p_cemiterio001", este, rand(100, 104))
+  fimse
+  u && criar("i_cemiterio001", u, 1)
+
+
+classe s_cemiterio003
+herda b_cemiterio
+const s_titulo = "O cemitério."
+const s_desc = "Este lugar não é nenhum pouco agradável. Por todos os lados, podem se ver restos \
+mortais,\n\
+e túmulos, além de um som estranho que chega aos seus ouvidos e te faz arrepiar."
+const dir_n = $s_cemiterio004
+const dir_s = $s_cemiterio014
+const dir_l = $s_cemiterio009
+const dir_o = $s_cemiterio002
+const a_reset = "P 100 cemiterio002 0 0 5"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_cemiterio002:objsolto.total < 5
+    criar("p_cemiterio002", este, 0)
+  fimse
+
+
+classe s_cemiterio004
+herda b_cemiterio
+const s_titulo = "Caminhando entre túmulos"
+const dir_n = $s_cemiterio005
+const dir_s = $s_cemiterio003
+const dir_l = $s_cemiterio010
+
+
+classe s_cemiterio005
+herda b_cemiterio
+const s_titulo = "Caminhando entre túmulos"
+const dir_n = $s_cemiterio006
+const dir_s = $s_cemiterio004
+const dir_l = $s_cemiterio011
+const a_reset = "P 100 cemiterio004 0 0 4 m_ataque_fantasma=6"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_cemiterio004:objsolto.total < 4
+    criar("p_cemiterio004", este, 0, "m_ataque_fantasma=6")
+  fimse
+
+
+classe s_cemiterio006
+herda b_cemiterio
+const s_titulo = "Caminhando entre túmulos"
+const dir_n = $s_cemiterio007
+const dir_s = $s_cemiterio005
+const dir_l = $s_cemiterio012
+
+
+classe s_cemiterio007
+herda b_cemiterio
+const s_titulo = "A beira de uma cova aberta."
+const dir_s = $s_cemiterio006
+const dir_b = $s_cemiterio008
+const s_reset = "P 100 cemiterio003 0 0 2 h_chutar=6,h_socar=5,z_moedas=120000"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_cemiterio003:objsolto.total < 2
+    criar("p_cemiterio003", este, 0, "h_chutar=6,h_socar=5,z_moedas=120000")
+  fimse
+
+
+classe s_cemiterio008
+herda b_cemiterio
+const s_titulo = "Uma cova"
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+const eveste = 1 # Eventos sala: Sim
+const dir_c = $s_cemiterio007
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+  misc:tempo("entrou", arg0)
+#
+
+func entrou30
+  arg0.msg("Algo como uma mão morta agarra seu pé e te puxa para mais fundo na cova...")
+#
+
+func entrou60
+  arg0.msg("Você começa a ser levado para o mais profundo lugar...")
+#
+
+func entrou90
+  arg0.msg("Ao longe, você consegue ouvir algumas risadas pavorosas.")
+
+func entrou120
+  arg0.msg("Você está chegando no fundo da cova.")
+#
+
+func entrou150
+  arg0.msg("Enquanto morre, você sente que os vermes consomem todo o seu corpo.")
+#
+
+
+classe s_cemiterio009
+herda b_cemiterio
+const s_titulo = "Caminhando pelo cemitério"
+const dir_n = $s_cemiterio010
+const dir_l = $s_cemiterio043
+const dir_o = $s_cemiterio003
+
+
+classe s_cemiterio010
+herda b_cemiterio
+const s_titulo = "Caminhando entre túmulos."
+const dir_n = $s_cemiterio011
+const dir_s = $s_cemiterio009
+const dir_o = $s_cemiterio004
+const a_reset = "P 100 cemiterio005 0 0 5 h_morder=6,z_moedas=100000\n\
+P 100 cemiterio005 0 0 5 h_morder,z_moedas=100000\n\
+P 100 cemiterio005 0 0 5 h_morder=6,z_moedas=100000\n\
+P 100 cemiterio005 0 0 5 h_morder=6,z_moedas=100000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_cemiterio005:objsolto.total < 5
+    criar("p_cemiterio005", este, 0, "h_morder=6,z_moedas=100000")
+  fimse
+  se p_cemiterio005:objsolto.total < 5
+    criar("p_cemiterio005", este, 0, "h_morder,z_moedas=100000")
+  fimse
+  se p_cemiterio005:objsolto.total < 5
+    criar("p_cemiterio005", este, 0, "h_morder=6,z_moedas=100000")
+  fimse
+  se p_cemiterio005:objsolto.total < 5
+    criar("p_cemiterio005", este, 0, "h_morder=6,z_moedas=100000")
+  fimse
+
+
+classe s_cemiterio011
+herda b_cemiterio
+const s_titulo = "Caminhando entre túmulos"
+const dir_n = $s_cemiterio012
+const dir_s = $s_cemiterio010
+const dir_o = $s_cemiterio005
+
+
+classe s_cemiterio012
+herda b_cemiterio
+const s_titulo = "Caminhando entre túmulos"
+const dir_n = $s_cemiterio013
+const dir_s = $s_cemiterio011
+const dir_o = $s_cemiterio006
+
+
+classe s_cemiterio013
+herda b_cemiterio
+const s_titulo = "Mais uma cova"
+const s_desc = "Você está próximo de outra cova no cemitério.\n\
+Ao se aproximar, o terrível cheiro de algo muito apodrecido invade suas narinas, quase o \
+deixando tonto.\n\
+Ao olhar dentro da cova, você fica horrorizado ao contemplar um corpo já em estado avançado de \
+decomposição.\n\
+O cheiro forte atrai corvos e outros animais."
+const dir_s = $s_cemiterio012
+const dir_l = $s_cemiterio022
+const a_reset = "P 100 cemiterio009 140 140 8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_cemiterio009:objsolto.total < 8
+    criar("p_cemiterio009", este, 140)
+  fimse
+
+
+classe s_cemiterio014
+herda b_cemiterio
+const s_titulo = "Uma trilha entre túmulos."
+const s_desc = "Você está caminhando por uma trilha estreita no cemitério. Para sul, a trilha \
+continua, enquanto para leste há um túmulo de mármore."
+const dir_n = $s_cemiterio003
+const dir_s = $s_cemiterio016
+const dir_l = $s_cemiterio015
+
+
+classe s_cemiterio015
+herda b_cemiterio
+const s_titulo = "Dentro de um túmulo de mármore negro"
+const s_pnj = 0
+const dir_o = $s_cemiterio014
+const s_reset = "S 100 cemiterio002 1 S\n\
+P 100 cemiterio006 0 0 1 h_socar=6,h_chutar=6,z_moedas=500000"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_cemiterio002") && criar("i_cemiterio002", este, 1)
+  se p_cemiterio006:objsolto.total < 1
+    criar("p_cemiterio006", este, 0, "h_socar=6,h_chutar=6,z_moedas=500000")
+  fimse
+
+
+classe s_cemiterio016
+herda b_cemiterio
+const s_titulo = "Continuando na trilha de túmulos."
+const dir_n = $s_cemiterio014
+const dir_s = $s_cemiterio018
+const dir_l = $s_cemiterio017
+
+
+classe s_cemiterio017
+herda b_cemiterio
+const s_titulo = "Dentro de outro túmulo."
+const s_pnj = 0
+const dir_o = $s_cemiterio016
+const s_reset = "S 100 cemiterio002 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_cemiterio002") && criar("i_cemiterio002", este, 1)
+
+
+classe s_cemiterio018
+herda b_cemiterio
+const s_titulo = "Ainda na trilha"
+const s_pnj = 0
+const dir_n = $s_cemiterio016
+const dir_s = $s_cemiterio033
+const dir_l = $s_cemiterio019
+
+
+classe s_cemiterio019
+herda b_cemiterio
+const s_titulo = "Dentro de mais um túmulo"
+const s_desc = "Aqui jás o corpo da bela e jovem Emmilian.\n1914  - 1929"
+const s_pnj = 1
+const dir_o = $s_cemiterio018
+const a_reset = "S 100 cemiterio011 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_cemiterio011") && criar("i_cemiterio011", este, 1)
+
+
+classe s_cemiterio020
+herda b_cemiterio
+const s_titulo = "Dentro de uma cova"
+const s_entrada = "dentro da cova funda"
+const dir_n = $s_rio001
+
+
+classe s_cemiterio021
+herda b_cemiterio
+const s_titulo = "Dentro da cova raza"
+const s_entrada = "a entrada da cova"
+
+
+classe s_cemiterio022
+herda b_cemiterio
+const s_titulo = "Outra cova"
+const dir_o = $s_cemiterio013
+
+
+classe s_cemiterio023
+herda b_cemiterio
+const s_titulo = "Nos portões leste do cemitério."
+const dir_l = $s_cemiterio024
+const dir_o = $s_cemiterio028
+const a_reset = "P 100 cemiterio012 0 0 1 m_garras_retalhadoras=8,z_moedas=500000,h_lâmina_longa=\
+6\n\
+E 100 cemiterio009 1 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_cemiterio012:objsolto.total < 1
+    p = u = criar("p_cemiterio012", este, 0, "m_garras_retalhadoras=8,z_moedas=500000,h_lâmina_lo\
+nga=6")
+  fimse
+  se u
+    r = criar("i_cemiterio009", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_cemiterio024
+herda b_cemiterio
+const s_titulo = "Fora do portão do cemitério."
+const s_pnj = 0
+const dir_l = $s_cemiterio025
+const dir_o = $s_cemiterio023
+
+
+classe s_cemiterio025
+herda b_cemiterio
+const s_titulo = "A estrada fora do cemitério"
+const dir_l = $s_cemiterio026
+const dir_o = $s_cemiterio024
+
+
+classe s_cemiterio026
+herda b_cemiterio
+const s_titulo = "A estrada do cemitério"
+const dir_l = $s_cemiterio029
+const dir_o = $s_cemiterio025
+
+
+classe s_cemiterio027
+herda b_cemiterio
+const s_titulo = "Caminhando pelo cemitério"
+const dir_s = $s_cemiterio044
+const dir_l = $s_cemiterio028
+const dir_o = $s_cemiterio043
+
+
+classe s_cemiterio028
+herda b_cemiterio
+const s_titulo = "O final leste do cemitério"
+const dir_l = $s_cemiterio023
+const dir_o = $s_cemiterio027
+
+
+classe s_cemiterio029
+herda b_cemiterio
+const s_titulo = "A continuação da estrada do cemitério."
+const dir_l = $s_cemiterio030
+const dir_o = $s_cemiterio026
+
+
+classe s_cemiterio030
+herda b_cemiterio
+const s_titulo = "No meio da estrada."
+const dir_l = $s_cemiterio031
+const dir_o = $s_cemiterio029
+
+
+classe s_cemiterio031
+herda b_cemiterio
+const s_titulo = "Próximo ao reino de Galbínia"
+const dir_l = $s_cemiterio032
+const dir_o = $s_cemiterio030
+
+
+classe s_cemiterio032
+herda b_cemiterio
+const s_titulo = "Fora dos portões do reino."
+const dir_l = $s_galbinia001
+const dir_o = $s_cemiterio031
+
+
+classe s_cemiterio033
+herda b_cemiterio
+const s_titulo = "Uma parte sombria no cemitério"
+const dir_n = $s_cemiterio018
+const dir_l = $s_cemiterio034
+
+
+classe s_cemiterio034
+herda b_cemiterio
+const s_titulo = "Um caminho sombrio pelo cemitério."
+const dir_l = $s_cemiterio035
+const dir_o = $s_cemiterio033
+
+
+classe s_cemiterio035
+herda b_cemiterio
+const s_titulo = "Continuando no caminho sombrio"
+const dir_o = $s_cemiterio034
+const dir_se = $s_cemiterio036
+
+
+classe s_cemiterio036
+herda b_cemiterio
+const s_titulo = "O caminho sombrio."
+const dir_s = $s_cemiterio037
+const dir_no = $s_cemiterio035
+
+
+classe s_cemiterio037
+herda b_cemiterio
+const s_titulo = "A entrada de uma caverna dentro do cemitério."
+const dir_n = $s_cemiterio036
+const dir_b = $s_cemiterio038
+
+
+classe s_cemiterio038
+herda b_cemiterio
+const s_titulo = "Uma caverna assombrada"
+const dir_s = $s_cemiterio039
+const dir_c = $s_cemiterio037
+const a_reset = "P 100 cemiterio011 0 0 4 h_absolver_sangue=8,h_morder=8,h_arremessar=8,z_moedas=\
+100000\n\
+P 100 cemiterio011 0 0 4 h_absolver_sangue=8,h_morder=8,h_arremessar=8,z_moedas=100000\n\
+P 100 cemiterio011 0 0 4 h_absolver_sangue=8,h_morder=8,h_arremessar=8,z_moedas=100000\n\
+P 100 cemiterio011 0 0 4 h_absolver_sangue=8,h_arremessar=8,h_morder=8,z_moedas=100000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_cemiterio011:objsolto.total < 4
+    criar("p_cemiterio011", este, 0, "h_absolver_sangue=8,h_morder=8,h_arremessar=8,z_moedas=1000\
+00")
+  fimse
+  se p_cemiterio011:objsolto.total < 4
+    criar("p_cemiterio011", este, 0, "h_absolver_sangue=8,h_morder=8,h_arremessar=8,z_moedas=1000\
+00")
+  fimse
+  se p_cemiterio011:objsolto.total < 4
+    criar("p_cemiterio011", este, 0, "h_absolver_sangue=8,h_morder=8,h_arremessar=8,z_moedas=1000\
+00")
+  fimse
+  se p_cemiterio011:objsolto.total < 4
+    criar("p_cemiterio011", este, 0, "h_absolver_sangue=8,h_arremessar=8,h_morder=8,z_moedas=1000\
+00")
+  fimse
+
+
+classe s_cemiterio039
+herda b_cemiterio
+const s_titulo = "A caverna assombrada"
+const dir_n = $s_cemiterio038
+const dir_s = $s_cemiterio040
+
+
+classe s_cemiterio040
+herda b_cemiterio
+const s_titulo = "Continuando pela caverna mal assombrada."
+const dir_n = $s_cemiterio039
+const dir_s = $s_cemiterio041
+
+
+classe s_cemiterio041
+herda b_cemiterio
+const s_titulo = "Uma interceção na caverna"
+const s_desc = "Você chega a um ponto central na caverna. Aqui você pode ver três saídas: uma ao \
+norte, dee, para o início da caverna do cemitério, outra para o sudoeste e mais uma para \
+sudeste."
+const dir_n = $s_cemiterio040
+const dir_se = $s_hogwarts066
+const dir_so = $s_dragoes001
+
+
+classe s_cemiterio042
+herda b_cemiterio
+const s_titulo = "dentro do caixão"
+const s_entrada = "caixão"
+const s_jog = 2
+const a_reset = "P 100 cemiterio007 0 0 1 h_socar=4,h_gancho=4,h_chutar=4,z_moedas=20000\n\
+S 100 cemiterio004 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_cemiterio007:objsolto.total < 1
+    criar("p_cemiterio007", este, 0, "h_socar=4,h_gancho=4,h_chutar=4,z_moedas=20000")
+  fimse
+  !dentro1.objini("i_cemiterio004") && criar("i_cemiterio004", este, 1)
+
+
+classe s_cemiterio043
+herda b_cemiterio
+const s_titulo = "Caminhando pelo cemitério"
+const dir_l = $s_cemiterio027
+const dir_o = $s_cemiterio009
+
+
+classe s_cemiterio044
+herda b_cemiterio
+const s_titulo = "Outra trilha entre túmulos"
+const dir_n = $s_cemiterio027
+const dir_s = $s_cemiterio045
+const dir_o = $s_cemiterio046
+
+
+classe s_cemiterio045
+herda b_cemiterio
+const s_titulo = "Caminhando entre túmulos"
+const dir_n = $s_cemiterio044
+const dir_s = $s_cemiterio058
+const dir_l = $s_cemiterio056
+
+
+classe s_cemiterio046
+herda b_cemiterio
+const s_titulo = "A entrada de um túmulo"
+const s_pnj = 0
+const dir_s = $s_cemiterio047
+const dir_l = $s_cemiterio044
+const dir_entrar = $s_cemiterio055
+const s_autonao = 1
+
+
+classe s_cemiterio047
+herda b_cemiterio
+const s_titulo = "No topo de uma escadaria de pedras ensanguentadas"
+const dir_n = $s_cemiterio046
+const dir_b = $s_cemiterio048
+
+
+classe s_cemiterio048
+herda b_cemiterio
+const s_titulo = "Na escadaria de pedras ensanguentadas"
+const dir_s = $s_cemiterio049
+const dir_c = $s_cemiterio047
+
+
+classe s_cemiterio049
+herda b_cemiterio
+const s_titulo = "Na escadaria de pedras ensanguentadas"
+const dir_b = $s_cemiterio050
+const dir_n = $s_cemiterio048
+
+
+classe s_cemiterio050
+herda b_cemiterio
+const s_titulo = "No fim da escadaria de pedras ensanguentadas"
+const dir_s = $s_cemiterio051
+const dir_c = $s_cemiterio049
+
+
+classe s_cemiterio051
+herda b_cemiterio
+const s_titulo = "Um corredor escuro"
+const s_desc = "Você está passando por um corredor escuro. Do teto, pendem esqueletos\n\
+humanos e nas paredes estão escupidas imagens de monstros horripilantes."
+const dir_n = $s_cemiterio050
+const dir_s = $s_cemiterio052
+
+
+classe s_cemiterio052
+herda b_cemiterio
+const s_titulo = "No corredor nebuloso"
+const dir_n = $s_cemiterio051
+const dir_o = $s_cemiterio053
+
+
+classe s_cemiterio053
+herda b_cemiterio
+const s_titulo = "O corredor nebuloso"
+const dir_l = $s_cemiterio052
+const dir_o = $s_cemiterio054
+
+
+classe s_cemiterio054
+herda b_cemiterio
+const s_titulo = "Diante de uma porta entalhada de ossos e suja de sangue"
+const dir_l = $s_cemiterio053
+const dir_o = $s_guilda003
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "uma porta entalhada de ossos e suja de sangue"
+const fecha_o = 1 # Fecha ao passar: Sim
+const s_reset = "P 100 cemiterio013 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_cemiterio013:objsolto.total < 1
+    criar("p_cemiterio013", este, 0)
+  fimse
+
+
+classe s_cemiterio055
+herda b_cemiterio
+const s_titulo = "Um túmulo"
+const dir_sair = $s_cemiterio046
+
+
+classe s_cemiterio056
+herda b_cemiterio
+const s_titulo = "A entrada de um túmulo coberto por teias de aranha"
+const dir_o = $s_cemiterio045
+const dir_entrar = $s_cemiterio057
+
+
+classe s_cemiterio057
+herda b_cemiterio
+const s_titulo = "Em um túmulo coberto por teias de aranha"
+const dir_sair = $s_cemiterio056
+
+
+classe s_cemiterio058
+herda b_cemiterio
+const s_titulo = "Caminhando entre túmulos"
+const dir_n = $s_cemiterio045
+const dir_s = $s_cemiterio061
+const dir_l = $s_cemiterio059
+
+
+classe s_cemiterio059
+herda b_cemiterio
+const s_titulo = "A entrada de um túmulo infestado de ratos"
+const dir_o = $s_cemiterio058
+const dir_entrar = $s_cemiterio060
+
+
+classe s_cemiterio060
+herda b_cemiterio
+const s_titulo = "Em um túmulo infestado de ratos"
+const dir_sair = $s_cemiterio059
+
+
+classe s_cemiterio061
+herda b_cemiterio
+const s_titulo = "No fim do caminho entre túmulos"
+const dir_n = $s_cemiterio058
+const dir_b = $s_cemiterio062
+const portaini_b = 2 # Estado inicial: 2 Porta fechada
+const portanome_b = "Um alçapão oculto sob o musgo"
+const portaartigo_b = 2 # Artigo porta: 2 o (portão)
+const inv_b = 1 # Invisível: Sim
+const fecha_b = 1 # Fecha ao passar: Sim
+const tranc_b = 2 # Trancar: 2 Tranca ao fechar
+
+
+classe s_cemiterio062
+herda b_cemiterio
+const s_titulo = "Na entrada do covil da feiticeira"
+const dir_n = $s_cemiterio065
+const dir_s = $s_cemiterio066
+const dir_l = $s_cemiterio063
+const dir_o = $s_cemiterio064
+const dir_c = $s_cemiterio061
+const portaini_c = 2 # Estado inicial: 2 Porta fechada
+const portanome_c = "Um alçapão oculto sob o musgo"
+const portaartigo_c = 2 # Artigo porta: 2 o (portão)
+const inv_c = 1 # Invisível: Sim
+const fecha_c = 1 # Fecha ao passar: Sim
+const tranc_c = 2 # Trancar: 2 Tranca ao fechar
+const dir_b = $s_cemiterio071
+const dir_ne = $s_cemiterio067
+const dir_no = $s_cemiterio069
+const dir_se = $s_cemiterio070
+const dir_so = $s_cemiterio068
+
+
+classe s_cemiterio063
+herda b_cemiterio
+const s_titulo = "Um corredor sombrio"
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+const dir_o = $s_cemiterio062
+
+
+classe s_cemiterio064
+herda b_cemiterio
+const s_titulo = "Um corredor sombrio"
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+const dir_l = $s_cemiterio062
+
+
+classe s_cemiterio065
+herda b_cemiterio
+const s_titulo = "Um corredor sombrio"
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+const dir_s = $s_cemiterio062
+
+
+classe s_cemiterio066
+herda b_cemiterio
+const s_titulo = "Um corredor sombrio"
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+const dir_n = $s_cemiterio062
+
+
+classe s_cemiterio067
+herda b_cemiterio
+const s_titulo = "Um corredor sombrio"
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+const dir_so = $s_cemiterio062
+
+
+classe s_cemiterio068
+herda b_cemiterio
+const s_titulo = "Um corredor sombrio"
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+const dir_ne = $s_cemiterio062
+
+
+classe s_cemiterio069
+herda b_cemiterio
+const s_titulo = "Um corredor sombrio"
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+const dir_se = $s_cemiterio062
+
+
+classe s_cemiterio070
+herda b_cemiterio
+const s_titulo = "Um corredor sombrio"
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+const dir_no = $s_cemiterio062
+
+
+classe s_cemiterio071
+herda b_cemiterio
+const s_titulo = "A escadaria de mármore negro"
+const dir_c = $s_cemiterio062
+const dir_b = $s_cemiterio072
+
+
+classe s_cemiterio072
+herda b_cemiterio
+const s_titulo = "A escadaria de mármore negro"
+const dir_c = $s_cemiterio071
+const dir_b = $s_cemiterio073
+
+
+classe s_cemiterio073
+herda b_cemiterio
+const s_titulo = "A escadaria de mármore negro"
+const dir_c = $s_cemiterio072
+const dir_b = $s_cemiterio074
+
+
+classe s_cemiterio074
+herda b_cemiterio
+const s_titulo = "Um corredor repleto de sombras"
+const dir_n = $s_cemiterio075
+const dir_c = $s_cemiterio073
+
+
+classe s_cemiterio075
+herda b_cemiterio
+const s_titulo = "Um corredor repleto de sombras"
+const dir_n = $s_cemiterio076
+const dir_s = $s_cemiterio074
+
+
+classe s_cemiterio076
+herda b_cemiterio
+const s_titulo = "Um corredor repleto de sombras"
+const dir_s = $s_cemiterio075
+const dir_no = $s_cemiterio077
+const portaini_no = 3 # Estado inicial: 3 Porta trancada
+const portanome_no = "Uma ceção da parede de mármore negro"
+const portaartigo_no = 0 # Artigo porta: 0 a (porta)
+const fechadura_no = "demônio"
+const comechave_no = 1 # Come chave: Sim
+const inv_no = 1 # Invisível: Sim
+const fecha_no = 1 # Fecha ao passar: Sim
+const tranc_no = 2 # Trancar: 2 Tranca ao fechar
+const voar_no = 0 # Voar: Não
+const a_reset = "P 100 cemiterio015 600 600 1\nE 50 cemiterio010 1 21"
+const s_reset = "P 100 cemiterio015 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_cemiterio015:objsolto.total < 1
+    criar("p_cemiterio015", este, 0)
+  fimse
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_cemiterio015:objsolto.total < 1
+    p = u = criar("p_cemiterio015", este, 600)
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_cemiterio010", u, 1), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_cemiterio077
+herda b_cemiterio
+const s_titulo = "No alto da escadaria"
+const dir_b = $s_cemiterio079
+const dir_no = $s_cemiterio078
+const dir_se = $s_cemiterio076
+const portaini_se = 3 # Estado inicial: 3 Porta trancada
+const portanome_se = "Uma ceção da parede de mármore negro"
+const portaartigo_se = 1 # Artigo porta: 1 as (portas)
+const inv_se = 1 # Invisível: Sim
+const fecha_se = 1 # Fecha ao passar: Sim
+const tranc_se = 2 # Trancar: 2 Tranca ao fechar
+
+
+classe s_cemiterio078
+herda b_cemiterio
+const s_titulo = "Um corredor sombrio"
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+const dir_se = $s_cemiterio077
+
+
+classe s_cemiterio079
+herda b_cemiterio
+const s_titulo = "Na escadaria de mármore negro"
+const dir_c = $s_cemiterio077
+const dir_b = $s_cemiterio080
+
+
+classe s_cemiterio080
+herda b_cemiterio
+const s_titulo = "Na escadaria de mármore negro"
+const dir_c = $s_cemiterio079
+const dir_b = $s_cemiterio081
+
+
+classe s_cemiterio081
+herda b_cemiterio
+const s_titulo = "Na escadaria de mármore negro"
+const dir_c = $s_cemiterio080
+const dir_b = $s_cemiterio082
+
+
+classe s_cemiterio082
+herda b_cemiterio
+const s_titulo = "Um corredor repleto de sombras"
+const dir_s = $s_cemiterio083
+const dir_c = $s_cemiterio081
+
+
+classe s_cemiterio083
+herda b_cemiterio
+const s_titulo = "Um corredor repleto de sombras"
+const dir_n = $s_cemiterio082
+const dir_s = $s_cemiterio084
+
+
+classe s_cemiterio084
+herda b_cemiterio
+const s_titulo = "Um corredor repleto de sombras"
+const dir_n = $s_cemiterio083
+const dir_s = $s_cemiterio085
+
+
+classe s_cemiterio085
+herda b_cemiterio
+const s_titulo = "Um imenso salão tomado por densas sombras"
+const s_luz = 1 # Luz: 1 Claro sem eventos de tempo
+const s_naoresg = 0 # Sem resgate: Não
+const s_recup = 1
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const s_semmagia = 0 # Sem magia: Não
+const dir_n = $s_cemiterio084
+const a_reset = "P 100 cemiterio016 700 700 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_cemiterio016:objsolto.total < 1
+    criar("p_cemiterio016", este, 700)
+  fimse
+
+
+classe s_cemiterio086
+herda b_cemiterio
+const s_titulo = "Dentro do caixão."
+const s_entrada = "caixão"
+const a_reset = "P 100 cemiterio008 0 0 1\nS 100 cemiterio005 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_cemiterio008:objsolto.total < 1
+    criar("p_cemiterio008", este, 0)
+  fimse
+  !dentro1.objini("i_cemiterio005") && criar("i_cemiterio005", este, 1)
+
+func txtsai
+  ret ""

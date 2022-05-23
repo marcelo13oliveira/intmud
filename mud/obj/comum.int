@@ -1,0 +1,312 @@
+classe comum_obj
+# Comum a todos os personagens, itens e salas
+#
+ref dono # Quem possui esse objeto; mesmo que: idono.objlista
+ref donoantes # Dono anterior
+ref contr # Quem está controlando; mesmo que: (perso && dono.perso ? dono : este)
+sav listaitem idono # Uso interno: aonde o objeto está
+sav listaobj dentro1 # Lista de objetos que possui
+sav listaobj dentro2 # Lista de personagens ou de objetos que está vestindo
+listaobj evento # Objetos que recebem eventos desse
+listaitem evrec.3 # Usado internamente, para receber eventos
+uint8 socktot # Quantidade de objetos controlados por jogadores (com sock!=nulo)
+const objtot = 1 # Quantidade de itens que esse objeto representa
+const objmax = 100 # Quantos itens pode ter (objetos em dentro1)
+# const objlimite = 0 # Somente salas e personagens:
+# quantos itens pode ter incluindo itens dentro de outros
+uint16 objnum # Quantidade total de itens que representa é: (objnum>>1)
+# Bit 0 de objnum é 1 se a função ajustapeso já foi chamada
+sav textovar var # Variáveis criadas sob demanda
+#
+uint32 pesoden # Somente leitura: quanto peso tem dentro
+uint32 pesotot # Somente leitura: peso total
+const pesoobj = 1 # Peso do objeto (em gramas)
+const pesoadd = 1 # Se falso, está voando/flutuando (pesotot será 0)
+#
+uint32 volden # Somente leitura: volume do que tem dentro
+uint32 voltot # Somente leitura: volume total do objeto
+const volobj = 1 # Volume do objeto quando estiver vazio
+const volmax = 1000000 # Volume máximo do que pode ter dentro
+const volexp = 0 # Diferente de 0 se expande com os itens que tem dentro
+#
+uint16 luzden # Somente leitura: quantas fontes de luz dentro
+uint16 luztot # Somente leitura: quantidade total de fontes de luz
+# const luztipo = 0 # 0=não repassa a luz, 1=não é fonte de luz, 2=é fonte de luz
+#
+# const evhora = 1 # Receber evento cmd_hora a cada hora MUD
+# const eveste = 1 # Receber eventos do próprio objeto
+# const evperso = 1 # Receber eventos do dono se o dono for personagem
+# const evitem = 1 # Receber eventos do dono se o dono for item
+# const evsala = 1 # Receber eventos do dono se o dono for sala
+
+func ini # Objeto é criado, acerta eventos, peso, volume e luz
+  evhora && (evrec.0 = $miscsav.evhora.addfim(este))
+  eveste && (evrec.1 = evento.addfim(este))
+  pesoadd && (pesotot = pesoobj * objtot) # Acerta o peso
+  voltot = volobj * objtot # Acerta o volume
+  luztipo > 1 && (luztot = 1) # Acerta a luz
+
+func fim # Objeto vai sair do jogo
+  idono && mdono(nulo)
+  listaobj l
+  l.addfim(evento), evento.limpar, atkrec.limpar
+  enquanto l
+    l.objini.cmd_fim(este), l.ini.remove
+  efim
+  cmd_objfim, idono && mdono(nulo)
+  epara nulo, lseguir, lseguir.ini.remove
+    lseguir.objini.msg("Você pára de seguir " + nome + ".")
+  efim
+
+func ajustapeso # Acerta peso e volume (pesoden, pesotot, volden, voltot)
+  real2 x
+  ref r
+# Acerta o peso (pesoden e pesotot)
+  x = pesoadd ? pesoden + pesoobj * objtot - pesotot : -pesotot
+  se x
+    pesotot += x, r = dono, r.pesoden += x
+    enquanto r.pesoadd
+      r.pesotot += x, r = r.dono, r.pesoden += x
+    efim
+  fimse
+# Acerta o volume (volden e voltot)
+  x = volexp ? volden + volobj * objtot - voltot : volobj * objtot - voltot
+  se x
+    voltot += x, r = dono, r.volden += x
+    enquanto r.volexp
+      r.voltot += x, r = r.dono, r.volden += x
+    efim
+  fimse
+# Acerta a luz (luzden e luztot)
+  x = !luztipo ? -luztot : (luztipo > 1) + luzden - luztot
+  se x
+    luztot += x, r = dono, r.luzden += x
+    enquanto r.luztipo
+      r.luztot += x, r = r.dono, r.luzden += x
+    efim
+  fimse
+# Acerta a quantidade de itens (objnum)
+  se objnum & 1
+  senao item
+    objnum += 3, r = dono
+    epara r.objnum += 2, r.item, r.objnum += 2
+      r = r.dono
+    efim
+  senao
+    objnum++
+  fimse
+
+func ajustaobj # Acerta dono e eventos do objeto
+  dono = idono.objlista
+  contr = perso && dono.perso ? dono : este
+  evrec.0.remove, evrec.1.remove, evrec.2.remove
+  evhora && (evrec.0 = $miscsav.evhora.addfim(este))
+  eveste && (evrec.1 = evento.addfim(este))
+  (dono.perso ? evperso : dono.item ? evitem : evsala) && (evrec.2 = dono.evento.addfim(este))
+
+func mdono # Objeto muda de dono (arg0 = novo dono)
+  donoantes = dono # Acerta o dono anterior
+  ret idono.objlista == arg0, nulo # Retorna se o dono não vai mudar
+  ref r
+# Se não está voando: retira o peso total
+  se pesotot
+    r = dono, r.pesoden -= pesotot
+    enquanto r.pesoadd
+      r.pesotot -= pesotot, r = r.dono, r.pesoden -= pesotot
+    efim
+  fimse
+# Retira o volume
+  r = dono, r.volden -= voltot
+  enquanto r.volexp
+    r.voltot -= voltot, r = r.dono, r.volden -= voltot
+  efim
+# Retira a luz
+  se luztot
+    r = dono, r.luzden -= luztot
+    enquanto r.luztipo
+      r.luztot -= luztot, r = r.dono, r.luzden -= luztot
+    efim
+  fimse
+# Retira a quantidade de itens (objnum)
+  epara r = este, r.item, r.objnum -= objnum & ~1
+    r = r.dono
+  efim
+# Indica que o jogo salvo mudou
+  epara r = este, r.objsav == 1, r = r.dono
+  efim
+  r.objmudou = 1
+# Acerta se tem jogador dentro
+  se socktot
+    epara r = dono, r, r = r.dono
+      r.socktot -= socktot
+    efim
+  fimse
+# Muda de dono e acerta eventos
+  evrec.1.remove, evrec.2.remove, eveste && (evrec.1 = evento.addfim(este))
+  r = dono = arg0, idono.remove # Muda o dono atual
+  contr = perso && r.perso ? r : este
+  se !r
+    ret
+  senao perso || s_sala
+    idono = r.dentro2.addfim(este) # Adiciona personagem
+  senao
+    idono = r.dentro1.addfim(este) # Adiciona item
+  fimse
+  (r.perso ? evperso : r.item ? evitem : evsala) && (evrec.2 = r.evento.addfim(este))
+# Se não está voando: acrescenta o peso total
+  se pesotot
+    r.pesoden += pesotot # Nota: r já é dono
+    enquanto r.pesoadd
+      r.pesotot += pesotot, r = r.dono, r.pesoden += pesotot
+    efim
+  fimse
+# Acrescenta o volume
+  r = dono, r.volden += voltot
+  enquanto r.volexp
+    r.voltot += voltot, r = r.dono, r.volden += voltot
+  efim
+# Acrescenta a luz
+  se luztot
+    r = dono, r.luzden += luztot
+    enquanto r.luztipo
+      r.luztot += luztot, r = r.dono, r.luzden += luztot
+    efim
+  fimse
+# Acrescenta a quantidade de itens (objnum)
+  epara r = este, r.item, r.objnum += objnum & ~1
+    r = r.dono
+  efim
+# Indica que o jogo salvo mudou
+  epara r = este, r.objsav == 1, r = r.dono
+  efim
+  r.objmudou = 1
+# Acerta se tem jogador dentro
+  se socktot
+    epara r = dono, r, r = r.dono
+      r.socktot += socktot
+    efim
+  fimse
+# Limpa outras variáveis e adiciona rastro de jogador
+  jog && (dono.var.r_[nome]@ = 36000) # 60*60*10 = uma hora
+  perso && atkenv.remove + atkrec.limpar
+  var.limpar("d_")
+
+
+classe comum_persoitem
+herda comum_obj
+# Comum a todos os personagens e itens
+int16 bitver # O que o personagem/item pode ver
+int16 bitinv # Grau de invisibilidade do personagem/item
+intexec recalc # Se deve recalcular variáveis do personagem/item
+textotxt atribs # Atributos do item ou personagem, um atributo por linha
+listaitem iseguir # Quem o personagem ou item está seguindo
+listaobj lseguir # Quem está seguindo o personagem ou item
+uint8 tseguir # 0=seguir sem compromisso, 1=membro de grupo, 2=líder de grupo
+
+func visivel # Informa se esse objeto está visível (arg0=quem quer ver)
+  ret arg0.dono.luzden, !(~(arg0.bitver | 2) & bitinv)
+  casovar arg0.dono.s_luz
+  casose "2" # Pode estar escuro
+    ret !(~(misc:luz ? arg0.bitver | 2 : arg0.bitver) & bitinv)
+  casose "3" # Escuro
+    ret !(~arg0.bitver & bitinv)
+  casose # Claro
+    ret !(~(arg0.bitver | 2) & bitinv)
+  casofim
+
+func atribs_exec # Organiza a variável atribs
+  atribs.limpar
+  !(bitinv & 2) ? atribs.addfim("Brilhando")
+  bitinv & 4 ? atribs.addfim("Invisível")
+  bitinv & 8 ? atribs.addfim("Oculto")
+  bitinv & 128 ? atribs.addfim("InvSala")
+  se bitinv & 32
+    atribs.addfim("Voando alto")
+  senao bitinv & 16
+    atribs.addfim("Voando")
+  senao bitver & 512
+    atribs.addfim("Flutuando")
+  fimse
+  txt512 lin
+  txt512 atr
+  (lin = $perm_[jogperm].m_atribs) && atribs.addfim(lin)
+  (lin = m_atribs1(este)) && atribs.addfim(lin)
+  listaitem i
+  epara i = dentro2.ini, i, i.depois
+    (lin = i.obj.m_atribs2(este)) && atribs.addfim(lin)
+  efim
+  epara lin = var.ini("f_"), lin, lin = var.depois(lin, "f_")
+    (atr = $[lin].m_atribs2(este)) && atribs.addfim(atr)
+  efim
+  ret atribs.bytes == 0, atribs.addfim(" ")
+  atribs.ordena
+  textopos p
+  textotxt a
+  textotxt b
+  p = atribs.ini, lin = p.texto
+  epara p.depois, p, p.depois
+    continuar lin == p.texto
+    txt(lin, 0, 1) == "*" ? b.addfim(txt(lin, 1)) : a.addfim(lin)
+    lin = p.texto
+  efim
+  txt(lin, 0, 1) == "*" ? b.addfim(txt(lin, 1)) : a.addfim(lin)
+  atribs.limpar
+  se a.linhas
+    atribs.addfim(" (" + txttroca($mensjog.txt(a.remove(100), este), "\n", " ") + ") ")
+  senao
+    atribs.addfim(" ")
+  fimse
+  b.linhas && atribs.addfim(txttroca("\n" + $mensjog.txt(b.remove(100), este), "\n", "\d+"))
+
+func atribs_dono # Organiza a variável atribs do dono se o dono for personagem
+  dono.perso && dono.atribs_exec
+
+func recalc_dono # Chama a função recalc_exec do dono se o dono for personagem
+  dono.perso && (dono.recalc = 1)
+
+func seguir # Segue um item ou personagem
+# arg0 = item ou personagem; se nulo, deixa de seguir
+  tseguir != 2 && (tseguir = 0)
+  iseguir.remove
+  arg0 != este && (iseguir = arg0.lseguir.addfim(este))
+
+func mesmogrupo # Retorna 1 se arg0 está no mesmo grupo ou 0 se não está (vide comando grupo)
+  ret tseguir == 2, arg0.tseguir == 1 && arg0.iseguir.objlista == este
+  ret arg0.tseguir == 2, tseguir == 1 && iseguir.objlista == arg0
+  ret tseguir == 1 && arg0.tseguir == 1 && iseguir.objlista == arg0.iseguir.objlista
+
+func rastrearsala # Obtém o caminho para chegar até uma sala
+# arg0 = sala para onde quer ir
+# arg1 = um texto que pode ser "" ou ter uma ou mais letras entre:
+# "a" limita à mesma área, "p" não percorre portas fechadas, "d" checa se cabe nas salas
+# arg2 = quantidade máxima de salas a verificar, se não for especificado assume 65535
+# Retorna: direções a seguir, separadas por "\n"
+# Se não achar o caminho ou já estiver na sala, retorna ""
+  ret !arg0 || dono == arg0, ""
+  refvar aa = txtproc(arg1, "a") >= 0 ? arg0.s_area
+  refvar pp = txtproc(arg1, "p") >= 0
+  refvar dd = txtproc(arg1, "d") >= 0
+  uint16 total = arg2 ?? 65535
+  listaitem item
+  listaobj lista
+  prog p
+  dono.s_rastrdir = ""
+  dono.s_rastreio = lista.addfim(dono)
+  epara item = lista.ini, item && total--, item.depois
+    epara p.inifunctudo(item.obj, "dir_"), p.lin, p.depois
+      continuar pp && int(item.obj.porta_[txt(p.texto, 4)](este)) >= 2
+      refvar r = item.obj.dirsala(txt(p.texto, 4), este)
+      continuar !r || r.s_rastreio || (aa ? aa != r.s_area) || (dd ? !cabedentro(r))
+      lista.addfim(r)
+      r.s_rastreio = item
+      r.s_rastrdir = p.texto
+      continuar r != arg0
+      txt100 lin
+      lista.ini.remove
+      epara item = lista.fim, item, item = item.obj.s_rastreio
+        lin = txt(item.obj.s_rastrdir, 4) + "\n" + lin
+      efim
+      ret txtsublin(lin, 0, intsublin(lin) - 1)
+    efim
+  efim
+  ret ""

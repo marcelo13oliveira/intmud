@@ -1,0 +1,722 @@
+classe mens_tabela
+# Usado em mens e mensjog
+const o_@ = "$"
+const o_d = arg0 === "D" ? "\da" : "\db"
+const o_e = arg0 === "E" ? "\dc" : "\dd"
+const o_f = arg0 === "F" ? "\de" : "\df"
+const o_g = arg0 === "G" ? "\dg" : "\dh"
+#
+const x_a = "De"
+const x_a@_a@_ = "Da "
+const x_a@_as@_ = "Das "
+const x_a@_o@_ = "Do "
+const x_a@_os@_ = "Dos "
+const x_b = "de"
+const x_b@_a@_ = "da "
+const x_b@_as@_ = "das "
+const x_b@_o@_ = "do "
+const x_b@_os@_ = "dos "
+const x_c = "Em"
+const x_c@_a@_ = "Na "
+const x_c@_as@_ = "Nas "
+const x_c@_o@_ = "No "
+const x_c@_os@_ = "Nos "
+const x_d = "em"
+const x_d@_a@_ = "na "
+const x_d@_as@_ = "nas "
+const x_d@_o@_ = "no "
+const x_d@_os@_ = "nos "
+#
+const x_e = "De"
+const x_e@_a@_ = "Da "
+const x_e@_as@_ = "Das "
+const x_e@_o@_ = "Do "
+const x_e@_os@_ = "Dos "
+const x_e@_uma@_ = "Da "
+const x_e@_umas@_ = "Das "
+const x_e@_um@_ = "Do "
+const x_e@_uns@_ = "Dos "
+const x_f = "de"
+const x_f@_a@_ = "da "
+const x_f@_as@_ = "das "
+const x_f@_o@_ = "do "
+const x_f@_os@_ = "dos "
+const x_f@_uma@_ = "da "
+const x_f@_umas@_ = "das "
+const x_f@_um@_ = "do "
+const x_f@_uns@_ = "dos "
+const x_g = "Em"
+const x_g@_a@_ = "Na "
+const x_g@_as@_ = "Nas "
+const x_g@_o@_ = "No "
+const x_g@_os@_ = "Nos "
+const x_g@_uma@_ = "Na "
+const x_g@_umas@_ = "Nas "
+const x_g@_um@_ = "No "
+const x_g@_uns@_ = "Nos "
+const x_h = "em"
+const x_h@_a@_ = "na "
+const x_h@_as@_ = "nas "
+const x_h@_o@_ = "no "
+const x_h@_os@_ = "nos "
+const x_h@_uma@_ = "na "
+const x_h@_umas@_ = "nas "
+const x_h@_um@_ = "no "
+const x_h@_uns@_ = "nos "
+
+
+classe mens
+herda mens_tabela
+ref contr # Mesmo que perso.contr
+ref perso # Personagem que está enviando a mensagem
+ref alvo # Personagem ou objeto alvo da ação
+ref obj1 # Primeiro objeto
+ref obj2 # Segundo objeto
+ref r # Objeto que vai receber a mensagem
+txt512 mens # Mensagem usada em $M
+txt100 o_1 # Texto de $1
+txt100 o_2 # Texto de $2
+txt100 o_3 # Texto de $3
+txt100 o_4 # Texto de $4
+txt100 o_5 # Texto de $5
+const iniclasse = !$[arg0] && criar(arg0)
+
+func p # Define os personagens
+  contr = arg0.contr, perso = arg0, alvo = arg1, obj1 = arg2, obj2 = arg3
+
+func txt # Prepara e retorna mensagem
+# arg0=mensagem, arg1=a quem se destina a mensagem
+  r = arg1
+  refvar t = vartroca(txttroca(arg0, "$$", "$@"), "$", "o_")
+  ret txtdec(vartroca(txtcod(t), "@d", "x_"))
+
+func msg # Envia mensagem para um personagem
+# arg0=mensagem, arg1=a quem se destina a mensagem
+  se arg1.sock
+    r = arg1
+    refvar t = vartroca(txttroca(arg0, "$$", "$@"), "$", "o_")
+    arg1.msg(txtdec(vartroca(txtcod(t), "@d", "x_")))
+  fimse
+
+func msgvis # Envia mensagem se estiver acordado e vendo personagem perso
+# arg0=mensagem, arg1=a quem se destina a mensagem
+  se arg1.sock && arg1.posicao > 4 && perso.visivel(arg1)
+    r = arg1
+    refvar t = vartroca(txttroca(arg0, "$$", "$@"), "$", "o_")
+    arg1.msg(txtdec(vartroca(txtcod(t), "@d", "x_")))
+  fimse
+
+func msgsomvis # Envia mensagem/som se estiver acordado e vendo personagem perso
+# arg0=mensagem, arg1=nome do som, arg2=a quem se destina a mensagem
+  se arg2.sock && arg2.posicao > 4 && perso.visivel(arg2)
+    r = arg2
+    refvar t = vartroca(txttroca(arg0, "$$", "$@"), "$", "o_")
+    arg2.msgsom(arg1)
+    arg2.msg(txtdec(vartroca(txtcod(t), "@d", "x_")))
+  fimse
+
+func msgvisdir # Envia mensagem estiver acordado e vendo personagem perso
+# arg0=mensagem, arg1=a quem se destina a mensagem
+# arg2=mensagem da direção, quando arg1 e perso não estiverem na mesma sala
+  se arg1.sock && arg1.posicao > 4 && perso.visivel(arg1)
+    r = arg1
+    refvar t = vartroca(txttroca(arg0, "$$", "$@"), "$", "o_")
+    refvar dir = (arg1.contr.dono ?? contr.dono) != contr.dono ? arg2
+    arg1.msg(txt(dir) + txtdec(vartroca(txtcod(t), "@d", "x_")))
+  fimse
+
+func msginv # Envia mensagem se estiver acordado
+# arg0=mensagem, arg1=a quem se destina a mensagem
+  se arg1.sock && arg1.posicao > 4
+    r = arg1
+    refvar t = vartroca(txttroca(arg0, "$$", "$@"), "$", "o_")
+    arg1.msg(txtdec(vartroca(txtcod(t), "@d", "x_")))
+  fimse
+
+func msgsominv # Envia mensagem/som se estiver acordado
+# arg0=mensagem, arg1=nome do som, arg2=a quem se destina a mensagem
+  se arg2.sock && arg2.posicao > 4
+    r = arg2
+    refvar t = vartroca(txttroca(arg0, "$$", "$@"), "$", "o_")
+    arg2.msgsom(arg1)
+    arg2.msg(txtdec(vartroca(txtcod(t), "@d", "x_")))
+  fimse
+
+func msginvdir # Envia mensagem se estiver acordado
+# arg0=mensagem, arg1=a quem se destina a mensagem
+# arg2=mensagem da direção, quando arg1 e perso não estiverem na mesma sala
+  se arg1.sock && arg1.posicao > 4
+    r = arg1
+    refvar t = vartroca(txttroca(arg0, "$$", "$@"), "$", "o_")
+    refvar dir = (arg1.contr.dono ?? contr.dono) != contr.dono ? arg2
+    arg1.msg(txt(dir) + txtdec(vartroca(txtcod(t), "@d", "x_")))
+  fimse
+
+func mperso # Mensagem só para o personagem
+  contr.dono.socktot && arg0 && $mens.msginv(arg0, contr)
+
+func mtodos1 # Mensagem só para quem estiver acordado
+# arg0 = mensagem para todos
+  ret !(contr.dono.socktot && arg0), nulo
+  listaobj l0
+  epara l0.addfim(contr.dono.dentro2), l0, l0.ini.remove
+    msginv(arg0, l0.objini)
+  efim
+
+func mtodos2 # Mensagem só para quem estiver acordado
+# arg0 = mensagem para personagem, arg1 = mensagem para outros
+  ret !contr.dono.socktot, nulo
+  arg0 && msginv(arg0, contr)
+  ret !arg1, nulo
+  listaobj l0
+  l0.addfim(contr.dono.dentro2)
+  epara l0.remove(contr), l0, l0.ini.remove
+    msginv(arg1, l0.objini)
+  efim
+
+func mtodos3 # Mensagem só para quem estiver acordado
+# arg0,arg1,arg2 = mensagens para personagem, alvo e outros
+  ret !contr.dono.socktot, nulo
+  arg0 && msginv(arg0, contr)
+  arg1 && contr != alvo.contr && msginv(arg1, alvo.contr)
+  ret !arg2, nulo
+  listaobj l0
+  l0.addfim(contr.dono.dentro2)
+  epara l0.remove(contr, alvo.contr), l0, l0.ini.remove
+    msginv(arg2, l0.objini)
+  efim
+
+func mtodos1som # Mensagem e som só para quem estiver acordado
+# arg0 = mensagem para todos, arg1=nome do som
+  ret !(contr.dono.socktot && arg0), nulo
+  listaobj l0
+  epara l0.addfim(contr.dono.dentro2), l0, l0.ini.remove
+    msgsominv(arg0, arg1, l0.objini)
+  efim
+
+func mtodos2som # Mesmo que mtodos1som, porém não envia mensagem para o personagem
+# arg0 = mensagem para todos, arg1=nome do som
+  ret !(contr.dono.socktot && arg0), nulo
+  listaobj l0
+  l0.addfim(contr.dono.dentro2)
+  epara l0.remove(contr), l0, l0.ini.remove
+    msgsominv(arg0, arg1, l0.objini)
+  efim
+
+func mtodos3dir # Mensagem só para quem estiver acordado
+# arg0,arg1,arg2 = mensagens para personagem, alvo e outros
+# arg3 = direção do personagem ao alvo, quando não estão na mesma sala
+  ret (alvo.contr.dono ?? contr.dono) == contr.dono, mtodos3(arg0, arg1, arg2)
+  ret !(contr.dono.socktot || alvo.contr.dono.socktot), nulo
+  refvar t1 = txt(misc:d3[arg3])
+  refvar t2 = txt(misc:d4[arg3])
+  arg0 && msginv(t1 + arg0, contr)
+  arg1 && contr != alvo.contr && msginv(t2 + arg1, alvo.contr)
+  ret !arg2, nulo
+  listaobj l0
+  l0.addfim(contr.dono.dentro2)
+  epara l0.remove(contr), l0, l0.ini.remove
+    msginv(t1 + arg2, l0.objini)
+  efim
+  l0.addfim(alvo.contr.dono.dentro2)
+  epara l0.remove(alvo.contr), l0, l0.ini.remove
+    msginv(t2 + arg2, l0.objini)
+  efim
+
+func mvis1 # Mensagem só para quem pode ver o personagem e estiver acordado
+# arg0 = mensagem para todos
+  ret !(contr.dono.socktot && arg0), nulo
+  msginv(arg0, contr)
+  listaobj l0
+  l0.addfim(contr.dono.dentro2)
+  epara l0.remove(contr), l0, l0.ini.remove
+    msgvis(arg0, l0.objini)
+  efim
+
+func mvis2 # Mensagem só para quem pode ver o personagem e estiver acordado
+# arg0 = mensagem para personagem, arg1 = mensagem para outros
+  ret !contr.dono.socktot, nulo
+  arg0 && msginv(arg0, contr)
+  ret !arg1, nulo
+  listaobj l0
+  l0.addfim(contr.dono.dentro2)
+  epara l0.remove(contr), l0, l0.ini.remove
+    msgvis(arg1, l0.objini)
+  efim
+
+func mvis3 # Mensagem só para quem pode ver o personagem e estiver acordado
+# arg0,arg1,arg2 = mensagens para personagem, alvo e outros
+  ret !contr.dono.socktot, nulo
+  arg0 && msginv(arg0, contr)
+  arg1 && contr != alvo.contr && msgvis(arg1, alvo.contr)
+  ret !arg2, nulo
+  listaobj l0
+  l0.addfim(contr.dono.dentro2)
+  epara l0.remove(contr, alvo.contr), l0, l0.ini.remove
+    msgvis(arg2, l0.objini)
+  efim
+
+func mvis1som # Mensagem e som só para quem pode ver o personagem e estiver acordado
+# arg0 = mensagem para todos, arg1=nome do som
+  ret !(contr.dono.socktot && arg0), nulo
+  listaobj l0
+  epara l0.addfim(contr.dono.dentro2), l0, l0.ini.remove
+    msgsomvis(arg0, arg1, l0.objini)
+  efim
+
+func mvis2som # Mesmo que mvis1som, porém não envia mensagem para o personagem
+# arg0 = mensagem para todos, arg1=nome do som
+  ret !(contr.dono.socktot && arg0), nulo
+  listaobj l0
+  l0.addfim(contr.dono.dentro2)
+  epara l0.remove(contr), l0, l0.ini.remove
+    msgsomvis(arg0, arg1, l0.objini)
+  efim
+
+func mvis3dir # Mensagem só para quem pode ver o personagem e estiver acordado
+# arg0,arg1,arg2 = mensagens para personagem, alvo e outros
+# arg3 = direção do personagem ao alvo, quando não estão na mesma sala
+  ret (alvo.contr.dono ?? contr.dono) == contr.dono, mvis3(arg0, arg1, arg2)
+  ret !(contr.dono.socktot || alvo.contr.dono.socktot), nulo
+  refvar t1 = txt(misc:d3[arg3])
+  refvar t2 = txt(misc:d4[arg3])
+  arg0 && msgvis(t1 + arg0, contr)
+  arg1 && contr != alvo.contr && msgvis(t2 + arg1, alvo.contr)
+  ret !arg2, nulo
+  listaobj l0
+  l0.addfim(contr.dono.dentro2)
+  epara l0.remove(contr), l0, l0.ini.remove
+    msgvis(t1 + arg2, l0.objini)
+  efim
+  l0.addfim(alvo.contr.dono.dentro2)
+  epara l0.remove(alvo.contr), l0, l0.ini.remove
+    msgvis(t2 + arg2, l0.objini)
+  efim
+
+func mmud1 # Mensagem para todos do MUD
+# arg0 = mensagem para todos
+  indiceitem item
+  epara item.ini("un "), txt1(item.txt) == "un", item.depois
+    msg(arg0, item.obj.perso)
+  efim
+
+func mmudS # Mensagem para todos do MUD em outra sala
+# arg0 = mensagem para todos
+  ref s
+  epara s = perso, s.dono, s = s.dono
+  efim
+  indiceitem item
+  epara item.ini("un "), txt1(item.txt) == "un", item.depois
+    epara r = item.obj.perso.dono, r.dono, r = r.dono
+    efim
+    r != s && msg(arg0, item.obj.perso)
+  efim
+
+func mmudtodos1 # Mensagem para todos que estiverem acordados no MUD
+# arg0 = mensagem para todos
+  indiceitem item
+  epara item.ini("un "), txt1(item.txt) == "un", item.depois
+    msginv(arg0, item.obj.perso)
+  efim
+
+func mmudtodosS # Mensagem para todos que estiverem acordados no MUD em outra sala
+# arg0 = mensagem para todos
+  ref s
+  epara s = perso, s.dono, s = s.dono
+  efim
+  indiceitem item
+  epara item.ini("un "), txt1(item.txt) == "un", item.depois
+    epara r = item.obj.perso.dono, r.dono, r = r.dono
+    efim
+    r != s && msginv(arg0, item.obj.perso)
+  efim
+
+func marea1 # Mensagem para todos que estiverem na mesma área
+# arg0 = mensagem para todos
+  epara r = perso, r.dono, r = r.dono
+  efim
+  refvar area = r.s_area
+  indiceitem item
+  epara item.ini("un "), txt1(item.txt) == "un", item.depois
+    epara r = item.obj.perso.dono, r.dono, r = r.dono
+    efim
+    r.s_area == area && msg(arg0, item.obj.perso)
+  efim
+
+func mareaS # Mensagem para todos que estiverem na mesma área mas em outra sala
+# arg0 = mensagem para todos
+  ref s
+  epara s = perso, s.dono, s = s.dono
+  efim
+  indiceitem item
+  epara item.ini("un "), txt1(item.txt) == "un", item.depois
+    epara r = item.obj.perso.dono, r.dono, r = r.dono
+    efim
+    r.s_area == s.s_area && r != s && msg(arg0, item.obj.perso)
+  efim
+
+func mareatodos1 # Mensagem para quem está acordado na mesma área
+# arg0 = mensagem para todos
+  epara r = perso, r.dono, r = r.dono
+  efim
+  refvar area = r.s_area
+  indiceitem item
+  epara item.ini("un "), txt1(item.txt) == "un", item.depois
+    epara r = item.obj.perso.dono, r.dono, r = r.dono
+    efim
+    r.s_area == area && msginv(arg0, item.obj.perso)
+  efim
+
+func mareatodosS # Mensagem para quem está acordado na mesma área mas em outra sala
+# arg0 = mensagem para todos
+  ref s
+  epara s = perso, s.dono, s = s.dono
+  efim
+  indiceitem item
+  epara item.ini("un "), txt1(item.txt) == "un", item.depois
+    epara r = item.obj.perso.dono, r.dono, r = r.dono
+    efim
+    r.s_area == s.s_area && r != s && msginv(arg0, item.obj.perso)
+  efim
+
+const o_h = txtcopiamai(perso.msexo ? "um" : "uma", arg0)
+const o_i = txtcopiamai(alvo.msexo ? "um" : "uma", arg0)
+const o_j = txtcopiamai(obj1.msexo ? "um" : "uma", arg0)
+const o_m = arg0 === "M" ? txtcopiamai(mens, "A") : mens
+const o_s = txtcopiamai(perso.msexo ? "o" : "a", arg0)
+const o_t = txtcopiamai(alvo.msexo ? "o" : "a", arg0)
+const o_u = txtcopiamai(obj1.msexo ? "o" : "a", arg0)
+const o_v = txtcopiamai(perso.msexo ? "e" : "a", arg0)
+const o_w = txtcopiamai(alvo.msexo ? "e" : "a", arg0)
+const o_x = txtcopiamai(obj1.msexo ? "e" : "a", arg0)
+
+func o_p
+  se perso == perso.contr
+    se r == perso
+      ret txtcopiamai("você", arg0)
+    senao perso.visivel(r)
+      ret arg0 === "P" ? txtcopiamai(perso.descnome, "A") : perso.descnome
+    fimse
+    ret txtcopiamai(perso.perso ? "alguém" : "alguma coisa", arg0)
+  senao r == perso.contr
+    ret txtcopiamai(perso.msexo ? "seu " : "sua ", arg0) + perso.nome
+  senao perso.contr.visivel(r)
+    refvar m = arg0 === "P" ? txtcopiamai(perso.descnome, "A") : perso.descnome
+    ret m + " de " + perso.contr.descnome
+  senao perso.visivel(r)
+    ret (arg0 === "P" ? txtcopiamai(perso.descnome, "A") : perso.descnome) + " de alguém"
+  fimse
+  ret txtcopiamai(perso.perso ? "alguém" : "alguma coisa", arg0)
+
+func o_a
+  se alvo == alvo.contr
+    se r == alvo
+      ret txtcopiamai("você", arg0)
+    senao alvo.visivel(r)
+      ret arg0 === "A" ? txtcopiamai(alvo.descnome, "A") : alvo.descnome
+    fimse
+    ret txtcopiamai(alvo.perso ? "alguém" : "alguma coisa", arg0)
+  senao r == alvo.contr
+    ret txtcopiamai(alvo.msexo ? "seu " : "sua ", arg0) + alvo.nome
+  senao alvo.contr.visivel(r)
+    refvar m = arg0 === "A" ? txtcopiamai(alvo.descnome, "A") : alvo.descnome
+    ret m + " de " + alvo.contr.descnome
+  senao alvo.visivel(r)
+    ret (arg0 === "A" ? txtcopiamai(alvo.descnome, "A") : alvo.descnome) + " de alguém"
+  fimse
+  ret txtcopiamai(alvo.perso ? "alguém" : "alguma coisa", arg0)
+
+func o_q # Nome do personagem sem citar o dono
+  se r == perso
+    ret txtcopiamai("você", arg0)
+  senao perso.visivel(r)
+    ret arg0 === "Q" ? txtcopiamai(perso.descnome, "A") : perso.descnome
+  fimse
+  ret txtcopiamai(perso.perso ? "alguém" : "alguma coisa", arg0)
+
+func o_r # Nome do personagem no comando QUEM
+  ret arg0 === "r", perso.sock ? perso.sock.nome : perso.nome
+  ret txtcopiamai(perso.sock ? perso.sock.nome : perso.nome, "A")
+
+func o_b # Nome do alvo sem citar o dono
+  se r == alvo
+    ret txtcopiamai("você", arg0)
+  senao alvo.visivel(r)
+    ret arg0 === "B" ? txtcopiamai(alvo.descnome, "A") : alvo.descnome
+  fimse
+  ret txtcopiamai(alvo.perso ? "alguém" : "alguma coisa", arg0)
+
+func o_c # Nome do alvo no comando QUEM
+  ret arg0 === "c", alvo.sock ? alvo.sock.nome : alvo.nome
+  ret txtcopiamai(alvo.sock ? alvo.sock.nome : alvo.nome, "A")
+
+func o_o # Nome do primeiro objeto
+  se r == obj1
+    ret txtcopiamai("você", arg0)
+  senao obj1.visivel(r)
+    ret arg0 === "O" ? txtcopiamai(obj1.descnome, "A") : obj1.descnome
+  fimse
+  ret txtcopiamai(obj1.perso ? "alguém" : "alguma coisa", arg0)
+
+func o_n # Nome do segundo objeto
+  se r == obj2
+    ret txtcopiamai("você", arg0)
+  senao obj2.visivel(r)
+    ret arg0 === "O" ? txtcopiamai(obj2.descnome, "A") : obj2.descnome
+  fimse
+  ret txtcopiamai(obj2.perso ? "alguém" : "alguma coisa", arg0)
+
+
+classe mensvis
+herda mens
+# Mesmo que a classe mens, porém considera-se os personagens e itens
+# sempre visíveis (não mostra "alguém" ou "alguma coisa")
+
+func o_p
+  se perso == perso.contr
+    ret r == perso, txtcopiamai("você", arg0)
+    ret arg0 === "P" ? txtcopiamai(perso.descnome, "A") : perso.descnome
+  senao r == perso.contr
+    ret txtcopiamai(perso.msexo ? "seu " : "sua ", arg0) + perso.nome
+  senao
+    refvar m = arg0 === "P" ? txtcopiamai(perso.descnome, "A") : perso.descnome
+    ret m + " de " + perso.contr.descnome
+  fimse
+
+func o_a
+  se alvo == alvo.contr
+    ret r == alvo, txtcopiamai("você", arg0)
+    ret arg0 === "A" ? txtcopiamai(alvo.descnome, "A") : alvo.descnome
+  senao r == alvo.contr
+    ret txtcopiamai(alvo.msexo ? "seu " : "sua ", arg0) + alvo.nome
+  senao
+    refvar m = arg0 === "A" ? txtcopiamai(alvo.descnome, "A") : alvo.descnome
+    ret m + " de " + alvo.contr.descnome
+  fimse
+
+func o_q # Nome do personagem sem citar o dono
+  ret r == perso, txtcopiamai("você", arg0)
+  ret arg0 === "Q" ? txtcopiamai(perso.descnome, "A") : perso.descnome
+
+func o_b # Nome do alvo sem citar o dono
+  ret r == alvo, txtcopiamai("você", arg0)
+  ret arg0 === "B" ? txtcopiamai(alvo.descnome, "A") : alvo.descnome
+
+func o_o # Nome do primeiro objeto
+  ret r == obj1, txtcopiamai("você", arg0)
+  ret arg0 === "O" ? txtcopiamai(obj1.descnome, "A") : obj.descnome
+
+func o_n # Nome do segundo objeto
+  ret r == obj2, txtcopiamai("você", arg0)
+  ret arg0 === "O" ? txtcopiamai(obj2.descnome, "A") : obj.descnome
+
+
+classe mensjog
+herda mens_tabela
+ref perso # Personagem
+txt512 mens # Mensagem usada em $M
+const iniclasse = !$[arg0] && criar(arg0)
+
+func txt # Prepara e retorna mensagem
+# arg0=mensagem, arg1=a quem se destina a mensagem
+  perso = arg1
+  refvar t = vartroca(txttroca(arg0, "$$", "$@"), "$", "o_")
+  ret txtdec(vartroca(txtcod(t), "@d", "x_"))
+
+func msg # Envia mensagem
+# arg0=mensagem, arg1=a quem se destina a mensagem
+  perso = arg1
+  refvar t = vartroca(txttroca(arg0, "$$", "$@"), "$", "o_")
+  arg1.msg(txtdec(vartroca(txtcod(t), "@d", "x_")))
+
+const o_1 = ""
+const o_2 = ""
+const o_3 = ""
+const o_4 = ""
+const o_5 = ""
+const o_h = txtcopiamai(perso.msexo ? "um" : "uma", arg0)
+const o_i = ""
+const o_j = ""
+const o_m = arg0 === "M" ? txtcopiamai(mens, "A") : mens
+const o_s = txtcopiamai(perso.msexo ? "o" : "a", arg0)
+const o_t = ""
+const o_u = ""
+const o_v = txtcopiamai(perso.msexo ? "e" : "a", arg0)
+const o_w = ""
+const o_x = ""
+const o_a = ""
+
+func o_p
+  ret perso == perso.contr, txtcopiamai("você", arg0)
+  ret txtcopiamai(perso.msexo ? "seu " : "sua ", arg0) + perso.nome
+
+func o_q # Nome do personagem sem citar o dono
+  ret r == perso, txtcopiamai("você", arg0)
+  ret arg0 === "Q" ? txtcopiamai(perso.descnome, "A") : perso.descnome
+
+func o_r # Nome do personagem no comando QUEM
+  ret arg0 === "r", perso.sock ? perso.sock.nome : perso.nome
+  ret txtcopiamai(perso.sock ? perso.sock.nome : perso.nome, "A")
+
+const o_b = "" # Nome do alvo sem citar o dono
+const o_c = "" # Nome do alvo no comando QUEM
+const o_o = "" # Nome do primeiro objeto
+const o_n = "" # Nome do segundo objeto
+
+
+classe mens_prompt
+# Monta mensagem do prompt a partir do prompt e do personagem
+# Chamar com:
+# $mens_prompt.mens(mensagem, personagem)
+#
+ref p1 # O próprio personagem
+ref p2 # O animal usado por p1
+ref a1 # Quem está batalhando com o personagem
+ref a2 # O animal de quem está batalhando com o personagem
+const iniclasse = !$[arg0] && criar(arg0)
+
+func mens
+# arg0 = mensagem
+# arg1 = personagem
+  p1 = ref(arg1), p2 = ref(p1.persoesc)
+  a1 = ref(p1.atkenv.objlista), a2 = ref(a1.persobat)
+  ret vartroca(arg0, "%", "m_")
+
+func m_d
+  ret arg0 === "d", txt(misc:hora) + ":" + misc:min # Hora no MUD
+  datahora d
+  d.agora # Hora no servidor
+  ret txt(d.hora) + ":" + d.min
+
+const m_g = p1.var.z_moedas_
+const m_h = arg0 === "h" ? p2.pvida : p2.pvidamax
+const m_l = arg0 === "l" ? p2.pnivel : a2.pnivel
+const m_m = arg0 === "m" ? p2.pmana : p2.pmanamax
+
+func m_n
+  se arg0 === "n" # Nome do seu personagem
+    ret p1 == p2 ? p1.descnome : p2.descnome + " de " + p1.descnome
+  fimse # Nome do seu oponente
+  ret a1 == a2 ? a1.descnome : a2.descnome + " de " + a1.descnome
+
+func m_o
+  se !a2
+  senao arg0 === "o" # Pontos de vida do oponente em porcentagem
+    ret int(a2.pvida * 100 / a2.pvidamax)
+  fimse # Pontos de vida do oponente em uma barra de 10 caracteres
+  uint8 x
+  x = int(a2.pvida * 10 / a2.pvidamax)
+  ret x >= 10 ? ">>>>>>>>>>" : txtrepete(">", x) + txtrepete(" ", 10 - x)
+
+func m_p
+  se arg0 === "p" # Pontos de vida em porcentagem
+    ret int(p2.pvida * 100 / p2.pvidamax)
+  fimse # Pontos de vida em uma barra de 10 caracteres
+  uint8 x
+  x = int(p2.pvida * 10 / p2.pvidamax)
+  ret x >= 10 ? ">>>>>>>>>>" : txtrepete(">", x) + txtrepete(" ", 10 - x)
+
+func m_t # Conforme o sol: amanhecendo, manhã, tarde, anoitecendo, noite
+  ret arg0 === "t", " "
+  casovar misc:hora
+  casose "6"
+    ret "amanhecendo"
+  casose "7"
+  casose "8"
+  casose "9"
+  casose "10"
+  casose "11"
+    ret "manhã"
+  casose "12"
+  casose "13"
+  casose "14"
+  casose "15"
+  casose "16"
+    ret "tarde"
+  casose "17"
+    ret "escurecendo"
+  casose
+    ret "noite"
+  casofim
+
+const m_v = arg0 === "v" ? p2.pmove : p2.pmovemax
+const m_x = arg0 === "x" ? p2.expatual : p2.expmax - p2.expatual
+const m_z = arg0 === "z" ? "\n" : "%"
+const m_b = "\b"
+const m_c0 = "\c0"
+const m_c1 = "\c1"
+const m_c2 = "\c2"
+const m_c3 = "\c3"
+const m_c4 = "\c4"
+const m_c5 = "\c5"
+const m_c6 = "\c6"
+const m_c7 = "\c7"
+const m_c8 = "\c8"
+const m_c9 = "\c9"
+const m_ca = "\ca"
+const m_cb = "\cb"
+const m_cc = "\cc"
+const m_cd = "\cd"
+const m_ce = "\ce"
+const m_cf = "\cf"
+const m_cg = "\cg"
+const m_ch = "\ch"
+const m_ci = "\ci"
+const m_cj = "\cj"
+const m_ck = "\ck"
+const m_cl = "\cl"
+const m_f0 = "\d0"
+const m_f1 = "\d1"
+const m_f2 = "\d2"
+const m_f3 = "\d3"
+const m_f4 = "\d4"
+const m_f5 = "\d5"
+const m_f6 = "\d6"
+const m_f7 = "\d7"
+
+
+classe mens_porta
+# Monta mensagem para avisar sobre portas abertas e fechadas
+#
+# Chamar com:
+# $mens_porta.mens(mensagem, sala, direção, mensagem)
+#
+# Exemplo:
+# $mens_porta.mens("$P est$o fechad$a.", dono, "s")
+#
+# Caracteres usados na mensagem:
+# $A = a,o,as,os, conforme a porta
+# $M = um texto vazio (no singular) ou "m" (no plural)
+# $O = "á" (no singular) ou "ão" (no plural)
+# $P = nome da porta
+#
+txt100 n # Nome da porta
+txt2 tsexo # Pode ser a,as,o,os
+txt2 tplural # Pode ser á,ão
+txt2 tm # Pode ser "" ou "m"
+txt100 tnome # Nome da porta
+const iniclasse = !$[arg0] && criar(arg0)
+
+func mens
+  tnome = arg1.portanome_[arg2]
+  !tnome && !(tnome = $cmd_[arg2].m_porta) && (tnome = "uma porta")
+  casovar arg1.portaartigo_[arg2]
+  casose # Feminino singular
+    tplural = "á", tsexo = "a", tm = ""
+    sair
+  casose "1" # Feminino plural
+    tplural = "ão", tsexo = "as", tm = "m"
+    sair
+  casose "2" # Masculino plural
+    tplural = "á", tsexo = "o", tm = ""
+    sair
+  casose "3" # Masculino plural
+    tplural = "ão", tsexo = "os", tm = "m"
+    sair
+  casofim
+  ret vartroca(arg0, "$", "m_")
+
+const m_a = arg0 === "a" ? tsexo : txtcopiamai(tsexo, "A")
+const m_m = arg0 === "m" ? tm : txtcopiamai(tm, "A")
+const m_o = arg0 === "o" ? tplural : txtcopiamai(tplural, "A")
+const m_p = arg0 === "p" ? tnome : txtcopiamai(tnome, "A")

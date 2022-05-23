@@ -1,0 +1,716 @@
+classe comando_ataque
+herda comando_comum
+const obj = arg0.persobat.var.h_[nome] ? este
+const objajuda = obj(arg0) # Objeto que contém a ajuda desse comando
+uint8 result # Resultado do ataque, usado em execgolpe e msgefeito
+# 0=cancelar ataque (não gera nenhuma mensagem), 1=errou o alvo
+# 2=não teve efeito, 3=pouco efetivo, 4=normal, 5=muito efetivo
+
+func txtajuda
+  txt100 lin
+  lin = nome + ": ataque " + misc:nometipo(tipo) + " força " + ataque + " velocidade " + \
+vel
+  ret extra ? lin + "\n" + extra : lin
+
+func escr # Atacar alguém
+  ref r
+  se arg0.ataqueini
+    arg0.msg(arg0.ataqueini)
+    ret
+  senao arg1
+    r = arg0.persoalvo(arg1)
+    se !r
+      arg0.msg("Você não vê isso.")
+      ret
+    senao r == arg0
+      arg0.msg("Atacar a si mesmo?")
+      ret
+    fimse
+    arg0.alvo = r
+  senao
+    r = arg0.alvo
+    se !r || r.dono != arg0.dono
+      arg0.msg("Atacar quem?")
+      ret
+    fimse
+  fimse
+  se r.pacifico
+    arg0.msg(r.nome + " não quer brigar.")
+  senao arg0.jog && r.jog && dono.area_luta == 1
+    arg0.msg(r.nome + " é jogador e aqui não é uma arena.")
+  senao !exevento(este, arg0, r)
+    listaobj l
+    l.addfim(arg0.persobat.dentro2, arg0.dono, arg0.persobat)
+    enquanto l && !l.objini.cmd_ataque(arg0, r, este)
+      l.ini.remove
+    efim
+    !l && ataca(arg0, r)
+  fimse
+
+func ataca # Chamado quando personagem (arg0) quer atacar alguém (arg1)
+  ataca1(arg0, arg1)
+
+func ataca1 # arg0 ataca arg1
+  velgolpe(arg0, arg1) # Tempo do golpe
+  execgolpe(arg0, arg1, ataque) # Ataca
+  result && $mens.p(arg0, arg1) + $mens.mtodos1(texto + msgefeito(arg1))
+  arg1.persobat.pvida == 0 && arg1.persobat.morreu
+  arg0.persobat.pvida == 0 && arg0.persobat.morreu
+
+func ataca2 # arg0 ataca todos dividindo a força do ataque
+# arg1 é o primeiro alvo
+  real atk
+  listaobj l
+# Obtém ataque e lista de personagens
+  l.addfim(arg0.dono.dentro1)
+  l.remove(arg0, arg1)
+  l.addini(arg1)
+  atk = ataque / l.total
+# Ataca
+  ref r
+  enquanto l.total > 1
+    r = l.objfim, l.fim.remove
+    continuar r.jog # Não prossegue se for jogador
+    velgolpe(arg0, r) # Tempo do golpe
+    execgolpe(arg0, r, atk) # Ataca
+    result && $mens.p(arg0, r) + arg0.msginv(texto + msgefeito(r))
+    r.pvida == 0 && r.morreu
+  efim
+# Ataca o alvo
+  r = l.objfim
+  velgolpe(arg0, r) # Tempo do golpe
+  execgolpe(arg0, r, atk) # Ataca
+  result && $mens.p(arg0, r) + $mens.mtodos1(texto + msgefeito(r))
+  r.pvida == 0 && r.morreu
+  arg0.persobat.pvida == 0 && arg0.persobat.morreu
+
+func ataca3 # arg0 ataca todos sem dividir a força do ataque
+# arg1 é o primeiro alvo
+  listaobj l
+# Obtém ataque e lista de personagens
+  l.addfim(arg0.dono.dentro1)
+  l.remove(arg0, arg1)
+  l.addini(arg1)
+# Ataca
+  ref r
+  enquanto l.total > 1
+    r = l.objfim, l.fim.remove
+    continuar r.jog # Não prossegue se for jogador
+    velgolpe(arg0, r) # Tempo do golpe
+    execgolpe(arg0, r, ataque) # Ataca
+    result && $mens.p(arg0, r) + arg0.msginv(texto + msgefeito(r))
+    r.pvida == 0 && r.morreu
+  efim
+# Ataca o alvo
+  r = l.objfim
+  velgolpe(arg0, r) # Tempo do golpe
+  execgolpe(arg0, r, atk) # Ataca
+  result && $mens.p(arg0, r) + $mens.mtodos1(texto + msgefeito(r))
+  r.pvida == 0 && r.morreu
+  arg0.persobat.pvida == 0 && arg0.persobat.morreu
+
+func msgefeito # Gera mensagem de como o golpe acertou
+# arg0 = personagem alvo, se houver
+# result = como acertou
+  txt100 msg1
+  casovar result
+  casose "1"
+    ret ", errou"
+  casose "2"
+    ret ", nada acontece"
+  casose "3"
+    arg0 && (msg1 = " " + arg0.persobat.pvida + " de " + arg0.persobat.pvidamax)
+    ret ", pouco efeito" + msg1
+  casose "4"
+    arg0 && (msg1 = ", " + arg0.persobat.pvida + " de " + arg0.persobat.pvidamax)
+    ret msg1
+  casose "5"
+    arg0 && (msg1 = " " + arg0.persobat.pvida + " de " + arg0.persobat.pvidamax)
+    ret ", muito efeito" + msg1
+  casofim
+  ret ""
+
+func velgolpe # Acerta o tempo de espera conforme o golpe
+# arg0 = personagem que está atacando
+# arg1 = personagem alvo
+# vel = velocidade do golpe
+  uint8 tempo
+# Se velocidades dos personagens iguais e velocidade do golpe=100: tempo=30
+  tempo = 10 + arg1.persobat.veloc * 2000 / (arg0.persobat.veloc * vel + 1)
+  tempo < 5 && (tempo = 5)
+  tempo > 60 && (tempo = 60)
+  arg0.t_aguarde < tempo && (arg0.t_aguarde = tempo)
+
+func execgolpe # Realiza um ataque e coloca resultado em result
+# arg0 = personagem que está atacando
+# arg1 = personagem alvo
+# arg2 = força do ataque, 0=não calcular danos
+# tipo = tipo de ataque
+  real dano
+  ref r
+  ref s
+# Checa se pode realmente atacar
+  r = arg0.persobat, s = arg1.persobat, result = 1
+  se arg0.dono.cmd_ataque(arg0, arg1, este)
+    ret
+  senao arg0.persobat.cmd_ataque(arg0, arg1, este)
+    ret
+  senao arg1.persobat.cmd_ataquerec(arg0, arg1, este)
+    ret
+  fimse
+# Indica que atacou, recebe experiência se vencer
+  r.atkrec.remove
+  r.atkrec = s.atkenv.addfim(r)
+  (!arg1.alvo || arg1.alvo.dono != arg1.dono) && (arg1.alvo = arg0)
+  r.podepegar && exgolpe_i(arg1.var.a_[r.nome]) # Coloca na agenda
+# Checa se acertou o alvo
+  dano = rand(1, 20)
+  se dano == 20 # Acertou automaticamente
+  senao dano == 1 # Errou o alvo automaticamente
+    ret
+  senao # Checa se acertou
+# dano += precisao * r.precisao / 100 - arg1.evasao
+# !arg0.visivel(arg1) && (dano -= 5) # Invisível é mais difícil de acertar
+# se dano <= 0
+# ret 0
+# fimse
+  fimse
+# Calcula dano
+  dano = s.deftipo.[tipo]
+  se dano >= 80 # Defesa muito alta
+    result = 2
+    ret
+  senao arg2 == 0 # Nenhum valor de ataque, apenas indica que atacou
+    result = 4
+    ret
+  fimse
+  result = dano <= -2 ? 5 : dano >= 2 ? 3 : 4
+  dano = s.defesa * misc:defbonus.[128 + dano]
+  dano = r.ataque / dano + r.nivel - s.nivel
+  dano = intpos(dano) * arg2 / 65
+# Atualiza pontos de vida conforme os danos
+  dano < 1 && (dano = 1) # Pelo menos 1 de dano
+  s.pvida -= dano
+
+func exgolpe_i # Chamado internamente por execgolpe para adicionar na agenda
+  !arg0 && (arg0 = 1)
+
+
+classe cmd_socar
+herda comando_ataque
+const nome = "Socar"
+const texto = "$R soca $c"
+const tipo = 11 # Normal
+const ataque = 80
+const vel = 150
+const extra = "Golpe físico de força"
+
+
+classe cmd_chutar
+herda comando_ataque
+const nome = "Socar"
+const texto = "$R chuta $c"
+const tipo = 11 # Normal
+const ataque = 100
+const vel = 100
+const extra = "Golpe físico de força"
+
+
+classe cmd_multissoco
+herda comando_ataque
+const nome = "Multissoco"
+const texto = "$R dá um multissoco, $c"
+const tipo = 4 # Força
+const ataque = 100
+const vel = 100
+const extra = "Golpe físico de força que acerta todos"
+const ataca = ataca2(arg0, arg1)
+
+
+classe cmd_bolha
+herda comando_ataque
+const nome = "Bolha"
+const texto = "$R lança bolhas em $c"
+const tipo = 0 # Água
+const ataque = 90
+const vel = 100
+const extra = "Lança bolhas de água"
+
+
+classe cmd_surf
+herda comando_ataque
+const nome = "Surf"
+const texto = "$R cria uma onda gigante, $c"
+const tipo = 0 # Água
+const ataque = 90
+const vel = 100
+const extra = "Cria uma onda, ideal para surfistas"
+const ataca = ataca2(arg0, arg1)
+
+
+classe cmd_bico
+herda comando_ataque
+const nome = "Bico"
+const texto = "$R pica $c com o bico"
+const tipo = 1 # Ar
+const ataque = 90
+const vel = 100
+const extra = "Cria uma onda, ideal para surfistas"
+
+
+classe cmd_ventania
+herda comando_ataque
+const nome = "Ventania"
+const texto = "$R produz um vento contra $c"
+const tipo = 1 # Ar
+const ataque = 90
+const vel = 100
+const extra = "Produz um vento forte"
+
+
+classe cmd_choque
+herda comando_ataque
+const nome = "Choque"
+const texto = "$R eletrocuta $c"
+const tipo = 2 # Elétrico
+const ataque = 90
+const vel = 100
+const extra = "Dá uma descarga elétrica"
+
+
+classe cmd_onda_trovao
+herda comando_ataque
+const nome = "Onda trovão"
+const tipo = 2 # Elétrico
+const ataque = 0
+const vel = 100
+const extra = "Paralisa o adversário com eletricidade"
+
+func ataca
+  execgolpe(arg0, arg1, 0)
+  $mens.p(arg0, arg1)
+  se result == 0
+  senao result < 3
+    $mens.mtodos1("$R tenta paralisar $c")
+  senao
+    arg1.novoefeito("e_paralisado")
+    $mens.mtodos1("$R paralisa $c com choque")
+  fimse
+
+
+classe cmd_chama
+herda comando_ataque
+const nome = "Chama"
+const texto = "$R lança chama em $c"
+const tipo = 3 # Fogo
+const ataque = 90
+const vel = 100
+const extra = "Pode causar queimaduras"
+
+func ataca
+  ataca1(arg0, arg1)
+  $mens.p(arg0, arg1)
+  ref r
+  r = arg1.persobat.objefeito("e_congelado")
+  se r
+    apagar(r)
+    $mens.mtodos1("$C descongelou")
+  senao rand(100) < 20 && arg1.defvar.3 < 80
+    arg1.persobat.novoefeito("e_queimando")
+    $mens.mtodos1("$C está queimando")
+  fimse
+
+
+classe cmd_brasa
+herda comando_ataque
+const nome = "Brasa"
+const texto = "$R lança brasa em $c"
+const tipo = 3 # Fogo
+const ataque = 90
+const vel = 100
+const extra = "Pode causar queimaduras"
+
+func ataca
+  ataca1(arg0, arg1)
+  $mens.p(arg0, arg1)
+  ref r
+  r = arg1.persobat.objefeito("e_congelado")
+  se r
+    apagar(r)
+    $mens.mtodos1("$C descongelou")
+  senao rand(100) < 20 && arg1.defvar.3 < 80
+    arg1.persobat.novoefeito("e_queimando")
+    $mens.mtodos1("$C está queimando")
+  fimse
+
+
+classe cmd_lamber
+herda comando_ataque
+const nome = "Lamber"
+const texto = "$R lambe $c"
+const tipo = 5 # Gás
+const ataque = 90
+const vel = 100
+const extra = "Lambe o adversário"
+
+
+classe cmd_surpreender
+herda comando_ataque
+const nome = "Surpreender"
+const texto = "$R surpreende $c"
+const tipo = 5 # Gás
+const ataque = 90
+const vel = 100
+const extra = "Dá uma descarga elétrica"
+
+
+classe cmd_toxico
+herda comando_ataque
+const nome = "Tóxico"
+const texto = "$R lança gás tóxico em $c"
+const tipo = 5 # Gás
+const ataque = 50
+const vel = 100
+const extra = "Tem grandes chances de envenenar"
+
+func ataca
+  se ataca1(arg0, arg1) && rand(100) < 70 && arg1.persobat.defvar.5 < 80
+    arg1.persobat.novoefeito("e_envenenado")
+    $mens.p(arg0, arg1)
+    $mens.mtodos1("$C foi envenenado")
+  fimse
+
+
+classe cmd_confusao
+herda comando_ataque
+const nome = "Confusão"
+const texto = "$R lança gás tóxico em $c"
+const tipo = 5 # Gás
+const ataque = 90
+const vel = 100
+const extra = "Pode causar confusão"
+
+func ataca
+  se ataca1(arg0, arg1) && rand(100) < 20 && arg1.persobat.defvar.5 < 80
+    arg1.persobat.novoefeito("e_confuso")
+    $mens.p(arg0, arg1)
+    $mens.mtodos1("$C ficou confuso")
+  fimse
+
+
+classe cmd_neve
+herda comando_ataque
+const nome = "Neve"
+const texto = "$R atira bola de neve em $c"
+const tipo = 6 # Gelo
+const ataque = 90
+const vel = 100
+const extra = "Pode congelar"
+
+func ataca
+  arg1.persobat.apagarefeito("e_queimando")
+  se ataca1(arg0, arg1) && rand(100) < 70 && arg1.persobat.defvar.6 < 80
+    arg1.persobat.novoefeito("e_congelado")
+    $mens.p(arg0, arg1)
+    $mens.mtodos1("$C congelou")
+  fimse
+
+
+classe cmd_aurora
+herda comando_ataque
+const nome = "Aurora"
+const texto = "$R lança aurora em $c"
+const tipo = 6 # Gelo
+const ataque = 90
+const vel = 100
+const extra = "Pode congelar"
+
+func ataca
+  arg1.persobat.apagarefeito("e_queimando")
+  se ataca1(arg0, arg1) && rand(100) < 70 && arg1.persobat.defvar.6 < 80
+    arg1.persobat.novoefeito("e_congelado")
+    $mens.p(arg0, arg1)
+    $mens.mtodos1("$C congelou")
+  fimse
+
+
+classe cmd_pedrada
+herda comando_ataque
+const nome = "Pedrada"
+const texto = "$R joga pedra em $c"
+const tipo = 7 # Pedra
+const ataque = 90
+const vel = 100
+const extra = "Joga pedra"
+
+
+classe cmd_pedregulho
+herda comando_ataque
+const nome = "Pedregulho"
+const texto = "$R joga vários pedegulhos em $c"
+const tipo = 7 # Pedra
+const ataque = 90
+const vel = 100
+const extra = "Joga pedregulho"
+
+
+classe cmd_onda_solar
+herda comando_ataque
+const nome = "Onda solar"
+const texto = "$R lança onda solar em $c"
+const tipo = 8 # Planta
+const ataque = 90
+const vel = 100
+const extra = "Onda solar"
+
+
+classe cmd_dreno
+herda comando_ataque
+const nome = "Dreno"
+const texto = "$R lança onda solar em $c"
+const tipo = 8 # Planta
+const ataque = 60
+const vel = 120
+const extra = "Rouba aproximadamente metade dos danos no adversário"
+
+func ataca
+  uint32 total
+  total = arg1.pvida
+  ataca1(arg0, arg1)
+  arg0.pvida += pos(total - arg1.pvida) / 2
+  arg0.pvida > arg0.pvidamax && (arg0.pvida = arg0.pvidamax)
+
+
+classe cmd_lama
+herda comando_ataque
+const nome = "Lama"
+const texto = "$R joga lama em $c"
+const tipo = 9 # Terra
+const ataque = 60
+const vel = 120
+const extra = "Joga lama, imobilizando o adversário por 4 segundos"
+
+func ataca
+  se ataca1(arg0, arg1)
+    arg1.esperar(40)
+  fimse
+
+
+classe cmd_terremoto
+herda comando_ataque
+const nome = "Terremoto"
+const texto = "$R cria um terremoto, $c"
+const tipo = 9 # Terra
+const ataque = 80
+const vel = 100
+const extra = "Faz o chão tremer"
+const ataca = ataca3(arg0, arg1)
+
+
+classe cmd_picar
+herda comando_ataque
+const nome = "Picar"
+const texto = "$R pica $c"
+const tipo = 10 # Verme
+const ataque = 80
+const vel = 100
+const extra = "Pica o adversário"
+
+
+classe cmd_morder
+herda comando_ataque
+const nome = "Morder"
+const texto = "$R morde $c"
+const tipo = 10 # Verme
+const ataque = 90
+const vel = 100
+const extra = "Morde o adversário"
+
+
+classe cmd_arranhar
+herda comando_ataque
+const nome = "Arranhar"
+const texto = "$R arranha $c"
+const tipo = 11 # Normal
+const ataque = 70
+const vel = 100
+const extra = "Arranha o adversário"
+
+
+classe cmd_cantar
+herda comando_ataque
+const nome = "Cantar"
+const texto = "$R cria um terremoto, $c"
+const tipo = 11 # Normal
+const ataque = 0
+const vel = 100
+const extra = "Canta durante 13 segundos uma canção que dá sono"
+
+func ataca
+  execgolpe(arg0, arg1, 0)
+  $mens.p(arg0, arg1)
+  se result == 0
+  senao result == 1
+    $mens.mtodos1("$R tenta cantar uma canção, mas falhou")
+  senao
+    arg1.persobat.novoefeito("e_dormindo")
+    arg0.esperar(130)
+    $mens.mtodos1("$R canta uma canção e $c dorme profundamente")
+  fimse
+
+
+classe cmd_velocidade
+herda comando_ataque
+const nome = "Velocidade"
+const texto = "$R ataca velozmente $c"
+const tipo = 11 # Normal
+const ataque = 50
+const vel = 250
+const extra = "Um golpe extremamente rápido"
+
+
+classe cmd_cortar
+herda comando_ataque
+const nome = "Cortar"
+const texto = "$R corta $c"
+const tipo = 11 # Normal
+const ataque = 70
+const vel = 250
+const extra = "Corta o adversário"
+
+
+classe cmd_explodir
+herda comando_ataque
+const nome = "Explodir"
+const texto = "$R explode e se fere, $c"
+const tipo = 11 # Normal
+const ataque = 350
+const vel = 100
+const extra = "Extremamente forte, mas quem aplica esse golpe desmaia"
+
+func ataca
+  ataca3(arg0, arg1)
+  arg0.persobat.pvida = 0
+  arg0.persobat.morreu
+
+
+classe cmd_descansar
+herda comando_ataque
+const nome = "Descansar"
+const texto = "$R Descansa durante 14 segundos"
+const tipo = 11 # Normal
+const ataque = 350
+const vel = 100
+const extra = "Descansa e se recupera"
+
+func ataca
+  arg0.pvida = arg0.pvidamax
+  arg0.esperar(140)
+
+
+classe cmd_arranhatox
+herda comando_ataque
+const nome = "Arranhatox"
+const texto = "$R arranha $c"
+const tipo = 11 # Normal
+const ataque = 70
+const vel = 100
+const extra = "Arranha o adversário com 40% de chances de intoxicar"
+
+func ataca
+  ataca1(arg0, arg1)
+  se rand(100) < 40 && arg1.persobat.defvar.5 < 80
+    arg1.persobat.novoefeito("e_envenenado")
+    $mens.p(arg0, arg1)
+    $mens.mtodos1("$C foi envenenado")
+  fimse
+
+
+classe cmd_roer
+herda comando_ataque
+const nome = "Roer"
+const texto = "$R tenta roer $c"
+const tipo = 11 # Normal
+const ataque = 90
+const vel = 100
+const extra = "Rói o adversário com 40% de chances de intoxicar"
+
+func ataca
+  ataca1(arg0, arg1)
+  se rand(100) < 40 && arg1.persobat.defvar.5 < 80
+    arg1.persobat.novoefeito("e_envenenado")
+    $mens.p(arg0, arg1)
+    $mens.mtodos1("$C foi envenenado")
+  fimse
+
+
+classe cmd_lancar
+herda comando_ataque
+const nome = "Lançar"
+const texto = "$R se lança contra $c"
+const tipo = 11 # Normal
+const ataque = 85
+const vel = 70
+const extra = "Se lança contra o adversário"
+
+
+classe cmd_atirar
+herda comando_ataque
+const nome = "Atirar"
+const tipo = 12 # Perfurante
+const ataque = 0
+const vel = 20
+const extra = "Causa um dano fixo quando acerta o alvo"
+
+func ataca
+  se !arg0.var.i_espingarda
+    arg0.msg("Você não possui nenhuma espingarda")
+    ret
+  fimse
+  execgolpe(arg0, arg1, 0)
+  se result
+    result >= 3 && (arg1.persobat.pvida -= 35)
+    $mens.p(arg0, arg1)
+    $mens.mtodos1("$R atira em $c" + msgefeito(arg1))
+    arg1.atkenv.remove(arg0) # Não dá experiência
+    arg1.persobat.pvida == 0 && arg1.persobat.morreu # Checa se o alvo morreu
+  fimse
+
+
+classe cmd_metronomo
+herda comando_ataque
+
+func ver
+  se obj(arg0)
+    arg0.msg("Metrônomo: Um golpe que se transforma em outro golpe")
+    ret 1
+  fimse
+
+func ataca
+  textotxt t
+  t.addfim(lista)
+  t.remove(rand(t.total))
+  cmd_[t.remove].ataca(arg0, arg1)
+
+const lista = "bolha\n\
+bico\n\
+choque\n\
+onda trovão\n\
+chama\n\
+chutar\n\
+multissoco\n\
+lamber\n\
+tóxico\n\
+confusão\n\
+neve\n\
+pedrada\n\
+dreno\n\
+onda solar\n\
+lama\n\
+terremoto\n\
+morder\n\
+arranhar\n\
+cantar\n\
+cortar\n\
+explodir\n\
+descansar"

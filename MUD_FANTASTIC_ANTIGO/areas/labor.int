@@ -1,0 +1,177 @@
+classe a_labor
+herda area
+const a_tempo = 30
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_labor
+herda sala
+const s_area = "labor"
+
+
+classe i_labor001
+herda comum_livro
+const nome = "livro cinco dicas"
+const ident = "livro cinco dicas"
+const descnome = "cinco dicas do IntmUD"
+const descpos = "Um livro com um grande número cinco foi jogado aqui."
+const i_selo = 1 # Se for livro, será selado: Sim
+
+func cmd_ini
+  textotxt t
+  t.addfim("1. Evite usar muitos blocos 'se'. Varie conforme for avançando o código, utilizando \
+'casovar' e verificações")
+  t.addfim("mais compactas, como por exemplo:")
+  t.addfim(" x == 1 && arg0.msg(\"Bom dia\")")
+  t.addfim("No caso acima, sempre que x for 1, a frase 'bom dia' é enviada ao arg0.")
+  t.addfim("/p")
+  t.addfim("2. Também é bom usar o '?' e o ':' em expressões de comparação.")
+  t.addfim("Eles é como se fosse um 'se' com condição seguido de um 'senão' sem condição.")
+  t.addfim("Por exemplo:")
+  t.addfim(" x == 1 ? arg0.msg(\"Bom dia\") : arg0.msg(\"boa tarde\"+")
+  t.addfim("No caso acima, sempre que x for 1, retorna bom dia. Caso contrário, retorna boa \
+tarde.")
+  t.addfim("/p")
+  t.addfim("3. Quando se faz uma expressão usando '?' e ':', é necessário que")
+  t.addfim("coloque parênteses caso queira fazer algum valor de atribuição.")
+  t.addfim("EExemplo:")
+  t.addfim(" x == 1 ? (x = 10) : (x = 20)")
+  t.addfim("\nNo caso acima, se x for 1, passará a ser 10. em caso contrário, passará a ser \
+20.")
+  t.addfim("\nSe não usasse parenteses neste caso, ele consideraria o ':' como sendo parte da \
+atribuição do valor de x.")
+  t.addfim("Ou seja, é como se fosse uma gangorra: valor1 : valor2 prevalece sempre o valor2.")
+  t.addfim("Exemplo:")
+  t.addfim(" x == 1 ? x = 10 : x = 20")
+  t.addfim("\nNeste caso, x será 20, pois a atribuição gangora ocorre:")
+  t.addfim(" x = 10 lança para a próxima atribuição x = 20")
+  t.addfim("/p")
+  t.addfim("4. Nas regras de escopo, isto é, regra para uma variável ser considerada")
+  t.addfim("existente naquele código, pode-se criar várias variáveis do mesmo nome")
+  t.addfim("mas com tipos diferentes. Veja o código da página seguinte.")
+  t.addfim("/p")
+  t.addfim("func escr\n se 1\n  uint8 n\n  n = 10\n  arg0.msg(\"O valor de n é \" + n)\n \
+fimse")
+  t.addfim(" se 1\n  txt10 n\n  n = \"bom dia\"\n  arg0.msg(\"Valor de n é \" + n)\n fimse")
+  t.addfim(" se 1\n  ref n\n  n = arg0\n  arg0.msg(\"Seu nome é \" + n.nome + \".\")")
+  t.addfim("/p")
+  t.addfim("Na página anterior, o código possui três variáveis com o mesmo nome: uma numérica, \
+outra de texto e outra")
+  t.addfim("referenciando o objeto arg0 dos comandos. Isso foi possível pois sempre que o bloco \
+'se' era fechado com")
+  t.addfim("o fimse, o as variáveis dele deixxavam de existir. Isso é bem útil")
+  t.addfim("quando você quer usar o nome de tal variável na mesma função várias vezes, sem \
+precisar")
+  t.addfim("preocupar-se com tantos nomes.")
+  t.addfim("/p")
+  t.addfim("5. Aprenda a usar o parênteses duplo (colchetes). Eles substituem o texto que está \
+entre os colchetes")
+  t.addfim("e faz com que este texto seja parte do nome da variável. Exemplo:")
+  t.addfim(" uint8 x_bom\n txt10 t\n t = \"bom\", x = 10\n arg0.msg\"x é igual a \" + x_[t]")
+  t.addfim("Neste caso, o x_bom e x_[t] significam a mesma coisa, pois foi atribuido o texto \
+\"bom\" à variável t.")
+  addcont(t, "Paulo Santos Ramos")
+
+
+classe i_labor002
+herda comum_itemperso
+const nome = "caneta"
+const descnome = "uma caneta"
+const descpos = "Uma caneta foi jogada aqui."
+const i_caneta = 1
+const valor = 80
+const i_qtintamax = 4
+uint16 qtinta
+
+func ini
+  qtinta = i_qtintamax
+  comum_itemperso:ini(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+
+
+classe i_labor003
+herda comum_itemperso
+const nome = livtitulo ? livtitulo : "Sem título"
+const descnome = livtitulo ? livtitulo : "Livro sem título"
+const i_livro = 1 # É um livro: Sim
+txt100 livtitulo
+
+
+classe p_labor001
+herda comum_perso
+const ident = "dona edith bibliotecaria tecnologia"
+const nome = "dona edith"
+const descnome = "dona Edith"
+const descpos = "Dona Edith,, a bibliotecária tecnológica está aqui, exercendo suas sábias \
+técnicas com letras."
+const p_copista = 1
+const eveste = 1
+const evsala = 1
+const lojaitem = "labor001 0\nlabor002"
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  misc:tempo("salve", arg0)
+
+func salve10
+# teclou("'Olá, " + arg0.nome + ", vendo livros e canetas. Também faço cópias de livros. Para \
+arg0.msg("Moctó.")
+
+
+classe s_labor001
+herda b_labor
+const s_titulo = "Em Frente ao Laboratório"
+const dir_n = $s_labor002
+
+
+classe s_labor002
+herda b_labor
+const s_titulo = "Dentro do Laboratório"
+const s_desc = "Há muita lumonosidade, vinda do teto e paredes de vidro multicolorido. Há\n\
+recursos de refrigeração no teto, parecendo um ar-condicionado distinto\n\
+apenas pelo fato de ser algo similar a um teto solar, mas ao invés de um\n\
+vidro possui grades que lançam o ar externo para dentro do salão já bem\n\
+frio, deixando ele puríssimo. Um corredor se estende a norte e ao sul, você\n\
+fica à frente do laboratório. natural."
+const dir_s = $s_labor001
+const dir_n = $s_labor003
+
+
+classe s_labor003
+herda b_labor
+const s_titulo = "Nos Corredores do Laboratório"
+const s_desc = "Cada avanço neste lugar parece proporcionar que uma surpresa pode surgir\n\
+qualquer momento. O chão é de um material estranho, parecendo vidro. sua anormalidade\n\
+mais notória é a resistência, pois não há vertígios de arranhões em sua \n\
+superfície, já que, por ser um piso de corredor, deve ser bastante \n\
+visitado. Uma luz verde emana de todo o chão, como em uma lâmpada. Ao \n\
+sul você vê\n\
+o salão receptivo do laboratório e ao leste você nota uma sala silenciosa e com pouca luminosidad\
+e."
+const dir_s = $s_labor002
+const dir_l = $s_labor004
+
+
+classe s_labor004
+herda b_labor
+const s_titulo = "Sala de Tecnologia Bibliográfica"
+const s_desc = "Silêncio. É o mais curioso nesta sala, pois algumas impressoras \n\
+incessantemente terminam folhas\n\
+com um certo conteúdo e uma mão robótica as pegam, unindo-as em \n\
+determinado bloco de papel para formar um livro.\n\
+Mesmo com essas máquinas ligadas o silêncio há sepulcral. A tecnologia \n\
+do lugar é, sem dúvida, um dos\n\
+motivos do sossegar no ambiente sonoro. No chão feito de um material semelhante ao vidro,\n\
+aparece alguns versos, frases inteligentes e coisas do tipo, variadamente de tempos em tempos."
+const eveste = 1 # Eventos sala: Sim
+const dir_o = $s_labor003
+const a_reset = "P 100 labor001 100 100 1"
+
+func cmd_chegou
+  misc:evento(arg0)
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_labor001:objsolto.total < 1
+    criar("p_labor001", este, 100)
+  fimse

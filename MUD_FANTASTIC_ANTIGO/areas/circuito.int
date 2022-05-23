@@ -1,0 +1,432 @@
+classe a_circuito
+herda area
+
+
+classe b_circuito
+herda sala
+const s_area = "circuito"
+#
+
+
+classe i_circuito001
+herda comum_item
+const nome = "dado"
+const descnome = "um dado"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "trocar dado"
+  casose "troc dado"
+  casose "troca dado"
+  casose "troca dado"
+  casose "tro dado"
+  casose "trocar dad"
+  casose "trocar da"
+  casose "troca dad"
+  casose "troca da"
+  casose "troc dad"
+  casose "troc da"
+  casose "tro dad"
+  casose "tro da"
+    ret arg0.msg("Não pode trocar o dado com nenhum de seus animais.")
+  casofim
+  se arg1 == "jogar dado" || arg1 == "joga dado" || arg1 == "jog dado"
+    ret arg0.var.z_mov_, arg0.msg("Você ainda precisa andar para jogar novamente.")
+    $mens.p(arg0)
+    refvar num = rand(1, 6)
+    arg0.var.z_mov_ += num
+    $mens.mtodos1("$P joga o dado. O dado cai com o número " + num + " na parte superior.")
+    ret 1
+  fimse
+#
+
+func cmd_darobj
+  se arg2 == este
+    ret arg0.msg("Você não pode dar o dado a ninguém.")
+  fimse
+#
+
+func cmd_doarobj
+  se arg1 == este
+    ret arg0.msg("Você não pode doar o dado.")
+  fimse
+#
+
+func cmd_soltarobj
+  se arg2 == este
+    ret arg0.msg("Você não pode soltar o dado.")
+  fimse
+#
+
+func cmd_mover
+  ret !arg0.var.z_mov_, arg0.msg("Você não pode se mover mais.")
+#
+
+func cmd_moveu
+  arg0.var.z_mov_ -= 1
+
+
+classe s_circuito001
+herda b_circuito
+const s_titulo = "A entrada do grande circuito"
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_circuito002
+
+
+classe s_circuito002
+herda b_circuito
+const s_titulo = "O início do circuito"
+const s_semmagia = 1 # Sem magia: Sim
+const dir_n = $s_circuito003
+
+
+classe s_circuito003
+herda b_circuito
+const s_titulo = "andando pelo circuito."
+const dir_n = $s_circuito004
+
+
+classe s_circuito004
+herda b_circuito
+const s_titulo = "a continuação do circuito"
+const dir_n = $s_circuito005
+
+
+classe s_circuito005
+herda b_circuito
+const s_titulo = "a continuação do circuito"
+const dir_n = $s_circuito006
+
+
+classe s_circuito006
+herda b_circuito
+const s_titulo = "subindo pelas cobrinhas!"
+const dir_c = $s_circuito007
+
+
+classe s_circuito007
+herda b_circuito
+const s_titulo = "subindo pelas cobrinhas!"
+const dir_n = $s_circuito008
+
+
+classe s_circuito008
+herda b_circuito
+const s_titulo = "subindo pelas cobrinhas!"
+const dir_c = $s_circuito009
+
+
+classe s_circuito009
+herda b_circuito
+const s_titulo = "subindo pelas cobrinhas!"
+const dir_n = $s_circuito010
+
+
+classe s_circuito010
+herda b_circuito
+const s_titulo = "subindo pelas cobrinhas!"
+const dir_c = $s_circuito011
+
+
+classe s_circuito011
+herda b_circuito
+const s_titulo = "subindo pelas cobrinhas!"
+const dir_n = $s_circuito012
+
+
+classe s_circuito012
+herda b_circuito
+const s_titulo = "subindo pelas cobrinhas!"
+const dir_c = $s_circuito013
+
+
+classe s_circuito013
+herda b_circuito
+const s_titulo = "subindo pelas cobrinhas!"
+const dir_n = $s_circuito014
+
+
+classe s_circuito014
+herda b_circuito
+const s_titulo = "subindo pelas cobrinhas!"
+const dir_c = $s_circuito015
+
+
+classe s_circuito015
+herda b_circuito
+const s_titulo = "subindo pelas cobrinhas!"
+const dir_n = $s_circuito016
+
+
+classe s_circuito016
+herda b_circuito
+const s_titulo = "subindo pelas cobrinhas!"
+const dir_c = $s_circuito017
+
+
+classe s_circuito017
+herda b_circuito
+const s_titulo = "subindo pelas cobrinhas!"
+const dir_n = $s_circuito018
+
+
+classe s_circuito018
+herda b_circuito
+const s_titulo = "subindo pelas cobrinhas!"
+const dir_c = $s_circuito019
+
+
+classe s_circuito019
+herda b_circuito
+const s_titulo = "subindo pelas cobrinhas!"
+const dir_n = $s_circuito020
+
+
+classe s_circuito020
+herda b_circuito
+const s_titulo = "subindo pelas cobrinhas!"
+const dir_c = $s_circuito021
+
+
+classe s_circuito021
+herda b_circuito
+const s_titulo = "subindo pelas cobrinhas!"
+const dir_n = $s_circuito022
+
+
+classe s_circuito022
+herda b_circuito
+const s_titulo = "subindo pelas cobrinhas!"
+const dir_c = $s_circuito023
+
+
+classe s_circuito023
+herda b_circuito
+const s_titulo = "subindo pelas cobrinhas!"
+const dir_n = $s_circuito024
+
+
+classe s_circuito024
+herda b_circuito
+const s_titulo = "subindo pelas cobrinhas!"
+const dir_c = $s_circuito025
+
+
+classe s_circuito025
+herda b_circuito
+const s_titulo = "quase no topo"
+const dir_n = $s_circuito026
+
+
+classe s_circuito026
+herda b_circuito
+const s_titulo = "quase chegando ao topo"
+const dir_c = $s_circuito027
+
+
+classe s_circuito027
+herda b_circuito
+const s_titulo = "próximo ao topo"
+const dir_c = $s_circuito028
+
+
+classe s_circuito028
+herda b_circuito
+const s_titulo = "Em uma ponte sustentada por correntes."
+const dir_n = $s_circuito029
+
+
+classe s_circuito029
+herda b_circuito
+const s_titulo = "Em uma ponte sustentada por correntes."
+const dir_n = $s_circuito030
+
+
+classe s_circuito030
+herda b_circuito
+const s_titulo = "Em uma ponte sustentada por correntes."
+const dir_n = $s_circuito031
+
+
+classe s_circuito031
+herda b_circuito
+const s_titulo = "Em uma ponte sustentada por correntes."
+const dir_n = $s_circuito032
+
+
+classe s_circuito032
+herda b_circuito
+const s_titulo = "Em uma ponte sustentada por correntes."
+const dir_n = $s_circuito033
+
+
+classe s_circuito033
+herda b_circuito
+const s_titulo = "Em uma ponte sustentada por correntes."
+const dir_n = $s_circuito034
+
+
+classe s_circuito034
+herda b_circuito
+const s_titulo = "Em uma ponte sustentada por correntes."
+const dir_n = $s_circuito035
+
+
+classe s_circuito035
+herda b_circuito
+const s_titulo = "Em uma ponte sustentada por correntes."
+const dir_n = $s_circuito036
+
+
+classe s_circuito036
+herda b_circuito
+const s_titulo = "Em uma ponte sustentada por correntes."
+const dir_n = $s_circuito037
+
+
+classe s_circuito037
+herda b_circuito
+const s_titulo = "Em uma ponte sustentada por correntes."
+const dir_n = $s_circuito038
+
+
+classe s_circuito038
+herda b_circuito
+const s_titulo = "Em uma ponte sustentada por correntes."
+const dir_n = $s_circuito039
+
+
+classe s_circuito039
+herda b_circuito
+const s_titulo = "Em uma ponte sustentada por correntes."
+const dir_n = $s_circuito040
+
+
+classe s_circuito040
+herda b_circuito
+const s_titulo = "Em uma ponte sustentada por correntes."
+const dir_n = $s_circuito041
+
+
+classe s_circuito041
+herda b_circuito
+const s_titulo = "Descendo as escadas."
+const dir_b = $s_circuito042
+
+
+classe s_circuito042
+herda b_circuito
+const s_titulo = "Descendo as escadas."
+const dir_b = $s_circuito043
+
+
+classe s_circuito043
+herda b_circuito
+const s_titulo = "Descendo as escadas."
+const dir_b = $s_circuito044
+
+
+classe s_circuito044
+herda b_circuito
+const s_titulo = "Descendo as escadas."
+const dir_b = $s_circuito045
+
+
+classe s_circuito045
+herda b_circuito
+const s_titulo = "Descendo as escadas."
+const dir_b = $s_circuito046
+
+
+classe s_circuito046
+herda b_circuito
+const s_titulo = "Descendo as escadas."
+const dir_b = $s_circuito047
+
+
+classe s_circuito047
+herda b_circuito
+const s_titulo = "Descendo as escadas."
+const dir_b = $s_circuito048
+
+
+classe s_circuito048
+herda b_circuito
+const s_titulo = "Descendo as escadas."
+const dir_b = $s_circuito049
+
+
+classe s_circuito049
+herda b_circuito
+const s_titulo = "Descendo as escadas."
+const dir_b = $s_circuito050
+
+
+classe s_circuito050
+herda b_circuito
+const s_titulo = "Descendo as escadas."
+const dir_b = $s_circuito051
+
+
+classe s_circuito051
+herda b_circuito
+const s_titulo = "Descendo as escadas."
+const dir_b = $s_circuito052
+
+
+classe s_circuito052
+herda b_circuito
+const s_titulo = "Descendo as escadas."
+const dir_n = $s_circuito053
+
+
+classe s_circuito053
+herda b_circuito
+const s_titulo = "Chegando na reta final!"
+const dir_n = $s_circuito054
+
+
+classe s_circuito054
+herda b_circuito
+const s_titulo = "Chegando na reta final!"
+const dir_n = $s_circuito055
+
+
+classe s_circuito055
+herda b_circuito
+const s_titulo = "Chegando na reta final!"
+const dir_n = $s_circuito056
+
+
+classe s_circuito056
+herda b_circuito
+const s_titulo = "Chegando na reta final!"
+const dir_n = $s_circuito057
+
+
+classe s_circuito057
+herda b_circuito
+const s_titulo = "Chegando na reta final!"
+const dir_n = $s_circuito058
+
+
+classe s_circuito058
+herda b_circuito
+const s_titulo = "Chegando na reta final!"
+const dir_n = $s_circuito059
+
+
+classe s_circuito059
+herda b_circuito
+const s_titulo = "Chegando na reta final!"
+const dir_n = $s_circuito060
+
+
+classe s_circuito060
+herda b_circuito
+const s_titulo = "Fim do jogo!"

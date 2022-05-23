@@ -1,0 +1,153 @@
+classe a_shaolin
+herda area
+const a_nome = "A guilda dos monges"
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_txtreset = "O silêncio daqui o incomoda."
+
+
+classe b_shaolin
+herda sala
+const s_falar = "Você prefere não abrir a boca num lugar tão silencioso como este."
+const s_luz = 1 # Luz: 1 Claro sem eventos de tempo
+const s_pnj = 0
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const s_area = "shaolin"
+const s_gritar = "Você decide não gritar num lugar tão silencioso como este."
+
+
+classe i_shaolin001
+herda comum_item
+const nome = "Estátua do dragão"
+const ident = "Estátua enorme dragão"
+const descnome = "A estátua do dragão"
+const descpos = "A enorme estátua de um dragão vermelho está aqui, posicionada no centro do \
+templo."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const i_pegar = "Uma força mística o impede de tocá-la."
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 100000
+
+
+classe p_shaolin001
+herda comum_perso
+const nome = "Lee"
+const ident = "Lee mestre"
+const descnome = "Lee, o grande mestre de artes maciais"
+const descpadr = "Lee, o grande mestre de artes marciais medita aqui, buscando a paz interior"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 100
+const tipo1 = "Humano"
+const tipo2 = "Monge"
+const tipo3 = "Mestre"
+const lojasim = "Monge"
+const lojaaula = "h_Chutar 8\n\
+h_Socar 8\n\
+h_Segundo_Ataque 8\n\
+h_Terceiro_Ataque 8\n\
+h_Gancho 8\n\
+m_Punho_do_dragão 8\n\
+h_Chicote_do_Dragão 8\n\
+h_Meditar 8\n\
+m_santuário 8\n\
+h_voadora 8"
+const lojafechada = "Ao dispertar de sua meditação, $P diz: Lamento, deveria ter vindo mais \
+cedo."
+
+
+classe s_shaolin001
+herda b_shaolin
+const s_titulo = "A entrada da guilda dos monges."
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_rio013
+const dir_o = $s_shaolin002
+
+func cmd_mover
+  se arg2 == "o" && arg0.tipo2 != "monge"
+    arg0.msg("Somente os monges podem entrar aqui.")
+    ret 1
+  fimse
+
+
+classe s_shaolin002
+herda b_shaolin
+const s_titulo = "O refeitório dos monges"
+const dir_n = $s_shaolin003
+const dir_s = $s_shaolin004
+const dir_l = $s_shaolin001
+const dir_o = $s_shaolin011
+const s_autonao = 1
+
+
+classe s_shaolin003
+herda b_shaolin
+const s_titulo = "A sala da meditação."
+const dir_s = $s_shaolin002
+
+
+classe s_shaolin004
+herda b_shaolin
+const s_titulo = "Um pequeno corredor"
+const dir_n = $s_shaolin002
+const dir_c = $s_shaolin005
+
+
+classe s_shaolin005
+herda b_shaolin
+const s_titulo = "Às escadas."
+const dir_c = $s_shaolin006
+const dir_b = $s_shaolin004
+
+
+classe s_shaolin006
+herda b_shaolin
+const s_titulo = "Enfrente ao sagrado templo Shaolin dos monges"
+const dir_s = $s_shaolin007
+const dir_b = $s_shaolin005
+
+
+classe s_shaolin007
+herda b_shaolin
+const s_titulo = "O templo Shaolin"
+const s_recup = 90000000
+const dir_n = $s_shaolin006
+const dir_s = $s_shaolin008
+const s_reset = "S 100 shaolin001 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_shaolin001") && criar("i_shaolin001", este, 1)
+
+
+classe s_shaolin008
+herda b_shaolin
+const s_titulo = "Atrás do templo"
+const dir_n = $s_shaolin007
+const dir_s = $s_shaolin009
+
+
+classe s_shaolin009
+herda b_shaolin
+const s_titulo = "Um pequeno corredor"
+const dir_n = $s_shaolin008
+const dir_s = $s_shaolin010
+
+
+classe s_shaolin010
+herda b_shaolin
+const s_titulo = "A sala do grande mestre"
+const s_pnj = 1
+const dir_n = $s_shaolin009
+const a_reset = "P 100 shaolin001 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_shaolin001:objsolto.total < 1
+    criar("p_shaolin001", este, 0)
+  fimse
+
+
+classe s_shaolin011
+herda b_shaolin
+const s_titulo = "A área de práticas das artes maciais"
+const dir_l = $s_shaolin002

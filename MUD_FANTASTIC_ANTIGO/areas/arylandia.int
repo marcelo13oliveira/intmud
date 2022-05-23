@@ -1,0 +1,614 @@
+classe a_arylandia
+herda area
+const a_nome = "Aryellândia"
+
+
+classe b_arylandia
+herda sala
+const s_doarsalas = "arylandia012"
+const s_area = "arylandia"
+
+
+classe p_arylandia001
+herda comum_perso
+const nome = "Gentil"
+const ident = "Gentil homem dono mercantil"
+const descnome = "Gentil, o dono do mercantil"
+const descpadr = "Gentil está em pé atrás do balcão, aguardando por novos clientes."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 80000
+const nivel = 20
+
+
+classe p_arylandia002
+herda comum_perso
+const nome = "vendedor de animais"
+const ident = "vendedor animais adestrador"
+const descnome = "o vendedor de animais"
+const descpadr = "Um senhor cuida pacientemente de alguns animais em sua loja, aguardando por \
+novos clientes."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 22
+const evsala = 1 # Eventos dono sala: Sim
+const lojaitem = "animais002 10\nanimais003 10"
+
+
+classe p_arylandia003
+herda comum_perso
+const nome = "vigia"
+const ident = "vigia homem segurança"
+const descnome = "o vigia do banco"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+
+func cmd_falou
+  se arg1 == "abra"
+    teclou("ok, vou abrir a porta para você.")
+    teclou("abrir o")
+  fimse
+
+
+classe s_arylandia001
+herda b_arylandia
+const s_titulo = "O templo de Aryellândia"
+const dir_n = $s_arylandia009
+const dir_l = $s_arylandia010
+const dir_o = $s_arylandia011
+const dir_b = $s_arylandia002
+
+
+classe s_arylandia002
+herda b_arylandia
+const s_titulo = "Nas escadarias de mármore do templo"
+const dir_c = $s_arylandia001
+const dir_b = $s_arylandia003
+
+
+classe s_arylandia003
+herda b_arylandia
+const s_titulo = "A praça do templo"
+const dir_s = $s_arylandia004
+const dir_l = $s_arylandia008
+const dir_o = $s_arylandia007
+const dir_c = $s_arylandia002
+const s_reset = "S 100 teste042 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_teste042") && criar("i_teste042", este, 1)
+
+
+classe s_arylandia004
+herda b_arylandia
+const s_titulo = "Um belo jardim"
+const dir_n = $s_arylandia003
+const dir_s = $s_arylandia015
+const dir_l = $s_arylandia005
+const dir_o = $s_arylandia006
+
+
+classe s_arylandia005
+herda b_arylandia
+const s_titulo = "Um belo jardim"
+const dir_n = $s_arylandia008
+const dir_o = $s_arylandia004
+
+
+classe s_arylandia006
+herda b_arylandia
+const s_titulo = "Um belo jardim"
+const dir_n = $s_arylandia007
+const dir_l = $s_arylandia004
+
+
+classe s_arylandia007
+herda b_arylandia
+const s_titulo = "Um belo jardim"
+const dir_s = $s_arylandia006
+const dir_l = $s_arylandia003
+
+
+classe s_arylandia008
+herda b_arylandia
+const s_titulo = "Um belo jardim"
+const dir_s = $s_arylandia005
+const dir_o = $s_arylandia003
+
+
+classe s_arylandia009
+herda b_arylandia
+const s_titulo = "O altar do templo"
+const s_desc = "    Você está no altar do templo de Aryellândia.\n\
+Um altar de mármore encontra-se à sua frente, enquanto atrás de você há uma\n\
+bela estátua da Deusa Aryelle."
+const dir_n = $s_arylandia014
+const dir_s = $s_arylandia001
+
+
+classe s_arylandia010
+herda b_arylandia
+const s_titulo = "O corredor leste do templo"
+const dir_l = $s_arylandia012
+const dir_o = $s_arylandia001
+
+
+classe s_arylandia011
+herda b_arylandia
+const s_titulo = "O corredor oeste do templo"
+const dir_l = $s_arylandia001
+const dir_o = $s_arylandia013
+
+
+classe s_arylandia012
+herda b_arylandia
+const s_titulo = "Sala de doações do templo"
+const dir_o = $s_arylandia010
+
+
+classe s_arylandia013
+herda b_arylandia
+const s_titulo = "Sala de leitura"
+const dir_l = $s_arylandia011
+
+
+classe s_arylandia014
+herda b_arylandia
+const s_titulo = "Atrás do altar"
+const dir_n = $s_arylandia048
+const dir_s = $s_arylandia009
+
+
+classe s_arylandia015
+herda b_arylandia
+const s_titulo = "No centro da cidade"
+const dir_n = $s_arylandia004
+const dir_s = $s_arylandia029
+const dir_l = $s_arylandia016
+const dir_o = $s_arylandia020
+
+
+classe s_arylandia016
+herda b_arylandia
+const s_titulo = "Na rua principal"
+const dir_n = $s_arylandia023
+const dir_s = $s_arylandia024
+const dir_l = $s_arylandia017
+const dir_o = $s_arylandia015
+
+
+classe s_arylandia017
+herda b_arylandia
+const s_titulo = "Na rua principal"
+const dir_n = $s_arylandia025
+const dir_s = $s_arylandia026
+const dir_l = $s_arylandia018
+const dir_o = $s_arylandia016
+
+
+classe s_arylandia018
+herda b_arylandia
+const s_titulo = "Na rua principal"
+const dir_n = $s_arylandia050
+const dir_l = $s_arylandia019
+const dir_o = $s_arylandia017
+
+
+classe s_arylandia019
+herda b_arylandia
+const s_titulo = "No final leste da rua principal"
+const dir_n = $s_arylandia031
+const dir_s = $s_arylandia037
+const dir_l = $s_arylandia049
+const dir_o = $s_arylandia018
+
+
+classe s_arylandia020
+herda b_arylandia
+const s_titulo = "Na rua principal"
+const s_desc = "Você se encontra na grande rua principal da cidade, a oeste da praça\n\
+principal. Para norte há uma loja de armas e para o sul há uma loja de\n\
+armaduras. Para oeste a rua continua."
+const evhora = 1 # Eventos hora: Sim
+const dir_n = $s_arylandia027
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "a porta da loja de armas"
+const portaartigo_n = 0 # Artigo porta: 0 a (porta)
+const fechadura_n = "loja001"
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_s = $s_arylandia028
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "a porta da loja de armaduras"
+const portaartigo_s = 0 # Artigo porta: 0 a (porta)
+const fechadura_s = "loja001"
+const fecha_s = 1 # Fecha ao passar: Sim
+const dir_l = $s_arylandia015
+const dir_o = $s_arylandia021
+#
+
+func cmd_hora
+  se misc:hora == 18
+    mudaporta("n", 3, "A loja de armas encontra-se agora fechada.", "A loja de armas encontra-se \
+agora fechada.")
+    mudaporta("s", 3, "A loja de armaduras encontra-se agora fechada.", "A loja de armaduras \
+encontra-se agora fechada.")
+  senao misc:hora == 8
+    mudaporta("n", 1, "A loja de armas encontra-se agora aberta.")
+    mudaporta("s", 1, "A loja de armaduras encontra-se agora aberta.")
+  fimse
+
+
+classe s_arylandia021
+herda b_arylandia
+const s_titulo = "Na rua principal"
+const dir_s = $s_arylandia030
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "a porta da joalheria"
+const fechadura_s = "loja001"
+const fecha_s = 1 # Fecha ao passar: Sim
+const dir_l = $s_arylandia020
+const dir_o = $s_arylandia022
+
+
+classe s_arylandia022
+herda b_arylandia
+const s_titulo = "Na rua principal"
+const dir_n = $s_arylandia062
+const dir_l = $s_arylandia021
+const dir_o = $s_arylandia060
+
+
+classe s_arylandia023
+herda b_arylandia
+const s_titulo = "O mercantil do Gentil"
+const dir_s = $s_arylandia016
+
+
+classe s_arylandia024
+herda b_arylandia
+const s_titulo = "Na farmácia da Márcia"
+const dir_n = $s_arylandia016
+
+
+classe s_arylandia025
+herda b_arylandia
+const s_titulo = "Na padaria da Maria"
+const dir_s = $s_arylandia017
+
+
+classe s_arylandia026
+herda b_arylandia
+const s_titulo = "Na sorveteria da Sussuca"
+const dir_n = $s_arylandia017
+
+
+classe s_arylandia027
+herda b_arylandia
+const s_titulo = "Na loja de armas"
+const dir_s = $s_arylandia020
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "a porta da loja"
+const fecha_s = 1 # Fecha ao passar: Sim
+
+
+classe s_arylandia028
+herda b_arylandia
+const s_titulo = "Na loja de armaduras"
+const dir_n = $s_arylandia020
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "a porta da loja"
+const fecha_n = 1 # Fecha ao passar: Sim
+
+
+classe s_arylandia029
+herda b_arylandia
+const s_titulo = "A rua da esperança"
+const dir_n = $s_arylandia015
+const dir_s = $s_arylandia042
+
+
+classe s_arylandia030
+herda b_arylandia
+const s_titulo = "A joalheria"
+const dir_n = $s_arylandia021
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "a porta da joalheria"
+const fechadura_n = "loja001"
+const fecha_n = 1 # Fecha ao passar: Sim
+
+
+classe s_arylandia031
+herda b_arylandia
+const s_titulo = "A rua do progresso"
+const dir_n = $s_arylandia066
+const dir_s = $s_arylandia019
+const dir_o = $s_arylandia033
+const portaini_o = 0 # Estado inicial: 0 Sem porta
+const fecha_o = 0 # Fecha ao passar: Não
+
+
+classe s_arylandia032
+herda b_arylandia
+const s_titulo = "Dentro do banco"
+const dir_n = $s_arylandia034
+const dir_l = $s_arylandia033
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "as portas do banco"
+const portaartigo_l = 1 # Artigo porta: 1 as (portas)
+const fecha_l = 1 # Fecha ao passar: Sim
+
+
+classe s_arylandia033
+herda b_arylandia
+const s_titulo = "Emfrente as portas de entrada do banco"
+const dir_l = $s_arylandia031
+const dir_o = $s_arylandia032
+const portaini_o = 1 # Estado inicial: 1 Porta aberta
+const portanome_o = "as portas do banco"
+const portaartigo_o = 1 # Artigo porta: 1 as (portas)
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_arylandia034
+herda b_arylandia
+const s_titulo = "O corredor do banco"
+const dir_n = $s_arylandia035
+const dir_s = $s_arylandia032
+const dir_l = $s_arylandia036
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "as portas de vidro do gabinete"
+const portaartigo_l = 1 # Artigo porta: 1 as (portas)
+const fecha_l = 1 # Fecha ao passar: Sim
+
+
+classe s_arylandia035
+herda b_arylandia
+const s_titulo = "Área dos caixas eletrônicos"
+const dir_s = $s_arylandia034
+
+
+classe s_arylandia036
+herda b_arylandia
+const s_titulo = "No gabinete do gerente do banco."
+const dir_o = $s_arylandia034
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "as portas de vidro do gabinete"
+const portaartigo_o = 1 # Artigo porta: 1 as (portas)
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_arylandia037
+herda b_arylandia
+const s_titulo = "A rua do sucesso"
+const dir_n = $s_arylandia019
+const dir_s = $s_arylandia063
+const dir_o = $s_arylandia038
+
+
+classe s_arylandia038
+herda b_arylandia
+const s_titulo = "A prefeitura de Arylândia"
+const dir_s = $s_arylandia039
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "as portas do gabinete"
+const portaartigo_s = 1 # Artigo porta: 1 as (portas)
+const fecha_s = 1 # Fecha ao passar: Sim
+const dir_l = $s_arylandia037
+
+
+classe s_arylandia039
+herda b_arylandia
+const s_titulo = "O gabinete do prefeito"
+const dir_n = $s_arylandia038
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "as portas do gabinete"
+const portaartigo_n = 1 # Artigo porta: 1 as (portas)
+const fecha_n = 1 # Fecha ao passar: Sim
+
+
+classe s_arylandia040
+herda b_arylandia
+const s_titulo = "A rua do mercado"
+const dir_l = $s_arylandia041
+const dir_o = $s_arylandia042
+
+
+classe s_arylandia041
+herda b_arylandia
+const s_titulo = "A rua do mercado"
+const dir_l = $s_arylandia043
+const dir_o = $s_arylandia040
+
+
+classe s_arylandia042
+herda b_arylandia
+const s_titulo = "A rua da esperança"
+const dir_n = $s_arylandia029
+const dir_l = $s_arylandia040
+const dir_o = $s_arylandia044
+
+
+classe s_arylandia043
+herda b_arylandia
+const s_titulo = "A rua do mercado"
+const dir_o = $s_arylandia041
+
+
+classe s_arylandia044
+herda b_arylandia
+const s_titulo = "A rua do shopping"
+const dir_l = $s_arylandia042
+const dir_o = $s_arylandia045
+
+
+classe s_arylandia045
+herda b_arylandia
+const s_titulo = "A rua do shopping"
+const dir_l = $s_arylandia044
+const dir_o = $s_arylandia046
+
+
+classe s_arylandia046
+herda b_arylandia
+const s_titulo = "A rua do shopping"
+const dir_s = $s_arylandia047
+const dir_l = $s_arylandia045
+
+
+classe s_arylandia047
+herda b_arylandia
+const s_titulo = "O pátio do shopping"
+const dir_n = $s_arylandia046
+
+
+classe s_arylandia048
+herda b_arylandia
+const s_titulo = "O jardim atrás do altar"
+const dir_n = $s_arylandia051
+const dir_s = $s_arylandia014
+
+
+classe s_arylandia049
+herda b_arylandia
+const s_titulo = "Os portões leste da cidade"
+const dir_o = $s_arylandia019
+
+
+classe s_arylandia050
+herda b_arylandia
+const s_titulo = "O bar do bartolomeu"
+const dir_s = $s_arylandia018
+
+
+classe s_arylandia051
+herda b_arylandia
+const s_titulo = "O campo de Aryellândia"
+const dir_n = $s_arylandia052
+const dir_s = $s_arylandia048
+
+
+classe s_arylandia052
+herda b_arylandia
+const s_titulo = "Caminhando pelo campo"
+const dir_n = $s_arylandia053
+const dir_s = $s_arylandia051
+
+
+classe s_arylandia053
+herda b_arylandia
+const s_titulo = "Ainda no campo"
+const dir_n = $s_arylandia054
+const dir_s = $s_arylandia052
+
+
+classe s_arylandia054
+herda b_arylandia
+const s_titulo = "Próximo à área rural"
+const dir_s = $s_arylandia053
+const dir_o = $s_arylandia055
+
+
+classe s_arylandia055
+herda b_arylandia
+const s_titulo = "Uma estradinha de terra"
+const dir_l = $s_arylandia054
+const dir_o = $s_arylandia056
+
+
+classe s_arylandia056
+herda b_arylandia
+const s_titulo = "Na estradinha de terra"
+const dir_l = $s_arylandia055
+const dir_o = $s_arylandia057
+
+
+classe s_arylandia057
+herda b_arylandia
+const s_titulo = "O fim da estradinha"
+const dir_l = $s_arylandia056
+const dir_o = $s_arylandia058
+
+
+classe s_arylandia058
+herda b_arylandia
+const s_titulo = "Área rural"
+const dir_n = $s_arylandia059
+const dir_l = $s_arylandia057
+
+
+classe s_arylandia059
+herda b_arylandia
+const s_titulo = "Entrando em uma propriedade rural"
+const dir_n = $s_rural001
+const dir_s = $s_arylandia058
+
+
+classe s_arylandia060
+herda b_arylandia
+const s_titulo = "Os portões oeste"
+const dir_s = $s_arylandia061
+const dir_l = $s_arylandia022
+
+
+classe s_arylandia061
+herda b_arylandia
+const s_titulo = "contornando a cidade"
+const dir_n = $s_arylandia060
+
+
+classe s_arylandia062
+herda b_arylandia
+const s_titulo = "Em uma loja de animais"
+const dir_s = $s_arylandia022
+const a_reset = "P 100 arylandia002 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_arylandia002:objsolto.total < 1
+    criar("p_arylandia002", este, 0)
+  fimse
+
+
+classe s_arylandia063
+herda b_arylandia
+const s_titulo = "A rua do sucesso"
+const dir_n = $s_arylandia037
+const dir_s = $s_arylandia064
+
+
+classe s_arylandia064
+herda b_arylandia
+const s_titulo = "A rua do sucesso"
+const dir_n = $s_arylandia063
+const dir_s = $s_arylandia065
+
+
+classe s_arylandia065
+herda b_arylandia
+const s_titulo = "Na esquina da rua do sucesso"
+const dir_n = $s_arylandia064
+
+
+classe s_arylandia066
+herda b_arylandia
+const s_titulo = "A rua do progresso"
+const dir_n = $s_arylandia067
+const dir_s = $s_arylandia031
+
+
+classe s_arylandia067
+herda b_arylandia
+const s_titulo = "A rua do progresso"
+const dir_n = $s_arylandia068
+const dir_s = $s_arylandia066
+
+
+classe s_arylandia068
+herda b_arylandia
+const s_titulo = "Na esquina da rua do progresso"
+const dir_s = $s_arylandia067

@@ -1,0 +1,1010 @@
+classe comando_comum
+const obj = este # Objeto que processa o comando, ou nulo se não existe
+# const ultimo = 1 # Deve estar definido se comando tem baixa prioridade
+
+func escr # Processa o comando
+# arg0 = objeto do personagem
+# arg1 = texto digitado após o nome do comando
+
+func iniclasse
+  criar(arg0)
+
+func exevento # Gera evento de dois a cinco argumentos
+# arg0 = nome do evento
+# arg1 = objeto do personagem
+# arg2 a arg5 = segundo ao quinto argumentos, opcionais
+# Retorna 1 se evento foi cancelado
+  listaobj l
+  !arg1.dono.perso && l.addfim(arg1.dono)
+  l.addfim(arg1, arg1.dentro2)
+  casovar args
+  casose "2" # Evento de 1 argumento
+    enquanto l && !l.objini.[arg0](arg1)
+      l.ini.remove
+    efim
+    ret int(l)
+  casose "3" # Evento de 2 argumentos
+    enquanto l && !l.objini.[arg0](arg1, arg2)
+      l.ini.remove
+    efim
+    ret int(l)
+  casose "4" # Evento de 3 argumentos
+    enquanto l && !l.objini.[arg0](arg1, arg2, arg3)
+      l.ini.remove
+    efim
+    ret int(l)
+  casose "5" # Evento de 4 argumentos
+    enquanto l && !l.objini.[arg0](arg1, arg2, arg3, arg4)
+      l.ini.remove
+    efim
+    ret int(l)
+  casose "6" # Evento de 5 argumentos
+    enquanto l && !l.objini.[arg0](arg1, arg2, arg3, arg4, arg5)
+      l.ini.remove
+    efim
+    ret int(l)
+  casofim
+
+
+classe comando_mover
+herda comando_comum
+const m_entra = "$P chegou"
+const m_sai = "$P foi embora"
+const comando_mover = 1 # Para indicar que é comando de movimentação do jogador
+
+func escr
+  ref sala
+  se exevento(este, arg0, arg1)
+  senao (sala = dir(arg0)) == nulo
+    arg0.msg("Não é possível seguir nessa direção")
+  senao
+    mudasalatxt(arg0, sala)
+  fimse
+
+func mudasalatxt # Muda de sala avisando que personagem saiu e entrou
+# arg0=personagem, arg1=nova sala
+  $mens.p(arg0)
+  $mens.mvis2("", m_sai)
+  mudasala(arg0, arg1)
+  $mens.mvis2("", m_entra)
+
+func mudasala # Muda de sala
+# arg0=personagem, arg1=nova sala
+  arg0.alvo = nulo
+  arg0.dono = arg1
+  arg0.t_aguarde = arg1.terreno
+  arg0.atkrec.remove
+  arg0.animal.0.atkrec.remove
+  arg0.animal.2.atkrec.remove
+  arg0.animal.3.atkrec.remove
+  arg0.animal.4.atkrec.remove
+  arg0.animal.5.atkrec.remove
+  arg0.animal.6.atkrec.remove
+  arg0.animal.7.atkrec.remove
+  arg0.animal.8.atkrec.remove
+  arg0.animal.9.atkrec.remove
+
+
+classe cmd_n
+herda comando_mover
+const m_entra = "$P chegou do sul"
+const m_sai = "$P foi para o norte"
+const dir = arg0.dono.dir_n
+
+
+classe cmd_s
+herda comando_mover
+const m_entra = "$P chegou do norte"
+const m_sai = "$P foi para o sul"
+const dir = arg0.dono.dir_s
+
+
+classe cmd_l
+herda comando_mover
+const m_entra = "$P chegou do oeste"
+const m_sai = "$P foi para leste"
+const dir = arg0.dono.dir_l
+
+
+classe cmd_o
+herda comando_mover
+const m_entra = "$P chegou do leste"
+const m_sai = "$P foi para oeste"
+const dir = arg0.dono.dir_o
+
+
+classe cmd_e
+const obj = $cmd_l.obj(arg0, arg1)
+
+
+classe cmd_w
+const obj = $cmd_o.obj(arg0, arg1)
+
+
+classe cmd_entrar
+herda comando_mover
+const m_entra = "$P chegou de fora"
+const m_sai = "$P entrou"
+const dir = arg0.dono.dir_en
+
+
+classe cmd_sair
+herda comando_mover
+const m_entra = "$P chegou de dentro"
+const m_sai = "$P saiu"
+const dir = arg0.dono.dir_sa
+
+
+classe cmd_cima
+herda comando_mover
+const m_entra = "$P chegou de baixo"
+const m_sai = "$P subiu"
+const dir = arg0.dono.dir_c
+
+
+classe cmd_baixo
+herda comando_mover
+const m_entra = "$P chegou de cima"
+const m_sai = "$P desceu"
+const dir = arg0.dono.dir_b
+
+
+classe cmd_ajuda
+herda comando_comum
+const texto = texto1 + adm(arg0)
+const texto1 = "\b\c3Páginas de ajuda\b\n\
+Para ler tecle ajuda seguido do nome de um tópico ou um habilidade.\n\
+Os tópicos são:\n\
+  \c2BASICO\b   Comandos básicos\n\
+  \c2INFO\b     Informações sobre itens, personagens, etc.\n\
+  \c2ITEM\b     Manuseio de itens\n\
+  \c2ANIMAL\b   Manuseio de animais"
+
+func adm
+  se arg0.sock.admin
+    ret "\nPara ler as páginas de administração tecle \c2ADM\b"
+  fimse
+
+func escr
+  se exevento(este, arg0, arg1)
+    ret
+  senao arg1 == ""
+    arg0.msg_m(texto(arg0))
+    ret
+  fimse
+  ref obj
+  prog p
+  epara p.iniclasse("cmd_" + txt1(arg1)), p.lin, p.depois
+    obj = $[p.texto].objajuda(arg0)
+    sair obj
+  efim
+  se obj
+    arg0.msg_m(obj.txtajuda(arg0))
+  senao
+    arg0.msg("Tópico de ajuda inexistente: " + arg1)
+  fimse
+
+
+classe comando_ajuda
+const objajuda = este
+
+func iniclasse
+  criar(arg0)
+
+
+classe cmd_basico
+herda comando_ajuda
+const txtajuda = "\b\c3Comandos básicos\b\n\
+  \c2!\b        Repete o que você teclou por último\n\
+  \c2!!!\b      Sai do jogo e entra novamente\n\
+  \c2DIZER\b <texto>  Envia mensagem para os jogadores na mesma sala do chat\n\
+  \c2FALAR\b <texto>  Envia mensagem para os personagens no mesmo lugar\n\
+Você pode mover seu personagem para as seguintes direções:\n\
+N (norte), S (sul), L ou E (leste), O ou W (oeste), C (cima), B (baixo)."
+
+
+classe cmd_info
+herda comando_ajuda
+const txtajuda = "\b\c3Informações\b\n\
+  \c2VIDA\b     Mostra resumidamente como você está no jogo\n\
+  \c2QUEM\b     Mostra quem está jogando\n\
+  \c2IDIOMA\b   Mostra os idiomas que você conhece\n\
+  \c2HAB\b      Mostra as habilidades, sua ou do animal que você escolheu\n\
+  \c2VER\b      Repete a descrição da sala. Ver seguido de um texto mostra\n\
+                a descrição de um personagem\n\
+  \c2SOBRE\b    Mostra versão e autor do programa"
+
+
+classe cmd_sobre
+herda comando_comum
+const ultimo = 1 # Tem baixa prioridade
+
+func escr
+  se !exevento(este, arg0, arg1)
+    debug d
+    arg0.msg("IntMUD " + d.ver + " (interpretador MUD)")
+    arg0.msg("Autor: Edward Martin")
+    arg0.msg("Programa da casa feito pela mesma pessoa")
+  fimse
+
+
+classe cmd_ver
+herda comando_comum
+
+func escr
+  se exevento(este, arg0, arg1)
+# Descrição da sala
+  senao arg1 == ""
+    arg0.dono.ver(arg0)
+# Ver algum personagem
+  senao
+    listaitem i
+    nomeobj nome
+    nome.ini(arg1, 100)
+    epara i = arg0.dono.dentro1.ini, i, i.depois
+      ret arg0.visivel(i.obj) && nome.nome(i.obj.nome) && i.obj.ver(arg0), nulo
+    efim
+    arg0.msg("Você não vê isso")
+  fimse
+
+
+classe comando_var
+herda comando_comum
+
+func lista # Lista de itens, como habilidades, idiomas, etc.
+# arg0 = personagem
+# arg1 = variável textovar
+# arg2 = prefixo que identifica o tipo de variável (duas letras)
+# arg3 = mensagem se nada for encontrado
+# arg4 = mensagem se alguma coisa for encontrada
+  textotxt h
+  txt100 t1
+  txt100 t2
+  t1 = arg1.ini(arg2)
+  enquanto txt(t1, 0, 2) == arg2
+    t2 = txttroca(txt(t1, 2), "_", " ")
+    se arg1.valor(t1) == "1"
+      h.addfim(t2)
+    senao
+      h.addfim(arg1.valor(t1) + "x " + t2)
+    fimse
+    t1 = arg1.depois(t1)
+  efim
+  se h.linhas
+    h.addfim(txttroca(h.remove(1000), "\n", ", "))
+    h.addini(arg4)
+    arg0.msg(h.remove(1000))
+  senao
+    arg0.msg(arg3)
+  fimse
+  ret 1
+
+
+classe cmd_hab
+herda comando_var
+
+func escr
+  se !exevento(este, arg0, arg1)
+    txt100 n
+    arg0.persoesc != arg0 && (n = " de " + arg0.persoesc.nome)
+    lista(arg0, arg0.persoesc.var, "h_", "Nenhuma habilidade" + n, "Habilidades" + n)
+  fimse
+
+
+classe cmd_idioma
+herda comando_var
+
+func escr
+  se !exevento(este, arg0, arg1)
+    lista(arg0, arg0.var, "l_", "Nenhum idioma", "Idiomas")
+  fimse
+
+
+classe cmd_item
+herda comando_var
+const objajuda = este
+const txtajuda = "\b\c3Itens\b\n\
+  \c2ITEM\b     Mostra itens que você possui\n\
+  \c2OUTROS\b   Mostra itens especiais que você possui\n\
+  \c2PEGAR\b <item>  Pega um item da sala\n\
+  \c2SOLTAR\b <item> Solta na sala um item que você possui\n\
+  \c2DAR\b <item> <personagem>  Dá um item a alguém"
+
+func escr
+  se !exevento(este, arg0, arg1)
+    txt100 n
+    arg0.persoesc != arg0 && (n = " de " + arg0.persoesc.nome)
+    lista(arg0, arg0.persoesc.var, "i_", "Nenhum item" + n, "Itens" + n)
+  fimse
+
+
+classe cmd_outros
+herda comando_var
+
+func escr
+  se !exevento(este, arg0, arg1)
+    lista(arg0, arg0.var, "o_", "Nenhum item extra", "Itens extra")
+  fimse
+
+
+classe cmd_quem
+herda comando_comum
+
+func escr
+  ret exevento(este, arg0, arg1), nulo
+  textotxt t
+  listaobj l
+  ref r
+  l.addfim($jogolocal)
+  epara r = $jogoserv, r, r = objdepois(r)
+    l.addfim(r)
+  efim
+  epara r = $jogobot_usr, r, r = objdepois(r)
+    l.addfim(r)
+  efim
+  t.addfim("Personagens")
+  enquanto l.ini
+    l.objini.nome && t.addfim(l.objini.nome)
+    l.ini.remove
+  efim
+  arg0.msg_m(t.remove(1000))
+
+
+classe cmd_falar
+herda comando_comum
+
+func escr
+  ret exevento(este, arg0, arg1), nulo
+  txt512 lin
+  lin = txttroca(arg1, "$", "$$")
+  $mens.p(arg0)
+  se txt(arg1, 0, 3) == "..."
+    $mens.mtodos1("$P continuou: " + lin)
+  senao txtfim(arg1, 3) == "..."
+    $mens.mtodos1("$P ponderou: " + lin)
+  senao txtfim(arg1, 1) == "!"
+    $mens.mtodos1("$P exclamou: " + lin)
+  senao txtfim(arg1, 1) == "?"
+    $mens.mtodos1("$P perguntou: " + lin)
+  senao
+    $mens.mtodos1("$P falou: " + lin)
+  fimse
+
+
+classe cmd_d
+herda comando_comum
+const obj = $cmd_dizer
+
+
+classe cmd_dizer
+herda comando_comum
+
+func escr
+  se !arg1
+    arg0.msg("Dizer o que?")
+  senao !exevento(este, arg0, arg1)
+    arg0.msgsala(arg0.nome + " disse: " + arg1)
+  fimse
+
+
+classe cmd_pegar
+herda comando_comum
+
+func escr
+  se arg1
+    pegar_objeto(arg0, arg1)
+  senao
+    pegar_animal(arg0)
+  fimse
+
+func pegar_objeto # arg0 pega objeto arg1
+  txt100 item
+  item = arg0.dono.var.ini("i_" + arg1)
+  se exevento(este, arg0, arg1, item)
+  senao !item
+    arg0.msg("Você não vê " + arg1)
+  senao arg0.var.[item]_ == 99
+    arg0.msg("Não pode carregar mais " + txt2(txttroca(item, "_", " ")))
+  senao
+    arg0.dono.var.[item]_ -= 1
+    arg0.var.[item]_ += 1
+    $mens.p(arg0)
+    $mens.mtodos1("$P pega " + txt2(txttroca(item, "_", " ")))
+  fimse
+
+func pegar_animal # arg0 pega personagem arg1
+  ref r
+  r = arg0.alvo
+  se exevento(este, arg0, "", "")
+  senao !r || r.dono != arg0.dono
+    arg0.msg("Deve escolher o alvo para poder pegar")
+  senao r.jog
+    arg0.msg("Não pode pegar outro jogador")
+  senao !r.podepegar
+    arg0.msg("Impossível pegar " + arg1.nome)
+  senao r.pvida >= r.pvidamax * 0.3
+    arg0.msg(r.nome + " escapou")
+    arg0.esperar(3)
+  senao r.pvida >= r.pvidamax * 0.15 && rand(100) < 65
+    arg0.msg(r.nome + " escapou")
+    arg0.esperar(1)
+  senao r.pvida == 0
+    arg0.msg(r.nome + " desmaiou")
+  senao arg0.dentro1.total >= config:total2
+    arg0.msg("Sem espaço para pegar " + arg1.nome)
+  senao
+    $mens.p(arg0, r)
+    $mens.mtodos1("$P pega $A")
+    r.dono = arg0
+    int8 cont
+    enquanto cont < config:animal2 && arg0.animal.[cont]
+      cont += 1
+    efim
+    arg0.animal.[cont] = r
+    se arg0.var.a_[r.nome] != "2" # Adiciona na agenda
+      arg0.var.a_[r.nome] = 2
+      arg0.msg("Adicionado na agenda")
+    fimse
+  fimse
+
+
+classe cmd_soltar
+herda comando_comum
+
+func escr
+  txt100 item
+  item = arg0.var.ini("i_" + arg1)
+  se !arg1
+    arg0.msg("Soltar o que?")
+  senao exevento(este, arg0, arg1, item)
+  senao soltar_[arg1](arg0)
+  senao !item
+    arg0.msg("Você não possui " + arg1)
+  senao
+    se arg0.dono.var.[item]_ != 99
+      arg0.dono.var.[item]_ += 1
+    fimse
+    arg0.var.[item]_ -= 1
+    $mens.p(arg0)
+    $mens.mtodos1("$P solta " + txt2(txttroca(item, "_", " ")))
+  fimse
+
+const soltar_1 = soltar(arg0, arg0.animal.0, 1)
+const soltar_2 = soltar(arg0, arg0.animal.1, 2)
+const soltar_3 = soltar(arg0, arg0.animal.2, 3)
+const soltar_4 = soltar(arg0, arg0.animal.3, 4)
+const soltar_5 = soltar(arg0, arg0.animal.4, 5)
+const soltar_6 = soltar(arg0, arg0.animal.5, 6)
+const soltar_7 = soltar(arg0, arg0.animal.6, 7)
+const soltar_8 = soltar(arg0, arg0.animal.7, 8)
+const soltar_9 = soltar(arg0, arg0.animal.8, 9)
+
+func soltar # arg0 solta arg1, número do animal é arg2
+  se arg1 && arg2 <= config:animal1
+    arg0.dono.msg(arg0.nome + " solta " + arg1.nome)
+    arg0.persoesc == arg1 && (arg0.persoesc = arg0) # Deixa de escolher o animal
+    arg1.dono = arg0.dono # Muda o dono do animal
+    arg1 = nulo # Retira esse animal da lista
+    arg0.escolhebat # Atualiza persobat
+    ret 1 # Indica que processou o comando
+  fimse
+
+
+classe cmd_dar
+herda comando_comum
+
+func escr
+  txt100 item # Nome do item digitado
+  txt100 item2 # Nome do item encontrado
+  txt100 alvo # Nome do alvo digitado
+  ref r # Objeto do alvo encontrado
+  alvo = txtsub(arg1, intsub(arg1) - 1)
+  item = txtsub(arg1, 0, intsub(arg1) - 1)
+  item2 = arg0.var.ini("i_" + item)
+  r = arg0.persoalvo(txt2(arg1))
+  se !item
+    arg0.msg(alvo ? "Dar para quem?" : "Dar o que?")
+  senao !r
+    arg0.msg(txtmaimin(alvo) + " não está por perto.")
+  senao r == arg0
+    arg0.msg("Não pode dar coisas a você mesmo.")
+  senao exevento(este, arg0, r, item, item2)
+  senao dar_[item](arg0, r)
+  senao !item2
+    arg0.msg("Você não possui " + item)
+  senao !idiomacomum(arg0, r)
+    arg0.msg("Você e " + r.nome + " não falam um idioma em comum")
+  senao r.arg0.var.[item2]_ == 99
+    arg0.msg(r.nome + " não pode carregar mais " + txt(item2, 2))
+  senao
+    arg0.var.[item2]_ -= 1
+    r.var.[item2]_ += 1
+    $mens.p(arg0, r)
+    $mens.mtodos1("$P dá " + txttroca(txt(item2, 2), "_", " ") + " para $A")
+  fimse
+
+func idiomacomum # Checa se arg0 e arg1 possuem um idioma em comum
+  txt100 t
+  t = arg0.var.ini("l_")
+  enquanto txt(t, 0, 2) == "l_"
+    ret arg1.var.valor(t), 1
+    t = arg0.var.depois(t)
+  efim
+
+const dar_1 = dar(arg0, arg0.animal.0, arg1, 1)
+const dar_2 = dar(arg0, arg0.animal.1, arg1, 2)
+const dar_3 = dar(arg0, arg0.animal.2, arg1, 3)
+const dar_4 = dar(arg0, arg0.animal.3, arg1, 4)
+const dar_5 = dar(arg0, arg0.animal.4, arg1, 5)
+const dar_6 = dar(arg0, arg0.animal.5, arg1, 6)
+const dar_7 = dar(arg0, arg0.animal.6, arg1, 7)
+const dar_8 = dar(arg0, arg0.animal.7, arg1, 8)
+const dar_9 = dar(arg0, arg0.animal.8, arg1, 9)
+
+func dar # arg0 dá arg1 para arg2, número do animal é arg3
+  se arg1 && arg3 <= config:animal1
+# Verifica se destino é jogador
+    se !arg2.jog
+      arg0.msg("Não pode dar animais para " + arg2.nome)
+      ret 1
+    fimse
+# Verifica se jogador tem espaço para receber animal
+    uint8 x
+    enquanto x < config:animal1 && arg2.animal.[x]
+      x += 1
+    efim
+# Jogador não tem espaço
+    se x >= config:animal1
+      arg0.msg(arg2.nome + " não tem espaço para receber " + arg1.nome)
+      ret 1
+    fimse
+# Acrescenta na agenda
+    se arg2.var.a_[arg1.nome] != "2" # Adiciona na agenda de quem recebe
+      arg2.var.a_[arg1.nome] = 2
+      arg2.msg("Adicionado na agenda")
+    fimse
+# Animal muda de dono
+    $mens.p(arg0, arg2, arg1)
+    $mens.mtodos1("$P dá $O para $A")
+    arg0.persoesc == arg1 && (arg0.persoesc = arg0) # Deixa de escolher o animal
+    arg1.dono = arg2 # Muda o dono do animal
+    arg2.animal.[x] = arg1 # Acrescenta na lista do outro jogador
+    arg1 = nulo # Retira esse animal da lista
+    arg0.escolhebat # Atualiza persobat
+    ret 1 # Indica que processou o comando
+  fimse
+
+
+classe cmd_desenterrar
+herda comando_comum
+
+func escr
+  prog p
+  se exevento(este, arg0, arg1)
+  senao !p.existe(arg0.dono, "ent")
+    arg0.msg("Não consegue desenterrar aqui")
+  senao arg0.dono.ent.i_[arg1] == ""
+    arg0.msg("Você não acha " + arg1)
+  senao arg0.var.i_[arg1]_ == 99
+    arg0.msg("Não pode carregar mais " + arg1)
+  senao
+    arg0.dono.ent.i_[arg1]_ -= 1
+    arg0.var.i_[arg1]_ += 1
+    $mens.p(arg0)
+    $mens.mtodos1("$P desenterra " + arg1)
+  fimse
+
+
+classe cmd_enterrar
+herda comando_comum
+
+func escr
+  prog p
+  se exevento(este, arg0, arg1)
+  senao !p.existe(arg0.dono, "ent")
+    arg0.msg("Não consegue enterrar aqui")
+  senao arg0.var.i_[arg1]_ == 0
+    arg0.msg("Você não tem " + arg1)
+  senao arg0.dono.ent.i_[arg1]_ != 99
+    arg0.dono.ent.i_[arg1]_ += 1
+    arg0.var.i_[arg1]_ -= 1
+    $mens.p(arg0)
+    $mens.mtodos1("$P senterra " + arg1)
+  fimse
+
+
+classe cmd_vida
+herda comando_comum
+
+func escr
+  ret exevento(este, arg0, arg1), nulo
+  txt100 lin
+  ref r
+  r = arg0.persoesc
+  lin = r.nome + " vida " + r.pvida + " de " + r.pvidamax
+  lin += ", nível " + r.nivel + ", exp " + r.expatual + " de " + r.expmax
+  arg0.msg(lin)
+
+
+classe cmd_agenda
+herda comando_comum
+
+func escr
+  ret exevento(este, arg0, arg1), nulo
+  txt80 nome
+# Consultar um animal (digitou agenda seguido de algum nome)
+  se arg1
+    uint8 total
+    total = inttotal(arg1) + 2
+    nome = arg0.var.ini("a_" + arg1)
+    enquanto txt(nome, 0, total) == "a_" + arg1
+      se arg0.var.[nome] == 2
+        arg0.msg(p_[txt(nome, 2)]:agenda)
+        ret
+      fimse
+      nome = arg0.var.depois(nome)
+    efim
+    arg0.msg("Você não pegou " + arg1)
+    ret
+  fimse
+# Lista de animais (digitou apenas agenda)
+  textotxt viu
+  textotxt pegou
+  nome = arg0.var.ini("a_")
+  enquanto txt(nome, 0, 2) == "a_"
+    se arg0.var.[nome] == "1"
+      viu.addfim(txt(nome, 2))
+    senao
+      pegou.addfim(txt(nome, 2))
+    fimse
+    nome = arg0.var.depois(nome)
+  efim
+  nome = "Agenda: viu " + viu.total + ", pegou " + pegou.total
+  arg0.msg("Agenda:")
+  arg0.msg("Viu " + viu.linhas + ": " + txttroca(viu.remove(1000), "\n", ", "))
+  arg0.msg("Pegou " + pegou.linhas + ": " + txttroca(pegou.remove(1000), "\n", ", "))
+
+
+classe cmd_animal
+herda comando_comum
+const objajuda = este
+const txtajuda = "\b\c3Animais\b\n\
+  \c2AGENDA\b        Mostra animais que viu e que pegou\n\
+  \c2AGENDA\b <animal> Mostra informações sobre animal que pegou\n\
+  \c2ANIMAL\b        Mostra animais que possui\n\
+  \c20\b             Não escolhe nenhum animal\n\
+  \c21 a 5\b         Escolhe um animal seu, de 1 a 5\n\
+  \c2TROCA\b <número> <número> Troca a posição de dois animais\n\
+  \c2TROCA\b <item>  Dá item para um animal seu\n\
+  \c2TROCA\b         Pega item de um animal seu\n\
+  \c2PEGAR\b         Pega o animal que está lutando com você\n\
+Nota: Antes de tentar pegar, enfraqueça o animal atacando-o."
+
+func escr
+  ret exevento(este, arg0, arg1), nulo
+  uint8 cont
+  textotxt t
+  txt100 lin
+  ref animal
+  int1 reserva
+  l.addfim(arg0.dentro1)
+  lin = arg0.persoesc == arg0 ? "0+ Você" : "0 Você"
+  t.addfim(lin + " " + arg0.nivel + efeito(arg0))
+  epara nulo, cont < config:animal1, cont += 1
+    animal = arg0.animal.[cont]
+    continuar !animal
+    lin = cont + 1
+    animal == arg0.persoesc && (lin += "+")
+    lin += " " + animal.nome + " " + animal.nivel + efeito(animal)
+    t.addfim(lin)
+  efim
+  epara nulo, cont < config:animal2, cont += 1
+    animal = arg0.animal.[cont]
+    continuar !animal
+    se !reserva && cont >= config:animal1
+      reserva = 1
+      t.addfim("Reservas:")
+    fimse
+    lin = cont + 1
+    animal == arg0.persoesc && (lin += "+")
+    lin += " " + animal.nome + " " + animal.nivel
+    t.addfim(lin)
+  efim
+  arg0.msg_m(t.remove(100))
+
+func efeito
+  listaitem i
+  txt100 lin
+  arg0.pvida == 0 && (lin += " desmaiado")
+  epara i = arg0.dentro2.ini, i, i.depois
+    lin += i.obj.nome
+  efim
+  ret lin ? " (" + txt(lin, 1) + ")"
+
+
+classe comando_escolhe
+herda comando_comum
+const obj = int(nome) <= config:animal1 ? este
+
+func escr
+  ret exevento(este, arg0, arg1), nulo
+  ref r
+  r = perso(arg0) # Nota: perso está definido nas classes derivadas dessa
+  se !r
+    arg0.msg("Você não possui " + nome)
+  senao arg0.persoesc == r
+    arg0.msg("Você já escolheu " + nome)
+  senao r == arg0
+    arg0.persoesc.pvida && arg0.esperar(30) # Espera 3 segundos
+    arg0.persoesc = arg0
+    $mens.p(arg0)
+    $mens.mvis1("$P não escolheu ninguém")
+    arg0.escolhebat # Atualiza persobat
+  senao
+    arg0.persoesc.pvida && arg0.esperar(30) # Espera 3 segundos
+    arg0.persoesc = r
+    arg0.escolhebat # Atualiza persobat
+    $mens.p(arg0, r)
+    $mens.mvis1("$P escolheu $A")
+  fimse
+
+
+classe cmd_0
+herda comando_escolhe
+const nome = "0"
+const perso = arg0
+
+
+classe cmd_1
+herda comando_escolhe
+const nome = "1"
+const perso = arg0.animal.0
+
+
+classe cmd_2
+herda comando_escolhe
+const nome = "2"
+const perso = arg0.animal.1
+
+
+classe cmd_3
+herda comando_escolhe
+const nome = "3"
+const perso = arg0.animal.2
+
+
+classe cmd_4
+herda comando_escolhe
+const nome = "4"
+const perso = arg0.animal.3
+
+
+classe cmd_5
+herda comando_escolhe
+const nome = "5"
+const perso = arg0.animal.4
+
+
+classe cmd_6
+herda comando_escolhe
+const nome = "6"
+const perso = arg0.animal.5
+
+
+classe cmd_7
+herda comando_escolhe
+const nome = "7"
+const perso = arg0.animal.6
+
+
+classe cmd_8
+herda comando_escolhe
+const nome = "8"
+const perso = arg0.animal.7
+
+
+classe cmd_9
+herda comando_escolhe
+const nome = "9"
+const perso = arg0.animal.8
+
+
+classe cmd_trocar
+herda comando_comum
+
+func escr
+  se exevento(este, arg0, arg1)
+  senao !troca_animal(arg0, txt1(arg1), txt2(arg1))
+    troca_objetos(arg0, arg1)
+  fimse
+
+func troca_animal # Trocar dois animais de lugar
+# arg0 = personagem
+# arg1 = número do primeiro animal
+# arg2 = número do segundo animal
+# Retorna verdadeiro se conseguiu trocar
+  uint16 num1 # Primeiro animal
+  uint16 num2 # Segundo animal
+# Obtém números dos animais
+  num1 = arg1 - 1, num2 = arg2 - 1
+  se num1 >= config:animal2 || num2 >= config:animal2
+    ret 0
+  senao arg1 != txt(num1 + 1) || arg2 != txt(num2 + 1)
+    ret 0
+  senao !arg0.dono.centro && (num1 >= config:animal1 || num2 >= config:animal1)
+    arg0.msg("Não é possível trocar animais reserva aqui")
+    ret 1
+  fimse
+# Troca animais de lugar
+  ref r
+  r = arg0.animal.[num1]
+  arg0.animal.[num1] = arg0.animal.[num2]
+  arg0.animal.[num2] = r
+  arg0.msg("Troquei " + arg1 + " com " + arg2)
+# Acerta batalha
+  arg0.animal.[num1].atkrec.remove
+  arg0.animal.[num2].atkrec.remove
+# Acerta o animal escolhido
+  se num1 >= config:animal1 && arg0.persoesc == arg0.animal.[num1]
+    arg0.persoesc = arg0
+  senao num2 >= config:animal1 && arg0.persoesc == arg0.animal.[num2]
+    arg0.persoesc = arg0
+  fimse
+  arg0.escolhebat # Atualiza persobat
+  ret 1
+
+func troca_objetos # Dar objetos para animal e pegar de volta
+# arg0 = personagem
+# arg1 = nome do item
+  txt100 item # Item que o personagem escolheu
+  txt100 anim # Item que o animal possui
+  ref r
+  r = arg0.persoesc
+  item = arg0.var.ini("i_" + arg1)
+  anim = r.var.ini("i_" + arg1)
+  se r == arg0
+    arg0.msg("Para trocar itens você deve escolher um animal")
+  senao !arg1 && !anim # Não digitou nada e animal não possui item
+    arg0.msg("Animal não possui nenhum item")
+  senao !arg1 # Não digitou nada e animal possui item
+    r.var.[anim]_ = 0
+    arg0.var.[anim]_ += 1
+    arg0.msg("Você pega " + txt(anim, 2) + " de " + r.nome)
+  senao !item # Digitou algo mas não possui o item
+    arg0.msg("Você não possui " + arg1)
+  senao !anim # Digitou algo e possui o item, mas animal não possui item
+    r.var.[item]_ = 1
+    arg0.var.[item]_ -= 1
+    arg0.msg("Você dá " + txt(item, 2) + " para " + r.nome)
+  senao # Pegar o item do animal e dar outro item
+    r.var.[anim]_ = 0
+    r.var.[item]_ = 1
+    arg0.var.[anim]_ += 1
+    arg0.var.[item]_ -= 1
+    arg0.msg("Você pega " + txt(anim, 2) + " de " + r.nome + " e dá " + txt(item, 2))
+  fimse
+
+
+classe cmd_adm
+herda comando_comum
+const obj = arg0.e_admin ? este
+const txtescr = "Administração:\n\
+cl seguido do nome de uma classe edita ou cria a classe\n\
+il seguido ou não de um nome informa as classes existentes\n\
+al seguido do nome de uma classe apaga a classe\n\
+cmd seguido de um texto executa instruções do IntMUD\n\
+Exemplos:\n\
+cmd 1+2 # retorna 3, que é a soma de 1 com 2\n\
+cmd dono # retorna a variável dono do próprio jogador (a sala em que está)\n\
+cmd dono = $s_dentro003\n\
+Muda a variável dono, coloca o jogador na sala s_dentro003"
+
+func escr
+  arg0.msg(txtescr)
+
+
+classe cmd_cl
+herda comando_comum
+const obj = arg0.e_admin ? este
+
+func escr
+  arg0.passo = "classe"
+  arg0.tpasso = arg1
+  arg0.p_classe("\n")
+
+
+classe cmd_al
+herda comando_comum
+const obj = arg0.e_admin ? este
+
+func escr
+  prog p
+  se !p.existe(arg1)
+    arg0.msg("Classe não existe: " + arg1)
+  senao
+    p.apagar(arg1)
+    p.salvar(config:progsalvar)
+    arg0.msg("Classe apagada: " + arg1)
+  fimse
+
+
+classe cmd_il
+herda comando_comum
+const obj = arg0.e_admin ? este
+
+func escr
+  prog p
+  txt80 lin
+  se !p.iniclasse(arg1)
+    arg0.msg("\bNenhuma classe encontrada.")
+  senao
+    textotxt t
+    t.addfim("\bClasses:")
+    enquanto p.lin
+      se inttotal(lin + p.texto) >= 70
+        t.addfim(lin), lin = p.texto
+      senao lin
+        lin += ", " + p.texto
+      senao
+        lin = p.texto
+      fimse
+      p.depois
+    efim
+    lin && t.addfim(lin)
+    arg0.msg(t.remove(1000))
+  fimse
+
+
+classe cmd_cmd
+herda comando_comum
+const obj = arg0.e_admin ? este
+
+func escr
+  debug d
+  arg0.msg(">" + d.cmd(arg0, "ret " + arg1))
+
+
+classe cmd_nn
+herda comando_comum
+const obj = nulo # Comentar essa linha para o comando nn funcionar
+
+func escr
+  se arg1
+    arg0.recuperar
+    ret
+  fimse
+# arg0.dono = $s_dentro003
+  arg0.dono = $s_dentro009
+  $mens.p(este)
+  $mens.mvis2("", "$P chegou")
+  arg0.var.h_socar = 1
+  arg0.var.h_chutar = 1
+  arg0.var.i_corda = 1
+  arg0.var.l_hebráico = 1
+  arg0.var.a_lula = 2
+  arg0.var.i_balde_cheio = 1
+  arg0.var.i_oculos = 1
+  arg0.var.i_capa = 1
+  arg0.var.o_gancho = 1
+  arg0.nivel = 60
+# arg0.novoefeito("e_dormindo")
+  arg0.recalc = 1
+  se !arg0.animal.0
+    arg0.animal.0 = criar("p_lula", arg0, 10, "h_bolha,h_morder")
+  fimse
+  ret 1
+
+
+classe cmd_pocao
+herda comando_comum
+const obj = arg0.var.i_poção ? este
+
+func escr
+  ret exevento(este, arg0, arg1), nulo
+  ref r
+  r = arg0.persoesc # Personagem escolhido
+  r.pvida += 20
+  r.pvida > r.pvidamax && (r.pvida = r.pvidamax)
+  escolhebat # Atualiza persobat
+  arg0.dono.msg(arg0.nome + " cura " + r.nome + ", " + r.pvida + " de " + r.pvidamax)
+  arg0.var.i_poção_ -= 1

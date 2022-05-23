@@ -1,0 +1,86 @@
+IntMUD versão 0.99
+
+Índice
+
+1. O que é
+2. Arquivos que acompanham o programa
+3. Como executar um programa
+4. MUD básico
+5. Contato
+
+--
+
+1. O que é
+
+O IntMUD é um programa projetado especificamente para a criação de MUDs.
+Um MUD ("Multiple User Dimension" ou "Multiple User Dungeon") é
+um jogo de RPG, baseado em texto, em que várias pessoas podem jogar
+ao mesmo tempo, interagindo entre si.
+Nesse caso, foi criada uma linguagem específica. O IntMUD é o programa que
+executa programas escritos nessa linguagem. Na verdade ele é um interpretador.
+Isso torna possível alguns recursos bastante úteis, como a capacidade de
+modificar o próprio programa em tempo de execução. Significa que para a
+maioria das tarefas, é possível alterar o próprio MUD, bem como corrigir
+bugs, sem a necessidade de desativar o programa.
+Um programa interpretado pode rodar de duas formas: abrindo uma janela, ou
+em segundo plano (sem abrir nenhuma janela). É uma janela semelhante ao
+prompt de comando do Windows, e pode ser lida por leitores de tela, como
+o Jaws e NVDA (geralmente usando as setas). A utilidade de cada modo
+depende muito da aplicação. Exemplo, para um MUD pode não ser interessante
+abrir uma janela, mas quando se trata de um cliente de Telnet, é necessário.
+O programa roda também em Linux. Nesse caso, basta baixar o código fonte
+do site e compilar em um console, digitando:
+./configure && make
+
+
+2. Arquivos que acompanham o programa
+
+Os programas escritos na linguagem do IntMUD são:
+
+telnet - Cliente de Telnet. Permite entrar em MUDs.
+quest - Jogo de perguntas (vide arquivo quest.txt).
+editmud - Permite editar programas online na linguagem do IntMUD,               
+sem precisar desativar o programa a cada alteração.
+Acompanha o editmud.exe (versão para Windows) ou editmud-gtkmm.                 
+mud - Pequeno teste de MUD; ainda não está jogável.
+
+O descritivo da linguagem interpretada está no arquivo descr.txt.
+
+
+3. Como executar um programa
+
+Há três formas:
+4.1. Renomear o arquivo executável (na versão para Windows, intmud.exe)
+para o nome do programa a executar. Exemplo, renomear para quest.exe.
+4.2. Executar intmud seguido do nome do programa.
+Exemplo: intmud quest
+Geralmente isso significa abrir o prompt de comando, entrar no diretório
+aonde o pacote foi descompactado e digitar intmud seguido do nome do arquivo.
+4.3. Se estiver usando algum ambiente gráfico, basta arrastar o arquivo
+(exemplo, quest.int) para o intmud.exe com o botão esquerdo do mouse.
+
+
+4. MUD básico
+
+Possui algumas funcionalidades básicas, como ir de um lugar a outro e
+conversar com outros jogadores (teclar f seguido de uma mensagem).
+Itens e MOBs ainda não foram implementados.
+
+Para ativar o MUD:
+Renomeie o arquivo intmud.exe para mud.exe e execute; ou
+Execute: intmud mud; ou
+Arraste com o mouse o arquivo mud.int para o intmud.exe.
+
+Provavelmente o Windows vai perguntar se deseja continuar bloqueando
+esse programa. Clicar em "Desbloquear". Isso acontece porque ele abre
+uma porta, para que os usuários possam conectar.
+
+Depois use um programa de Telnet e conecte no endereço localhost,
+porta 1963. No Windows XP, uma alternativa é abrir o prompt de comando
+e digitar: telnet localhost 1963
+
+
+5. Contato
+
+Site: http://intmud.googlecode.com/
+e-mail: ed2martin@yahoo.com.br

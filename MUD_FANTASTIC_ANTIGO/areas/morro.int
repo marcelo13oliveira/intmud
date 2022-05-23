@@ -1,0 +1,1382 @@
+classe a_morro
+herda area
+const a_tempo = 5
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_nome = "o morro do alemão"
+
+
+classe b_morro
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const s_som = "morro"
+const s_area = "morro"
+const b_exp = "20000"
+
+
+classe i_morro001
+herda comum_itemperso
+const nome = "uma estante"
+const descpos = "uma estante de madeira se encontra escorada em uma parede."
+const descver = "uma linda estante de madeira"
+const pesoobj = 10000000
+
+
+classe i_morro002
+herda comum_itemperso
+const nome = "uma mesa"
+const descnome = "uma grande mesa"
+const descpos = "com um forro bordado, uma grande mesa está no centro da sala"
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 10000000
+
+
+classe i_morro003
+herda comum_item
+const nome = "um cachimbo"
+const descnome = "um cachimbo feito com papel alumínio"
+const descpos = "um cachimbo artezanal foi deixado aqui no chão"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const armatipo = 8 # Tipo de arma: 8 Revolver
+const pesoobj = 100
+
+
+classe i_morro004
+herda comum_item
+const nome = "pistola glock 17"
+const descnome = "uma pistola glock 17"
+const armacarregar = 3 # Carregar: 3 Básico
+const armamax = 300
+const armamin = 200
+const armamunicao = 2 # Origem da munição: 2 Itens na arma
+const armafalha = 5
+const armamove = 10
+const armatipo = 8 # Tipo de arma: 8 Revolver
+const i_municao = "morro010\nteste054"
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 0 # Tipo de item: (1-arma, 3-Vestimenta)
+const valor = 100000
+const vestir1 = 8388608 # Aonde vestir: 23-na cintura
+const i_empunhoumsg = "$p saca sua glock, ficando com ela em punho"
+const i_msgvestiu = "$P põe $o na cintura."
+const i_msgremoveu = "$p guarda a glock, pondo-a de volta na cintura"
+
+
+classe i_morro005
+herda comum_item
+const nome = "um pneu velho"
+const descnome = "um pneu velho"
+const descpos = "um pneu desgastado está jogado por aqui"
+
+
+classe i_morro006
+herda comum_itemperso
+const nome = "um fusca todo amassado"
+const descnome = "um fusca todo amassado"
+const descpos = "Parecendo uma lata pisada, soltando olho e fumegando, um fusca amassado está \
+estacionado aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_movel = 1 # Mobília: 1 Sentar
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const luzini = 0
+const luzliga = "acende os faróis do fusca"
+const objmax = 100
+const pesoobj = 100000000
+const valor = 11000
+
+
+classe i_morro007
+herda comum_itemgrupo
+const nome = "uma enorme mesa"
+const descnome = "uma enorme mesa"
+const descpos = "ocupando oitenta por sento do espaço, essa enorme mesa fica imóvel aqui"
+const pesoobj = 10000000
+
+
+classe i_morro008
+herda comum_item
+const nome = "uma taça"
+const descnome = "uma taça"
+const descpos = "Feita com um cristal raro, uma taça de cor azul se encontra em cima da mesa"
+const pesoobj = 1000
+
+
+classe i_morro009
+herda comum_item
+const nome = "um sofá de couro"
+const descnome = "um belo sofá de couro de crocodilo"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 90000000
+
+
+classe i_morro010
+herda comum_itemgrupo
+const nome = "uma munição calibre 9 milímetros"
+const descnome = "uma munição calibre 9 milímetros"
+const descpos = "Com a cápsula dourada, e uma ponta prateada, uma munição calibre 9 milímetros \
+está caída aqui"
+
+
+classe p_morro001
+herda comum_persobat
+const nome = "luiz"
+const descnome = "luiz"
+const descpadr = "Sentado fumando seu cachimbo, Luiz observa tudo ao seu redor, aguardando a \
+hora certa para agir."
+const descver = "um dos maiores assaltantes de bancos se encontra de ante de você!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 450
+const pospadr = 6 # Posição padrão: 6 Sentado
+const tipo1 = "humano"
+const tipo2 = "ladrão"
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 10000
+const inivar = "h_furtar=8"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500000
+  pmovemax += 10000
+  pveloc1 += 500
+  atknorm += 40000
+  defnorm += 300000
+  atkesp += 500 * pnivel
+  defesp += 250000
+  evasao += 10000
+  precisao += 12000
+  pesomax += 2000
+  bitver |= 2064
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  posic < 7 && teclou("lev")
+  misc:tempo("roubar", arg0)
+#
+
+func roubar20
+  $mens.p(este, arg0)
+  $mens.mtodos2("$P aponta uma arma na sua direção e declara um assalto!", "$P aponta uma arma \
+na direção de $A e declara um assalto!")
+#
+
+func roubar30
+  teclou("furtar " + arg0.descnome)
+#
+#
+
+
+classe p_morro002
+herda comum_persobat
+const nome = "eduardo o marginal"
+const ident = "eduardo marginal homem"
+const descnome = "Um marginal do morro"
+const descpadr = "Dormindo profundamente, um marginal está deitado aqui em um monte de folhas de \
+jornal."
+const descver = "muito sujo e com roupas rasgadas, esse pobre indivído dorme aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 400
+const pospadr = 4 # Posição padrão: 4 Dormindo
+const tipo1 = "humano"
+const tipo2 = "ladrão"
+const equip1 = 1048576 # Equip posições: 20-segurando
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 10000
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 400000
+  pmovemax += 10000
+  pveloc1 += 500
+  atknorm += 40000
+  defnorm += 300000
+  atkesp += 1000 * pnivel
+  defesp += 2500 * pnivel + 250000
+  evasao += 12000
+  precisao += 15000
+  pesomax += 20 * pnivel + 20
+
+
+classe p_morro003
+herda comum_persobat
+const nome = "um criminoso"
+const ident = "criminoso homem bem vestido"
+const descnome = "um criminoso bem vestido"
+const descpadr = "Bem vestido, um criminoso caminha pelo morro, sem aparentar ser o que é."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 1000000
+const nivel = 420
+const pospadr = 8 # Posição padrão: 8 Em pé
+const tipo1 = "humano"
+const tipo2 = "ladrão"
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_atk_anda = 0 # Anda ataque: Não
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 10000
+const p_fugir = 50000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 400
+const p_naoresg = 0 # Sem resgate: Não
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500000
+  pmovemax += 12000
+  pveloc1 += 600
+  atknorm += 45000
+  defnorm += 360000
+  atkesp += 100 * pnivel + 500
+  defesp += 300000
+  evasao += 12000
+  precisao += 17000
+  pesomax += 30 * pnivel + 20000
+
+
+classe p_morro004
+herda comum_persobat
+const nome = "inácio"
+const descnome = "um grande cachorro"
+const descpadr = "com as orelhas em pé e seus olhos esbugalhados, Inácio o cachorro de Luiz está \
+deitado aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 10000
+const volmax = 40
+const pospadr = 4 # Posição padrão: 4 Dormindo
+const tipo1 = "cachorro"
+const tipo2 = "ladrão"
+const p_atk_anda = 1 # Anda ataque: Sim
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 20000
+const p_fugir = 1000
+const p_lembra = 5
+const p_persegue = 1 # Persegue jogadores: 1 Mesma área se atacarem
+const p_perseguevel = 1000
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1000 * pnivel + 10000
+  pmovemax += 100 * pnivel + 100
+  pveloc1 += 2000 * pnivel + 100
+  atknorm += 160 * pnivel + 40000
+  defnorm += 1800 * pnivel + 180000
+  atkesp += 2000 * pnivel + 1000
+  defesp += 1900 * pnivel + 200000
+  evasao += 100 * pnivel + 100
+  precisao += 20 * pnivel + 40000
+  pesomax += 20 * pnivel + 2999
+
+
+classe p_morro005
+herda comum_persobat
+const nome = "um sequestrador"
+const descnome = "um sequestrador"
+const descpadr = "Um homem encapuzado e trajando roupas pretas está aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 100000
+const nivel = 700
+const tipo1 = "humano"
+const tipo2 = "ladrão"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_atk_anda = 1 # Anda ataque: Sim
+const p_atk_desvia = 0 # Desvia ataque: Não
+const p_comecorpo = 0 # Come corpos: Não
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 20000
+const p_fugir = 1000
+const p_lembra = 5
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 800
+const p_naoresg = 1 # Sem resgate: Sim
+const p_naoseguir = 1 # Não podem seguir: Sim
+const p_persegue = 2 # Persegue jogadores: 2 Qualquer lugar se atacarem
+const p_perseguevel = 30
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500 * pnivel + 140000
+  pmovemax += 1000 * pnivel + 400
+  pveloc1 += 700 * pnivel + 10000
+  atknorm += 140 * pnivel + 24000
+  defnorm += 1600 * pnivel + 190000
+  atkesp += 400 * pnivel + 25000
+  defesp += 2000 * pnivel + 290000
+  evasao += 700 * pnivel + 700
+  precisao += 200 * pnivel + 45000
+  pesomax += 29999 * pnivel + 4999
+
+
+classe p_morro006
+herda comum_persobat
+const nome = "um pistoleiro"
+const descnome = "um pistoleiro"
+const descpadr = "Um homem de óculos escuros e vestido em um jaleco xadrez está aqui se preparand\
+o para a próxima ação"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 1000000
+const nivel = 780
+const tipo1 = "homem"
+const tipo2 = "ladrão"
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_atk_anda = 0 # Anda ataque: Não
+const p_atk_desvia = 0 # Desvia ataque: Não
+const p_comecorpo = 0 # Come corpos: Não
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 34000
+const p_fugir = 1000
+const p_lembra = 5
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 500
+const p_naoresg = 1 # Sem resgate: Sim
+const p_persegue = 1 # Persegue jogadores: 1 Mesma área se atacarem
+const p_perseguevel = 100
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 800 * pnivel + 80000
+  pmovemax += 300 * pnivel + 4000
+  pveloc1 += 500 * pnivel + 70000
+  atknorm += 100 * pnivel + 24000
+  defnorm += 1900 * pnivel + 240000
+  atkesp += 50 * pnivel + 4000
+  defesp += 2100 * pnivel + 230000
+  evasao += 900 * pnivel + 900
+  precisao += 200 * pnivel + 40000
+  pesomax += 3 * pnivel + 200000
+
+
+classe p_morro007
+herda comum_persobat
+const nome = "um ladrão subordinado de luiz"
+const ident = "subordinado"
+const descnome = "um ladrão"
+const descpadr = "Com roupas de um executivo, e Com um olhar de quem não quer nada, um subordinad\
+o de Luiz está aqui esperando um vacilo seu"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 650
+const tipo1 = "humano"
+const tipo2 = "ladrão"
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_atk_anda = 0 # Anda ataque: Não
+const p_comecorpo = 0 # Come corpos: Não
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 15000
+const p_fugir = 1000
+const p_lembra = 5
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 500
+const p_persegue = 0 # Persegue jogadores: 0 Não
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 600 * pnivel + 100000
+  pmovemax += 90 * pnivel + 9000
+  pveloc1 += 1000 * pnivel
+  atknorm += 160 * pnivel + 28000
+  defnorm += 878 * pnivel + 170000
+  atkesp += 300 * pnivel + 3000
+  defesp += 900 * pnivel + 240000
+  evasao += 500 * pnivel
+  precisao += 20
+  pesomax += 30 * pnivel + 300
+
+
+classe p_morro008
+herda comum_persobat
+const nome = "michel"
+const descnome = "michel"
+const descpadr = "Michel, o dono do ferro velho está aqui tentando te vender alguma sucata."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 100000
+const nivel = 500
+const tipo1 = "humano"
+const tipo2 = "ladrão"
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 20000
+const p_fugir = 500
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200 * pnivel + 35000
+  pmovemax += 100 * pnivel + 2000
+  pveloc1 += 50 * pnivel + 10000
+  atknorm += 140 * pnivel + 28000
+  defnorm += 1900 * pnivel + 290000
+  atkesp += 100 * pnivel + 3000
+  defesp += 2400 * pnivel + 290000
+  evasao += 90000
+  precisao += 8000 * pnivel
+  pesomax += 9000 * pnivel
+
+
+classe p_morro009
+herda comum_persobat
+const nome = "têmer o aprendiz de michel"
+const descnome = "têmer"
+const descpadr = "têmer o aprendiz de michel está aqui."
+const tipo1 = "ladrão"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 540
+const p_fugir = 1000
+const m_atribs1 = "2"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1000 * pnivel + 10000
+  pmovemax += 400 * pnivel + 10000
+  pveloc1 += 900 * pnivel + 199
+  atknorm += 160 * pnivel + 25000
+  defnorm += 1000 * pnivel + 280000
+  atkesp += 120 * pnivel + 1000
+  defesp += 1900 * pnivel + 290000
+  evasao += 1000 * pnivel + 100
+  precisao += 100 * pnivel + 10000
+  pesomax += 100 * pnivel + 1000
+
+
+classe p_morro010
+herda comum_persobat
+const nome = "lula"
+const descnome = "lula"
+const descpadr = "com uma risada sarcástica, lula o dono do bar está aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const tipo1 = "humano"
+const tipo2 = "ladrão"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 29000
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 800 * pnivel + 100000
+  pmovemax += 800 * pnivel + 1000
+  pveloc1 += 200 * pnivel + 90000
+  atknorm += 70 * pnivel + 40000
+  defnorm += 1000 * pnivel + 300000
+  atkesp += 400 * pnivel + 80000
+  defesp += 1900 * pnivel + 350000
+  evasao += 900 * pnivel + 900
+  precisao += 200 * pnivel + 200
+  pesomax += 200 * pnivel + 2000
+
+
+classe p_morro011
+herda comum_persobat
+const nome = "dilma"
+const descnome = "dilma"
+const descpadr = "Tentando servir a todos, Dilma a garçonete está aqui"
+const tipo1 = "humano"
+const tipo2 = "ladrão"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 27000
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500 * pnivel + 100000
+  pmovemax += 500 * pnivel + 900
+  pveloc1 += 100 * pnivel + 10000
+  atknorm += 80 * pnivel + 29000
+  defnorm += 1500 * pnivel + 290000
+  atkesp += 100 * pnivel + 9000
+  defesp += 1900 * pnivel + 380000
+  evasao += 90 * pnivel + 400
+  precisao += 90 * pnivel + 90
+  pesomax += 99 * pnivel + 9000
+
+
+classe p_morro012
+herda comum_persobat
+const nome = "um adolescente"
+const descnome = "um adolescente"
+const descpadr = "com os olhos vermelhos como chama, e um estilo radical, um adolescente do \
+crime está aqui."
+const tipo1 = "humano"
+const tipo2 = "ladrão"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 7000
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1000 * pnivel + 40000
+  pmovemax += 89 * pnivel + 9000
+  pveloc1 += 200 * pnivel + 10000
+  atknorm += 120 * pnivel + 20000
+  defnorm += 1700 * pnivel + 290000
+  atkesp += 1000 * pnivel + 899
+  defesp += 1900 * pnivel + 300000
+  evasao += 90 * pnivel + 89
+  precisao += 200 * pnivel + 20000
+  pesomax += 2000 * pnivel + 2000
+
+
+classe p_morro013
+herda comum_persobat
+const nome = "um adolescente"
+const descnome = "um adolescente"
+const descpadr = "com os olhos vermelhos como chama, e um estilo radical, um adolescente do \
+crime está aqui curtindo o efeito das drogas."
+const tipo1 = "humano"
+const tipo2 = "ladrão"
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 8000
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 600 * pnivel + 90000
+  pmovemax += 90 * pnivel + 9000
+  pveloc1 += 900 * pnivel + 1000
+  atknorm += 140 * pnivel + 26000
+  defnorm += 1900 * pnivel + 290000
+  atkesp += 90 * pnivel + 900
+  defesp += 2900 * pnivel + 290000
+  evasao += 90 * pnivel + 90
+  precisao += 900 * pnivel + 30000
+  pesomax += 900000
+
+
+classe p_morro014
+herda comum_persobat
+const nome = "cabral"
+const descnome = "cabral"
+const descpadr = "desfrutando de todo o dinheiro que roubou, Cabral está aqui sentado curtindo a \
+vida boa"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pospadr = 6 # Posição padrão: 6 Sentado
+const tipo1 = "humano"
+const tipo2 = "ladrão"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 30000
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 900 * pnivel + 80000
+  pmovemax += 90000
+  atknorm += 160 * pnivel + 38000
+  defnorm += 2200 * pnivel + 330000
+  atkesp += 80000
+  defesp += 2200 * pnivel + 390000
+  evasao += 900
+  precisao += 90 * pnivel
+  pesomax += 900000
+
+
+classe p_morro015
+herda comum_persobat
+const nome = "garotinho"
+const descnome = "garotinho"
+const descpadr = "Com um olhar de coitado, mas com uma mente cruel, garotinho está aqui aguando \
+as plantinhas"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const tipo1 = "humano"
+const tipo2 = "ladrão"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 28000
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1000 * pnivel + 2000
+  pmovemax += 900000
+  pveloc1 += 900 * pnivel
+  atknorm += 200 * pnivel + 22000
+  defnorm += 2500 * pnivel + 300000
+  atkesp += 50 * pnivel
+  defesp += 2400 * pnivel + 300000
+  evasao += 400 * pnivel
+  precisao += 400 * pnivel
+  pesomax += 900 * pnivel
+
+
+classe p_morro016
+herda comum_persobat
+const nome = "um olheiro"
+const descnome = "um olheiro"
+const descpadr = "Atento a tudo que acontece, um olheiro está aqui pronto pra comunicar o chefe \
+de possíveis ações policiais"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const tipo1 = "ladrão"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 20000
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 700 * pnivel + 90000
+  pmovemax += 9000
+  atknorm += 150 * pnivel + 29000
+  defnorm += 750 * pnivel + 280000
+  defesp += 750 * pnivel + 300000
+  evasao += 890000
+  precisao += 890 * pnivel
+
+
+classe s_morro001
+herda b_morro
+const s_titulo = "entrada do morro do alemão"
+const s_desc = "Ao chegar aqui, você fica trêmulo ao lembrar de quanta coisa terrível já ouvio \
+sobre esse lugar"
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const dir_n = $s_favela035
+const dir_s = $s_morro002
+
+
+classe s_morro002
+herda b_morro
+const s_titulo = "adentrando no morro do alemão."
+const s_desc = "daqui você pode perseber um aglomerado de pessoas ao leste, uma rua com barricada\
+s a sua frente, e uma infinidade de intúlho ao oeste."
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const dir_n = $s_morro001
+const dir_s = $s_morro005
+const dir_l = $s_morro004
+const dir_o = $s_morro003
+
+
+classe s_morro003
+herda b_morro
+const s_titulo = "um lixão"
+const s_desc = "quando você chega aqui, a única coisa que você pode ver é lixo e mais lixo, por \
+toda parte a resto de comida, latas e sacolas, resto de animais, e até uma cabeça humana!"
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const dir_l = $s_morro002
+
+
+classe s_morro004
+herda b_morro
+const s_titulo = "um lote baldio"
+const s_desc = "no meio do matagal, você pode notar alguns cachimbos e roupas espalhadas."
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const dir_o = $s_morro002
+
+
+classe s_morro005
+herda b_morro
+const s_titulo = "em frente a uma barricada"
+const s_desc = "ao chegar aqui, você tem seu caminho interrompido por uma barreira de concreto, \
+criada para atrapalhar o avanço de forças militares."
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const dir_n = $s_morro002
+const dir_o = $s_morro058
+const dir_c = $s_morro006
+
+
+classe s_morro006
+herda b_morro
+const s_titulo = "subindo na barricada"
+const s_desc = "após algumas tentativas, você salta e consegue se pendurar na barricada, \
+permitindo passar para o outro lado."
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const dir_s = $s_morro007
+const dir_b = $s_morro005
+
+
+classe s_morro007
+herda b_morro
+const s_titulo = "em cima da barricada"
+const s_desc = "Daqui você tem uma visão panorâmica da entrada do morro, e olhando ao sul pode \
+ver emboscadas armadas por criminosos."
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const dir_n = $s_morro006
+const dir_b = $s_morro008
+const a_reset = "P 100 morro016 390 580 2 h_voadora_=8,h_chutar_=8,h_gancho_=8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_morro016:objsolto.total < 2
+    criar("p_morro016", este, rand(390, 580), "h_voadora_=8,h_chutar_=8,h_gancho_=8")
+  fimse
+
+
+classe s_morro008
+herda b_morro
+const s_titulo = "em frente a barricada."
+const s_desc = "Ao chegar aqui, você tem seu caminho interrompido por uma barricada criada para \
+atrapalhar o avanço de forças militares."
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const dir_s = $s_morro048
+const dir_l = $s_morro009
+const dir_o = $s_morro047
+const dir_c = $s_morro007
+
+
+classe s_morro009
+herda b_morro
+const s_titulo = "uma rua estreita"
+const s_desc = "Você caminha por uma rua onde mal cabe um carro, por todo lado você vê pessoas \
+perambulando como se fossem zumbis."
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_ocultar = 0 # Ocultar desc: Não
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const dir_l = $s_morro010
+const dir_o = $s_morro008
+
+
+classe s_morro010
+herda b_morro
+const s_titulo = "uma rua estreita"
+const s_desc = "Você caminha por uma rua onde mal cabe um carro, por todo lado você vê pessoas \
+perambulando como se fossem zumbis."
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const dir_l = $s_morro011
+const dir_o = $s_morro009
+
+
+classe s_morro011
+herda b_morro
+const s_titulo = "continuando na rua estreita"
+const s_desc = "Você continua a caminhar por essa rua estreita, e ao leste pode ver um muro que \
+interrompe a continuação do caminho."
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const dir_l = $s_morro012
+const dir_o = $s_morro010
+
+
+classe s_morro012
+herda b_morro
+const s_titulo = "próximo ao muro"
+const s_desc = "Um grande muro se ergue a sua frente, você se pergunta qual o sentido de um muro \
+tão alto em um morro."
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const dir_s = $s_morro013
+const dir_o = $s_morro011
+
+
+classe s_morro013
+herda b_morro
+const s_titulo = "em uma ladeira"
+const s_desc = "Você começa a andar em direção ao topo do morro, e fica zonzo com uma fumaça que \
+vem de uma casa ao leste."
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_terreno = 6 # Terreno: 6 Montanha, excessivamente montanhoso - 6mv
+const dir_n = $s_morro012
+const dir_s = $s_morro014
+const dir_l = $s_morro015
+const dir_o = $s_morro020
+
+
+classe s_morro014
+herda b_morro
+const s_titulo = "uma inclinação no morro."
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_terreno = 6 # Terreno: 6 Montanha, excessivamente montanhoso - 6mv
+const dir_n = $s_morro013
+const dir_c = $s_morro022
+
+
+classe s_morro015
+herda b_morro
+const s_titulo = "em frente uma casa"
+const s_desc = "Você chega na entrada de uma casa luxuosa, ao lado você pode notar alguns vasos \
+com flores e um gramado bem verde."
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const dir_l = $s_morro016
+const dir_o = $s_morro013
+
+
+classe s_morro016
+herda b_morro
+const s_titulo = "uma sala"
+const s_desc = "Você está em uma sala, a sua frente tem uma estante com uma televisão , no \
+centro da sala você pode notar um carpete bem aconchegante, e em um canto da sala tem um \
+sofá."
+const s_fome = 0 # Fome e sede: 0 Presente
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_n = $s_morro017
+const dir_l = $s_morro019
+const dir_o = $s_morro015
+const a_reset = "S 100 morro001 1 S\n\
+P 90 morro004 560 680 1 h_terceiro_ataque_=8,h_surpreender_=8,h_morder_=8,h_socar_=6\n\
+P 90 morro001 500 580 1 h_voadora_=6,h_rasteira_=8,h_terceiro_ataque_=8,h_gancho_=8\n\
+D 100 o 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_morro001") && criar("i_morro001", este, 1)
+  se p_morro004:objsolto.total < 1 && rand(100) < 90
+    criar("p_morro004", este, rand(560, 680), "h_terceiro_ataque_=8,h_surpreender_=8,h_morder_=8,\
+h_socar_=6")
+  fimse
+  se p_morro001:objsolto.total < 1 && rand(100) < 90
+    criar("p_morro001", este, rand(500, 580), "h_voadora_=6,h_rasteira_=8,h_terceiro_ataque_=8,h_\
+gancho_=8")
+  fimse
+  mudaporta("o", 2)
+
+
+classe s_morro017
+herda b_morro
+const s_titulo = "um corredor"
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const dir_s = $s_morro016
+const dir_l = $s_morro018
+
+
+classe s_morro018
+herda b_morro
+const s_titulo = "um pequeno quarto."
+const s_desc = "Você adentra em um quarto pequeno, em um dos cantos a um baú antigo, e um \
+armário em uma das paredes."
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_o = $s_morro017
+
+
+classe s_morro019
+herda b_morro
+const s_titulo = "cozinha"
+const s_desc = "Um odor azedo te instiga a sair desse lugar, por todo o chão a resto de comida e \
+moscas sobrevoando sua cabeça!"
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_o = $s_morro016
+
+
+classe s_morro020
+herda b_morro
+const s_titulo = "um campo de terra"
+const s_desc = "você pode ver umas traves de madeira cravada no chão, e uma bola furada mais a \
+diante."
+const dir_l = $s_morro013
+const dir_o = $s_morro021
+
+
+classe s_morro021
+herda b_morro
+const s_titulo = "um campo de terra"
+const dir_l = $s_morro020
+
+
+classe s_morro022
+herda b_morro
+const s_titulo = "subindo o morro"
+const s_desc = "Você começa a andar em direção ao topo do morro, o cenário de violência que você \
+vê por todos os lados te assustam"
+const dir_s = $s_morro023
+const dir_l = $s_morro024
+const dir_o = $s_morro031
+const dir_b = $s_morro014
+
+
+classe s_morro023
+herda b_morro
+const s_titulo = "uma casa"
+const s_desc = "você entra em uma casa abandonada, e olhando em um canto em baixo de uma lona \
+você pode ver um marginal dormindo."
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_n = $s_morro022
+const a_reset = "P 100 morro002 560 710 1 h_rasteira_=8,h_voadora_=6,h_gancho_=8,h_terceiro_ataqu\
+e_=8,h_surpreender_=8\n\
+E 100 morro003 1 21 h_rasteira_=8,h_voadora_=8,h_socar_=8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_morro002:objsolto.total < 1
+    p = u = criar("p_morro002", este, rand(560, 710), "h_rasteira_=8,h_voadora_=6,h_gancho_=8,h_t\
+erceiro_ataque_=8,h_surpreender_=8")
+  fimse
+  se u
+    r = criar("i_morro003", u, 1, "h_rasteira_=8,h_voadora_=8,h_socar_=8"), r.vestir(21), \
+u.recalc = 1
+  fimse
+
+
+classe s_morro024
+herda b_morro
+const s_titulo = "uma rua estreita"
+const s_desc = "o caminho em que você seguia, é desviado para essa pequena viela"
+const dir_s = $s_morro029
+const dir_l = $s_morro025
+const dir_o = $s_morro022
+
+
+classe s_morro025
+herda b_morro
+const s_titulo = "o final da viela"
+const s_desc = "você segue por uma rua muito estreita, que é interrompida por uma casa construída\
+ em um local inadequado!"
+const dir_l = $s_morro026
+const dir_o = $s_morro024
+
+
+classe s_morro026
+herda b_morro
+const s_titulo = "uma casa em construção"
+const s_desc = "por todos os lados você pode ver tijolos quebrados e um morro de areia em frente \
+a construção, algumas ferramentas foram deixadas jogadas em um canto"
+const dir_n = $s_morro028
+const dir_s = $s_morro027
+const dir_o = $s_morro025
+
+
+classe s_morro027
+herda b_morro
+const s_titulo = "um cômodo em construção"
+const dir_n = $s_morro026
+const a_reset = "P 100 morro007 590 690 10 h_segundo_ataque_=8,h_rasteira_=8,h_gancho_=8,h_voador\
+a_=6,h_voadora_=8,h_surpreender_=6"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_morro007:objsolto.total < 10
+    criar("p_morro007", este, rand(590, 690), "h_segundo_ataque_=8,h_rasteira_=8,h_gancho_=8,h_vo\
+adora_=6,h_voadora_=8,h_surpreender_=6")
+  fimse
+
+
+classe s_morro028
+herda b_morro
+const s_titulo = "um outro cômodo em construção"
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_s = $s_morro026
+
+
+classe s_morro029
+herda b_morro
+const s_titulo = "um esconderijo"
+const s_desc = "você chega em um esconderijo e se depara com os mais perversos criminosos!"
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_n = $s_morro024
+const dir_s = $s_morro030
+const a_reset = "P 100 morro003 500 600 11 h_rasteira_=8,h_voadora_=8,h_segundo_ataque_=8,h_soco_\
+=8\n\
+E 100 morro003 1 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_morro003:objsolto.total < 11
+    p = u = criar("p_morro003", este, rand(500, 600), "h_rasteira_=8,h_voadora_=8,h_segundo_ataqu\
+e_=8,h_soco_=8")
+  fimse
+  se u
+    r = criar("i_morro003", u, 1), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_morro030
+herda b_morro
+const s_titulo = "uma sala"
+const s_desc = "aqui tem uma grande mesa de centro, com uma garrafa de vinho com taças ao seu \
+redor!"
+const dir_n = $s_morro029
+const a_reset = "P 100 morro006 620 750 9 h_atirar_=8,h_revolver_=8,h_rasteira_=8,h_voadora_=8,h_\
+gancho_=8,h_terceiro_ataque_=8,h_chutar_=8,h_surpreender_=8,h_ataque_confusão_=6\n\
+E 100 morro004 1 0 h_atirar_=8\n\
+I 100 morro010 1\n\
+S 100 morro002 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_morro006:objsolto.total < 9
+    p = u = criar("p_morro006", este, rand(620, 750), "h_atirar_=8,h_revolver_=8,h_rasteira_=8,h_\
+voadora_=8,h_gancho_=8,h_terceiro_ataque_=8,h_chutar_=8,h_")
+  fimse
+  se u
+    r = criar("i_morro004", u, 1, "h_atirar_=8"), r.vestir(50), u.recalc = 1
+  fimse
+  u && criar("i_morro010", u, 1)
+  !dentro1.objini("i_morro002") && criar("i_morro002", este, 1)
+
+
+classe s_morro031
+herda b_morro
+const s_titulo = "uma rua estreita"
+const s_desc = "você continua a caminhar por uma rua estreita, e pode notar um matagal ao norte \
+e um lote baldio ao sul"
+const dir_n = $s_morro033
+const dir_s = $s_morro032
+const dir_l = $s_morro022
+const dir_o = $s_morro040
+
+
+classe s_morro032
+herda b_morro
+const s_titulo = "um lote baldio"
+const dir_n = $s_morro031
+
+
+classe s_morro033
+herda b_morro
+const s_titulo = "um matagal"
+const s_desc = "uma quadra de lotes vagos, agora se tornou em um ótimo esconderijo para criminoso\
+s."
+const dir_s = $s_morro031
+const dir_o = $s_morro034
+
+
+classe s_morro034
+herda b_morro
+const s_titulo = "um matagal"
+const s_desc = "uma quadra de lotes vagos, agora se tornou em um ótimo esconderijo para criminoso\
+s."
+const dir_n = $s_morro035
+const dir_l = $s_morro033
+
+
+classe s_morro035
+herda b_morro
+const s_titulo = "um matagal"
+const s_desc = "uma quadra de lotes vagos, agora se tornou em um ótimo esconderijo para criminoso\
+s."
+const dir_s = $s_morro034
+const dir_l = $s_morro036
+
+
+classe s_morro036
+herda b_morro
+const s_titulo = "um matagal"
+const s_desc = "uma quadra de lotes vagos, agora se tornou em um ótimo esconderijo para criminoso\
+s."
+const dir_s = $s_morro037
+const dir_o = $s_morro035
+
+
+classe s_morro037
+herda b_morro
+const s_titulo = "um matagal"
+const s_desc = "uma quadra de lotes vagos, agora se tornou em um ótimo esconderijo para criminoso\
+s."
+const dir_n = $s_morro036
+const dir_s = $s_morro038
+
+
+classe s_morro038
+herda b_morro
+const s_titulo = "em frente um cativeiro"
+const s_desc = "você chega em frente uma cabana, e se pergunta o porquê alguém moraria dentro de \
+um matagal como esse?"
+const dir_n = $s_morro037
+const dir_s = $s_morro039
+const a_reset = "D 100 o 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("o", 1)
+
+
+classe s_morro039
+herda b_morro
+const s_titulo = "um cativeiro"
+const s_desc = "um cômodo feito de madeira, e uma pequena janela para entrar a luz do dia, são \
+as condições que pessoas sequestradas por esses malandros são submetidas!"
+const dir_n = $s_morro038
+const a_reset = "P 80 morro005 600 700 9 h_andarsurtivo_=8,h_rasteira_=8,h_surpreender_=8,h_terce\
+iro_ataque_=7"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_morro005:objsolto.total < 9 && rand(100) < 80
+    criar("p_morro005", este, rand(600, 700), "h_andarsurtivo_=8,h_rasteira_=8,h_surpreender_=8,h\
+_terceiro_ataque_=7")
+  fimse
+
+
+classe s_morro040
+herda b_morro
+const s_titulo = "uma rua estreita"
+const s_desc = "você se encontra em frente a um ferro velho"
+const dir_n = $s_morro041
+const dir_s = $s_morro043
+const dir_l = $s_morro031
+const dir_o = $s_morro044
+
+
+classe s_morro041
+herda b_morro
+const s_titulo = "na entrada de um ferro velho"
+const s_desc = "seguindo para o norte você adentra o ferro velho, e ao sul você retorna para a \
+rua estreita de onde veio."
+const dir_n = $s_morro042
+const dir_s = $s_morro040
+
+
+classe s_morro042
+herda b_morro
+const s_titulo = "dentro do ferro velho"
+const dir_s = $s_morro041
+const a_reset = "P 90 morro008 490 590 1 h_furtar_=8,h_segundo_ataque_=6,h_gancho_=8,h_socar_=8,h\
+_voadora_=8\n\
+E 100 morro005 1 21\n\
+S 100 morro006 1 S\n\
+P 100 morro009 480 550 1 h_rasteira_=6,h_voadora_=8,h_gancho_=8,h_surpreender_=8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_morro008:objsolto.total < 1 && rand(100) < 90
+    p = u = criar("p_morro008", este, rand(490, 590), "h_furtar_=8,h_segundo_ataque_=6,h_gancho_=\
+8,h_socar_=8,h_voadora_=8")
+  fimse
+  se u
+    r = criar("i_morro005", u, 1), r.vestir(21), u.recalc = 1
+  fimse
+  !dentro1.objini("i_morro006") && criar("i_morro006", este, 1)
+  se p_morro009:objsolto.total < 1
+    criar("p_morro009", este, rand(480, 550), "h_rasteira_=6,h_voadora_=8,h_gancho_=8,h_surpreend\
+er_=8")
+  fimse
+
+
+classe s_morro043
+herda b_morro
+const s_titulo = "um lote baldio"
+const s_desc = "O mato aqui está muito alto! Cuidado para não pisar em um cadáver"
+const dir_n = $s_morro040
+
+
+classe s_morro044
+herda b_morro
+const s_titulo = "um beco sem saída"
+const s_desc = "você continua a caminhar rumo ao oeste, e tem seu caminho interrompido por uma \
+parede"
+const dir_n = $s_morro045
+const dir_l = $s_morro040
+
+
+classe s_morro045
+herda b_morro
+const s_titulo = "o bar do lula"
+const s_desc = "Um bar com uma enorme mesa no centro do salão, e com um grupo de criminosos em \
+sua volta, esse é o local onde bandidos se reúnem para planejar ações criminosas"
+const s_luz = 1 # Luz: 1 Claro sem eventos de tempo
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_s = $s_morro044
+const dir_o = $s_morro046
+const a_reset = "S 100 morro007 1 S\n\
+S 100 morro008 1 morro007\n\
+S 100 morro008 1 morro007\n\
+P 100 morro010 500 670 1 h_rasteira_=8,h_furtar_=8,h_socar_=6,h_ataque_confusão_=8\n\
+P 100 morro011 400 490 1 h_surpreender_=6,h_gancho_=8\n\
+E 100 morro008 1 21\n\
+D 100 o 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  !dentro1.objini("i_morro007") && criar("i_morro007", este, 1)
+  (r = dentro1.objini("i_morro007")) && !r.dentro1.objini("i_morro008") && criar("i_morro008", \
+r, 1)
+  (r = dentro1.objini("i_morro007")) && !r.dentro1.objini("i_morro008") && criar("i_morro008", \
+r, 1)
+  se p_morro010:objsolto.total < 1
+    criar("p_morro010", este, rand(500, 670), "h_rasteira_=8,h_furtar_=8,h_socar_=6,h_ataque_conf\
+usão_=8")
+  fimse
+  se p_morro011:objsolto.total < 1
+    p = u = criar("p_morro011", este, rand(400, 490), "h_surpreender_=6,h_gancho_=8")
+  fimse
+  se u
+    r = criar("i_morro008", u, 1), r.vestir(21), u.recalc = 1
+  fimse
+  mudaporta("o", 2)
+
+
+classe s_morro046
+herda b_morro
+const s_titulo = "o banheiro"
+const s_desc = "com o chão todo molhado, e sujo, esse é o banheiro do bar"
+const dir_l = $s_morro045
+
+
+classe s_morro047
+herda b_morro
+const s_titulo = "um esconderijo"
+const dir_l = $s_morro008
+
+
+classe s_morro048
+herda b_morro
+const s_titulo = "subindo o morro"
+const s_desc = "você continua a caminhar em direção ao topo do morro, por todos os lados você \
+pode ver marca de balas nas paredes, e ao longe um grupo de pessoas"
+const dir_n = $s_morro008
+const dir_s = $s_morro049
+const dir_o = $s_morro058
+
+
+classe s_morro049
+herda b_morro
+const s_titulo = "continuando a subir o morro"
+const dir_n = $s_morro048
+const dir_s = $s_morro051
+const dir_l = $s_morro050
+
+
+classe s_morro050
+herda b_morro
+const s_titulo = "um lote baldio"
+const s_desc = "mais um lote vago, daqui você já pode ver melhor do que se trata aquele grupo de \
+pessoas"
+const dir_o = $s_morro049
+
+
+classe s_morro051
+herda b_morro
+const s_titulo = "próximo a parte mais alta do morro"
+const s_desc = "chegando aqui você se depara com um grupo de adolescentes, se surpreende ao \
+ver-los com armas, entorpecentes, e dando risada pelo efeito da droga"
+const dir_n = $s_morro049
+const dir_c = $s_morro052
+const a_reset = "P 90 morro012 480 590 8 h_rasteira_=8,h_voadora_=6,h_segundo_ataque_=8,h_gancho_\
+=8,h_surpreender_=8\n\
+E 80 morro003 1 21\n\
+E 100 morro003 1 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_morro012:objsolto.total < 8 && rand(100) < 90
+    p = u = criar("p_morro012", este, rand(480, 590), "h_rasteira_=8,h_voadora_=6,h_segundo_ataqu\
+e_=8,h_gancho_=8,h_surpreender_=8")
+  fimse
+  se u && rand(100) < 80
+    r = criar("i_morro003", u, 1), r.vestir(21), u.recalc = 1
+  fimse
+  se u
+    r = criar("i_morro003", u, 1), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_morro052
+herda b_morro
+const s_titulo = "a parte mais alta do morro"
+const s_desc = "daqui você tem uma visão ampla de todo o morro, pode ver o horrível que é esse \
+lugar com mais complexidade, por todos os lados o crime está e aqui você não está seguro!"
+const dir_n = $s_morro056
+const dir_s = $s_morro053
+const dir_l = $s_morro056
+const dir_b = $s_morro051
+const a_reset = "P 80 morro013 600 680 10 h_furtar_=8,h_rasteira_=8,h_voadora_=6,h_terceiro_ataqu\
+e_=6\n\
+E 80 morro003 1 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_morro013:objsolto.total < 10 && rand(100) < 80
+    p = u = criar("p_morro013", este, rand(600, 680), "h_furtar_=8,h_rasteira_=8,h_voadora_=6,h_t\
+erceiro_ataque_=6")
+  fimse
+  se u && rand(100) < 80
+    r = criar("i_morro003", u, 1), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_morro053
+herda b_morro
+const s_titulo = "continuando no morro"
+const s_desc = "você continua a andar pelo o morro, e chega em frente a casa de um dos líderes \
+do tráfico"
+const dir_n = $s_morro052
+const dir_l = $s_morro054
+const a_reset = "D 100 l 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("l", 2)
+
+
+classe s_morro054
+herda b_morro
+const s_titulo = "uma garagem"
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_s = $s_morro055
+const dir_o = $s_morro053
+
+
+classe s_morro055
+herda b_morro
+const s_titulo = "a sala da mansão"
+const s_desc = "ao entrar aqui, você se maravilha de tamanha luxúria que esse lugar tem, quase \
+tudo aqui é banhado a ouro, nas paredes você pode ver alguns quadros caríssimos decorando o \
+ambiente, uma estante que ocupa uma parede inteira só com objetos de decoração"
+const dir_n = $s_morro054
+const a_reset = "P 90 morro014 590 690 1 h_furtar_=8,h_socar_=6,h_rasteira_=8,h_voadora_=6,h_surp\
+reender_=8,h_terceiro_ataque_=8\n\
+S 100 morro009 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_morro014:objsolto.total < 1 && rand(100) < 90
+    criar("p_morro014", este, rand(590, 690), "h_furtar_=8,h_socar_=6,h_rasteira_=8,h_voadora_=6,\
+h_surpreender_=8,h_terceiro_ataque_=8")
+  fimse
+  !dentro1.objini("i_morro009") && criar("i_morro009", este, 1)
+
+
+classe s_morro056
+herda b_morro
+const s_titulo = "você continua a andar pelo morro"
+const s_desc = "passando por aqui você nota uma casa luxuosa ao norte e outra ao sul"
+const dir_n = $s_morro057
+const dir_o = $s_morro052
+
+
+classe s_morro057
+herda b_morro
+const s_titulo = "um jardim"
+const s_desc = "um lindo jardim, mas,\n\
+você antes mesmo de entrar, já é cumprimentado pelo dono da casa que veio ao seu encontro."
+const dir_s = $s_morro056
+const a_reset = "P 100 morro015 560 640 1 h_voadora_=8,h_terceiro_ataque_=8,h_socar_=4,h_gancho_=\
+8,h_furtar_=8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_morro015:objsolto.total < 1
+    criar("p_morro015", este, rand(560, 640), "h_voadora_=8,h_terceiro_ataque_=8,h_socar_=4,h_gan\
+cho_=8,h_furtar_=8")
+  fimse
+
+
+classe s_morro058
+herda b_morro
+const s_titulo = "uma casa abandonada"
+const s_desc = "você entra aqui, e não consegue entender como esse lugar ainda está de pé! são \
+várias rachaduras nas paredes e muito mofo."
+const dir_l = $s_morro048

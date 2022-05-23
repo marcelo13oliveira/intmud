@@ -1,0 +1,144 @@
+Envio de mensagens formatadas (arquivo misc/mens.int)
+
+Para enviar uma mensagem formatada a um ou mais personagens, usa-se
+a classe 'mens', contida no arquivo 'misc/mens.int'.
+
+Primeiro define-se de um a três objetos, com a seguinte função:
+$mens.p(<personagem>, [alvo], [objeto 1], [objeto 2])
+
+Essa função preenche as seguintes variáveis de $mens:
+ref perso # Personagem que está enviando a mensagem
+ref alvo # Personagem ou objeto alvo da ação
+ref obj1 # Primeiro objeto
+ref obj2 # Segundo objeto
+
+Esssa função também pode ser usada com a seguinte sintaxe:
+$mens.p(<sala>)
+Para enviar mensagens para uma área ou para todos do MUD (funções marea1,
+mareaS, mareatodos1, mareatodosS, mmud1, mmudS, mmudtodos1 e mmudtodosS).
+
+Depois, envia-se uma mensagem com uma das seguintes funções:
+
+$mens.mtodos1(texto para todos)
+$mens.mtodos2(texto para personagem, texto para outros)
+$mens.mtodos3(texto para personagem, texto para alvo, texto para outros)
+Enviar mensagem para todos que estiverem acordados.
+
+$mens.mvis1(texto para todos)
+$mens.mvis2(texto para personagem, texto para outros)
+$mens.mvis3(texto para personagem, texto para alvo, texto para outros)
+Enviar mensagem para todos que estiverem acordados e puderem ver
+o personagem.
+
+$mens.mtodos1som(texto para todos, nome do som)
+$mens.mvis1som(texto para todos, nome do som)
+Mesmo que mtodos1 e mvis1, porém envia também um som.
+
+$mens.mtodos2som(texto para todos, nome do som)
+$mens.mvis2som(texto para todos, nome do som)
+Envia mensagem para todos como mtodos1 e mvis1, mas envia também som.
+Porém, não envia nada para o próprio personagem
+
+$mens.mtodos3dir(texto para personagem, texto para alvo, texto para outros, direção)
+$mens.mvis3dir(texto para personagem, texto para alvo, texto para outros, direção)
+Mesmo que mtodos3 e mvis3, porém acrescenta um texto da direção nas mensagens,
+quando o personagem e o alvo não estão na mesma sala.
+Direção é a direção do personagem ao alvo.
+
+$mens.marea1(texto para todos)
+Enviar mensagem para todos que estiverem na mesma área, mesmo dormindo
+
+$mens.mareaS(texto para todos)
+Enviar mensagem para todos que estiverem na mesma área mas em outra sala.
+
+$mens.mareatodos1(texto para todos)
+Enviar mensagem para todos que estiverem acordados na mesma área.
+
+$mens.mareatodosS(texto para todos)
+Enviar mensagem para quem está acordado na mesma área mas em outra sala.
+
+$mens.mmud1(texto para todos)
+Enviar mensagem para todos do MUD, mesmo os que estiverem dormindo.
+
+$mens.mmudS(texto para todos)
+Enviar mensagem para todos do MUD exceto na mesma sala.
+
+$mens.mmudtodos1(texto para todos)
+Enviar mensagem para todos que estiverem acordados no MUD.
+
+$mens.mmudtodosS(texto para todos)
+Mensagem para todos que estiverem acordados no MUD em outra sala.
+
+$mens.msg(texto, personagem)
+Envia mensagem para o personagem, mesmo que esteja dormindo.
+
+$mens.msginv(texto, personagem)
+<personagem>.msginv(texto)
+Envia mensagem para o personagem se ele estiver acordado.
+
+$mens.msgvis(texto, personagem)
+<personagem>.msgvis(texto)
+Envia mensagem para o personagem se ele estiver acordado e vendo
+o personagem definido em $mens.p.
+
+$mens.msgsominv(texto, nome do som, personagem)
+$mens.msgsomvis(texto, nome do som, personagem)
+Mesmo que msginv e msgvis, porém envia também um som.
+
+$mens.msginvdir(texto, personagem, direção)
+$mens.msgvisdir(texto, personagem, direção)
+Mesmo que msginv e msgvis, porém acrescenta a direção (um texto) na frente da
+mensagem para se o personsagem não estiverem na mesma sala do primeiro
+personagem.
+
+Para apenas obter o texto, fazendo as substituições com $, usar a função
+$mens.txt(texto, personagem)
+
+Para mostrar sempre o nome do personagem ou item ao invés de "alguém" e
+"alguma coisa", mesmo estando invisíveis, usar $mensvis ao invés de $mens.
+Exemplo, escrever:
+$mensvis("$P disse bom dia", arg0)
+ao invés de:
+$mens("$P disse bom dia", arg0)
+
+Para enviar mensagens para o próprio personagem, pode-se usar a classe
+mensjog, da seguinte forma:
+$mensjog.msg(texto, personagem)
+
+Para apenas obter o texto, fazendo as substituições com $, usar a função
+$mensjog.txt(texto, personagem)
+
+O texto pode conter os seguintes caracteres especiais:
+
+$$ = Símbolo $
+$P = Nome do personagem
+$Q = Nome do personagem sem citar o dono
+$R = Nome do personagem no comando QUEM
+$A = Nome do alvo
+$B = Nome do alvo sem citar o dono
+$C = Nome do alvo no comando QUEM
+$O = Nome do objeto
+$H = Depende do personagem: um ou uma
+$I = Depende do alvo: um ou uma
+$J = Depende do objeto: um ou uma
+$S = Depende do personagem: o ou a
+$T = Depende do alvo: o ou a
+$U = Depende do objeto: o ou a
+$V = Depende do personagem: e ou a
+$W = Depende do alvo: e ou a
+$X = Depende do objeto: e ou a
+$M = Mensagem; somente comandos que usam uma mensagem digitada por alguém
+$D = É substituído por "de"
+     No entando, seguido de o/a/os/as, forma as palavras do/da/dos/das
+     Costuma ser usado nas mensagens como $d $p, $d $a e $d $o
+$E = É substituído por "em"
+     No entando, seguido de o/a/os/as, forma as palavras no/na/nos/nas
+     Costuma ser usado nas mensagens como $e $p, $e $a e $e $o
+$F = Semelhante a $D, exceto que seguido de um/uma/uns/umas também
+     forma as palavras do/da/dos/das.
+$G = Semelhante a $E, exceto que seguido de um/uma/uns/umas também
+     forma as palavras no/na/nos/nas.
+$1 a $5 = Variáveis $mens.o_1 a $mens.o_5
+
+Quando o símbolo $ for seguido de uma letra minúscula, a primeira letra
+do texto não é transformada em maiúscula.

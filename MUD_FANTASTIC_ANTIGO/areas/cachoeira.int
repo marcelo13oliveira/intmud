@@ -1,0 +1,1823 @@
+classe a_cachoeira
+herda area
+const a_nome = "A área florestal"
+const a_autor = "Hitler"
+
+
+classe b_cachoeira
+herda sala
+const s_item = 0
+const s_area = "cachoeira"
+
+
+classe i_cachoeira001
+herda comum_itemperso
+const nome = "Um maravilhoso balanço feito com grosso tronco de árvore preso nas laterais por \
+fortes correntes em duas frondosas árvores de eucalipto"
+const descver = "Você se balança de um lado para o outro, sentindo uma deliciosa brisa envolvendo\
+ seu corpo,\n\
+e se deixa envolver por trinados e cantos de belos pássaros empoleirados nos galhos sobre sua \
+cabeça."
+const i_movel = 1 # Mobília: 1 Sentar
+const i_lugar = 6
+const mantersala = 0 # Mantém na sala: Não
+const tipoitem = 512 # Tipo de item: 9-Mobília
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_mudadono
+  se dono.s_sala
+    listaobj l
+    epara l.addfim(dono.dentro2), l, l.ini.remove
+      se l.objini.perso
+        misc:evento(l.objini)
+      fimse
+    efim
+  fimse
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "empurrar balanço"
+    refvar perso = persolugar.objini
+    txt100 lin
+    $mens.p(arg0, perso)
+    se arg0 == perso
+      $mens.mvis1("$P começa a se balançar no balanço, indo para lá e para cá!")
+    senao !perso
+      $mens.p(arg0)
+      $mens.mvis1("$P balança o balanço vazio para lá e para cá.")
+    senao
+      $mens.mvis1("$P começa a balançar $A no balanço, fazendo-$t ir para lá e para cá!")
+    fimse
+    ret 1
+  fimse
+
+
+classe i_cachoeira002
+herda comum_item
+
+
+classe i_cachoeira003
+herda comum_item
+const nome = "chave da cancela"
+const ident = "chave cancela"
+const descnome = "a chave da cancela"
+const i_chave = "cachoeira"
+
+
+classe i_cachoeira004
+herda comum_itemperso
+
+
+classe p_cachoeira001
+herda comum_perso
+const nome = "um avermelhado salmão"
+const descpadr = "um avermelhado salmão nada pacificamente em meio as águas"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const tipo1 = "peixe"
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+
+classe p_cachoeira002
+herda comum_perso
+const nome = "uma esverdeada truta"
+const descpadr = "uma truta de cor esverdeada, nada alegremente por aqui"
+const tipo1 = "peixe"
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+
+classe p_cachoeira003
+herda comum_perso
+const nome = "Um comprido pirarucu"
+const descpadr = "um alegre, mas comprido pirarucu brinca em meio as ondulações da água."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+
+classe p_cachoeira004
+herda comum_perso
+const nome = "Um admirável mico leão dourado"
+const descpadr = "Uma família de micos brimcam nos galhos das árvores."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 400
+
+
+classe p_cachoeira005
+herda comum_perso
+
+
+classe p_cachoeira006
+herda comum_perso
+
+
+classe p_cachoeira007
+herda comum_perso
+const nome = "Uma frágil lebre cinzenta"
+const descpadr = "uma lebre cinzenta salta graciosamente no prado e se esconde na toca"
+const descver = "A lebre olha assustada para você pronta para fugir entre as folhagens"
+
+
+classe p_cachoeira008
+herda comum_perso
+
+
+classe p_cachoeira009
+herda comum_perso
+
+
+classe p_cachoeira010
+herda comum_perso
+
+
+classe s_cachoeira001
+herda b_cachoeira
+const s_titulo = "Entrando no espaçoso hall"
+const s_desc = "Você empurra um belo portão de nogueira esverdeada, pisando sobre placas de \
+ardósiapreta\n\
+e desliza as mãos por colunas de madeira dourada com incríveis figuras esculpidas que sustenta \
+um telhado em estilo gótico.\n\
+O rústico banco esculpido no granito, e as várias samambaias e orquídeas penduradas em ganchos \
+de prata, completam a decoração do hall.\n\
+Olhando em volta, você se encanta com um maravilhoso jardim com cores claras e toques naturalista\
+s de extraordinária beleza,\n\
+e com ansiedade, você aguarda o momento tão planejado de seguir para o inusitado passeio por \
+trilhas abertas na mata,\n\
+aproveitando o forte calor para se banhar na famosa cachoeira do arco-íris, visitar o camping \
+Cabana da Mata e a gruta Boca da Onça."
+const s_entrada = "O hall de entrada da área florestal"
+const dir_n = $s_cachoeira083
+const dir_l = $s_cachoeira002
+
+
+classe s_cachoeira002
+herda b_cachoeira
+const s_titulo = "No sofisticado jardim"
+const s_desc = "Que você admira o trabalho feito com esmero por mãos hábeis, em vasos e xaxins \
+de plantas exóticas de intenso aroma, e grande requinte.\n\
+A sua atenção é despertada para uma centenária palmeira real de altura descomunal, plantada no \
+centro de um terreno totalmente gramado,\n\
+e mais adiante, você vê rústicos bancos e mesinhas de pedra, a sombra de pequenas árvores, \
+arbustos e caramanchões.\n\
+Distraidamente, você repara no singular zumbido de abelhas, voando e pousando sobre coloridas \
+flores em busca do precioso néctar,\n\
+e se encanta com bandos de papagaios e maritacas cortando o céu em graciosos bater de asas, com \
+seus gorjeios recalcitrantes.\n\
+Parando em frente a um portãozinho de madeira branca, nota que o extraordinário jardim chegou ao \
+fim,\n\
+e seguindo para leste, você adentra uma formosa vereda de apreciável beleza."
+const dir_l = $s_cachoeira003
+const portanome_l = "O portãozinho em madeira de lei branco,para acesso a vereda"
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_cachoeira001
+
+
+classe s_cachoeira003
+herda b_cachoeira
+const s_titulo = "Caminhando por uma vereda"
+const s_desc = "De exuberante flora tropical, as variadas plantas de coloridas flores, exalan \
+perfumes de delicada fragrância que relaxa os sentidos.\n\
+E sentindo um cheiro de terra molhada, proveniente de algum riacho próximo, percebe o murmurejar \
+inconfundível de água corrente,\n\
+e do alto, escuta o envolvente som de cantos, trinados e gorjeios de uma infinidade de belas \
+aves empoleiradas nos galhos das árvores.\n\
+E acompanhando a sinfonia dos pássaros, você aprecia o envolvente canto das cigarras, e os \
+estridentes gritos dos animais na mata.\n\
+Caminhando entre arbustos e belos caramanchões, você se encanta com bandos de borboletas \
+multicoloridas voaçando na sua frente,\n\
+e lindos beija-flores pairando sobre brilhantes e perfumadas flores coloridas.\n\
+Inesperadamente, um ligeiro guaxinim cruza a trilha em direção ao riacho perdendo-se entre as \
+folhagens."
+const s_pnj = 0
+const dir_l = $s_cachoeira004
+const dir_o = $s_cachoeira002
+const portanome_o = "O portãozinho em madeira de lei branco,  para acesso ao jardim"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_cachoeira004
+herda b_cachoeira
+const s_titulo = "O encanto com a bela fauna e flora silvestre"
+const s_desc = "Você caminha lentamente, e percebe que a mata vai se tornando mais densa, e a \
+trilha vai afunilando com altíssimas árvores,\n\
+e vez por outra, sente os galhos roçando no seu corpo, e tem que se abaixar para passar, \
+evitando assim, possíveis arranhões.\n\
+No entanto, a riqueza do canto das aves, com suas exuberantes plumagens, faz com que sua atenção \
+se volte para o alto das árvores,\n\
+mesmo fazendo você tropeçar de vez em quando em raízes e pedras soltas na trilha.\n\
+Reparando com grande deslumbramento o movimento das folhagens, hora com um vento mais forte, \
+hora com uma ave levantando voo,\n\
+e em meio a tanta beleza, repentinamente bate em sua cabeça, vários caroços de frutas atiradas \
+por um bando de micos nas copas das árvores\n\
+e para fugir do inesperado ataque, você quase torce o pé ao pisar em falso numa toca de tatu \
+encoberta por folhas secas."
+const dir_l = $s_cachoeira005
+const dir_o = $s_cachoeira003
+const a_reset = "P 100 cachoeira004 0 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_cachoeira004:objsolto.total < 2
+    criar("p_cachoeira004", este, 0)
+  fimse
+
+
+classe s_cachoeira005
+herda b_cachoeira
+const s_titulo = "Chegando a uma misteriosa clareira"
+const s_desc = "Você para na borda de um imenso espaço vazio, e fica de boca aberta, observando \
+com grande surpresa, mais um capricho da natureza.\n\
+Formando um largo círculo, árvores frutíferas contornam toda a clareira, despertando o desejo de \
+colher algumas deliciosas frutas,\n\
+e mais uma vez, é observado bandos de borboletas multicoloridas voaçando em todas as direções, e \
+a melodiosa sinfonia dos pássaros.\n\
+Junto com o animado e estridente canto das cigarras.\n\
+Ao aproximar-se, bando de miquinhos e pequenos roedores, fogem rapidamente, ficando a espreita \
+só observando os movimentos de longe.\n\
+No centro da clareira, você visualiza uma imensa pedra redonda como se fosse uma misteriosa mesa \
+de reunião dos animais,\n\
+em que você faz questão de aproximar-se para olhar de perto esse exótico monumento, com estranhas\
+ figuras esculpidas na rocha."
+const dir_l = $s_cachoeira006
+const dir_o = $s_cachoeira004
+
+
+classe s_cachoeira006
+herda b_cachoeira
+const s_titulo = "Vivendo uma odisséia"
+const s_desc = "Que ao retomar a caminhada saindo da clareira, a trilha se torna quase invisível \
+aos olhos, encoberta pelo mato.\n\
+Porém, com extrema atenção, você reencontra o caminho em meio a vegetação, mais muito preocupado \
+com o momento de regressar.\n\
+Então toma como referência, um monumental jequitibá, e mais adiante, imensas árvores repletas de \
+maravilhosas bromélias e orquídeas.\n\
+E a cantoria se faz presente para encorajar, porque a picada vai se tornando íngreme com alguns \
+trechos mais difíceis e escorregadios,\n\
+em que você tem de subir de gatinhas, se segurando em tufos de capim e raízes expostas de \
+pequenos arbustos.\n\
+Parando para descansar, come algumas frutas recolhida no caminho e aprecia um belo visual de um \
+largo prado que se estende a sua frente."
+const dir_l = $s_cachoeira007
+const dir_o = $s_cachoeira005
+const a_reset = "P 100 cachoeira004 0 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_cachoeira004:objsolto.total < 2
+    criar("p_cachoeira004", este, 0)
+  fimse
+
+
+classe s_cachoeira007
+herda b_cachoeira
+const s_titulo = "Passeando pelo prado"
+const s_desc = "Vai apreciando e sentindo um delicioso aroma das flores silvestres de todas as \
+cores, parando aqui e ali para montar um lindo buquê,\n\
+e com pássaros e borboletas de todas as cores e tamanhos dançando e voando no ar, o prado parece \
+estar vivo com o som das aves chilreando.\n\
+Com o sol brilhando, o lugar parece um esconderijo, com lebres e cutias correndo e saltando em \
+meio a vegetação rasteira,\n\
+e ao longe, pavões exibindo suas caldas abertas em leque cortejando as fêmeas para o acasalamento\
+.\n\
+Ouvindo o canto das cigarras, e o zumbido de abelhas nas flores, você deixa a brisa acariciar \
+sua pele fechando os olhos em êxtase,\n\
+e com os braços carregados de lindíssimas e perfumadas flores, você retoma a caminhada seguindo \
+a trilha, para novas surpresas.\n\
+Lendo em uma placa presa em um poste escrito em letras verdes em fundo branco, a inscrição: \
+Atenção, animais silvestres.\n\
+Sem perceber, vai sendo observado por inúmeros brilhantes olhinhos curiosos semi escondidos na \
+alta relva."
+const s_pnj = 0
+const dir_l = $s_cachoeira008
+const dir_o = $s_cachoeira006
+
+
+classe s_cachoeira008
+herda b_cachoeira
+const s_titulo = "Na trilha do mirante"
+const s_desc = "Observando ao redor, olha para o lado e visualiza a exuberante verdura de uma \
+floresta primitiva de árvores altas e verdejantes.\n\
+Olhando para o outro lado, e para cima, você admira o impressionante paredão rochoso e a imensa \
+massa de água caindo das alturas,\n\
+Deixando o local com certa umidade, e uma leve névoa no ar, fazendo com que a flora fique com \
+mais vitalidade e exuberância.\n\
+Além da bruma que paira no ar, sente um frescor no corpo, fazendo seus cabelos e roupas permanece\
+r úmidas por tempo indeterminado.\n\
+Depois de admirar a bela paisagem, vai seguindo pelo relvado plano e sem obstáculos, olhando \
+pássaros agitados e de cantos melodiosos,\n\
+e com a sua passagem, coelhos saltitam, guaxinins se escondem, e um casal de anta foge assustadas\
+ por entre arbustos e mato rasteiro.\n\
+Pegando a trilha, passa por adocicados pés de uvas e apetitosos morangos silvestres, e colhendo \
+alguns frutos, come, e fica com a boca lambusada."
+const dir_l = $s_cachoeira009
+const dir_o = $s_cachoeira007
+
+
+classe s_cachoeira009
+herda b_cachoeira
+const s_titulo = "Na trilha do rio"
+const s_desc = "Você passa por uma placa, quase encoberta pela vegetação, escrito em letras \
+verdes em fundo branco: Atenção, animais silvestres.\n\
+Nesse momento, bandos de araras coloridas e belos papagaios, em voo rasante, passam grasnando \
+sobre sua cabeça em direção a cachoeira.\n\
+Mais a frente, você é atraído por mangueiras, abacateiros, laranjeiras, jaqueiras, goiabeiras, e \
+uma infinidade de frutas da região,\n\
+e mais para dentro, uma exuberante plantação de bananeiras, erguendo-se na vertical ou inclinados\
+ pelo peso dos enormes cachos.\n\
+No entanto, ao aproximar-se, bandos de micos e pequenos animais silvestres, fogem assustados em \
+todas as direções, com a sua presença.\n\
+Mais você se sente descontraído com as borboletas, joaninhas, besouros, e outros insetos, \
+pousando aqui e ali em diminutas flores,\n\
+e o animado canto das cigarras nas árvores, até chegar as bordas de um largo rio de rápida \
+corredeira."
+const dir_l = $s_cachoeira010
+const dir_o = $s_cachoeira008
+
+
+classe s_cachoeira010
+herda b_cachoeira
+const s_titulo = "Diante do rio"
+const s_desc = "Você fica olhando para baixo, pensando como atravessá-lo, pois as águas parecem \
+ser profundas e com forte correnteza.\n\
+Ao olhar para o lado, vê uma rústica ponte feita de grossos cipós trançados quase escondida pela \
+vegetação já gasta pelo tempo.\n\
+Aproximando-se da ponte, fica na dúvida em atravessá-la diante da fragilidade dos cipós.\n\
+Colocando a mão no corrimão, treme de pavor só em pensar na ponte desabando dentro do rio,\n\
+e pegando coragem, apoia o pé direito na ponte, e testa a firmeza.\n\
+Mais ao dar o primeiro passo, ela estremece, e começa a balançar."
+const dir_l = $s_cachoeira011
+const dir_o = $s_cachoeira009
+
+
+classe s_cachoeira011
+herda b_cachoeira
+const s_titulo = "Na ponte"
+const s_desc = "Você vai lentamente deslizando os pés, passo a passo sobre as já gastas fibra de \
+cipós da velha ponte.\n\
+Hora olhando para baixo, hora com os olhos fechados de medo, você para no meio da ponte, na \
+dúvida de prosseguir ou retornar.\n\
+Nesse momento, um vento mais forte começa a soprar.\n\
+E a ponte balança de um lado para o outro, e as águas parecem ficar mais agitadas."
+const dir_l = $s_cachoeira012
+const dir_o = $s_cachoeira010
+
+
+classe s_cachoeira012
+herda b_cachoeira
+const s_titulo = "No fim da ponte"
+const s_desc = "Com firmeza, vai segurando obstinadamente o corrimão, e o coração bate descompass\
+ado no peito, na maior adrenalina.\n\
+Tremendo de pavor em ser abraçado pelas águas agitadas correndo sub seus pés, vai chegando ao \
+fim da ponte.\n\
+Quando chega no outro lado, o vento cessa e o ar parece mais leve e tranquilo.\n\
+Então você se benze em agradecimento a todos os santos, batendo três vezes na madeira.\n\
+E ao olhar para trás, misteriosamente a ponte está imóvel em sua estrutura.\n\
+Pousado sobre um toco seco de árvore, um imenso e assustador urubu, lhe observa com um leve \
+balançar de cabeça."
+const dir_l = $s_cachoeira013
+const dir_o = $s_cachoeira011
+
+
+classe s_cachoeira013
+herda b_cachoeira
+const s_titulo = "Em um gramado"
+const s_desc = "Junto ao rio, com a grama um pouco alta, é salpicada por grande quantidade de \
+maria-sem-vergonha, e pequenas margaridas,\n\
+e aqui e ali, se você procurar com atenção, consegue encontrar trevos de 4 folhas para dar \
+sorte.\n\
+Próximo ao bambuzal, um pequeno lagarto cinza esverdeado, te espreita junto a algumas pedras, \
+para fugir ao menor sinal de perigo.\n\
+E em uma placa você lê a inscrição: Para leste, a gruta Boca da Onça. Para baixo, o camping \
+Cabana da Mata e a cachoeira do Arco-Íris."
+const dir_l = $s_cachoeira041
+const dir_o = $s_cachoeira012
+const dir_b = $s_cachoeira014
+
+
+classe s_cachoeira014
+herda b_cachoeira
+const s_titulo = "No barranco"
+const s_desc = "Você procura o melhor lugar para descer, até que encontra uma escadinha feita \
+com tronco de árvores, assentadas sobre algumas pedras.\n\
+Em meio ao barro vermelho, cascalhos, ramagens e densa folhagem, fica ouvindo o monótono \
+burburinho das águas,\n\
+e passando entre perfumadas e cortantes touceiras de capim-limão, pega uma folhinha para ficar \
+mordiscando,\n\
+e de passagem vai tocando de leve com as pontas dos dedos, as plantinhas de dormideira só para \
+ver elas se encolhendo de sono.\n\
+Em local mais afastado, muito desconfiada, um filhote de anta vagarosamente vai se aproximando \
+para beber água junto as folhagens."
+const dir_l = $s_cachoeira015
+const dir_c = $s_cachoeira013
+
+
+classe s_cachoeira015
+herda b_cachoeira
+const s_titulo = "Na margem do rio"
+const s_desc = "Você se abaixa, e recolhendo algumas pedrinhas de seixos, atira longe, assustando\
+ algumas aves próximas.\n\
+Você nota que a água já não é tão fria como a da grande piscina formada pela cachoeira, e que o \
+banho poderia ser bem agradável.\n\
+Numa dança frenética, beija-flores e borboletas pousam aqui e ali em diminutas e coloridas \
+flores que exalam deliciosos perfumes,\n\
+enquanto as cigarras quebram o silêncio com seu estridente canto, junto com o ruído da água do \
+rio e o chilrear dos pássaros,\n\
+Inesperadamente, passa por você com grandes saltos, uma assustada rã do meio da vegetação, e se \
+perde na distância."
+const dir_l = $s_cachoeira016
+const dir_o = $s_cachoeira014
+
+
+classe s_cachoeira016
+herda b_cachoeira
+const s_titulo = "Caminhando na beira do rio"
+const s_desc = "Você vai chapinhando pela margem, procurando um lugar onde não haja tanta \
+vegetação, e que a correnteza não seja tão forte para nadar.\n\
+Nas árvores próximas, ninhos e mais ninhos de garças, flamingos, jacus, e grande variedade de \
+pássaros compartilham o mesmo espaço.\n\
+Bando de pardais, andorinhas, rolinhas, biquinho-de-lacres, maritacas, sanhaços, e outras aves, \
+saem em revoada com a sua passagem.\n\
+Ao encontrar uma grande pedra redonda e lisa, se senta com os pés na água, e fica olhando o rio \
+passar, sentindo um cheiro diferente,\n\
+e levantando a cabeça, percebe um delicioso cheiro de peixe assado, e com água na boca, tenta \
+ver de onde vem esse maravilhoso aroma.\n\
+Não muito distante, várias pessoas embaixo de uma cobertura comendo, bebendo e cantando com \
+grande alegria, lhe acenam em convite,\n\
+na curiosidade, você se dirige em direção das pessoas no quiosque Pesque Asse.\n\
+Em uma placa indicativa você lê: Para norte, área de camping. Para baixo, área permitida ao \
+banho e a pesca."
+const s_pnj = 0
+const dir_n = $s_cachoeira053
+const dir_o = $s_cachoeira015
+const dir_c = $s_cachoeira017
+const dir_b = $s_cachoeira038
+
+
+classe s_cachoeira017
+herda b_cachoeira
+const s_titulo = "No Pesque Asse"
+const s_desc = "Você se encanta ao subir em uma plataforma de madeira sobre o rio, com uma \
+singela cobertura com folhas de palmeira,\n\
+e com mesinhas e banquinhos feito de tronco de árvores, e uma rústica churrasqueira de pedra, o \
+cheiro das frituras e assados vão longe.\n\
+A maioria das pessoas chegam no local e pescam os peixes. Depois de prepará-los, assam ou fritam \
+na hora, conforme o gosto de cada um.\n\
+Olhando a borda da plataforma, várias pessoas de caniço na mão fazem sua pescaria tranquilamente.\
+ Mais independente da pesca,\n\
+um rádio, um violão, um pandeiro, uma caixa de fósforo, tudo é motivo de samba, com muita festa \
+e muita alegria e descontração.\n\
+De bebida na mão, de boca cheia, dançando e se requebrando pra lá e pra cá, a música é contagiant\
+e, e ninguém fica parado.\n\
+Seguindo para norte, você adentra o quiosque Cabana da Mata. Para leste, a cachoeira do Arco-Íris\
+ e o mirante Pedra da Águia."
+const dir_n = $s_cachoeira032
+const dir_l = $s_cachoeira018
+const dir_b = $s_cachoeira016
+
+
+classe s_cachoeira018
+herda b_cachoeira
+const s_titulo = "Um caminho pedregoso"
+const s_desc = "Que ao sair do quiosque, você tem que desviar-se de enormes pedras, e seguir por \
+um caminho de mato rasteiro e pequenas árvores.\n\
+Sentindo um frescor no corpo, ouve cada vez mais perto o sonoro som da estrondosa queda dágua,\n\
+e olhando para cima, se encanta com a maravilhosa cachoeira caindo das alturas em um belo \
+visual,\n\
+e o magnífico arco-íris formado pelas gotículas de água, dando um formidável espetáculo de \
+grande beleza.\n\
+Do lado esquerdo, correm as águas do riacho, quase encoberto pela vegetação, saindo da grande \
+bacia formada pela cachoeira.\n\
+E do meio das folhagens, várias cutias se refrescando e bebendo água, ficam imóveis acompanhando \
+sua passagem."
+const dir_l = $s_cachoeira019
+const dir_o = $s_cachoeira017
+
+
+classe s_cachoeira019
+herda b_cachoeira
+const s_titulo = "Na borda de um refrescante lago"
+const s_desc = "Em que você fica radiante de alegria com a magnífica paisagem em torno da imensa \
+piscina formada pelas águas da espumante cachoeira.\n\
+Na margem, há inúmeras pegadas de animais silvestres que vem beber água, e que você tenta \
+identificar cada uma delas com curiosidade,\n\
+desde variadas formas de patas e cascos, até sulcos de proporções indeterminadas, fazendo você \
+imaginar cada animal em particular.\n\
+Ligeiras lebres saltam de um lado para o outro sobre as pedras, assustando bandos de pequenas \
+codornas,\n\
+Guaxinins e porco do mato se aproximam espreitando tudo a volta para beber e se refrescar nas \
+pequenas marolas formadas na imensa bacia.\n\
+Nas bordas do lago, há uma grande quantidade de pedras de todas as formas e tamanhos, morada de \
+pequenos peixes e crustáceos,\n\
+um convite a sentar-se, e até mesmo, deitar-se nas pedras aquecidas pelo sol, desfrutando a \
+natureza com os animais silvestres."
+const dir_o = $s_cachoeira018
+const dir_b = $s_cachoeira020
+
+
+classe s_cachoeira020
+herda b_cachoeira
+const s_titulo = "Entrando em uma refrescante piscina"
+const s_desc = "Enfeitada pela eflorescência de algas e plantas aquáticas, é tão profunda em uma \
+das extremidades que sua cor chega ao verde-escuro,\n\
+e com muita areia acumulada na parte rasa, se vê uma piscina longa, tendo na ponta uma plataforma\
+ alta de granito rosa.\n\
+Vendo a pureza e a limpidez da água, você mergulha, e com vigorosas braçadas, segue até a parte \
+mais profunda da grande bacia.\n\
+De repente se vê lado a lado com cardumes de diminutos peixes reluzentes cintilando aqui e ali \
+em um maravilhoso ballet de cores,\n\
+refletindo o  brilho do sol. E mais adiante, belas tartarugas nadam com grande graciosidade \
+junto a margem.\n\
+Bando de flamingos e patos selvagens, sobrevoam sobre sua cabeça, dando estridentes grasnados, \
+mergulhando em busca de alimento,\n\
+e outros pássaros como marrecos, garças, pelicanos, e outras aves, se aproximam chilreando, \
+colorindo o céu com suas belas plumagens."
+const dir_l = $s_cachoeira021
+const dir_c = $s_cachoeira019
+
+
+classe s_cachoeira021
+herda b_cachoeira
+const s_titulo = "Na cachoeira"
+const s_desc = "Em que você se surpreende com a força da água que desce de uma altura de 80 \
+metros, quase não sendo possível permanecer de pé sub a água,\n\
+e em meio a bruma formada pela magnífica queda, o barulho é tanto que você tampa os ouvidos com \
+as mãos, tendo que falar aos gritos.\n\
+Olhando para cima, aparece um fabuloso arco-íris de beleza sem igual, um verdadeiro tesouro da \
+natureza,\n\
+e seguindo a lenda, você busca encontrar o final do arco-íris, para pegar o fabuloso e cobiçado \
+pote de ouro.\n\
+Sentando-se embaixo da queda d'água, seu corpo recebe uma massagem, de forma a proporcionar um \
+delicioso bem estar físico e mental.\n\
+E com as mãos em concha, você se delicia bebendo da refrescante água cristalina da cachoeira.\n\
+Na margem você vê um magnífico corcel negro roçando-se numa grande pedra para se coçar, e outros \
+cavalos pastam no relvado."
+const dir_o = $s_cachoeira020
+const dir_c = $s_cachoeira022
+
+
+classe s_cachoeira022
+herda b_cachoeira
+const s_titulo = "Descobrindo uma gruta"
+const s_desc = "Que olhando atentamente a cortina d'água descendo das alturas, se nota uma \
+sombra escura por trás da massa líquida de água,\n\
+E com grande curiosidade, você envereda por uma apertada passagem por trás da cachoeira, \
+adentrando uma escura galeria.\n\
+Na semi escuridão, você segue por um comprido corredor, e depara-se em um amplo salão fluorescent\
+e de paredes altíssimas."
+const dir_l = $s_cachoeira023
+const dir_b = $s_cachoeira021
+
+
+classe s_cachoeira023
+herda b_cachoeira
+const s_titulo = "Entrando na incrível gruta do suspiro"
+const s_desc = "Com imensa emoção, e profundos suspiros, você olha em todas as direções quase \
+não acreditando no que suas retinas registram.\n\
+No alto, vê pendendo do teto, esplêndidas formações rochosas de estalactites, e no chão estalagmi\
+tes, com grande diversidade de formas e tamanhos.\n\
+A sua volta, belíssimas gotas, flores, taças, candelabros, pingentes, discos, folhas e intrincada\
+s esculturas de aspecto delicado,\n\
+até colunas completas, variando de tonalidades, em uma beleza indescritível.\n\
+Então você indaga: por isso que tem o nome de gruta do suspiro, pois a gente suspira diante de \
+tanta beleza, nesse sonho de lugar.\n\
+Ao olhar para o chão, de finíssima areia branca, se percebe ossadas e carapaças de pequenos \
+répteis com formas estranhas,\n\
+e com um profundo suspiro, se dirige para a saída da magnífica gruta, porém, sente uma corrente \
+de ar diferente em suas pernas."
+const dir_l = $s_cachoeira024
+const dir_o = $s_cachoeira022
+
+
+classe s_cachoeira024
+herda b_cachoeira
+const s_titulo = "Uma misteriosa passagem"
+const s_desc = "Que ao virar-se para sair da gruta, percebe uma fria corrente de ar vindo de uma \
+reentrância na rocha.\n\
+Passando a mão pela parede, nota ser uma estreita abertura circular com uma delgada rampa \
+levando para cima.\n\
+Na curiosidade, fica imaginando, onde poderia levar essa rampa, pois tudo indica não ter sido \
+feita por mãos humanas."
+const dir_o = $s_cachoeira023
+const dir_c = $s_cachoeira025
+
+
+classe s_cachoeira025
+herda b_cachoeira
+const s_titulo = "No comprido corredor"
+const s_desc = "Que ao atravessar a passagem circular, adentra por uma comprida galeria em forma \
+de rampa, baixa e de parede lisa de pedra calcária.\n\
+chegando ao final do corredor, continua a tatear a rocha lisa, e encontra outra passagem em \
+forma de degraus, levando para cima,\n\
+e sentindo a corrente de ar mais forte, olha para o alto, ficando na dúvida no que fazer."
+const dir_c = $s_cachoeira026
+const dir_b = $s_cachoeira024
+
+
+classe s_cachoeira026
+herda b_cachoeira
+const s_titulo = "Na escadaria misteriosa"
+const s_desc = "Você olha para o alto, e vislumbra uma tênue luminosidade vindo de cima, quase \
+imperceptível aos olhos.\n\
+Para ajudar a iluminar a subida, você liga o celular. Mais quase não serve para nada por ser uma \
+luz muito fraca.\n\
+Lentamente, vai subindo os degraus apoiando-se nas paredes, passo a passo, sentindo um gelo na \
+barriga,\n\
+hora olhando para o alto, hora olhando para os degraus irregulares, vai vencendo o medo e \
+prossegue na árdua subida."
+const dir_c = $s_cachoeira027
+const dir_b = $s_cachoeira025
+
+
+classe s_cachoeira027
+herda b_cachoeira
+const s_titulo = "Uma inesperada surpresa"
+const s_desc = "Que você tem, ao sentir perto de seu rosto um vento estranho, e um sonoro \
+guinchado ao pé do ouvido.\n\
+Com pavor, quase perdendo o equilíbrio, apoia-se precariamente no degrau da escada, e por pouco \
+não escorrega em um acidente fatal.\n\
+Com vários morcegos sobrevoando sobre sua cabeça, e ouvindo mais bater de asas vindo do alto, \
+rapidamente apaga o celular.\n\
+Aos poucos o ruído de bater de asas vão diminuindo de intensidade, até cessar por completo,"
+const dir_c = $s_cachoeira028
+const dir_b = $s_cachoeira026
+
+
+classe s_cachoeira028
+herda b_cachoeira
+const s_titulo = "No alto da escadaria"
+const s_desc = "Você respira profundamente, e colocando a mão no peito ainda acelerado, avalia o \
+quanto já subiu.\n\
+Depois de uma curta pausa e já refeito do susto, continua galgando degrau por degrau até chegar \
+a uma curva na escada,\n\
+e ao virar, a iluminação se torna mais forte facilitando a subida até o cimo,\n\
+e com espírito aventureiro, sobe os últimos degraus da longa escadaria em um brado de vitória."
+const dir_c = $s_cachoeira029
+const dir_b = $s_cachoeira027
+
+
+classe s_cachoeira029
+herda b_cachoeira
+const s_titulo = "Chegando no mirante"
+const s_desc = "Você passa por uma estreita passagem saindo em um largo platô arredondado, e \
+pisca várias vezes acostumando-se com a forte luz do sol,\n\
+observando que além das mesinhas e banquinhos entalhados na pedra, a borda também é rodeada por \
+uma baixa mureta de granito.\n\
+Olhando numa placa de bronze fixada na pedra, você lê: Bem-vindo a cachoeira do arco-íris, a 80 \
+metros do nível do mar,\n\
+e sentindo um forte vento no corpo e o murmurejar das águas, vai se aproximando da beira do \
+platô para admirar a maravilhosa vista."
+const dir_l = $s_cachoeira030
+const dir_b = $s_cachoeira028
+
+
+classe s_cachoeira030
+herda b_cachoeira
+const s_titulo = "Na maravilhosa vista da Pedra da Águia"
+const s_desc = "Que apoiando as mãos na mureta e olhando para baixo, vislumbra, encantado, não \
+apenas um, mais vários arco-íris,\n\
+em um fabuloso caleidoscópio formada pelas gotículas de água da explendorosa queda d'água da \
+cachoeira.\n\
+E olhando para frente, vai identificando na distância, além da área florestal, a bela construção \
+do templo com sua magnífica torre,\n\
+o aconchegante clube de pesca, o animado parque da cidade, uma pequena parte do zoológico, e os \
+belos campanários das igrejas,\n\
+além dos impressionantes monumentos que marcam época e os telhados das belíssimas construções \
+identificadas aqui e ali.\n\
+Prestando atenção aos telhados, você se surpreende com a distância percorrida da entrada do \
+bangalô, até o alto do mirante,\n\
+e distraído, ouve o piar de uma águia, retornando para o seu ninho numa reentrância do paredão \
+rochoso, para alimentar suas crias."
+const s_doarsim = 8192 # Itens doados: 13-Comida
+const dir_n = $s_cachoeira031
+const dir_o = $s_cachoeira029
+
+
+classe s_cachoeira031
+herda b_cachoeira
+const s_titulo = "No lado norte do mirante"
+const s_desc = "Você se aproxima com cautela, de uma pequena irregularidade na mureta, como se \
+fosse uma curta passagem para baixo.\n\
+Olhando as águas passando ao largo, vinda de altas montanhas, se admira com a força da corredeira\
+ despencando no vazio do precipício.\n\
+Ao olhar para o alto, vislumbra no horizonte, uma enevoada azul-cinzenta linha de montanhas\n\
+que se erguem sobre o negro e irregular trecho de uma formidável floresta,\n\
+e olhando mais a esquerda, se observa um terreno com um suave declive na direção de um mosaico \
+de vastos campos multicoloridos.\n\
+No centro, brilhando arredondados e uniformes, como um trevo, os espelhos-dágua de três lagoas \
+circundadas por escuras faixas de bétulas,\n\
+e a grande distância, bandos de cabras montanhesas saltando sobre pedras e seguindo por trilhas \
+escondidas e caminhos tortuosos."
+const dir_s = $s_cachoeira030
+
+
+classe s_cachoeira032
+herda b_cachoeira
+const s_titulo = "No quiosque Cabana da Mata"
+const s_desc = "Feito com 4 grossas colunas de madeira com belas figuras entalhadas, está \
+assentada sobre um assoalho de tábua corrida encerada,\n\
+e recoberto com um rústico telhado de folhas de palmeiras, que dá um ar de requinte e beleza ao \
+ambiente.\n\
+Ao se acomodar em uma confortável cadeira, o vento acaricia seu rosto, e o cheiro da mata te faz \
+inspirar profundamente o ar puro.\n\
+Os modelos antigos de lampiões a gás, presos por ganchos de cobre em cada extremidade, dá um ar \
+de encanto e leveza o local,\n\
+e faz você sentir-se em um lugar parecendo um esconderijo, um lugar secreto, oculto ali em meio \
+a um bosque alto e escuro.\n\
+Ao se dirigir para norte, você adentra um corredor para várias dependências do quiosque."
+const dir_n = $s_cachoeira033
+const dir_s = $s_cachoeira017
+const dir_l = $s_cachoeira037
+const portanome_l = "A porta de vai e vem da cozinha em madeira de lei esverdeada com janelinha \
+de vidro"
+const fecha_l = 1 # Fecha ao passar: Sim
+
+
+classe s_cachoeira033
+herda b_cachoeira
+const s_titulo = "Um corredor"
+const s_desc = "Iluminado por um lampião a gás, você se admira com as paredes e o assoalho de \
+madeira de pinho, e o portal feito em madeira patinada,\n\
+um grande painel com a pintura de uma tribo indígena em cerimônia de casamento, completa a \
+decoração do ambiente.\n\
+Para leste e oeste, você entra nos quartos. Para norte, você adentra um banheiro. Para sair, \
+siga sul."
+const dir_n = $s_cachoeira036
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "A porta do banheiro com a figura de um menino e uma menina de mãos dadas"
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_s = $s_cachoeira032
+const dir_l = $s_cachoeira035
+const portanome_l = "Uma porta de carvalho esverdeado com a figura de um belo arco-íris"
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_cachoeira034
+const portanome_o = "Uma porta de carvalho esverdeado com a figura de uma águia voando"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_cachoeira034
+herda b_cachoeira
+const s_titulo = "Um quarto de hóspede - Cabana da Mata 02"
+const s_desc = "Com paredes feitas com toras de árvores e assoalho em tábua corrida, a pequena \
+janela de vidro canelado, clareia e mantém o espaço arejado,\n\
+e com uma bela cortina de retalhos coloridos, e uma tela de arame, impede a entrada de insetos \
+indesejáveis no interior do recinto.\n\
+Compondo a decoração, uma confortável cama box, um pequeno armário e um belo e felpudo tapete de \
+peles.\n\
+Você fica olhando pela janela, os pequenos animais silvestres, correndo, saltando, subindo e \
+descendo de árvores próximas.\n\
+Para noites escuras, um belo lampião a gás de modelo antigo, lança uma iluminação bruxuliante no \
+confortável quartinho."
+const dir_l = $s_cachoeira033
+const portanome_l = "A porta do quarto"
+const fecha_l = 1 # Fecha ao passar: Sim
+
+
+classe s_cachoeira035
+herda b_cachoeira
+const s_titulo = "Um quarto de hóspede - Cabana da Mata 01"
+const s_desc = "Com paredes feitas com toras de árvores e assoalho em tábua corrida, a pequena \
+janela de vidro canelado, clareia e mantém o espaço arejado,\n\
+e com uma bela cortina de retalhos coloridos, e uma tela de arame, impede a entrada de insetos \
+indesejáveis no interior do recinto.\n\
+Compondo a decoração, uma confortável cama box, um pequeno armário de madeira, e um belo e \
+felpudo tapete de peles.\n\
+Você fica olhando da janela, os pequenos macacos barulhentos e dançarinos que parecem te \
+espreitar nas proximidades.\n\
+Para noites escuras, um belo lampião a gás de modelo antigo, lança uma luz bruxuliante no \
+confortável quartinho."
+const dir_o = $s_cachoeira033
+const portanome_o = "A porta do quarto"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_cachoeira036
+herda b_cachoeira
+const s_titulo = "Um banheiro"
+const s_desc = "De grande simplicidade, mais impecável pela limpeza e higiene, é aromatizado por \
+um delicioso cheiro de essência de pinho."
+const dir_n = $s_cachoeira067
+const dir_s = $s_cachoeira033
+const portanome_s = "A porta do banheiro"
+const fecha_s = 1 # Fecha ao passar: Sim
+
+
+classe s_cachoeira037
+herda b_cachoeira
+const s_titulo = "Uma pequena cozinha"
+const s_desc = "Muito simples, mais de extrema praticidade, onde são feito pratos deliciosos e \
+de rápido preparo."
+const dir_o = $s_cachoeira032
+const portanome_o = "A porta da cozinha de vai e vem com janelinha de vidro"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_cachoeira038
+herda b_cachoeira
+const s_titulo = "Dentro do rio"
+const s_desc = "Com água no tornozelo, você molha as mãos e passa no pescoço e pelo corpo, \
+sentindo um frescor com a brisa que sopra suavemente da mata.\n\
+Entrando um pouco mais, com água acima da cintura, sente a força da correnteza querendo lhe \
+carregar, e recua alguns passos para trás,\n\
+mais tomando coragem, mergulha e dá umas boas braçadas, deixando o corpo ser carregado ao sabor \
+das águas pela corrente do caldaloso rio.\n\
+Em um trecho tranquilo do rio, junto as pedras e algumas plantas aquáticas, um solitário \
+pirarucu nada próximo da margem.\n\
+Além dos cardumes de peixes, você observa grande quantidade de crustáceos, no fundo das transpare\
+ntes águas do largo rio."
+const dir_l = $s_cachoeira039
+const dir_c = $s_cachoeira016
+const a_reset = "P 100 cachoeira001 0 0 3\n\
+P 100 cachoeira002 0 0 3\n\
+P 100 cachoeira003 0 0 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_cachoeira001:objsolto.total < 3
+    criar("p_cachoeira001", este, 0)
+  fimse
+  se p_cachoeira002:objsolto.total < 3
+    criar("p_cachoeira002", este, 0)
+  fimse
+  se p_cachoeira003:objsolto.total < 3
+    criar("p_cachoeira003", este, 0)
+  fimse
+
+
+classe s_cachoeira039
+herda b_cachoeira
+const s_titulo = "Uma pescaria"
+const s_desc = "Em que você se senta em uma comprida pedra, esperando pacientemente que algum \
+peixe morda a isca.\n\
+Mais a frente, um cardume de salmões nadam a flor da água resplandecendo a sua bela cor avermelha\
+da, intensificado pelos raios de sol.\n\
+Graciosas trutas de escamas brilhantes esverdeadas, cortam seu caminho nadando próximo da margem \
+desaparecendo entre as plantas aquáticas.\n\
+O monótono barulho das águas passando entre as pedras, e o ruído das folhas nas árvores e \
+arbustos com a brisa que sopra,\n\
+faz esquecer da pescaria quase adormecendo. É então que sente um esbarrão de uma tartaruga \
+gigante no seu pé, lhe dando um grande susto."
+const dir_l = $s_cachoeira040
+const dir_o = $s_cachoeira038
+const a_reset = "P 100 cachoeira001 0 0 3\n\
+P 100 cachoeira002 0 0 3\n\
+P 100 cachoeira003 0 0 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_cachoeira001:objsolto.total < 3
+    criar("p_cachoeira001", este, 0)
+  fimse
+  se p_cachoeira002:objsolto.total < 3
+    criar("p_cachoeira002", este, 0)
+  fimse
+  se p_cachoeira003:objsolto.total < 3
+    criar("p_cachoeira003", este, 0)
+  fimse
+
+
+classe s_cachoeira040
+herda b_cachoeira
+const s_titulo = "Na parte mais profunda do rio"
+const s_desc = "Você lança o anzol, e fica aguardando uma fisgada de algum peixe faminto ou \
+curioso.\n\
+Cardumes de avermelhados salmões, e de esverdeadas trutas, parecem brincar ao seu redor, subindo \
+e descendo e nadando a sua volta.\n\
+O cheiro dos assados vindo do quiosque, aguça mais ainda a sua fome."
+const dir_o = $s_cachoeira039
+const a_reset = "P 100 cachoeira001 0 0 3\n\
+P 100 cachoeira002 0 0 3\n\
+P 100 cachoeira003 0 0 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_cachoeira001:objsolto.total < 3
+    criar("p_cachoeira001", este, 0)
+  fimse
+  se p_cachoeira002:objsolto.total < 3
+    criar("p_cachoeira002", este, 0)
+  fimse
+  se p_cachoeira003:objsolto.total < 3
+    criar("p_cachoeira003", este, 0)
+  fimse
+
+
+classe s_cachoeira041
+herda b_cachoeira
+const s_titulo = "Caminhando no bambuzal"
+const s_desc = "Você se impressiona com as variedades, tamanho e espessura das plantas, variando \
+de tonalidades entre o amarelo, o verde e o preto.\n\
+Ouvindo o monótono ruído nos banbuzais, balançando ao sabor do vento, misturado a doce melodia \
+dos pássaros, vai provocando uma leve sonolência.\n\
+Pegando em uma comprida vara, imagina os objetos feito com bambu taus como: móveis, instrumentos \
+músicais, varas-de-pesca e cestos.\n\
+E relembrando uma passagem na revista dizendo que o broto de bambu é rico em nutrientes como \
+proteínas vegetais e vitaminas,\n\
+além de ser capaz de ajudar a prevenir as doenças cardiovasculares e câncer.\n\
+Caminhando um pouco mais, você olha uma bolsa com ferramentas, e uma cadeira que alguém começou \
+a fazer, e deixou inacabada.\n\
+Com a vara na mão, imagina transformá-la em um belo caniço, e pescar deliciosos peixes, bebendo \
+uma deliciosa geladinha."
+const dir_l = $s_cachoeira042
+const dir_o = $s_cachoeira013
+
+
+classe s_cachoeira042
+herda b_cachoeira
+const s_titulo = "Entrando numa flora curiosa"
+const s_desc = "Vai deixando o bambuzal para trás, e com passo lento, depara-se com variadíssimas\
+ qualidades de árvores, quase que fechando o caminho.\n\
+Olhando para cima, vislumbra várias preguiças cinzentas penduradas em altíssimos galhos em meio \
+a um grande número de cipós.\n\
+Sendo que a quantidade de cipós é tão grande, que algumas vezes, você tem que afastá-los com as \
+mãos, para não bater no rosto.\n\
+Na distração, vai empurrando cipós grosso, fino, florido, liso, enrugado, até que empurra, nada \
+mais nada menos, que uma cobra-cipó,\n\
+Quase em pânico, tenta afastar-se o mais rapidamente possível desses tenebrosos répteis.\n\
+E para completar, cruza seu caminho em desabalada carreira, uma imensa capivara em fuga, se \
+embrenhando por entre as folhagens."
+const dir_l = $s_cachoeira043
+const dir_o = $s_cachoeira041
+
+
+classe s_cachoeira043
+herda b_cachoeira
+const s_titulo = "Na exuberância de uma flora"
+const s_desc = "Que subindo a trilha, hora tropeçando em raízes, hora deslizando em pedras \
+soltas e galhos secos, se surpreende a cada instante.\n\
+Ao observar belíssimas orquídeas em tons de colorido encanto, com variedades de formas e \
+tamanhos, fascina até um leigo em botânica.\n\
+Além das formosas orquídeas as bromélias e as papoulas, dão um requinte especial com seu \
+colorido, em um belo visual,\n\
+e a curta distância, fica observando quase sem se mexer para não assustá-lo, um belo exemplar do \
+tamanduá bandeira,\n\
+que nem percebe a sua presença, mais preocupada em alimentar-se, com o seu comprido focinho \
+enterrado em um formigueiro.\n\
+Mais ao levantar a cabeça, nota sua presença, e se afasta rapidamente por entre as árvores \
+buscando a proteção da mata.\n\
+Adiante, um bando de gigantescas emas com suas plumagens acizentadas, ficam a espreita, prontas \
+para defender seus ninhos."
+const dir_l = $s_cachoeira044
+const dir_o = $s_cachoeira042
+
+
+classe s_cachoeira044
+herda b_cachoeira
+const s_titulo = "Subindo a trilha"
+const s_desc = "Você vai caminhando em ritmo lento, e o terreno vai ficando mais acidentado e \
+mais íngreme a cada passada,\n\
+e as altíssimas árvores vão escasseando na medida que se vai ganhando altura, sendo substituídas \
+por pequenas árvores e arbustos.\n\
+Em consequência dessa mudança, você já consegue identificar o canto de determinados pássaros, \
+tais como o belo trinado do sanhaço,\n\
+a melodiosa canção das lindas sabiás da terra, dos encantadores canários belgas, e a conhecidíssi\
+ma alegria dos rouxinóis.\n\
+E misturado aos trinados e piados das aves, você escuta o envolvente canto das cigarras, e os \
+estridentes gritos dos animais na mata.\n\
+Mais adiante você atravessa uma concentração de pés de morangos silvestres, e parando para \
+descansar, apanha um punhado deles.\n\
+E mais uma vez, lebres e cutias fogem em desabalada carreira, hora em tocas escondidas, hora em \
+apertados espinheiros,\n\
+e entre as pedras, você olha para uma pele vazia de serpente, e pelas cores preta, branca e \
+vermelha, deduz ser uma cobra coral."
+const dir_l = $s_cachoeira045
+const dir_o = $s_cachoeira043
+
+
+classe s_cachoeira045
+herda b_cachoeira
+const s_titulo = "Chegando no paredão rochoso"
+const s_desc = "Você olha para um lado e para o outro em busca de uma forma de subir, já que a \
+trilha termina em frente ao imenso paredão,\n\
+mais não vê nenhum caminho a seguir, e olhando para cima vê algumas reentrâncias na rocha, que \
+pode ser escalada usando pés e mãos,\n\
+e bem mais acima, vários grampos deixados por alpinistas para facilitar a subida em uma fantástic\
+a aventura de alpinismo.\n\
+Com decepção no olhar, você imagina que só sendo um bom alpinista e portar equipamentos adequados\
+, conseguirá chegar ao cimo do rochedo.\n\
+de relance, observa uma lebre saindo de trás de alguns arbustos junto ao paredão de pedra, \
+embrenhando-se em meio ao relvado,\n\
+e na curiosidade, você se aproxima para ver melhor, de onde a lebre tinha surgido."
+const dir_l = $s_cachoeira046
+const dir_o = $s_cachoeira044
+
+
+classe s_cachoeira046
+herda b_cachoeira
+const s_titulo = "Na entrada da boca da onça"
+const s_desc = "Você fica de boca aberta olhando a pequena passagem escondida por trás dos \
+arbustos, pensando em que atitude tomar.\n\
+Lembrando do tempo de escoteiro, em que nunca se adentra uma caverna sem se certificar se não há \
+perigo,\n\
+Procura por uma pequena pedra nas proximidades, e joga dentro da abertura, e fica aguardando \
+algum resultado.\n\
+Após uma curta espera, não percebendo nenhum movimento, se aproxima da passagem com a forma da \
+boca aberta de uma onça pronta a te engolir.\n\
+E espreitando o interior do recinto, com muita precaução, abaixa-se para passar pela abertura \
+obstruída pelos arbustos."
+const dir_l = $s_cachoeira047
+const dir_o = $s_cachoeira045
+
+
+classe s_cachoeira047
+herda b_cachoeira
+const s_titulo = "Sendo engolido pela onça"
+const s_desc = "Você abaixa a cabeça e inclina o corpo, devido a entrada ser baixa e estreita, e \
+adentra a boca da onça, como se fosse engolido pela fera,\n\
+e depois de penetrar alguns passos na obscura gruta, fica imóvel na soleira, para ir acostumando \
+os olhos com a semi escuridão.\n\
+Após minutos de espera, caminha lentamente explorando a gruta, que aparentemente parece ser \
+pequena e apertada,\n\
+e num canto, como se fosse uma mesa, você encontra vários objetos deixados por excursionistas de \
+passagem pelo local,\n\
+e abaixando-se, pega uma pequena lanterna caída no chão, e acendendo, caminha com mais segurança,\
+ iluminando todo o recinto.\n\
+Chegando ao fundo, vislumbra uma passagem retangular com uma descida, hora em curtas rampas, \
+hora em forma de degraus irregulares.\n\
+Seguindo para norte, você entra num incrível toboágua natural.\n\
+Seguindo prara baixo, você explora uma tortuosa escadaria."
+const dir_n = $s_cachoeira051
+const dir_o = $s_cachoeira046
+const dir_b = $s_cachoeira048
+
+
+classe s_cachoeira048
+herda b_cachoeira
+const s_titulo = "Explorando uma escadaria"
+const s_desc = "Com grande curiosidade, vai descendo pela esquisita passagem, se aprofundando no \
+interio da gruta de formação calcária.\n\
+Tomando certas precauções para evitar surpresas, mantém um ritmo lento na descida apalpando as \
+paredes lisas e escorregadias.\n\
+Notando um ruído de água corrente, você ilumina a outra extremidade, já que a galeria é um tanto \
+larga na maior parte da descida.\n\
+Ao aproximar-se, percebe ser uma espécie de calha natural, lisa e profunda em que corre continuam\
+ente uma boa quantidade de água,\n\
+provavelmente alimentada pelas águas da cachoeira.\n\
+Sem ter a menor noção de tempo, vai descendo dobrando em curvas vertiginosas para esquerda e \
+para direita, acompanhando a estranha calha,\n\
+e com grande expectativa, fica imaginando o que irá encontrar no final do túnel."
+const dir_c = $s_cachoeira047
+const dir_b = $s_cachoeira049
+
+
+classe s_cachoeira049
+herda b_cachoeira
+const s_titulo = "No final da escadaria"
+const s_desc = "Vai descendo anciosamente, hora por curtas rampas, e hora por degraus, um eco \
+diferente se faz ouvir, indicando que o final está próximo.\n\
+E mais uma vez você chega a uma curva fechada, e vai seguindo com a mão na estranha calha com \
+água correndo continuamente.\n\
+Após uma cansativa descida, finalmente você se vê diante de um imenso salão iluminado por \
+pontinhos incandescentes, a perder de vista."
+const dir_l = $s_cachoeira050
+const dir_c = $s_cachoeira048
+
+
+classe s_cachoeira050
+herda b_cachoeira
+const s_titulo = "Um fantástico lago"
+const s_desc = "Que você fica imaginando a grandeza do imenso salão, com paredes altas e \
+recoberto de pequenas cavidades em toda sua extensão.\n\
+Em pé na frente de uma pequena faixa de pedra, fica olhando o gigantesco lago de águas azuis e \
+cristalinas, com um leve agito nas bordas.\n\
+Mais uma vez seu olhar se volta para a calha, que deságua exatamente dentro do lago azul, com o \
+som de uma pequena cascatinha.\n\
+Imaginando que a subida deve ser cansativa, porém, a descida pode ser muito divertida, pois essa \
+calha mais parece um toboágua natural,"
+const dir_o = $s_cachoeira049
+const dir_b = $s_cachoeira052
+
+
+classe s_cachoeira051
+herda b_cachoeira
+const s_titulo = "Uma incrível descida"
+const s_desc = "Em que você muito animado, entra no alto toboágua, alimentado pela cachoeira, \
+começando, a acelerar na medida em que desliza para baixo.\n\
+A paisagem passa a seu redor num borrão indistinto, e a adrenalina aumenta quando você zigzagueia\
+ nas curvas fechadas de um longo S,\n\
+e um pouco mais abaixo revoluciona vertiginosamente por uma espiral e um caracol espadanando \
+água para todo lado.\n\
+Inesperadamente despenca no vazio, terminando por mergulhar profundamente nas águas cristalinas \
+da lagoa,\n\
+e com salpicos em todas as direções, provoca pequenas ondulações no límpido espelho azul, em um \
+momento inesquecível.\n\
+Saindo do lago com o corpo escorrendo água e os olhos brilhando de satisfação, olha para cima, \
+pronto  para repetir a façanha."
+
+func cmd_salaperso
+  misc:evento(arg0)
+  misc:tempo("entrou", arg0)
+
+func entrou100
+  arg0.msg("Você começa a escorregar cada vez mais rápido...")
+
+func entrou130
+  arg0.msg("Você continua a escorregar...")
+
+func entrou160
+  arg0.msg("Você continua a escorregar mais rápido, perdendo a noção da velocidade!")
+
+func entrou190
+  arg0.msg("Você começa a gritar de felicidade, ao sentir as curvas radicais te levando para lá \
+e para cá!")
+
+func entrou210
+  arg0.msg("Você ouve ao longe o som de muitas águas...")
+
+func entrou240
+  arg0.mudadono($s_cachoeira052)
+
+
+classe s_cachoeira052
+herda b_cachoeira
+const s_titulo = "Dentro da lagoa"
+const s_desc = "Você salta, gira, mergulha, e torna a saltar com toda satisfação nas águas \
+cristalinas e azuis da laguna,\n\
+e sem pensar na profundidade, aproveita o máximo, já que a temperatura é amena e agradável, e a \
+diversão não tem limite.\n\
+E com salpicos em todas as direções, provoca pequenas ondulações no límpido espelho azul, em um \
+momento inesquecível.\n\
+Saindo do lago com o corpo escorrendo água e os olhos brilhando de satisfação, olha para cima \
+pronto para repetir a façanha."
+const dir_c = $s_cachoeira050
+
+func cmd_salaperso
+  misc:evento(arg0)
+  misc:tempo("entrou", arg0)
+  $mens.p(arg0)
+  $mens.mtodos2("Com um grande back na água, você abre um enorme sorriso, querendo fazer isso de \
+novo!", "$P caiu aqui, graças a um maravilhoso e divertido toboágua!")
+  ret 1
+
+
+classe s_cachoeira053
+herda b_cachoeira
+const s_titulo = "Entrando no camping Cabana da Mata"
+const s_desc = "Em que você passa por uma entrada em ardósia verde, ladeada por palmeiras, \
+bromélias e costela-de-adão.\n\
+Em frente, uma vasta área gramada com árvores de eucalipto, imensos pinheiros, arbustos e \
+floridos caramanchões.\n\
+Espalhado pelo campo,  belos iglus brancos proporcionando um confortável descanso aos visitantes.\
+\n\
+Seguindo em frente, no fundo do campo, você entra em uma área reservada para um gostoso churrasco\
+ e uma área para um maravilhoso lazer.\n\
+Para as noites, potentes refletores iluminam o local com uma luz azulada tornando a noite em \
+dia."
+const dir_n = $s_cachoeira054
+const dir_s = $s_cachoeira016
+const dir_l = $s_cachoeira060
+
+
+classe s_cachoeira054
+herda b_cachoeira
+const s_titulo = "No passeio entre os iglus sombreados por frondosos eucaliptos"
+const s_desc = "Você caminha por uma vereda gramada cercado por canteiros de perfumadas rosas em \
+várias tonalidades,\n\
+e as borboletas multicoloridas voaçando ao redor das flores, encanta seus olhos\n\
+A alameda é iluminada a noite por vistoso globo de vidro boleado, preso em um belo poste de \
+madeira rústica.\n\
+Em uma placa indicativa você lê: Para leste e oeste, as acomodações do iglu Cabana da Mata. Para \
+norte, A área de lazer com:\n\
+um descontraído jogo no campo de futebol, um tranquilo balanço, uma refrescante piscina, e um \
+gostoso fast food no bar molhado."
+const dir_n = $s_cachoeira057
+const dir_s = $s_cachoeira053
+const dir_l = $s_cachoeira055
+const portanome_l = "Uma porta de carvalho em placas com tachões de bronze com inscrição em \
+dourado: CM.01"
+const fecha_l = 1 # Fecha ao passar: Sim
+const tranc_l = 2 # Trancar: 2 Tranca ao fechar
+const dir_o = $s_cachoeira056
+const portanome_o = "Uma porta de carvalho em placas com tachões de bronze com inscrição em \
+dourado: CM.02"
+const fecha_o = 1 # Fecha ao passar: Sim
+const tranc_o = 2 # Trancar: 2 Tranca ao fechar
+
+
+classe s_cachoeira055
+herda b_cachoeira
+const s_titulo = "No luxuoso iglu Cabana da Mata - Número 01"
+const s_desc = "Você entra em um estreito portal em arco, e com uma curta passada, abre uma \
+porta de madeira de carvalho em placas com tachões de bronze,\n\
+e adentrando uma ampla suite circular branca de forma arredondada, pisa em um macio tapete \
+branco de pele de carneiro.\n\
+O assoalho de tábua corrida e as janelas em madeira de carvalho em forma de arco nas laterais do \
+aposento, compõe um belo designer.\n\
+Uma maravilhosa cama de casal de embuia com espaldar alto, um extravagante colchão dágua forrado \
+com um perfumado lençol de linho branco,\n\
+e recoberto por uma bela colcha de metalassê verde água com a barra franzida em toda a volta, é \
+um convite a um merecido descanso.\n\
+No alto, um televisor embutido de 60 polegada, e no canto, um micro systen gradiente prateado \
+sobre um vistoso reque de imbuia,\n\
+são opções de lazer para passar o tempo, e no frigobar, deliciosas iguarias e bebidas de \
+requinte, para sua total comodidade e satisfação."
+const dir_l = $s_cachoeira061
+const portanome_l = "A porta de vidro fumê do banheiro da suite"
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_cachoeira054
+const portanome_o = "A porta da suite - CM.01"
+const fecha_o = 1 # Fecha ao passar: Sim
+const tranc_o = 2 # Trancar: 2 Tranca ao fechar
+
+
+classe s_cachoeira056
+herda b_cachoeira
+const s_titulo = "No luxuoso iglu Cabana da Mata - Número 02"
+const s_desc = "Você entra em um estreito portal em arco, e com uma curta passada, abre uma \
+porta de madeira de carvalho em placas com tachões de bronze,\n\
+e adentrando uma ampla suite circular branca de forma arredondada, pisa em um macio tapete \
+branco de pele de carneiro.\n\
+O assoalho de tábua corrida, e as janelas em madeira de carvalho em forma de arco nas laterais \
+do aposento, compõe um belo designer.\n\
+Uma maravilhosa cama de casal de imbuia com espaldar alto, um extravagante colchão dágua forrado \
+com um perfumado lençol de linho branco,\n\
+e recoberto por uma linda colcha de metalassê verde água com a barra franzida em toda a volta, é \
+um convite a um merecido descanso.\n\
+No alto, um televisor embutido de 60 polegadas, e no canto, um micro system gradiente prateado \
+sobre um vistoso reque de imbuia\n\
+são opções de lazer para passar o tempo, e no frigobar, deliciosas iguarias e bebidas de \
+requinte, para sua total comodidade e satisfação."
+const dir_l = $s_cachoeira054
+const portanome_l = "A porta da suite - CM.02"
+const fecha_l = 1 # Fecha ao passar: Sim
+const tranc_l = 2 # Trancar: 2 Tranca ao fechar
+const dir_o = $s_cachoeira062
+const portanome_o = "A porta de vidro fumê do banheiro da suite"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_cachoeira057
+herda b_cachoeira
+const s_titulo = "No passeio da área de lazer"
+const s_desc = "Você caminha por uma vereda gramada cercado por canteiros de perfumadas rosas em \
+várias tonalidades,\n\
+e as borboletas multicoloridas voaçando por entre as flores, encanta seus olhos em um fantástico \
+ballet.\n\
+Na alameda, você olha um vistoso globo de vidro boleado preso em um belo poste de madeira \
+rústica, que ilumina as noites escuras.\n\
+Em uma placa indicativa você lê: Para leste, o campo de futebol. Para oeste, um aconchegante \
+balanço. Para norte, a área da piscina."
+const dir_n = $s_cachoeira079
+const dir_s = $s_cachoeira054
+const dir_l = $s_cachoeira058
+const portanome_l = "O portãozinho de tela da entrada do campo de futebol"
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_cachoeira059
+
+
+classe s_cachoeira058
+herda b_cachoeira
+const s_titulo = "No campo de futebol"
+const s_desc = "Você atravessa um portãozinho por trás do gol, e fica diante de um imenso campo \
+com gramas muito bem aparadas, cercada por altas telas,\n\
+e se impressiona com o campo com a dimensão aproximada de 120 por 90 metros, e as balizas com o \
+comprimento de 7 metros e meio.\n\
+Chegando no centro do campo, olha para as arquibancadas vazias, e se imagina em uma partida \
+oficial sendo ovacionado pela torcida.\n\
+Mais como você não é o Ronaldinho e nem o Neimar, pega uma bola e começa a jogar com os amigos \
+em uma partida bem descontraída.\n\
+No meio da brincadeira, você sente um gostoso cheiro de carne assada, despertando um apetite, e \
+a vontade de saborear um delicioso churrasco.\n\
+Da área da piscina, se ouve os gritos das crianças e o som de lindas canções e pessoas cantando \
+com grande animação."
+const dir_l = $s_cachoeira081
+const portanome_l = "O portãozinho de tela para a quadra poliesportiva"
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_cachoeira057
+const portanome_o = "O portãozinho de tela do campo de futebol"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_cachoeira059
+herda b_cachoeira
+const s_titulo = "Na área de lazer para relaxar"
+const s_desc = "Com um gramado bem cuidado, rodeado por canteiros de belas margaridas e pingos-de\
+-ouro,\n\
+você se aproxima e acomoda-se em um maravilhoso balanço feito com grosso tronco de árvore, preso \
+nas laterais por fortes correntes,\n\
+em duas frondosas árvores de eucalipto, e se balança de um lado para o outro, sentindo uma \
+deliciosa brisa envolvendo seu corpo.\n\
+e se deixa envolver por trinados e canto de belos pássaros empoleirados nos galhos sobre sua \
+cabeça.\n\
+Na distância, ouve o inconfundível murmurejar das águas de uma cachoeira."
+const dir_l = $s_cachoeira057
+const a_reset = "S 100 cachoeira001 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_cachoeira001") && criar("i_cachoeira001", este, 1)
+
+
+classe s_cachoeira060
+herda b_cachoeira
+const s_titulo = "No passeio entre os iglus sombreados por frondosos eucaliptos"
+const s_desc = "Você caminha por uma vereda gramada cercado por canteiros de perfumadas rosas em \
+várias tonalidades,\n\
+e as borboletas multicoloridas voaçando por entre as flores, encanta seus olhos em belos \
+movimentos de ballet.\n\
+E nas árvores, o agradável canto das cigarras e os pios, trinados e gorjeios dos pássaros.\n\
+Na alameda, você olha um vistoso globo de vidro boleado preso em um belo poste de madeira \
+rústica, que ilumina as noites escuras."
+const dir_n = $s_cachoeira063
+const portanome_n = "Uma porta de carvalho em placas com tachões de bronze com inscrição em \
+dourado: CM.03"
+const fecha_n = 1 # Fecha ao passar: Sim
+const tranc_n = 2 # Trancar: 2 Tranca ao fechar
+const dir_s = $s_cachoeira065
+const portanome_s = "Uma porta de carvalho em placas com tachões de bronze com inscrição em \
+dourado:CM.04"
+const fecha_s = 1 # Fecha ao passar: Sim
+const tranc_s = 2 # Trancar: 2 Tranca ao fechar
+const dir_l = $s_cachoeira072
+const dir_o = $s_cachoeira053
+
+
+classe s_cachoeira061
+herda b_cachoeira
+const s_titulo = "No banheiro da luxuosa suite"
+const s_desc = "Com paredes e piso de cerâmica branca com pequenos ramos verdes, você adentra um \
+ambiente impecavelmente limpo e aromatizado\n\
+com um suave aroma de lavanda, fazendo se sentir confortável para fazer suas necessidades \
+fisiológicas e higiene pessoal.\n\
+O vaso branco extremamente higienizado, o lavatório em mármore verde de água quente e fria com \
+frasco de perfumado sabonete líquido de erva doce,\n\
+o papeleiro com as toalhas descartáveis, uma pequena lixeira de inox e o macio tapete de pelúcia \
+verde,\n\
+a hora passa tão depressa que você nem sente o tempo avançando, perdido em pensamentos vagos."
+const dir_l = $s_cachoeira068
+const portanome_l = "A porta blindex do box"
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_cachoeira055
+const portanome_o = "A porrta de vidro fumê do banheiro"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_cachoeira062
+herda b_cachoeira
+const s_titulo = "No luxuoso banheiro da suite"
+const s_desc = "Com paredes e piso de cerâmica branca com pequenos ramos verdes, você adentra um \
+ambiente impecavelmente limpo e aromatizado,\n\
+com um suave aroma de lavanda, fazendo se sentir confortável para fazer suas necessidades \
+fisiológicas e higiene pessoal.\n\
+O vaso branco extremamente higienizado, o lavatório em mármore verde de água quente e fria com \
+frasco de perfumado sabonete líquido de erva doce,\n\
+o papeleiro de inox com as toalhas descartáveis, uma pequena lixeira de inox e o macio tapete de \
+pelúcia verde,\n\
+a hora passa tão depressa que você nem sente o tempo avançando, perdido em pensamentos vagos."
+const dir_l = $s_cachoeira056
+const portanome_l = "A porta de vidro fumê do banheiro"
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_cachoeira069
+const portanome_o = "A porta blindex do box"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_cachoeira063
+herda b_cachoeira
+const s_titulo = "No luxuoso iglu Cabana da Mata - Número 03"
+const s_desc = "Voce entra em um estreito portal em arco, e com uma curta passada, abre uma \
+porta de madeira de carvalho em placas com tachões de bronze,\n\
+e adentrando uma ampla suite circular branca de forma arredondada, pisa em um macio tapete \
+branco de pele de carneiro.\n\
+O assoalho de tábua corrida, e as janelas em madeira de carvalho em forma de arco nas laterais \
+do aposento, compõe um belo designer.\n\
+Uma maravilhosa cama de casal de imbuia com espaldar alto, um extravagante colchão dágua forrado \
+com um perfumado lençol de linho branco,\n\
+e recoberto por uma linda colcha de metalassê verde água com a barra franzida em toda a volta, é \
+um convite a um merecido descanso.\n\
+No alto, um televisor embutido de 60 polegadas, e no canto, um micro system gradiente prateado \
+sobre um vistoso reque de imbuia,\n\
+são opções de lazer para passar o tempo, e no frigobar, deliciosas iguarias e bebida de requinte,\
+ para sua total comodidade e satisfação.."
+const dir_n = $s_cachoeira064
+const portanome_n = "A porta de vidro fumê do banheiro da suite"
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_s = $s_cachoeira060
+const portanome_s = "A porta da suite - CM.03"
+const fecha_s = 1 # Fecha ao passar: Sim
+const tranc_s = 2 # Trancar: 2 Tranca ao fechar
+
+
+classe s_cachoeira064
+herda b_cachoeira
+const s_titulo = "No banheiro da luxuosa suite"
+const s_desc = "Com paredes e piso de cerâmica branca com pequenos ramos verdes, você adentra um \
+ambiente impecavelmente limpo e aromatizado,\n\
+com um suave aroma de lavanda, fazendo se sentir confortável para fazer suas necessidades \
+fisiológicas e higiene pessoal.\n\
+O vaso branco extremamente higienizado, o lavatório em mármore verde de água quente e fria com \
+frasco de perfumado sabonete líquido de erva doce,\n\
+o papeleiro de inox com as toalhas descartáveis, uma pequena lixeira de inox e o macio tapete de \
+pelúcia verde,\n\
+a hora passa tão depressa que você nem sente o tempo avançando, perdido em pensamentos vagos."
+const dir_n = $s_cachoeira070
+const portanome_n = "A porta blindex do box"
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_s = $s_cachoeira063
+const portanome_s = "A porta de vidro fumê do banheiro"
+const fecha_s = 1 # Fecha ao passar: Sim
+
+
+classe s_cachoeira065
+herda b_cachoeira
+const s_titulo = "No luxuoso iglu Cabana da Mata- Número 04"
+const s_desc = "Você entra em um estreito portal em arco, e com uma curta passada, abre uma \
+porta de madeira de carvalho em placas com tachões de bronze,\n\
+e adentrando uma ampla suite circular branca de forma arredondada, pisa em um macio tapete \
+branco de pele de carneiro.\n\
+O assoalho de tábua corrida, e as janelas em madeira de carvalho em forma de arco nas laterais \
+do aposento, compõe um belo designer.\n\
+Uma maravilhosa cama de casal de imbuia com espaldar alto, um extravagante colchão dágua forrado \
+com um perfumado lençol de linho branco,\n\
+e recoberto por uma linda colcha de metalassê verde água com a barra franzida em toda a volta, é \
+um convite a um merecido descanso.\n\
+No alto, um televisor embutido de 60 polegadas, e no canto, um micro system gradiente prateado \
+sobre um vistoso reque de imbuia,\n\
+são opções de lazer para passar o tempo, e no frigobar, deliciosas iguarias e bebidas de \
+requinte, para sua total comodidade e satisfação."
+const dir_n = $s_cachoeira060
+const portanome_n = "A porta da suite - CM.04"
+const fecha_n = 1 # Fecha ao passar: Sim
+const tranc_n = 2 # Trancar: 2 Tranca ao fechar
+const dir_s = $s_cachoeira066
+const portanome_s = "A porta de vidro fumê do banheiro da suite"
+const fecha_s = 1 # Fecha ao passar: Sim
+
+
+classe s_cachoeira066
+herda b_cachoeira
+const s_titulo = "No banheiro da luxuosa suite"
+const s_desc = "Com paredes e piso de cerâmica branca com pequenos ramos verdes, você adentra um \
+ambiente impecavelmente limpo e aromatizado,\n\
+com um suave aroma de lavanda, fazendo se sentir confortável para fazer suas necessidades \
+fisiológicas e higiene pessoal.\n\
+O vaso branco extremamente higienizado, o lavatório em mármore verde de água quente e fria com \
+frasco de perfumado sabonete líquido de erva doce,\n\
+o papeleiro de inox com as toalhas descartáveis, uma pequena lixeira de inox e o macio tapete de \
+pelúcia verde,\n\
+a hora passa tão depressa que você nem sente o tempo avançando, perdido em pensamentos vagos."
+const dir_n = $s_cachoeira065
+const portanome_n = "A porta de vidro fumê do banheiro"
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_s = $s_cachoeira071
+const portanome_s = "A porta blindex do box"
+const fecha_s = 1 # Fecha ao passar: Sim
+
+
+classe s_cachoeira067
+herda b_cachoeira
+const s_titulo = "Dentro do box do banheiro"
+const dir_s = $s_cachoeira036
+
+
+classe s_cachoeira068
+herda b_cachoeira
+const s_titulo = "No box do banheiro"
+const s_desc = "Com paredes e piso de cerâmica branca com pequenos ramos verdes impecavelmente \
+limpas e sentindo um adorável cheiro de lavanda,\n\
+você toma aquele delicioso banho em uma maravilhosa ducha, escolhendo água quente ou água fria \
+de acordo com a temperatura ambiente.\n\
+Ou para relaxar, fica submesso na espumante banheira de hidromassagem com água morna e sais \
+aromáticos, em um banho demorado e prazeroso.\n\
+No fundo, preso na parede arredondada, uma prateleira de vidro com os frascos de shampoo e \
+condicionador da seda, um hidratante da buticário,\n\
+um sabonete líquido com o perfumado aroma de erva doce, uma macia escova de cabelo anatômica de \
+cabo verde e uma higiênica bucha vegetal,\n\
+ao lado da prateleira, um comprido suporte de alumínio para colocar toalhas, e vários ganchos de \
+aço inox para pendurar roupas."
+const dir_o = $s_cachoeira061
+const portanome_o = "A porta blindex do box"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_cachoeira069
+herda b_cachoeira
+const s_titulo = "No box do banheiro"
+const s_desc = "Com paredes e piso de cerâmica branca com pequenos ramos verdes impecavelmente \
+limpas e sentindo um adorável cheiro de lavanda,\n\
+você toma aquele delicioso banho em uma maravilhosa ducha, escolhendo água quente ou água fria, \
+de acordo com a temperatura ambiente.\n\
+Ou para relaxar, fica submerso na espumante banheira de hidromassagem com água morna e sais \
+aromáticos, em um banho demorado e prazeroso.\n\
+No fundo, preso na parede arredondada, uma prateleira de vidro com os frascos de shampoo e \
+condicionador da seda, um hidratante da buticário,\n\
+um sabonete líquido com o perfumado aroma de erva doce, uma macia escova de cabelo anatômica \
+verde e uma higiênica bucha vegetal,\n\
+ao lado da prateleira, um comprido suporte em alumínio para colocar toalhas, e vários ganchos de \
+aço inox para pendurar roupas."
+const dir_l = $s_cachoeira062
+const portanome_l = "A porta blindex do box"
+const fecha_l = 1 # Fecha ao passar: Sim
+
+
+classe s_cachoeira070
+herda b_cachoeira
+const s_titulo = "No box do banheiro"
+const s_desc = "Com paredes e piso de cerâmica branca com pequenos ramos verdes impecavelmente \
+limpas e sentindo um adorável cheiro de lavanda,\n\
+você toma aquele delicioso banho em uma maravilhosa ducha, escolhendo água quente ou água fria, \
+de acordo com a temperatura ambiente.\n\
+Ou para relaxar, fica submerso na espumante banheira de hidromassagem com água morna e sais \
+aromáticos, em um banho demorado e prazeroso.\n\
+No fundo, preso na parede arredondada, uma prateleira de vidro comos frascos de shampoo e \
+condicionador da seda, um hidratante da buticário,\n\
+um sabonete líquido com o perfumado aroma de erva doce, uma macia escova de cabelo anatômica \
+verde e uma higiênica bucha vegetal.\n\
+Ao lado da prateleira, um comprido suporte em alumínio para colocar toalhas, e vários ganchos de \
+aço inox para pendurar roupas."
+const dir_s = $s_cachoeira064
+const portanome_s = "A porta blindex do box"
+const fecha_s = 1 # Fecha ao passar: Sim
+
+
+classe s_cachoeira071
+herda b_cachoeira
+const s_titulo = "No box do banheiro"
+const s_desc = "Com paredes e piso de cerâmica branca com pequenos ramos verdes impecavelmente \
+limpas e sentindo um adorável cheiro de lavanda,\n\
+você toma aquele delicioso banho em uma maravilhosa ducha, escolhendo água quente ou água fria, \
+de acordo com a temperatura ambiente.\n\
+Ou para relaxar, fica submerso na espumante banheira de hidromassagem com água morna e sais \
+aromáticos, em um banho demorado e prazeroso.\n\
+No fundo, preso na parede arredondada, uma prateleira de vidro com os frascos de shampoo e \
+condicionador da seda, um hidratante da buticário,\n\
+um sabonete líquido com o perfumado aroma de erva doce, uma macia escova de cabelo anatômica \
+verde e uma higiênica bucha vegetal.\n\
+Ao lado da prateleira, um comprido suporte em alumínio para colocar toalhas, e vários ganchos de \
+aço inox para pendurar roupas."
+const dir_n = $s_cachoeira066
+const portanome_n = "A porta blindex do box"
+const fecha_n = 1 # Fecha ao passar: Sim
+
+
+classe s_cachoeira072
+herda b_cachoeira
+const s_titulo = "No passeio entre os iglus sombreados por imensos pinheiros"
+const s_desc = "Você caminha por uma vereda gramada cercado por canteiros de perfumadas rosas em \
+várias tonalidades,\n\
+e as borboletas multicoloridas voaçando em volta das flores, encanta seus olhos em incansáveis \
+movimentos de ida e vinda esbanjando beleza.\n\
+Nas árvores, o agradável canto das cigarras e os pios, trinado e gorjeios dos belos pássaros em \
+seus graciosos movimento de ida e vinda nos galhos.\n\
+Na alameda, você olha um vistoso globo de vidro boleado preso em um belo poste de madeira \
+rústica, que ilumina as noites escuras."
+const dir_n = $s_cachoeira073
+const portanome_n = "Uma porta de carvalho em placas com tachões de bronze com inscrição em \
+dourado: CM.05"
+const fecha_n = 1 # Fecha ao passar: Sim
+const tranc_n = 2 # Trancar: 2 Tranca ao fechar
+const dir_s = $s_cachoeira076
+const portanome_s = "Uma porta de carvalho em placas com tachões de bronze com inscrição em \
+dourado: CM.06"
+const fecha_s = 1 # Fecha ao passar: Sim
+const tranc_s = 2 # Trancar: 2 Tranca ao fechar
+const dir_o = $s_cachoeira060
+
+
+classe s_cachoeira073
+herda b_cachoeira
+const s_titulo = "No luxuoso iglu Cabana da Mata - Número 05"
+const s_desc = "Voce entra em um estreito portal em arco, e com uma curta passada, abre uma \
+porta de madeira de carvalho em placas com tachões de bronze,\n\
+e adentrando uma ampla suite circular branca de forma arredondada, pisa em um macio tapete \
+branco de pele de carneiro.\n\
+O  assoalho de tábua corrida, e as janelas em madeira de carvalho em forma de arco nas laterais \
+do aposento, compõe um belo designer.\n\
+Uma maravilhosa cama de casal de imbuia com espaldar alto, um extravagante colchão dágua forrado \
+com um perfumado lençol de linho branco,\n\
+e recoberto por uma linda colcha de metalassê verde água com a barra franzida em toda a volta, é \
+um convite a um merecido descanso.\n\
+No alto, um televisor embutido de 60 polegadas, e no canto, um micro system gradiente prateado \
+sobre um vistoso reque de imbuia,\n\
+são opções de lazer para passar o tempo, e no frigobar, deliciosas iguarias e bebidas de \
+requinte, para sua total comodidade e satisfação."
+const dir_n = $s_cachoeira074
+const portanome_n = "A porta de vidro fumê do banheiro da suite"
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_s = $s_cachoeira072
+const portanome_s = "A porta da suite - CM.05"
+const fecha_s = 1 # Fecha ao passar: Sim
+const tranc_s = 2 # Trancar: 2 Tranca ao fechar
+
+
+classe s_cachoeira074
+herda b_cachoeira
+const s_titulo = "No banheiro da luxuosa suite"
+const s_desc = "Com paredes e piso de cerâmica branca com pequenos ramos verdes, você adentra um \
+ambiente impecavelmente limpo e aromatizado,\n\
+com um suave aroma de lavanda, fazendo se sentir confortável para fazer suas necessidades \
+fisiológicas e higiene pessoal.\n\
+O vaso branco extremamente higienizado, o lavatório em mármore verde de água quente e fria com \
+frasco de perfumado sabonete líquido de erva doce,\n\
+o papeleiro de inox com as toalhas descartáveis, uma pequena lixeira de inox e o macio tapete de \
+pelúcia verde,\n\
+a hora passa tão depressa que você nem sente o tempo avançando, perdido em pensamentos vagos."
+const dir_n = $s_cachoeira075
+const portanome_n = "A porta do blindex do box"
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_s = $s_cachoeira073
+const portanome_s = "A porta de vidro fumê do banheiro"
+const fecha_s = 1 # Fecha ao passar: Sim
+
+
+classe s_cachoeira075
+herda b_cachoeira
+const s_titulo = "No box do banheiro"
+const s_desc = "Com paredes e piso de cerâmica branca com pequenos ramos verdes impecavelmente \
+limpas e sentindo um adorável cheiro de lavanda,\n\
+você toma aquele delicioso banho em uma maravilhosa ducha, escolhendo água quente ou água fria, \
+de acordo com a temperatura ambiente.\n\
+Ou para relaxar, fica submerso na espumante banheira de hidromassagem com água morna e sais \
+aromáticos, em um banho demorado e prazeroso.\n\
+No fundo, preso na parede arredondada, uma prateleira de vidro com os frascos de shampoo e \
+condicionador da seda, um hidratante da buticário,\n\
+um sabonete líquido com o perfumado aroma de erva doce, uma macia escova de cabelo anatômica \
+verde e uma higiênica bucha vegetal.\n\
+Ao lado da prateleira, um comprido suporte em alumínio para colocar toalhas, e vários ganchos de \
+aço inox para pendurar roupas."
+const dir_s = $s_cachoeira074
+const portanome_s = "A porta blindex do box"
+const fecha_s = 1 # Fecha ao passar: Sim
+
+
+classe s_cachoeira076
+herda b_cachoeira
+const s_titulo = "No luxuoso iglu Cabana da Mata - Número 06"
+const s_desc = "Você entra em um estreito portal em arco, e com uma curta passada, abre uma \
+porta de madeira de carvalho em placas com tachões de bronze,\n\
+e adentrando uma ampla suite circular branca de forma arredondada, pisa em um macio tapete \
+branco de pele de carneiro.\n\
+O assoalho de tábua corrida, e as janelas em madeira de carvalho em forma de arco nas laterais \
+do aposento, compõe um belo designer.\n\
+Uma maravilhosa cama de casal de imbuia com espaldar alto, um extravagante colchão dágua forrado \
+com um perfumado lençol de linho branco,\n\
+e recoberto por uma linda colcha de metalassê verde água com a barra franzida em toda a volta, é \
+um convite a um merecido descanso.\n\
+No alto, um televisor embutido de 60 polegadas, e no canto, um micro system gradiente prateado \
+sobre um vistoso reque de imbuia,\n\
+são opções de lazer para passar o tempo, e no frigobar, deliciosas iguarias e bebidas de \
+requinte, para sua total comodidade e satisfação."
+const dir_n = $s_cachoeira072
+const portanome_n = "A porta da suite - CM.06"
+const fecha_n = 1 # Fecha ao passar: Sim
+const tranc_n = 2 # Trancar: 2 Tranca ao fechar
+const dir_s = $s_cachoeira077
+const portanome_s = "A porta de vidro fumê do banheiro da suite"
+const fecha_s = 1 # Fecha ao passar: Sim
+
+
+classe s_cachoeira077
+herda b_cachoeira
+const s_titulo = "No banheiro da luxuosa suite"
+const s_desc = "Com paredes e piso de cerâmica branca com pequenos ramos verdes, você adentra um \
+ambiente impecavelmente limpo e aromatizado,\n\
+com um suave aroma de lavanda, fazendo se sentir confortável para fazer suas necessidades \
+fisiológicas e higiene pessoal.\n\
+O vaso branco extremamente higienizado, o lavatório em mármore verde de água quente e fria com \
+frasco de perfumado sabonete líquido de erva doce,\n\
+o papeleiro de inox com as toalhas descartáveis, uma pequena lixeira de inox e o macio tapete de \
+pelúcia verde,\n\
+a hora passa tão depressa que você nem sente o tempo avançando, perdido em pensamentos vagos."
+const dir_n = $s_cachoeira076
+const portanome_n = "A porta de vidro fumê do banheiro"
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_s = $s_cachoeira078
+const portanome_s = "A porta blindex do box"
+const fecha_s = 1 # Fecha ao passar: Sim
+
+
+classe s_cachoeira078
+herda b_cachoeira
+const s_titulo = "No box do banheiro"
+const s_desc = "Com paredes e piso de cerâmica branca com pequenos ramos verdes impecavelmente \
+limpas e sentindo um adorável cheiro de lavanda,\n\
+você toma aquele delicioso banho em uma maravilhosa ducha, escolhendo água quente ou água fria, \
+de acordo com a temperatura ambiente.\n\
+Ou para relaxar, fica submerso na espumante banheira de hidromassagem com água morna e sais \
+aromáticos, em um banho demorado e prazeroso.\n\
+No fundo, preso na parede arredondada, uma prateleira de vidro com os frascos de shampoo e \
+condicionador da seda, um hidratante da buticário,\n\
+um sabonete líquido com o perfumado aroma de erva doce, uma macia escova de cabelo anatômica \
+verde e uma higiênica bucha vegetal.\n\
+Ao lado da prateleira, um comprido suporte em alumínio para colocar toalhas, e vários ganchos de \
+aço inox para pendurar roupas."
+const dir_n = $s_cachoeira077
+const portanome_n = "A porta blindex do box"
+const fecha_n = 1 # Fecha ao passar: Sim
+
+
+classe s_cachoeira079
+herda b_cachoeira
+const s_titulo = "Na área das picinas"
+const s_desc = "Você adentra por um gramado muito bem cuidado com cadeiras e mesas sombreadas \
+por belos guarda sóis coloridos distribuída por toda a área.\n\
+e o belo recanto totalmente arborizado, rodeado por floridos caramanchões, desfrutando de um \
+prazer único com turistas e moradores locais.\n\
+Nas românticas noites estreladas, você admira as magníficas constelações, tentando identificá-las\
+, uma a uma, em sua extraordinária grandeza.\n\
+De um lado o cruzeiro do sul, do outro, a constelação de escorpião, mais ao lado, gêmeos, e bem \
+acima de sua cabeça, as três marias.\n\
+Em cada extremidade da área, um comprido poste prateado com dois refletores redondos cada um, \
+lançando uma iluminação azulada nas piscinas,\n\
+para um delicioso banho noturno."
+const dir_s = $s_cachoeira057
+const dir_o = $s_cachoeira084
+const dir_b = $s_cachoeira080
+
+
+classe s_cachoeira080
+herda b_cachoeira
+const s_titulo = "Na borda de uma imensa piscina natural"
+const s_desc = "Você vai penetrando gradativamente em uma imensa bacia circular de belíssima \
+formação rochosa, com profundidade aproximada de 1 metro e 40,\n\
+e com águas cristalinas esverdeadas, você delicia-se com um refrescante banho nesse belo recanto \
+paradisíaco no aconchego da natureza.\n\
+Em baixo de uma magnífica cabeça de leão jorrando água em cascata, você recebe uma maravilhosa \
+massagem, relaxando todo o corpo.\n\
+Depois de uma revigorante massagem na cascatinha, mergulhos e peripécias nas águas transparentes,\
+ você segue em direção ao bar molhado,\n\
+uma construção feita de pedra e madeira no centro da piscina como se fosse uma ilha circular, \
+com a água batendo em pequenos movimentos.\n\
+Recoberta por um rústico telhado de palha, a cúpula é circundada por um balcão de granito e \
+bancos por toda a volta."
+const dir_l = $s_cachoeira082
+const dir_c = $s_cachoeira079
+
+
+classe s_cachoeira081
+herda b_cachoeira
+const s_titulo = "Na sofisticada quadra poliesportiva"
+const s_desc = "Você adentra uma quadra esportiva retangular feita de saibro delimitada por \
+linhas demarcatórias coloridas para o seu esporte favorito.\n\
+Cercada por altas telas, o sistema de iluminação, com potentes refletores, permite a prática de \
+esportes em horário noturno.\n\
+Então, se você gosta de basquete, pegue uma bola, e se dirija até a tabela, e comece a arremessar\
+, pois você não é o cestinha Oscar Schmidt.\n\
+Se tem preferência pelo futsal, vá ao vestiário, pegue as redes, prenda nas traves, e mostre a \
+todos que você é o rei da bola.\n\
+Mais se tem habilidades na prática do tênis, prenda a rede nos postes, pegue sua raquete \
+preferida, se dirija ao fundo da quadra,\n\
+jogue a bolinha para o ar, e com força no braço, saque com vontade, e prepare-se para perder \
+boas calorias na desgastante partida.\n\
+Não se preocupe em sair vitorioso, ou derrotado, pois o importante é a diversão que o jogo \
+proporciona, e a companhia dos amigos. Boa Sorte!"
+const dir_o = $s_cachoeira058
+const portanome_o = "O portãozinho de tela para o campo de futebol"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_cachoeira082
+herda b_cachoeira
+const s_titulo = "No bar molhado para uma deliciosa refeição"
+const s_desc = "Você se senta em um dos bancos de granito, com água na altura das coxas, vai \
+balançando as pernas na água no ritmo de uma animada música.\n\
+E sentindo o delicioso cheiro do churrasco, aguarda o momento de ser servida a saborosa iguaria, \
+bebericando maravilhosos drinks.\n\
+Aos poucos, o cheiro da carne sendo preparada, vai dominando todo o ambiente, abrindo o apetite \
+dos banhistas, atraindo para o bar.\n\
+E o movimento das pessoas, indo e vindo, entrando e saindo, sentando e levantando, comendo, \
+bebendo e conversando com grande satisfação,\n\
+o tempo passa em um piscar de olhos."
+const dir_o = $s_cachoeira080
+
+
+classe s_cachoeira083
+herda b_cachoeira
+const s_titulo = "Um espaçoso estacionamento"
+const s_desc = "Você atravessa uma entrada em arco, passando por uma cancela de madeira amarela \
+com listras brancas, com piso recoberto de cascalho grosso.\n\
+Ladeando um muro feito de cerca viva, você segue para sul, por um comprido caminho com placas de \
+ardósia preta até a entrada do hall.\n\
+A noite, o estacionamento é iluminado por lâmpadas fluorescentes em altos postes, lançando uma \
+forte luz azulada."
+const dir_s = $s_cachoeira001
+const dir_sair = $s_vilares289
+const portaini_sair = 2 # Estado inicial: 2 Porta fechada
+const portanome_sair = "uma cancela de madeira branca e amarela"
+const fechadura_sair = "cachoeira"
+const fecha_sair = 1 # Fecha ao passar: Sim
+const tranc_sair = 1 # Trancar: 1 Pode ser trancado
+
+
+classe s_cachoeira084
+herda b_cachoeira
+const s_titulo = "Na piscina das crianças"
+const s_desc = "Com água jorrando da boca de um imenso golfinho de pedra como uma pequena \
+cascatinha, mantém cheia uma grande piscina circular de arenito.\n\
+Com pouca profundidade, e com águas cristalinas e transparentes, você fica observando a criançada\
+ correndo e subindo no escorregador,\n\
+descendo e gritando, girando e caindo, pulando e se esticando dentro da água com grande estardalh\
+aço na maior agitação.\n\
+Incansavelmente, saem da piscina, e correm entre as mesas de um lado para o outro, e tornam a \
+subir no escorregador, para deslisar abaixo,\n\
+e mergulhando, agita a água com espirros em todas as direções, levando os pais a loucura de \
+tanta preocupação.\n\
+Pois no meio de tanta alegria, tem sempre uma queda, provocando um medonho choro.\n\
+Com uma curta pausa para comer e beber, mesmo sem vontade, logo estão de volta fazendo grande \
+algazarra, deixando os pais com os cabelos em pé."
+const dir_l = $s_cachoeira079

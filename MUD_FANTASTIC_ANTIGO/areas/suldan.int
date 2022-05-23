@@ -1,0 +1,2487 @@
+classe a_suldan
+herda area
+const a_nome = "Suldan"
+const a_tempo = 5
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_suldan
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_som = "cidade2"
+const s_area = "suldan"
+
+
+classe i_suldan001
+herda comum_itemperso
+const nome = "uma espada pratiada"
+const nivel = 360
+const armamax = 320
+const armamin = 270
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const tipoitem = 1 # Tipo de item: 0-Possui metal (1-arma)
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 18 * pnivel + 300
+  pmovemax += 10 * pnivel + 150
+  pveloc1 += 3 * pnivel + 30
+  atknorm += 15 * pnivel + 50
+  atkesp += 10 * pnivel + 50
+  atktipo.4 *= 2 # Cortante
+
+
+classe i_suldan002
+herda comum_itemperso
+const nome = "uma cachoeira"
+const descpos = "uma linda cachoeira está aqui jorrando águas limpas"
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_fome = 2
+const f_sede = 80
+const i_pegar = "não pode pegar é impossível"
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_suldan003
+herda comum_itemperso
+const nome = "uma coroa"
+const nivel = 400
+const vestir1 = 4 # Aonde vestir: 2-Na cabeça
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 40 * pnivel + 60
+  defnorm += 40 * pnivel + 40
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 10
+
+
+classe i_suldan004
+herda comum_itemperso
+const nome = "um chapel de couro"
+const descnome = "um chapel de couro"
+const descpos = "aqui está um valioso chapel de couro"
+const nivel = 310
+const renascer = 1
+const valor = 459
+const vestir1 = 4 # Aonde vestir: 2-Na cabeça
+const manterperso = 1 # Mantém em jogador: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10 * pnivel + 100
+  pmanamax += 15 * pnivel + 100
+  pmovemax += 2 * pnivel + 50
+  atkesp += 10 * pnivel + 60
+
+
+classe i_suldan005
+herda comum_itemperso
+const nome = "uma janela"
+const descpos = "bem na parede está uma enorme janela"
+const i_pegar = "não pode pegar está presa a parede"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const volobj = 2
+
+
+classe i_suldan006
+herda comum_itemperso
+const nome = "um manto"
+const descpos = "um manto de veludo está aqui caído a o chão"
+const tipoitem = 8 # Tipo de item: 3-Vestimenta
+const vestir1 = 4096 # Aonde vestir: 12-no corpo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100
+  pmanamax += 50
+  pmovemax += 40 * pnivel
+  pveloc1 += 30 * pnivel
+  atknorm += 300
+  defnorm += 500
+  defesp += 50 * pnivel
+  evasao += 80
+  precisao += 50
+  pesomax += 2
+
+
+classe i_suldan007
+herda comum_itemperso
+const nome = "uma espada de mão dupla"
+const descnome = "uma espada dupla"
+const descpos = "uma espada dupla está caída aqui"
+const renascer = 1
+const armafalha = 10
+const armatipo = 3 # Tipo de arma: 3 Lâmina curta
+const valor = 250
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30
+  pmanamax += 30 * pnivel + 30
+  atknorm += -1 * pnivel + 10
+
+
+classe i_suldan008
+herda comum_itemperso
+const nome = "cachoeira"
+const ident = "cachoeira água"
+const descnome = "uma cachoeira"
+const descpos = "Uma cachoeira se encontra aqui com suas águas limpas, prontas para serem \
+bebidas."
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_sede = 60
+const f_msgperso = "Você bebe a água da cachoeira com satisfação."
+const f_msgoutros = "$P bebe a água da cachoeira com satisfação."
+const i_pegar = "Você não pode pegar a cachoeira, ela faz parte do chão."
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_suldan010
+herda comum_itemperso
+const nome = "um manto bem confortável"
+const descnome = "um manto bem confortável"
+const descpos = "aqui está um confortável manto feito de um um pano fino"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 360
+const renascer = 2
+const pesoobj = 1
+const valor = 550
+const vestir1 = 8192 # Aonde vestir: 13-sobre o corpo
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 14
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 15 * pnivel + 200
+  defnorm += 10 * pnivel + 100
+  defesp += 10 * pnivel + 100
+
+
+classe i_suldan011
+herda comum_itemperso
+const nome = "uma longa cama de madeira"
+const descpos = "aqui há várias camas bem confortáveis"
+const i_pegar = "não pode pegar é pesado de mais"
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_suldan012
+herda comum_itemperso
+const nome = "uma mochila de combatente"
+const descnome = "uma mochila de combatente"
+const descpos = "uma mochila valiosa está caída aqui"
+const nivel = 100
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const valor = 1000
+const vestir1 = 1050624 # Aonde vestir: 11-nas costas, 20-segurando
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 30
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5 * pnivel + 100
+  pmovemax += 10 * pnivel + 50
+
+
+classe i_suldan013
+herda comum_itemperso
+const nome = "um preciosocinto adornado com ouro e diamantes"
+const ident = "um precioso cinto adornado com ouro e diamantes"
+const descnome = "um cinto"
+const descpos = "um precioso cinto adornado com ouro e diamantes está caído aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 300
+const renascer = 3
+const pesoobj = 1
+const valor = 800
+const vestir1 = 8388608 # Aonde vestir: 23-na cintura
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 250
+  pmovemax += 5 * pnivel + 100
+  pveloc1 += 5 * pnivel + 150
+  atknorm += 50
+  atkesp += 50
+  precisao += 2 * pnivel + 150
+
+
+classe i_suldan014
+herda comum_itemperso
+const nome = "um par de botas de batalha"
+const descnome = "um par de botas para batalha"
+const descpos = "foi abandonado aqui um par de botas para batalha"
+const nivel = 100
+const renascer = 1
+const valor = 200
+const vestir1 = 134217728 # Aonde vestir: 27-nos pés
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 8
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10 * pnivel + 150
+  atknorm += 5 * pnivel + 100
+  defnorm += 10 * pnivel
+  atkesp += 5 * pnivel + 100
+
+
+classe i_suldan015
+herda comum_itemperso
+const nome = "uma estaca"
+const descnome = "uma estaca"
+const descpos = "uma estaca está caída aqui"
+const nivel = 50
+const armatipo = 5 # Tipo de arma: 5 Maca e Martelo
+const valor = 300
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50 * pnivel + 45
+  pmanamax += 40 * pnivel + 30
+  atknorm += 40 * pnivel + 50
+  defnorm += 50 * pnivel + 40
+
+
+classe i_suldan016
+herda comum_itemperso
+const nome = "uma curta hadaga"
+const ident = "uma curta hadaga"
+const descnome = "uma curta hadaga"
+const descpos = "uma curta hadaga está jogada aqui"
+const nivel = 100
+const armafalha = 5
+const armatipo = 5 # Tipo de arma: 5 Maca e Martelo
+const valor = 270
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 60
+  pmanamax += 45 * pnivel + 30
+
+
+classe i_suldan017
+herda comum_itemperso
+const nome = "uma lança metálica"
+const descnome = "uma lança metálica"
+const descpos = "uma bela lança está jogada a o chão"
+const nivel = 200
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const valor = 390
+const vestirnao = "clerigo\ndruida\nguerreiro\nmago\nmonge"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30 * pnivel + 50
+  pmanamax += 40 * pnivel
+  pmovemax += 30
+
+
+classe i_suldan018
+herda comum_itemperso
+const nome = "um estilete"
+const descnome = "um estilete"
+const descpos = "está abandonado um estilete aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 50
+const armatipo = 3 # Tipo de arma: 3 Lâmina curta
+const pesoobj = 1
+const valor = 230
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30
+  pmanamax += 30
+  pveloc1 += 30 * pnivel
+  atknorm += 15 * pnivel + 25
+  defnorm += 15 * pnivel + 30
+
+
+classe i_suldan019
+herda comum_itemperso
+const nome = "um cinto raro da realesa"
+const nivel = 316
+const valor = 200000
+const vestir1 = 8388608 # Aonde vestir: 23-na cintura
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 45 * pnivel + 42
+
+
+classe i_suldan020
+herda comum_itemperso
+const nome = "uma coluna de marfim"
+const descpos = "aqui está uma coluna feita toda de marfim"
+const i_pegar = "não pode pegar está presa a o chão"
+
+
+classe i_suldan021
+herda comum_item
+const nome = "um espaguete"
+const descpos = "aqui está caído um rolo de macarrão"
+const nivel = 250
+const armatipo = 5 # Tipo de arma: 5 Maca e Martelo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 40 * pnivel + 30
+
+
+classe i_suldan022
+herda comum_itemperso
+const nome = "um frango assado"
+const descnome = "um frango assado"
+const descpos = "um delicioso frango quentinho está aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 120
+const f_diges = 60
+const f_msgperso = "$p saboreia um delicioso frango assado!"
+const pesoobj = 1
+const tipoitem = 8192 # Tipo de item: 13-Comida
+const valor = 250
+
+
+classe i_suldan023
+herda comum_itemgrupo
+const nome = "uma leitoa assada"
+const descnome = "uma leitoa assada"
+const descpos = "uma leitoa assadinha está aqui preparada para o consumo"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const f_diges = 60
+const f_msgperso = "$p aprecia uma leitoa assada, fazendo cara de quero mais!"
+const tipoitem = 8192 # Tipo de item: 13-Comida
+const valor = 300
+
+
+classe i_suldan024
+herda comum_item
+const nome = "um chicote de ferro"
+const nivel = 190
+const armamax = 200
+const armamin = 150
+const armatipo = 7 # Tipo de arma: 7 Chicote e Corrente
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 14
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 1000
+
+
+classe i_suldan025
+herda comum_itemperso
+const nome = "uma grande loja"
+const descpos = "uma grande loja improvisada se encontra aqui"
+const i_pegar = "não tem como! é impossível!"
+const i_salapegar = $s_suldan053
+const i_salas = "suldan053"
+const i_lugar = 1
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const i_tranc = 0 # Trancar: 0 Não pode ser trancado
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 9999
+const tipoitem = 16384 # Tipo de item: 14-Barco (11-Container)
+const volexp = 1 # Expande: Sim
+const volmax = 9999
+const volobj = 9999
+
+
+classe i_suldan026
+herda comum_itemperso
+const nome = "um balcão"
+const descpos = "um balcão de madeira está aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "não pode pegar é pesado de mais"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_suldan027
+herda comum_itemperso
+const nome = "uma longa navalha"
+const ident = "uma longa navalha"
+const descnome = "uma longa navalha"
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const valor = 300
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 40 * pnivel + 50
+  pmanamax += 40 * pnivel + 40
+  pveloc1 += 40 * pnivel
+  atknorm += 50 * pnivel + 40
+
+
+classe i_suldan028
+herda comum_itemperso
+const nome = "um barzinho"
+const ident = "um barzinho ttodo trabalhado em vidro fumÊ"
+const descnome = "um barzinho"
+const descpos = "um barzinho todo trabalhado em vidro fumê se encontra ao canto da sala"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const valor = 2400
+const volobj = 10000
+
+
+classe i_suldan029
+herda comum_itemgrupo
+const nome = "uma coca gelada"
+const descnome = "uma coca gelada"
+const descpos = "uma garrafinha de coca está aqui lacrada"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_fome = 60
+const f_sede = 5
+const valor = 200
+
+
+classe i_suldan030
+herda comum_item
+const nome = "uma espada de ferro"
+const descnome = "uma espada brilhante de ferro"
+const descpos = "uma espada brilhante está caída aqui parece uma boa arma"
+const nivel = 50
+const armafalha = 4
+const armatipo = 3 # Tipo de arma: 3 Lâmina curta
+const tipoitem = 3 # Tipo de item: 0-Possui metal, 1-arma
+const valor = 250
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30 * pnivel + 30
+  pmanamax += 40 * pnivel + 40
+  pmovemax += 2
+  pveloc1 += 10 * pnivel + 10
+  atknorm += 20 * pnivel + 15
+  evasao += 40 * pnivel
+  precisao += 10
+
+
+classe i_suldan031
+herda comum_itemgrupo
+const nome = "uma cerveja geladinha"
+const descnome = "uma cerveja geladinha"
+const descpos = "0"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_bebida = 60
+const f_sede = 60
+const valor = 250
+
+
+classe i_suldan032
+herda comum_itemperso
+const nome = "uma armadura"
+const descpos = "uma forte armadura de um combatente de suldan está caída aqui"
+const tipoitem = 5 # Tipo de item: 0-Possui metal, 2-Armadura (3-Vestimenta)
+const vestir1 = 4096 # Aonde vestir: 12-no corpo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30 * pnivel + 50
+  pmanamax += 30 * pnivel + 30
+  pveloc1 += -50 * pnivel
+
+
+classe i_suldan033
+herda comum_itemperso
+const nome = "uma coluna de bronze"
+const i_pegar = "não pode pegar está presa a o chão"
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_suldan034
+herda comum_itemperso
+const nome = "uma armadura"
+const nivel = 200
+const tipoitem = 13 # Tipo de item: 0-Possui metal, 2-Armadura, 3-Vestimenta
+const vestir1 = 4096 # Aonde vestir: 12-no corpo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50 * pnivel + 50
+  pmanamax += 30 * pnivel + 30
+  pveloc1 += -40 * pnivel
+
+
+classe i_suldan035
+herda comum_itemperso
+const nome = "uma coluna de prata"
+const i_pegar = "não pode pegar está presa a o chão"
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_suldan036
+herda comum_itemperso
+const nome = "o banquinho do jardim"
+const descpos = "um belo banquinho de madeira se encontra bem a frente do jardim"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "não pode pegar é muinto pesado"
+const i_movel = 2 # Mobília: 2 Sentar e dormir
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_suldan037
+herda comum_itemgrupo
+const nome = "uma taça de licor de vinho"
+const descnome = "uma taça refrescante de licor de vinho"
+const descpos = "uma taça de um delicioso licor de vinho está aqui"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_bebida = 25
+const f_sede = 60
+const valor = 150
+
+
+classe i_suldan038
+herda comum_item
+const nome = "uma garrafa de vinho rozê"
+const descnome = "uma garrafa de vinho rozÊ"
+const descpos = "um vinho rozÊ refrescante se encontra aqui"
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_bebida = 30
+const f_sede = 60
+const valor = 280
+const eveste = 1 # Eventos item: Sim
+sav uint8 bebeu
+#
+
+func f_msgperso
+  ret bebeu < 9, "$p bebe um gole de um suave vinho rozê da garrafa."
+  ret "$P leva a garrafa aos lábios, tomando o último gole de vinho tinto dela."
+#
+
+func cmd_bebeu
+  bebeu += 1
+  bebeu >= 10 && apagar(este)
+
+const f_liquido = "Vinho rozê"
+
+
+classe i_suldan039
+herda comum_item
+const nome = "uma garrafa de vinho tinto"
+const descnome = "uma garrafa de vinho tinto"
+const descpos = "uma garrafa de vinho tinto está aqui"
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_bebida = 220
+const f_sede = 60
+const f_msgperso = "$p toma pequenos goles de vinho tinto"
+const f_msgoutros = f_msgperso
+const tipoitem = 32768 # Tipo de item: 15-bebida (10-Poção)
+const valor = 300
+const eveste = 1 # Eventos item: Sim
+sav uint8 bebeu
+#
+
+func cmd_bebeu
+  bebeu += 1
+  bebeu >= 10 && apagar(este)
+
+const f_liquido = "Vinho tinto"
+const f_totalml = 2000
+
+
+classe i_suldan040
+herda comum_item
+const nome = "uma garrafa de vinho suave"
+const descnome = "uma garrafa de vinho suave"
+const descpos = "uma garrafa de um vinho suave se encontra aqui"
+const f_tipo = 1 # Tipo: 1 fonte, beber
+const f_bebida = 30
+const f_sede = 30
+const f_msgperso = "$p bébe pequenos goles de um vinho suave, aproveitando seu sabor."
+const f_msgoutros = f_msgperso
+const valor = 200
+sav uint8 bebeu
+#
+
+func cmd_bebeu
+  bebeu += 1
+  bebeu >= 10 && apagar(este)
+
+const f_liquido = "vinho suave"
+const f_totalml = 2000
+
+
+classe i_suldan041
+herda comum_itemgrupo
+const nome = "licor de coco"
+const descnome = "um licor de coco"
+const descpos = "um delicioso licor de cocu está aqui"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_bebida = 25
+const f_sede = 60
+const valor = 100
+
+
+classe i_suldan042
+herda comum_item
+const nome = "uma garrafa de martine"
+const descnome = "uma garrafa de martine"
+const descpos = "uma garrafa de um martine refrescante se encontra aqui"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_bebida = 60
+const f_sede = 30
+const valor = 360
+
+
+classe i_suldan043
+herda comum_item
+const nome = "uma garrafa de wysk"
+const descnome = "uma garrafa de wysk"
+const descpos = "uma garrafa de um saboroso wysk se encontra aqui"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_bebida = 60
+const f_sede = 30
+const valor = 390
+
+
+classe i_suldan044
+herda comum_itemgrupo
+const nome = "uma garrafa de caipirinha"
+const descnome = "uma caipirinha geladinha"
+const descpos = "uma garrafa de caipirinha se encontra aqui bem geladinha"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_bebida = 62
+const f_sede = 30
+const valor = 270
+
+
+classe i_suldan045
+herda comum_itemgrupo
+const nome = "um licor de morango"
+const descnome = "um licor de morangos"
+const descpos = "um delicioso licor de morangos está aqui"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_bebida = 25
+const f_sede = 60
+const valor = 130
+
+
+classe i_suldan046
+herda comum_itemperso
+const nome = "uma cômoda"
+const descnome = "uma cômoda toda feita de uma madeira bem trabalhada"
+const descpos = "uma cômoda marfim com 6 gavetas se encontra no quarto"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const valor = 3200
+const volobj = 10000
+
+
+classe i_suldan048
+herda comum_item
+const nome = "uma garapa gelada"
+const descnome = "uma garapa geladinha"
+const descpos = "uma garapa geladinha está aqui"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_sede = 60
+const valor = 220
+
+
+classe i_suldan049
+herda comum_itemperso
+const nome = "uma sapateira"
+const descnome = "uma sapateira"
+const descpos = "uma sapateira está aqui bem a o canto do quarto"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const valor = 2080
+const volobj = 10000
+
+
+classe p_suldan001
+herda comum_persobat
+const nome = "o guardião da cidade de suldan"
+const descpadr = "Um forte guardião posta-se a frente do portão, a fim de proteger a cidade e \
+impedir a entrada de desconhecidos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 400
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 9000
+const inivar = "z_moedas=20000."
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 300 * pnivel + 100000
+  atknorm += 30000
+  defnorm += 50000
+  defesp += 55000
+  evasao += 15000
+  precisao += 17000
+  bitver |= 4098
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 60000 * pnivel + 70000
+  pmanamax += 60000 * pnivel + 70000
+  pmovemax += 40000
+  pveloc1 += 40000 * pnivel
+
+
+classe p_suldan002
+herda comum_persobat
+const nome = "o prisioneiro da coluna de marfim"
+const ident = "o prisioneiro da coluna de marfim"
+const descpadr = "um homem está aqui preso a uma coluna de marfim"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 50000
+const inivar = "z_moedas=30000."
+
+
+classe p_suldan003
+herda comum_perso
+const nome = "Lucinda"
+const ident = "lucinda vendedora mulher"
+const descnome = "Lucinda, a vendedora de vestimentas"
+const descpadr = "Lucinda, a vendedora de vestimentas para combate atenta-se à chegada de novos \
+clientes."
+const nivel = 50
+const lojaitem = "suldan004 0\nsuldan010 0\nsuldan012 0\nsuldan013 0\nsuldan014 0"
+const p_recebe = 1 # Recebe itens: Sim
+
+
+classe p_suldan004
+herda comum_perso
+const nome = "Bernard"
+const ident = "bernard vendedor homem"
+const descnome = "Bernard, o armeiro"
+const descpadr = "Bernard, o armeiro trabalha em novos armamentos enquanto aguarda por novos \
+clientes."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 10
+const lojaitem = "suldan007 0\nsuldan015 0\nsuldan016 0\nsuldan017 0\nsuldan018 0"
+const p_recebe = 1 # Recebe itens: Sim
+
+
+classe p_suldan005
+herda comum_persobat
+const nome = "o rei raryon"
+const descpadr = "um rei está aqui sentado em seu trono"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 420
+const pospadr = 6 # Posição padrão: 6 Sentado
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 15000
+const inivar = "z_moedas=100000."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 300 * pnivel + 75000
+  atknorm += 26000
+  defnorm += 33000
+  defesp += 34000
+  evasao += 17000
+  precisao += 18000
+
+
+classe p_suldan006
+herda comum_persobat
+const nome = "um aprendiz"
+const descpadr = "um aprendiz está se esforsando para ser um bom combatente"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 300
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 10000
+const inivar = "z_moedas=50000."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50 * pnivel + 55
+  evasao += 55 * pnivel + 50
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 300 * pnivel + 60000
+  atknorm += 25000
+  defnorm += 30000
+  defesp += 30000
+  evasao += 15000
+  precisao += 17000
+
+
+classe p_suldan007
+herda comum_persobat
+const nome = "uma cozinheira"
+const descpadr = "uma cozinheira está aqui preparando e vendendo deliciosos pratos"
+const nivel = 300
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 100000
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "z_moedas=50000."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30000 * pnivel + 30000
+  pmanamax += 20000 * pnivel + 20000
+
+const lojaitem = "suldan022 0\nsuldan023 1"
+
+
+classe p_suldan008
+herda comum_persobat
+const nome = "um assoitador"
+const ident = "um homem mau está aqui praticando suas maldades"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 400
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 10000
+const p_recebe = 1 # Recebe itens: Sim
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200 * pnivel + 100000
+  atknorm += 25000
+  defnorm += 32000
+  defesp += 33000
+  bitver |= 14
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100000 * pnivel + 100000
+  pmanamax += 100000 * pnivel + 100000
+  pmovemax += 100000
+  pveloc1 += 50 * pnivel + 50
+  atknorm += 50 * pnivel + 50
+
+
+classe p_suldan009
+herda comum_persobat
+const nome = "uma aprendiz"
+const descpadr = "uma aprendiz está se esforsando para ser uma boa combatente"
+const nivel = 330
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 5000
+const inivar = "z_moedas=50000."
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 300 * pnivel + 200000
+  atknorm += 50000
+  defnorm += 85000
+  defesp += 72000
+  evasao += 25000
+  precisao += 27000
+
+
+classe p_suldan010
+herda comum_persoanimal
+const nome = "tony o vendedor de itens para captura de animais"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 316
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_recebe = 1 # Recebe itens: Sim
+
+
+classe p_suldan011
+herda comum_persoanimal
+const nome = "um enorme cão"
+const descpadr = "um enorme cachorro faminto está aqui a busca de comida"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 340
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 9000
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 45000 * pnivel + 40000
+
+
+classe p_suldan012
+herda comum_persobat
+const nome = "uma bibliotecaria"
+const ident = "a bibliotecária"
+const descpadr = "uma moça está aqui trabalhando sorridente para que a biblioteca e os seus \
+livros fiquem organizados"
+const nivel = 310
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 50000
+const inivar = "z_moedas=20000."
+
+
+classe p_suldan013
+herda comum_persobat
+const nome = "a mestre das combatentes"
+const msexo = 0 # Sexo Msg: 0 Feminino
+const nivel = 335
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 12000
+const inivar = "z_moedas=60000."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 60000 * pnivel + 60000
+  pveloc1 += 4000 * pnivel
+  evasao += 60000 * pnivel + 60000
+  precisao += 50
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500 * pnivel + 62000
+  atknorm += 50 * pnivel + 25000
+  defnorm += 32000
+  defesp += 31500
+  evasao += 17500
+  precisao += 18000
+
+
+classe p_suldan014
+herda comum_persobat
+const nome = "o mestre dos combatentes"
+const nivel = 325
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 12000
+const inivar = "z_moedas=40000."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 55000 * pnivel + 55000
+  pveloc1 += 3500 * pnivel
+  evasao += 40000 * pnivel + 40000
+  precisao += 25000
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500 * pnivel + 60000
+  atknorm += 50 * pnivel + 25000
+  defnorm += 32000
+  defesp += 32000
+  evasao += 17000
+  precisao += 19000
+
+
+classe p_suldan015
+herda comum_persobat
+const nome = "o vendedor do bar"
+const ident = "6"
+const descpadr = "um homem está aqui vendendo suas bebidas"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 312
+const lojaitem = "suldan029 0\n\
+suldan031 0\n\
+suldan039 0\n\
+suldan038 0\n\
+suldan037 0\n\
+suldan040 0\n\
+suldan042 0\n\
+suldan043 0\n\
+suldan044 0\n\
+suldan041 0\n\
+suldan045 0\n\
+suldan048 0"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 120000
+const inivar = "z_moedas=30000."
+
+
+classe p_suldan016
+herda comum_persobat
+const nome = "um empregado"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 312
+const pospadr = 5 # Posição padrão: 5 Descansando
+const p_corpo = 1 # Corpo: 1 Deixa corpo vazio
+const p_exp = 10000
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30000 * pnivel + 30000
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100000
+  atknorm += 10000
+  defnorm += 30000
+  defesp += 30000
+
+
+classe p_suldan017
+herda comum_persobat
+const nome = "uma empregada"
+const ident = "uma empregada"
+const descpadr = "uma empregada está aqui ocupada com a limpesa"
+const nivel = 315
+const p_atk_anda = 1 # Anda ataque: Sim
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_corpo = 1 # Corpo: 1 Deixa corpo vazio
+const p_exp = 10000
+const p_lembra = 1
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_naoseguir = 1 # Não podem seguir: Sim
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 300 * pnivel + 50000
+  atknorm += 20000
+  defnorm += 30000
+  defesp += 30000
+  evasao += 15000
+  precisao += 17000
+
+
+classe p_suldan019
+herda comum_persoanimal
+const nome = "um vendedor de armas"
+const descpadr = "um vendedor está aqui inquieto vendendo suas armas"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 300
+const lojaitem = "suldan027 0\nsuldan030 0"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 10000
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "z_moedas=1600."
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100 * pnivel + 45000
+  atknorm += 10000
+  defnorm += 20000
+  defesp += 20000
+
+
+classe p_suldan020
+herda comum_persobat
+const nome = "uma antiga rainha"
+const descpadr = "uma senhora está aqui descansando do longo tempo"
+const nivel = 380
+const pospadr = 5 # Posição padrão: 5 Descansando
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 10000
+const inivar = "z_moedas=40000."
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100 * pnivel + 100000
+  atknorm += 15000
+  defnorm += 50000
+  defesp += 50000
+
+
+classe p_suldan024
+herda comum_persobat
+const nome = "cidadã"
+const ident = "ciddã mulher"
+const descnome = "uma cidadã de Suldan"
+const descpadr = "Uma das cidadãs de Suldan caminha tranquilamente pela vila, sem se preocupar \
+com o movimento."
+const nivel = 308
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 10000
+const inivar = "z_moedas=200000."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30 * pnivel + 30
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 400 * pnivel + 50000
+  atknorm += 20000
+  defnorm += 30000
+  defesp += 28950
+  evasao += 15000
+  precisao += 18000
+
+
+classe p_suldan025
+herda comum_persobat
+const nome = "cidadão"
+const ident = "cidadão homem"
+const descnome = "um dos cidadãos de Suldan"
+const descpadr = "Um dos cidadãos de Suldan caminha tranquilamente pela vila."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 309
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 7500
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 400
+const inivar = "z_moedas=300."
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 300 * pnivel + 50000
+  atknorm += 19000
+  defnorm += 28000
+  defesp += 26500
+  evasao += 15000
+  precisao += 18000
+  bitver |= 6
+
+
+classe p_suldan027
+herda comum_persobat
+const nome = "um policial"
+const ident = "um policial"
+const descpadr = "um policial valente está aqui pronto para combater o inimigo"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 330
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 9000
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50000 * pnivel + 50000
+  evasao += 10 * pnivel + 15
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 300 * pnivel + 50000
+  atknorm += 25000
+  defnorm += 30000
+  defesp += 30000
+  evasao += 15000
+  precisao += 18000
+
+
+classe p_suldan028
+herda comum_persobat
+const nome = "uma policial"
+const ident = "uma policial"
+const descpadr = "uma policial está aqui pronta para combater o inimigo"
+const nivel = 330
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 10000
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50000
+  pmanamax += 50000
+  evasao += 40000
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 300 * pnivel + 50000
+  atknorm += 25000
+  defnorm += 30000
+  defesp += 29950
+  evasao += 15000
+  precisao += 16000
+
+
+classe p_suldan029
+herda comum_persobat
+const nome = "o prisioneiro da coluna de bronze"
+const ident = "o prisioneiro da coluna de bronze"
+const descpadr = "um homem está aqui preso a uma coluna de bronze"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 450
+const p_corpo = 1 # Corpo: 1 Deixa corpo vazio
+const p_exp = 10000
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 60000 * pnivel + 60000
+  pmanamax += 50000
+  evasao += 10000 * pnivel
+  precisao += 5000
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 300 * pnivel + 50000
+  atknorm += 25000
+  defnorm += 32000
+  defesp += 31500
+  evasao += 16000
+  precisao += 18500
+
+
+classe p_suldan030
+herda comum_persobat
+
+
+classe p_suldan033
+herda comum_persobat
+
+
+classe p_suldan034
+herda comum_persobat
+const nome = "o prisioneiro da coluna de prata"
+const ident = "o prisioneiro da coluna de prata"
+const descpadr = "um homem está preso a uma coluna de prata"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 440
+const p_corpo = 1 # Corpo: 1 Deixa corpo vazio
+const p_exp = 10000
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50000
+  pmanamax += 50000
+  evasao += 30000 * pnivel
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 250 * pnivel + 100000
+  atknorm += 50 * pnivel + 25000
+  defnorm += 50000
+  defesp += 50000
+
+
+classe s_suldan001
+herda b_suldan
+const s_titulo = "a entrada para cidade de suldan"
+const s_pnj = 0
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const dir_l = $s_suldan002
+const a_reset = "S 0 suldan017 1 S h"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+
+
+classe s_suldan002
+herda b_suldan
+const s_titulo = "Os portões oeste da cidade"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_n = $s_suldan078
+const dir_s = $s_suldan049
+const dir_l = $s_suldan010
+const dir_o = $s_suldan001
+const a_reset = "P 100 suldan001 400 409 1 h\nE 100 suldan001 1 0 h"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_suldan001:objsolto.total < 1
+    p = u = criar("p_suldan001", este, rand(400, 409), "h")
+  fimse
+  se u
+    r = criar("i_suldan001", u, 1, "h"), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_suldan003
+herda b_suldan
+const s_titulo = "uma casa abandonada"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_suldan033
+const dir_b = $s_suldan030
+const dir_so = $s_suldan010
+const a_reset = "P 100 suldan011 340 340 4 h"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_suldan011:objsolto.total < 4
+    criar("p_suldan011", este, 340, "h")
+  fimse
+
+
+classe s_suldan004
+herda b_suldan
+const s_titulo = "o fim da estrada"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_pnj = 0
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const dir_s = $s_suldan010
+const dir_l = $s_suldan114
+const dir_o = $s_suldan115
+
+
+classe s_suldan005
+herda b_suldan
+const s_titulo = "Uma escadaria de marfim."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_pnj = 6
+const dir_c = $s_suldan006
+const dir_b = $s_suldan121
+
+
+classe s_suldan006
+herda b_suldan
+const s_titulo = "Subindo a escadaria de marfim."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_c = $s_suldan007
+const dir_b = $s_suldan005
+
+
+classe s_suldan007
+herda b_suldan
+const s_titulo = "NO alto da escadaria."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_suldan008
+const dir_b = $s_suldan006
+
+
+classe s_suldan008
+herda b_suldan
+const s_titulo = "O hall do palácio."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_suldan011
+const dir_s = $s_suldan007
+const dir_l = $s_suldan009
+
+
+classe s_suldan009
+herda b_suldan
+const s_titulo = "um pátio enorme"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_suldan025
+const dir_s = $s_suldan026
+const dir_l = $s_suldan027
+const dir_o = $s_suldan008
+const dir_se = $s_suldan021
+
+
+classe s_suldan010
+herda b_suldan
+const s_titulo = "Na principal rua de Suldan"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const dir_l = $s_suldan015
+const dir_o = $s_suldan002
+const a_reset = "D 100 ne 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("ne", 2)
+
+
+classe s_suldan011
+herda b_suldan
+const s_titulo = "a entrada de um enorme corredor"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_suldan028
+const dir_s = $s_suldan008
+const dir_l = $s_suldan018
+const dir_so = $s_suldan035
+
+
+classe s_suldan012
+herda b_suldan
+const s_titulo = "um gramado verde"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_suldan013
+const dir_l = $s_suldan014
+const dir_o = $s_suldan004
+
+
+classe s_suldan013
+herda b_suldan
+const s_titulo = "uma praça"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_l = $s_suldan044
+const dir_o = $s_suldan101
+
+
+classe s_suldan014
+herda b_suldan
+const s_titulo = "uma cachoeira"
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_pnj = 0
+const s_recup = 99999999
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const s_som = "fonte"
+const dir_n = $s_suldan069
+const inv_n = 1 # Invisível: Sim
+const dir_o = $s_suldan012
+const a_reset = "S 0 suldan049 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+
+
+classe s_suldan015
+herda b_suldan
+const s_titulo = "Na principal rua de Suldan."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const dir_l = $s_suldan056
+const dir_o = $s_suldan010
+
+
+classe s_suldan016
+herda b_suldan
+const s_titulo = "uma loja de vestimentas"
+const s_pnj = 0
+const dir_o = $s_suldan072
+const portanome_o = "uma porta de vidro"
+const a_reset = "P 100 suldan003 0 0 1 h"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_suldan003:objsolto.total < 1
+    criar("p_suldan003", este, 0, "h")
+  fimse
+
+
+classe s_suldan017
+herda b_suldan
+const s_titulo = "uma loja de armas e armaduras"
+const s_pnj = 0
+const dir_l = $s_suldan072
+const portanome_l = "uma porta de vidro fumê"
+const a_reset = "P 100 suldan004 10 10 1 h"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_suldan004:objsolto.total < 1
+    criar("p_suldan004", este, 10, "h")
+  fimse
+
+
+classe s_suldan018
+herda b_suldan
+const s_titulo = "um enorme corredor"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_suldan019
+const dir_s = $s_suldan020
+const dir_l = $s_suldan046
+const dir_o = $s_suldan011
+const dir_ne = $s_suldan062
+const dir_no = $s_suldan063
+
+
+classe s_suldan019
+herda b_suldan
+const s_titulo = "uma sala de marfim"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_s = $s_suldan018
+const dir_b = $s_suldan123
+const portaini_b = 2 # Estado inicial: 2 Porta fechada
+const portanome_b = "uma porta de madeira"
+const inv_b = 1 # Invisível: Sim
+const fecha_b = 1 # Fecha ao passar: Sim
+const a_reset = "P 100 suldan002 480 480 1 h"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_suldan002:objsolto.total < 1
+    criar("p_suldan002", este, 480, "h")
+  fimse
+
+
+classe s_suldan020
+herda b_suldan
+const s_titulo = "a sala da luz"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_suldan018
+
+
+classe s_suldan021
+herda b_suldan
+const s_titulo = "o chão de mármore do palácio"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_suldan022
+const dir_no = $s_suldan009
+
+
+classe s_suldan022
+herda b_suldan
+const s_titulo = "um castelo"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_s = $s_suldan021
+const dir_c = $s_suldan023
+
+
+classe s_suldan023
+herda b_suldan
+const s_titulo = "uma pequena escadaria pratiada"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_c = $s_suldan024
+const dir_b = $s_suldan022
+
+
+classe s_suldan024
+herda b_suldan
+const s_titulo = "o trono do rei raryon"
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_semmagia = 0 # Sem magia: Não
+const dir_b = $s_suldan023
+const a_reset = "P 100 suldan005 420 430 1 h\n\
+E 100 suldan003 1 3 h\n\
+E 100 suldan019 1 24 h"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_suldan005:objsolto.total < 1
+    p = u = criar("p_suldan005", este, rand(420, 430), "h")
+  fimse
+  se u
+    r = criar("i_suldan003", u, 1, "h"), r.vestir(3), u.recalc = 1
+  fimse
+  se u
+    r = criar("i_suldan019", u, 1, "h"), r.vestir(24), u.recalc = 1
+  fimse
+
+
+classe s_suldan025
+herda b_suldan
+const s_titulo = "a cozinha do palácio"
+const s_luta = 0 # Batalha: 0 Pacífico
+const dir_s = $s_suldan009
+const a_reset = "P 100 suldan007 300 300 1 h\nE 100 suldan021 1 0 h"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_suldan007:objsolto.total < 1
+    p = u = criar("p_suldan007", este, 300, "h")
+  fimse
+  se u
+    r = criar("i_suldan021", u, 1, "h"), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_suldan026
+herda b_suldan
+const s_titulo = "um salão de festas"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_suldan009
+
+
+classe s_suldan027
+herda b_suldan
+const s_titulo = "um imenso jardim"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_o = $s_suldan009
+
+
+classe s_suldan028
+herda b_suldan
+const s_titulo = "um caminho estreito"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_suldan029
+const dir_s = $s_suldan011
+const dir_l = $s_suldan040
+
+
+classe s_suldan029
+herda b_suldan
+const s_titulo = "uma biblioteca"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_s = $s_suldan028
+const dir_l = $s_suldan045
+
+
+classe s_suldan030
+herda b_suldan
+const s_titulo = "uma sala"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_l = $s_suldan031
+const dir_c = $s_suldan003
+const dir_b = $s_suldan032
+
+
+classe s_suldan031
+herda b_suldan
+const s_titulo = "uma lixeira"
+const s_pnj = 0
+const s_soltar = 2 # Soltar itens: 2 Destrói afundando
+const dir_o = $s_suldan030
+
+
+classe s_suldan032
+herda b_suldan
+const s_titulo = "os escombros da casa"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_c = $s_suldan030
+
+
+classe s_suldan033
+herda b_suldan
+const s_titulo = "uma escada"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_s = $s_suldan003
+const dir_c = $s_suldan034
+
+
+classe s_suldan034
+herda b_suldan
+const s_titulo = "a cima da escada"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_b = $s_suldan033
+const a_reset = "S 100 suldan005 1 S h"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_suldan005") && criar("i_suldan005", este, 1, "h")
+
+
+classe s_suldan035
+herda b_suldan
+const s_titulo = "o quartel do palácio"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_suldan036
+const dir_s = $s_suldan037
+const dir_ne = $s_suldan011
+
+
+classe s_suldan036
+herda b_suldan
+const s_titulo = "Ala de treinamento das combatentes"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_pnj = 0
+const dir_n = $s_suldan039
+const dir_s = $s_suldan035
+const a_reset = "P 100 suldan013 335 335 1 h"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_suldan013:objsolto.total < 1
+    criar("p_suldan013", este, 335, "h")
+  fimse
+
+
+classe s_suldan037
+herda b_suldan
+const s_titulo = "ala de treinamento dos combatentes"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_suldan035
+const dir_s = $s_suldan038
+const a_reset = "P 100 suldan014 325 325 1 h"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_suldan014:objsolto.total < 1
+    criar("p_suldan014", este, 325, "h")
+  fimse
+
+
+classe s_suldan038
+herda b_suldan
+const s_titulo = "A sala de treinamento dos combatentes."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_suldan037
+const a_reset = "P 100 suldan006 300 330 5 h"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_suldan006:objsolto.total < 5
+    criar("p_suldan006", este, rand(300, 330), "h")
+  fimse
+
+
+classe s_suldan039
+herda b_suldan
+const s_titulo = "a sala de treinamento das combatentes"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_s = $s_suldan036
+const a_reset = "P 100 suldan009 330 330 5 h"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_suldan009:objsolto.total < 5
+    criar("p_suldan009", este, 330, "h")
+  fimse
+
+
+classe s_suldan040
+herda b_suldan
+const s_titulo = "uma curva"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_l = $s_suldan041
+const dir_o = $s_suldan028
+
+
+classe s_suldan041
+herda b_suldan
+const s_titulo = "um outro caminho"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_suldan042
+const dir_o = $s_suldan040
+
+
+classe s_suldan042
+herda b_suldan
+const s_titulo = "um outro caminho"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_s = $s_suldan041
+const dir_l = $s_suldan043
+const a_reset = "P 100 suldan017 311 315 4 h"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_suldan017:objsolto.total < 4
+    criar("p_suldan017", este, rand(311, 315), "h")
+  fimse
+
+
+classe s_suldan043
+herda b_suldan
+const s_titulo = "o quarto dos empregados do palácio"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_o = $s_suldan042
+const a_reset = "P 100 suldan016 312 312 3 h"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_suldan016:objsolto.total < 3
+    criar("p_suldan016", este, 312, "h")
+  fimse
+
+
+classe s_suldan044
+herda b_suldan
+const s_titulo = "uma pequena avenida"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const dir_n = $s_suldan051
+const dir_s = $s_suldan053
+const dir_l = $s_suldan059
+const dir_o = $s_suldan013
+
+
+classe s_suldan045
+herda b_suldan
+const s_titulo = "em meio a estantes de livros"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_o = $s_suldan029
+const a_reset = "P 100 suldan012 310 310 1 h"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_suldan012:objsolto.total < 1
+    criar("p_suldan012", este, 310, "h")
+  fimse
+
+
+classe s_suldan046
+herda b_suldan
+const s_titulo = "um enorme corredor"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_suldan047
+const dir_s = $s_suldan048
+const dir_l = $s_suldan052
+const dir_o = $s_suldan018
+
+
+classe s_suldan047
+herda b_suldan
+const s_titulo = "uma sala escura"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_luz = 1 # Luz: 1 Claro sem eventos de tempo
+const s_atk_move = 5
+const dir_s = $s_suldan046
+
+
+classe s_suldan048
+herda b_suldan
+const s_titulo = "a sala dos assoitos"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_suldan046
+const a_reset = "P 100 suldan008 400 400 5 o\nE 100 suldan024 1 0 h"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_suldan008:objsolto.total < 5
+    p = u = criar("p_suldan008", este, 400, "o")
+  fimse
+  se u
+    r = criar("i_suldan024", u, 1, "h"), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_suldan049
+herda b_suldan
+const s_titulo = "A torre sul da cidade."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_suldan002
+const dir_c = $s_suldan050
+
+
+classe s_suldan050
+herda b_suldan
+const s_titulo = "Subindo pela escadaria da torre"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_l = $s_suldan070
+const dir_c = $s_suldan070
+const dir_b = $s_suldan049
+const dir_no = $s_suldan070
+
+
+classe s_suldan051
+herda b_suldan
+const s_titulo = "A casa de um cidadão de Suldan"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_s = $s_suldan044
+const a_reset = "P 100 suldan025 0 0 9"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_suldan025:objsolto.total < 9
+    criar("p_suldan025", este, 0)
+  fimse
+
+
+classe s_suldan052
+herda b_suldan
+const s_titulo = "uma pequena sala"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_o = $s_suldan046
+const a_reset = "P 100 suldan020 380 381 1 h"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_suldan020:objsolto.total < 1
+    criar("p_suldan020", este, rand(380, 381), "h")
+  fimse
+
+
+classe s_suldan053
+herda b_suldan
+const s_titulo = "A casa de uma cidadã de Suldan."
+const s_entrada = "loja"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const objmax = 9999
+const dir_n = $s_suldan044
+const a_reset = "P 100 suldan024 0 0 12\nS 100 suldan025 1 S h"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_suldan024:objsolto.total < 12
+    criar("p_suldan024", este, 0)
+  fimse
+  !dentro1.objini("i_suldan025") && criar("i_suldan025", este, 1, "h")
+
+
+classe s_suldan054
+herda b_suldan
+const s_titulo = "Entre as mesas do bar."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_pnj = 0
+const dir_n = $s_suldan076
+const dir_s = $s_suldan074
+const dir_l = $s_suldan055
+const dir_o = $s_suldan073
+
+
+classe s_suldan055
+herda b_suldan
+const s_titulo = "No balcão."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_o = $s_suldan054
+const a_reset = "P 100 suldan015 400 400 1 h"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_suldan015:objsolto.total < 1
+    criar("p_suldan015", este, 400, "h")
+  fimse
+
+const dir_s = $s_suldan075
+const dir_n = $s_suldan077
+
+
+classe s_suldan056
+herda b_suldan
+const s_titulo = "Na principal rua de Suldan."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const dir_l = $s_suldan064
+const dir_o = $s_suldan015
+const a_reset = "P 100 suldan027 330 330 3 h\nE 100 suldan032 1 13 h"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_suldan027:objsolto.total < 3
+    p = u = criar("p_suldan027", este, 330, "h")
+  fimse
+  se u
+    r = criar("i_suldan032", u, 1, "h"), r.vestir(13), u.recalc = 1
+  fimse
+
+
+classe s_suldan057
+herda b_suldan
+const s_titulo = "uma ciclovia"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_s = $s_suldan056
+
+
+classe s_suldan058
+herda b_suldan
+const s_titulo = "área de comércio de suldan"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_suldan056
+const a_reset = "P 100 suldan019 300 300 1 h"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_suldan019:objsolto.total < 1
+    criar("p_suldan019", este, 300, "h")
+  fimse
+
+
+classe s_suldan059
+herda b_suldan
+const s_titulo = "Uma pequena avenida."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_suldan060
+const dir_s = $s_suldan061
+const dir_o = $s_suldan044
+const a_reset = "P 100 suldan028 330 330 3 h"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_suldan028:objsolto.total < 3
+    criar("p_suldan028", este, 330, "h")
+  fimse
+
+
+classe s_suldan060
+herda b_suldan
+const s_titulo = "A casa de um dos cidadãos de Suldan."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_pnj = 0
+const dir_s = $s_suldan059
+const a_reset = "P 100 suldan025 309 309 1 h"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_suldan025:objsolto.total < 1
+    criar("p_suldan025", este, 309, "h")
+  fimse
+
+
+classe s_suldan061
+herda b_suldan
+const s_titulo = "A casa de uma das cidadãs de Suldan."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_pnj = 0
+const dir_n = $s_suldan059
+const a_reset = "P 100 suldan024 308 308 1 h"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_suldan024:objsolto.total < 1
+    criar("p_suldan024", este, 308, "h")
+  fimse
+
+
+classe s_suldan062
+herda b_suldan
+const s_titulo = "uma sala de bronze"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_so = $s_suldan018
+const a_reset = "P 100 suldan029 450 450 1 h"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_suldan029:objsolto.total < 1
+    criar("p_suldan029", este, 450, "h")
+  fimse
+
+
+classe s_suldan063
+herda b_suldan
+const s_titulo = "uma sala de prata"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_se = $s_suldan018
+const a_reset = "P 100 suldan034 440 440 1 h"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_suldan034:objsolto.total < 1
+    criar("p_suldan034", este, 440, "h")
+  fimse
+
+
+classe s_suldan064
+herda b_suldan
+const s_titulo = "No centro da cidade"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const dir_n = $s_suldan102
+const dir_s = $s_suldan072
+const dir_l = $s_suldan087
+const dir_o = $s_suldan056
+const s_reset = "S 100 dragneel005 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_dragneel005") && criar("i_dragneel005", este, 1)
+
+
+classe s_suldan065
+herda b_suldan
+const s_titulo = "uma rodovia"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const dir_s = $s_suldan064
+const dir_c = $s_suldan066
+
+
+classe s_suldan066
+herda b_suldan
+const s_titulo = "um viaduto"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_suldan067
+const dir_b = $s_suldan065
+
+
+classe s_suldan067
+herda b_suldan
+const s_titulo = "um viaduto"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_suldan068
+const dir_s = $s_suldan066
+
+
+classe s_suldan068
+herda b_suldan
+const s_titulo = "uma ponte"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_s = $s_suldan067
+const dir_b = $s_suldan014
+
+
+classe s_suldan069
+herda b_suldan
+const s_titulo = "Em um lindo jardim"
+const s_desc = "Este é um lindo jardim, todo florido, em que se vê vários pássaros sobrevoando \
+constantemente.\n\
+Um ótimo lugar para descansar, onde o ser humano se encontra em contato com a natureza."
+const dir_s = $s_suldan014
+
+
+classe s_suldan070
+herda b_suldan
+const s_titulo = "Subindo pela escadaria da torre"
+const dir_o = $s_suldan050
+const dir_c = $s_suldan071
+
+
+classe s_suldan071
+herda b_suldan
+const s_titulo = "No alto da torre"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_b = $s_suldan070
+
+
+classe s_suldan072
+herda b_suldan
+const s_titulo = "A rua comercial de suldan"
+const s_desc = "Você adentra uma rua muito movimentada, onde pessoas entram e saem de dentro das \
+lojas durante o horário comercial. Para leste há uma loja de vestimentas, enquanto para o oeste \
+você vê uma loja de armaduras."
+const dir_n = $s_suldan064
+const dir_s = $s_suldan073
+const dir_l = $s_suldan016
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "uma porta de vidro"
+const dir_o = $s_suldan017
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "uma porta de vidro fumê"
+
+
+classe s_suldan073
+herda b_suldan
+const s_titulo = "A rua comercial de Suldan."
+const s_desc = "Você continua a caminhar pela rua comercial da cidade. O fluxo de pessoas \
+aumenta à medida que você caminha por ela.\n\
+A leste você avista um bar."
+const dir_n = $s_suldan072
+const dir_s = $s_suldan122
+const dir_l = $s_suldan054
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "as portas de madeira do bar"
+const portaartigo_l = 1 # Artigo porta: 1 as (portas)
+
+
+classe s_suldan074
+herda b_suldan
+const s_titulo = "Entre as mesas do bar."
+const dir_n = $s_suldan054
+const dir_l = $s_suldan075
+
+
+classe s_suldan075
+herda b_suldan
+const s_titulo = "Entre as mesas do bar."
+const dir_n = $s_suldan055
+const dir_o = $s_suldan074
+
+
+classe s_suldan076
+herda b_suldan
+const s_titulo = "Entre as mesas do bar."
+const dir_s = $s_suldan054
+const dir_l = $s_suldan077
+
+
+classe s_suldan077
+herda b_suldan
+const s_titulo = "Entre as mesas do bar."
+const dir_s = $s_suldan055
+const dir_o = $s_suldan076
+
+
+classe s_suldan078
+herda b_suldan
+const s_titulo = "Um quartel policial."
+const dir_n = $s_suldan079
+const dir_s = $s_suldan002
+
+
+classe s_suldan079
+herda b_suldan
+const s_titulo = "Um amplo saguão."
+const dir_s = $s_suldan078
+const dir_l = $s_suldan080
+
+
+classe s_suldan080
+herda b_suldan
+const s_titulo = "Adentrando um corredor."
+const dir_l = $s_suldan081
+const dir_o = $s_suldan079
+
+
+classe s_suldan081
+herda b_suldan
+const s_titulo = "Caminhando por um longo corredor."
+const dir_n = $s_suldan082
+const portaini_n = 3 # Estado inicial: 3 Porta trancada
+const portanome_n = "a porta da sala"
+const dir_l = $s_suldan083
+const dir_o = $s_suldan080
+
+
+classe s_suldan082
+herda b_suldan
+const s_titulo = "A sala do comandante."
+const dir_s = $s_suldan081
+const portaini_s = 3 # Estado inicial: 3 Porta trancada
+const portanome_s = "a porta da sala"
+
+
+classe s_suldan083
+herda b_suldan
+const s_titulo = "No fim do corredor."
+const dir_n = $s_suldan084
+const dir_s = $s_suldan085
+const dir_l = $s_suldan086
+const dir_o = $s_suldan081
+
+
+classe s_suldan084
+herda b_suldan
+const s_titulo = "A ala de treinamento dos policiais."
+const dir_s = $s_suldan083
+
+
+classe s_suldan085
+herda b_suldan
+const s_titulo = "A ala de treinamento das policiais."
+const dir_n = $s_suldan083
+
+
+classe s_suldan086
+herda b_suldan
+const s_titulo = "O amplo pátio do quartel."
+const dir_o = $s_suldan083
+
+
+classe s_suldan087
+herda b_suldan
+const s_titulo = "A principal rua de Suldan."
+const dir_l = $s_suldan088
+const dir_o = $s_suldan064
+
+
+classe s_suldan088
+herda b_suldan
+const s_titulo = "A principal rua de Suldan."
+const dir_l = $s_suldan089
+const dir_o = $s_suldan087
+
+
+classe s_suldan089
+herda b_suldan
+const s_titulo = "A principal rua de Suldan."
+const dir_l = $s_suldan090
+const dir_o = $s_suldan088
+
+
+classe s_suldan090
+herda b_suldan
+const s_titulo = "Diante dos portões leste."
+const dir_n = $s_suldan091
+const dir_s = $s_suldan097
+const dir_o = $s_suldan089
+
+
+classe s_suldan091
+herda b_suldan
+const s_titulo = "A muralha leste da cidade."
+const dir_n = $s_suldan092
+const dir_s = $s_suldan090
+
+
+classe s_suldan092
+herda b_suldan
+const s_titulo = "O início de uma ponte de concreto."
+const dir_n = $s_suldan093
+const dir_s = $s_suldan091
+
+
+classe s_suldan093
+herda b_suldan
+const s_titulo = "Atravessando uma ponte de concreto."
+const dir_n = $s_suldan094
+const dir_s = $s_suldan092
+
+
+classe s_suldan094
+herda b_suldan
+const s_titulo = "Atravessando uma ponte de concreto."
+const dir_n = $s_suldan095
+const dir_s = $s_suldan093
+
+
+classe s_suldan095
+herda b_suldan
+const s_titulo = "No fim da ponte."
+const dir_n = $s_suldan096
+const dir_s = $s_suldan094
+
+
+classe s_suldan096
+herda b_suldan
+const s_titulo = "O início do campo de Suldan."
+const dir_s = $s_suldan095
+
+
+classe s_suldan097
+herda b_suldan
+const s_titulo = "A muralha leste da cidade."
+const dir_n = $s_suldan090
+const dir_s = $s_suldan098
+
+
+classe s_suldan098
+herda b_suldan
+const s_titulo = "A caminho da vila dos cidadãos de Suldan."
+const dir_n = $s_suldan097
+const dir_s = $s_suldan099
+
+
+classe s_suldan099
+herda b_suldan
+const s_titulo = "Aproximando-se da vila de Suldan."
+const dir_n = $s_suldan098
+const dir_s = $s_suldan100
+
+
+classe s_suldan100
+herda b_suldan
+const s_titulo = "Diante dos portões da vila."
+const dir_n = $s_suldan099
+const dir_l = $s_suldan101
+
+
+classe s_suldan101
+herda b_suldan
+const s_titulo = "Dentro dos portões da vila."
+const dir_l = $s_suldan013
+const dir_o = $s_suldan100
+
+
+classe s_suldan102
+herda b_suldan
+const s_titulo = "O jardim sul do templo."
+const dir_n = $s_suldan103
+const dir_s = $s_suldan064
+
+
+classe s_suldan103
+herda b_suldan
+const s_titulo = "a praça do templo de Suldan."
+const dir_s = $s_suldan102
+const dir_l = $s_suldan104
+const dir_o = $s_suldan105
+const dir_c = $s_suldan106
+
+
+classe s_suldan104
+herda b_suldan
+const s_titulo = "Um gramado verde."
+const dir_o = $s_suldan103
+
+
+classe s_suldan105
+herda b_suldan
+const s_titulo = "Um gramado verde."
+const dir_l = $s_suldan103
+
+
+classe s_suldan106
+herda b_suldan
+const s_titulo = "Uma escadaria de mármore branco."
+const dir_c = $s_suldan107
+const dir_b = $s_suldan103
+
+
+classe s_suldan107
+herda b_suldan
+const s_titulo = "O templo de Suldan."
+const s_desc = "Você está no amplo e belo salão do templo da cidade de Suldan. O templo foi\n\
+construído com pedras de ouro branco e as paredes são sustentadas por altos\n\
+pilastres de prata."
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_pnj = 0
+const s_retornar = 2 # Comando retornar: 2 Muda o ponto de retorno para essa sala
+const dir_n = $s_suldan108
+const dir_b = $s_suldan106
+
+
+classe s_suldan108
+herda b_suldan
+const s_titulo = "O altar do templo de Suldan."
+const dir_n = $s_suldan109
+const dir_s = $s_suldan107
+
+
+classe s_suldan109
+herda b_suldan
+const s_titulo = "Atrás do altar."
+const dir_s = $s_suldan108
+const dir_b = $s_suldan110
+
+
+classe s_suldan110
+herda b_suldan
+const s_titulo = "O início de uma estrada."
+const dir_n = $s_suldan111
+const dir_c = $s_suldan109
+
+
+classe s_suldan111
+herda b_suldan
+const s_titulo = "A estrada para o palácio de Suldan"
+const dir_n = $s_suldan112
+const dir_s = $s_suldan110
+
+
+classe s_suldan112
+herda b_suldan
+const s_titulo = "A estrada para o palácio de Suldan."
+const dir_n = $s_suldan113
+const dir_s = $s_suldan111
+
+
+classe s_suldan113
+herda b_suldan
+const s_titulo = "Uma curva na estrada."
+const dir_s = $s_suldan112
+const dir_o = $s_suldan114
+
+
+classe s_suldan114
+herda b_suldan
+const s_titulo = "Continuação da estrada para o palácio"
+const dir_l = $s_suldan113
+const dir_o = $s_suldan004
+
+
+classe s_suldan115
+herda b_suldan
+const s_titulo = "Diante dos portões do Palácio."
+const dir_l = $s_suldan004
+const dir_o = $s_suldan116
+const dir_entrar = $s_suldan117
+
+
+classe s_suldan116
+herda b_suldan
+const s_titulo = "Os jardins do palácio."
+const dir_n = $s_suldan120
+const dir_o = $s_suldan117
+
+
+classe s_suldan117
+herda b_suldan
+const s_titulo = "Os jardins do palácio."
+const dir_n = $s_suldan121
+const dir_l = $s_suldan116
+const dir_o = $s_suldan118
+const dir_sair = $s_suldan115
+
+
+classe s_suldan118
+herda b_suldan
+const s_titulo = "Os jardins do palácio."
+const dir_n = $s_suldan119
+const dir_l = $s_suldan117
+
+
+classe s_suldan119
+herda b_suldan
+const s_titulo = "Os jardins do palácio."
+const dir_s = $s_suldan118
+const dir_l = $s_suldan121
+
+
+classe s_suldan120
+herda b_suldan
+const s_titulo = "Os jardins do palácio."
+const dir_s = $s_suldan116
+const dir_o = $s_suldan121
+
+
+classe s_suldan121
+herda b_suldan
+const s_titulo = "Os jardins do palácio."
+const dir_s = $s_suldan117
+const dir_l = $s_suldan120
+const dir_o = $s_suldan119
+const dir_c = $s_suldan005
+
+
+classe s_suldan122
+herda b_suldan
+const s_titulo = "A rua comercial de Suldan."
+const dir_n = $s_suldan073

@@ -1,0 +1,32 @@
+classe cmd_ordem
+herda comando_comum
+#
+const posic = 8
+#
+
+func escr
+  se !arg1
+    ret arg0.msg("Digite ordem, seguido do nome do pet e o comando.")
+  senao
+    refvar perso = txt1(arg1)
+    txt200 ordem
+    ordem = txt2(arg1)
+    listaobj l
+    nomeobj n
+    n.ini(perso)
+    epara l.addfim(arg0.lseguir), l, l.ini.remove
+      se n.nome(l.objini.nome) && l.objini.visivel(arg0)
+        ret !l.objini.p_pet, arg0.msg("Não é possível dar ordens a " + l.objini.descnome + \
+".")
+        ret arg0.descnome != l.objini.var.z_dono, arg0.msg("Você não é don" + (arg0.msexo ? "o" \
+: "a") + " de " + l.objini.descnome + " para lhe dar ordens.")
+        l.objini.teclou(ordem)
+        ret 1
+      fimse
+    efim
+    ret arg0.msg("Dar ordens a quem?")
+    ret arg0.msg("Não é possível dar ordens a " + p.descnome + ".")
+  fimse
+
+
+classe cmd_nomear

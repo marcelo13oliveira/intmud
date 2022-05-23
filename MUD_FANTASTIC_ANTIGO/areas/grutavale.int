@@ -1,0 +1,76 @@
+classe a_grutavale
+herda area
+
+
+classe b_grutavale
+herda sala
+const s_area = "grutavale"
+
+
+classe s_grutavale001
+herda b_grutavale
+const s_titulo = "Descendo pela gruta."
+const dir_b = $s_grutavale002
+
+
+classe s_grutavale002
+herda b_grutavale
+const s_titulo = "Descendo pela gruta."
+const dir_c = $s_grutavale001
+const dir_ne = $s_grutavale003
+
+
+classe s_grutavale003
+herda b_grutavale
+const s_titulo = "Continuando a descer pela gruta."
+const dir_b = $s_grutavale004
+const dir_ne = $s_grutavale006
+const dir_se = $s_grutavale005
+const dir_so = $s_grutavale002
+
+
+classe s_grutavale004
+herda b_grutavale
+const dir_c = $s_grutavale003
+
+
+classe s_grutavale005
+herda b_grutavale
+const s_titulo = "Caindo em um abismo profundo."
+const eveste = 1 # Eventos sala: Sim
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+  misc:tempo("entrou", arg0)
+#
+
+func entrou50
+  arg0.msg("Vocêé puxado de repente por um forte vento para dentro do abismo...")
+#
+
+func entrou120
+  arg0.msg("Você se desespera, ao perceber que continua a cair rapidamente, sem encontrar nada \
+onde possa se segurar...")
+#
+
+func entrou200
+  arg0.msg("Você continua a cair, cair e cair, girando do ar, enquanto balança os braços de um \
+lado para o outro, na tentativa de encontrar algo em que possa se segurar e abrandar sua \
+queda...")
+#
+
+func entrou290
+  arg0.msg("Você continua a cair, e olha para baixo, tentando ver onde termina o seu desespero, \
+e pedindo aos deuses que seu sofrimento acabe, ou que algo lá em baixo possa amortecer sua \
+queda.")
+#
+
+func entrou380
+
+
+classe s_grutavale006
+herda b_grutavale
+const s_titulo = "Um abismo profundo."
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+const dir_so = $s_grutavale003

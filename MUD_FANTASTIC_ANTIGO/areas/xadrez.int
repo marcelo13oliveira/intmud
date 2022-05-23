@@ -1,0 +1,899 @@
+classe a_xadrez
+herda area
+const a_nome = "Tabuleiro de xadrez"
+
+
+classe b_xadrez
+herda sala
+const s_pnj = 1
+const s_area = "xadrez"
+
+
+classe i_xadrez001
+herda comum_itemperso
+const nome = "tabuleiro de xadrez"
+const descnome = "o tabuleiro de xadrez"
+const i_pegar = "É muito grande e pesado para carregar."
+const i_salaentrar = $s_xadrez100
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe p_xadrez001
+herda comum_persobat
+const nome = "torre branca"
+const descnome = "a torre branca"
+const descpadr = "A torre branca está aqui"
+const nivel = 20
+
+
+classe p_xadrez002
+herda comum_persobat
+const nome = "cavalo branco"
+const descnome = "o cavalo branco"
+const descpadr = "o cavalo branco está aqui"
+const nivel = 20
+
+
+classe p_xadrez003
+herda comum_persobat
+const nome = "bispo branco"
+const descnome = "o bispo branco"
+const descpadr = "O bispo branco está aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 20
+
+
+classe p_xadrez004
+herda comum_persobat
+const nome = "rei branco"
+const descnome = "o rei branco"
+const descpadr = "o rei branco está aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 20
+
+
+classe p_xadrez005
+herda comum_persobat
+const nome = "rainha branca"
+const descnome = "a rainha branca"
+const descpadr = "a rainha branca está aqui"
+
+
+classe p_xadrez006
+herda comum_persobat
+const nome = "peão branco"
+const descnome = "o peão branco"
+const descpadr = "o peão branco está aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 20
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_mover
+  se arg0 == este
+    se arg2 == "l" || arg2 == "o" || arg2 == "s"
+      arg0.msg("Você só pode mover-se para norte, e atacar para nordeste, noroeste, sudeste ou \
+sudoeste.")
+      ret 1
+    fimse
+  fimse
+
+
+classe p_xadrez007
+herda comum_persobat
+const nome = "torre negra"
+const descnome = "a torre negra"
+const descpadr = "A torre negra está aqui"
+const nivel = 20
+
+
+classe p_xadrez008
+herda comum_persobat
+const nome = "cavalo negro"
+const descnome = "o cavalo negro"
+const descpadr = "O cavalo negro está aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 20
+
+
+classe p_xadrez009
+herda comum_persobat
+const nome = "bispo negro"
+const descnome = "o bispo negro"
+const descpadr = "O bispo negro está aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 20
+
+
+classe p_xadrez010
+herda comum_persobat
+const nome = "rainha negra"
+const descnome = "a rainha negra"
+const descpadr = "A rainha negra está aqui."
+const nivel = 20
+
+
+classe p_xadrez011
+herda comum_persobat
+const nome = "rei negro"
+const descnome = "o rei negro"
+const descpadr = "O rei negro está aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 20
+
+
+classe p_xadrez012
+herda comum_persobat
+const nome = "peão negro"
+const descnome = "o peão negro"
+const descpadr = "O peão negro está aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 20
+
+
+classe s_xadrez001
+herda b_xadrez
+const s_titulo = "Casa branca A1."
+const dir_n = $s_xadrez009
+const dir_l = $s_xadrez002
+const dir_ne = $s_xadrez010
+const dir_sair = $s_xadrez065
+
+
+classe s_xadrez002
+herda b_xadrez
+const s_titulo = "Casa preta B1."
+const dir_n = $s_xadrez010
+const dir_l = $s_xadrez003
+const dir_o = $s_xadrez001
+const dir_ne = $s_xadrez011
+const dir_no = $s_xadrez009
+
+
+classe s_xadrez003
+herda b_xadrez
+const s_titulo = "Uma casa branca"
+const dir_l = $s_xadrez004
+const dir_o = $s_xadrez002
+const dir_n = $s_xadrez011
+const dir_ne = $s_xadrez012
+const dir_no = $s_xadrez010
+
+
+classe s_xadrez004
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_l = $s_xadrez005
+const dir_o = $s_xadrez003
+const dir_n = $s_xadrez012
+const dir_no = $s_xadrez011
+const dir_ne = $s_xadrez013
+
+
+classe s_xadrez005
+herda b_xadrez
+const s_titulo = "Uma casa branca"
+const dir_n = $s_xadrez013
+const dir_l = $s_xadrez006
+const dir_o = $s_xadrez004
+const dir_ne = $s_xadrez014
+const dir_no = $s_xadrez012
+
+
+classe s_xadrez006
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_n = $s_xadrez014
+const dir_l = $s_xadrez007
+const dir_o = $s_xadrez005
+const dir_ne = $s_xadrez015
+const dir_no = $s_xadrez013
+
+
+classe s_xadrez007
+herda b_xadrez
+const s_titulo = "Uma casa branca"
+const dir_l = $s_xadrez008
+const dir_o = $s_xadrez006
+const dir_n = $s_xadrez015
+const dir_ne = $s_xadrez016
+const dir_no = $s_xadrez014
+
+
+classe s_xadrez008
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_o = $s_xadrez007
+const dir_n = $s_xadrez016
+const dir_no = $s_xadrez015
+
+
+classe s_xadrez009
+herda b_xadrez
+const s_titulo = "Casa preta A2."
+const dir_n = $s_xadrez017
+const dir_s = $s_xadrez001
+const dir_l = $s_xadrez010
+const dir_ne = $s_xadrez018
+const dir_se = $s_xadrez002
+
+
+classe s_xadrez010
+herda b_xadrez
+const s_titulo = "Casa branca B2."
+const dir_n = $s_xadrez018
+const dir_s = $s_xadrez002
+const dir_l = $s_xadrez011
+const dir_o = $s_xadrez009
+const dir_ne = $s_xadrez019
+const dir_no = $s_xadrez017
+const dir_se = $s_xadrez003
+const dir_so = $s_xadrez001
+
+
+classe s_xadrez011
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_n = $s_xadrez019
+const dir_s = $s_xadrez003
+const dir_l = $s_xadrez012
+const dir_o = $s_xadrez010
+const dir_ne = $s_xadrez020
+const dir_no = $s_xadrez018
+const dir_se = $s_xadrez004
+const dir_so = $s_xadrez002
+
+
+classe s_xadrez012
+herda b_xadrez
+const s_titulo = "Uma casa branca"
+const dir_n = $s_xadrez020
+const dir_s = $s_xadrez004
+const dir_l = $s_xadrez013
+const dir_o = $s_xadrez011
+const dir_ne = $s_xadrez021
+const dir_no = $s_xadrez019
+const dir_se = $s_xadrez005
+const dir_so = $s_xadrez003
+
+
+classe s_xadrez013
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_n = $s_xadrez021
+const dir_s = $s_xadrez005
+const dir_l = $s_xadrez014
+const dir_o = $s_xadrez012
+const dir_ne = $s_xadrez022
+const dir_no = $s_xadrez020
+const dir_se = $s_xadrez006
+const dir_so = $s_xadrez004
+
+
+classe s_xadrez014
+herda b_xadrez
+const s_titulo = "Uma casa branca"
+const dir_n = $s_xadrez022
+const dir_s = $s_xadrez006
+const dir_l = $s_xadrez015
+const dir_o = $s_xadrez013
+const dir_ne = $s_xadrez023
+const dir_no = $s_xadrez021
+const dir_se = $s_xadrez007
+const dir_so = $s_xadrez005
+
+
+classe s_xadrez015
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const s_pnj = 0
+const dir_n = $s_xadrez023
+const dir_s = $s_xadrez007
+const dir_l = $s_xadrez016
+const dir_o = $s_xadrez014
+const dir_ne = $s_xadrez024
+const dir_no = $s_xadrez022
+const dir_se = $s_xadrez008
+const dir_so = $s_xadrez006
+
+
+classe s_xadrez016
+herda b_xadrez
+const s_titulo = "Uma casa branca"
+const dir_n = $s_xadrez024
+const dir_s = $s_xadrez008
+const dir_o = $s_xadrez015
+const dir_no = $s_xadrez023
+const dir_so = $s_xadrez007
+
+
+classe s_xadrez017
+herda b_xadrez
+const s_titulo = "Uma casa branca"
+const dir_n = $s_xadrez025
+const dir_s = $s_xadrez009
+const dir_l = $s_xadrez018
+const dir_ne = $s_xadrez026
+const dir_se = $s_xadrez010
+
+
+classe s_xadrez018
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_n = $s_xadrez026
+const dir_s = $s_xadrez010
+const dir_l = $s_xadrez019
+const dir_o = $s_xadrez017
+const dir_ne = $s_xadrez027
+const dir_no = $s_xadrez025
+const dir_so = $s_xadrez009
+const dir_se = $s_xadrez011
+
+
+classe s_xadrez019
+herda b_xadrez
+const s_titulo = "Casa branca C3."
+const dir_n = $s_xadrez027
+const dir_s = $s_xadrez011
+const dir_l = $s_xadrez020
+const dir_o = $s_xadrez018
+const dir_ne = $s_xadrez028
+const dir_no = $s_xadrez026
+const dir_se = $s_xadrez012
+const dir_so = $s_xadrez010
+
+
+classe s_xadrez020
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_n = $s_xadrez028
+const dir_s = $s_xadrez012
+const dir_l = $s_xadrez021
+const dir_o = $s_xadrez019
+const dir_ne = $s_xadrez029
+const dir_no = $s_xadrez027
+const dir_se = $s_xadrez013
+const dir_so = $s_xadrez011
+
+
+classe s_xadrez021
+herda b_xadrez
+const s_titulo = "Uma casa branca"
+const dir_n = $s_xadrez029
+const dir_s = $s_xadrez013
+const dir_l = $s_xadrez022
+const dir_o = $s_xadrez020
+const dir_ne = $s_xadrez030
+const dir_no = $s_xadrez028
+const dir_se = $s_xadrez014
+const dir_so = $s_xadrez012
+
+
+classe s_xadrez022
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_n = $s_xadrez030
+const dir_s = $s_xadrez014
+const dir_l = $s_xadrez023
+const dir_o = $s_xadrez021
+const dir_ne = $s_xadrez031
+const dir_no = $s_xadrez029
+const dir_se = $s_xadrez015
+const dir_so = $s_xadrez013
+
+
+classe s_xadrez023
+herda b_xadrez
+const s_titulo = "Uma casa branca"
+const dir_n = $s_xadrez031
+const dir_s = $s_xadrez015
+const dir_l = $s_xadrez024
+const dir_o = $s_xadrez022
+const dir_ne = $s_xadrez032
+const dir_so = $s_xadrez014
+const dir_se = $s_xadrez016
+const dir_no = $s_xadrez030
+
+
+classe s_xadrez024
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_n = $s_xadrez032
+const dir_s = $s_xadrez016
+const dir_o = $s_xadrez023
+const dir_no = $s_xadrez031
+const dir_so = $s_xadrez015
+
+
+classe s_xadrez025
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_n = $s_xadrez033
+const dir_s = $s_xadrez017
+const dir_l = $s_xadrez026
+const dir_se = $s_xadrez018
+const dir_ne = $s_xadrez034
+
+
+classe s_xadrez026
+herda b_xadrez
+const s_titulo = "Uma casa branca"
+const dir_n = $s_xadrez034
+const dir_s = $s_xadrez018
+const dir_l = $s_xadrez027
+const dir_o = $s_xadrez025
+const dir_ne = $s_xadrez035
+const dir_no = $s_xadrez033
+const dir_se = $s_xadrez019
+const dir_so = $s_xadrez017
+
+
+classe s_xadrez027
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_n = $s_xadrez035
+const dir_s = $s_xadrez019
+const dir_l = $s_xadrez028
+const dir_o = $s_xadrez026
+const dir_ne = $s_xadrez036
+const dir_no = $s_xadrez034
+const dir_se = $s_xadrez020
+const dir_so = $s_xadrez018
+
+
+classe s_xadrez028
+herda b_xadrez
+const s_titulo = "Casa branca D4."
+const dir_n = $s_xadrez036
+const dir_s = $s_xadrez020
+const dir_l = $s_xadrez029
+const dir_o = $s_xadrez027
+const dir_ne = $s_xadrez037
+const dir_no = $s_xadrez035
+const dir_se = $s_xadrez021
+const dir_so = $s_xadrez019
+
+
+classe s_xadrez029
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_n = $s_xadrez037
+const dir_s = $s_xadrez021
+const dir_l = $s_xadrez030
+const dir_o = $s_xadrez028
+const dir_ne = $s_xadrez038
+const dir_no = $s_xadrez036
+const dir_se = $s_xadrez022
+const dir_so = $s_xadrez020
+
+
+classe s_xadrez030
+herda b_xadrez
+const s_titulo = "Uma casa branca"
+const dir_n = $s_xadrez038
+const dir_s = $s_xadrez022
+const dir_l = $s_xadrez031
+const dir_o = $s_xadrez029
+const dir_ne = $s_xadrez039
+const dir_no = $s_xadrez037
+const dir_se = $s_xadrez023
+const dir_so = $s_xadrez021
+
+
+classe s_xadrez031
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_n = $s_xadrez039
+const dir_s = $s_xadrez023
+const dir_l = $s_xadrez032
+const dir_o = $s_xadrez030
+const dir_ne = $s_xadrez040
+const dir_no = $s_xadrez038
+const dir_se = $s_xadrez024
+const dir_so = $s_xadrez022
+
+
+classe s_xadrez032
+herda b_xadrez
+const s_titulo = "Uma casa branca"
+const dir_s = $s_xadrez024
+const dir_o = $s_xadrez031
+const dir_so = $s_xadrez023
+const dir_n = $s_xadrez040
+const dir_no = $s_xadrez039
+
+
+classe s_xadrez033
+herda b_xadrez
+const s_titulo = "Uma casa branca"
+const dir_n = $s_xadrez041
+const dir_s = $s_xadrez025
+const dir_l = $s_xadrez034
+const dir_ne = $s_xadrez042
+const dir_se = $s_xadrez026
+
+
+classe s_xadrez034
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_n = $s_xadrez042
+const dir_s = $s_xadrez026
+const dir_l = $s_xadrez035
+const dir_o = $s_xadrez033
+const dir_ne = $s_xadrez043
+const dir_no = $s_xadrez041
+const dir_se = $s_xadrez027
+const dir_so = $s_xadrez025
+
+
+classe s_xadrez035
+herda b_xadrez
+const s_titulo = "Uma casa branca"
+const dir_n = $s_xadrez043
+const dir_s = $s_xadrez027
+const dir_l = $s_xadrez036
+const dir_o = $s_xadrez034
+const dir_ne = $s_xadrez044
+const dir_no = $s_xadrez042
+const dir_se = $s_xadrez028
+const dir_so = $s_xadrez026
+
+
+classe s_xadrez036
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_n = $s_xadrez044
+const dir_s = $s_xadrez028
+const dir_l = $s_xadrez037
+const dir_o = $s_xadrez035
+const dir_ne = $s_xadrez045
+const dir_no = $s_xadrez043
+const dir_se = $s_xadrez029
+const dir_so = $s_xadrez027
+
+
+classe s_xadrez037
+herda b_xadrez
+const s_titulo = "Casa branca E5."
+const dir_n = $s_xadrez045
+const dir_s = $s_xadrez029
+const dir_l = $s_xadrez038
+const dir_o = $s_xadrez036
+const dir_ne = $s_xadrez046
+const dir_no = $s_xadrez044
+const dir_se = $s_xadrez030
+const dir_so = $s_xadrez028
+
+
+classe s_xadrez038
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_n = $s_xadrez046
+const dir_s = $s_xadrez030
+const dir_l = $s_xadrez039
+const dir_o = $s_xadrez037
+const dir_ne = $s_xadrez048
+const dir_no = $s_xadrez045
+const dir_se = $s_xadrez031
+const dir_so = $s_xadrez029
+
+
+classe s_xadrez039
+herda b_xadrez
+const s_titulo = "Uma casa branca"
+const dir_n = $s_xadrez047
+const dir_s = $s_xadrez031
+const dir_l = $s_xadrez040
+const dir_o = $s_xadrez038
+const dir_ne = $s_xadrez048
+const dir_no = $s_xadrez046
+const dir_se = $s_xadrez032
+const dir_so = $s_xadrez030
+
+
+classe s_xadrez040
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_n = $s_xadrez048
+const dir_s = $s_xadrez032
+const dir_o = $s_xadrez039
+const dir_so = $s_xadrez031
+
+
+classe s_xadrez041
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_n = $s_xadrez049
+const dir_s = $s_xadrez033
+const dir_l = $s_xadrez042
+const dir_ne = $s_xadrez050
+const dir_se = $s_xadrez034
+
+
+classe s_xadrez042
+herda b_xadrez
+const s_titulo = "Uma casa branca"
+const dir_n = $s_xadrez050
+const dir_s = $s_xadrez034
+const dir_l = $s_xadrez043
+const dir_o = $s_xadrez041
+const dir_ne = $s_xadrez051
+const dir_no = $s_xadrez049
+const dir_se = $s_xadrez035
+const dir_so = $s_xadrez033
+
+
+classe s_xadrez043
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_n = $s_xadrez051
+const dir_s = $s_xadrez035
+const dir_l = $s_xadrez044
+const dir_o = $s_xadrez042
+const dir_ne = $s_xadrez052
+const dir_no = $s_xadrez050
+const dir_se = $s_xadrez036
+const dir_so = $s_xadrez034
+
+
+classe s_xadrez044
+herda b_xadrez
+const s_titulo = "Uma casa branca"
+const dir_n = $s_xadrez052
+const dir_s = $s_xadrez036
+const dir_l = $s_xadrez045
+const dir_o = $s_xadrez043
+const dir_ne = $s_xadrez053
+const dir_no = $s_xadrez051
+const dir_se = $s_xadrez037
+const dir_so = $s_xadrez035
+
+
+classe s_xadrez045
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_n = $s_xadrez053
+const dir_s = $s_xadrez037
+const dir_l = $s_xadrez046
+const dir_o = $s_xadrez044
+const dir_ne = $s_xadrez054
+const dir_no = $s_xadrez052
+const dir_se = $s_xadrez038
+const dir_so = $s_xadrez036
+
+
+classe s_xadrez046
+herda b_xadrez
+const s_titulo = "Casa branca F6."
+const dir_n = $s_xadrez054
+const dir_s = $s_xadrez038
+const dir_l = $s_xadrez047
+const dir_o = $s_xadrez045
+const dir_ne = $s_xadrez055
+const dir_no = $s_xadrez053
+const dir_se = $s_xadrez039
+const dir_so = $s_xadrez037
+
+
+classe s_xadrez047
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_n = $s_xadrez055
+const dir_s = $s_xadrez039
+const dir_l = $s_xadrez048
+const dir_o = $s_xadrez046
+const dir_ne = $s_xadrez056
+const dir_no = $s_xadrez054
+
+
+classe s_xadrez048
+herda b_xadrez
+const s_titulo = "Uma casa branca"
+const dir_n = $s_xadrez056
+const dir_s = $s_xadrez040
+const dir_o = $s_xadrez047
+const dir_no = $s_xadrez055
+const dir_so = $s_xadrez038
+
+
+classe s_xadrez049
+herda b_xadrez
+const s_titulo = "Uma casa branca"
+const dir_n = $s_xadrez057
+const dir_s = $s_xadrez041
+const dir_l = $s_xadrez050
+const dir_ne = $s_xadrez058
+const dir_se = $s_xadrez042
+
+
+classe s_xadrez050
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_n = $s_xadrez058
+const dir_s = $s_xadrez042
+const dir_l = $s_xadrez051
+const dir_o = $s_xadrez049
+const dir_ne = $s_xadrez059
+const dir_no = $s_xadrez057
+const dir_se = $s_xadrez043
+const dir_so = $s_xadrez041
+
+
+classe s_xadrez051
+herda b_xadrez
+const s_titulo = "Uma casa branca"
+const dir_n = $s_xadrez059
+const dir_s = $s_xadrez043
+const dir_l = $s_xadrez052
+const dir_o = $s_xadrez050
+const dir_ne = $s_xadrez060
+const dir_no = $s_xadrez058
+const dir_se = $s_xadrez044
+const dir_so = $s_xadrez042
+
+
+classe s_xadrez052
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_n = $s_xadrez060
+const dir_s = $s_xadrez044
+const dir_l = $s_xadrez053
+const dir_o = $s_xadrez051
+const dir_ne = $s_xadrez061
+const dir_no = $s_xadrez059
+const dir_se = $s_xadrez045
+const dir_so = $s_xadrez043
+
+
+classe s_xadrez053
+herda b_xadrez
+const s_titulo = "Uma casa branca"
+const dir_n = $s_xadrez061
+const dir_s = $s_xadrez045
+const dir_l = $s_xadrez054
+const dir_o = $s_xadrez052
+const dir_ne = $s_xadrez062
+const dir_no = $s_xadrez060
+const dir_se = $s_xadrez046
+const dir_so = $s_xadrez044
+
+
+classe s_xadrez054
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_n = $s_xadrez062
+const dir_s = $s_xadrez046
+const dir_l = $s_xadrez055
+const dir_o = $s_xadrez053
+const dir_ne = $s_xadrez063
+const dir_no = $s_xadrez061
+const dir_se = $s_xadrez047
+const dir_so = $s_xadrez045
+
+
+classe s_xadrez055
+herda b_xadrez
+const s_titulo = "Casa branca G7."
+const dir_n = $s_xadrez063
+const dir_s = $s_xadrez047
+const dir_l = $s_xadrez056
+const dir_o = $s_xadrez054
+const dir_ne = $s_xadrez064
+const dir_no = $s_xadrez062
+const dir_se = $s_xadrez048
+const dir_so = $s_xadrez046
+
+
+classe s_xadrez056
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_n = $s_xadrez064
+const dir_s = $s_xadrez048
+const dir_o = $s_xadrez055
+const dir_no = $s_xadrez063
+const dir_so = $s_xadrez047
+
+
+classe s_xadrez057
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_s = $s_xadrez049
+const dir_l = $s_xadrez058
+const dir_se = $s_xadrez050
+
+
+classe s_xadrez058
+herda b_xadrez
+const s_titulo = "Uma casa branca"
+const dir_l = $s_xadrez059
+const dir_o = $s_xadrez057
+const dir_se = $s_xadrez051
+const dir_so = $s_xadrez049
+const dir_s = $s_xadrez050
+
+
+classe s_xadrez059
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_l = $s_xadrez060
+const dir_o = $s_xadrez058
+const dir_se = $s_xadrez052
+const dir_so = $s_xadrez050
+const dir_s = $s_xadrez051
+
+
+classe s_xadrez060
+herda b_xadrez
+const s_titulo = "Uma casa branca"
+const dir_l = $s_xadrez061
+const dir_o = $s_xadrez059
+const dir_se = $s_xadrez053
+const dir_so = $s_xadrez051
+const dir_s = $s_xadrez052
+
+
+classe s_xadrez061
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_l = $s_xadrez062
+const dir_o = $s_xadrez060
+const dir_se = $s_xadrez054
+const dir_so = $s_xadrez052
+const dir_s = $s_xadrez053
+
+
+classe s_xadrez062
+herda b_xadrez
+const s_titulo = "Uma casa branca"
+const s_pnj = 1
+const s_jog = 1
+const dir_s = $s_xadrez054
+const dir_l = $s_xadrez063
+const dir_o = $s_xadrez061
+const dir_se = $s_xadrez055
+const dir_so = $s_xadrez053
+
+
+classe s_xadrez063
+herda b_xadrez
+const s_titulo = "Uma casa preta"
+const dir_l = $s_xadrez064
+const dir_o = $s_xadrez062
+const dir_se = $s_xadrez056
+const dir_so = $s_xadrez054
+const dir_s = $s_xadrez055
+
+
+classe s_xadrez064
+herda b_xadrez
+const s_titulo = "Casa branca H8."
+const dir_s = $s_xadrez056
+const dir_o = $s_xadrez063
+const dir_so = $s_xadrez055
+const dir_sair = $s_xadrez066
+
+
+classe s_xadrez065
+herda b_xadrez
+const s_titulo = "A entrada para o território das peças brancas"
+const dir_o = $s_xadrez100
+const dir_entrar = $s_xadrez001
+
+
+classe s_xadrez066
+herda b_xadrez
+const s_titulo = "A entrada para o território das peças negras"
+const dir_l = $s_xadrez100
+const dir_entrar = $s_xadrez064
+
+
+classe s_xadrez100
+herda b_xadrez
+const s_titulo = "A entrada do tabuleiro de xadrez"
+const s_desc = "Aqui há duas entradas: uma para leste, direcionando para o território das\n\
+peças brancas, e outra para oeste, para o território das peças negras."
+const s_entrada = "Entrada"
+const dir_l = $s_xadrez065
+const dir_o = $s_xadrez066
+const dir_sair = $i_xadrez001

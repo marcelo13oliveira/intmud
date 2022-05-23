@@ -1,0 +1,18 @@
+classe adm_nef
+herda comando_adm
+const posic = 0
+const txtajuda = "Nef\n\
+Sintaxe:\n\
+Nef nome de um efeito.\n\
+Diz o nnome dele e o número de afetados."
+
+func escr
+  prog p
+  ret !arg1, arg0.msg("Digite o nome do efeito apóz NEF.")
+  refvar f = txtmin(txtremove(arg1, "emdc7"))
+  se !p.existe("e_" + f)
+    arg0.msg("Efeito inexistente, " + arg1)
+  senao
+    refvar quantos = inttotal($e_[arg1])
+    ret quantos < 1, arg0.msg("Efeito " + arg1 + ", nenhum em player ou pnj.")
+    arg0.msg("Efeito " + arg1 + ", " + quantos + ".")

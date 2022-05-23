@@ -1,0 +1,128 @@
+classe a_cosmeticos
+herda area
+
+
+classe b_cosmeticos
+herda sala
+const s_area = "cosmeticos"
+
+
+classe i_cosmeticos001
+herda comum_item
+const nome = "baton vermelho"
+const descnome = "um baton vermelho"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const valor = 1250
+const vestir1 = 524288 # Aonde vestir: 19-na boca
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_escr
+  se arg1 == "passar baton"
+    $mens.p(arg0, nulo, este)
+    $mens.mvis1("$P passa $o nos lábios.")
+    criar("e_baton", arg0)
+    arg0.var.z_corbaton = "vermelho"
+    ret 1
+  fimse
+
+
+classe i_cosmeticos002
+herda comum_item
+const nome = "baton rosa"
+const descnome = "um baton rosa"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const valor = 1250
+const vestir1 = 524288 # Aonde vestir: 19-na boca
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+
+func cmd_escr
+  se arg1 == "passar baton"
+    $mens.p(arg0, nulo, este)
+    $mens.mvis1("$P passa $o nos lábios.")
+    criar("e_baton", arg0)
+    arg0.var.z_corbaton = "rosa"
+    ret 1
+  fimse
+
+
+classe i_cosmeticos003
+herda comum_itemgrupo
+const nome = "baton roxo"
+const descnome = "um baton roxo"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const valor = 1250
+const vestir1 = 524288 # Aonde vestir: 19-na boca
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+
+func cmd_escr
+  se arg1 == "passar baton"
+    $mens.p(arg0, nulo, este)
+    $mens.mvis1("$P passa $o nos lábios.")
+    criar("e_baton", arg0)
+    arg0.var.z_corbaton = "roxo"
+    ret 1
+  fimse
+
+
+classe i_cosmeticos004
+herda comum_item
+const nome = "caixa de maquiafgem"
+const descnome = "uma caixa de maquiagem"
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_escr
+  se txt1(arg1) == "maquiar" || txt1(arg1) == "maquear"
+    refvar n = txtsub(arg1, 2)
+    refvar perso = txtsub(arg1, 1, 1)
+    refvar p = misc:persodono(arg0, perso)
+    ret !p, arg0.msg("Você não vê " + perso + ".")
+    refvar r = criar("i_equips022", p, 1)
+    r.var.z_nome = n
+    r.vestir(11)
+    $mens.p(arg0, p, r)
+    $mens.mtodos1("$P passa $o no rosto $d $A.")
+    ret 1
+  fimse
+
+
+classe i_cosmeticos005
+herda comum_item
+const descnome = "um pó"
+const m_atribs2 = "* Um pó enfeita seu rosto delicado."
+
+
+classe i_cosmeticos006
+herda comum_item
+const nome = var.z_nome ? var.z_nome : "um baton"
+const descnome = var.z_nome ? var.z_nome : "um baton"
+const vestir1 = 524288 # Aonde vestir: 19-na boca
+const m_atribs2 = "* el$v está com  " + descnome + " na boca."
+
+
+classe i_cosmeticos007
+herda comum_itemperso
+const nome = "caixa de sombra"
+const descnome = "uma caixa de sombra"
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_escr
+  se txt1(arg1) == "maquiar" || txt1(arg1) == "maquear"
+    refvar n = txtsub(arg1, 2)
+    refvar perso = txtsub(arg1, 1, 1)
+    refvar p = misc:persodono(arg0, perso)
+    ret !p, arg0.msg("Você não vê " + perso + ".")
+    refvar r = criar("i_equips021", p, 1)
+    r.var.z_nome = n
+    r.vestir(7)
+    $mens.p(arg0, p, r)
+    $mens.mtodos1("$P passa $o nos olhos $d $A.")
+    ret 1
+  fimse

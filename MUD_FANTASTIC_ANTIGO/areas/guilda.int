@@ -1,0 +1,150 @@
+classe a_guilda
+herda area
+const a_nome = "Centro de treinamento"
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_tempo = 5
+
+
+classe b_guilda
+herda sala
+const s_area = "guilda"
+
+
+classe p_guilda006
+herda comum_persobat
+const nome = "Mestre Kakl"
+const ident = "instrutor professor ladrão mestre kakl"
+const descnome = "o grande mestre Kakl"
+const descpadr = "O grande mestre Kakl, o mestre do crime e da trapaça ensina seus truques aos \
+jovens ladrões."
+const nivel = 150
+const tipo1 = "goblin"
+const tipo2 = "ladrão"
+const lojaaula = "h_ataque_confusao 8\n\
+h_furtividade 6\n\
+h_rasteira 8\n\
+h_agilidade 8\n\
+h_espiar_inventario 8\n\
+h_intimidar 8\n\
+h_ataque_furtivo 8\n\
+h_surpreender 8\n\
+h_segundo_ataque 8\n\
+h_furtar 8\n\
+h_subornar 8\n\
+h_estrangular 8"
+const p_imortal = 1 # Imortal: Sim
+
+
+classe p_guilda007
+herda comum_perso
+const nome = "professor de patinação"
+const descnome = "o professor de patinação"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const lojaaula = "h_patinar 8"
+
+
+classe p_guilda008
+herda comum_perso
+const nome = "monteiro"
+const ident = "monteiro professor montaria"
+const descnome = "Monteiro, o professor de montaria"
+const descpadr = "Monteiro, o professor de montaria está aqui, ensinando a cavaleiros novatos as \
+habilidades de montaria."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const lojaaula = "h_montar 8"
+
+
+classe s_guilda001
+herda b_guilda
+const s_titulo = "Os aposentos do mestre dos magos"
+const s_desc = "Você adentra uma sala magnífica, com teto alto, chão coberto por um belo\n\
+tapete vermelho e paredes repletas de quadros, alguns retratando os novatos\n\
+preferidos do mestre, outros quardando lembranças de sua época de menino.\n\
+Várias almofadas para meditação foram espalhadas pelo local, e estantes com\n\
+toda sorte de livros estão por aqui, certamente guardando uma sabedoria\n\
+mística infinita. Alguns novatos podem ser vistos, meditando para absorver\n\
+melhor seus conhecimentos e recuperar suas forças, ou simplesmente testando\n\
+um feitiço ou outro com cajados e varinhas. Para leste se encontra uma porta\n\
+para o corredor, e esta é a única saída."
+const dir_l = $s_rio127
+const portanome_l = "uma porta de carvalho"
+const a_reset = "P 100 guilda001 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_guilda001:objsolto.total < 1
+    criar("p_guilda001", este, 0)
+  fimse
+
+
+classe s_guilda002
+herda b_guilda
+const s_titulo = "O centro de treinamento dos guerreiros"
+const dir_l = $s_rio002
+const a_reset = "P 100 guilda002 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_guilda002:objsolto.total < 1
+    criar("p_guilda002", este, 0)
+  fimse
+
+
+classe s_guilda003
+herda b_guilda
+const s_titulo = "O centro de treinamento dos necromantes"
+const dir_l = $s_cemiterio054
+const s_reset = "P 100 rio015 100 100 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_rio015:objsolto.total < 1
+    criar("p_rio015", este, 100)
+  fimse
+
+const a_reset = "P 100 guilda003 0 0 1 m_garras_retalhadoras=8,m_sono_profundo=8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_guilda003:objsolto.total < 1
+    criar("p_guilda003", este, 0, "m_garras_retalhadoras=8,m_sono_profundo=8")
+  fimse
+
+
+classe s_guilda004
+herda b_guilda
+const s_titulo = "O centro de treinamento dos druidas"
+const dir_l = $s_rio002
+const a_reset = "P 100 guilda004 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_guilda004:objsolto.total < 1
+    criar("p_guilda004", este, 0)
+  fimse
+
+
+classe s_guilda005
+herda b_guilda
+const s_titulo = "Um Santuário"
+const dir_l = $s_rio002
+const a_reset = "P 100 guilda005 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_guilda005:objsolto.total < 1
+    criar("p_guilda005", este, 0)
+  fimse
+
+
+classe s_guilda006
+herda b_guilda
+const s_titulo = "A Sala do Grande mestre Kakl"
+const dir_l = $s_rio113
+const a_reset = "P 100 guilda006 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_guilda006:objsolto.total < 1
+    criar("p_guilda006", este, 0)
+  fimse

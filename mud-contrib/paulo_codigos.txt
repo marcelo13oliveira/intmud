@@ -1,0 +1,184 @@
+Códigos colaborativos de Paulo Santos Ramos à base do IntmUD
+
+Índice
+ 1. Introdução
+ 2. Adicionando variáveis do código do Paulo nos menus
+ 3. Adicionar laboratório
+ 4. Adicionando sistema de livros
+
+1. Introdução
+
+Sou pioneiro no IntMUD. Ele foi lançado em um domingo e baixado por mim
+em uma segunda. Adquiri grande conhecimento na linguagem, tanto quanot o
+Martin.
+
+Já havia efetuado algumas obras como jogos textuais, como o Floresta e
+Juarassic, sendo em Avent1 e Avent2 respectivamente. O Floresta tornou-se
+BOT global no chat por volta de 2005. O Jurassic tornou-se um mUD por
+volta de 2007, administrado por um amigo meu e extinguiu-se em aproximadamente um ano e meio depois.
+
+Em vista desta grande perícia na programação, disponibilizo alguns
+códigos e dicas minhas para a base de MUD que vem no pacote do IntMUD.
+
+Espero que alguém veja algum proveito nestes códigos.
+
+2. Adicionando variáveis nos menus
+
+Para adicionar as variáveis dos códigos do Paulo nas opções dos menus,
+basta digitar o comando 'codpaulo'.
+
+
+3. Adicionar área de testes do Paulo
+
+A área de testes do Paulo é um laboratório onde meus códigos podem ser testados.
+
+Para adicioná-la, mova o arquivo 'labor.int' para o diretório mud/areas.
+
+4. Adicionando sistema de livros
+
+O sistema de livros é a capacidade de poder ter e interagir com livros no
+universo do jogo.
+
+Para adicionar à base, basta mover o arquivo 'livro.int' para o
+diretório: mud/cmd.
+
+4.1. Heranças
+
+A herança de cada item de um livro deve ser a classe comum_livro. Para dúvidas,
+vide arquivo labor.int e o item i_labor001.
+
+4.2. Variáveis
+
+Para personagens:
+
+ - p_copista Indica se personagem é copista (faz exemplares de livros).
+ - p_valorcopia Valor de cada cópia do livro em moedas, de 10 em diante.
+
+Para itens:
+
+ - i_livro Indica que tal item é um livro.
+ - i_caneta Indica que tal item é uma caneta.
+ - i_qtintamax Valor máximo da tinta. Cada unidade corresponde a um caracter escrito no livro.
+ - i_selo Indica que o livro está selado. Não pode ser escrito.
+
+Funções:
+
+addcont(textotxt correspondente, autor)
+Adiciona o conteúdo de um textotxt no livro. Se o segundo argumento for
+indicado, corresponderá ao autor do livro. A data MUD e do servidor são
+automáticas quando o autor é indicado.
+
+4.3. Criando livro com títulos concatenados no nome
+
+É na variável livtitulo, definida na classe comum_livro, a responsável
+pelo título do livro. Para permitir que um título faça parte da
+identificação, curta descrição e etc, basta fazer um item mais ou menos
+assim:
+
+classe i_livro001
+herda comum_livro
+const ident = "diário" + (livtitulo ? " " + livtitulo)
+const descnome = "o diário" + (livtitulo ? " " + livtitulo)
+const descpos = "Um diário" + (livtitulo ? " " + livtitulo ) + " foi jogado aqui."
+
+func cmd_ini
+ livtitulo = "sem título"
+
+Note o caracter de concatenação (união) '+'. Ele soma o título com o
+texto anterior caso esse título exista, ou seja, caso a variável livtitulo
+não seja nula.
+
+A função cmd_ini é chamada neste caso para criar um título padrão isto é,
+um título inicial no diário para ficar mais elegante.
+
+No caso acima, se você colocar o título do diário como "do detetive" o
+diário aparecerá no seu inventário, por exemplo, assim:
+
+O diário do detetive
+
+Se você mudar o título para "dos meus segredos" aparecerá no seu
+inventário assim:
+
+O diário dos meus segredos
+
+Nota: Note que "O diário" não muda, pois ele faz parte do
+      código fonte e isto fica por conta do programador do item.
+      Em outras palavras, "O diário" não muda, o resto muda.
+
+Atenção: Não esqueça do caracter espaço para concatenar com o
+         título! Se você omití-lo, "o diário" ficará junto com o
+         título.
+
+Exemplo: Caso a constante descnome estivesse assim:
+
+const descnome = "o diário" + (livtitulo ? livtitulo)
+
+No inventário apareceria assim, caso o título fosse "do detetive":
+
+O diáriodo detetive
+
+Veja que "O diário" ficou junto de "do detetive".
+
+Então, deve-se deixar sempre assim:
+
+const descnome = "o diário" + (livtitulo ? " " + livtitulo)
+
+O caracter '?' funciona assim: o que tem antes dele é uma checagem se a
+expressão é verdadeira ou falsa. Se for verdadeira, executa o que vem após
+o '?' e antes de um provável ':'. É como se o '?' fosse um 'se
+<expressão>' e o ':' um 'senao' sem argumentos, mas que podem ser usados
+apenas em uma linha.
+
+Exemplo: Considerando que uma constante é uma função de uma
+         linha e que retorna alguma coisa, tanto faz fazer
+         coisas assim:
+
+const descnome = "o diário" + (livtitulo ? " " + livtitulo : "")
+
+Ou assim:
+
+func descnome
+ se livtitulo
+  ret "o diário" + livtitulo
+ senao
+  ret "o diário" + ""
+
+Mas se fizéssemos em forma de função, ficaria umas quatro linhas no
+código e o trablaho seria desnecessariamente maior. Portanto, é bem melhor
+mantermos em forma de constante.
+
+Não colocamos ': ""' na classe do item pois o IntMUD já entende que, se o
+título for nulo, deve-se resultar na concatenação de um valor nulo.
+
+Mas para quem quiser fazer um "título padrão" poderia fazer algo assim:
+
+const descnome = "o diário" + (livtitulo ? " " + livtitulo : " sem
+título")
+
+No inventário por exemplo, neste caso, se o diário estiver com título,
+aparecerá o texto "o diário" seguido do título. Caso ele não tenha título,
+aparecerá 'O diário sem título'.
+
+Atenção: Não esquecer dos parênteses do trecho:
+
+(livtitulo ? " " + livtitulo)
+
+Pois, se omití-los, a checagem do '?' será sempre verdadeira, ao passo
+que o IntmUD considerará o texto "o diário" como parte da expressão. A
+consequência será que a expressão sempre resultará em verdadeiro, ainda
+que o título esteja nulo, fazendo com que apenas o que vier após o '?'
+seja concatenado.
+
+Exemplo: Suponha o seguinte:
+
+const descnome = "o diário" + livtitulo ? " " + livtitulo
+
+Se você colocar o título como "do detetive" no seu inventário aparecerá:
+
+Do detetive
+
+Ou seja, o texto "o diário" foi omitido. Se o título for nulo, aparecerá
+no inventário um número 0 ou simplesmente nenhum texto. Portanto, sempre
+fazer com parênteses, ficando assim:
+
+const descnome = "o diário" + (livtitulo ? " " + livtitulo)

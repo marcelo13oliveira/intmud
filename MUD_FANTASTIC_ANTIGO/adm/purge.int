@@ -1,0 +1,20 @@
+classe adm_purge
+herda comando_adm
+const posic = 0
+
+func escr
+  se !arg1
+    arg0.dono.dentro1.limpar
+    arg0.msg("feito")
+    ret 1
+  senao
+    refvar p = misc:persodono(arg0, arg1)
+    ret !p, arg0.msg("Pnj ou jogador não encontrado " + arg1)
+    listaobj l
+    epara l.addfim(p.dentro1, p.dentro2), l, l.ini.remove
+      l.objini.item && !l.objini.mudadono(p.dono, 10000)
+    efim
+    p.dono.var.z_moedas_ += p.var.z_moedas_
+    p.var.z_moedas_ = ""
+    arg0.msg("Feito.")
+    ARQ:

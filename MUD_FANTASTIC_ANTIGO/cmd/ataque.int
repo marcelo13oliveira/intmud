@@ -1,0 +1,862 @@
+classe comando_hab
+herda comando_comum
+const objcmd = arg0.persobat.var.[nomevar] ? este
+const posic = 7
+const falha = 0
+const tipoalvo = 6
+
+func habajuda # Retorna um texto que contém informações
+# arg0 = objeto do personagem
+  textotxt t
+  se depende
+    t.addfim(depende)
+    textopos pos
+    epara pos = t.ini, pos, pos.depois
+      pos.mudar(misc:nomevar(pos.texto))
+    efim
+    t.addfim("Requer conhecimentos de: " + txttroca(t.remove(1000), "\n", ", "))
+    t.juntar, t.dividelin(40, 75)
+  fimse
+  txt512 lin
+  refvar sintaxe = (txt(nomevar, 0, 1) == "m" ? "Lançar " : "") + txts(txt(nomevar, 2))
+  lin = "\c3" + misc:nomevar(nomevar) + "\b\n"
+  se tipoalvo >= 8
+  senao tipoalvo == 7
+    lin += "Sintaxe: " + sintaxe
+  senao armamove
+    lin += "Sintaxe: " + sintaxe + " [personagem]\n"
+    lin += "         " + sintaxe + " <direção> [personagem]"
+  senao
+    lin += "Sintaxe: " + sintaxe + " [personagem]"
+  fimse
+  se tipoalvo < 6
+    lin += "\nAtaque do tipo " + txtsublin(config:atknomes, tipoatk, 1)
+    lin += ", Força " + ataquemin + (ataquemin != ataquemax ? " a " + ataquemax)
+    lin += ", Velocidade " + vel
+  fimse
+  se int(aulaini) != int(aulafim)
+    lin += "\nPrimeira aula a partir do nível "
+    lin += intpos(int(aulaini) - config:nrenascer * txt2(arg0.var.[nomevar]))
+    lin += ", perito nível "
+    lin += intpos(int(aulafim) - config:nrenascer * txt2(arg0.var.[nomevar]))
+  senao aulaini
+    lin += "\nPode aprender a partir do nível "
+    lin += intpos(int(aulaini) - config:nrenascer * txt2(arg0.var.[nomevar]))
+  senao
+    lin += "\nPode aprender em qualquer nível"
+  fimse
+  lin += !falha ? "" : falha > 0 ? ", Falha " + falha + "%" : ", Não falha"
+  t.addini(lin)
+  msgextra && t.addfim(msgextra)
+  se c_vida1 || c_vida2
+    refvar min = int(c_vida2)
+    refvar max = int(c_vida1)
+    se min != max
+      t.addfim("Consome de " + min + " a " + max + " pontos de vida.")
+    senao min == 1
+      t.addfim("Consome 1 ponto de vida.")
+    senao
+      t.addfim("Consome " + min + " pontos de vida.")
+    fimse
+  fimse
+  se c_mana1 || c_mana2
+    refvar min = int(c_mana2)
+    refvar max = int(c_mana1)
+    se min != max
+      t.addfim("Consome de " + min + " a " + max + " pontos de mana.")
+    senao min == 1
+      t.addfim("Consome 1 ponto de mana.")
+    senao
+      t.addfim("Consome " + min + " pontos de mana.")
+    fimse
+  fimse
+  se c_move1 || c_move2
+    refvar min = int(c_move2)
+    refvar max = int(c_move1)
+    se min != max
+      t.addfim("Consome de " + min + " a " + max + " pontos de movimento.")
+    senao min == 1
+      t.addfim("Consome 1 ponto de movimento.")
+    senao
+      t.addfim("Consome " + min + " pontos de movimento.")
+    fimse
+  fimse
+  se tipoperso
+    t.addfim("Somente classes/raças: " + txttroca(tipoperso, "\n", ", "))
+  fimse
+  ret t.remove(1000)
+
+func checahab1 # Checa se personagem pode usar habilidade/magia e avisa o personagem
+# arg0 = personagem
+# arg1 = item usado, ou nulo se não usou nenhum item
+  ret checahab2(arg0, (arg0.var.[nomevar] - 1) / 7, arg1)
+
+func checahab2 # Checa se personagem pode usar habilidade/magia e avisa o personagem
+# arg0 = personagem
+# arg1 = quanto sabe da habilidade ou magia (0=iniciante até 1=perito)
+# arg2 = item usado, ou nulo se não usou nenhum item
+# Retorna verdadeiro se pode usar
+  se !arg0.pvida
+    refvar lin = arg0 == arg0.contr ? "Você" : txtcopiamai(arg0.nome, "A")
+    arg0.contr.msg(lin + " está desmaiad" + (arg0.msexo ? "o." : "a."))
+    ret
+  senao arg2.item # Usou algum objeto: não checa a posição e a arma usada
+  senao arg0.contr.pnivel + config:animal_n < arg0.pnivel
+    arg0.contr.msg(txtcopiamai(arg0.nome, "A") + " não quer obedecer você.")
+    ret
+  senao arg0.posicao < posic # Checa a posição necessária
+    refvar lin = arg0 == arg0.contr ? "Você" : txtcopiamai(arg0.nome, "A")
+    casovar arg0.posicao
+    casose "0"
+      arg0.contr.msg(lin + " desmaiou.")
+      ret
+    casose "1"
+    casose "2"
+    casose "3"
+      arg0.contr.msg(lin + " está frac" + (arg0.msexo ? "o" : "a") + " demais.")
+      ret
+    casose "4"
+      arg0.contr.msg(lin + " está dormind" + (arg0.msexo ? "o" : "a") + ".")
+      ret
+    casose "5"
+      arg0.contr.msg(lin + " está descansand" + (arg0.msexo ? "o" : "a") + ".")
+      ret
+    casose "6"
+      arg0.contr.msg(lin + " está sentad" + (arg0.msexo ? "o" : "a") + ".")
+      ret
+    casose "7"
+      arg0.contr.msg(lin + " está lutand" + (arg0.msexo ? "o" : "a") + ".")
+      ret
+    casofim
+    arg0.contr.msg(lin + " não consegue fazer isso.")
+    ret
+  senao !tipoarma # Nenhum tipo de arma definido: aceita qualquer arma
+  senao !arg0.iempu # Não está usando uma arma
+    se !(tipoarma & 1)
+      arg0.contr.msg("Não possui a arma necessária.")
+      ret
+    fimse
+  senao tipoarma & intbit(arg0.iempu.obj.armatipo)
+  senao tipoarma == 1
+    arg0.contr.msg("Empunhando uma arma?")
+    ret
+  senao
+    arg0.contr.msg("Com essa arma?")
+    ret
+  fimse
+  se arg0.dono.s_semmagia && txt(nomevar, 0, 1) == "m"
+    arg0.msg("A magia não teve efeito.")
+    ret
+  senao arg2.item # Usou algum objeto: não tem custo
+  senao arg0.pvida <= arg1 * (c_vida2 - c_vida1) + c_vida1
+    arg0.contr.msg("Pontos de vida insuficientes.")
+    ret
+  senao arg0.pmana < arg1 * (c_mana2 - c_mana1) + c_mana1
+    arg0.contr.msg("Mana insuficiente.")
+    ret
+  senao arg0.pmove < arg1 * (c_move2 - c_move1) + c_move1
+    arg0.contr.msg("Vigor insuficiente.")
+    ret
+  fimse
+  ret 1
+
+func autohab1 # Checa se personagem pode usar habilidade/magia em ataque automático
+# arg0 = personagem
+  ret autohab2(arg0, (arg0.var.[nomevar] - 1) / 7)
+
+func autohab2 # Checa se personagem pode usar habilidade/magia em ataque automático
+# arg0 = personagem
+# arg1 = quanto sabe da habilidade ou magia (0=iniciante até 1=perito)
+# Retorna verdadeiro se pode usar
+  ret !arg0.pvida || arg0.posicao < posic || arg0.contr.pnivel + config:animal_n < arg0.pnivel, \
+nulo
+  ret arg0.dono.s_semmagia && txt(nomevar, 0, 1) == "m", nulo
+  ret arg0.pvida <= arg1 * (c_vida2 - c_vida1) + c_vida1, nulo
+  ret arg0.pmana < arg1 * (c_mana2 - c_mana1) + c_mana1, nulo
+  ret arg0.pmove < arg1 * (c_move2 - c_move1) + c_move1, nulo
+  ret !arg0.contr.dono.s_luta && tipoalvo != 6 && tipoalvo != 7, nulo
+  ret 1
+
+func custohab1 # Aplica os custos da habilidade/magia
+# arg0 = personagem
+  ret custohab2(arg0, (arg0.var.[nomevar] - 1) / 7)
+
+func custohab2 # Aplica os custos da habilidade/magia
+# arg0 = personagem
+# arg1 = quanto sabe da habilidade ou magia (0=iniciante até 1=perito)
+  arg0.pvida -= arg1 * (c_vida2 - c_vida1) + c_vida1
+  arg0.pmana -= arg1 * (c_mana2 - c_mana1) + c_mana1
+  arg0.pmove -= arg1 * (c_move2 - c_move1) + c_move1
+  arg0.contr.p_espera < c_espera && (arg0.contr.p_espera = c_espera)
+
+
+classe comando_ataque
+herda comando_hab, comando_danos
+const nomevar = "" # Nome da variável que indica o quanto sabe do ataque
+const tipoalvo = 0 # Alvo
+const a_prob1 = 100
+const a_prob2 = 100
+const a_prob3 = 100
+const c_espera = 15 # Tempo de esperar após usar esse comando
+const ataquemin = config:a_ataquemin # Força de ataque nível iniciante, 100 significa 100%
+const ataquemax = config:a_ataquemax # Força de ataque nível perito, 100 significa 100%
+const fatormin = config:a_fatormin
+const fatormax = config:a_fatormax
+const ataque1 = 0
+const ataque1perso = 1
+const ataque1arma = 1
+const ataque1municao = 1
+const ataque2 = 0
+const atknivel = config:atknivel
+const tipoatk = 0 # Tipo de golpe
+const vel = config:a_vel # Velocidade do golpe, 100 significa 100%
+const objcmd = tipoalvo < 8 && arg0.persoesc.var.[nomevar] ? este
+const cmdmenu = "ataque" # Editável via "menu_hab_ataque" e "menu_magia_ataque"
+int32 mudavida # Para calcular mudança nos pontos de vida do alvo
+int8 result # Resultado da batalha:
+# 0=acertou o alvo, 1=não teve efeito, 2=errou o alvo, 3=esquivou, 4=cancelar ataque
+ref arma1 # Arma usada
+ref arma2 # Munição usada
+#
+# Ordem que deve organizar as constantes:
+const admordem = "nomevar\n\
+tipoalvo\n\
+a_batalha\n\
+a_cond\n\
+a_efeito1 a_efeito2 a_efeito3\n\
+a_prob1 a_prob2 a_prob3\n\
+a_mana1 a_mana2\n\
+a_move1 a_move2\n\
+a_remove\n\
+a_vida1 a_vida2\n\
+c_espera\n\
+c_vida1 c_vida2\n\
+c_mana1 c_mana2\n\
+c_move1 c_move2\n\
+ataquemin ataquemax\n\
+fatormin fatormax\n\
+ataque1 ataque1perso ataque1arma ataque1municao\n\
+ataque2 atknivel\n\
+aulaini aulafim\n\
+depende\n\
+falha\n\
+addprecisao\n\
+armamove\n\
+tipoarma\n\
+tipoatk\n\
+tipobonus\n\
+tipoperso\n\
+tipomunicao\n\
+itemmunicao\n\
+valor\n\
+vel\n\
+msgextra msgatk0 msgatk1 msgatk2 msgatk3 msgatk4"
+#
+const escr = escrhab(arg0, arg1)
+
+func escrhab # Atacar alguém
+# arg0 = personagem
+# arg1 = o que o personagem digitou; usado para obter o personagem alvo
+# arg2 = item usado, ou nulo se não usou nenhum item
+# arg3 = nível da magia, se usou algum item
+  ref r
+  refvar perm = $perm_[arg0.jogperm]
+  refvar m1 = txt1(txte(nomevar)) == "m" ? perm.usar_mag : perm.usar_hab
+  txt100 dir
+  se m1
+    ret arg0.msg(m1)
+  senao arg0.pnivel < intpos(int(aulaini) - config:nrenascer * txt2(arg0.var.[nomevar]))
+    ret arg0.msg("Você ainda não consegue fazer isso.")
+  senao arg1 # Digitou o alvo
+    int16 move
+    listaitem i
+    nomeobj nome
+    refvar arma1 = tipoarma ? ref(arg0.iempu.obj) : nulo
+    refvar dist = int(arma1 ? arma1.armamove : armamove)
+    dir = dist > 0 ? misc:d1[txt1(arg1)]
+    se !misc:d3[dir] # Atacar na mesma sala
+      nome.ini(arg1, 1)
+      epara i = arg0.dono.dentro2.ini, i, i.depois
+        sair i.obj.visivel(arg0) && nome.nome(i.obj.ident)
+      efim
+    senao txt2(arg1) # Atacar um alvo específico em outra sala
+      ref sala
+      nome.ini(txt2(arg1), 1)
+      epara sala = arg0.dono, sala && move < dist, sala = sala.dirsala(dir)
+        se move
+          epara i = sala.dentro2.ini, i, i.depois
+            sair i.obj.visivel(arg0) && nome.nome(i.obj.ident)
+          efim
+        fimse
+        sair i.obj || int(sala.porta_[dir]) >= 2 # Achou o alvo ou porta fechada
+        move += intmax(1, sala.dirsala(dir).s_atk_move)
+      efim
+    senao # Atacar qualquer um em outra sala
+      ref sala
+      uint8 totalperso
+      epara sala = arg0.dono, sala && move < dist, sala = sala.dirsala(dir)
+        se move
+          epara i = sala.dentro2.ini, i, i.depois
+            i.obj.visivel(arg0) && totalperso++
+          efim
+        fimse
+        se totalperso
+          totalperso = rand(totalperso)
+          epara i = sala.dentro2.ini, i, i.depois
+            sair i.obj.visivel(arg0) && totalperso-- == 0
+          efim
+          sair
+        fimse
+        sair int(sala.porta_[dir]) >= 2 # Achou porta fechada
+        move += intmax(1, sala.dirsala(dir).s_atk_move)
+      efim
+    fimse
+    r = i.obj
+    ret !r, arg0.msg("Você não vê isso.")
+  senao tipoalvo >= 6 # Hab não agressiva: o alvo é o próprio personagem
+    r = arg0
+  senao arg2.f_tipo == 4 # Hab agressiva usando pergaminho
+    r = arg0.atkenv.objlista
+    (!r || r.dono != arg0.dono) && (r = arg0)
+  senao arg2.item # Hab agressiva usando outro item
+    r = arg0
+  senao # Hab agressiva sem usar um item: o alvo é quem está batalhando
+    r = arg0.atkenv.objlista
+    ret !r || r.dono != arg0.dono, arg0.msg("Atacar quem?")
+  fimse
+  refvar p = arg0.persoesc
+  se arg2
+    exechab(p, r.persobat, 0.5, arg3, arg2, dir)
+  senao
+    exechab(p, r.persobat, intpos(p.var.[nomevar]_ - 1) / 7, p.pnivel, nulo, dir)
+  fimse
+
+func exechabperso # Personagem usa uma habilidade ou magia
+# arg0 = quem está usando a habilidade ou magia
+# arg1 = personagem alvo
+  arg0 && arg1 && exechab(arg0, arg1, intpos(arg0.var.[nomevar] - 1) / 7, arg0.pnivel)
+
+func exechab # Chamado quando personagem usa habilidade ou magia
+# arg0 = quem está usando a habilidade ou magia
+# arg1 = personagem alvo
+# arg2 = quanto sabe da habilidade ou magia (0=iniciante até 1=perito)
+# arg3 = nível da habilidade ou magia (=nível do personagem)
+# arg4 = item usado (exemplo, um pergaminho), ou nulo se não usou nenhum item
+# arg5 = direção do personagem ao alvo, se o alvo não estiver na mesma sala
+  ret !checahab2(arg0, arg2, arg4), nulo
+# Checa a condição de batalha
+  se a_batalha == 1 && !arg0.contr.atkenv
+    ret arg0.contr.msg("Você não está lutando com ninguém.")
+  senao a_batalha == 2 && arg0.contr.atkenv
+    ret arg0.contr.msg("Você está lutando pela sua vida.")
+# Checa condição do alvo
+  senao !a_cond
+    ret !arg1.pvida, arg0.contr.msg("Alvo está desmaiado.")
+  senao a_cond == 1
+    ret arg1.pvida, arg0.contr.msg("Alvo não está desmaiado.")
+  senao dono.s_semmagia && txt(nomevar, 0, 1) == "m"
+    ret arg0.contr.msg("A magia não teve efeito.")
+  fimse
+# Obtém a arma usada
+  refvar errmuni = execmunicao(arg0)
+  ret errmuni, arg0.contr.msg(errmuni)
+# Técnicas não agressivas
+  listaobj l
+  casovar tipoalvo
+  casose "7"
+    se arg0 != arg1
+      refvar msg = txt(nomevar, 0, 1) == "m" ? "magia" : "habilidade"
+      arg0.contr.msg("Essa " + msg + " não pode ser usada nos outros.")
+      ret
+    fimse
+  casose "6"
+    ret cmd_alvo(arg0, arg1, este), nulo
+    epara l.addfim(arg0.contr.evento), l, l.ini.remove
+      ret l.objini.cmd_alvocontr(arg0, arg1, este, arg0), nulo
+    efim
+    epara l.addfim(arg1.contr.evento), l, l.ini.remove
+      ret l.objini.cmd_alvocontr(arg0, arg1, este, arg1), nulo
+    efim
+    epara l.addfim(arg0.evento), l, l.ini.remove
+      ret l.objini.cmd_alvo(arg0, arg1, este, arg0), nulo
+    efim
+    epara l.addfim(arg0 != arg1 ? arg1.evento), l, l.ini.remove
+      ret l.objini.cmd_alvo(arg0, arg1, este, arg1), nulo
+    efim
+    se !arg4.item
+      custohab2(arg0, arg2)
+      mensinicio(arg0, arg1)
+    fimse
+    tipomunicao == 2 && arma2.apagar(1)
+    mudavida = 0
+    se arg0.contr.dono.s_semmagia && txt(nomevar, 0, 1) == "m"
+      result = 1 # Sem efeito
+    senao rand(100) < falha
+      result = 2 # Errou o alvo
+    senao
+      result = 0 # Acertou o alvo
+      efeitohab(arg0, arg1, arg2, arg3)
+    fimse
+    arg1.p_imortal && (arg1.pvida = intmax(arg1.pvida, arg1.pvidamax)) # Imortal
+    mensgolpe(arg0, arg1, arg5)
+    cmd_alvofim(arg0, arg1, este)
+    epara l.addfim(arg0.evento), l, l.ini.remove
+      l.objini.cmd_alvofim(arg0, arg1, este, arg0)
+    efim
+    epara l.addfim(arg0 != arg1 ? arg1.evento), l, l.ini.remove
+      l.objini.cmd_alvofim(arg0, arg1, este, arg1)
+    efim
+    arg1.pvida ? arg1.acertapos(1) : arg1.morreu(arg0)
+    arg0 != arg1 && arg0.acertapos(1)
+    ret
+  casose "1" # Ataque que não pode ser ao próprio personagem
+  casose "3"
+  casose "5"
+    sair arg0 != arg1
+    ret arg0.contr.msg("Em você mesm" + (arg0.msexo ? "o?" : "a?"))
+  casofim
+# Checa o alvo
+  se arg0.contr.mesmogrupo(arg1.contr)
+    ret arg0.contr.msg("Atacar outro integrante do grupo?")
+  senao !arg0.contr.dono.s_luta
+    ret arg0.contr.msg(arg4.item ? "A magia falhou." : "Aqui é um lugar pacífico.")
+  senao !arg1.contr.p_agressivo(arg0)
+    ret arg0.contr.msg(txtcopiamai(arg1.contr.descnome, "A") + " não quer brigar.")
+  senao arg0.dentro2.objini("e_pacifico")
+    se arg0.jog && arg1.jog
+      ret arg0.msg("Você não quer brigar com " + arg1.descnome + ".")
+    fimse
+  senao arg1.dentro2.objini("e_pacifico")
+    se argg0.jog && arg1.jog
+      ret arg0.msg(arg1.descnome + " não quer brigar.")
+    fimse
+  senao !arg0.contr.p_agressivo(arg1)
+    ret arg0.contr.msg("Você não quer brigar com " + arg1.contr.descnome + ".")
+  senao arg0.contr.dono.s_luta == 1 && arg0.contr.jog && arg1.contr.jog && arg0 != arg1
+    ret arg0.contr.msg("Você não quer brigar com " + arg1.contr.descnome + " aqui.")
+  fimse
+# Dispara eventos
+  ret cmd_atacar(arg0, arg1, este), nulo
+  epara l.addfim(arg0.contr.evento), l, l.ini.remove
+    ret l.objini.cmd_atacarcontr(arg0, arg1, este, arg0.contr), nulo
+  efim
+  epara l.addfim(arg1.contr.evento), l, l.ini.remove
+    ret l.objini.cmd_atacarcontr(arg0, arg1, este, arg1.contr), nulo
+  efim
+  epara l.addfim(arg0.evento), l, l.ini.remove
+    ret l.objini.cmd_atacar(arg0, arg1, este, arg0), nulo
+  efim
+  epara l.addfim(arg0 != arg1 ? arg1.evento), l, l.ini.remove
+    ret l.objini.cmd_atacar(arg0, arg1, este, arg1), nulo
+  efim
+# Custo da hab/magia e checa se é permitido usar ataques
+  se !arg4.item
+    custohab2(arg0, arg2)
+    mensinicio(arg0, arg1)
+  fimse
+  tipomunicao == 2 && arma2.apagar(1)
+  se arg0.contr.dono.s_semmagia && txt(nomevar, 0, 1) == "m"
+    result = 1
+    mensgolpe(arg0, arg1, arg5)
+    ret arg0.acertapos(1)
+  fimse
+# Alvos secundários (somente ataques de área)
+  se tipoalvo >= 2 && tipoalvo <= 5
+    listaitem i
+    refvar p1 = arg0.contr
+    l.addfim(arg1.contr.dono.dentro2)
+    l.remove(p1, arg1.contr)
+    se p1.tseguir == 2 # Líder do grupo: não ataca os outros integrantes
+      i = l.ini
+      enquanto i
+        i.obj.tseguir == 1 && i.obj.iseguir.objlista == p1 ? i.removedepois : i.depois
+      efim
+    senao p1.tseguir == 1 && p1.iseguir # Seguindo o líder do grupo
+      refvar p2 = p1.iseguir.objlista
+      l.remove(p2)
+      i = l.ini
+      enquanto i
+        i.obj.tseguir == 1 && i.obj.iseguir.objlista == p2 ? i.removedepois : i.depois
+      efim
+    fimse
+    se p1.jog && p1.dono.s_luta < 2 # Sala não permite luta entre jogadores
+      epara i = l.ini, i, i.obj.jog ? i.removedepois : i.depois
+      efim
+    fimse
+  fimse
+# Força do ataque
+  real2 atk
+  casovar tipoalvo
+  casose "2" # Todos dividindo o ataque
+  casose "3"
+    atk = (ataquemin + (ataquemax - ataquemin) * arg2) / (l.total + 1)
+    sair
+  casose "8" # Ataque automático
+    atk = (ataquemin + (ataquemax - ataquemin) * arg2) * config:atkfor / 100
+    sair
+  casose # Outros ataques
+    atk = ataquemin + (ataquemax - ataquemin) * arg2
+  casofim
+# Checa a arma usada
+  se arma1
+    real2 carga
+    carga = (arg0.pesoden - arg0.pesovest + arma1.pesoobj * 4) / (arg0.pesomax + 1)
+    se carga > 1.2 # Muito pesado
+      atk /= carga < 1.4 ? 10 : 100
+      arg0.contr.msg("É muito peso!")
+    senao carga > 1 # Um pouco pesado
+      atk *= 5 - 4 * carga # se carga=1,atk*=1  se carga=1.2,atk*=0.2
+      arg0.contr.msg("Bastante peso!")
+    fimse
+  fimse
+# Checa sede e fome
+  atk /= (2 + $miscfome.f.[arg0.p_sede] + $miscfome.f.[arg0.p_fome]) / 2
+# Ataca o alvo escolhido
+  listaobj e
+  tipoalvo != 8 && velgolpe(arg0, arg1) # Tempo do golpe
+  arg5 && (arg1.contr.p_atacou_dir = misc:d2[arg5])
+  se arg5 && arg1.p_atk_desvia
+    arg0.batalhaini(arg1)
+    result = 2 # Desvia
+  senao
+    execgolpe(arg0, arg1, atk) # Ataca
+  fimse
+  se result != 4
+    !result && efeitohab(arg0, arg1, arg2, arg3) # Acertou: aplica os efeitos
+    !result && (arg0.contr.atkdanos += intpos(-mudavida))
+    arg1.p_imortal && (arg1.pvida = intmax(arg1.pvida, arg1.pvidamax)) # Imortal
+    mensgolpe(arg0, arg1, arg5)
+    cmd_atacou(arg0, arg1, este)
+    epara e.addfim(arg0.evento), e, e.ini.remove
+      e.objini.cmd_atacou(arg0, arg1, este, arg0)
+    efim
+    epara e.addfim(arg0 != arg1 ? arg1.evento), e, e.ini.remove
+      e.objini.cmd_atacou(arg0, arg1, este, arg1)
+    efim
+    arg1.pvida ? arg1.acertapos(1) : arg1.morreu(arg0)
+  fimse
+# Ataca os alvos secundários
+  ref r
+  txt200 danos
+  refvar lutando = atkenv ? 1 # Se não está lutando, significa que matou o alvo principal
+  epara nulo, l, l.ini.remove
+    continuar l.objini.perso < 2 # Não prossegue se for pacífico
+    r = l.objini.persobat
+    continuar !r.contr.p_agressivo(arg0)
+    tipoalvo != 8 && velgolpe(arg0, r) # Tempo do golpe
+    arg5 && 2 == r.contr.p_ataquelonge && (r.contr.p_atacou_dir = misc:d2[arg5])
+    se arg5 && r.p_atk_desvia
+      arg0.batalhaini(r)
+      result = 2 # Desvia
+    senao
+      execgolpe(arg0, r, atk) # Ataca
+      continuar result == 4
+    fimse
+    refvar acertou = !result
+    acertou && efeitohab(arg0, r, arg2, arg3) # Acertou: aplica os efeitos
+    r.p_imortal && (r.pvida = intmax(r.pvida, r.pvidamax)) # Imortal
+    mensgolpe2(arg0, r, arg5)
+    cmd_atacou(arg0, r, este)
+    epara e.addfim(arg0.evento), e, e.ini.remove
+      e.objini.cmd_atacou(arg0, r, este, arg0)
+    efim
+    epara e.addfim(r.evento), e, e.ini.remove
+      e.objini.cmd_atacou(arg0, r, este, r)
+    efim
+    se r.pvida
+      acertou && (danos += ", " + r.nome + " " + mudavida)
+      r.acertapos(1)
+    senao
+      !lutando && arg0.batalhafim # Não ganha experiência matando esse alvo
+      r.morreu(arg0)
+    fimse
+  efim
+  se danos
+    danos = "Danos:" + txt(danos, 1)
+    epara l.addfim(arg0.contr.dono.dentro2), l, l.ini.remove
+      l.objini.msg(danos)
+    efim
+  fimse
+  arg0.acertapos(1)
+
+func execmunicao # Obtém a arma usada: arma1 e arma2
+# arg0 = personagem
+# Retorna mensagem de erro ou "" se conseguiu obter a munição
+  arma1 = tipoarma ? ref(arg0.iempu.obj) : nulo
+  arma2 = nulo
+  se tipomunicao
+    se !arma1 # Sem arma: munição no inventário
+      refvar lista = txttroca("\n" + itemmunicao, "\n", "\ni_") + "\n"
+      listaitem i
+      epara i = arg0.dentro1.ini, i, i.depois
+        sair txtproc(lista, "\n" + i.obj + "\n") >= 0
+      efim
+      arma2 = i.obj
+      ret !arma2, "Está sem munição."
+    senao arma1.armamunicao == 1 # Munição no inventário
+      refvar lista = txttroca("\n" + arma1.i_municao, "\n", "\ni_") + "\n"
+      listaitem i
+      epara i = arg0.dentro1.ini, i, i.depois
+        sair txtproc(lista, "\n" + i.obj + "\n") >= 0
+      efim
+      arma2 = i.obj
+      ret !arma2, "Está sem munição."
+    senao arma1.armamunicao == 2 # Munição na arma
+      arma2 = arma1.dentro1.objini
+      ret !arma2, "Está sem munição."
+    senao
+      ret !arma2, "Essa arma não possui munição"
+    fimse
+  fimse
+  ret ""
+
+func efeitohab # Efeito da habilidade ou magia sobre o alvo
+# arg0 = quem lançou a habilidade ou magia
+# arg1 = personagem alvo
+# arg2 = quanto sabe da habilidade ou magia (0=iniciante até 1=perito)
+# arg3 = nível da habilidade ou magia (=nível do personagem)
+# Nota: Altera mudavida conforme pontos de vida alterados
+  a_efeito1 && criar("e_" + a_efeito1, arg1, rand(100) < a_prob1 ? arg3 : -1)
+  a_efeito2 && criar("e_" + a_efeito2, arg1, rand(100) < a_prob2 ? arg3 : -1)
+  a_efeito3 && criar("e_" + a_efeito3, arg1, rand(100) < a_prob3 ? arg3 : -1)
+  se a_remove
+    textotxt t
+    epara t.addfim(a_remove), t.linhas, apagar(arg1.dentro2.objini("e_" + t.remove))
+    efim
+  fimse
+  real2 valor
+  valor = (a_move1 + a_move2 * arg3) * (0.5 + arg2)
+  valor && (arg1.pmove = intmin(arg1.pmove + valor, arg1.pmovemax))
+  valor = (a_mana1 + a_mana2 * arg3) * (0.5 + arg2)
+  valor && (arg1.pmana = intmin(arg1.pmana + valor, arg1.pmanamax))
+  ret !(valor = (a_vida1 + a_vida2 * arg3) * (0.5 + arg2)), nulo
+  refvar vida = int(arg1.pvida)
+  arg1.pvida = intmin(vida + valor, arg1.pvidamax)
+  mudavida += arg1.pvida - vida
+  !vida && arg1.pvida && arg1.dono.perso && arg1.dono.escolhebat
+
+func velgolpe # Acerta o tempo de espera conforme o golpe
+# arg0 = personagem que está atacando
+# arg1 = personagem alvo
+# vel = velocidade do golpe
+  refvar p_espera = arg0.contr.p_espera
+  se arg0.pveloc <= 0 || vel <= 0
+    p_espera = intmax(p_espera, config:atkmtempo)
+  senao
+    refvar t1 = config:atkmtempo * arg1.pveloc * 70 / (arg0.pveloc * vel)
+    refvar t2 = intmax(8, intmin(config:atkmtempo, t1))
+    p_espera = intmax(p_espera, t2)
+  fimse
+
+func execgolpe # Realiza um ataque e coloca resultado em result e mudavida
+# arg0 = personagem que está atacando
+# arg1 = personagem alvo
+# arg2 = força do ataque (depende de quanto sabe do golpe), 0=não calcular danos
+# tipoatk = tipo de ataque, arma1 = arma usada, arma2 = munição usada
+  real2 dano
+# Checa se pode realmente atacar
+  result = 4, mudavida = 0, dano = 1
+  listaobj l
+  ret cmd_atkenv(arg0, arg1, este, dano), nulo
+  epara l.addfim(arg0.evento), l, l.ini.remove
+    ret l.objini.cmd_atkenv(arg0, arg1, este, dano), nulo
+  efim
+  epara l.addfim(arg1.evento), l, l.ini.remove
+    ret l.objini.cmd_atkrec(arg0, arg1, este, dano), nulo
+  efim
+# Indica que atacou, recebe experiência se vencer
+  arg0.batalhaini(arg1)
+  se arg0.podepegar && arg1.contr.var.o_agenda # Coloca na agenda
+    refvar v1 = arg1.contr.var.a_[arg0.nome]
+    !v1 && (v1 = 1)
+  fimse
+# Checa se acertou o alvo
+  result = rand(1, 20)
+  se falha < 0
+  senao rand(100) < falha
+    result = 2
+    ret
+  senao arma1 && rand(100) < arma1.var.z_armafalha_
+    result = 2
+    ret
+  senao arma2 && rand(100) < arma2.var.z_armafalha_
+    result = 2
+    ret
+  senao result == 20 || arg1.posicao == 4 # Acertou automaticamente
+  senao result == 1 # Errou o alvo automaticamente
+    result = 3
+    ret
+  senao arg0.jog && rand($miscfome.bebeatk, $miscfome.cheio) < arg0.p_bebida
+    result = 2
+    ret
+  senao arg1.jog && rand($miscfome.bebeatk, $miscfome.cheio) < arg1.p_bebida # Embriagado
+  senao # Checa se acertou
+    real2 v
+    v = result + arg0.precisao + addprecisao + arma1.var.z_armaaddprecisao_ - arg1.evasao
+    !arg1.visivel(arg0) && (v -= 5) # Invisível é mais difícil de acertar
+    result = 2
+    ret v <= 0, nulo
+  fimse
+# Checa bônus ao combinar o tipo de ataque com o tipo de defesa
+  dano *= arg0.atktipo.[2 + tipoatk] * arg1.deftipo.[2 + tipoatk]
+  se misc:atkesp(tipoatk) # Checa se golpe normal ou especial
+    dano *= arg0.atktipo.1 * arg1.deftipo.1
+  senao
+    dano *= arg0.atktipo.0 * arg1.deftipo.0
+  fimse
+  se !dano # Imune (dano == 0)
+    result = 1
+    ret
+  senao !arg2 # Ataque tem força 0 (arg2 == 0)
+    result = 0
+    ret
+  fimse
+  result = 0, dano *= arg2
+# Checa bônus do personagem
+  se tipobonus
+    refvar tbonus = "\n" + txte(tipobonus) + "\n"
+    se arg0.tipo1 && txtproc(tbonus, "\n" + arg0.tipo1 + "\n") >= 0
+      dano *= 1.5
+    senao arg0.tipo2 && txtproc(tbonus, "\n" + arg0.tipo2 + "\n") >= 0
+      dano *= 1.5
+    senao arg0.tipo3 && txtproc(tbonus, "\n" + arg0.tipo3 + "\n") >= 0
+      dano *= 1.5
+    fimse
+  fimse
+# Calcula dano de acordo com ataques do personagem, da arma e da munição
+  refvar arma = ataque1arma ? rand(arma1.var.z_armamin_, arma1.var.z_armamax_)
+  refvar muni = ataque1municao ? rand(arma2.var.z_armamin_, arma2.var.z_armamax_)
+  se misc:atkesp(tipoatk) # Checa se golpe normal ou especial
+    dano *= ataque1 + (ataque1perso ? arg0.atkesp) + arma + muni
+    dano *= (ataque2 ?? arg0.atkesp) / (arg1.defesp * rand(fatormin, fatormax))
+  senao
+    dano *= ataque1 + (ataque1perso ? arg0.atknorm) + arma + muni
+    dano *= (ataque2 ?? arg0.atknorm) / (arg1.defnorm * rand(fatormin, fatormax))
+  fimse
+# Diferença de nível
+  se atknivel >= (arma1 ? 2 : 1)
+    dano *= 1 + (arg0.pnivel - arg1.pnivel) / (arg0.pnivel + arg1.pnivel + 10)
+  fimse
+# Modificadores de posição
+  casovar arg1.posicao
+  casose "0" # Morto
+  casose "1" # Mortalmente ferido
+  casose "2" # Incapacitado
+    dano *= 2.666
+    sair
+  casose "3" # Muito fraco
+    dano *= 2.333
+    sair
+  casose "4" # dormindo
+    dano *= 2
+    sair
+  casose "5" # descansando
+    dano *= 1.666
+    sair
+  casose "6" # sentado
+    dano *= 1.333
+    sair
+  casofim
+# Atualiza pontos de vida conforme os danos (pelo menos 1 de dano)
+  mudavida = dano < 1 ? -1 : -dano
+  arg1.pvida += mudavida
+
+func mensinicio # Envia mensagem inicial da habilidade ou magia
+# arg0 = personagem que está usando a habilidade ou magia
+# arg1 = personagem alvo
+  txt512 lin.3
+  ret !menssub(lin, 0), nulo
+  $mens.p(arg0, arg1, arma1)
+  ret arg0 == arg1, $mens.mtodos2(lin.0, lin.2)
+  $mens.mtodos3(lin.0, lin.1, lin.2)
+
+func mensgolpe # Envia mensagens de alvo principal de acordo com o resultado do ataque
+# arg0 = personagem que está atacando
+# arg1 = personagem alvo
+# arg2 = direção do personagem ao alvo, se o alvo não estiver na mesma sala
+  $mens.p(arg0, arg1, arma1)
+  txt512 lin.3
+  casovar result
+  casose "0" # Acertou o alvo
+    $mens.mens = mudavida
+    se !arg1.pvida # Se morreu
+      ret menssub(lin, 8) && $mens.mtodos3dir(lin.0, lin.1, lin.2, arg2)
+    senao arg0 == arg1 # Se o alvo for o próprio personagem
+      ret menssub(lin, 3) && $mens.mtodos3dir(lin.0, lin.1, lin.1, arg2)
+    senao # Outros casos
+      se arg0.dono.s_area == "arena"
+        $mens.p(arg0, arg1, arma1)
+        menssub(lin, 5) && $mens.mareatodos("", lin.3)
+      fimse
+      $mens.p(arg0, arg1, arma1)
+      ret menssub(lin, 5) && $mens.mtodos3dir(lin.0, lin.1, lin.2, arg2)
+    fimse
+  casose "1" # Não teve efeito
+    ret menssub(lin, 14) && $mens.mtodos3dir(lin.0, lin.1, lin.2, arg2)
+  casose "2" # Errou o alvo
+    ret menssub(lin, 11) && $mens.mtodos3dir(lin.0, lin.1, lin.2, arg2)
+  casose "3" # O alvo desviou
+    ret !menssub(lin, 17) && !menssub(lin, 11), nulo
+    ret $mens.mtodos3dir(lin.0, lin.1, lin.2, arg2)
+  casofim
+
+func mensgolpe2 # Envia mensagens de alvo secundário de acordo com o resultado do ataque
+# arg0 = personagem que está atacando
+# arg1 = personagem alvo
+# arg2 = direção do personagem ao alvo, se o alvo não estiver na mesma sala
+  $mens.p(arg0, arg1, arma1)
+  txt512 lin.3
+  casovar result
+  casose "0" # Acertou o alvo
+    $mens.mens = mudavida
+    se arg1.pvida
+      ret arg1.contr.sock && menssub(lin, 5) && $mens.msginvdir(lin.1, arg1.contr, arg2)
+    senao
+      ret menssub(lin, 8) && $mens.mtodos3dir(lin.0, lin.1, lin.2, arg2)
+    fimse
+  casose "1" # Não teve efeito
+    ret arg1.contr.sock && menssub(lin, 14) && $mens.msginvdir(lin.1, arg1.contr, arg2)
+  casose "2" # Errou o alvo
+    ret arg1.contr.sock && menssub(lin, 11) && $mens.msginvdir(lin.1, arg1.contr, arg2)
+  casose "3" # O alvo desviou
+    ret !arg1.contr.sock, nulo
+    ret (menssub(lin, 17) || menssub(lin, 11)) && $mens.msginvdir(lin.1, arg1.contr, arg2)
+  casofim
+
+func menssub # Usado em mensgolpe
+# arg0 = variável txt512 lin.3
+# arg1 = índice da mensagem a obter
+# Retorna 0 se mensagem vazia ou 1 se há alguma mensagem
+  textotxt t
+  txtsublin(msgatk0, arg1, 1) && t.addfim("msgatk0")
+  txtsublin(msgatk1, arg1, 1) && t.addfim("msgatk1")
+  txtsublin(msgatk2, arg1, 1) && t.addfim("msgatk2")
+  txtsublin(msgatk3, arg1, 1) && t.addfim("msgatk3")
+  txtsublin(msgatk4, arg1, 1) && t.addfim("msgatk4")
+  ret !t.linhas, 0
+  t.remove(rand(t.linhas))
+  arg0.separar(txtsublin([t.remove], arg1, 3), "\n")
+  !arg0.1 && (arg0.1 = arg0.0)
+  !arg0.2 && (arg0.2 = arg0.0)
+  ret 1
+
+
+classe cmd_matar
+herda comando_ataque
+const objcmd = config:matartipo ? este
+const txtajuda = config:matartipo ? txtajuda1
+const txtajuda1 = "\b\c3Matar\b\n\
+Sintaxe: MATAR <personagem>\n\
+Começa um combate com um personagem."
+const cmdmenu = ""
+
+func exechab # Chamado quando personagem (arg0) quer atacar alguém (arg1)
+  se arg0 == arg1
+    arg0.contr.msg("Em você mesm" + (arg0.msexo ? "o?" : "a?"))
+  senao arg0.atkenv
+    arg0.msg("Você já está lutando.")
+  senao !arg0.persobat.atkauto(arg1, 8) # Realiza um ataque automático
+    arg0.msg("Você não sabe como atacar " + arg1.descnome + ".")
+  senao arg0.atkenv # Se está lutando
+    arg0.p_espera = intmax(arg0.p_espera, config:atktempo)
+  fimse

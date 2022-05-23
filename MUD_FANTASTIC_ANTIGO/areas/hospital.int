@@ -1,0 +1,1143 @@
+classe a_hospital
+herda area
+const a_nome = "Hospital do Rio"
+
+
+classe b_hospital
+herda sala
+const s_area = "hospital"
+
+
+classe i_hospital001
+herda comum_itemperso
+const nome = "Ambulância"
+const descnome = "Uma ambulância"
+const descpos = "Uma ambulância está aqui, pronta para transportar os doentes e feridos para o \
+hospital."
+const i_salas = "hospital051\nhospital052"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const i_msgabriu = "$P abriu a porta da ambulância."
+const i_msgfechou = "$P fechou a porta da ambulância."
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+#
+
+func i_aberto
+  se dentro2.objini("s_hospital051")
+    ret dentro2.objini($s_hospital051).porta_sair == 1, 2
+    ret dentro2.objini($s_hospital051).porta_sair == 2, 3
+    ret 4
+  fimse
+
+func dirigir
+  ret !dono.dir_[arg1], arg0.msg("Não é possível dirigir para essa direção.")
+  ret dono.porta_[arg1] >= 2, arg0.msg("A saída para essa direção está fechada.")
+  $mens.p(este, arg0)
+  $mens.mens = $cmd_[arg1].dirsai
+  $mens.mvis1som("$P foi para $m.", "ambulancia1")
+  mudadono(dono.dir_[arg1])
+#
+  refvar sala1 = dentro2.objini("s_hospital051")
+  refvar sala2 = dentro2.objini("s_hospital052")
+  txt80 dir
+  textotxt t
+  epara dir = misc:listadir, dir, dir = txt2(dir)
+    refvar dirp = txt1(dir)
+    dono.dir_[dirp] && t.addfim(dirp)
+  efim
+  sala1.msg("\d=carmotor " + (dono.var.z_titulo ? dono.var.z_titulo : dono.s_titulo))
+  sala2.msg("\d=carmotor " + (dono.var.z_titulo ? dono.var.z_titulo : dono.s_titulo))
+  sala1.msg("\b\c6Saídas: " + txttroca(t.remove(1000), "\n", ", "))
+  listaobj l
+  textotxt t2
+  epara l.addfim(dono.dentro2), l, l.ini.remove
+    t2.addfim(l.objini.descpos)
+  efim
+  sala1.msg(t2.remove(1000))
+  $mens.p(este, arg0)
+  $mens.mens = $cmd_[arg1].direntra
+  ret
+  $mens.mvis1som("$P chegou $m.", "ambulancia2")
+#
+
+func cmd_destrancouobj
+  se arg1 == este
+    dentro2.objini($s_hospital051).porta_sair = 2
+  fimse
+#
+
+func cmd_trancouobj
+  se arg1 == este
+    dentro2.objini.porta_sair = 3
+  fimse
+#
+
+func cmd_fechouobj
+  se arg1 == este
+    dentro2.objini($s_hospital052).porta_sair = 2
+    dentro2.objini($s_hospital051).porta_sair = 2
+  fimse
+#
+
+func cmd_abriuobj
+  se arg1 == este
+    dentro2.objini($s_hospital051).porta_sair = 1
+    dentro2.objini($s_hospital052).porta_sair = 1
+  fimse
+
+const i_som_abre = "doorbus01"
+const i_som_fecha = "doorbus02"
+
+
+classe i_hospital002
+herda comum_itemperso
+const nome = "cadeira"
+const ident = "cadeira"
+const descnome = "Uma das cadeiras de uma fileira"
+const descpos = "Várias cadeiras estão dispostas em fileiras, para as pessoas se sentarem \
+enquanto aguardam."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "Assim como as outras, esta está aparafusada no chão"
+const i_movel = 1 # Mobília: 1 Sentar
+const tipoitem = 512 # Tipo de item: 9-Mobília
+
+
+classe i_hospital003
+herda comum_itemperso
+const nome = "balcão"
+const ident = "balcão lanchonete"
+const descnome = "O balcão da lanchonete"
+const descpos = "Um grande balcão de mármore está aqui"
+const i_pegar = "Continue tentando. Se se machucar, ja está no hospital"
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const tipoitem = 2048 # Tipo de item: 11-Container
+const i_msgdentro = "sobre ele você vê:"
+
+
+classe i_hospital004
+herda comum_itemperso
+const nome = "mesa de parto"
+const ident = "mesa parto"
+const descnome = "Uma mesa de parto"
+const descpos = "Uma grande mesa de parto encontra-se no meio da sala."
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const tipoitem = 512 # Tipo de item: 9-Mobília
+
+
+classe p_hospital001
+herda comum_perso
+const nome = "fachineira"
+const ident = "fachineira"
+const descnome = "Uma fachineira"
+const descpadr = "Uma fachineira está aqui, limpando para que o hospital fique limpo e seguro"
+const nivel = 100
+const tipo1 = "humano"
+const p_mover = 2 # Movimentar: 2 Qualquer lugar
+const p_movervel = 200
+
+
+classe p_hospital002
+herda comum_perso
+const nome = "dona zezé"
+const ident = "dona zezé"
+const descnome = "dona zezé"
+const descpadr = "Atraz do balcão está uma senhora com um largo sorriso no rosto, esperando seu \
+pedido"
+
+
+classe s_hospital005
+herda b_hospital
+const s_titulo = "Andando pelo hospital"
+const dir_n = $s_hospital006
+const dir_s = $s_hospital001
+
+
+classe s_hospital006
+herda b_hospital
+const s_titulo = "andando entre cadeiras"
+const dir_n = $s_hospital007
+const dir_s = $s_hospital005
+const a_reset = "P 100 hospital001 0 0 300\nS 100 hospital002 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hospital001:objsolto.total < 300
+    criar("p_hospital001", este, 0)
+  fimse
+  !dentro1.objini("i_hospital002") && criar("i_hospital002", este, 1)
+
+const s_reset = "S 100 hospital002 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_hospital002") && criar("i_hospital002", este, 1)
+
+
+classe s_hospital007
+herda b_hospital
+const s_titulo = "passando por mais algumas fileiras de cadeiras"
+const dir_n = $s_hospital015
+const dir_s = $s_hospital006
+const dir_l = $s_hospital008
+const s_reset = "S 100 hospital002 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_hospital002") && criar("i_hospital002", este, 1)
+
+
+classe s_hospital008
+herda b_hospital
+const s_titulo = "Seguindo para a infermaria"
+const dir_l = $s_hospital009
+const dir_o = $s_hospital007
+
+
+classe s_hospital009
+herda b_hospital
+const s_titulo = "Ainda no corredor da infermaria"
+const dir_n = $s_hospital014
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "A porta da enfermaria"
+const fecha_n = 1 # Fecha ao passar: Sim
+const som_abrir_n = "aporta2"
+const som_fechar_n = "fporta1"
+const dir_o = $s_hospital008
+
+
+classe s_hospital014
+herda b_hospital
+const s_titulo = "Uma enorme infermaria"
+const dir_s = $s_hospital009
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "A porta da enfermaria"
+const fecha_s = 1 # Fecha ao passar: Sim
+const som_abrir_s = "aporta2"
+const som_fechar_s = "fporta1"
+const a_reset = "P 100 hospital001 0 0 300\nS 100 moveis074 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hospital001:objsolto.total < 300
+    criar("p_hospital001", este, 0)
+  fimse
+  !dentro1.objini("i_moveis074") && criar("i_moveis074", este, 1)
+
+
+classe s_hospital015
+herda b_hospital
+const s_titulo = "Uma sala de espera"
+const dir_s = $s_hospital007
+const dir_o = $s_hospital016
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "Uma grande porta de madeira"
+const fecha_o = 1 # Fecha ao passar: Sim
+const som_abrir_o = "aporta7"
+const som_fechar_o = "fporta7"
+
+
+classe s_hospital016
+herda b_hospital
+const s_titulo = "corredor dos conssultórios"
+const dir_l = $s_hospital015
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "Uma grande porta de madeira"
+const fecha_l = 1 # Fecha ao passar: Sim
+const som_abrir_l = "aporta7"
+const som_fechar_l = "fporta7"
+const dir_o = $s_hospital017
+
+
+classe s_hospital017
+herda b_hospital
+const s_titulo = "O corredor dos conssultórios"
+const dir_n = $s_hospital018
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const fecha_n = 1 # Fecha ao passar: Sim
+const som_abrir_n = "aporta1"
+const som_fechar_n = "fporta1"
+const dir_s = $s_hospital019
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const fecha_s = 1 # Fecha ao passar: Sim
+const som_abrir_s = "aporta1"
+const som_fechar_s = "fporta1"
+const dir_l = $s_hospital016
+const dir_o = $s_hospital026
+
+
+classe s_hospital018
+herda b_hospital
+const s_titulo = "Conssultório 103"
+const dir_s = $s_hospital017
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const fecha_s = 1 # Fecha ao passar: Sim
+const som_abrir_s = "aporta1"
+const som_fechar_s = "fporta1"
+
+
+classe s_hospital019
+herda b_hospital
+const s_titulo = "Conssultório 104"
+const dir_n = $s_hospital017
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const fecha_n = 1 # Fecha ao passar: Sim
+const som_abrir_n = "aporta1"
+const som_fechar_n = "fporta1"
+
+
+classe s_hospital020
+herda b_hospital
+const s_titulo = "ainda no corredor dos conssultórios"
+const dir_n = $s_hospital021
+const dir_s = $s_hospital022
+const dir_o = $s_hospital023
+
+
+classe s_hospital021
+herda b_hospital
+const s_titulo = "Um conssultório"
+const dir_s = $s_hospital020
+
+
+classe s_hospital022
+herda b_hospital
+const s_titulo = "Um conssultório"
+const dir_n = $s_hospital020
+
+
+classe s_hospital023
+herda b_hospital
+const s_titulo = "Final do corredor"
+const dir_n = $s_hospital025
+const dir_s = $s_hospital024
+const dir_l = $s_hospital020
+
+
+classe s_hospital024
+herda b_hospital
+const s_titulo = "Um conssultório"
+const dir_n = $s_hospital023
+
+
+classe s_hospital025
+herda b_hospital
+const s_titulo = "Um conssultório"
+const dir_s = $s_hospital023
+
+
+classe s_hospital026
+herda b_hospital
+const s_titulo = "Andando pelo corredor dos conssultórios"
+const dir_n = $s_hospital028
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const fecha_n = 1 # Fecha ao passar: Sim
+const som_abrir_n = "aporta1"
+const som_fechar_n = "fporta1"
+const dir_s = $s_hospital027
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const fecha_s = 1 # Fecha ao passar: Sim
+const som_abrir_s = "aporta1"
+const som_fechar_s = "fporta1"
+const dir_l = $s_hospital017
+const dir_o = $s_hospital029
+
+
+classe s_hospital027
+herda b_hospital
+const s_titulo = "conssultório 105"
+const dir_n = $s_hospital026
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const fecha_n = 1 # Fecha ao passar: Sim
+const som_abrir_n = "aporta1"
+const som_fechar_n = "fporta1"
+
+
+classe s_hospital028
+herda b_hospital
+const s_titulo = "conssultório 106"
+const dir_s = $s_hospital026
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const fecha_s = 1 # Fecha ao passar: Sim
+const som_abrir_s = "aporta1"
+const som_fechar_s = "fporta1"
+
+
+classe s_hospital029
+herda b_hospital
+const s_titulo = "ainda no corredor dos conssultórios"
+const dir_n = $s_hospital031
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const fecha_n = 1 # Fecha ao passar: Sim
+const som_abrir_n = "aporta1"
+const som_fechar_n = "fporta1"
+const dir_s = $s_hospital030
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const fecha_s = 1 # Fecha ao passar: Sim
+const som_abrir_s = "aporta1"
+const som_fechar_s = "fporta1"
+const dir_l = $s_hospital026
+const dir_o = $s_hospital032
+const a_reset = "P 100 hospital001 0 0 60"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hospital001:objsolto.total < 60
+    criar("p_hospital001", este, 0)
+  fimse
+
+
+classe s_hospital030
+herda b_hospital
+const s_titulo = "conssultório 108"
+const dir_n = $s_hospital029
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const fecha_n = 1 # Fecha ao passar: Sim
+const som_abrir_n = "aporta1"
+const som_fechar_n = "fporta1"
+
+
+classe s_hospital031
+herda b_hospital
+const s_titulo = "conssultório 107"
+const dir_s = $s_hospital029
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const fecha_s = 1 # Fecha ao passar: Sim
+const som_abrir_s = "aporta1"
+const som_fechar_s = "fporta1"
+
+
+classe s_hospital032
+herda b_hospital
+const s_titulo = "o final do corredor"
+const dir_n = $s_hospital034
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const fecha_n = 1 # Fecha ao passar: Sim
+const som_abrir_n = "aporta1"
+const som_fechar_n = "fporta1"
+const dir_s = $s_hospital033
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const fecha_s = 1 # Fecha ao passar: Sim
+const som_abrir_s = "aporta1"
+const som_fechar_s = "fporta1"
+const dir_l = $s_hospital029
+const dir_o = $s_hospital035
+const a_reset = "P 100 hospital001 50 80 60"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hospital001:objsolto.total < 60
+    criar("p_hospital001", este, rand(50, 80))
+  fimse
+
+
+classe s_hospital033
+herda b_hospital
+const s_titulo = "conssultório 110"
+const dir_n = $s_hospital032
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const fecha_n = 1 # Fecha ao passar: Sim
+const som_abrir_n = "apoeta1"
+const som_fechar_n = "fporta1"
+
+
+classe s_hospital034
+herda b_hospital
+const s_titulo = "conssultório 111"
+const dir_s = $s_hospital032
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const fecha_s = 1 # Fecha ao passar: Sim
+const som_abrir_s = "aporta1"
+const som_fechar_s = "fporta1"
+
+
+classe s_hospital035
+herda b_hospital
+const s_titulo = "Um amplo corredor iluminado"
+const dir_n = $s_hospital036
+const dir_l = $s_hospital032
+const a_reset = "P 100 hospital001 0 0 30"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hospital001:objsolto.total < 30
+    criar("p_hospital001", este, 0)
+  fimse
+
+
+classe s_hospital036
+herda b_hospital
+const s_titulo = "caminhando pelo corredor"
+const dir_n = $s_hospital037
+const dir_s = $s_hospital035
+
+
+classe s_hospital037
+herda b_hospital
+const s_titulo = "caminhando pelo corredor"
+const dir_s = $s_hospital036
+const dir_c = $s_hospital038
+
+
+classe s_hospital038
+herda b_hospital
+const s_titulo = "Escadas para o segundo andar"
+const dir_c = $s_hospital039
+const dir_b = $s_hospital037
+
+
+classe s_hospital039
+herda b_hospital
+const s_titulo = "Nas escadas do segundo andar"
+const dir_c = $s_hospital040
+const dir_b = $s_hospital038
+
+
+classe s_hospital040
+herda b_hospital
+const s_titulo = "No final da escada"
+const dir_n = $s_hospital044
+const dir_l = $s_hospital041
+const dir_b = $s_hospital039
+const a_reset = "P 100 hospital001 0 0 100"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hospital001:objsolto.total < 100
+    criar("p_hospital001", este, 0)
+  fimse
+
+
+classe s_hospital041
+herda b_hospital
+const s_titulo = "corredor da enfermaria"
+const dir_l = $s_hospital042
+const dir_o = $s_hospital040
+
+
+classe s_hospital042
+herda b_hospital
+const s_titulo = "corredor da enfermaria"
+const dir_n = $s_hospital043
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "a porta da enfermaria"
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_o = $s_hospital041
+
+
+classe s_hospital043
+herda b_hospital
+const s_titulo = "Uma grande enfermaria"
+const dir_s = $s_hospital042
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "a porta da enfermaria"
+const fecha_s = 1 # Fecha ao passar: Sim
+
+
+classe s_hospital044
+herda b_hospital
+const s_titulo = "Um corredor estreito"
+const dir_n = $s_hospital045
+const dir_s = $s_hospital040
+
+
+classe s_hospital045
+herda b_hospital
+const s_titulo = "continuando no estreito corredor"
+const dir_n = $s_hospital046
+const dir_s = $s_hospital044
+
+
+classe s_hospital046
+herda b_hospital
+const s_titulo = "corredor dos quartos"
+const dir_n = $s_hospital049
+const dir_s = $s_hospital045
+const dir_l = $s_hospital047
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "a porta do quarto 201"
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_hospital048
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "a porta do quarto 202"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_hospital047
+herda b_hospital
+const s_titulo = "quarto 201"
+const dir_o = $s_hospital046
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "a porta do quarto 201"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_hospital048
+herda b_hospital
+const s_titulo = "quarto 202"
+const dir_l = $s_hospital046
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "a porta do quarto 202"
+const fecha_l = 1 # Fecha ao passar: Sim
+
+
+classe s_hospital049
+herda b_hospital
+const s_titulo = "ainda no corredor dos quartos"
+const dir_n = $s_hospital056
+const dir_s = $s_hospital046
+const dir_l = $s_hospital050
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "a porta do quarto 203"
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_hospital055
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "a porta do quarto 204"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_hospital050
+herda b_hospital
+const s_titulo = "Quarto 203"
+const dir_o = $s_hospital049
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "a porta do quarto 203"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_hospital051
+herda b_hospital
+const s_titulo = "A cabine da ambulância."
+const s_entrada = "cabine"
+const eveste = 1 # Eventos sala: Sim
+const dir_s = dono.dentro2.objini("s_hospital052")
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "a porta da cabine"
+const som_abrir_s = "abporta02"
+const som_fechar_s = "fporta02"
+const dir_sair = $s_hospital053
+const portaini_sair = 2 # Estado inicial: 2 Porta fechada
+const portanome_sair = "a porta da ambulância"
+const fechadura_sair = "ambu001"
+const tranc_sair = 1 # Trancar: 1 Pode ser trancado
+const som_abrir_sair = "doorbus01"
+const som_fechar_sair = "doorbus02"
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+
+func cmd_escr
+  nomeobj n
+  n.ini(txt1(arg1))
+  se n.nome("dirigir")
+    refvar dir = txtsub(arg1, 1, 1)
+    !dono.dirigir(arg0, dir, este)
+    ret 1
+  fimse
+
+
+classe s_hospital052
+herda b_hospital
+const s_titulo = "Na parte de trás da ambulância."
+const s_entrada = "tras"
+const dir_n = dono.dentro2.objini("s_hospital051")
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "a porta da cabine"
+const som_abrir_n = "abporta02"
+const som_fechar_n = "fporta02"
+const dir_sair = $s_hospital054
+const portaini_sair = 2 # Estado inicial: 2 Porta fechada
+const portanome_sair = "a porta de trás da ambulância"
+const fechadura_sair = "ambu001"
+const tranc_sair = 1 # Trancar: 1 Pode ser trancado
+const som_abrir_sair = "doorbus01"
+const som_fechar_sair = "doorbus02"
+
+
+classe s_hospital053
+herda b_hospital
+const dir_entrar = $s_hospital051
+
+
+classe s_hospital054
+herda b_hospital
+const dir_entrar = $s_hospital052
+
+
+classe s_hospital055
+herda b_hospital
+const s_titulo = "quarto 204"
+const dir_l = $s_hospital049
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "a porta do quarto 204"
+const fecha_l = 1 # Fecha ao passar: Sim
+
+
+classe s_hospital056
+herda b_hospital
+const s_titulo = "Perto de mais algums quartos"
+const dir_n = $s_hospital059
+const dir_s = $s_hospital049
+const dir_l = $s_hospital057
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "a porta do quarto 205"
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_hospital058
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "a porta do quarto 206"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_hospital057
+herda b_hospital
+const s_titulo = "Quarto 205"
+const dir_o = $s_hospital056
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "a porta do quarto 205"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_hospital058
+herda b_hospital
+const s_titulo = "Quarto 206"
+const dir_l = $s_hospital056
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "a porta do quarto 206"
+const fecha_l = 1 # Fecha ao passar: Sim
+
+
+classe s_hospital059
+herda b_hospital
+const s_titulo = "final do corredor de quartos"
+const dir_n = $s_hospital062
+const dir_s = $s_hospital056
+const dir_l = $s_hospital060
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "a porta do quarto 207"
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_hospital061
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "a porta do quarto 208"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_hospital060
+herda b_hospital
+const s_titulo = "Quarto 207"
+const dir_o = $s_hospital059
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "a porta do quarto 207"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_hospital061
+herda b_hospital
+const s_titulo = "Quarto 208"
+const dir_l = $s_hospital059
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "a porta do quarto 208"
+const fecha_l = 1 # Fecha ao passar: Sim
+
+
+classe s_hospital062
+herda b_hospital
+const s_titulo = "Um amplo salão iluminado"
+const dir_s = $s_hospital059
+const dir_c = $s_hospital063
+
+
+classe s_hospital063
+herda b_hospital
+const s_titulo = "subindo para o terceiro andar"
+const dir_c = $s_hospital064
+const dir_b = $s_hospital062
+
+
+classe s_hospital064
+herda b_hospital
+const s_titulo = "No meio das escadas"
+const dir_c = $s_hospital065
+const dir_b = $s_hospital063
+
+
+classe s_hospital065
+herda b_hospital
+const s_titulo = "No fim da escada"
+const dir_n = $s_hospital066
+const dir_b = $s_hospital064
+
+
+classe s_hospital066
+herda b_hospital
+const s_titulo = "Um amplo corredor"
+const dir_n = $s_hospital067
+const dir_s = $s_hospital065
+
+
+classe s_hospital067
+herda b_hospital
+const s_titulo = "Andando pelo corredor"
+const dir_n = $s_hospital068
+const dir_s = $s_hospital066
+
+
+classe s_hospital068
+herda b_hospital
+const s_titulo = "Corredor dos partos"
+const dir_n = $s_hospital069
+const dir_s = $s_hospital067
+
+
+classe s_hospital069
+herda b_hospital
+const s_titulo = "corredor dos partos"
+const dir_n = $s_hospital072
+const dir_s = $s_hospital068
+const dir_l = $s_hospital070
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "a porta da sala de parto"
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_hospital071
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "a porta da sala de parto"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_hospital070
+herda b_hospital
+const s_titulo = "Uma sala de parto"
+const dir_o = $s_hospital069
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "a porta da sala de parto"
+const fecha_o = 1 # Fecha ao passar: Sim
+const s_reset = "S 100 hospital004 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_hospital004") && criar("i_hospital004", este, 1)
+
+
+classe s_hospital071
+herda b_hospital
+const s_titulo = "Uma sala de parto"
+const dir_l = $s_hospital069
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "a porta da sala de parto"
+const fecha_l = 1 # Fecha ao passar: Sim
+const s_reset = "S 100 hospital004 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_hospital004") && criar("i_hospital004", este, 1)
+
+
+classe s_hospital072
+herda b_hospital
+const s_titulo = "Corredor dos partos"
+const dir_n = $s_hospital075
+const dir_s = $s_hospital069
+const dir_l = $s_hospital073
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "a porta da sala de parto"
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_hospital074
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "a porta da sala de parto"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_hospital073
+herda b_hospital
+const s_titulo = "Uma sala de parto"
+const dir_o = $s_hospital072
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "a porta da sala de parto"
+const fecha_o = 1 # Fecha ao passar: Sim
+const s_reset = "S 100 hospital004 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_hospital004") && criar("i_hospital004", este, 1)
+
+
+classe s_hospital074
+herda b_hospital
+const s_titulo = "Uma sala de parto"
+const dir_l = $s_hospital072
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "a porta da sala de parto"
+const fecha_l = 1 # Fecha ao passar: Sim
+const s_reset = "S 100 hospital004 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_hospital004") && criar("i_hospital004", este, 1)
+
+
+classe s_hospital075
+herda b_hospital
+const s_titulo = "Corredor dos partos"
+const dir_n = $s_hospital078
+const dir_s = $s_hospital072
+const dir_l = $s_hospital076
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "a porta da sala de parto"
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_hospital077
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "a porta da sala de parto"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_hospital076
+herda b_hospital
+const s_titulo = "Uma sala de parto"
+const dir_o = $s_hospital075
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "a porta da sala de parto"
+const fecha_o = 1 # Fecha ao passar: Sim
+const s_reset = "S 100 hospital004 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_hospital004") && criar("i_hospital004", este, 1)
+
+
+classe s_hospital077
+herda b_hospital
+const s_titulo = "Uma sala de parto"
+const dir_l = $s_hospital075
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "a porta da sala de parto"
+const fecha_l = 1 # Fecha ao passar: Sim
+const s_reset = "S 100 hospital004 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_hospital004") && criar("i_hospital004", este, 1)
+
+
+classe s_hospital078
+herda b_hospital
+const s_titulo = "corredor dos partos"
+const dir_n = $s_hospital081
+const dir_s = $s_hospital075
+const dir_l = $s_hospital079
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "a porta da sala de parto"
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_hospital080
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "a porta da sala de parto"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_hospital079
+herda b_hospital
+const s_titulo = "Uma sala de parto"
+const dir_o = $s_hospital078
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "a porta da sala de parto"
+const fecha_o = 1 # Fecha ao passar: Sim
+const s_reset = "S 100 hospital004 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_hospital004") && criar("i_hospital004", este, 1)
+
+
+classe s_hospital080
+herda b_hospital
+const s_titulo = "Uma sala de parto"
+const dir_l = $s_hospital078
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "a porta da sala de parto"
+const fecha_l = 1 # Fecha ao passar: Sim
+const s_reset = "S 100 hospital004 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_hospital004") && criar("i_hospital004", este, 1)
+
+
+classe s_hospital081
+herda b_hospital
+const s_titulo = "final do corredor"
+const dir_n = $s_hospital082
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "a porta da sala de parto"
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_s = $s_hospital078
+
+
+classe s_hospital082
+herda b_hospital
+const s_titulo = "Uma sala de parto"
+const dir_s = $s_hospital081
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "a porta da sala de parto"
+const fecha_s = 1 # Fecha ao passar: Sim
+const s_reset = "S 100 hospital004 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_hospital004") && criar("i_hospital004", este, 1)
+
+
+classe s_hospital083
+herda b_hospital
+const s_titulo = "A caminho da lanchonete do hospital"
+const dir_l = $s_hospital084
+const dir_o = $s_hospital001
+
+
+classe s_hospital084
+herda b_hospital
+const s_titulo = "Perto da lanchonete"
+const dir_l = $s_hospital085
+const dir_o = $s_hospital083
+
+
+classe s_hospital085
+herda b_hospital
+const s_titulo = "Na frente de uma lanchonete"
+const dir_o = $s_hospital084
+const dir_entrar = $s_hospital086
+
+
+classe s_hospital086
+herda b_hospital
+const s_titulo = "A lanchonete do hospital"
+const s_som = "restaurante"
+const dir_sair = $s_hospital085
+
+
+classe s_hospital087
+herda b_hospital
+const s_titulo = "a caminho da UTI"
+const dir_l = $s_hospital001
+const dir_o = $s_hospital088
+
+
+classe s_hospital088
+herda b_hospital
+const s_titulo = "Correndo para a UTI"
+const dir_l = $s_hospital087
+const dir_o = $s_hospital089
+
+
+classe s_hospital089
+herda b_hospital
+const s_titulo = "Na frente da UTI"
+const dir_n = $s_hospital091
+const dir_l = $s_hospital088
+const dir_o = $s_hospital095
+const dir_entrar = $s_hospital090
+const portaini_entrar = 2 # Estado inicial: 2 Porta fechada
+const portanome_entrar = "As portas da UTI"
+const portaartigo_entrar = 1 # Artigo porta: 1 as (portas)
+const fecha_entrar = 1 # Fecha ao passar: Sim
+const som_abrir_entrar = "aporta5"
+const som_fechar_entrar = "fporta5"
+
+
+classe s_hospital090
+herda b_hospital
+const s_titulo = "dentro da UTI"
+const dir_sair = $s_hospital089
+const portaini_sair = 2 # Estado inicial: 2 Porta fechada
+const portanome_sair = "As portas da UTI"
+const portaartigo_sair = 1 # Artigo porta: 1 as (portas)
+const fecha_sair = 1 # Fecha ao passar: Sim
+const som_abrir_sair = "aporta5"
+const som_fechar_sair = "fporta5"
+
+
+classe s_hospital091
+herda b_hospital
+const s_titulo = "Seguindo para o CTI"
+const dir_n = $s_hospital092
+const dir_s = $s_hospital089
+
+
+classe s_hospital092
+herda b_hospital
+const s_titulo = "em direção ao CTI"
+const dir_n = $s_hospital093
+const dir_s = $s_hospital091
+
+
+classe s_hospital093
+herda b_hospital
+const s_titulo = "Na frente do CTI"
+const dir_s = $s_hospital092
+const dir_entrar = $s_hospital094
+const portaini_entrar = 2 # Estado inicial: 2 Porta fechada
+const fecha_entrar = 1 # Fecha ao passar: Sim
+
+
+classe s_hospital094
+herda b_hospital
+const s_titulo = "Dentro do CTI"
+const dir_sair = $s_hospital093
+const portaini_sair = 2 # Estado inicial: 2 Porta fechada
+const fecha_sair = 1 # Fecha ao passar: Sim
+
+
+classe s_hospital095
+herda b_hospital
+const s_titulo = "Um corredor um pouco escuro"
+const dir_l = $s_hospital089
+const dir_o = $s_hospital096
+
+
+classe s_hospital096
+herda b_hospital
+const s_titulo = "Andando pelo corredor escuro"
+const dir_l = $s_hospital095
+const dir_o = $s_hospital097
+
+
+classe s_hospital097
+herda b_hospital
+const s_titulo = "Perto de uma escada estreita"
+const dir_l = $s_hospital096
+const dir_b = $s_hospital098
+
+
+classe s_hospital098
+herda b_hospital
+const s_titulo = "Escadas para o necrotério"
+const dir_c = $s_hospital097
+const dir_b = $s_hospital099
+
+
+classe s_hospital099
+herda b_hospital
+const s_titulo = "Rumo ao necrotério"
+const dir_c = $s_hospital098
+const dir_b = $s_hospital100
+
+
+classe s_hospital100
+herda b_hospital
+const s_titulo = "Um pequeno corredor escuro"
+const dir_n = $s_hospital101
+const dir_c = $s_hospital099
+
+
+classe s_hospital101
+herda b_hospital
+const s_titulo = "em frente ao necrotério"
+const dir_s = $s_hospital100
+const dir_entrar = $s_hospital102
+const portaini_entrar = 2 # Estado inicial: 2 Porta fechada
+const fecha_entrar = 1 # Fecha ao passar: Sim
+
+
+classe s_hospital102
+herda b_hospital
+const s_titulo = "Necrotério"
+const dir_sair = $s_hospital101
+const portaini_sair = 2 # Estado inicial: 2 Porta fechada
+const fecha_sair = 1 # Fecha ao passar: Sim

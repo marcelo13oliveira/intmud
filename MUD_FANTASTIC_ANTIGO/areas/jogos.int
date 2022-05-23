@@ -1,0 +1,362 @@
+classe a_jogos
+herda area
+
+
+classe b_jogos
+herda sala
+const s_area = "jogos"
+
+
+classe i_jogos001
+herda comum_item
+const nome = "pião de 4 faces"
+const descnome = "um pião de 4 faces"
+const descpos = "Um grande pião de 4 faces está preso ao eixo de um suporte de ferro"
+const descver = "O pião possui 4 faces, em suas faces você vê as seguintes frases: *Ganha\n\
+50! *tira 50! *Leva tudo! *deixa! O jogo começa quando dois jogadores\n\
+aceitam jogar; Digite 'jogar' para entrar no jogo, e aguarde seu adversário.\n\
+Para sair do jogo, digite 'abandonar'"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "Rode o pião."
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se txt1(arg1) == "jogar"
+    ret var.z_jogador1 && var.z_jogador2, arg0.msg("O limite é de 2 jogadores.")
+    se !var.z_jogador1
+      var.z_aposta_ = txt2(arg1) ? txt2(arg1) : 50
+      ret arg0.var.z_moedas_ < var.z_aposta_, arg0.msg("Você não tem moedas para apostar \
+isso.")
+      var.z_jogador1 = arg0.descnome
+      arg0.teclou("soltar " + var.z_aposta_ + " moedas")
+    senao !var.z_jogador2
+      ret arg0.var.z_moedas_ < var.z_aposta_, arg0.msg("Não tem " + var.z_aposta_ + " moedas.")
+      ret arg0.descnome == var.z_jogador1, arg0.msg("Você já está no jogo.")
+      var.z_jogador2 = arg0.descnome
+      var.z_vez = var.z_jogador1
+    fimse
+    $mens.p(arg0)
+    $mens.mvis1("$P entrou no jogo, com a posta de " + var.z_aposta_ + " moedas!")
+    arg0.teclou("soltar " + var.z_aposta_ + " moedas")
+    arg0.msg("Digite rodar pião para rodar o pião, e boa sorte!")
+    ret 1
+  senao arg1 == "rodar pião"
+    ret arg0.var.z_moedas_ < var.z_aposta_, arg0.msg("Moedas insuficientes para rodar o pião.")
+    ret !var.z_jogador1 || !var.z_jogador2, arg0.msg("Aguarde outro jogador.")
+    se arg0.descnome == var.z_vez
+      refvar p = rand(1, 6)
+      $mens.p(arg0)
+      $mens.mvis1("$P roda o pião!")
+      $mens.p(arg0)
+      se p == "1"
+        $mens.mvis1("LEVA TUDO!")
+        arg0.teclou("pegar moedas")
+        $mens.p(arg0)
+        $mens.mvis1("Não há moedas na mesa! Game Over!")
+        var.z_jogador1 = ""
+        var.z_jogador2 = ""
+        var.z_vez = ""
+      senao p == "2"
+        $mens.mvis1("TIRA " + Vvar.z_aposta_ + "!")
+        arg0.teclou("pegar " + var.z_aposta_ + " moedas")
+        se !arg0.dono.var.z_moedas_
+          $mens.p(arg0)
+          $mens.mvis1("Não há mais moedas na mesa. Game Over!")
+          var.z_jogador1 = ""
+          var.z_jogador2 = ""
+          var.z_vez = ""
+          ret 1
+        fimse
+      senao p == "3"
+        $mens.mvis1("Põe " + var.z_aposta_ + "!")
+        arg0.teclou("soltar " + var.z_aposta_ + " moedas")
+      senao p == "4"
+        $mens.mvis1("deixa!")
+      senao p == "5"
+        $mens.mvis1("TIRA METADE!")
+        arg0.teclou("pegar " + arg0.dono.var.z_moedas_ / 2 + " moedas")
+        se !arg0.dono.var.z_moedas_
+          $mens.p(arg0)
+          $mens.mvis1("Não há mais moedas na mesa. Game Over!")
+          var.z_jogador1 = ""
+          var.z_jogador2 = ""
+          var.z_vez = ""
+          ret 1
+        fimse
+      senao p == "6"
+        $mens.mvis1("Põe metade!")
+        arg0.teclou("soltar " + var.z_aposta_ / 2 + " moedas")
+      fimse
+    senao
+      arg0.msg("Não é sua vez de jogar.")
+      ret 1
+    fimse
+    se var.z_vez == var.z_jogador1
+      var.z_vez = var.z_jogador2
+    senao var.z_vez == var.z_jogador2
+      var.z_vez = var.z_jogador1
+    fimse
+    ret 1
+  senao arg1 == "abandonar"
+    se arg0.descnome == var.z_jogador1
+      $mens.p(arg0)
+      var.z_jogador1 = ""
+    senao arg0.descnome == var.z_jogador2
+      var.z_jogador2 = ""
+    senao
+      ret arg0.msg("Você não está jogando.")
+    fimse
+    $mens.mvis1("$P abandonou o jogo!")
+    ret 1
+  fimse
+
+
+classe i_jogos002
+herda comum_itemperso
+const nome = "máquina caçaníquel"
+const descnome = "uma máquina caçaníquel"
+const descpos = "Uma grande máquina caçaníquel foi posta no canto da sala, para os jogadores \
+apostarem."
+const i_pegar = "A máquina é pesada demais para você carregar."
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 1
+const pesoobj = 20000
+const volobj = 10
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_soltarobj
+  se arg1 == este
+    ret var.z_girando_ == 1, arg0.msg("Aguarde a máquina parar de girar.")
+    refvar item = txt(arg2)
+    se item != "i_jogos003" && item != "i_jogos004" && item != "i_jogos005"
+      ret arg0.msg("A máquina só aceita fichas.")
+    fimse
+    ret arg3 > 1, arg0.msg("Solte apenas uma ficha por vez.")
+  fimse
+#
+
+func cmd_pegarobj
+  se arg1 == este
+    ret arg0.msg("Não pode pegar fichas da máquina.")
+  fimse
+#
+
+func cmd_soltouobj
+  se arg1 == este
+    apagar(arg2)
+    var.z_girando_ = 1
+    se txt(arg2) == "i_jogos003"
+      var.z_ficha = "bronze"
+    senao txt(arg2) == "i_jogos004"
+      var.z_ficha = "prata"
+    senao txt(arg2) == "i_jogos005"
+      var.z_ficha = "ouro"
+    fimse
+    var.z_girando_ = 1
+    misc:tempo("puxou", arg0)
+  fimse
+#
+
+func puxou10
+  var.z_girando_ = 1
+  $mens.p(arg0, nulo, este)
+  $mens.mtodos1("A máquina começa a girar!")
+#
+
+func puxou50
+  var.z_girando_ = 1
+  $mens.p(arg0, nulo, este)
+  $mens.mtodos1("Girando...")
+#
+
+func puxou100
+  $mens.p(arg0, nulo, este)
+  $mens.mtodos1("A primeira roleta está parando...")
+#
+
+func puxou120
+  var.z_rol1 = rand(1, 7)
+  $mens.p(arg0, nulo, este)
+  $mens.mtodos1("Parou. O número foi: " + var.z_rol1 + ".")
+#
+
+func puxou150
+  $mens.p(arg0, nulo, este)
+  $mens.mtodos1("A segunda roleta está parando...")
+#
+
+func puxou170
+  var.z_rol2 = rand(1, 7)
+  $mens.p(arg0, nulo, este)
+  $mens.mtodos1("Parou. O número foi: " + var.z_rol2 + ".")
+#
+
+func puxou200
+  $mens.p(arg0, nulo, este)
+  $mens.mtodos1("A terceira roleta está parando...")
+#
+
+func puxou220
+  var.z_rol3 = rand(1, 7)
+  $mens.p(arg0, nulo, este)
+  $mens.mtodos1("Parou. O número foi: " + var.z_rol3 + ".")
+#
+
+func puxou250
+  var.z_rols = var.z_rol1 + var.z_rol2 + var.z_rol3
+  $mens.p(arg0)
+  se var.z_rols == "111"
+    $mens.mtodos1("Trinca de 1. $P Recolhe 10 fichas de " + var.z_ficha + ".")
+    var.z_fichas_ = 10
+  senao var.z_rols == "222"
+    $mens.mtodos1("Trinca de 2. $P recolhe 20 fichas de " + var.z_ficha + ".")
+    var.z_fichas_ = 20
+  senao var.z_rols == "333"
+    $mens.mtodos1("Trinca de 3. $P Recolhe 30 fichas de " + var.z_ficha + ".")
+    var.z_fichas_ = 30
+  senao var.z_rols == "444"
+    $mens.mtodos1("Trinca de 4. $P Recolhe 40 fichas de " + var.z_ficha + ".")
+    var.z_fichas_ = 40
+  senao var.z_rols == "555"
+    $mens.mtodos1("Trinca de 5. $P Recolhe 50 fichas de " + var.z_ficha + ".")
+    var.z_fichas_ = 50
+  senao var.z_rols == "666"
+    $mens.mtodos1("Trinca de 6. $P Recolhe 100 fichas de " + var.z_ficha + ".")
+    var.z_fichas_ = 100
+  senao var.z_rols == "777"
+    $mens.mtodos1("Trinca de 7. $P Recolhe 200 fichas de " + var.z_ficha + ".")
+    var.z_fichas_ = 200
+  senao var.z_rols == "123" || var.z_rols == "234" || var.z_rols == "345" || var.z_rols == \
+"456"
+    $mens.mtodos1("sequência! $P recolhe 15 fichas de " + var.z_ficha + ".")
+    var.z_fichas_ = 15
+  senao var.z_rols == "567"
+    $mens.mtodos1("sequência! $P recolhe 15 fichas de " + var.z_ficha + ".")
+    var.z_fichas_ = 15
+  senao var.z_rols == "765" || var.z_rols == "654" || var.z_rols == "543" || var.z_rols == \
+"432"
+    $mens.mtodos1("sequência! $P recolhe 15 fichas de " + var.z_ficha + ".")
+    var.z_fichas_ = 15
+  senao var.z_rols == "321"
+    $mens.mtodos1("sequência! $P recolhe 15 fichas de " + var.z_ficha + ".")
+    var.z_fichas_ = 15
+  senao var.z_rol2_ == var.z_rol1_ + 2 && var.z_rol3_ == var.z_rol2_ + 2
+    $mens.mtodos1("sequência! $P recolhe 10 fichas de " + var.z_ficha + ".")
+    var.z_fichas_ = 10
+  senao var.z_rol2_ == var.z_rol1_ - 2 && var.z_rol3_ == var.z_rol2_ - 2
+    $mens.mtodos1("sequência! $P recolhe 10 fichas de " + var.z_ficha + ".")
+    var.z_fichas_ = 10
+  senao var.z_rol1 == var.z_rol2 || var.z_rol1 == var.z_rol3 || var.z_rol2 == var.z_rol3
+    $mens.mtodos1("Um par. $P recolhe 5 fichas de " + var.z_ficha + ".")
+    var.z_fichas_ = 5
+  senao
+    $mens.mtodos1("Nenhuma combinação válida.")
+    var.z_girando_ = 0
+    apagar(arg2)
+    ret 1
+  fimse
+  se var.z_ficha == "bronze"
+    criar("i_jogos003", arg0, var.z_fichas)
+  senao var.z_ficha == "prata"
+    criar("i_jogos004", arg0, var.z_fichas)
+  senao var.z_ficha == "ouro"
+    criar("i_jogos005", arg0, var.z_fichas)
+  fimse
+  var.z_girando_ = 0
+  apagar(arg2)
+  ret 1
+
+
+classe i_jogos003
+herda comum_itemgrupo
+const nome = "ficha de bronze"
+const descnome = "uma ficha de bronze"
+const tipoitem = 128 # Tipo de item: 7-Tesouro
+const valor = 1000
+
+
+classe i_jogos004
+herda comum_itemgrupo
+const nome = "ficha de prata"
+const descnome = "uma ficha de prata"
+const tipoitem = 128 # Tipo de item: 7-Tesouro
+const valor = 2500
+
+
+classe i_jogos005
+herda comum_itemgrupo
+const nome = "ficha de ouro"
+const descnome = "uma ficha de ouro"
+const tipoitem = 128 # Tipo de item: 7-Tesouro
+const valor = 5000
+
+
+classe i_jogos006
+herda comum_itemperso
+const nome = "máquina caçaníquel"
+const descnome = "uma máquina caça níquel"
+const descver = "Na superfície  à frente da tela, há 8  botões, numerados de 1 a 8 e contendo, \
+cada um, o escudo de um time:\n\
+1. Palmeiras\n\
+2. Santos\n\
+3. Flamengo\n\
+4. Atlético Mineiro\n\
+5. Botafogo\n\
+6. Atlético Paranaense\n\
+7. Corínthias\n\
+8. Ponte preta\n\
+Acima desses botões, há dois outros botões, um ao lado direito, para efetuar a aposta e girar a \
+roleta, e outro a esquerda, para sacar o valor acumulado."
+const i_pegar = "É muito pesado para carregar sozinho e você não tem permissão para isso."
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+
+classe i_jogos007
+herda comum_item
+const nome = "baralho"
+const descnome = "um baralho"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+sav textotxt cards
+#
+
+func cmd_ini
+  cards.addfim("Áz de copas")
+  cards.addfim("Dois de copas")
+  cards.addfim("Três de copas")
+#
+
+func cmd_escr
+  se arg1 == "cards list"
+    arg0.msg2("Lista de cartas: " + txtsublin(cards, 0))
+    ret 1
+  senao arg1 == "retirar"
+    arg0.msg("retirei: " + txtsublin(cards, 0, 1))
+    ret 1
+  fimse
+
+
+classe p_jogos001
+herda comum_perso
+const nome = "vendedor de fichas"
+const ident = "homem vendedor fichas"
+const descnome = "o vendedor de fichas"
+const descpadr = "Um homem organiza algumas pilhas de fichas e moedas, enquanto realiza as \
+trocas para os jogadores."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const lojaitem = "jogos003 0\njogos004 0\njogos005 0"
+const tipoitem = 128 # Compra produtos: 7-Tesouro

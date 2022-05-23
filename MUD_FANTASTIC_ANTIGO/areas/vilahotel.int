@@ -1,0 +1,383 @@
+classe a_vilahotel
+herda area
+
+
+classe b_vilahotel
+herda sala
+const s_area = "vilahotel"
+
+
+classe i_vilahotel001
+herda comum_itemperso
+const nome = "Poltrona"
+const descnome = "uma poltrona"
+const descpos = "Várias poltronas estão dispostas ao  longo da recepção"
+const i_pegar = "Você não tem o direito de pegar nada daqui."
+const i_movel = 1 # Mobília: 1 Sentar
+const i_lugar = 12
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_vilahotel002
+herda comum_item
+const nome = "chave do quarto 1"
+const descnome = "a chave do quarto 1"
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+
+
+classe i_vilahotel011
+herda comum_item
+const nome = "chave 01"
+const descnome = "A chave do quarto 01"
+
+
+classe i_vilahotel012
+herda comum_itemperso
+
+
+classe p_vilahotel001
+herda comum_perso
+const nome = "recepcionista"
+const ident = "gabriela recepcionista jovem mulher"
+const descnome = "Gabriela, a recepcionista do hotel"
+const descpadr = "A recepcionista está sentada atrás de uma bancada, observando o movimento de \
+entrada e saída do hotel."
+const nivel = 25
+const pospadr = 6 # Posição padrão: 6 Sentado
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+  misc:tempo("entrou", arg0)
+#
+
+func entrou30
+  teclou("beijo " + arg0.descnome)
+#
+
+func entrou60
+  teclou("f Olá, " + arg0.descnome + ".")
+#
+
+func entrou90
+  teclou("f Para alugar um quarto no hotel, digite alugar e o número do quarto a alugar.")
+  teclou("Para listar os quartos disponíveis, digite listar.")
+#
+
+func cmd_escr
+  se arg1 == "listar" || arg1 == "lista" || arg1 == "list"
+    se var.z_quarto1
+      arg0.msg("Quarto 1 - 100000 moedas")
+    fimse
+  senao arg1 == "alugar 1"
+    ret !var.z_quarto1, arg0.msg("Esse quarto encontra-se ocupado no momento.")
+    ret arg0.var.z_moedas_ < 100000, arg0.msg("Você não tem 100000 moedas.")
+    arg0.var.z_moedas_ -= 100000
+    arg0.var.z_tempo1@ = 36000
+    quarto1 = 36000
+    criar("i_vilahotel001", arg0, 1)
+  fimse
+
+
+classe s_vilahotel001
+herda b_vilahotel
+const s_titulo = "No pátio do hotel"
+const dir_n = $s_vilahotel024
+const dir_s = $s_parmilion108
+const dir_l = $s_vilahotel016
+const dir_o = $s_vilahotel017
+const dir_c = $s_vilahotel002
+
+
+classe s_vilahotel002
+herda b_vilahotel
+const s_titulo = "Em frente a uma porta giratória"
+const eveste = 1 # Eventos sala: Sim
+const dir_b = $s_vilahotel001
+const dir_entrar = $s_vilahotel003
+#
+
+func cmd_mover
+  se arg2 == "entrar"
+    $mens.p(arg0)
+    refvar m1 = "Você empurra a porta e começa a girar com ela, até parar do outro lado."
+    refvar m2 = "$P empurra a porta e entra girando por ela."
+    $mens.mtodos2(m1, m2)
+  fimse
+
+
+classe s_vilahotel003
+herda b_vilahotel
+const s_titulo = "No amplo salão de recepção do hotel"
+const dir_n = $s_vilahotel005
+const dir_l = $s_vilahotel004
+const dir_sair = $s_vilahotel002
+
+
+classe s_vilahotel004
+herda b_vilahotel
+const s_titulo = "No balcão da recepção"
+const dir_o = $s_vilahotel003
+const s_reset = "P 100 vilahotel001 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_vilahotel001:objsolto.total < 1
+    criar("p_vilahotel001", este, 0)
+  fimse
+
+
+classe s_vilahotel005
+herda b_vilahotel
+const s_titulo = "Ainda na recepção"
+const dir_s = $s_vilahotel003
+const dir_l = $s_vilahotel006
+const s_reset = "S 100 vilahotel001 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_vilahotel001") && criar("i_vilahotel001", este, 1)
+
+
+classe s_vilahotel006
+herda b_vilahotel
+const s_titulo = "Caminhando pelo corredor principal"
+const dir_l = $s_vilahotel007
+const dir_o = $s_vilahotel005
+const dir_c = $s_vilahotel009
+
+
+classe s_vilahotel007
+herda b_vilahotel
+const s_titulo = "Caminhando pelo corredor principal"
+const dir_l = $s_vilahotel008
+const dir_o = $s_vilahotel006
+
+
+classe s_vilahotel008
+herda b_vilahotel
+const s_titulo = "O fim do corredor."
+const dir_o = $s_vilahotel007
+const dir_entrar = $s_vilahotel012
+
+
+classe s_vilahotel009
+herda b_vilahotel
+const s_titulo = "Escadas"
+const dir_l = $s_vilahotel010
+const dir_b = $s_vilahotel006
+
+
+classe s_vilahotel010
+herda b_vilahotel
+const s_titulo = "Escadas"
+const dir_o = $s_vilahotel009
+const dir_c = $s_vilahotel011
+
+
+classe s_vilahotel011
+herda b_vilahotel
+const s_titulo = "Corredor principal do primeiro andar"
+const dir_l = $s_vilahotel013
+const dir_o = $s_vilahotel015
+const dir_b = $s_vilahotel010
+
+
+classe s_vilahotel012
+herda b_vilahotel
+const s_titulo = "Dentro do Elevador"
+const eveste = 1 # Eventos sala: Sim
+const dir_sair = $s_vilahotel008
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "n1"
+    $mens.p(arg0)
+    var.z_mov_ = 1
+    $mens.mtodos1("$P aperta o botão número 1 do elevador.")
+    var.z_andar_ = 1
+    misc:tempo("subir", dentro2.objlista)
+    ret 1
+  fimse
+#
+
+func subir30
+  dentro2.objlista.msg("As portas do elevador se fecham e as ingrenagens começam a levar o \
+elevador para cima...")
+#
+
+func subir60
+  dentro2.objlista.msg("Subindo...")
+#
+
+func subir200
+  dentro2.objlista.msg("Finalmente o elevador para e as portas se abrem novamente.")
+  listaobj j
+  epara j.addfim(dentro2), j, j.ini.remove
+    j.objini.mudadono($s_vilahotel014)
+  efim
+  listaobj i
+  epara i.addfim(dentro1), i, i.ini.remove
+    i.objini.mudadono($s_vilahotel014)
+  efim
+  var.z_mov_ = 0
+  var.z_andar_ = 0
+  ret 1
+#
+
+func cmd_mover
+  se arg2 == "sair"
+    ret var.z_mov, arg0.msg("O elevador está em movimento e as portas estão fechadas! Aguarde.")
+    ret
+  fimse
+
+
+classe s_vilahotel013
+herda b_vilahotel
+const s_titulo = "O fim do corredor"
+const dir_o = $s_vilahotel011
+const dir_entrar = $s_vilahotel014
+
+
+classe s_vilahotel014
+herda b_vilahotel
+const s_titulo = "Dentro do elevador"
+const eveste = 1 # Eventos sala: Sim
+const dir_sair = $s_vilahotel013
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "n0"
+    $mens.p(arg0)
+    var.z_mov_ = 1
+    $mens.mtodos1("$P aperta o botão número 0 do elevador.")
+    var.z_andar_ = 0
+    misc:tempo("descer", dentro2.objlista)
+    ret 1
+  fimse
+#
+
+func descer30
+  dentro2.objlista.msg("As portas do elevador se fecham e as ingrenagens começam a levar o \
+elevador para baixo...")
+#
+
+func descer60
+  dentro2.objlista.msg("descendo...")
+#
+
+func descer200
+  dentro2.objlista.msg("Finalmente o elevador para e as portas se abrem novamente.")
+  listaobj j
+  epara j.addfim(dentro2), j, j.ini.remove
+    j.objini.mudadono($s_vilahotel012)
+  efim
+  var.z_mov_ = 0
+  var.z_andar_ = 0
+  ret 1
+#
+
+func cmd_mover
+  se arg2 == "sair"
+    ret var.z_mov, arg0.msg("O elevador está em movimento e as portas estão fechadas! Aguarde.")
+  fimse
+
+
+classe s_vilahotel015
+herda b_vilahotel
+const s_titulo = "Corredor principal do primeiro andar"
+const dir_l = $s_vilahotel011
+const dir_o = $s_vilahotel018
+
+
+classe s_vilahotel016
+herda b_vilahotel
+const s_titulo = "Um belo jardim"
+const dir_o = $s_vilahotel001
+
+
+classe s_vilahotel017
+herda b_vilahotel
+const s_titulo = "Um belo jardim"
+const dir_l = $s_vilahotel001
+
+
+classe s_vilahotel018
+herda b_vilahotel
+const s_titulo = "O corredor dos quartos"
+const dir_n = $s_vilahotel019
+const dir_l = $s_vilahotel015
+
+
+classe s_vilahotel019
+herda b_vilahotel
+const s_titulo = "O Corredor dos Quartos"
+const dir_s = $s_vilahotel018
+const dir_l = $s_vilahotel020
+
+
+classe s_vilahotel020
+herda b_vilahotel
+const s_titulo = "Quarto número 1"
+const dir_o = $s_vilahotel019
+const dir_entrar = $s_vilahotel021
+const portaini_entrar = 3 # Estado inicial: 3 Porta trancada
+const portanome_entrar = "Uma bela porta de carvalho"
+const fechadura_entrar = "vilahotel001"
+const fecha_entrar = 1 # Fecha ao passar: Sim
+const tranc_entrar = 2 # Trancar: 2 Tranca ao fechar
+
+
+classe s_vilahotel021
+herda b_vilahotel
+const s_titulo = "Quarto Número 01."
+const dir_n = $s_vilahotel023
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "uma porta de vidro fumê"
+const fechadura_n = "vilahotel001"
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_l = $s_vilahotel022
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "uma porta corrediça"
+const fechadura_l = "vilahotel001"
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_sair = $s_vilahotel020
+const portanome_sair = "uma bela porta de carvalho"
+const fechadura_sair = "vilahotel001"
+const fecha_sair = 1 # Fecha ao passar: Sim
+const tranc_sair = 2 # Trancar: 2 Tranca ao fechar
+
+
+classe s_vilahotel022
+herda b_vilahotel
+const s_titulo = "Um luxuoso banheiro"
+const dir_o = $s_vilahotel021
+const portanome_o = "uma porta corrediça"
+const fechadura_o = "vilahotel001"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_vilahotel023
+herda b_vilahotel
+const s_titulo = "Um Toalete"
+const dir_s = $s_vilahotel021
+const portanome_s = "uma porta de vidro fumê"
+const fecha_s = 1 # Fecha ao passar: Sim
+
+
+classe s_vilahotel024
+herda b_vilahotel
+const dir_s = $s_vilahotel001

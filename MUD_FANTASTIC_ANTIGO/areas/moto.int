@@ -1,0 +1,629 @@
+classe a_moto
+herda area
+
+
+classe b_moto
+herda sala
+const s_area = "moto"
+
+
+classe i_moto001
+herda comum_itemperso
+const i_pegar = "Uma moto é muito pesada"
+const i_salas = "moto001\nmoto004"
+const i_movel = 1 # Mobília: 1 Sentar
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 3000000
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func descpos
+  ret descnome + " está estacionada aqui."
+#
+
+func nome
+  se var.z_dono
+    se var.z_modelo
+      ret var.z_modelo + " de " + var.z_dono
+    senao
+      ret "moto " + var.z_dono
+    fimse
+  senao
+    ret "moto turbinada"
+  fimse
+#
+
+func descnome
+  se var.z_dono
+    se var.z_modelo
+      ret var.z_modelo
+    senao
+      ret "a moto de " + var.z_dono
+    fimse
+  senao
+    ret "uma moto turbinada"
+  fimse
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  casovar txtmin(txt1(arg1))
+  casose "mmo"
+  casose "mmod"
+  casose "mmode"
+  casose "mmodel"
+  casose "mmodelo"
+    ret arg0.descnome != var.z_dono, nulo
+    var.z_modelo = txt2(arg1)
+    ret arg0.msg(var.z_modelo ? "Modelo da moto alterado." : "Modelo da moto removido.")
+    ret 1
+  casofim
+#
+
+func cmd_mudadono
+  se !donoantes && dono.jog
+    var.z_dono = dono.descnome
+    mdono($s_rio075)
+    ret 1
+  fimse
+  listaobj l
+  refvar sala = dentro2.objini("s_moto001")
+  sala.msg(dono.var.z_titulo ? dono.var.z_titulo : dono.s_titulo)
+  epara l.addfim(sala.dentro2), l, l.ini.remove
+    se l.objini.perso && l.objini.jogconfig.0 == 1
+      l.objini.msginv(dono.s_desc)
+    fimse
+  efim
+  textotxt t
+  txt80 dir
+  epara dir = misc:listadir, dir, dir = txt2(dir)
+    refvar dirp = txt1(dir)
+    dono.dir_[dirp] && t.addfim(dirp)
+  efim
+  t.addini("Saídas:")
+  sala.msg(txttroca(t.remove(1000), "\n", ", "))
+  textotxt t2
+  listaobj i
+  epara i.addfim(dono.dentro2), i, i.ini.remove
+    t2.addfim(i.objini.descpos)
+  efim
+  sala.msg(t2.remove(1000))
+#
+
+func buzinar
+  se arg1
+    refvar perso = misc:persodono(este, arg1)
+    ret !perso, arg0.msg("Você não vê " + arg1 + ".")
+    $mens.p(este, arg0, arg1)
+    $mens.mvis1som("$A buzinou para $o de cima $d $p.", "buzina")
+  senao
+    $mens.p(este, arg0)
+    $mens.mvis1som("$A buzinou de cima $d $p.", "buzina")
+  fimse
+
+func pilotar
+  ret !dono.dir_[arg1], arg0.msg("Não é possível mover-se nessa direção.")
+  ret dono.porta_[arg1] >= 2, arg0.msg("A saída para essa direção está fechada.")
+  $mens.p(este, arg0)
+  $mens.mens = $cmd_[arg1].dirsai
+  $mens.mvis1som("$A passou $e $p, indo para $m.", "moto")
+  mudadono(dono.dir_[arg1])
+  $mens.p(este, arg0)
+  $mens.mens = $cmd_[arg1].direntra
+  $mens.mvis1som("$A passou $e $p, vindo $m.", "moto02")
+#
+
+func cmd_sentarobj
+  se arg1 == este
+    $mens.p(arg0, nulo, este)
+    $mens.mvis1("$P montou $e $o.")
+    arg0.mudadono(dentro2.objini("s_moto001"))
+    $mens.p(arg0)
+    $mens.mvis2("", "$P montou aqui.")
+    arg0.posicao = 6
+    ret 1
+  fimse
+
+const i_msgdentro = "na frente você vê:"
+
+
+classe i_moto002
+herda comum_itemperso
+const nome = var.z_modelo ? var.z_modelo : "bicicleta"
+const ident = "bicicleta " + var.z_modelo
+const descnome = var.z_modelo ? var.z_modelo : "uma bicicleta"
+const i_salas = "moto002"
+const i_movel = 1 # Mobília: 1 Sentar
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 2500000
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func descpos
+  ref sb = dentro2.objini("s_moto002")
+  se sb.dentro2.objini.perso
+    ret sb.dentro2.objini.descnome + " está montado em " + descnome + "."
+  senao
+    ret descnome + " está parad" + (msexo ? "o " : "a ") + "aqui."
+  fimse
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se txt1(arg1) == "bmodelo"
+    ret arg0.descnome != var.z_dono, nulo
+    var.z_modelo = txt2(arg1)
+    arg0.msg(var.z_modelo ? "modelo da bicicleta trocado." : "modelo da bicicleta apagado.")
+    ret 1
+  fimse
+#
+
+func cmd_sentarobj
+  se arg1 == este
+    refvar sala = dentro2.objini("s_moto002")
+    ret sala.dentro2 >= 2, arg0.msg("Não cabem mais pessoas em cima da bicicleta.")
+    $mens.p(arg0, nulo, este)
+    $mens.mvis1("$P senta $e $o.")
+    arg0.mudadono(sala)
+    $mens.p(arg0)
+    $mens.mvis2("", "$P montou aqui.")
+    arg0.posicao = 6
+    ret 1
+  fimse
+#
+#
+
+func bicicleta
+  misc:evento(arg0)
+#
+
+func cmd_falou
+  dentro2.objini("s_moto002").msg(arg0.descnome + " diz: " + arg1)
+#
+
+func cmd_pegarobj
+  se arg2 == este
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos1("$P pega $o.")
+    arg2.mudadono(arg0)
+    ret 1
+  fimse
+
+
+classe i_moto003
+herda comum_item
+const nome = "chave da moto"
+const descnome = "a chave da moto"
+const i_chave = var.z_fechadura
+const valor = 2000
+#
+
+func cmd_mudadono
+  se !donoantes && dono.jog
+    var.z_fechadura = dono.descnome
+  fimse
+#
+
+
+classe i_moto004
+herda comum_item
+const nome = "buzina"
+const descnome = "A buzina da moto"
+const descpos = "A buzina da moto está a frente do painel, próxima ao guidão da moto."
+const i_pegar = "bííííííbííííí´´ííí"
+const evsala = 1
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "buzinar"
+    $mens.p(arg0)
+    $mens.mvis1("$P aperta a buzina, chamando a atenção de todos!")
+    dono.dono.dono.msg(arg0.descnome + " buzinou de cima d" + dono.dono.descnome + ".")
+    ret 1
+  fimse
+
+
+classe i_moto005
+herda comum_item
+const nome = "guidão"
+const descnome = "guidão da moto"
+const descpos = "O guidão está a frente, em uma altura pouco acima de seu cotovelo."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "Você segura no guidão da moto."
+
+
+classe i_moto006
+herda comum_itemperso
+const nome = "sela"
+const descnome = "a sela da bicicleta"
+const descpos = "Aqui há uma confortável sela para se sentar."
+const i_movel = 1 # Mobília: 1 Sentar
+const i_lugar = 1
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_moto007
+herda comum_item
+const nome = "tanque"
+const descnome = "o tanque da moto"
+const msexo = 1 # Sexo Msg: 1 Masculino
+
+
+classe s_moto001
+herda b_moto
+const s_titulo = "Em cima d" + (dono.var.z_modelo ? dono.var.z_modelo : "a moto")
+const s_reset = "S 100 moto005 1 S\nS 100 montaria001 1 S i1\nS 100 moto004 1 S"
+#
+#
+
+func txtsai
+  ret 1
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "ligar" || arg1 == "on"
+    ret dono.var.z_ligado_, arg0.msg("A moto já está ligada.")
+    listaobj l
+    epara l.addfim(arg0.dentro1), l, l.ini.remove
+      se l.objini("i_moto003") && l.objini.i_chave == dono.var.z_dono
+        dono.var.z_ligado_ = 1
+        $mens.p(arg0)
+        $mens.mtodos1("$P gira a chave e dá a partida na moto.")
+        dono.dono.msg(arg0.descnome + " deu a partida n" + dono.descnome + ".")
+        ret 1
+      fimse
+    efim
+    arg0.msg("Você não possui a chave da moto.")
+    ret 1
+  senao arg1 == "off" || arg1 == "desligar"
+    ret !dono.var.z_ligado, arg0.msg("A    moto já está desligada.")
+    listaobj l
+    epara l.addfim(arg0.dentro1), l, l.ini.remove
+      se l.objini("i_moto003") && l.objini.i_chave == dono.var.z_dono
+        $mens.p(arg0)
+        $mens.mtodos1("$P gira a chave e desliga a moto.")
+        dono.var.z_ligado_ = 0
+        ret 1
+      fimse
+    efim
+    arg0.msg("Você não possui a chave da moto.")
+    ret 1
+  fimse
+  se txt1(arg1) == "modelo"
+    ret arg0.descnome != dono.var.z_dono, arg0.msg("Você não está em sua moto.")
+    dono.var.z_modelo = txt2(arg1)
+    ret arg0.msg(dono.var.z_modelo ? "Modelo da moto alterado." : "modelo da moto retorna ao \
+inicial.")
+  senao txt1(arg1) == "buzinar" || txt1(arg1) == "buzina"
+    refvar alvo = txt2(arg1)
+    dono.buzinar(arg0, alvo)
+    $mens.p(arg0)
+    $mens.mvis1som("$P aperta a buzina da moto.", "buzina")
+    ret 1
+  senao txt1(arg1) == "pilotar"
+    ret !dono, nulo
+    ret !dono.var.z_ligado, arg0.msg("Antes você precisa ligar a moto!")
+    refvar donodir = dono.dono.dir_[txt2(arg1)]
+    se donodir.s_autonao
+      ret arg0.msg("Não pode entrar com a moto.")
+    fimse
+    se !txt2(arg1)
+      $mens.p(arg0)
+      $mens.mtodos1("$P acelera a moto, sem sair do lugar.")
+      ret 1
+    fimse
+    refvar dir = txtsub(arg1, 1, 1)
+    refvar itemdest = txtsub(arg1, 2, 1)
+    dono.pilotar(arg0, dir, este)
+    ret 1
+  fimse
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_moto005") && criar("i_moto005", este, 1)
+  !dentro1.objini("i_montaria001") && criar("i_montaria001", este, 1, "i1")
+  !dentro1.objini("i_moto004") && criar("i_moto004", este, 1)
+#
+
+func cmd_levantar
+  $mens.p(arg0)
+  $mens.mvis1("$P levanta, descendo da moto.")
+  arg0.mudadono(dono.dono)
+  $mens.p(arg0, nulo, dono)
+  $mens.mvis2("", "$P desceu $d $o.")
+  arg0.posicao = 8
+  ret 1
+
+
+classe s_moto002
+herda b_moto
+const s_titulo = "em cima da bicicleta"
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_ocultar = 1 # Ocultar desc: Sim
+const eveste = 1 # Eventos sala: Sim
+const dir_b = dono
+const s_reset = "S 100 montaria001 1 S\nS 100 montaria001 1 S\nS 100 moto006 1 S"
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+  $mens.p(arg0)
+  $mens.mtodos2("", "$P subiu aqui.")
+#
+
+func cmd_escr
+  se arg1 == "descer"
+    $mens.p(arg0)
+    $mens.mtodos2("Você desce da bicicleta", "$P desceu.")
+    arg0.mudadono(dono.dono)
+    $mens.p(arg0, "", nulo, dono)
+    $mens.mtodos2("", "$P desceu $d $o.")
+    ret 1
+  fimse
+  se txt1(arg1) == "pedalar"
+    se txt2(arg1) == "l" || txt2(arg1) == "e"
+      ret dono.dono.porta_l == 2, arg0.msg("A saída leste está fechada.")
+      ret dono.dono.porta_l == 3, arg0.msg("A saída para leste está trancada.")
+      dono.var.z_dir = "leste"
+      dono.var.z_dirantes = "do oeste"
+      ret !dono.dono.dir_l, arg0.msg("Impossível seguir nessa direção!")
+      dono.mudadono(dono.dono.dir_l)
+    senao txt2(arg1) == "o" || txt2(arg1) == "w"
+      dono.var.z_dir = "oeste"
+      dono.var.z_dirantes = "do leste"
+      ret dono.dono.porta_o == 2, arg0.msg("A saída oeste está fechada.")
+      ret dono.dono.porta_o == 3, arg0.msg("A saída oeste está trancada.")
+      ret !dono.dono.dir_o, arg0.msg("Impossível seguir nessa direção!")
+      dono.mudadono(dono.dono.dir_o)
+    senao txt2(arg1) == "n"
+      dono.var.z_dir = "norte"
+      dono.var.z_dirantes = "do sul"
+      ret dono.dono.porta_n == 2, arg0.msg("A saída norte está fechada.")
+      ret dono.dono.porta_n == 3, arg0.msg("A saída norte está trancada.")
+      ret !dono.dono.dir_n, arg0.msg("Impossível seguir nessa direção!")
+      dono.mudadono(dono.dono.dir_n)
+    senao txt2(arg1) == "s"
+      dono.var.z_dir = "sul"
+      dono.var.z_dirantes = "do norte"
+      ret dono.dono.porta_s == 2, arg0.msg("A saída sul está fechada.")
+      ret donodono.porta_s == 3, arg0.msg("A saída sul está trancada.")
+      ret !dono.dono.dir_s, arg0.msg("Impossível seguir nessa direção!")
+      dono.mudadono(dono.dono.dir_s)
+    senao txt2(arg1) == "c"
+      dono.var.z_dir = "cima"
+      dono.var.z_dirantes = "de baixo"
+      ret dono.dono.porta_c == 2, arg0.msg("A passagem para cima está fechada.")
+      ret dono.dono.porta_c == 3, arg0.msg("A passagem para cima está trancada.")
+      ret !dono.dono.dir_c, arg0.msg("Impossível seguir nessa direção!")
+      dono.mudadono(dono.dono.dir_c)
+    senao txt2(arg1) == "b" || txt2(arg1) == "d"
+      dono.var.z_dir = "baixo"
+      dono.var.z_dirantes = "de cima"
+      ret dono.dono.porta_b == 2, arg0.msg("A passagem para baixo está fechada.")
+      ret dono.dono.porta_b == 3, arg0.msg("A passagem para baixo está trancada.")
+      ret !dono.dono.dir_b, arg0.msg("Impossível seguir nessa direção!")
+      dono.mudadono(dono.dono.dir_b)
+    senao txt2(arg1) == "ne"
+      dono.var.z_dir = "nordeste"
+      dono.var.z_dirantes = "do sudoeste"
+      ret !dono.dono.dir_ne, arg0.msg("Impossível seguir nessa direção!")
+      dono.mudadono(dono.dono.dir_ne)
+    senao txt2(arg1) == "so" || txt2(arg1) == "sw"
+      dono.var.z_dir = "sudoeste"
+      dono.var.z_dirantes = "do nordeste"
+      ret !dono.dono.dir_so, arg0.msg("Impossível seguir nessa direção!")
+      dono.mudadono(dono.dono.dir_so)
+    senao txt2(arg1) == "no" || txt2(arg1) == "nw"
+      dono.var.z_dir = "noroeste"
+      dono.var.z_dirantes = "do sudeste"
+      ret !dono.dono.dir_no, arg0.msg("Impossível seguir nessa direção!")
+      dono.mudadono(dono.dono.dir_no)
+    senao txt2(arg1) == "se"
+      dono.var.z_dir = "sudeste"
+      dono.var.z_dirantes = "do noroeste"
+      ret !dono.dono.dir_se, arg0.msg("Impossível seguir nessa direção!")
+      dono.mudadono(dono.dono.dir_se)
+    senao txt2(arg1) == "entrar"
+      dono.var.z_dir = "dentro"
+      dono.var.z_dirantes = "de fora"
+      ret !dono.dono.dir_entrar, arg0.msg("Impossível seguir nessa direção!")
+      dono.mudadono(dono.dono.dir_entrar)
+    senao txt2(arg1) == "sair"
+      dono.var.z_dir = "fora"
+      dono.var.z_dirantes = "de dentro"
+      ret !dono.dono.dir_sair, arg0.msg("Impossível seguir nessa direção!")
+      dono.mudadono(dono.dono.dir_sair)
+    fimse
+    $mens.p(arg0)
+    $mens.mtodos1("$P pedala para " + dono.var.z_dir + ".")
+    $mens.p(arg0)
+    $mens.mtodos1(dono.dono.s_titulo)
+    txt100 lin
+    lin = "Saídas:\n"
+    se dono.dono.dir_n
+      lin += "n "
+    fimse
+    se dono.dono.dir_s
+      lin += "s "
+    fimse
+    se dono.dono.dir_l
+      lin += "l "
+    fimse
+    se dono.dono.dir_o
+      lin += "o "
+    fimse
+    se dono.dono.dir_c
+      lin += "c "
+    fimse
+    se dono.dono.dir_b
+      lin += "b "
+    fimse
+    se dono.dono.dir_ne
+      lin += "ne "
+    fimse
+    se dono.dono.dir_no
+      lin += "no "
+    fimse
+    se dono.dono.dir_se
+      lin += "se "
+    fimse
+    se dono.dono.dir_so
+      lin += "so "
+    fimse
+    se dono.dono.dir_entrar
+      lin += "entrar "
+    fimse
+    se dono.dono.dir_sair
+      lin += "sair "
+    fimse
+    msg(lin)
+    dono.dono.msg(arg0.descnome + " pedalou " + dono.var.z_dirantes + ".")
+    dono.donoantes.msg(arg0.descnome + " pedalou para " + dono.var.z_dir + ".")
+    ret 1
+  fimse
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_montaria001") && criar("i_montaria001", este, 1)
+  !dentro1.objini("i_montaria001") && criar("i_montaria001", este, 1)
+  !dentro1.objini("i_moto006") && criar("i_moto006", este, 1)
+
+func cmd_mover
+  se arg2 == "b"
+    $mens.p(arg0)
+    $mens.mtodos2("", "$P desceu.")
+    arg0.mudadono(dono.dono)
+    $mens.p(arg0)
+    $mens.mtodos1("$P desceu de uma bicicleta.")
+    ret 1
+  fimse
+#
+
+func cmd_levantar
+  $mens.p(arg0)
+  $mens.mvis1("$P levanta e desce da bicicleta.")
+  arg0.mudadono(dono.dono)
+  $mens.p(arg0, nulo, este)
+  $mens.mvis2("", "$P desceu $d $o.")
+  arg0.posicao = 8
+  ret 1
+#
+
+func cmd_falou
+  txt100 lin
+  lin = arg0.descnome
+  arg0.var.z_sobrenome && (lin += " " + var.z_sobrenome)
+  se txtfim(arg1, 3) == "..."
+    lin += " pondera: "
+  senao txtfim(arg1, 1) == "?"
+    lin += " pergunta: "
+  senao txtfim(arg1, 1) == "!"
+    lin += " exclama: "
+  senao txt(arg1, 0, 3) == "..."
+    lin += " continua a conversa dizendo: "
+  senao
+    lin += " diz: "
+  fimse
+  dono.dono.msg(lin + arg1)
+
+
+classe s_moto003
+herda b_moto
+const dir_c = $s_moto002
+
+
+classe s_moto004
+herda b_moto
+const s_titulo = dono.dono.var.z_titulo ? dono.dono.var.z_titulo : dono.dono.s_titulo
+
+
+classe i_moto008
+herda comum_itemperso
+const nome = var.z_nome ? var.z_nome : "bicicleta"
+const descnome = var.z_nome ? var.z_nome : "uma bicicleta"
+const i_movel = 1 # Mobília: 1 Sentar
+const i_lugar = 1
+const pesoobj = 5000
+const valor = 100000
+const volobj = 5000
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+#
+
+func cmd_sentouobj
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  casovar txtmin(txt1(arg1))
+  casose "bmodelo"
+  casose "bmodel"
+  casose "bmode"
+  casose "bmod"
+  casose "bmo"
+  casose "bm"
+    ret arg0.descnome != var.z_dono, nulo
+    var.z_nome = txt2(arg1)
+    ret arg0.msg("Nome alterado.")
+    ret 1
+  casose "pedalar"
+  casose "pedala"
+  casose "pedal"
+  casose "peda"
+  casose "ped"
+    refvar dir = txtsub(arg1, 1, 1)
+    ret !dono.dir_[dir], arg0.msg("Impossível seguir nessa direção.")
+    ret dono.porta_[dir] >= 2, arg0.msg("A saída para essa direção está fechada.")
+    refvar dira = txttroca(txtsub($cmd_[dir].m_entra2, 2, 2), "$m", "")
+    refvar dirp = txttroca(txtsub($cmd_[dir].m_sai2, 3), "$m", "")
+    ret persolugar.objini != arg0, arg0.msg("Tem que estar sentado no velocípede para pedalar.")
+    se !txt2(arg1)
+      $mens.p(arg0, nulo, este)
+      $mens.mtodos1("$P gira os pés junto com o pedal $d $o, mas não sai do lugar.")
+      ret 1
+    fimse
+    $mens.p(arg0, nulo, este)
+    $mens.mens = dirp
+    $mens.mtodos2("\d=cascavel pedalando...", "\d=cascavel $P pedalou para $m $e $o.")
+    $mens.mens = dirp
+    refvar perso = persolugar.objini
+    mudadono(dono.dir_[dir])
+    arg0.mudadono(arg0.dono.dir_[dir])
+    perso.poslugar = persolugar.addfim(arg0)
+    $mens.p(arg0, nulo, este)
+    $mens.mens = dira
+    $mens.mtodos2("", "\d=cascavel $P chegou $m, pedalando $o.")
+    misc:evento(arg0)
+    ret 1
+  casofim
+#
+
+func cmd_pegarobj
+  se arg2 == este
+    se arg0.descnome != var.z_dono
+      ret arg0.msg("Não pegue, não é sua.")
+    fimse
+  fimse
+#
+
+func cmd_mudadono
+  se !donoantes && dono.jog
+    var.z_dono = dono.descnome
+  fimse

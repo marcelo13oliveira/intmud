@@ -1,0 +1,935 @@
+classe a_mansao
+herda area
+const a_nome = "A mansão do parque"
+const a_autor = "animal"
+const a_tempo = 10
+const a_txtreset = "Ruídos provenientes de todos os lados e de lugar algum ecoam em sua cabeça."
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_mansao
+herda sala
+const s_item = 0
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_luz = 0 # Luz: 0 Claro com eventos de tempo
+const s_recup = 2
+const s_reserva = 1 # Comando reserva: Sim
+const s_retornar = 0 # Comando retornar: 0 Permitido
+const s_area = "mansao"
+
+
+classe i_mansao001
+herda comum_itemperso
+const nome = "Um molho de chaves"
+const ident = "molho chaves mansão"
+const descnome = "Um molho de chaves"
+const descpos = "Você acaba de pisar sobre o molho de chaves da mansão do parque!"
+const i_chave = "mansao001"
+
+
+classe i_mansao002
+herda comum_item
+const nome = "Um livro intitulado \"Lago de sangue\""
+const ident = "livro lado sangue história terror"
+const descnome = "Um livro entitulado Lago de sangue"
+const descpos = "Um livro de capa de couro áspera, groça e vermelho sangue foi atirado em um \
+canto, talvez por ser ele um livro de terror."
+const descver = "Esse livro foi escrito por um mendigo louco que matou-se após fazer com que \
+encontrasse seus escritos. Dizem que ele via além do véu que separa o mundo material do \"Mundo \
+etéreo\" ou invisível, o mundo dos mortos.\n\
+A capa é de couro, áspera e completamente pintada de um vermelho sangue muito forte, além de ter \
+impregnado em suas páginas mofadas o odor da morte. Dizem os que conheciam o velho, que o mesmo \
+possuía grudado em suas vestes o mesmo odor sentido no livro.\n\
+O desenho da capa é um lago de sangue, onde os corpos dos condenados pelo demônio da história \
+nadam e se afogam por toda a eternidade. Lá é onde a súplica pela morte espiritual pode ser \
+ouvida e onde os Deuses não ousam chegar, por respeito a liberdade de ir e vir dos próprios \
+condenados.\n\
+O livro emana uma energia estranha.... parece estar convidando o leitor a entregar-se ao \
+verdadeiro terror navegando em suas páginas vermelhas e mofadas. cabe a você abrir a próxima \
+página.\n\
+Existe um texto em letras tremidas e muito pequenas. Na verdade, o texto paresse uma senha que \
+diz: \"morte imortal\""
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos em perso: Sim
+const evitem = 1 # Eventos em item: Sim
+const evsala = 1 # Eventos em sala: Sim
+
+func cmd_pegarobj
+  se arg2 == este
+    arg0.msg("Uma mão sai de dentro do livro e arranca-o de você.")
+    ret 1
+
+
+classe i_mansao003
+herda comum_itemperso
+const nome = "Prateleiras de livros"
+const ident = "prateleira armário estante"
+const descnome = "Uma Prateleira de livros"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const pesoobj = 100000
+const volexp = 1 # Expande: Sim
+
+func cmd_pegarobj
+  se arg2 == este
+    arg0.msg("Isso é muito pesado para você carregar.")
+    ret 1
+
+
+classe i_mansao004
+herda comum_itemperso
+const nome = "Cadeira de balanço"
+const ident = "cadeira balanço"
+const descnome = "uma cadeira de balanço"
+const descpos = "Uma cadeira de balanço foi posta aqui, virada para o jardim."
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_lugar = 1
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 1000
+const tipoitem = 513 # Tipo de produto: 0-Possui metal, 9-Mobília
+
+
+classe i_mansao005
+herda comum_itemperso
+const nome = "um balanço de cordas"
+const ident = "balanço"
+const descnome = "um balanço de cordas"
+const descpos = "Bem adaptado a sombra de uma árvore, Um forte balanço de cordas move-se ao \
+sabor do vento."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_movel = 1 # Mobília: 1 Sentar
+const i_lugar = 2
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 1
+const eveste = 1 # Eventos item: Sim
+
+func cmd_pegarobj
+  se arg2 == este
+    arg0.msg("Isso está bem amarrado a árvore, impocível pegar.")
+    ret 1
+
+
+classe i_mansao006
+herda comum_itemperso
+const nome = "A bola de cristal de Nyña"
+const ident = "bola cristal"
+const descnome = "A bola de cristal de Nyña"
+const descpos = "A bola de cristal de nyña atrai todos os olhares para seu brilho inconfundível."
+const nivel = 20
+const luzfim = 1 # Sem luz item some: Sim
+const luzitem = 1 # Tipo de luz: 1 Lanterna (acende/apaga, sem fogo)
+const luzini = 1000000000
+const luzliga = "A bola de Cristal de Nyña se acende."
+const luztxt = "As forças da bola de cristal de Nyña chegam ao fim."
+const pesoobj = 3
+const tipoitem = 384 # Tipo de produto: 7-Tesouro, 8-Fonte de luz
+const valor = 10000
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5
+  pmanamax += 5
+
+
+classe i_mansao007
+herda comum_item
+const nome = "um anel de safira"
+const ident = "anel safira"
+const descnome = "um anel de safira"
+const descpos = "Você quase pisa sobre um bonito e delicado anel de safira atirado ao chão."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 23
+const objmax = 0
+const pesoobj = 2
+const tipoitem = 128 # Tipo de produto: 7-Tesouro
+const valor = 3000
+const vestir1 = 6291456 # Aonde vestir: 21-no dedo direito, 22-no dedo esquerdo
+const volmax = 0
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmovemax += 10
+  atknorm += 1
+  evasao += 1
+  precisao += 2
+
+
+classe i_mansao008
+herda comum_itemperso
+const nome = "Um rolo de macarrão"
+const ident = "rolo macarrão pau"
+const descnome = "Um rolo de macarrão"
+const descpos = "Alguma dona de casa abandonou Um pesado rolo de macarrão aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 10
+const armamax = 120
+const armamin = 80
+const armatipo = 5 # Tipo de arma: 5 Maca e Martelo
+const pesoobj = 4
+const tipoitem = 2 # Tipo de produto: 1-Arma
+const valor = 50
+const volmax = 0
+const armaatk = "bater"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30
+  pmanamax += 30
+  pmovemax += 30
+  atknorm += 5
+  precisao += 12
+
+const armafalha = 50
+
+
+classe i_mansao009
+herda comum_item
+const nome = "As botas do caseiro"
+const ident = "botas"
+const descnome = "As botas do caseiro"
+const descpos = "atiradas de qualquer jeito há um par de botas muito sujas atraindo mosquito e \
+repelindo pessoas ao seu redor."
+const nivel = 18
+const pesoobj = 10
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 3000
+const vestir1 = 134217728 # Aonde vestir: 27-nos pés
+const volmax = 0
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmovemax += 5
+  evasao += 5
+
+
+classe i_mansao010
+herda comum_item
+const nome = "Um fino bracelete de prata"
+const ident = "bracelete prata"
+const descnome = "Um fino bracelete de prata"
+const descpos = "Há um bracelete de prata caído bem a sua frente."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 15
+const pesoobj = 2
+const tipoitem = 132 # Tipo de produto: 2-Armadura, 7-Tesouro
+const valor = 6000
+const vestir1 = 196608 # Aonde vestir: 16-no pulso direito, 17-no pulso esquerdo
+const volmax = 0
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 1.5
+  defnorm += 3
+
+
+classe i_mansao011
+herda comum_itemperso
+const nome = "Um grande armário espelhado"
+const ident = "armário"
+const descnome = "Um grande armário espelhado"
+const descpos = "Há um armário espelhado cobrindo completamente uma das paredes do quarto."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const volmax = 10000
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos em perso: Sim
+const evitem = 1 # Eventos em item: Sim
+const evsala = 1 # Eventos em sala: Sim
+
+func cmd_pegarobj
+  se arg2 == este
+    arg0.msg("Isso é muito pesado para você carregar.")
+    ret 1
+
+
+classe i_mansao012
+herda comum_item
+const nome = "um cordão com pingente foliado em prata"
+const ident = "pingente cordão prata prateado"
+const descnome = "um cordão com pingente foliado em prata"
+const descpos = "Há uma jóia prateada atirada ao chão."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 20
+const objmax = 0
+const pesoobj = 2
+const tipoitem = 128 # Tipo de produto: 7-Tesouro
+const valor = 10000
+const vestir1 = 512 # Aonde vestir: 9-no pescoço
+const volexp = 0 # Expande: Não
+const volmax = 0
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 2
+  defnorm += 5
+  precisao += 5
+
+
+classe i_mansao013
+herda comum_itemperso
+const nome = "As vestes de um mago"
+const ident = "roupa vestes mago"
+const descnome = "As vestes de um mago"
+const descpos = "Uma vestimenta de cores místicas está perdida aqui."
+const nivel = 32
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const objmax = 5
+const tipoitem = 12 # Tipo de produto: 2-Armadura, 3-Vestimenta
+const valor = 1000
+const vestir1 = "800"
+const vestirnao = ""
+const volmax = 1000
+const manterperso = 1 # Mantém em jogador: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmanamax += 60
+  defesp += 10
+  precisao += -7
+  bitver |= 2048
+
+
+classe i_mansao014
+herda comum_itemperso
+const nome = "Um resistente elmo de ferro"
+const ident = "elmo ferro"
+const descnome = "Um resistente elmo de ferro"
+const descpos = "A mercê das intempéries do tempo está um resistente elmo de ferro seme-novo."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 40
+const pesoobj = 10
+const tipoitem = 5 # Tipo de produto: 0-Possui metal, 2-Armadura
+const valor = 5500
+const vestir1 = 4 # Aonde vestir: 2-Na cabeça
+const vestirnao = ""
+const volmax = 0
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmovemax += 15
+  defnorm += 10
+  evasao += 5
+  precisao += 5
+
+
+classe i_mansao015
+herda comum_item
+const nome = "Uma estrela de sinco pontas"
+const ident = "estrela pentagrama"
+const descnome = "Uma estrela de sinco pontas"
+const descpos = "Algum mago distraído deixou seu símbolo mágico cair pelo caminho"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 40
+const pesoobj = 2
+const tipoitem = 129 # Tipo de produto: 0-Possui metal, 7-Tesouro
+const valor = 10000
+const vestir1 = 2 # Aonde vestir: 1-como símbolo
+const vestirnao = ""
+const volmax = 0
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmanamax += 30
+  atkesp += 10
+
+
+classe i_mansao016
+herda comum_item
+const nome = "Uma armadura de bronze"
+const ident = "armadura bronze"
+const descnome = "Uma armadura de bronze"
+const descpos = "A armadura do carrasco está jogada em um canto"
+const nivel = 50
+const pesoobj = 3
+const tipoitem = 5 # Tipo de produto: 0-Possui metal, 2-Armadura
+const valor = 10000
+const vestir1 = 4096 # Aonde vestir: 12-no corpo
+const volmax = 0
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  defnorm += 7
+  evasao += 2
+  precisao += 2
+
+
+classe i_mansao017
+herda comum_item
+const nome = "Uma espada longa reluzente"
+const ident = "espada luz reluzente longa"
+const descnome = "Uma espada longa reluzente"
+const descpos = "Uma lâmina no chão parece sugar toda a luz para dentro de si."
+const nivel = 55
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const pesoobj = 150
+const tipoitem = 131 # Tipo de produto: 0-Possui metal, 1-Arma, 7-Tesouro
+const valor = 30000
+const vestirnao = "haufling\nmago"
+const volmax = 0
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 15
+
+
+classe i_mansao067
+herda comum_item
+const nome = "Uma maça leve"
+const ident = "maça leve"
+const descnome = "Uma maça leve"
+const descpos = "A maça suja de sangue do carrasco foi atirada em um canto."
+const nivel = 50
+const armamax = 40
+const armamin = 25
+const armatipo = 5 # Tipo de arma: 5 Maca e Martelo
+const objmax = 0
+const pesoobj = 100
+const tipoitem = 3 # Tipo de produto: 0-Possui metal, 1-Arma
+const valor = 5000
+const vestir1 = "0"
+const volexp = 0 # Expande: Não
+const volmax = 0
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  precisao += 5
+
+const armafalha = 40
+
+
+classe i_mansao068
+herda comum_item
+const nome = "Um pequeno brinco de prata"
+const ident = "brinco pequeno prata"
+const descnome = "Um pequeno brinco de prata"
+const descpos = "Você escapa de pizar em um belíssimo brinquinho de prata por milímetros."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 15
+const pesoobj = 60
+const tipoitem = 128 # Tipo de produto: 7-Tesouro
+const valor = 10000
+const vestir1 = "c0"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 20
+  pmanamax += 20
+  pmovemax += 20
+  pveloc1 += 20
+  defnorm += 10
+  defesp += 5
+
+
+classe i_mansao069
+herda comum_item
+const nome = "Uma armadura de ferro"
+const ident = "armadura ferro"
+const descnome = "Uma armadura de ferro"
+const descpos = "Uma armadura de ferro foi jogada de lado, sendo agora alvo do tempo e dominada \
+por ferrugem."
+const nivel = 18
+const pesoobj = 1000
+const tipoitem = 5 # Tipo de produto: 0-Possui metal, 2-Armadura
+const valor = 3000
+const vestir1 = 4096 # Aonde vestir: 12-no corpo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50
+  defnorm += 30
+  deftipo.0 *= 0.95 # Tipos Normais
+  deftipo.2 *= 0.95 # Contusão
+  deftipo.3 *= 0.95 # Luta
+  deftipo.4 *= 0.95 # Cortante
+  deftipo.5 *= 0.95 # Perfurante
+
+
+classe i_mansao070
+herda comum_item
+const nome = "Uma reforçada perneira de couro"
+const ident = "perneira reforçada couro"
+const descnome = "Uma reforçada perneira de couro"
+const descpos = "Um par de perneiras de couro permanecem atirados sem utilidade, quase como se \
+pudesse fazer parte do cômodo onde está."
+const nivel = 23
+const pesoobj = 600
+const tipoitem = 12 # Tipo de produto: 2-Armadura, 3-Vestimenta
+const valor = 4000
+const vestir1 = 16777216 # Aonde vestir: 24-nas pernas
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmanamax += 50
+  pmovemax += 30
+  pveloc1 += 30
+  precisao += 12
+
+
+classe i_mansao071
+herda comum_item
+const nome = "braçadeiras de ferro"
+const ident = "braçadeiras ferro"
+const descnome = "Um par de braçadeiras de ferro"
+const descpos = "Alguém deixou esse par de braçadeiras de ferro jogado por aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 30
+const pesoobj = 700
+const tipoitem = 5 # Tipo de produto: 0-Possui metal, 2-Armadura
+const valor = 5000
+const vestir1 = 16384 # Aonde vestir: 14-nos braços
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmanamax += 70
+  pmovemax += 26
+  pveloc1 += 20
+  defnorm += 20
+
+
+classe i_mansao072
+herda comum_item
+const nome = "Um par de velhas e grosseiras luvas de jardineiro"
+const ident = "velhas grosseiras luvas jardineiro"
+const descnome = "Um par de velhas e grosseiras luvas de jardineiro"
+const descpos = "Um par de velhas e grosseiras luvas de jardineiro estão jogadas aqui."
+const nivel = 20
+const pesoobj = 200
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 1000
+const vestir1 = 262144 # Aonde vestir: 18-nas mãos
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmovemax += 5
+  pveloc1 += 5
+  atknorm += -5
+  defnorm += 5
+  precisao += -10
+
+
+classe i_mansao100
+herda comum_itemperso
+const nome = "Um punhado de ração"
+const ident = "ração comida"
+const descnome = "Um punhado de ração"
+const descpos = "Um potinho com um punhado de ração foi servido no cantinho da sala."
+const armamax = 30
+const armamin = 10
+const armafalha = 30
+const armatipo = 0 # Tipo de arma: 0 Não é arma
+const i_captura = 1
+const tipoitem = 8192 # Tipo de produto: 13-Comida
+
+
+classe i_mansao101
+herda comum_itemperso
+const nome = "Uma alma"
+const ident = "alma"
+const descnome = "Uma alma"
+const descpos = "Uma fraca luz proveniente de uma alma enfraquecida pouco a pouco vai se \
+apagando diante de seus olhos."
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_magia1 = "envenenar"
+const f_msgperso = "você devora uma alma perdida. Seus olhos perdem o foco enquanto você \
+contorse-se de dor no estômago...."
+const f_msgoutros = "$P devora uma alma perdida. Os olhos de $P ficam vermelhos por um instante \
+enquanto $P se contorse de dor!"
+const f_nivel1 = 30
+const luzfim = 1 # Sem luz item some: Sim
+const luzini = 1000000
+const objmax = 0
+const pesoobj = 1
+const volmax = 1
+const volobj = 1
+const manterperso = 1 # Mantém em jogador: Sim
+
+
+classe i_mansao102
+herda comum_itemperso
+const nome = "Uma alma"
+const ident = "alma"
+const descnome = "Uma alma"
+const descpos = "Uma fraca luz proveniente de uma alma enfraquecida pouco a pouco vai se \
+apagando diante de seus olhos."
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_magia1 = "envenenar"
+const f_msgperso = "você devora uma alma perdida. Seus olhos perdem o foco enquanto você \
+contorse-se de dor no estômago...."
+const f_msgoutros = "$P devora uma alma perdida. Os olhos de $P ficam vermelhos por um instante \
+enquanto $P se contorse de dor!"
+const f_nivel1 = 30
+const luzfim = 1 # Sem luz item some: Sim
+const luzini = 1000000
+
+
+classe i_mansao103
+herda comum_itemperso
+const nome = "Uma alma"
+const ident = "alma"
+const descnome = "Uma alma"
+const descpos = "Uma fraca luz proveniente de uma alma enfraquecida pouco a pouco vai se \
+apagando diante de seus olhos."
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_magia1 = "envenenar"
+const f_msgperso = "você devora uma alma perdida. Seus olhos perdem o foco enquanto você \
+contorse-se de dor no estômago...."
+const f_msgoutros = "$P devora uma alma perdida. Os olhos de $P ficam vermelhos por um instante \
+enquanto $P se contorse de dor!"
+const f_nivel1 = 30
+const luzfim = 1 # Sem luz item some: Sim
+const luzini = 1000000
+
+
+classe p_mansao001
+herda comum_persobat
+const nome = "O Guarda"
+const ident = "guarda humano homem vigia porteiro"
+const descnome = "O Guarda"
+const descpadr = "O guarda da mansão do parque posta-se na defenciva diante dos portões bem \
+trancados."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 8000
+const nivel = 30
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 7
+const p_morreu1 = "Já a beira da inconsciência, $P cospe sua última golfada de sangue junto com \
+a frustração de ter falhado em cumprir sua única missão.... $P morreu."
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "z_moedas=1000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+  bitver |= 30
+  atktipo.6 *= 0 # Fogo
+  atktipo.7 *= 0 # Água
+  atktipo.8 *= 0 # Gelo
+  atktipo.9 *= 0 # Terra
+  atktipo.10 *= 0 # Pedra
+  atktipo.11 *= 0 # Aéreo/vento
+  atktipo.12 *= 0 # Luz
+  atktipo.13 *= 0 # Trevas
+  atktipo.14 *= 0 # Elétrico
+  atktipo.15 *= 0 # Vegetal
+  atktipo.16 *= 0 # Psíquico
+  atktipo.17 *= 0 # Veneno
+  atktipo.18 *= 0 # Fantasma
+  atktipo.19 *= 0 # Dragão
+
+
+classe p_mansao002
+herda comum_persobat
+const nome = "O vigia"
+const ident = "vigia folga homem humano"
+const descnome = "O vigia de folga"
+const descpadr = "Babando e roncando alto, esse vigia parece estar em seu quinto sono"
+const descver = "Barbudo, gordo e com um álito desagradável, esse homem dorme como uma pedra. \
+Pela posição do corpo, pelas vestes de trabalho e pela cor de suas mãos, o vigia não costuma ter \
+hábitos saudáveis inclusos no seu cotidiano.\n\
+Enquanto dorme a sono solto ele resmunga algo incompreencível, rola na cama e baba exageradamente\
+, cospindo saliva enquanto, aparentemente briga com alguém de seu passado.\n\
+Suas roupas muito rasgadas, suas mãos sujas e calejadas lhe indicam que a sua frente está um \
+homem pobre e abandonado por si próprio a margem da vida, mas que continua de pé por birra para \
+mostrar ao sol que, ele querendo ou não, terá de sorrir para esse morto vivo errante."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 55000
+const objmax = 5
+const nivel = 20
+const pospadr = 4 # Posição padrão: 4 Dormindo
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 10
+const inivar = "z_moedas=30"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 40
+  pmovemax += 40
+  pveloc1 += 10
+  atknorm += 10
+  precisao += 110
+
+
+classe p_mansao003
+herda comum_persobat
+const nome = "O Vigia"
+const ident = "vigia humano homem"
+const descnome = "O vigia"
+const descpadr = "Um homem permanece atento a olhar para fora enquanto brinca distraidamente com \
+seu arco."
+const descver = "Pouco se sabe sobre os funcionários da mansão, onde foram treinados, por quem o \
+foram e de onde vieram. Tudo que se ouve falar pelos cantos é que vieram de diversos lugares e, \
+um a um, passaram por duras seções de treinamento com o caseiro, um velho guerreiro sábio e \
+ainda muito capaz.\n\
+Esse rapaz é jovem, parece não haver passado por nada mais que seu treinamento para, apenas e \
+tão somente observar a entrada da mansão e, quando necessário for, atirar em quem ameaçasse a \
+tranquilidade dos moradores do grande casarão.\n\
+o rapaz tem ainda por mestre o pai velho e cansado, que permanece num posto mais baicho apenas \
+por amor ao que faz e para não morrer sobre uma cama,\n\
+aumentando assim as responsabilidades de seu filho único, proteger o velho pai de um perigo até \
+agora não visto.\n\
+Em suas mãos, há apenas um arco com o qual brinca distraidamente, parando o movimento despreocupa\
+do apenas para ajeitar o binóculo e os poucos cabelos que o vento inssiste em atirar em seu \
+rosto."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 70000
+const nivel = 25
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 20
+const p_morreu1 = "Completamente esgotado e sangrando, $P sucumbe ao peso da morte em silêncio e \
+com dignidade. $P morreu."
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 15
+  atknorm += 10
+  precisao += 110
+  bitinv &= ~2
+  bitver |= 2110
+
+
+classe p_mansao004
+herda comum_persobat
+const nome = "A cozinheira"
+const ident = "humana mulher cozinheira empregada"
+const descnome = "A cozinheira"
+const descpadr = "Uma habilidosa cozinheira prepara a refeição da família enquanto cantarola uma \
+canção a muito esquecida."
+const pesoobj = 55000
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_mansao005
+herda comum_persobat
+const nome = "O caseiro"
+const ident = "caseiro guerreiro velho homem humano"
+const descnome = "O caseiro"
+const descpadr = "O caseiro da mansão grita ordens enquanto caminha pela casa com dificuldade."
+const descver = "Medo, é tudo que você sente e é o máximo que ele consegue transmitir enquanto \
+inssiste em manter sua posição na casa da família a qual serve a 50 anos.\n\
+A princípio como guerreiro, como jardineiro, vigia, vigia chefe e por último, caseiro, mantendo-s\
+e no cargo por 12 anos, mesmo com a idade chegando e cobrando seu preço.\n\
+O velho grita ordens, impropérios e maldições pela casa, importunando visitas e criados, toca \
+objetos com suas mãos sujas e, em noites mais longas, grita, geme, ataca e revive passagens de \
+sua longa existência em um quartinho izolado para seus momentos de delírio.\n\
+Por mais que o velho seja um fardo para os patrões, estes sentem-se em dívida com o ancião, \
+mantendo-o em posição de destaque ao lado de um rapaz mais vigoroso e digno de crédito para as \
+funções mais pesadas provenientes da responsabilidade do cargo.\n\
+Roupas rasgadas, barbas por fazer, cheiro nauseabundo, álito e dentes podres e unhas sujas de \
+terra é tudo quanto resta do antigo e dedicado criado. Seja medo ou respeito, seja a certeza de \
+um futuro de dor e velice, todos o respeitam e nutrem por ele grande piedade e repulsa."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 50000
+const nivel = 15
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 10
+const p_morreu1 = "$P cospe na sua cara demonstrando uma ousadia inexistente e deixa-se cair \
+enquanto dá uma última golfada de sangue."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 200
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_mansao006
+herda comum_persobat
+const nome = "Uma serviçal"
+const ident = "jovem garota humana serviçal criada empregada"
+const descnome = "Uma serviçal"
+const descpadr = "Uma jovem serviçal corre de um lado a outro arrumando a bagunça dos patrões."
+const descver = "A criada  é baixa, pele mais bronzeada,\n\
+ cabelos longos e cacheados, seios protuberantes e músculos fortes  devido ao trabalho.\n\
+ela parece ter recebido um pesado treinamento e viver sob um rigoroso código,\n\
+uma conduta de disciplina e submição que a impede de sorrir e ser simpática,  seja com quem quer \
+que for.\n\
+A jovem calça sandálias baixas, simples e confortáveis,\n\
+mantém-se limpa e, a sua maneira, bela, agradável aos olhos.\n\
+Embora seus traços lhe confiram um ar sombrio e envelhecido, a sua frente encontra-se uma \
+adolescente sem expectativas maiores na vida."
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_morreu1 = "O grito desesperado dessa pobre vítima ecoa em sua mente, quem sabe atingindo \
+sua alma assassina... $P morreu."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 200
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_mansao007
+herda comum_persobat
+const nome = "Uma garota estudiosa"
+const ident = "garota estudiosa humana moça menina"
+const descnome = "Uma garota estudiosa"
+const descpadr = "Uma garotinha estudiosa lê seu livro no silêncio de uma vasta biblioteca."
+const pesoobj = 50000
+const nivel = 20
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const inivar = "z_moedas=50000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_mansao008
+herda comum_persobat
+const nome = "Uma boa velhinha"
+const ident = "velha velhinha anciã idosa vovó"
+const descnome = "Uma boa velhinha"
+const descpadr = "Sentada sobre uma cadeira de balanço está uma velhinha entretida com seus \
+retalhos."
+const pesoobj = 50000
+const nivel = 15
+const pospadr = 6 # Posição padrão: 6 Sentado
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_morreu1 = "$P olha para o seu rosto e com os olhos, faz apenas uma pergunta muda: \
+Porque??"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_mansao009
+herda comum_persobat
+const nome = "wylen, a esposa do mago"
+const ident = "Wylen mulher humana"
+const descnome = "Wylen"
+const descpadr = "A curiosa e impactante Wylen caminha despreocupada por aqui."
+const descver = "Lhe falta o ar, lhe falta chão, lhe falta... Voltar a realidade! Wylen é, no \
+mínimo, uma Deusa de grande beleza e elegância.\n\
+Wylen é alta, cabelos cacheados que lhe chegam a cintura fina, veste-se com elegância sem \
+tornar-se com isso uma mulher fútil ou fazer-se passar pelo que não é, apesar de sua vaidade.\n\
+Usa alguns brilhantes menos chamativos, arco delicado nos cabelos e uma pintura leve escondendo \
+a idade que o rosto trataria de mostrar. Com esses cuidados, faz-se passar por uma jovem de 20 \
+anos contando com 37 facilmente, para a surpresa dos que a conhecem de longa data.\n\
+É normal vê-la em eventos, festas e lojas, no entanto pode-se facilmente vê-la a conversar \
+amigavelmente com um de seus criados a orientá-los quanto ao andamento de algumas de suas \
+ordens, principalmente no caso de haver recepção em sua mansão."
+const pesoobj = 70000
+const nivel = 30
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_morreu1 = "não! por.... fa... favor... $P morreu"
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 200
+const inivar = "var.z_moedas=1000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_mansao010
+herda comum_persobat
+const nome = "Um bebê"
+const ident = "bebê criança humano menino"
+const descnome = "Um bebê"
+const descpadr = ". Um pequeno bebesinho sorri ao ver você entrar"
+const descver = "A carinha da mãe, os olhos do pai, esse anjinho indefeso é só sorrisos para \
+você. Ele agita os bracinhos e convida-o a brincar.\n\
+Ele veste roupas leves de dormir e ainda está com os olhinhos entreabertos aparentando ter \
+acabado de acordar, talvez ao pressentir sua chegada.\n\
+Seu corpinho miúdo expreguiça-se na cama e logo está de joelhos, pendurado no berço a espera de \
+alguém para lhe tomar nos braços. Ao seu redor estão seus brinquedos, mas os olhos curiosos não \
+desgrudam de você, seu novo amiguinho!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 2000
+const nivel = 0
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_morreu1 = "Você assiste o bebê tombar no berço e a luz deixar seus olhos... $P morreu."
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_mansao011
+herda comum_persobat
+const nome = "uma menininha levada"
+const ident = "criança menina garotinha levada naelly"
+const descnome = "uma menininha levada"
+const descpadr = "Pulando da cama para o chão, essa garotinha levada diverte-se assustando seu \
+irmão menor no berço."
+const descver = "Esse anjo sempre está sorrindo abertamente, e nem sempre há um motivo belo e \
+válido por trás desse sorriso. Naelly provoca o pequeno bebê, assustando-o com seus saltos e \
+suas artes.\n\
+O bebê, por sua vez, chora por um momento e volta a sorrir, acostumando-se e gostando da \
+companhia da inquieta garotinha, a única que consegue brincar com o pequeno ou que tenha tempo \
+para tal comportamento.\n\
+Ela tem os cabelinhos encaracolados e presos cacheados a mão, formando cachos pesados e perfeitos\
+. Eles chegam até a cima da cintura da pequena, dando-lhe uma doce aparência de bonequinha, \
+reforçada pelas roupas cor de roza e da fitinha florida com o qual prende os cabelos fartos.\n\
+Por onde quer que a vejam, Naelly sempre estará tramando alguma brincadeira, você querendo ou \
+não, mas a maioria das pessoas desistem de tocar-lhe ou de gritar com ela, quando decide jogar \
+os cabelos e lançar a você um pedido de desculpas com os olhos, da forma mais doce, \n\
+ meiga e ingênua que só uma garotinha de sinco anos poderia fazer."
+const pesoobj = 20000
+const nivel = 12
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_mansao012
+herda comum_persobat
+const nome = "Uma mocinha sonhadora"
+const ident = "garota mocinha moça humana sonhadora menina humana"
+const descnome = "Uma mocinha sonhadora"
+const descpadr = "Uma mocinha sonhadora penteia-se frente ao espelho enquanto fantasia momentos \
+inesquecíveis em sua cabeça."
+const pesoobj = 68000
+const nivel = 20
+const tipo1 = "humana"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const inivar = "z_moedas=10000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_mansao013
+herda comum_perso
+const nome = "Velho vigia"
+const ident = "3"
+const descnome = "Velho vigia"
+const descpadr = "Um homem debilitado repousa seu corpo cansado sobre a cama de casal."
+const descver = "Para esse velho, respirar é uma luta, andar um sacrifícil e viver é uma \
+vitória. Sua terra ficou distante, dos amigos nem se lembra mais, lembra-se apenas da família a \
+qual os olhos quase já não os pode ver, mas que o coração pula de alegria ao ouvir a voz de sua \
+senhora e seu único filho, vigia chefe da propriedade.\n\
+Ainda há uma outra alegria dentro desse coração teimoso, uma alegria..."

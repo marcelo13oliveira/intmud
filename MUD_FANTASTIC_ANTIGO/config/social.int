@@ -1,0 +1,1601 @@
+classe soc_abraçar
+herda soccomum
+const tipo = 3 # Tipo de comando: 3 Cumprimentar
+const sem1 = "Você procura alguém para abraçar."
+const sem2 = "$P quer abraçar alguém."
+const auto1 = "Abraçar a você mesmo?"
+const perso1 = "$P abraça $a."
+const perso2 = "$P abraça $a."
+const perso3 = "$P abraça $a."
+const item1 = "$P pensa duas vezes e abraça $o."
+const item2 = "$P está muito carente e abraça $o, que fofinho!"
+#
+
+func cmd_social
+  criar("e_abraçando", arg0)
+  arg0.var.j_abraçando = " abraçando " + arg1.descnome
+  criar("e_abraçando", arg1)
+  arg1.var.j_abraçando = " sendo abraçad" + (arg1.psexo ? "o" : "a") + " por " + arg0.descnome
+
+
+classe soc_abraço
+herda soccomum
+const sem1 = "Você dá um forte abraço em todos que aqui estão."
+const sem2 = "$P te dá um forte abraço."
+const perso1 = "$P dá um forte abraço em $A."
+const perso2 = "$P te dá um forte abraço."
+const perso3 = "$P dá um forte abraço em $A."
+
+
+classe soc_acariciar
+herda soccomum
+const perso1 = "$P acaricia todo o corpo de $A com a palma das suas mãos, fazendo-$t relaxar ao \
+seu toque!"
+const perso2 = "$P acaricia todo o seu corpo com a palma das mãos, fazendo-lhe relaxar ao seu \
+toque!"
+const perso3 = "$P acaricia todo o corpo de $A com a palma das mãos, fazendo-$t relaxar ao seu \
+toque!"
+#
+
+func cmd_social
+  criar("e_acariciando", arg0)
+  arg0.var.j_acariciando = " acariciando " + arg1.descnome
+  criar("e_acariciando", arg1)
+  arg1.var.j_acariciando = " sendo acariciad" + (arg1.msexo ? "o" : "a") + " por " + arg0.descnom\
+e
+#
+
+func cmd_social
+  se arg0.dono != arg1.dono
+    ret arg0.msg("Acho melhor fazer isso com alguém que esteja perto.")
+  fimse
+
+
+classe soc_acenar
+herda soccomum
+const sem1 = "Você acena alegremente para todos!"
+const sem2 = "$P acena alegremente para todos!"
+const perso1 = "$P acena alegremente para $A!"
+const perso2 = "$P acena alegremente para $A!"
+const perso3 = "$P acena alegremente para $A!"
+
+
+classe soc_aconchegar
+herda soccomum
+const sem2 = "$p procura alguém para se aconchegar"
+const auto1 = "$P involve $a em um caloroso e apertado abraço"
+const auto2 = "$P abraça $A calorosamente."
+const perso2 = "$P se aconchega, e te abraça calorosamente com todas as suas forças"
+const perso1 = "$P se aconchega e abraça $a apertado"
+const perso3 = "$P abraça $a calorosamente"
+const sem1 = "$p procura alguém para se aconchegar"
+
+
+classe soc_acusar
+herda soccomum
+const tipo = 2 # Tipo de comando: 2 Ofender
+const invalido = "Acuzar quem?"
+const auto1 = "Sua conciência está pesada é?"
+const auto2 = "$P parece estár com a conciÊncia pesada"
+const perso1 = "$P olha acusadoramente para $A"
+const perso2 = "$P olha fixamente para você acuzando-$t!"
+const perso3 = "$P com um olhar acuzador, aponta para $A!"
+const item1 = "$P acuza $O com ódio no olhar"
+const item2 = "$P olha para $o, acuzando-$s com muita raiva!"
+const sem1 = "acuzar quem?"
+
+
+classe soc_admirar
+herda soccomum
+const sem1 = "Você olha ao seu redor, admirad$s com algo que viu."
+const sem2 = "$P olha ao seu redor, admirad$s com algo que viu."
+const auto1 = "$P tira um tempo para se avaliar e se descobre admirad$s com as próprias qualidade\
+s."
+const auto2 = "$P tira um tempo para se avaliar e se descobre admirad$s com as próprias qualidade\
+s."
+const perso1 = "$P olha $A por um tempo, admirad$s e encantad$s com sua beleza."
+const perso2 = "$P olha você por um tempo, admirad$s e encantad$s com sua beleza."
+const perso3 = "$P olha $A por um tempo, admirad$s e encantad$s com sua beleza."
+
+
+classe soc_adorar
+herda soccomum
+const sem1 = "$P está a procura de alguém para adorar!"
+const auto1 = "$P quer se adorar..."
+const perso2 = "$P sussurra para você: Te adoro."
+const perso1 = "$P sussurra para $a: Te adoro."
+const perso3 = "$P sussurra no ouvido de $a."
+
+
+classe soc_agradecer
+herda soccomum
+const tipo = 1 # Tipo de comando: 1 Agradecer
+const invalido = "Quem?"
+const sem1 = "$P agradece aos Deuses"
+const auto1 = "$P pensa: Obrigado $R! Fez um ótimo trabalho."
+const auto2 = "$P murmura, obrigad$s, obrigad$s... Será que el$v está bem?"
+const perso2 = "$P lhe agradece."
+const perso3 = "$P agradece $a por ter feito algo por el$v"
+const perso1 = "$P educadamente agradece a $A."
+const sem2 = "$P agradece aos Deuses."
+
+
+classe soc_alívio
+herda soccomum
+const sem1 = "Calma, já está tudo bem."
+const sem2 = "$P respira aliviad$s, como se tivesse acabado de escapar de um grande sufoco."
+
+
+classe soc_ameaçar
+herda soccomum
+const tipo = 2 # Tipo de comando: 2 Ofender
+const mvis = 0 # Mostrar invisível: Não
+const invalido = "Você não pode ameaçar algo que não esteja aqui."
+const sem1 = "Você chama todos pra briga."
+const sem2 = "$p está querendo brigar."
+const perso1 = "Você ameaça $A, chamando-$t para a briga."
+const perso2 = "$p te chama pra treta, vai correr ou vai encarar?"
+const perso3 = "$P chama $A para a briga."
+const item1 = "Olha, $O! me parece uma boa arma para uma porradaria agora."
+const item2 = "$P arma-se com $O. que comece a briga!"
+
+
+classe soc_ansiedade
+herda soccomum
+const sem1 = "$P fica ansios$s"
+const sem2 = "$P fica ansios$s"
+const auto1 = "$P fica ansios$s com algo que vai fazer"
+const auto2 = "$P fica ansios$s com algo que vai fazer"
+const perso1 = "$P fica ansios$s com o que $A $s fará."
+const perso2 = "$P fica ansios$s com o que $A fará a el$v."
+const perso3 = "$P fica ansios$s com o que $A fará a el$v."
+const item1 = "$P fica ansios$s para saber o que $o faz."
+const item2 = "$P fica ansios$s para saber o que $o faz."
+
+
+classe soc_apaixonar
+herda soccomum
+const sem1 = "$P sorri, apaixonad$s."
+const sem2 = "$P sorri, apaixonad$s."
+const auto1 = "$P fica apaixonad$s por si mesm$s."
+const auto2 = "$P fica apaixonad$s por si mesm$s."
+const perso1 = "$P olha apaixonadamente para $A."
+const perso2 = "$P olha apaixonadamente para $A."
+const perso3 = "$P olha apaixonadamente para $A."
+const item1 = "$P fica apaixonad$s por $o"
+const item2 = "$P fica apaixonad$s por $o"
+
+
+classe soc_apegar
+herda soccomum
+const sem1 = "$P quer se apegar a alguma coisa, mas o que será?"
+const sem2 = "$P quer se apegar a alguma coisa, mas o que será?"
+const auto1 = "$P se apega a si mesm$v!"
+const auto2 = "$P se apega a si mesm$v!"
+const perso1 = "$P se apega a $A."
+const perso2 = "$P se apega a $A."
+const perso3 = "$P se apega a $A."
+const item1 = "$P se apega a $o."
+const item2 = "$P se apega a $o."
+
+
+classe soc_apertar
+herda soccomum
+const auto1 = "$p tenta se apertar. nossa, quanta carência!"
+const sem1 = "$p pensa. dar uns apertões em alguém agora seria uma delícia"
+const sem2 = "$p pensa. dar uns apertões em alguém agora seria uma delícia"
+const auto2 = "$p tenta se apertar. nossa, quanta carência!"
+const perso1 = "Com um sorrisinho safado no rosto, $P da vários apertões em $A."
+const perso2 = "Com um sorrisinho safado no rosto, $P da vários apertões em $A."
+const perso3 = "Com um sorrisinho safado no rosto, $P da vários apertões em $A."
+const item1 = "$P aperta $o"
+const item2 = "$P aperta $o"
+
+
+classe soc_aperto
+herda soccomum
+const perso1 = "$P cumprimenta $A com um aperto de mão."
+const perso2 = "$P lhe cumprimenta com um aperto de mão."
+const perso3 = "$P cumprimenta $A com um aperto de mão."
+const sem1 = "$P procura alguém para cumprimentar."
+const sem2 = "$P procura alguém para cumprimentar."
+
+
+classe soc_aplaudir
+herda soccomum
+const auto1 = "você se aplaude, maravilha"
+const perso2 = "$p demonstra aprovação e aplaude você"
+const perso3 = "$p demonstra aprovação e aplaude $A"
+const sem2 = "$P demonstrando aprovação, começa a aplaudir"
+const auto2 = "$p se acha o máximo e se aplaude"
+const sem1 = "você bate palmas em aprovação"
+const perso1 = "$p aplaude $a"
+
+
+classe soc_apontar
+herda soccomum
+const sem1 = "$P aponta o dedo em uma direção aleatórea"
+const auto1 = "$p aponta para si mesm$s"
+const perso1 = "$P aponta na direção de $a!"
+const perso2 = "$P aponta para você!"
+const perso3 = "$P aponta para $a!"
+const auto2 = "$p aponta para el$v mesm$s"
+const item1 = "$P aponta na direção de $o"
+const item2 = "$P aponta na direção de $o"
+
+
+classe soc_arrotar
+herda soccomum
+const sem1 = "$P arrota"
+const auto1 = "$P arrota"
+const perso1 = "Você olha para $a e arrota na cara del$w! Que groceria!"
+const perso2 = "$P olha para $a e arrota na sua cara! Que groceria!"
+const perso3 = "$P olha para $a e arrota na cara del$w! Que groceria!"
+const sem2 = "$P da um baita arroto!"
+
+
+classe soc_assobiar
+herda soccomum
+const sem1 = "$P assobia alegremente uma bela melodia."
+const sem2 = "$P assobia alegremente uma bela melodia."
+const perso1 = "\d=assobiar $P olha para $A e assobia: fiufiu!"
+const perso2 = "\d=assobiar $P olha para você e dá um assobio: fiufiu!"
+const perso3 = "\d=assobiar $P olha para $A e dá um assobio: fiufiu!"
+const item1 = "\d=assobiar $P põe $o na boca e assopra, tentando fazer emitir um assobio."
+const item2 = "\d=assobiar $P põe $o na boca e começa a assoprar, tentando fazer emitir algum \
+assobio."
+
+
+classe soc_auauaua
+herda soccomum
+const sem1 = "$p faz uma cara malandra e diz: auauauaua!!!"
+const sem2 = "$P olha pra todos fazendo uma cara malandra e diz: auauauaua!!!"
+const perso1 = "$P olha para $a fazendo uma cara malandra e diz: auauauaua!!!"
+const perso2 = "$P olha para $A fazendo uma cara malandra e diz: auauauaua!!!"
+
+
+classe soc_balança
+herda soccomum
+const sem1 = "$p balança o corpo para frente e para trás."
+const sem2 = "$p balança o corpo para frente e para trás."
+const perso1 = "$p segura $a pelos ombros, balançando-$t para frente e para trás."
+const perso2 = "$p segura $a pelos ombros, balançando-$t para frente e para trás."
+const perso3 = "$p segura $a pelos ombros, e $t balança para frente e para trás!"
+const item1 = "$p balança $o com uma de suas mãos."
+const item2 = "$p balança $o com uma de suas mãos."
+
+
+classe soc_beicinho
+herda soccomum
+const sem1 = "$P faz beicinho."
+const sem2 = "$P faz beicinho."
+const auto1 = "Está esperando que alguém tenha dó de $P, fazendo esse beicinho?"
+const auto2 = "$P faz beicinho, esperando que alguém tenha dó del$v"
+const perso1 = "$P faz beicinho para $A"
+const perso2 = "$P faz beicinho para $A"
+const perso3 = "$P faz beicinho para $A"
+
+
+classe soc_beijar
+herda soccomum
+const tipo = 3 # Tipo de comando: 3 Cumprimentar
+const sem1 = "Beijar quem?"
+const sem2 = "$P procura alguém para beijar."
+const auto1 = "$P tenta se beijar."
+const auto2 = "$P se sente carente e tenta se beijar."
+const perso1 = "\d=beijar $P beija $A nos lábios com muito amor."
+const perso2 = "\d=beijar $P beija $A nos lábios com muito amor."
+const perso3 = "\d=beijar $P beija $A nos lábios com muito amor."
+const item1 = "$P beija $o???"
+const item2 = "$P enlouqueceu e beijou $o."
+#
+
+
+classe soc_beijinho
+herda soccomum
+const tipo = 0 # Tipo de comando: 0 Neutro
+const sem1 = "Você procura mas não acha!"
+const sem2 = "$P Quer dar vários beijinhos em alguém"
+const auto1 = "$P Tenta beijar seu própio pescoço. Que tolo!"
+const perso1 = "$P Se aproxima de $A e bem lentamente da vários beijinhos em seu pescoço, $t \
+deixando arrepiad$t."
+const perso2 = "$P Se aproxima de $A e bem lentamente da vários beijinhos em seu pescoço. $T \
+deixando arrepiad$t."
+const perso3 = "$P Se aproxima de $A e bem lentamente da vários beijinhos em seu pescoço. $T \
+deixando arrepiad$t."
+
+
+classe soc_beijo
+herda soccomum
+const perso1 = "\d=beijo $P beija $a no rosto."
+const perso2 = "\d=beijo $P te dá um beijo no rosto"
+const perso3 = "\d=beijo $P cumprimenta $A com um beijo no rosto."
+
+
+classe soc_beijos
+herda soccomum
+const perso1 = "$p JOGA BEIJOS PARA $a."
+const perso2 = "$p JOGA BEIJOS PARA VOCÊ."
+const perso3 = "$p JOGA BEIJOS PARA $a."
+const sem1 = "$p JOGA BEIJOS PARA TODOS."
+const sem2 = "$P joga beijos para você."
+const auto1 = "$P manda beijos e sorri."
+const auto2 = "$P manda beijos e sorri."
+
+
+classe soc_beliscão
+herda soccomum
+const sem1 = "$P movimenta as unhas como se estivesse beliscando o ar."
+const sem2 = "$P movimenta as unhas como se estivesse beliscando o ar."
+const auto1 = "\d=beliscao parecendo estar sonhando, $P belisca a si mesm$s, tentando acordar"
+const auto2 = "\d=beliscao parecendo estar sonhando, $P belisca a si mesm$s, tentando acordar"
+const perso1 = "\d=beliscao $P da um baita beliscão em $A, deixando a marca das unhas!"
+const perso2 = "\d=beliscao $P te da um baita beliscão, deixando a marca das unhas!"
+const perso3 = "\d=beliscao $P dá um baita beliscão em $A, deixando a marca das unhas!"
+const item1 = "Impossível beliscar um objeto."
+
+
+classe soc_blé
+herda soccomum
+const auto1 = "É muito provável que você esteja com algum problema."
+const auto2 = "$p faz uma careta, el$v só pode ser louc$s"
+const perso1 = "Você olha para $a e faz, blééééé!"
+const perso2 = "$p olha para $a e faz blééééé!"
+const perso3 = "$p olha para $p e faz uma careta!"
+const item1 = "Encarando objetos? Isso tudo é solidão?"
+const item2 = "$p encara $o. Eu ein! cada um com seus problemas."
+
+
+classe soc_blingua
+herda soccomum
+const perso1 = "$P dá um beijo de língua, demorado e molhado em $A! "
+const perso2 = "$P te dá um beijo de língua, demorado e molhado, "
+const perso3 = "$P dá um beijo de língua em $A!"
+const sem1 = "$P põe a língua para fora, tentando se dar um beijo de língua... que estranho!"
+const sem2 = "Parecendo maluc$s, $P põe a língua para fora e começa a dobrá-la para dentro, \
+tentando se beijar!"
+
+
+classe soc_bocejar
+herda soccomum
+const sem1 = "$P abre a boca, bocejando!"
+const sem2 = "$P abre a boca, bocejando!"
+
+
+classe soc_bochecha
+herda soccomum
+const perso1 = "$P aperta as bochechinhas fofas de $A!"
+const perso2 = "$P aperta as suas bochechinhas fofas!"
+const perso3 = "$P aperta as bochechinhas fofas de $A!"
+const sem1 = "$P aperta as próprias bochechas!"
+const sem2 = "$P aperta as próprias bochechas!"
+
+
+classe soc_brb
+herda soccomum
+const sem1 = "Volte logo, $R!"
+const sem2 = "$P informa a todos que voltará logo!"
+const perso2 = "$P diz a você: Já volto!"
+const perso1 = "$P diz a $a, volto logo."
+const perso3 = "$P diz a $a, já volto!"
+
+
+classe soc_brindar
+herda soccomum
+const sem1 = "$P propõe um brinde a todos."
+const sem2 = "$P propõe um brinde a todos."
+const perso1 = "Você faz um brinde com $A."
+const perso2 = "$P te faz um brinde."
+const perso3 = "$P faz um brinde a $A."
+const item1 = "$P ergue $o e faz um brinde a todos."
+const item2 = "$P ergue $o e faz um brinde a todos."
+
+
+classe soc_bugar
+herda soccomum
+const sem1 = "\d=bugar $P fica bugad$s!"
+const sem2 = "\d=bugar $P fica bugad$s!"
+const auto1 = "\d=bugar $P acaba se auto bugando!"
+const auto2 = "\d=bugar $P fica muito bugad$s com sigo mesm$s!"
+const item1 = "\d=bugar $P buga $o"
+const item2 = "\d=bugar $P buga $o"
+const perso1 = "\d=bugar $P deixa $A totalmente bugad$t!"
+const perso2 = "\d=bugar $P deixa $A totalmente bugad$t!"
+const perso3 = "\d=bugar $P deixa $A totalmente bugad$t!"
+
+
+classe soc_bunda
+herda soccomum
+const sem1 = "Vai apertar a bunda de quem hoje, $R?"
+const sem2 = "$P vai apertar a bunda de alguém hoje! Torça para que não seja a sua!"
+const auto1 = "$P aperta a própria bunda, e pensa... Hum, eu sou mesmo muito gostos$s!"
+const perso1 = "$P aperta a bunda de $A, dando um sorrisinho safadinho!"
+const perso2 = "$P aperta a sua bunda, dando um sorrisinho safadinho!"
+const perso3 = "$P aperta a bunda de $A, dando um sorrisinho safadinho!"
+const item1 = "Se você acha que $o tem bunda... va em frente, procure!"
+const item2 = "$P está achando que $o tem bunda pra apertar! Deve estar doid$s, não?"
+
+
+classe soc_cafuné
+herda soccomum
+const sem1 = "$P procura alguém para fazer cafuné"
+const sem2 = "$P procura alguém para fazer cafuné"
+const auto1 = "$P se sente relachad$s e começa a fazer cafuné na própria cabeça."
+const auto2 = "$P se sente relachad$s e começa a fazer cafuné na própria cabeça."
+const perso1 = "$P com carinho, faz cafuné na cabeça de $A, $T deixando relachad$t."
+const perso2 = "$P com carinho, faz cafuné em sua cabeça, $t deixando relachad$t."
+const perso3 = "$P com carinho, faz cafuné na cabeça de $A, $T deixando relachad$t."
+
+
+classe soc_caress
+herda soc_acariciar
+
+
+classe soc_chatear
+herda soccomum
+const sem1 = "$P fica chatead$s"
+const sem2 = "$P fica chatead$s"
+const auto1 = "$P fica chatead$s com sigo mesm$s"
+const auto2 = "$P fica chatead$s com sigo mesm$s"
+const perso1 = "$P fica chatead$s com $A"
+const perso2 = "$P fica chatead$s com $A"
+const perso3 = "$P fica chatead$s com $A"
+const item1 = "$P fica chatead$s talvez por ter ganhado $o"
+const item2 = "$P fica chatead$s talvez por ter ganhado $o"
+
+
+classe soc_chorar
+herda soccomum
+const sem1 = "$P começa a chorar."
+const sem2 = "$P fica triste e começa a chorar!"
+const perso1 = "$p chora no ombro de $a, buscando um consolo!"
+const perso2 = "$P chora no seu ombro, buscando um consolo!"
+const perso3 = "$P chora no ombro de $A, buscando um consolo!"
+
+
+classe soc_ciume
+herda soccomum
+const sem1 = "$P fica chei$s de ciúmes"
+const sem2 = "$P fica chei$s de ciúmes"
+const auto1 = "$P fica com ciúmes de si mesm$s"
+const auto2 = "12"
+const perso1 = "$P fica com muito ciúme de $A"
+const perso2 = "$P fica com muito ciúme de $A"
+const perso3 = "$P fica com muito ciúme de $A"
+const item1 = "$P tem muito ciúme de $O"
+const item2 = "$P tem muito ciúme de $O"
+
+
+classe soc_cocegas
+herda soccomum
+const perso1 = "Sem qualquer pretenção, $P aproxima-se de $A e começa a lhe fazer cócegas, \
+fazendo-$t pular de rir!"
+const perso2 = "Sem qualquer pretenção, $P aproxima-se de você e começa a te fazer cócegas, \
+fazendo-$t pular de rir!"
+const perso3 = "Sem qualquer pretenção, $P aproxima-se de $A e começa a lhe fazer cócegas, \
+fazendo $t pular de rir!"
+
+
+classe soc_colo
+herda soccomum
+const sem1 = "$P tenta pegar o ar no colo.. maluquice total."
+const sem2 = "$P tenta pegar o ar no colo.. maluquice total."
+const auto1 = "como você pensa que irá fazer isso?"
+const perso1 = "$P pega $A no colo."
+const perso2 = "$P pega você no colo."
+const perso3 = "$P pega $A no colo."
+
+
+classe soc_concordar
+herda soccomum
+const sem1 = "$P faz um leve sinal com a cabeça, parecendo concordar"
+const sem2 = "$P faz um leve sinal com a cabeça, parecendo concordar"
+const auto1 = "$P parece concordar com os próprios pensamentos..."
+const auto2 = "$P parece concordar com os próprios pensamentos..."
+const perso1 = "$P faz um sinal com a cabeça parecendo concordar com $A."
+const perso2 = "$P faz um sinal com a cabeça parecendo concordar com $A."
+const perso3 = "$P faz um sinal com a cabeça parecendo concordar com $A."
+
+
+classe soc_coração
+herda soccomum
+const tipo = 4 # Tipo de comando: 4 romântico
+const sem1 = "$P desenha um lindo coração no ar."
+const sem2 = "$P com suas mãos, faz um símbolo de um lindo coração no ar"
+const auto1 = "$p desenha no ar um coração para $a"
+const auto2 = "$P desenha no ar um coração para $a"
+const perso1 = "$P faz um desenho de um coração no ar, na direção de $a"
+const perso2 = "$P olhando em sua direção, desenha um belo coração no ar."
+const perso3 = "$p faz coraçãozinho para $a"
+
+
+classe soc_corar
+herda soccomum
+const posic = 5 # Posição mínima: 5 descansando
+const alvopos = 5 # Alvo posição mínima: 5 descansando
+const sem1 = "$p cora profundamente"
+const sem2 = "$p cora profundamente"
+const auto1 = "$p cora ao lembrar de algo... ou alguém..."
+const auto2 = "$p cora ao lembrar de algo... ou de alguém..."
+const perso1 = "$p cora fortemente ao olhar para $a"
+const perso2 = "$p olha para $a e começa a corar fortemente"
+const perso3 = "$p cora fortemente ao olhar para $a"
+
+
+classe soc_cry
+herda soc_chorar
+
+
+classe soc_cumprimentar
+herda soccomum
+const tipo = 3 # Tipo de comando: 3 Cumprimentar
+const sem1 = "Cumprimentar quem?"
+const sem2 = "$P procura alguém para cumprimentar."
+const auto1 = "$P se cumprimenta."
+const auto2 = "$P se cumprimenta."
+const perso1 = "$P cumprimenta $a."
+const perso2 = "$P cumprimenta $a."
+const perso3 = "$P cumprimenta $a."
+
+
+classe soc_curioso
+herda soccomum
+const sem1 = "$P olha em volta, curios$s."
+const sem2 = "$P olha em volta, curios$s."
+const perso1 = "Parecendo muito curios$s, $P começa a olhar para $A, com muita atenção!"
+const perso2 = "Parecendo muito curios$s, $P começa a olhar para você com bastante atenção!"
+const perso3 = "Parecendo muito curios$s, $P começa a olhar para $A com muita atenção."
+
+
+classe soc_curvar
+herda soccomum
+const tipo = 3 # Tipo de comando: 3 Cumprimentar
+const posic = 8 # Posição mínima: 8 em pé
+const mvis = 0 # Mostrar invisível: Não
+const sem1 = "$P curva-se respeitosamente."
+const sem2 = "$P curva-se respeitosamente."
+const auto1 = "$P curva-se até beijar os seus próprios pés."
+const auto2 = "$P faz um contorcionismo até conseguir beijar os próprios pés."
+const perso1 = "$P cumprimenta $a curvando-se respeitosamente."
+const perso2 = "$P cumprimenta $a curvando-se respeitosamente."
+const perso3 = "$P cumprimenta $a curvando-se respeitosamente."
+
+
+classe soc_cuspir
+herda soccomum
+const invalido = "Você erra ao tentar cuspir em $m."
+const sem1 = "Você cospe no chão."
+const sem2 = "$p cospe no chão."
+const perso1 = "Você cospe na cara de $a, que falta de educação!"
+const perso2 = "$p cospe na sua cara, que nojo."
+const perso3 = "$p cospe na cara de $a."
+
+
+classe soc_cutucar
+herda soccomum
+const perso1 = "$P cutuca $A nas costelas"
+const perso2 = "$P lhe cutuca nas costelas!"
+const perso3 = "$P cutuca $A nas costelas!"
+
+
+classe soc_dançar
+herda soccomum
+const sem1 = "$p move o corpo entre saltos e giros, numa dança bastante descontraída!"
+const sem2 = "$P move o corpo entre saltos e giros, numa dança bastante descontraída!"
+const perso1 = "$P tira $a para uma dança bastante descontraída!"
+const perso2 = "$p tira você para uma dança bastante descontraída!"
+const perso3 = "$p tira $a para uma dança bastante descontraída!"
+const alvopos = 8 # Alvo posição mínima: 8 em pé
+const posic = 8 # Posição mínima: 8 em pé
+#
+
+func cmd_social1
+  criar("e_dançando", arg0)
+  arg0.var.j_dançando = " dançando"
+#
+
+func cmd_social
+  criar("e_dançando", arg0)
+  arg0.var.j_dançando = " dançando com " + arg1.descnome
+  criar("e_dançando", arg1)
+  arg1.var.j_dançando = " dançando com " + arg0.descnome
+
+
+classe soc_dance
+herda soc_dançar
+
+
+classe soc_deboche
+herda soccomum
+const sem1 = "$P faz uma cara de deboche"
+const sem2 = "$P faz uma cara de deboche"
+const auto1 = "$P debocha de si própri$s"
+const auto2 = "$P debocha de si própri$s"
+const perso1 = "$P debocha da cara de $A"
+const perso2 = "$P debocha da sua cara!"
+const perso3 = "$P debocha da cara de $A"
+
+
+classe soc_deitar
+herda soccomum
+const sem1 = "$p deitou-se no chão"
+const sem2 = "$p deitou-se no chão"
+const perso1 = "$p deita no colo de $a"
+const perso2 = "$p deita em seu colo"
+const perso3 = "$p deita no colo de $a"
+const item1 = "$P deita $e $o."
+const item2 = "$P deitou-se em $o."
+
+
+classe soc_desconfiar
+herda soccomum
+const sem1 = "$P olha para os lados com desconfiança"
+const sem2 = "$P olha para os lados com desconfiança"
+const auto1 = "$P parece desconfiar de seus próprios atos."
+const auto2 = "$P parece desconfiar de seus próprios atos."
+const perso1 = "$P fica desconfiad$s de $A"
+const perso2 = "$P fica desconfiad$s de $A"
+const perso3 = "$P fica desconfiad$s de $A"
+
+
+classe soc_desculpar
+herda soccomum
+const posic = 5 # Posição mínima: 5 descansando
+const sem1 = "$P murmura alguns pedidos de desculpas..."
+const sem2 = "$P murmura alguns pedidos de desculpas..."
+const auto1 = "$P pede desculpas a si mesm$s, por algo que tenha feito."
+const auto2 = "$P pede desculpas a si mesm$s, por algo que tenha feito."
+const perso1 = "$P pede desculpas para $A, talvez por ter feito ou dito algo que não $t agradou."
+const perso2 = "$P te pede desculpas por algo que tenha lhe feito ou dito."
+const perso3 = "$P pede desculpas para $A, talvez por ter feito ou dito algo que não $t agradou."
+
+
+classe soc_despentear
+herda soccomum
+const auto1 = "$p balança a cabeça para lá e para cá, despenteando os próprios cabelos."
+const auto2 = "$p balança a cabeça para lá e para cá, despenteando os próprios cabelos. que \
+doideira!"
+const perso2 = "$p te despenteia, e você fica muito irritad$t"
+const perso3 = "$p despenteia alegremente os cabelos de $a"
+const sem1 = "você com um sorrisinho divertido no rosto, resolve despentear os cabelos de uma \
+certa pessoinha"
+const sem2 = "$p com um sorrisinho divertido no rosto, resolve despentear os cabelos de uma \
+certa pessoinha"
+const perso1 = "$p sorri para $a, e carinhosamente despenteia os cabelos del$w"
+
+
+classe soc_discordar
+herda soccomum
+const sem1 = "Você nega com a cabeça."
+const sem2 = "$P nega com a cabeça."
+const auto1 = "Você descarta uma ideia maluca, negando seus próprios pensamentos."
+const auto2 = "$P descarta uma ideia maluca, negando seus próprios pensamentos."
+const perso2 = "$P discorda de $A"
+const perso3 = "$p discorda de $a"
+const perso1 = "$p discorda de $a"
+
+
+classe soc_emburrar
+herda soccomum
+const sem1 = "$P faz uma cara emburrada"
+const sem2 = "$P faz uma cara emburrada"
+const auto1 = "$P fica emburrad$s com sigo mesm$s"
+const auto2 = "$P fica emburrad$s com sigo mesm$s"
+const perso1 = "$P faz uma cara emburrada para $A"
+const perso2 = "$P faz uma cara emburrada para $A"
+const perso3 = "$P faz uma cara emburrada para $A"
+
+
+classe soc_empurrão
+herda soccomum
+const perso1 = "Você dá um forte empurrão em $A, fazendo-$t girar."
+const perso2 = "$P te dá um forte empurrão, te fazendo girar."
+const perso3 = "$P dá um forte empurrão $e $a, fazendo-$t girar."
+const item1 = "$P empurra $o para um lado."
+const item2 = "$P empurra $o para um lado."
+
+
+classe soc_encantar
+herda soccomum
+const sem1 = "$P fica encantado com algo ou alguém que viu!"
+const sem2 = "$P fica encantado com algo ou alguém que viu!"
+const perso2 = "$P fica encantad$s com sua beleza!"
+const perso3 = "$p fica encantad$s com a beleza de $a!"
+const perso1 = "$p fica encantad$s com a beleza de $a"
+
+
+classe soc_encarar
+herda soccomum
+const sem1 = "Você fica séri$s."
+const perso1 = "$P encara $A."
+const perso2 = "$P encara $A."
+const perso3 = "$P encara $A."
+const sem2 = "Do nada, $P faz uma cara séria."
+
+
+classe soc_esnobar
+herda soccomum
+const invalido = "Você não pode esnobar $m, ele não está aqui."
+const perso1 = "Você esnoba $a."
+const perso2 = "$p esnoba você."
+const perso3 = "$p esnoba $a."
+const auto1 = "Você se esnoba... mas que esquisito!"
+
+
+classe soc_espirrar
+herda soccomum
+const invalido = "$p espirra, olhando para o nada."
+const sem1 = "Saúde!"
+const sem2 = "$p espirra algumas vezes. "
+const auto1 = "$p põe a mão na boca, e espirra algumas vezes."
+const perso1 = "põe a mão na boca! você espirrou bem na cara de $A! kd a educação?"
+const perso2 = "$p espirra bem na sua cara! mas que falta de educação! eu ém..."
+const perso3 = "$p espirra bem na cara de $a! que falta de educação! eu [ém..."
+const item1 = "$p pega $o, e espirra nel$x."
+
+
+classe soc_espreguiçar
+herda soccomum
+const sem1 = "$P se espreguiça lentamente, parecendo ter acabado de acordar."
+const sem2 = "$P se espreguiça lentamente, parecendo ter acabado de acordar."
+const auto1 = "$P joga os braços por cima da própria cabeça, usando de si mesm$s para se \
+espreguiçar."
+const auto2 = "$P joga os braços por cima da própria cabeça, usando de si mesm$s para se \
+espreguiçar."
+const perso1 = "$P joga os braços por cima de $A, se espreguiçando!"
+const perso2 = "$P joga os braços por cima de $A, se espreguiçando!"
+const perso3 = "$P joga os braços por cima de $A, se espreguiçando!"
+
+
+classe soc_garganta
+herda soccomum
+const sem1 = "$P limpa a garganta."
+const sem2 = "$P limpa a garganta."
+const auto1 = "$P limpa a garganta, tentando disfarsar algo que talvez tenha dito ou feito de \
+errado..."
+const auto2 = "$P limpa a garganta, tentando disfarsar algo que talvez tenha dito ou feito de \
+errado..."
+const perso1 = "$P olha para $A, e limpa a garganta."
+const perso2 = "$P olha para $A, e limpa a garganta."
+const perso3 = "$P olha para $A, e limpa a garganta."
+
+
+classe soc_girar
+herda soccomum
+const tipo = 4 # Tipo de comando: 4 agredir
+const sem1 = "$P gira os olhos em desgosto."
+const sem2 = "$P gira os olhos em desgosto."
+const auto1 = "$P gira os olhos em desgosto de você mesm$s"
+const auto2 = "$P gira os olhos em desgosto de si mesm$s"
+const perso1 = "$P gira os olhos em desgosto de $A"
+const perso2 = "$P gira os olhos em desgosto de $A"
+const perso3 = "$P gira os olhos em desgosto de $A"
+const item1 = "$P gira os olhos em desgosto de $o.. que coisa inútil!"
+const item2 = "$P gira os olhos em desgosto de $o.. que coisa inútil!"
+
+
+classe soc_indiferente
+herda soccomum
+const sem1 = "$p encolhe os ombros, indiferente"
+const auto1 = "$p dá de ombros, indiferente com seus próprios pensamentos"
+const auto2 = "$p dá de ombros, indiferente com seus próprios pensamentos"
+const perso3 = "$p olha para $a, e dá de ombros"
+const perso2 = "$p te olha com deboche, e dá de ombros"
+const perso1 = "$p olha para $a, e dá de ombros"
+const sem2 = "$p encolhe os ombros, indiferente"
+
+
+classe soc_interrogar
+herda soccomum
+const sem1 = "$P faz uma cara interrogativa."
+const sem2 = "$P faz uma cara interrogativa."
+const auto1 = "$P interroga seus próprios pensamentos."
+const auto2 = "$P interroga seus próprios pensamentos."
+const perso1 = "$P olha interrogativamente para $A"
+const perso2 = "$P olha interrogativamente para $A"
+const perso3 = "$P olha interrogativamente para $A"
+const item1 = "pois é, $O existe mesmo!"
+const item2 = "$P olha para $o não crendo que isso existe!"
+#
+
+func escr
+  se !arg1
+    $mens.p(arg0)
+    $mens.mtodos2(sem1, sem2)
+  senao
+    refvar perso = txt1(arg1)
+    refvar mensint = txt2(arg1)
+    refvar p = misc:persodono(arg0, perso)
+    se p
+      $mens.p(arg0, p)
+      se mensint
+        $mens.mens = mensint
+        refvar m1 = perso1 + " e pergunta: '$m'"
+        refvar m2 = perso2 + " e pergunta: '$m'"
+        refvar m3 = perso3 + " e pergunta: '$m'"
+        $mens.mtodos3(m1, m2, m3)
+      senao
+        $mens.mtodos3(perso1, perso2, perso3)
+      fimse
+    senao
+      refvar i = misc:itemtudo(arg0, txt1(arg1))
+      se i
+        $mens.p(arg0, nulo, i)
+        $mens.mtodos2(item1, item2)
+      fimse
+    fimse
+  fimse
+
+
+classe soc_kiss
+herda soc_beijar
+
+
+classe soc_lagrima
+herda soccomum
+const sem1 = "Por algum motivo, lágrimas começam a escorrer pelos seus olhos."
+const sem2 = "Por algum motivo, lágrimas escorrem pelos olhos de $P."
+const auto1 = "Lágrimas começam a correr pelos seus olhos, ao se lembrar de algo que ocorreu com \
+sigo mesm$s."
+const auto2 = "Por se lembrar de alguma coisa relacionada a $P, lágrimas começam a correr pelos \
+olhos del$v."
+const perso1 = "$P olha para $A com os olhos cheios de lágrimas."
+const perso3 = "$P olha para $A com os olhos cheios de lágrimas."
+const item1 = "Com os olhos cheios de lágrimas, $P olha para $o."
+const perso2 = "$P olha para $A com os olhos cheios de lágrimas."
+const item2 = "Com os olhos cheios de lágrimas, $P olha para $o."
+
+
+classe soc_lamber
+herda soccomum
+const perso1 = "Atrevidamente, $P começa a lamber todo o corpo de $A, uuuuuuuuuuui!"
+const perso2 = "Atrevidamente, $P começa a lamber todo o seu corpo, uuuuuui!"
+const perso3 = "Atrevidamente, $P começa a lamber todo o corpo de $A, uuuuuuuui!"
+const auto1 = "$P lambe a si mesm$s.. eeeca..."
+const auto2 = "$P lambe a si mesm$s.. eeeca..."
+const sem1 = "$P lambe os lábios e sorri."
+const sem2 = "$P põe a língua para fora e começa a balançá-la para cima e para baixo, como se \
+tentasse lamber o ar!"
+const item1 = "$P lambe $o, querendo saber qual o gosto."
+const item2 = "$P lambe $o, querendo saber qual o gosto."
+#
+
+func cmd_social
+  criar("e_lambendo", arg0)
+  arg0.var.j_lambendo = " lambendo " + arg1.descnome
+  criar("e_lambendo", arg1)
+  arg1.var.j_lambendo = " sendo lambid" + (arg1.msexo ? "o" : "a") + " por " + arg0.descnome
+
+
+classe soc_lamentar
+herda soccomum
+const invalido = ""
+const sem1 = "$P lamenta."
+const sem2 = "$P lamenta."
+const auto1 = "$P começa a lamentar."
+const auto2 = "$P começa a lamentar sobre algo."
+const perso1 = "$P lamenta sobre a situação de $A."
+const perso2 = "$P lamenta sobre sua situação."
+const perso3 = "$P lamenta sobre a situação de $A."
+
+
+classe soc_lembrar
+herda soccomum
+const sem1 = "$P fecha os olhos e começa a viajar por suas lembranças."
+const sem2 = "$P fecha os olhos e começa a viajar por suas lembranças."
+const perso1 = "$P fixa o olhar na direção de $A e começa a ter várias lembranças."
+const perso2 = "$P fixa o olhar na sua direção e começa a ter várias lembranças."
+const perso3 = "$P fixa o olhar na direção de $A e começa a ter várias lembranças."
+
+
+classe soc_lingua
+herda soccomum
+const perso1 = "$P mostra a língua para $A."
+const perso2 = "$P mostra a língua para $A."
+const perso3 = "$P mostra a língua para $A."
+const sem1 = "$P põe a língua para fora"
+const sem2 = "$P põe a língua para fora"
+const tipo = 2 # Tipo de comando: 2 Ofender
+
+
+classe soc_mágoa
+herda soccomum
+const sem1 = "$P está magoad$s"
+const sem2 = "$P está magoad$s"
+const auto1 = "$P está magoad$s com sigo mesm$s."
+const auto2 = "$P está magoad$s com sigo mesm$s. Por que será?"
+const perso1 = "$P está magoad$s com $A"
+const perso2 = "$P está magoad$s com $A"
+const perso3 = "$P está magoad$s com $A"
+const item1 = "$P fica magoad$s por causa de $o"
+const item2 = "$P fica magoad$s por causa de $o"
+
+
+classe soc_malícia
+herda soccomum
+const sem1 = "$p sorri mmaliciosamente"
+const perso1 = "$p olha para $a, e sorri maliciosamente"
+const perso2 = "$p sorri maliciosamente para $a, te causando arrepios, te levando a loucura..."
+const auto1 = "$p morde os lábios, e sorri com malícia"
+const auto2 = "$p morde os lábios lentamente, e dá um sorrisinho malicioso"
+const perso3 = "$P morde os lábios lentamente, e dá um sorrisinho malicioso para $a"
+const item1 = "$p olha maliciosamente para $o"
+const item2 = "$p olha maliciosamente para $o"
+const sem2 = "$p sorri maliciosamente"
+
+
+classe soc_mão
+herda soccomum
+const sem1 = "$P sente vontade de segurar na mão de alguém."
+const sem2 = "$P está sentindo vontade de segurar na mão de alguém carinhosamente..."
+const auto1 = "$P segura na própria mão carinhosamente."
+const auto2 = "$P segura na própria mão, fazendo carinho com o polegar."
+const perso1 = "$P segura na mão de $A carinhosamente."
+const perso3 = "$P segura na mão de $A carinhosamente."
+const perso2 = "$P segura em sua mão carinhosamente."
+
+
+classe soc_massagem
+herda soccomum
+const sem1 = "$P Procura alguém para massagear"
+const sem2 = "$P Procura alguém para massagear"
+const auto1 = "$P massageia os próprios ombros"
+const auto2 = "$P massageia os próprios ombros"
+const perso1 = "$P começa a massagear todo o corpo de $A, fazendo-$t ficar relachad$t."
+const perso2 = "$P começa a massagear todo o seu corpo, fazendo-$t ficar relachad$t."
+const perso3 = "$P começa a massagear todo o corpo de $A, fazendo-$t ficar relachad$t."
+
+
+classe soc_medo
+herda soccomum
+const sem1 = "Sem qualquer motivo aparente, $P começa a tremer-se tod$s, dos pés à cabeça."
+const sem2 = "$P olha para $A e treme de puro pavor!"
+const perso2 = "$P olha para $A e treme de puro pavor"
+const perso3 = "$P olha para $A e treme de puro pavor!"
+const perso1 = "$P olha para $A e treme de puro pavor!"
+const auto1 = "$P olha para $A e treme de puro pavor!"
+const auto2 = "$P olha para $A e treme de puro pavor!"
+
+
+classe soc_mordida
+herda soccomum
+const sem1 = "$P bate os próprios dentes ao tentar morder o ar."
+const sem2 = "$P bate os próprios dentes ao tentar morder o ar."
+const auto1 = "$P tenta se morder."
+const auto2 = "$P tenta se morder."
+const perso2 = "$P morde $A"
+const perso1 = "$P morde $A"
+const perso3 = "$P morde $A"
+const item1 = "$P morde $O, tentando arrancar um pedaço."
+const item2 = "$P morde $O, tentando arrancar um pedaço."
+
+
+classe soc_mordiscar
+herda soccomum
+const sem1 = "hmmmmm... vontade de dar umas mordidinhas na orelha de um certo alguém hoje..."
+const sem2 = "$p fixa com intensidade o olhar em todos, com um sorrisinho como quem quer dizer: \
+hmmmmm... vontade de dar umas mordidinhas na orelha de um certo alguém hoje..."
+const auto1 = "$p tenta mordiscar sua própria orelha, e acaba fazendo uma careta medonha"
+const auto2 = "$p tenta mordiscar sua própria orelha, e acaba fazendo uma careta medonha"
+const tipo = 3 # Tipo de comando: 3 Cumprimentar
+const perso1 = "$p se aproxima devagarzinho de $A, e dá várias mordidinhas em sua orelha."
+const perso2 = "$p se aproxima devagarzinho de $A, e dá várias mordidinhas em sua orelha."
+const perso3 = "$p se aproxima devagarzinho de $A, e dá várias mordidinhas em sua orelha."
+
+
+classe soc_ninar
+herda soccomum
+const sem1 = "$P imagina alguém em seus braços para ninar."
+const sem2 = "$P imagina alguém em seus braços para ninar."
+const auto1 = "Impossível fazer isso."
+const auto2 = "$P tenta se balançar, para $s ninar... impossível."
+const perso1 = "$P balança $A nos braços, $t ninando."
+const perso2 = "$P balança $A nos braços, $t ninando."
+const perso3 = "$P balança $A nos braços, $t ninando."
+
+
+classe soc_nojo
+herda soccomum
+const sem1 = "Você faz uma careta de nojo."
+const sem2 = "$P faz uma careta de nojo."
+const auto1 = "Algo em sua mente lhe causa nojo, deformando seu rosto em uma careta medonha."
+const auto2 = "Algo na mente de $P lhe causa nojo, deformando seu rosto com uma careta medonha."
+const perso1 = "com uma careta medonha, Você dá um passo para trás e desvia os olhos de $A, \
+enojad$s."
+const perso2 = "com uma careta medonha, $P dá um passo para trás e desvia os olhos de você, \
+enojad$s."
+const perso3 = "com uma careta medonha, $P dá um passo para trás e desvia os olhos de $A, \
+enojad$s."
+const item1 = "$O! $O! como isso aqui está nojent$u!"
+const item2 = "Nojento! nojento! $P atira $O ao chão enquanto faz uma careta medonha."
+
+
+classe soc_olho
+herda soccomum
+const sem1 = "$P olha para o vazio."
+const sem2 = "$P olha para o vazio."
+const auto1 = "$P olha para si mesmo e faz: hmm"
+const auto2 = "$P olha para si mesmo."
+const perso1 = "$P olha bem no fundo dos olhos de $A e faz: hmmm"
+const perso2 = "$P olha bem no fundo dos seus olhos e faz: hmm"
+const perso3 = "$P olha bem no fundo dos olhos de $A e faz: hmmm"
+const item1 = "$P olha para $o e faz: hmmm"
+const item2 = "$P olha para $o e faz: hmmm"
+
+
+classe soc_ooo
+herda soccomum
+const tipo = 0
+const sem1 = "$P oooOOOOoOOOoooOOooo"
+const sem2 = "$P oooOOOOoOOOoooOOooo"
+const invalido = "Tecle ooo sem argumentos"
+
+
+classe soc_palmada
+herda soccomum
+const sem1 = "$P bate palma"
+const sem2 = "$P bate palma"
+const perso1 = "$P da várias palmadas em $A"
+const perso2 = "$P lhe da várias palmadas"
+const perso3 = "$P pega $a no colo e começa a lhe dar várias palmadas... Que dor..."
+
+
+classe soc_pensar
+herda soccomum
+const sem1 = "$P fica perdid$s em seus pensamentos..."
+const sem2 = "$P fica perdid$s em seus pensamentos... Em que ou em quem el$v estará pensando?"
+const perso1 = "$P olha para $A, pensativ$s."
+const perso2 = "$P olha para $A, pensativ$s."
+const perso3 = "$P olha para $A, pensativ$s."
+
+
+classe soc_pentear
+herda soccomum
+const sem1 = "$P tenta arrumar o cabelo de alguém"
+const auto1 = "$p penteia os cabelos"
+const auto2 = "$P se penteia"
+const perso1 = "$P penteia os cabelos de $A"
+const perso2 = "$P começa a pentear seus cabelos."
+const perso3 = "$P penteia os cabelos de $A com cuidado."
+const sem2 = "$p penteia os cabelos"
+
+
+classe soc_perdão
+herda soccomum
+const perso1 = "$P ajoelha-se aos pés de $A, pedindo perdão por algo que $t fez."
+const perso2 = "$P ajoelha-se a seus pés, pedindo-lhe perdão por algo que lhe tenha feito."
+const perso3 = "$P ajoelha-se aos pés de $A, pedindo perdão por algo que fez a el$w."
+const sem1 = "Você sente-se bastante arrependido e quer o perdão de alguém."
+const sem2 = "$P está muito arrependido e quer pedir perdão a alguém."
+
+
+classe soc_perdoar
+herda soccomum
+const sem1 = "$P procura alguém para perdoar."
+const sem2 = "$P procura alguém para perdoar."
+const auto1 = "$P se perdoa. Se sente melhor agora?"
+const auto2 = "$P perdoa a si mesm$s."
+const perso1 = "$P perdoa $a."
+const perso2 = "$P perdoa $a"
+const perso3 = "$P perdoa $A."
+const invalido = "Perdoar quem?"
+
+
+classe soc_peteleco
+herda soccomum
+const sem1 = "$P estala os dedos, como se quisesse dar uns petelecos em alguém..."
+const sem2 = "$P estala os dedos, como se quisesse dar uns petelecos em alguém..."
+const auto1 = "$P maluc$s, Dá um belo dum peteleco em sua própria orelha!"
+const auto2 = "$P maluc$s, Dá um belo dum peteleco em sua própria orelha!"
+const perso1 = "$P deixa a orelha de $A vermelha com um baita peteleco!"
+const perso2 = "$P deixa sua orelha vermelha com um baita peteleco!"
+const perso3 = "$P deixa a orelha de $A vermelha com um baita peteleco!"
+
+
+classe soc_piscadinha
+herda soccomum
+const sem1 = "$P da uma piscadinha sensual"
+const sem2 = "$P da uma piscadinha sensual"
+const auto1 = "$P da uma piscadinha sensual, imaginando algumas senas com alguém..."
+const auto2 = "$P da uma piscadinha sensual, imaginando algumas senas com alguém..."
+const perso1 = "$P da uma piscadinha sensual para $A"
+const perso2 = "$P da uma piscadinha sensual para $A"
+const perso3 = "$P da uma piscadinha sensual para $A"
+
+
+classe soc_piscar
+herda soccomum
+const perso1 = "$P pisca discretamente para $A."
+const perso2 = "$P pisca discretamente para $A."
+const perso3 = "$P pisca discretamente para $A."
+const sem1 = "$P começa a piscar várias vezes"
+const sem2 = "$P começa a piscar várias vezes."
+
+
+classe soc_pitoco
+herda soccomum
+const perso1 = "\d=pitoco $P mostra o dedo médio para $A."
+const perso2 = "\d=pitoco Com uma cara de sapeca, $P mostra o dedo médio para você."
+const perso3 = "\d=pitoco Com a cara de sapeca, $P mostra o dedo médio para $A e ri."
+const sem1 = "\d=pitoco $P levanta o dedo médio."
+const sem2 = "\d=pitoco $P levanta o dedo médio."
+
+
+classe soc_preocupar
+herda soccomum
+const sem1 = "$P fica preocupad$s com algo."
+const sem2 = "$P fica preocupad$s com algo."
+const auto1 = "$P parece estar preocupad$s com sigo mesm$s"
+const auto2 = "$P parece estar preocupad$s com sigo mesm$s"
+const perso1 = "$P fica preocupad$s com $A."
+const perso2 = "$P fica preocupad$s com $A."
+const perso3 = "$P fica preocupad$s com $A."
+
+
+classe soc_pular
+herda soccomum
+const sem1 = "\d=pular $P começa a pular por todos os lados, muito contente!"
+const sem2 = "\d=pular $P começa a pular por todos os lados, muito contente!"
+const auto1 = "\d=pular $P fica feliz com sigo mesm$s, e começa a saltar por todos os lados!"
+const auto2 = "\d=pular $P fica feliz com sigo mesm$s, e começa a saltar por todos os lados!"
+const perso1 = "\d=pular $P pega $A pelas mãos, e começa a pular por todos os lados, comemorando \
+a felicidade dos dois!"
+const perso2 = "\d= $P pega $A pelas mãos, e começa a pular por todos os lados, comemorando a \
+felicidade dos dois!"
+const perso3 = "\d=pular $P pega $A pelas mãos, e começa a pular por todos os lados, comemorando \
+a felicidade dos dois!"
+const item1 = "$P pega $o, e começa a pular de felicidade, talvez por ter ganhado isso!"
+const item2 = "$P pega $o, e começa a pular de felicidade, talvez por ter ganhado isso!"
+
+
+classe soc_puxão
+herda soccomum
+const sem1 = "$P pensa em ecitar alguém com puxões de cabelo sensuais"
+const sem2 = "$P pensa em ecitar alguém com puxões de cabelo sensuais"
+const auto1 = "$P puxa os cabelos da própria nuca, imaginando outra pessoa fazendo isso"
+const auto2 = "$P põe a mão em sua própria nuca, e puxa seus cabelos, imaginando alguém fazendo \
+isso com el$v"
+const perso1 = "$P puxa os cabelos de $A sensualmente, $t deixando completamente ecitad$t!"
+const perso2 = "$P puxa os seus cabelos sensualmente, $t deixando completamente ecitad$t!"
+const perso3 = "$P puxa os cabelos de $A sensualmente, $t deixando completamente ecitad$t!"
+const item1 = "$O não tem cabelos!"
+const item2 = "$P tenta puxar os cabelos invisíveis de $O"
+
+
+classe soc_raiva
+herda soccomum
+const invalido = "a raiva é tanta que você quer descontar em todos. mas a pessoa da qual você \
+está com raiva não está por aqui!"
+const sem1 = "$p começa a ficar com muita raiva."
+const auto1 = "$p fica com raiva das próprias atitudes."
+const perso1 = "$p fica com raiva de $a, e começa a gritar!"
+const item1 = "$p pega $o nas mãos, e $u atira ao chão, com toda a força, de tanta raiva!"
+const perso3 = "$p fica com raiva de $a, e começa a gritar!"
+const sem2 = "$p começa a ficar com muita raiva."
+const auto2 = "$p fica com raiva das próprias atitudes."
+const perso2 = "$p fica com raiva de $a, e começa a gritar!"
+const item2 = "$p pega $o nas mãos, e $u atira ao chão, com toda a força, de tanta raiva!"
+
+
+classe soc_reverenciar
+herda soccomum
+const tipo = 1 # Tipo de comando: 1 Agradecer
+const posic = 8 # Posição mínima: 8 em pé
+const mvis = 0 # Mostrar invisível: Não
+const sem1 = "$P curva-se respeitosamente diante de todos."
+const sem2 = "$P curva-se respeitosamente diante de todos."
+const auto1 = "$P curva-se até beijar os seus próprios pés."
+const auto2 = "$P faz um contorcionismo até conseguir beijar os próprios pés."
+const perso1 = "$P curva-se respeitosamente diante de $a."
+const perso2 = "$P curva-se respeitosamente diante de $a."
+const perso3 = "$P curva-se respeitosamente diante de $a."
+const item1 = "$P curva-se respeitosamente diante de $o."
+const item2 = "$P curva-se respeitosamente diante de $o."
+
+
+classe soc_rir
+herda soccomum
+const tipo = 2 # Tipo de comando: 2 Ofender
+const sem1 = "\d=rir $P tem um ataque de riso"
+const sem2 = "\d=rir $P tem um ataque de riso"
+const auto1 = "$P ri de si mesm$s."
+const auto2 = "$P ri de si mesm$s."
+const perso1 = "\d=rir $P ri de $a."
+const perso2 = "\d=rir $P ri de $a."
+const perso3 = "\d=rir $P ri de $a."
+
+func cmd_social
+  criar("e_sorrindo", arg0)
+
+
+classe soc_rofl
+herda soccomum
+const sem1 = "\d=rofl $P rola pelo chão, rindo loucamente!"
+const sem2 = "\d=rofl $P rola pelo chão, rindo loucamente!"
+const perso1 = "\d=rofl $P rola pelo chão, rindo muito de $A!"
+const perso2 = "\d=rofl $P rola pelo chão, rindo muito de $A!"
+const perso3 = "\d=rofl $P rola pelo chão, rindo muito de $A!"
+#
+
+func cmd_social1
+  criar("e_rolando", arg0)
+
+const item2 = "\d=rofl $P rola por cima $d $o, rindo loucamente!"
+const item1 = "\d=rofl $P rola por cima $d $o, rindo loucamente."
+
+
+classe soc_romântico
+herda soccomum
+const sem1 = "$P imagina uma romântica melodia, e começa a dançar só, imaginando um par perfeito \
+para juntar-se a si"
+const sem2 = "$P imagina uma romântica melodia, e começa a dançar só, imaginando um par perfeito \
+para juntar-se a si"
+const auto1 = "$P tenta dançar sozinh$s, abraçando o próprio corpo."
+const auto2 = "$P tenta dançar sozinh$s, abraçando o próprio corpo."
+const perso1 = "$P carinhosamente envolve os braços sobre os ombros de $A, dançando uma linda e \
+romântica melodia."
+const perso2 = "$P carinhosamente envolve os braços sobre seus ombros, dançando uma linda e \
+romântica melodia."
+const perso3 = "$P carinhosamente envolve os braços sobre os ombros de $A, dançando uma linda e \
+romântica melodia."
+
+
+classe soc_rosto
+herda soccomum
+const sem1 = "acariciar quem?"
+const sem2 = "$p procura alguém pra acariciar"
+const tipo = 3 # Tipo de comando: 3 Cumprimentar
+const auto1 = "$p você se sente carente e acaricia todo seu rosto, que fofinho"
+const auto2 = "$p se sente carente e acaricia todo o rosto com a ponta dos dedos, que amor"
+const perso1 = "$P acaricia todo o rosto $d $a com muito carinho, que amor!"
+const perso2 = "$P acaricia todo o seu rosto com a ponta dos dedos, fazendo-lhe arrepiar"
+const perso3 = "$P acaricia todo o rosto $d $a com muito carinho, que amor!"
+
+
+classe soc_roupa
+herda soccomum
+const invalido = "impossível"
+const sem1 = "$P está pensando em tirar a roupa de alguém hoje."
+const sem2 = "$P pensa em tirar a roupa de alguém hoje. "
+const auto1 = "$P tira a própria roupa, sensualmente."
+const auto2 = "$P tira a própria roupa, sensualmente."
+const perso1 = "$P tira a roupa de $A bem lentamente, com muita sensualidade no gesto."
+const perso2 = "$P tira sua roupa, bem lentamente, com gestos sensuais."
+const perso3 = "$P tira a roupa de $A bem lentamente, com muita sensualidade no gesto."
+#
+
+func cmd_social
+  se arg1.perso
+    listaobj l
+    epara l.addfim(arg1.dentro2), l, l.ini.remove
+      se l.objini.item
+        $mens.p(arg0, arg1, l.objini)
+        refvar m1 = "Você tira $o do corpo $d $a."
+        refvar m2 = "$P tira $o do seu corpo."
+        $mens.mvis3(m1, m2, m3)
+        l.objini.vestir(0)
+      fimse
+    efim
+  fimse
+
+const usolivre = 1 # não pode usar livremente em locais públicos: Sim
+
+
+classe soc_sacudir
+herda soccomum
+const posic = 8 # Posição mínima: 8 em pé
+const perso1 = "$P sacode $A pelos ombros!"
+const perso2 = "$P te sacode pelos ombros!"
+const perso3 = "$P sacode $A pelos ombros!"
+const sem1 = "$P começa a sacudir os braços!"
+const sem2 = "$P começa a sacudir os braços!"
+const auto1 = "$P começa a se sacudir!"
+const auto2 = "$P começa a se sacudir!"
+const item1 = "$P sacode $o... que coisa inútil!"
+const item2 = "$P sacode $o... que coisa inútil!"
+
+
+classe soc_saudade
+herda soccomum
+const sem1 = "você fica com saudades de alguma coisa, algum momento, ou alguém..."
+const sem2 = "$P fica com saudades de alguma coisa, algum momento, ou alguém..."
+const auto1 = "$P sente saudades de momentos passados com si mesm$s."
+const auto2 = "$P sente saudades de momentos passados com si mesm$s."
+const perso1 = "Não se preocupe, pois el$w está aqui agora para você matar a saudade."
+const perso2 = "$P estava com saudades de você."
+const perso3 = "$P estava com saudades de $a"
+const item1 = "Você abraça fortemente $O, matando a saudade"
+const item2 = "$P abraça fortemente $O, matando a saudade"
+
+
+classe soc_segue
+herda soccomum
+const perso1 = "Você faz sinal para que $A lhe siga."
+const perso2 = "$P faz sinal para que você $s siga."
+const sem1 = "Fazer sinal para quem?"
+
+
+classe soc_selinho
+herda soccomum
+const sem1 = "$p joga um beijo para todos"
+const sem2 = "$p joga um beijo para todos"
+const auto1 = "é... tentar dar um selinho em si mesm$s é meio estranho, não acha, $r?"
+const auto2 = "olha, $P está querendo dar um selinho em si mesm$s! estranho, não é?"
+const perso1 = "$p se aproxima vagarosamente de $a, e lhe dá um selinho."
+const perso2 = "$p se aproxima vagarosamente de $a, e lhe dá um selinho."
+const perso3 = "$p se aproxima vagarosamente de $a, e lhe dá um selinho."
+const item1 = "impossível! isso é um item, e não alguém."
+#
+
+func cmd_social
+  se arg1.nome == "fabi"
+    ret arg0 == arg1, nulo
+    ret arg0.dono != arg1.dono, arg0.msg("Não seria melhor beijar ela estando na mesma sala?")
+    ret arg0.var.z_moedas_ < 100000000, arg0.msg("Você não pode pagar por um beijo da deusa.")
+    arg0.msg("Você beijou a deusa dos beijos, agora, terá que pagar 1 bilhão em moedas.")
+    arg0.var.z_moedas_ -= 100000000
+    criar("i_pirulito", arg0)
+  senao arg1.nome == "juniorjunior"
+    ret arg0 == arg1, nulo
+    ret arg0.dono != arg1.dono, arg0.msg("Não seria melhor beijar ela estando na mesma sala?")
+    ret arg0.var.z_moedas_ < 100000000, arg0.msg("Você não pode pagar por um beijo do Deus.")
+    arg0.msg("Você beijou a Deus dos beijos, agora, terá que pagar 1 bilhão em moedas.")
+    arg0.var.z_moedas_ -= 100000000
+    criar("i_pirulito", arg0)
+  fimse
+
+
+classe soc_socão
+herda soccomum
+const perso1 = "\d=socao $P dá com muita vontade um soco no nariz de $a, e muito sangue começa a \
+escorrer"
+const auto2 = "\d=socao Em um ataque de fúria, $p começa a dar vários socos em si mesm$s"
+const auto1 = "\d=socao Em um ataque de fúria, $p começa a dar vários socos em si mesm$s"
+const perso2 = "\d=socao $P já muito furios$s, dá um forte soco na sua cara!"
+const perso3 = "\d=socao $P já muito furios$s, dá um forte soco na cara de $a"
+const sem1 = "$p começa a dar socos no ar, querendo quebrar a cara de alguém"
+const sem2 = "$p dá vários socos no ar, querendo quebrar a cara de alguém"
+const item1 = "$P começa a socar $O. qual o seu problema?"
+const item2 = "$P começa a socar $O. acho que $P está com alguns parafusos soltos!"
+#
+
+func cmd_social
+  se arg1.j_imortal == 1
+    $mens.p(arg0, arg1)
+    $mens.mmud1("Ao levantar sua mão contra um imortal, $P é atingid$s pelo raio da morte como \
+punição divina!")
+    $mens.p(arg0)
+    $mens.mmud1("$P morreu.")
+    arg0.mudadono($s_fim001)
+  fimse
+
+
+classe soc_soluçar
+herda soccomum
+const sem1 = "wik, wik"
+const sem2 = "$P faz: wik, wik, soluçando..."
+const perso1 = "$P olha para $A e faz: wik, wik! Soluçando!"
+const perso2 = "$P olha para você e faz: wik, wik! Soluçando!"
+const perso3 = "$P olha para $A e faz: Wik, wik! Soluçando!"
+const auto1 = "Você faz: Wik wik, soluçando!"
+const auto2 = "$P faz: wik, wik! Soluçando!"
+
+
+classe soc_sorrir
+herda soccomum
+const mvis = 0 # Mostrar invisível: Não
+const sem1 = "$P sorri alegremente."
+const sem2 = "$P sorri alegremente."
+const auto1 = "$P sorri."
+const auto2 = "$P sorri."
+const perso1 = "$P sorri para $a."
+const perso2 = "$P sorri para $a."
+const perso3 = "$P sorri para $a."
+const item1 = "$P olha para $O dando um doce sorriso:"
+const item2 = "$P olha para $O dando um doce sorriso:"
+
+func cmd_social1
+  criar("e_sorrindo", arg0)
+
+
+classe soc_sorriso
+herda soccomum
+const perso1 = "$P sorri docemente para $A."
+const perso2 = "$P sorri docemente para você."
+const perso3 = "$P sorri docemente para $A."
+const sem1 = "$P sorri docemente."
+const sem2 = "$P sorri docemente."
+const auto1 = "$P sorri docemente, feliz consigo mesm$s."
+const item1 = "$P olha para $o dando um doce sorriso."
+const item2 = "$P olha para $o, dando um doce sorriso."
+
+
+classe soc_suspirar
+herda soccomum
+const perso1 = "$p olha para $a e suspira."
+const perso2 = "$p olha para $a e suspira."
+const perso3 = "$p olha para $a e suspira."
+const sem1 = "$p suspira."
+const sem2 = "$p suspira."
+
+
+classe soc_susto
+herda soccomum
+const sem1 = "$P leva um baita susto!"
+const auto1 = "$P leva um susto com seu próprio reflexo!"
+const sem2 = "$P leva um baita susto!"
+const auto2 = "$P leva um susto com seu próprio reflexo!"
+const perso1 = "$P olha assustad$s para $A"
+const perso2 = "$P olha assustad$s para $A"
+const perso3 = "$P olha assustad$s para $A"
+const item1 = "$P toma um baita susto com $o!"
+const item2 = "$P toma um baita susto com $o!"
+
+
+classe soc_tapa
+herda soccomum
+const sem1 = "\d=ciclope $P abre as mãos, e dá um belo de um tapão no ar! parece estar maluc$s!"
+const sem2 = "\d=ciclope $P abre as mãos, e dá um belo de um tapão no ar! parece estar maluc$s!"
+const auto1 = "$P parecendo louc$s, começa a se estapear! chamem um médico logo, antes que \
+piore!"
+const auto2 = "$P parecendo louc$s, começa a se estapear! chamem um médico logo, antes que \
+piore!"
+const perso1 = "\d=ciclope $P abre uma de suas mãos, e da um belo tapa $e $a! essa deve ter \
+doído!"
+const perso2 = "\d=ciclope $P abre uma de suas mãos, e da um belo tapa $e $a! essa deve ter \
+doído!"
+const perso3 = "\d=ciclope $P abre uma de suas mãos, e da um belo tapa $e $a! essa deve ter \
+doído!"
+const item1 = "$P começa a bater várias vezes $e $o, acho que tentan do fazer funcionar."
+const item2 = "$P começa a bater várias vezes em $o, acho que tentando fazer funcionar."
+const tipo = 4 # Tipo de comando: 4 agredir
+#
+
+func cmd_social
+  se arg1.j_imortal == 1
+    ret arg0 == arg1, nulo
+    $mens.p(arg0, arg1)
+    $mens.mmud1("Ao levantar sua mão contra um imortal, $P é atingid$s pelo raio da morte como \
+punição divina!")
+    $mens.p(arg0)
+    $mens.mmud1("$P morreu.")
+    arg0.mudadono($s_fim001)
+  fimse
+#
+
+func cmd_social
+  criar("e_estapeando", arg0)
+  arg0.var.j_estapeando = " dando um baita tapa em " + arg1.descnome
+  criar("e_estapeando", arg1)
+  arg1.var.j_estapeando = " levando um baita tapa de " + arg0.descnome
+
+
+classe soc_tapinha
+herda soccomum
+const perso1 = "$P dá leves tapinhas nas costas de $A!"
+const perso2 = "$P dá leves tapinhas em suas costas!"
+const perso3 = "$P dá leves tapinhas nas costas de $A!"
+const item1 = "$P dá leves tapinhas $e $o."
+const sem1 = "Você passa por todos, dando-lhes leves tapinhas nas costas."
+const sem2 = "$P dá leves tapinhas em suas costas."
+
+
+classe soc_teclado
+herda soccomum
+const sem1 = "Mas digitar no teclado de quem?"
+const auto1 = "Impossível"
+const perso1 = "$P digita no teclado de $A. Um deus aparece de repente e dá um tapão em $P \
+dizendo. você não é admin para isso!"
+const perso2 = "$P digita no seu teclado. Um deus aparece de repente e dá um tapão em $P \
+dizendo. você não é admin para isso!"
+const perso3 = "$P digita no teclado de $A. Um deus aparece de repente e dá um tapão em $P \
+dizendo. você não é admin para isso!"
+
+
+classe soc_tedio
+herda soccomum
+const sem1 = "$P fica entediad$s"
+const sem2 = "$P fica entediad$s"
+const perso1 = "$P olha para $A, entediad$s"
+const perso2 = "$P olha para $A, entediad$s"
+const perso3 = "$P olha para $A, entediad$s"
+const item1 = "$P olha para $o, entediad$s"
+const item2 = "$P olha para $o, entediad$s"
+const auto2 = "$P fica entediad$s consigo mesm$s"
+const auto1 = "$P fica entediad$s consigo mesm$s"
+
+
+classe soc_timidez
+herda soccomum
+const sem1 = "$P fica tímid$s"
+const sem2 = "$P fica tímid$s"
+const auto1 = "$P fica tímid$s por ter feito ou dito algo."
+const auto2 = "$P fica tímid$s por ter feito ou dito algo."
+const perso1 = "$P sorri timidamente para $A."
+const perso2 = "$P sorri timidamente para $A."
+const perso3 = "$P sorri timidamente para $A."
+const item1 = "$P fica tínid$v ao olhar para $o."
+const item2 = "$P fica tínid$v ao olhar para $o."
+
+
+classe soc_tossir
+herda soccomum
+const sem1 = "Cof, cof, cof, cof"
+const sem2 = "$P põe a mão na boca e começa a tossir."
+const perso1 = "$P olha para $A e começa a tossir, o que houve?"
+const perso2 = "$P olha para você e começa a tossir, o que será que houve com el$v?"
+const perso3 = "$P olha para $A e começa a tossir, o que será que houve com el$v?"
+
+
+classe soc_triste
+herda soccomum
+const perso1 = "$P está triste com $A"
+const perso2 = "$p está muito triste com $a"
+const perso3 = "$P está olhando tristemente para $A"
+const sem1 = "$P está triste"
+const sem2 = "$P está triste"
+const auto1 = "$p está tão triste..."
+const auto2 = "$p está tão triste..."
+const item1 = "$p olha para $o com tristeza, e deixa algumas lágrimas caírem por lembrar-se de \
+algo ou alguém..."
+const item2 = "$p olha para $o com tristeza, e deixa algumas lágrimas caírem por lembrar-se de \
+algo ou alguém..."
+
+
+classe soc_virar
+herda soccomum
+const perso1 = "$P acena para $a em quanto se prepara para ir em bora"
+const perso2 = "$P acena para você em quanto vira as costas e se prepara para ir embora"
+const perso3 = "$P acena para $a em quanto vira as costas para ir embora"
+const sem1 = "$P vira as costas e se prepara para ir embora"
+const sem2 = "$P vira as costas, se preparando para ir embora"
+const auto1 = "Dizer a si mesm$s que está indo embora, meio esquizito, não?"
+const posic = 8 # Posição mínima: 8 em pé
+const alvopos = 8 # Alvo posição mínima: 8 em pé
+
+
+classe soc_vitória
+herda soccomum
+const sem1 = "$P festeja, comemorando mais uma vitória!"
+const sem2 = "$P festeja, comemorando mais uma vitória!"
+const perso1 = "$P pega $a pela mão e rodopia, comemorando com el$w mais uma vitória!"
+const perso2 = "$P pega $A pela mão, comemorando com você mais uma vitória!"
+const perso3 = "$P pega $A pela mão e rodopia, comemorando mais uma vitória com el$w!"
+const item1 = "$P ergue $o, como símbolo de mais uma vitória conquistada por você!"
+const item2 = "$P ergue $o, como símbolo de mais uma vitória alcançada por el$v!"
+
+
+classe soc_vomitar
+herda soccomum
+const sem1 = "$P abaixa a cabeça e começa a vomitar."
+const sem2 = "$P abaixa a cabeça e começa a vomitar."
+const perso1 = "$P olha para $A e vomita na cara del$w."
+const perso2 = "$P olha para você e vomita em sua cara."
+const perso3 = "$P olha para $A e vomita na cara del$w."
+const item1 = "$P pega $o e vomita dentro."
+const item2 = "$P abaixa a cabeça e começa a vomitar dentro $d $o."
+
+
+classe soc_wb
+herda soccomum
+const invalido = "Eles se foram antes de você dizer bem voltado."
+const sem1 = "Você diz: bem voltado a todos que estão junto com você."
+const sem2 = "$P diz bem voltado a cada um que está aqui."
+const auto1 = "$P diz bem voltad$s a $P mesm$s."
+const auto2 = "$P diz bem voltad$t A el$v mesm$s, estranho... Muito estranho..."
+const perso1 = "$P diz a $a: Bem voltad$t."
+const perso2 = "$P diz a $a: bem voltad$t."
+const perso3 = "$P diz bem voltad$t a $a."
+
+
+classe soc_xingar
+herda soccomum
+const auto1 = "$p se xinga, parece bobeira, não?"
+const auto2 = "$p se xinga, parece bobeira, não?"
+const perso1 = "$P xinga $A em auto volume, demonstrando raiva."
+const perso2 = "$P xinga $A em auto volume, demonstrando raiva."
+const perso3 = "$P xinga $A em auto volume, demonstrando raiva."
+const item1 = "$P joga $o no chão, chingando."
+const item2 = "$P joga $o no chão, chingando."
+const sem2 = "$P xinga em auto volume, demonstrando raiva!"
+const sem1 = "$P xinga em auto volume, demonstrando raiva!"

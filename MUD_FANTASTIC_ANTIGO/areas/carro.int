@@ -1,0 +1,1474 @@
+classe a_carro
+herda area
+
+
+classe b_carro
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const s_area = "carro"
+
+
+classe i_carro001
+herda comum_itemperso
+const nome = var.z_modelo ? var.z_modelo : (var.z_dono ? "carro de " + var.z_dono : "carro")
+const descnome = var.z_modelo ? var.z_modelo : (var.z_dono ? "um carro" : "um carro")
+const descver = var.z_desc ? var.z_desc : "Um carro comum."
+const i_pegar = "é muito pesado"
+const i_salas = "carro001"
+const i_msgabriu = "$P abriu a porta $d $a."
+const i_msgfechou = "$P fechou a porta $d $a."
+const i_tranc = 2 # Trancar: 2 Tranca ao fechar
+const i_fechadura = var.z_dono
+const luzitem = 1 # Tipo de luz: 1 Lanterna (acende/apaga, sem fogo)
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 22000000
+const volmax = 0
+const inivar = "z_gasolina=5000"
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const i_fechadura = var.z_dono
+#
+
+func cmd_ini
+  criar("i_carro015", este, 1)
+
+func descpos
+  ret var.z_ligado_, descnome + " de " + var.z_dono + " está parad" + (msexo ? "o" : "a") + " \
+aqui."
+  ret descnome + " de " + var.z_dono + " está estacionad" + (msexo ? "o" : "a") + " aqui."
+
+func i_salaver
+  ret i_aberto >= 3, nulo
+  refvar salacarro = dentro2.objini("s_carro001")
+  refvar janela = salacarro.dentro1.objini("i_carro008")
+  ret janela < 3, salacarro
+#
+#
+
+func msexo
+  refvar modelo = var.z_modelo
+  ret txt1(modelo) == "a" || txt1(modelo) == "uma", 0
+  ret 1
+#
+
+func i_aberto
+  se dentro2.objini("s_carro001")
+    ret dentro2.objini($s_carro001).porta_sair == 1, 2
+    ret dentro2.objini($s_carro001).porta_sair == 2, 3
+    ret 4
+  fimse
+#
+
+func cmd_mudadono
+  listaobj m
+  epara m.addfim(dono.dentro2), m, m.ini.remove
+    se m.objini.perso
+      misc:evento(m.objini)
+    fimse
+  efim
+  se !donoantes && dono.jog
+    var.z_dono = dono.descnome
+    mdono($s_rio075)
+    ret 1
+  fimse
+  txt80 dir
+  textotxt t
+  epara dir = misc:listadir, dir, dir = txt2(dir)
+    refvar dirp = txt1(dir)
+    dono.dir_[dirp] && t.addfim(dirp)
+  efim
+  refvar sala = dentro2.objini("s_carro001")
+  sala.msg(dono.var.z_titulo ? dono.var.z_titulo : dono.s_titulo)
+  sala.msg("\b\c6Saídas: " + txttroca(t.remove(1000), "\n", ", "))
+  listaobj l
+  textotxt t2
+  epara l.addfim(dono.dentro2), l, l.ini.remove
+    t2.addfim(l.objini.descpos)
+  efim
+  sala.msg(t2.remove(1000))
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+
+func cmd_escr
+  casovar txtmin(txt1(arg1))
+  casose "mod"
+  casose "mode"
+  casose "model"
+  casose "modelo"
+    ret arg0.descnome != var.z_dono, nulo
+    var.z_modelo = txt2(arg1)
+    arg0.msg("O novo modelo do seu carro é: " + var.z_modelo + ".")
+    ret 1
+  casose "cdesc"
+    ret arg0.descnome != var.z_dono, nulo
+    ret !txt2(arg1), arg0.msg("Digite uma descrição curta para o carro após cdesc.")
+    var.z_desc = txt2(arg1)
+    arg0.msg("Descrição do carro alterada./")
+    ret 1
+  casofim
+#
+
+func cmd_destrancouobj
+  se arg1 == este
+    dentro2.objini($s_carro001).porta_sair = 2
+  fimse
+#
+
+func cmd_trancouobj
+  se arg1 == este
+    dentro2.objini.porta_sair = 3
+  fimse
+#
+
+func cmd_fechouobj
+  se arg1 == este
+    dentro2.objini($s_carro001).porta_sair = 2
+  fimse
+#
+
+func cmd_abriuobj
+  se arg1 == este
+    dentro2.objini($s_carro001).porta_sair = 1
+  fimse
+#
+
+func apagoufarol
+  luztempo.neg, recalc = 1, ajustapeso
+#
+
+func acendeufarol
+  $mens.p(este)
+  $mens.mvis1("Os faróis $d $p foram acesos.")
+  luztempo = 3000000, recalc = 1, ajustapeso
+#
+
+func dirigir
+  ret !dono.dir_[arg1], arg0.msg("Não é possível dirigir para essa direção.")
+  ret dono.porta_[arg1] >= 2, arg0.msg("A saída para essa direção está fechada.")
+  $mens.p(este, arg0)
+  $mens.mens = $cmd_[arg1].dirsai
+  se arg0.descnome == var.z_dono
+    $mens.mvis1som("$A foi para $m dirigindo $p del$w.", "carro01")
+  senao
+    $mens.mvis1som("$A foi para $m dirigindo $p de " + var.z_dono + ".", "carro01")
+  fimse
+  mudadono(dono.dir_[arg1])
+  $mens.p(este, arg0)
+  $mens.mens = $cmd_[arg1].direntra
+  se arg0.descnome == var.z_dono
+    $mens.mvis1som("$A chegou $m dirigindo $p del$w", "carro02")
+  senao
+    $mens.mvis1som("$A chegou $m dirigindo $p de " + var.z_dono + "", "carro02")
+  fimse
+  var.z_dir = arg1
+  ret
+
+const i_som_abre = "aporta3"
+const i_som_fecha = "fporta3"
+#
+
+func falou
+  $mens.p(este, arg0)
+  $mens.mens = arg1
+  $mens.mtodos1("($P) $A disse: '$m'")
+
+
+classe i_carro002
+herda comum_itemperso
+const nome = "banco"
+const ident = "poltrona banco motorista"
+const descnome = "o banco do motorista"
+const descpos = "O banco do motorista está na parte da frente do carro, ao lado esquerdo, diante \
+do volante."
+const i_pegar = "Você encosta sua mão sobre a poltrona."
+const i_movel = 1 # Mobília: 1 Sentar
+const i_lugar = 1
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 10000
+
+
+classe i_carro003
+herda comum_item
+const nome = "cinto de segurança"
+const descnome = "o cinto de segurança"
+const descpos = "O cinto de segurança foi posto sobre o banco do motorista."
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 2000
+const vestir1 = 8192 # Aonde vestir: 13-sobre o corpo
+
+
+classe i_carro004
+herda comum_item
+const nome = "volante"
+const descnome = "um volante cor de prata"
+const descpos = "um volante cor de prata está a frente do banco do motorista."
+const i_pegar = "Você pega no volante."
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 1000
+
+
+classe i_carro005
+herda comum_itemperso
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "é pesado"
+const i_salas = "carro001"
+const i_tranc = 1 # Trancar: 1 Pode ser trancado
+const volmax = 1
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func i_aberto
+  ret dentro2.objini.porta_sair == 1, 2
+  ret dentro2.porta_sair == 2, 3
+  ret 4
+#
+
+func nome
+  se var.z_modelo
+    ret var.z_modelo
+  senao
+    ret "carro importado"
+  fimse
+#
+
+func descnome
+  se var.z_modelo
+    se var.z_dono
+      ret "o " + var.z_modelo + " de " + var.z_dono
+    senao
+      ret "um " + var.z_modelo
+    fimse
+  senao
+    ret "um carro importado"
+  fimse
+#
+#
+
+func i_fechadura
+  arg0.var.z_fechacarro
+#
+
+func cmd_mudadono
+  $mens.p(este)
+  $mens.mtodos1(descnome + " chegou " + var.z_dirantes + ".")
+  dentro2.objini.msg("Movendo para " + var.z_dir + ".")
+  dentro2.objini.msg(dono.s_titulo)
+  txt200 dir
+  dir = "Saídas: "
+  se dono.dir_n
+    dir += "n, "
+  fimse
+  se dono.dir_s
+    dir += "s, "
+  fimse
+  se dono.dir_l
+    dir += "l, "
+  fimse
+  se dono.dir_o
+    dir += "o, "
+  fimse
+  se dono.dir_c
+    dir += "c, "
+  fimse
+  se dono.dir_b
+    dir += "b, "
+  fimse
+  se dono.dir_ne
+    dir += "ne, "
+  fimse
+  se dono.dir_no
+    dir += "no, "
+  fimse
+  se dono.dir_se
+    dir += "se, "
+  fimse
+  se dono.dir_so
+    dir += "so, "
+  fimse
+  dentro2.objini.msg(dir)
+  ret 1
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se txt1(arg1) == "modelo"
+    ret arg0.descnome != var.z_dono, nulo
+    var.z_modelo = txt2(arg1)
+    arg0.msg("Você trocou o nome do modelo do seu carro para: " + var.z_modelo + "!")
+    ret 1
+  fimse
+#
+
+func cmd_destrancarobj
+  se arg1 == este
+    ret arg0.descnome != var.z_dono, arg0.msg("Você não pode destrancar um carro que não é \
+seu.")
+    $mens.p(arg0)
+    $mens.mtodos2("$P abre a porta do seu carro.", "$P abre a porta do carro dele.")
+    dentro2.objini.porta_sair = 1
+    ret 1
+  fimse
+
+func cmd_olhar
+  se arg1 == este
+    arg0.msg(descnome)
+    arg0.msg(i_descver)
+    ret 1
+  fimse
+#
+
+func cmd_trancarobj
+  se arg1 == este
+    ret arg0.descnome != var.z_donno, arg0.msg("Você não pode trancar esse carro.")
+    dentro2.objini.porta_sair = 3
+    $mens.p(arg0)
+    $mens.mvis2("Você abre a porta do seu carro.", "$P abre a porta do carro del$v.")
+  fimse
+#
+#
+
+func cmd_fecharobj
+  se arg1 == este
+    ret arg0.descnome != var.z_dono, arg0.msg("Você não pode fechar esse carro.")
+    dentro2.objini.porta_sair = 2
+    $mens.p(arg0)
+    $mens.mvis2("Você fecha a porta do seu carro.", "$P fecha a porta do carro del$v.")
+    ret 1
+  fimse
+
+
+classe i_carro006
+herda comum_itemperso
+const nome = "banco traseiro"
+const descnome = "o banco traseiro"
+const descpos = "Um grande banco de couro está na parte de trás do carro, com espaço para 4 \
+pessoas."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "Você encosta sua mão sobre o assento do carro."
+const i_movel = 1 # Mobília: 1 Sentar
+const i_lugar = 4
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 5
+const valor = 10000
+
+
+classe i_carro007
+herda comum_itemperso
+const nome = "banco da frente"
+const descnome = "o banco da frente"
+const descpos = "Há um banco do lado direito, ao lado do banco do motorista."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_movel = 1 # Mobília: 1 Sentar
+const i_lugar = 1
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 5
+const valor = 10000
+
+
+classe i_carro008
+herda comum_itemperso
+const nome = "janela"
+const ident = "janela carro"
+const descnome = "a janela do carro"
+const descpos = "Há quatro janelas aqui, duas ao lado direito e duas ao lado esquerdo."
+const i_salaver = dono.dono.dono
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_soltarobj
+  se arg1 == este && arg4 == arg1
+    $mens.p(arg0, este, arg2)
+    $mens.mtodos1("$P jogou $o pela janela do carro.")
+    arg2.mdono(arg0.dono.dono.dono)
+    $MENS.P(arg2, arg0, DONO.DONO)
+    $MENS.MTODOS1("$A jogou $p pela janela $d $o.")
+    ret 1
+  fimse
+
+
+classe i_carro009
+herda comum_item
+const nome = "painel"
+const ident = "painel"
+const descnome = "um painel"
+const descpos = "um grande painel está aqui, sustentando o volante e outros equipamentos do \
+carro"
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  nomeobj c
+  c.ini(txt1(arg1))
+  se c.nome("abastecer")
+    uint16 totalml
+    uint16 totaltq
+    totalml = txt2(arg1)
+    ret !totalml, arg0.msg("Abastecer quanto?")
+    ret txt(intpos(totalml)) != totalml, arg0.msg("Abastecer quanto?")
+    refvar tq = dono.dono.dentro1.objini("i_carro015")
+    ret !dono.dono.dono.dentro1.objini("i_carro016"), arg0.msg("Você não está em um posto de \
+gasolina.")
+    ret !tq, arg0.msg("O carro não possui tanque. Procure a concessionária mais próxima e \
+obtenha mais informações.")
+    totaltq = tq.var.z_gasolina_
+    ret totaltq + totalml * 1000 > 50000, arg0.msg("O tanque não suporta tanto.")
+    ret arg0.var.z_moedas_ < totalml * 5000, arg0.msg("Você não possui " + totalml * 5000 + " \
+moedas.")
+    arg0.var.z_moedas_ -= totalml * 5000
+    $mens.p(arg0)
+    $mens.mens = totalml
+    $mens.mtodos1("$P chama o frentista para abastecer o carro.\nO frentista abastece o carro \
+com $m litros de gasolina.")
+    tq.var.z_gasolina_ += totalml * 1000
+    ret 1
+  fimse
+
+
+classe i_carro010
+herda comum_item
+const nome = "retrovisor"
+const descnome = "um retrovisor"
+const descpos = "Um retrovisor está do lado da janela do motorista, na parte de fora do carro."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 2500
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_olhar
+  se arg1 == este
+    arg0.msg("Você olha para o retrovisor e consegue ver o que ficou para trás, " + dono.dono.var\
+.z_dirantes + ".")
+    arg0.msg(dono.dono.donoantes.s_titulo)
+    ret 1
+  fimse
+
+
+classe i_carro011
+herda comum_item
+const nome = "Rodômetro"
+const descnome = "um rodômetro"
+const descpos = "Há um medidor de kilometragem a frente do painel."
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 3000
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_olhar
+  se arg1 == este
+    $mens.p(arg0)
+    $mens.mvis1("$P confere o rodômetro...")
+    arg0.msg("O ponteiro do rodômetro aponta para " + dono.dono.var.z_mov / 1000 + " kilômetros \
+rodados.")
+    ret 1
+  fimse
+
+
+classe i_carro012
+herda comum_itemgrupo
+const nome = "chave do carro"
+const descnome = "a chave do carro"
+const i_chave = var.z_fechadura
+const valor = 2000
+#
+
+func cmd_mudadono
+  se !donoantes && dono.jog
+    var.z_fechadura = dono.descnome
+  fimse
+#
+
+
+classe i_carro013
+herda comum_itemperso
+const nome = "bebê conforto"
+const descnome = "um bebê conforto"
+const i_pegar = "você não pode pegar"
+const i_movel = 1 # Mobília: 1 Sentar
+const i_lugar = 1
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 5000
+
+
+classe i_carro014
+herda comum_itemperso
+const nome = "banco"
+const ident = "sexto sétimo banco lugares adicional"
+const descnome = "o banco adicional"
+const descpos = "O sexto e sétimo lugar está aqui, logo atrás do banco trazeiro."
+const i_pegar = ""
+const i_movel = 3 # Mobília: 3 Sentar confortavelmente
+const i_lugar = 2
+const valor = 10000
+
+
+classe i_carro015
+herda comum_item
+const nome = "tanque de gasolina"
+const descpos = ""
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "Você não pode pegar o tanque do carro."
+const mantersala = 1 # Mantém na sala: Sim
+const inivar = "z_gasolina=5000"
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func descnome
+  se txt(dono) == "i_carro001"
+    ret "o tanque do carro"
+  senao txt(dono) == "i_moto001"
+    ret "o tanque da moto"
+  senao
+    ret "um tanque de gasolina"
+  fimse
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "despejar combustível" || arg1 == "dispejar combustível"
+    ret !arg0.dentro1.objini("i_carro023"), arg0.msg("Você não tem um galão de combustível para \
+despejar no tanque.")
+  fimse
+
+
+classe i_carro016
+herda comum_item
+const nome = "bomba de reabastecimento"
+const descnome = "uma bomba de abastecimento"
+const descpos = "Há uma bomba de abastecimento aqui."
+const i_pegar = "Você é louco?"
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_carro017
+herda comum_item
+const nome = "bomba de abastecimento"
+const descnome = "uma bomba de abastecimento"
+const descpos = "Aqui há uma bomba de abastecimento,."
+const i_pegar = "Você não pode pegar, está presa no chão."
+const eveste = 1 # Eventos item: Sim
+const evperso = 1
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+
+func cmd_escr
+  se arg1 == "ache"
+    rastrearsala($s_rio004, "a", 10)
+    ret 1
+  fimse
+
+
+classe i_carro018
+herda comum_item
+const nome = "medidor de combustível"
+const descnome = "o medidor de combustível"
+const descpos = "O medidor de combustível está no painel, mostrando o nível de gasolina do \
+tanque."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "Não dá. Está preso ao painel."
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 10000
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_olhar
+  se arg1 == este
+    $mens.p(arg0)
+    $mens.mvis1("$P confere o medidor de combustível do carro.")
+    refvar qgasolina = dono.dono.dentro1.objini("i_carro015").var.z_gasolina_ / 1000
+    arg0.msg(" Quantidade atual: " + qgasolina + " litros\n Capacidade máxima: 50 litros.")
+    arg0.msg("Nível de combustível do tanque (em porcentagem): " + qgasolina / 50 * 100 + \
+"%")
+    ret 1
+  fimse
+
+
+classe i_carro019
+herda comum_itemperso
+const nome = "mala com rodinhas"
+const descnome = "uma mala com rodinhas"
+const descpos = "Encostada em um cantinho, uma mala com rodinhas aguarda sua próxima viagem"
+const msexo = 0 # Sexo Msg: 0 Feminino
+const i_movel = 1 # Mobília: 1 Sentar
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const mantersala = 1 # Mantém na sala: Sim
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+#
+
+func cmd_mudadono
+  misc:evento(iseguir.objlista)
+#
+
+func cmd_escr
+  se arg1 == "largar mala"
+    $mens.p(iseguir.objlista)
+    $mens.mvis1("$P deixa de puxar uma mala com rodinhas.")
+    iseguir = 0
+    seguir(0)
+    ret 1
+  senao arg1 == "puxar mala"
+    $mens.p(arg0)
+    $mens.mvis1("$P segura uma mala e começa a puxá-la.")
+    seguir(arg0)
+    ret 1
+  fimse
+#
+
+
+classe i_carro020
+herda comum_itemperso
+
+
+classe i_carro021
+herda comum_itemperso
+const nome = "moto"
+const descnome = "uma moto"
+const i_salas = "carro018"
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 3000000
+const volmax = 1
+const inivar = "z_gasolina=3000"
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+#
+
+func descver
+  ret var.z_desc, var.z_desc
+  ret "Um automóvel basicamente como outro qualquer."
+#
+
+func i_fechadura
+  ret var.z_dono
+#
+
+func msexo
+  refvar modelo = var.z_modelo
+  ret txt1(modelo) == "a", 0
+  ret 1
+#
+
+func i_aberto
+  ret dentro2.objini($s_carro018).porta_sair == 1, 2
+  ret dentro2.objini($s_carro018).porta_sair == 2, 3
+  ret 4
+#
+
+func nome
+  se var.z_dono
+    se var.z_modelo
+      ret var.z_modelo
+    senao
+      ret "moto de " + var.z_dono
+    fimse
+  senao
+    ret "automóvel"
+  fimse
+#
+
+func descnome
+  se var.z_dono
+    se var.z_modelo
+      ret var.z_modelo + " de " + var.z_dono
+    senao
+      ret "a moto de " + var.z_dono
+    fimse
+  senao
+    ret "um automóvel"
+  fimse
+#
+
+func cmd_mudadono
+  $mens.p(este)
+  se dentro2.objini("e_voar")
+    arg0.msg("a moto voa para: " + dir)
+    donoantes.dentro2.objlista.msg(descnome + " voou para " + var.z_dir + ".")
+    donoantes.dentro2.objini.msg(descnome + " voou para " + var.z_dir + ".")
+    $mens.mtodos1(descnome + " voou " + var.z_dirantes + ".")
+    dentro2.objini("s_carro018").msg(dono.s_titulo)
+    arg0.msg("a moto voa para: " + var.z_dir)
+  senao
+    donoantes.objlista.msg(descnome + " foi para " + var.z_dir + ".")
+    dentro2.objini("s_carro018").msg(descnome + " move-se para " + var.z_dir)
+    $mens.mtodos1(descnome + " chegou " + var.z_dirantes)
+    dentro2.objini.msg(dono.s_titulo)
+    dentro2.objini.msg(dono.s_desc)
+  fimse
+  txt200 dir
+  dir = "Saídas: "
+  se dono.dir_n
+    dir += "n, "
+  fimse
+  se dono.dir_s
+    dir += "s, "
+  fimse
+  se dono.dir_l
+    dir += "l, "
+  fimse
+  se dono.dir_o
+    dir += "o, "
+  fimse
+  se dono.dir_c
+    dir += "c, "
+  fimse
+  se dono.dir_b
+    dir += "b, "
+  fimse
+  se dono.dir_ne
+    dir += "ne, "
+  fimse
+  se dono.dir_no
+    dir += "no, "
+  fimse
+  se dono.dir_se
+    dir += "se, "
+  fimse
+  se dono.dir_so
+    dir += "so, "
+  fimse
+  se dono.dir_entrar
+    dir += "entrar"
+  fimse
+  se dono.dir_sair
+    dir += "sair, "
+  fimse
+  ret dentro2.objini("e_voar"), dentro2.objini("s_carro018").msg(dir)
+  dentro2.objini.msg(dir)
+  ret 1
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+
+func cmd_escr
+  se arg1 == "garagem"
+    ret arg0.descnome != var.z_dono, nulo
+    $mens.p(este)
+    $mens.mtodos1("$P dá a partida e sai.")
+    mudadono($s_rio078)
+    ret 1
+    se txt1(arg1) == "modelo"
+      ret arg0.descnome != var.z_dono, nulo
+      var.z_modelo = txt2(arg1)
+      arg0.msg("O novo modelo do seu carro é: " + var.z_modelo + ".")
+      ret 1
+    senao txt1(arg1) == "cdesc"
+      ret arg0.descnome != var.z_dono, nulo
+      ret !txt2(arg1), arg0.msg("Digite uma descrição curta para a moto após cdesc.")
+      var.z_desc = txt2(arg1)
+      arg0.msg("Descrição da moto alterada./")
+      ret 1
+    fimse
+    se arg1 == "bater banco"
+      dentro2.objini.msg(arg0.descnome + " bate na lateral da moto, tentando chamar sua atenção."\
+)
+      $mens.p(iseguir.objlista)
+      $mens.mvis1("$P bate na janela d" + descnome + ".")
+      ret 1
+    fimse
+#
+
+func cmd_mover
+  se arg0 == este
+    $mens.p(este)
+    $mens.mvis1(descnome + " busina e sai...")
+  fimse
+#
+
+func cmd_destrancarobj
+  se arg1 == este
+    dentro2.objini($s_carro018).porta_sair = 1
+  fimse
+
+func cmd_olhar
+  se arg1 == este
+    arg0.msg(descnome)
+    arg0.msg(descver)
+    ret 1
+  fimse
+#
+
+func cmd_trancarobj
+  se arg1 == este
+    dentro2.objini.porta_sair = 3
+  fimse
+#
+#
+
+func cmd_fecharobj
+  se arg1 == este
+    dentro2.objini($s_carro018).porta_sair = 2
+  fimse
+#
+
+func cmd_abrirobj
+  se arg1 == este
+    dentro2.objini($s_carro018).porta_sair = 1
+  fimse
+
+
+classe i_carro022
+herda comum_item
+const nome = "rastreador de carros"
+const descnome = "um rastreador de carros"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 500000
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_olhar
+  se arg1 == este
+    ref r
+    epara r = $i_carro001, r, r = objdepois(r)
+      se r.var.z_dono == arg0.descnome
+        arg0.msg("Encontrado:")
+        arg0.msg(r.descnome + ": " + r.dono.s_titulo)
+      fimse
+    efim
+    ret 1
+  fimse
+
+
+classe i_carro023
+herda comum_item
+const nome = "galão de combustível"
+const ident = "garrafão galão combustível"
+const descnome = "um galão de combustível"
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const valor = 60000
+const inivar = "z_gasolina=15000"
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func descver
+  refvar qlitros = var.z_gasolina_ / 1000
+  se !qlitros
+    ret "está vasio."
+  senao qlitros == 1
+    ret "Contém 1 litro de gasolina."
+  senao
+    ret "Contém " + qlitros + " litros de gasolina."
+  fimse
+#
+
+func cmd_escr
+  nomeobj c
+  nomeobj t
+  c.ini(txt1(arg1))
+  t.ini(txtsub(arg1, 1, 1))
+  se c.nome("encher") && t.nome("tanque")
+    refvar item = txtsub(arg1, 2, 1)
+    refvar i = misc:itemdono(arg0, item)
+    ret !i, arg0.msg("Não há por aqui nenhum carro com esse modelo.")
+    refvar q = i.dentro1.objini("i_carro015")
+    ret !q, arg0.msg("Isso não possui um tanque.")
+    uint16 tq
+    uint16 tc
+    uint16 tg
+    ret q.var.z_gasolina_ >= 50000, arg0.msg("O tanque já está cheio.")
+    tq = 50000 - q.var.z_gasolina_
+    tg = var.z_gasolina_
+    se tq > tg
+      $mens.p(arg0, i, este)
+      $mens.mens = tg / 1000
+      $mens.mtodos1("$P enche o tanque $d $a com $m litros de gasolina, apartir $d $o.")
+      q.var.z_gasolina_ += var.z_gasolina_
+      var.z_gasolina_ = 0
+      !var.z_gasolina_ && apagar(este)
+    senao
+      $mens.p(arg0, i, este)
+      $mens.mens = tq / 1000
+      $mens.mtodos1("$P enche o tanque $d $a com $m litros de gasolina, apartir $d $o.")
+      q.var.z_gasolina_ += tq
+      var.z_gasolina_ -= tq
+    fimse
+    ret 1
+  fimse
+
+func cmd_bebeu
+  se arg1 == este
+    ret arg0.dono.s_area == "fim", nulo
+    $mens.p(arg0)
+    $mens.mvis1("$P começa a se contorcer de dores, ao ter seu corpo coberto pelas chamas!")
+    se arg0.j_imortal
+      arg0.j_imortal = 0
+      arg0.morreu
+      arg0.j_imortal = 1
+    senao
+      arg0.morreu
+    fimse
+  fimse
+
+
+classe i_carro024
+herda comum_itemperso
+const nome = "botão do farol"
+const ident = "botão farol farois"
+const descnome = "o botão do farol"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const luzitem = 1 # Tipo de luz: 1 Lanterna (acende/apaga, sem fogo)
+const luzini = 3000000
+const luzliga = "$P aperta um botão no painel e os faróis do carro se acendem."
+const luztxt = "As luzes $d $o piscam algumas vezes e se apagam."
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_acendeu
+  se arg1 == este && arg2 == arg1
+    refvar i = dono.dono
+    se txt(i) == "i_carro001"
+      i.acendeufarol(arg0, i)
+    fimse
+  fimse
+#
+
+func cmd_apagou
+  se arg1 == este && arg2 == arg1
+    refvar i = dono.dono
+    se txt(i) == "i_carro001"
+      i.apagoufarol(arg0, i)
+    fimse
+  fimse
+
+
+classe i_carro025
+herda comum_itemperso
+const nome = var.z_modelo ? var.z_modelo : "caminhonete"
+const ident = var.z_modelo ? var.z_modelo + " " + var.z_dono : "caminhonete " + var.z_dono
+const descnome = var.z_modelo ? var.z_modelo : "uma caminhonete"
+const f_tipo = 5 # Tipo: 5 Container, beber
+const i_pegar = "é pesado"
+const i_salas = "carro002\ncarro003"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const i_msgabriu = "$P abriu a porta $d $a."
+const i_msgfechou = "$P fechou a porta $d $a."
+const i_tranc = 1 # Trancar: 1 Pode ser trancado
+const i_fechadura = var.z_dono
+const luzitem = 1 # Tipo de luz: 1 Lanterna (acende/apaga, sem fogo)
+const luzini = 5000000
+const mantersala = 1 # Mantém na sala: Sim
+const volmax = 1
+const eveste = 1 # Eventos item: Sim
+const i_msgsoltaobj = "$P coloca $o no portamala $d $a."
+const i_msgpegaobj = "$P pega $o do portamala $d $a."
+#
+
+func cmd_ini
+  criar("i_carro015", este, 1)
+
+func descpos
+  se var.z_ligado_
+    ret descnome + " de " + var.z_dono + " está parada aqui."
+  senao
+    ret descnome + " de " + var.z_dono + " está estacionada aqui."
+  fimse
+#
+#
+
+func i_aberto
+  se dentro2.objini("s_carro002")
+    ret dentro2.objini($s_carro002).porta_sair == 1, 2
+    ret dentro2.objini($s_carro002).porta_sair == 2, 3
+    ret 4
+  fimse
+
+func acendeufarol
+  $mens.p(este)
+  $mens.mvis1("Os faróis $d $p foram acesos.")
+  luztempo = 3000000, recalc = 1, ajustapeso
+
+func buzinou
+  $mens.p(este, arg0)
+  $mens.p(este, arg0)
+  $mens.p(este, arg0)
+  $mens.mvis1som("$A buzinou de dentro $d $p.", "buzina")
+
+func dirigir
+  refvar t = dentro1.objini("i_carro015")
+  ret !t, arg0.msg("O carro não possui um tanque de gasolina. Procure a concessionária mais \
+próxima e obtenha informações.")
+  ret t.var.z_gasolina_ < 50, arg0.msg("Gasolina insuficiente para prosseguir.")
+  ret !dono.dir_[arg1], arg0.msg("Não é possível dirigir para essa direção.")
+  ret dono.porta_[arg1] >= 2, arg0.msg("A saída para essa direção está fechada.")
+  $mens.p(este, arg0)
+  $mens.mens = $cmd_[arg1].dirsai
+  $mens.mvis1som("$P foi para $m.", "carro01")
+  mudadono(dono.dir_[arg1])
+#
+  t.var.z_gasolina_ -= 50
+  refvar sala1 = dentro2.objini("s_carro002")
+  refvar sala2 = dentro2.objini("s_carro003")
+  txt80 dir
+  textotxt t1
+  epara dir = misc:listadir, dir, dir = txt2(dir)
+    refvar dirp = txt1(dir)
+    dono.dir_[dirp] && t1.addfim(dirp)
+  efim
+  sala1.msg("\d=carmotor " + (dono.var.z_titulo ? dono.var.z_titulo : dono.s_titulo))
+  sala2.msg("\d=carmotor " + (dono.var.z_titulo ? dono.var.z_titulo : dono.s_titulo))
+  sala1.msg("\b\c6Saídas: " + txttroca(t1.remove(1000), "\n", ", "))
+  listaobj l
+  textotxt t2
+  epara l.addfim(dono.dentro2), l, l.ini.remove
+    t2.addfim(l.objini.descpos)
+  efim
+  sala1.msg(t2.remove(1000))
+  $mens.p(este, arg0)
+  $mens.mens = $cmd_[arg1].direntra
+  $mens.mvis1som("$P chegou $m.", "carro02")
+  var.z_dir = arg1
+#
+
+func cmd_destrancouobj
+  se arg1 == este
+    dentro2.objini($s_carro002).porta_sair = 2
+  fimse
+#
+
+func cmd_trancouobj
+  se arg1 == este
+    dentro2.objini.porta_sair = 3
+  fimse
+#
+
+func cmd_fechouobj
+  se arg1 == este
+    dentro2.objini($s_carro003).porta_sair = 2
+    dentro2.objini($s_carro002).porta_sair = 2
+  fimse
+#
+
+func cmd_abriuobj
+  se arg1 == este
+    dentro2.objini($s_carro002).porta_sair = 1
+    dentro2.objini($s_carro003).porta_sair = 1
+  fimse
+
+const i_som_abre = "aporta5"
+const i_som_fecha = "fporta5"
+const f_liquido = "gasolina"
+
+
+classe i_carro026
+herda comum_item
+const nome = "medidor de gasolina"
+const descnome = "o medidor de gasolina"
+const descpos = "Ao lado direito do painel há um medidor de combustível."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "O medidor foi fixado ao painel e precisa de alguma ferramenta de chave para \
+retirá-lo de lá."
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 120000
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_olhar
+  se arg1 == este && arg2 == arg1
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos2("$o.", "$P confere o medidor de combustível no painel.")
+    refvar t = dono.dono.dentro1.objini("i_carro015")
+    ret !t, arg0.msg("O carro não possui tanque de gasolina.")
+    arg0.msg("Quantidade de gasolina do tanque (Em litros): " + t.var.z_gasolina_ / 1000 + \
+".")
+    ret 1
+  fimse
+
+
+classe i_carro027
+herda comum_item
+const nome = "rodômetro"
+const ident = "rodômetro"
+const descnome = "o rodômetro"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "O rodômetro foi fixado ao painel e necessita de ferramentas específicas para \
+retirá-lo dele."
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 125000
+const eveste = 1 # Eventos item: Sim
+
+
+classe i_carro028
+herda comum_item
+const nome = "buzina"
+const descnome = "a buzina do carro"
+const descpos = "No centro do volante está o botão da buzina."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "A buzina é para ser apertada."
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 5000
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  nomeobj b
+  b.ini(arg1)
+  se b.nome("buzinar")
+    refvar t = dono.dono
+    se txt(t) == "i_carro025" || txt(t) == "i_carro001"
+      $mens.p(arg0)
+      $mens.mvis1som("$P apertou a buzina.", "buzina")
+      t.buzinou(arg0)
+      ret 1
+    fimse
+
+
+classe p_carro001
+herda comum_perso
+const nome = "frentista"
+const descnome = "um frentista"
+const descpadr = "Um frentista está com uma mangueira na mão, pronto para abastecer os carros."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 10
+const lojaitem = "carro023 0"
+
+
+classe s_carro001
+herda b_carro
+const s_entrada = "a entrada do automóvel"
+const s_fome = 1 # Fome e sede: 1 Ausente
+const s_item = 0
+const s_jog = 8
+const s_recup = 600
+const s_semmagia = 0 # Sem magia: Não
+const eveste = 1 # Eventos sala: Sim
+const dir_sair = $s_carro010
+const portaini_sair = 2 # Estado inicial: 2 Porta fechada
+const portanome_sair = "a porta d" + dono.var.z_modelo
+const inv_sair = 0 # Invisível: Não
+const fecha_sair = 0 # Fecha ao passar: Não
+const tranc_sair = 1 # Trancar: 1 Pode ser trancado
+const som_abrir_sair = "aporta3"
+const som_fechar_sair = "fporta3"
+const s_reset = "S 100 carro015 1 S\n\
+S 100 carro006 1 S\n\
+S 100 carro007 1 S\n\
+S 100 carro003 1 S\n\
+S 100 carro002 1 S\n\
+S 100 carro004 1 S\n\
+S 100 carro018 1 S\n\
+S 100 carro011 1 S\n\
+S 100 carro009 1 S\n\
+S 100 carro010 1 S\n\
+S 100 carro008 1 S"
+#
+
+func s_titulo
+  se dono.var.z_dono
+    se dono.var.z_modelo
+      refvar modelo = dono.var.z_modelo
+      se txt1(modelo) == "o" || txt1(modelo) == "a"
+        ret "Dentro d" + modelo + " de " + dono.var.z_dono
+      senao
+        ret "Dentro de " + modelo + " de " + dono.var.z_dono
+      fimse
+    senao
+      ret "Dentro do carro de " + dono.var.z_dono + "."
+    fimse
+  senao
+    ret "Dentro do carro."
+  fimse
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  casovar txtmin(txt1(arg1))
+  casose "on"
+  casose "ligar"
+    ret dono.var.z_ligado_, arg0.msg("O carro já está ligado!")
+    ret !arg0.dentro1.objini("i_carro012"), arg0.msg("Você não possui a chave do carro.")
+    listaobj l
+    epara l.addfim(arg0.dentro1), l, l.ini.remove
+      continuar txt(l.objini) != "i_carro012"
+      se l.objini.i_chave == dono.i_fechadura
+        $mens.p(arg0)
+        $mens.mvis1som("$P gira a chave e liga o carro.", "ligandocarro")
+        dono.var.z_ligado_ = 1
+        ret 1
+      fimse
+    efim
+    ret arg0.msg("Você não possui a chave deste carro.")
+  casose "off"
+    ret !dono.var.z_ligado_, arg0.msg("o carro já está desligado.")
+    ret !arg0.dentro1.objini("i_carro012"), arg0.msg("Você não possui a chave do carro.")
+    listaobj l
+    epara l.addfim(arg0.dentro1), l, l.ini.remove
+      continuar txt(l.objini) != "i_carro012"
+      se l.objini.i_chave == dono.i_fechadura
+        $mens.p(arg0)
+        $mens.mvis1som("$P gira a chave e desliga o carro.", "desligandocarro")
+        dono.var.z_ligado_ = 0
+        ret 1
+      fimse
+    efim
+    ret arg0.msg("Você não possui a chave deste carro.")
+  casose "buzinar"
+    $mens.p(arg0)
+    $mens.mvis1som("$P apertou a buzina do carro.", "buzina")
+    $mens.p(dono, arg0)
+    $mens.mvis1som("$A buzinou de dentro $d $p.", "buzina")
+    ret 1
+  casose "dirigir"
+  casose "dir"
+    ret dono.dentro1.objini("i_carro015").var.z_gasolina_ < 50, arg0.msg("Gasolina insuficiente."\
+)
+    ret porta_sair < 2, arg0.msg("Não pode dirigir com a porta aberta.")
+    ret !dono.var.z_ligado, arg0.msg("O carro está desligado!")
+    txt80 dir
+    dir = txtsub(arg1, 1, 1)
+    !dir && (dir = dono.var.z_dir)
+    se !dono.dirigir(arg0, dir, este)
+      dono.dentro1.objini("i_carro015").var.z_gasolina_ -= 50
+      $mens.p(arg0)
+      $mens.mvis1som("#", "carmotor")
+      dono.var.z_mov_ += 50
+    fimse
+    ret 1
+  casose "abastecer"
+    refvar qabastecer = txt2(arg1)
+    ret txt(intpos(qabastecer)) != qabastecer, arg0.msg("Você não está em um posto de gasolina.")
+    refvar mgasolina = dono.dentro1.objini("i_carro015").var.z_gasolina_ / 1000
+    mgasolina += qabastecer
+    ret mgasolina > 50, arg0.msg("O tanque não suporta tudo isso.")
+    ret !dono.dono.dentro1.objini("i_carro016"), arg0.msg("Você não está em um posto de gasolina.\
+")
+    ret arg0.var.z_moedas_ < qabastecer * 5000, arg0.msg("Você não tem " + qabastecer * 500 + \
+".")
+    arg0.var.z_moedas_ -= qabastecer * 5000
+    dono.dentro1.objini("i_carro015").var.z_gasolina_ += 1000 * qabastecer
+    $mens.p(arg0)
+    $mens.mvis1("$P chama o frentista para abastecer o carro.")
+    $mens.p(arg0)
+    $mens.mvis1("O frentista abastece o carro com " + qabastecer + " litros de gasolina.")
+    ret 1
+  casose "modelo"
+  casose "model"
+  casose "mode"
+  casose "mod"
+    ret arg0.descnome != dono.var.z_dono, nulo
+    dono.var.z_modelo = txt2(arg1)
+    arg0.msg("Você mudou o modelo do seu carro para " + dono.var.z_modelo + ".")
+    ret 1
+  casofim
+#
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_carro006") && criar("i_carro006", este, 1)
+  !dentro1.objini("i_carro007") && criar("i_carro007", este, 1)
+  !dentro1.objini("i_carro003") && criar("i_carro003", este, 1)
+  !dentro1.objini("i_carro002") && criar("i_carro002", este, 1)
+  !dentro1.objini("i_carro004") && criar("i_carro004", este, 1)
+  !dentro1.objini("i_carro018") && criar("i_carro018", este, 1)
+  !dentro1.objini("i_carro011") && criar("i_carro011", este, 1)
+  !dentro1.objini("i_carro009") && criar("i_carro009", este, 1)
+  !dentro1.objini("i_carro010") && criar("i_carro010", este, 1)
+  !dentro1.objini("i_carro008") && criar("i_carro008", este, 1)
+#
+#
+
+func falou
+  $mens.p(dentro2.objini, arg0)
+  $mens.mens = arg1
+  $mens.mtodos1("(fora) $A disse: '$m'")
+#
+
+func cmd_falou
+  dono.falou(arg0, arg1)
+
+
+classe s_carro002
+herda b_carro
+const s_entrada = "cabine"
+const eveste = 1 # Eventos sala: Sim
+const dir_s = dono.dentro2.objini("s_carro003")
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "a porta da cabine"
+const som_abrir_s = "abporta02"
+const som_fechar_s = "fporta02"
+const dir_sair = $s_carro004
+const portaini_sair = 2 # Estado inicial: 2 Porta fechada
+const portanome_sair = "a porta da cabine"
+const fechadura_sair = dono.var.z_dono
+const tranc_sair = 1 # Trancar: 1 Pode ser trancado
+const som_abrir_sair = "aporta5"
+const som_fechar_sair = "fporta5"
+const i_reset = "S 100 carro006 1 S\n\
+S 100 carro007 1 S\n\
+S 100 carro002 1 S\n\
+S 100 carro028 1 S\n\
+S 100 carro004 1 S\n\
+S 100 carro024 1 S\n\
+S 100 carro026 1 S\n\
+S 100 carro011 1 S\n\
+S 100 carro009 1 S\n\
+S 100 carro010 1 S\n\
+S 100 carro008 1 S"
+#
+
+func s_titulo
+  ret txt1(dono.var.z_modelo) == "o" || txt1(dono.var.z_modelo) == "a", "Na cabine d" + dono.var.\
+z_modelo
+  ret "Na Cabine de " + dono.var.z_modelo + "."
+#
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+
+func cmd_escr
+  nomeobj n
+  n.ini(txt1(arg1))
+  se n.nome("dirigir")
+    ret !dono.var.z_ligado_, arg0.msg("Antes, ligue o carro.")
+    txt80 dir
+    dir = txtsub(arg1, 1, 1)
+    !dir && (dir = dono.var.z_dir)
+    !dono.dirigir(arg0, dir, este)
+    ret 1
+  senao arg1 == "on"
+    ret dono.var.z_ligado_, arg0.msg(dono.var.z_modelo + " já está ligad" + (dono.msexo ? "o." : \
+"a."))
+    ret !arg0.dentro1.objini("i_carro012"), arg0.msg("Você não possui a chave do carro.")
+    listaobj l
+    epara l.addfim(arg0.dentro1), l, l.ini.remove
+      se txt(l.objini) == "i_carro012" && l.objini.i_chave == dono.i_fechadura
+        $mens.p(arg0)
+        $mens.p(arg0)
+        $mens.mvis1som("$P gira a chave e liga o carro.", "ligandocarro")
+        dono.var.z_ligado_ = 1
+        ret 1
+      fimse
+    efim
+    ret arg0.msg("Você não possui a chave deste carro.")
+  senao arg1 == "off"
+    ret !dono.var.z_ligado_, arg0.msg(dono.var.z_modelo + " já está desligad" + (dono.msexo ? \
+"o." : "a."))
+    ret !arg0.dentro1.objini("i_carro012"), arg0.msg("Você não possui a chave do carro.")
+    listaobj l
+    epara l.addfim(arg0.dentro1), l, l.ini.remove
+      se txt(l.objini) == "i_carro012" && l.objini.i_chave == dono.i_fechadura
+        $mens.p(arg0)
+        $mens.p(arg0)
+        $mens.mvis1som("$P gira a chave e desliga o carro.", "desligandocarro")
+        dono.var.z_ligado_ = 0
+        ret 1
+      fimse
+    efim
+  fimse
+
+func i_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de i_reset
+  !dentro1.objini("i_carro006") && criar("i_carro006", este, 1)
+  !dentro1.objini("i_carro007") && criar("i_carro007", este, 1)
+  !dentro1.objini("i_carro002") && criar("i_carro002", este, 1)
+  !dentro1.objini("i_carro028") && criar("i_carro028", este, 1)
+  !dentro1.objini("i_carro004") && criar("i_carro004", este, 1)
+  !dentro1.objini("i_carro024") && criar("i_carro024", este, 1)
+  !dentro1.objini("i_carro026") && criar("i_carro026", este, 1)
+  !dentro1.objini("i_carro011") && criar("i_carro011", este, 1)
+  !dentro1.objini("i_carro009") && criar("i_carro009", este, 1)
+  !dentro1.objini("i_carro010") && criar("i_carro010", este, 1)
+  !dentro1.objini("i_carro008") && criar("i_carro008", este, 1)
+
+
+classe s_carro003
+herda b_carro
+const dir_n = dono.dentro2.objini("s_carro002")
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "a porta da cabine"
+const som_abrir_n = "abporta02"
+const som_fechar_n = "fporta02"
+const dir_sair = $s_hospital054
+const portaini_sair = 2 # Estado inicial: 2 Porta fechada
+const portanome_sair = "a porta traseira do carro"
+const fechadura_sair = dono.var.z_dono
+const tranc_sair = 1 # Trancar: 1 Pode ser trancado
+const som_abrir_sair = "doorbus01"
+const som_fechar_sair = "doorbus02"
+
+func s_entrada
+  ret porta_sair > 1, nulo
+  ret "traseira"
+
+func s_titulo
+  se txt1(dono.var.z_modelo) == "o" || txt1(dono.var.z_modelo) == "a"
+    ret "Na parte traseira d" + dono.var.z_modelo + "."
+  senao
+    ret "Na parte traseira de " + dono.var.z_modelo + "."
+#
+
+
+classe s_carro004
+herda b_carro
+
+
+classe s_carro010
+herda b_carro
+
+
+classe s_carro013
+herda b_carro
+const s_titulo = "Fora do carro"
+const dir_entrar = $s_carro001
+const portaini_entrar = 2 # Estado inicial: 2 Porta fechada
+const portanome_entrar = "a porta do carro"
+const fecha_entrar = 1 # Fecha ao passar: Sim
+const tranc_entrar = 2 # Trancar: 2 Tranca ao fechar
+const som_abrir_entrar = "aporta3"
+const som_fechar_entrar = "fporta3"

@@ -1,0 +1,892 @@
+classe a_quadribol
+herda area
+const a_nome = "Campo de quadribol"
+const a_tempo = 10
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_quadribol
+herda sala
+const s_area = "quadribol"
+
+
+classe i_quadribol001
+herda comum_item
+const nome = "pomo de ouro"
+const descnome = "o pomo de ouro"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_soltouobj
+  se arg2 == este
+    criar("p_quadribol001", arg0.dono)
+    apagar(arg2)
+  fimse
+
+
+classe i_quadribol002
+herda comum_item
+const nome = "bastão"
+const descnome = "um bastão"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const valor = 100000
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_escr
+  se arg1 == "rebater"
+    refvar balaco = arg0.dono.dentro2.objini("p_quadribol002")
+    se !balaco
+      $mens.p(arg0)
+      $mens.mvis1("$P gira o bastão e acerta o ar!")
+      ret 1
+    fimse
+    $mens.p(arg0, balaco)
+    $mens.mvis1("$P gira o bastão no ar, acertando um balaço e mandando-o para longe!")
+    balaco.mudadono($s_quadribol[txtfim("000" + rand(1, 48), 3)])
+    ret 1
+  fimse
+
+const m_atribs2 = "** El$v é batedor do time da " + dono.var.z_casah
+
+
+classe i_quadribol003
+herda comum_item
+const nome = "goles"
+const descnome = "a goles"
+const descver = "Esta é a goles, utilizada pelos artilheiros em uma partida de quadribol\n\
+para marcar gols, ao serem atiradas em um dos aros do campo. É vermelha e\n\
+precisa ser lançada para os lados, até chegar aos aros, para isso, digita-se\n\
+'atirar goles <direção>'. Por exemplo: 'atirar goles l', para atirá-la para\nleste."
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_escr
+  se txtsub(arg1, 0, 2) == "atirar goles"
+    refvar dir = txtsub(arg1, 2, 1)
+    ret !arg0.dono.dir_[dir], arg0.msg("Não tem como jogar a goles nessa direção.")
+    txt30 nomedir
+    nomedir = txtsub($cmd_[dir].m_sai2, 3, 2)
+    refvar ndir = txttroca(nomedir, "$m", "")
+    $mens.p(arg0)
+    $mens.mvis1("$P jogou a goles para " + ndir)
+    mudadono(arg0.dono.dir_[dir])
+    txt30 nomesai
+    nomesai = txtsub($cmd_[dir].m_entra2, 2, 2)
+    refvar nsai = txttroca(nomesai, "$m.", "")
+    $mens.p(este)
+    $mens.mvis1("A goles foi lançada " + nsai + ".")
+    ret 1
+  fimse
+#
+
+func cmd_mover
+  se arg0.dentro1.objini(este)
+    ret arg4 == $s_quadribol049, nulo
+    ret arg4 == $s_quadribol057, nulo
+    ret arg0.msg("Não pode se mover com a posse da goles.")
+  fimse
+
+
+classe i_quadribol004
+herda comum_itemperso
+const nome = "aro"
+const descnome = "o aro"
+const descpos = "Um aro está no alto de um poste que se estende da base do campo até aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_itens = "quadribol003"
+const i_pegar = "Não pode, está bem fixo ao chão."
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_soltouobj
+  se arg1 == este
+    $mens.p(arg0)
+    $mens.marea1("10 pontos para o time da " + arg0.var.z_casah + "!")
+  fimse
+#
+
+func cmd_pegarobj
+  se arg1 == este && arg0.var.z_qposicao != "goleiro"
+    ret arg0.msg("A posse da goles é do goleiro.")
+  fimse
+
+
+classe p_quadribol001
+herda comum_persobat
+const nome = "pomo de ouro"
+const descnome = "o pomo de ouro"
+const descpadr = "Você avista um pequenino ponto dourado sobrevoando  próximo a você."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 50
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 10
+const p_naoseguir = 1 # Não podem seguir: Sim
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 2048
+  bitinv |= 32
+
+func cmd_mover
+  se arg0 == este
+    se arg1.dir_[arg2].dentro2
+      ret arg0.msg("Há pessoas lá.")
+    fimse
+  fimse
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+
+
+classe p_quadribol002
+herda comum_persobat
+const nome = "balaço"
+const descnome = "um balaço"
+const descpadr = "Voando sem rumo, um balaço procura o alvo mais próximo para derrubar."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const p_imortal = 0 # Imortal: Não
+const p_morreu1 = "0"
+const p_mover = 2 # Movimentar: 2 Qualquer lugar
+const p_movervel = 30
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+inttempo derrubar
+#
+
+func cmd_mudadono
+  derrubar = 20
+#
+
+func cmd_chegou
+  derrubar = 30
+#
+
+func derrubar_exec
+  listaobj l
+  epara l.addfim(dono.dentro2), l, l.ini.remove
+    se l.objini.jog
+      continuar l.objini.posicao == 6
+      $mens.p(l.objini)
+      refvar m1 = "Um balaço vindo em sua direção, acerta seu braço, fazendo_$s desequilibrar."
+      refvar m2 = "Um balaço vindo na direção de $P acerta el$v nos braços, fazendo-$s desequilib\
+rar."
+      $mens.mvis2(m1, m2)
+      l.objini.posicao = 6
+      ret 1
+    fimse
+  efim
+#
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv |= 16
+
+
+classe s_quadribol001
+herda b_quadribol
+const s_titulo = "No campo de quadribol"
+const dir_n = $s_hogwarts056
+const dir_s = $s_quadribol005
+const dir_l = $s_quadribol002
+const dir_c = $s_quadribol017
+const voar_c = 1 # Voar: Sim
+
+
+classe s_quadribol002
+herda b_quadribol
+const s_titulo = "no campo de quadribol"
+const dir_s = $s_quadribol006
+const dir_l = $s_quadribol003
+const dir_o = $s_quadribol001
+const dir_c = $s_quadribol018
+const voar_c = 1 # Voar: Sim
+
+
+classe s_quadribol003
+herda b_quadribol
+const s_titulo = "no campo de quadribol"
+const dir_s = $s_quadribol007
+const dir_l = $s_quadribol004
+const dir_o = $s_quadribol002
+const dir_c = $s_quadribol019
+const voar_c = 1 # Voar: Sim
+
+
+classe s_quadribol004
+herda b_quadribol
+const s_titulo = "no campo de quadribol"
+const dir_s = $s_quadribol008
+const dir_o = $s_quadribol003
+const dir_c = $s_quadribol020
+const voar_c = 1 # Voar: Sim
+
+
+classe s_quadribol005
+herda b_quadribol
+const s_titulo = "no campo de quadribol"
+const dir_n = $s_quadribol001
+const dir_s = $s_quadribol009
+const dir_l = $s_quadribol006
+const dir_c = $s_quadribol021
+const voar_c = 1 # Voar: Sim
+
+
+classe s_quadribol006
+herda b_quadribol
+const s_titulo = "no campo de quadribol"
+const dir_n = $s_quadribol002
+const dir_s = $s_quadribol010
+const dir_l = $s_quadribol007
+const dir_o = $s_quadribol005
+const dir_c = $s_quadribol022
+const voar_c = 1 # Voar: Sim
+const a_reset = "P 100 quadribol002 0 0 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_quadribol002:objsolto.total < 3
+    criar("p_quadribol002", este, 0)
+  fimse
+
+
+classe s_quadribol007
+herda b_quadribol
+const s_titulo = "no campo de quadribol"
+const dir_n = $s_quadribol003
+const dir_s = $s_quadribol011
+const dir_l = $s_quadribol008
+const dir_o = $s_quadribol006
+const dir_c = $s_quadribol023
+const voar_c = 1 # Voar: Sim
+
+
+classe s_quadribol008
+herda b_quadribol
+const s_titulo = "no campo de quadribol"
+const dir_n = $s_quadribol004
+const dir_s = $s_quadribol012
+const dir_o = $s_quadribol007
+const dir_c = $s_quadribol024
+const voar_c = 1 # Voar: Sim
+
+
+classe s_quadribol009
+herda b_quadribol
+const s_titulo = "no campo de quadribol"
+const dir_n = $s_quadribol005
+const dir_s = $s_quadribol013
+const dir_l = $s_quadribol010
+const dir_c = $s_quadribol025
+const voar_c = 1 # Voar: Sim
+
+
+classe s_quadribol010
+herda b_quadribol
+const s_titulo = "no campo de quadribol"
+const dir_n = $s_quadribol006
+const dir_s = $s_quadribol014
+const dir_l = $s_quadribol011
+const dir_o = $s_quadribol009
+const dir_c = $s_quadribol026
+const voar_c = 1 # Voar: Sim
+
+
+classe s_quadribol011
+herda b_quadribol
+const s_titulo = "no campo de quadribol"
+const dir_n = $s_quadribol007
+const dir_s = $s_quadribol015
+const dir_l = $s_quadribol012
+const dir_o = $s_quadribol010
+const dir_c = $s_quadribol027
+const voar_c = 1 # Voar: Sim
+
+
+classe s_quadribol012
+herda b_quadribol
+const s_titulo = "no campo de quadribol"
+const dir_n = $s_quadribol008
+const dir_s = $s_quadribol016
+const dir_o = $s_quadribol011
+const dir_c = $s_quadribol028
+const voar_c = 1 # Voar: Sim
+
+
+classe s_quadribol013
+herda b_quadribol
+const s_titulo = "no campo de quadribol"
+const dir_n = $s_quadribol009
+const dir_l = $s_quadribol014
+const dir_c = $s_quadribol029
+const voar_c = 1 # Voar: Sim
+const a_reset = "P 100 quadribol002 0 0 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_quadribol002:objsolto.total < 3
+    criar("p_quadribol002", este, 0)
+  fimse
+
+
+classe s_quadribol014
+herda b_quadribol
+const s_titulo = "no campo de quadribol"
+const dir_n = $s_quadribol010
+const dir_l = $s_quadribol015
+const dir_o = $s_quadribol013
+const dir_c = $s_quadribol030
+const voar_c = 1 # Voar: Sim
+
+
+classe s_quadribol015
+herda b_quadribol
+const s_titulo = "no campo de quadribol"
+const dir_n = $s_quadribol011
+const dir_l = $s_quadribol016
+const dir_o = $s_quadribol014
+const dir_c = $s_quadribol031
+const voar_c = 1 # Voar: Sim
+const a_reset = "P 100 quadribol001 50 100 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_quadribol001:objsolto.total < 1
+    criar("p_quadribol001", este, rand(50, 100))
+  fimse
+
+
+classe s_quadribol016
+herda b_quadribol
+const s_titulo = "no campo de quadribol"
+const dir_n = $s_quadribol012
+const dir_o = $s_quadribol015
+const dir_c = $s_quadribol032
+const voar_c = 1 # Voar: Sim
+const a_reset = "P 100 quadribol001 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_quadribol001:objsolto.total < 1
+    criar("p_quadribol001", este, 0)
+  fimse
+
+
+classe s_quadribol017
+herda b_quadribol
+const s_titulo = "Voando sobre o campo de quadribol"
+const s_desc = "Após ganhar os ares, você sente a excitação do jogo que está prestes a começar \
+passar por seu corpo.\n\
+Seus companheiros de equipe e seus adversários passam voando velozmente por você como borrões \
+coloridos.\n\
+O grito da torcida lá embaixo é ensurdecedor, o que o deixa nervoso e o faz sentir que precisa \
+ganhar."
+const dir_s = $s_quadribol021
+const dir_l = $s_quadribol018
+const dir_c = $s_quadribol033
+const dir_b = $s_quadribol001
+
+
+classe s_quadribol018
+herda b_quadribol
+const s_titulo = "Voando sobre o campo de quadribol"
+const dir_s = $s_quadribol022
+const dir_l = $s_quadribol053
+const dir_o = $s_quadribol017
+const dir_c = $s_quadribol034
+const dir_b = $s_quadribol002
+const dir_ne = $s_quadribol049
+const dir_so = $s_quadribol021
+
+
+classe s_quadribol019
+herda b_quadribol
+const s_titulo = "Voando sobre o campo de quadribol"
+const dir_s = $s_quadribol023
+const dir_l = $s_quadribol020
+const dir_o = $s_quadribol053
+const dir_c = $s_quadribol035
+const dir_b = $s_quadribol003
+const dir_no = $s_quadribol049
+const dir_se = $s_quadribol024
+
+
+classe s_quadribol020
+herda b_quadribol
+const s_titulo = "Voando sobre o campo de quadribol"
+const dir_s = $s_quadribol024
+const dir_o = $s_quadribol019
+const dir_b = $s_quadribol004
+const a_reset = "P 100 quadribol002 0 0 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_quadribol002:objsolto.total < 3
+    criar("p_quadribol002", este, 0)
+  fimse
+
+const dir_c = $s_quadribol036
+
+
+classe s_quadribol021
+herda b_quadribol
+const s_titulo = "Voando sobre o campo de quadribol"
+const dir_n = $s_quadribol017
+const dir_s = $s_quadribol025
+const dir_l = $s_quadribol022
+const dir_b = $s_quadribol005
+const dir_c = $s_quadribol037
+const dir_ne = $s_quadribol018
+
+
+classe s_quadribol022
+herda b_quadribol
+const s_titulo = "Voando sobre o campo de quadribol"
+const dir_n = $s_quadribol018
+const dir_s = $s_quadribol026
+const dir_l = $s_quadribol054
+const dir_o = $s_quadribol021
+const dir_b = $s_quadribol006
+const dir_c = $s_quadribol038
+
+
+classe s_quadribol023
+herda b_quadribol
+const s_titulo = "Voando sobre o campo de quadribol"
+const dir_n = $s_quadribol019
+const dir_s = $s_quadribol027
+const dir_l = $s_quadribol024
+const dir_o = $s_quadribol054
+const dir_c = $s_quadribol039
+const dir_b = $s_quadribol007
+
+
+classe s_quadribol024
+herda b_quadribol
+const s_titulo = "Voando sobre o campo de quadribol"
+const dir_n = $s_quadribol020
+const dir_s = $s_quadribol028
+const dir_o = $s_quadribol023
+const dir_c = $s_quadribol040
+const dir_b = $s_quadribol008
+const dir_no = $s_quadribol019
+
+
+classe s_quadribol025
+herda b_quadribol
+const s_titulo = "Voando sobre o campo de quadribol"
+const dir_n = $s_quadribol021
+const dir_s = $s_quadribol029
+const dir_l = $s_quadribol026
+const dir_c = $s_quadribol041
+const dir_b = $s_quadribol009
+
+
+classe s_quadribol026
+herda b_quadribol
+const s_titulo = "Voando sobre o campo de quadribol"
+const dir_n = $s_quadribol022
+const dir_s = $s_quadribol030
+const dir_l = $s_quadribol055
+const dir_o = $s_quadribol025
+const dir_c = $s_quadribol042
+const dir_b = $s_quadribol010
+
+
+classe s_quadribol027
+herda b_quadribol
+const s_titulo = "Voando sobre o campo de quadribol"
+const dir_n = $s_quadribol023
+const dir_s = $s_quadribol031
+const dir_l = $s_quadribol028
+const dir_o = $s_quadribol055
+const dir_b = $s_quadribol011
+const dir_c = $s_quadribol043
+
+
+classe s_quadribol028
+herda b_quadribol
+const s_titulo = "Voando sobre o campo de quadribol"
+const dir_n = $s_quadribol024
+const dir_s = $s_quadribol032
+const dir_o = $s_quadribol027
+const dir_b = $s_quadribol012
+const dir_c = $s_quadribol044
+
+
+classe s_quadribol029
+herda b_quadribol
+const s_titulo = "Voando sobre o campo de quadribol"
+const dir_n = $s_quadribol025
+const dir_l = $s_quadribol030
+const dir_c = $s_quadribol045
+const dir_b = $s_quadribol013
+
+
+classe s_quadribol030
+herda b_quadribol
+const s_titulo = "Voando sobre o campo de quadribol"
+const dir_n = $s_quadribol026
+const dir_l = $s_quadribol056
+const dir_o = $s_quadribol029
+const dir_c = $s_quadribol046
+const dir_b = $s_quadribol014
+const dir_se = $s_quadribol057
+
+
+classe s_quadribol031
+herda b_quadribol
+const s_titulo = "Voando sobre o campo de quadribol"
+const dir_n = $s_quadribol027
+const dir_l = $s_quadribol032
+const dir_o = $s_quadribol056
+const dir_c = $s_quadribol047
+const dir_b = $s_quadribol015
+const dir_so = $s_quadribol057
+
+
+classe s_quadribol032
+herda b_quadribol
+const s_titulo = "Voando sobre o campo de quadribol"
+const dir_n = $s_quadribol028
+const dir_o = $s_quadribol031
+const dir_c = $s_quadribol048
+const dir_b = $s_quadribol016
+const a_reset = "P 100 quadribol001 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_quadribol001:objsolto.total < 1
+    criar("p_quadribol001", este, 0)
+  fimse
+
+
+classe s_quadribol033
+herda b_quadribol
+const s_titulo = "Voando mais alto no campo"
+const dir_s = $s_quadribol037
+const dir_l = $s_quadribol034
+const dir_b = $s_quadribol017
+
+
+classe s_quadribol034
+herda b_quadribol
+const s_titulo = "Voando mais alto no campo"
+const dir_s = $s_quadribol038
+const dir_l = $s_quadribol035
+const dir_o = $s_quadribol033
+const dir_b = $s_quadribol018
+
+
+classe s_quadribol035
+herda b_quadribol
+const s_titulo = "Voando mais alto no campo"
+const dir_s = $s_quadribol039
+const dir_l = $s_quadribol036
+const dir_o = $s_quadribol034
+const dir_b = $s_quadribol019
+
+
+classe s_quadribol036
+herda b_quadribol
+const s_titulo = "voando mais alto no campo"
+const dir_o = $s_quadribol035
+const dir_b = $s_quadribol020
+const dir_s = $s_quadribol040
+const a_reset = "P 100 quadribol001 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_quadribol001:objsolto.total < 1
+    criar("p_quadribol001", este, 0)
+  fimse
+
+
+classe s_quadribol037
+herda b_quadribol
+const s_titulo = "voando mais alto no campo"
+const dir_n = $s_quadribol033
+const dir_s = $s_quadribol041
+const dir_l = $s_quadribol038
+const dir_b = $s_quadribol021
+
+
+classe s_quadribol038
+herda b_quadribol
+const s_titulo = "voando mais alto no campo"
+const dir_n = $s_quadribol034
+const dir_s = $s_quadribol042
+const dir_l = $s_quadribol039
+const dir_o = $s_quadribol037
+const dir_b = $s_quadribol022
+const a_reset = "P 100 quadribol001 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_quadribol001:objsolto.total < 1
+    criar("p_quadribol001", este, 0)
+  fimse
+
+
+classe s_quadribol039
+herda b_quadribol
+const s_titulo = "voando mais alto no campo"
+const dir_n = $s_quadribol035
+const dir_s = $s_quadribol043
+const dir_l = $s_quadribol040
+const dir_o = $s_quadribol038
+const dir_b = $s_quadribol023
+
+
+classe s_quadribol040
+herda b_quadribol
+const s_titulo = "voando mais alto no campo"
+const dir_n = $s_quadribol036
+const dir_s = $s_quadribol044
+const dir_o = $s_quadribol039
+const dir_b = $s_quadribol024
+const a_reset = "P 100 quadribol001 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_quadribol001:objsolto.total < 1
+    criar("p_quadribol001", este, 0)
+  fimse
+
+
+classe s_quadribol041
+herda b_quadribol
+const s_titulo = "voando mais alto no campo"
+const dir_n = $s_quadribol037
+const dir_s = $s_quadribol045
+const dir_l = $s_quadribol042
+const dir_b = $s_quadribol025
+
+
+classe s_quadribol042
+herda b_quadribol
+const s_titulo = "voando mais alto no campo"
+const dir_n = $s_quadribol038
+const dir_s = $s_quadribol046
+const dir_l = $s_quadribol043
+const dir_o = $s_quadribol041
+const dir_b = $s_quadribol026
+const a_reset = "P 100 quadribol001 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_quadribol001:objsolto.total < 1
+    criar("p_quadribol001", este, 0)
+  fimse
+
+
+classe s_quadribol043
+herda b_quadribol
+const s_titulo = "voando mais alto no campo"
+const dir_n = $s_quadribol039
+const dir_s = $s_quadribol047
+const dir_l = $s_quadribol044
+const dir_o = $s_quadribol042
+const dir_b = $s_quadribol027
+const a_reset = "P 100 quadribol001 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_quadribol001:objsolto.total < 1
+    criar("p_quadribol001", este, 0)
+  fimse
+
+
+classe s_quadribol044
+herda b_quadribol
+const s_titulo = "voando mais alto no campo"
+const dir_n = $s_quadribol040
+const dir_s = $s_quadribol048
+const dir_o = $s_quadribol043
+const dir_b = $s_quadribol028
+
+
+classe s_quadribol045
+herda b_quadribol
+const s_titulo = "voando mais alto no campo"
+const dir_n = $s_quadribol041
+const dir_l = $s_quadribol046
+const dir_b = $s_quadribol029
+const a_reset = "P 100 quadribol001 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_quadribol001:objsolto.total < 1
+    criar("p_quadribol001", este, 0)
+  fimse
+
+
+classe s_quadribol046
+herda b_quadribol
+const s_titulo = "voando mais alto no campo"
+const dir_n = $s_quadribol042
+const dir_l = $s_quadribol047
+const dir_o = $s_quadribol045
+const dir_b = $s_quadribol030
+
+
+classe s_quadribol047
+herda b_quadribol
+const s_titulo = "voando mais alto no campo"
+const dir_n = $s_quadribol043
+const dir_l = $s_quadribol048
+const dir_o = $s_quadribol046
+const dir_b = $s_quadribol031
+
+
+classe s_quadribol048
+herda b_quadribol
+const s_titulo = "voando mais alto no campo"
+const dir_n = $s_quadribol044
+const dir_o = $s_quadribol047
+const dir_b = $s_quadribol032
+
+
+classe s_quadribol049
+herda b_quadribol
+const s_titulo = "Voando sobre a área do goleiro"
+const dir_n = $s_quadribol050
+const dir_ne = $s_quadribol051
+const dir_no = $s_quadribol052
+const dir_se = $s_quadribol019
+const dir_so = $s_quadribol018
+const dir_s = $s_quadribol053
+
+
+classe s_quadribol050
+herda b_quadribol
+const s_titulo = "Diante de um dos aros"
+const dir_s = $s_quadribol049
+const s_reset = "S 100 quadribol004 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_quadribol004") && criar("i_quadribol004", este, 1)
+
+
+classe s_quadribol051
+herda b_quadribol
+const s_titulo = "Diante de um dos aros"
+const dir_so = $s_quadribol049
+const s_reset = "S 100 quadribol004 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_quadribol004") && criar("i_quadribol004", este, 1)
+
+
+classe s_quadribol052
+herda b_quadribol
+const s_titulo = "Diante de um dos aros"
+const dir_se = $s_quadribol049
+const s_reset = "S 100 quadribol004 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_quadribol004") && criar("i_quadribol004", este, 1)
+
+
+classe s_quadribol053
+herda b_quadribol
+const s_titulo = "Voando sobre o campo de quadribol"
+const dir_n = $s_quadribol049
+const dir_s = $s_quadribol054
+const dir_l = $s_quadribol019
+const dir_o = $s_quadribol018
+
+
+classe s_quadribol054
+herda b_quadribol
+const s_titulo = "Voando sobre o campo de quadribol"
+const dir_n = $s_quadribol053
+const dir_s = $s_quadribol055
+const dir_l = $s_quadribol023
+const dir_o = $s_quadribol022
+
+
+classe s_quadribol055
+herda b_quadribol
+const s_titulo = "Voando sobre o campo de quadribol"
+const dir_n = $s_quadribol054
+const dir_s = $s_quadribol056
+const dir_l = $s_quadribol027
+const dir_o = $s_quadribol026
+
+
+classe s_quadribol056
+herda b_quadribol
+const s_titulo = "Voando sobre o campo de quadribol"
+const dir_n = $s_quadribol055
+const dir_s = $s_quadribol057
+const dir_l = $s_quadribol031
+const dir_o = $s_quadribol030
+
+
+classe s_quadribol057
+herda b_quadribol
+const s_titulo = "Voando sobre a área do goleiro"
+const dir_n = $s_quadribol056
+const dir_s = $s_quadribol058
+const dir_ne = $s_quadribol031
+const dir_no = $s_quadribol030
+const dir_se = $s_quadribol059
+const dir_so = $s_quadribol060
+
+
+classe s_quadribol058
+herda b_quadribol
+const s_titulo = "Diante de um dos aros"
+const dir_n = $s_quadribol057
+const s_reset = "S 100 quadribol004 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_quadribol004") && criar("i_quadribol004", este, 1)
+
+
+classe s_quadribol059
+herda b_quadribol
+const s_titulo = "Diante de um dos aros"
+const dir_no = $s_quadribol057
+const s_reset = "S 100 quadribol004 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_quadribol004") && criar("i_quadribol004", este, 1)
+
+
+classe s_quadribol060
+herda b_quadribol
+const s_titulo = "Diante de um dos aros"
+const dir_ne = $s_quadribol057
+const s_reset = "S 100 quadribol004 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_quadribol004") && criar("i_quadribol004", este, 1)
+
+
+classe s_quadribol061
+herda b_quadribol
+const dir_n = $s_quadribol062
+
+
+classe s_quadribol062
+herda b_quadribol
+const dir_s = $s_quadribol061

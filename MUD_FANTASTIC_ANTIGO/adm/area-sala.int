@@ -1,0 +1,735 @@
+classe adm_area
+const iniclasse = !$[arg0] && criar(arg0)
+const txtajuda = "\b\c3Comandos de áreas\b\n\
+  \c2LAREA\b     Lista áreas existentes\n\
+  \c2CAREA\b     Cria uma área\n\
+  \c2EAREA\b     Edita uma área\n\
+  \c2AAREA\b     Apaga uma área"
+
+
+classe adm_sala
+const iniclasse = !$[arg0] && criar(arg0)
+#
+const txt_terreno = "Dentro, lugar fechado - 1mv\n\
+Rua de uma cidade - 2mv\n\
+Campo, um campo aberto - 2mv\n\
+Pântano, itens afundam - 3mv\n\
+Floresta densa - 3mv\n\
+Colina - 4mv\n\
+Montanha, excessivamente montanhoso - 6mv\n\
+Água, pode nadar - 4mv\n\
+Água, requer barco para passar - 50mv\n\
+Em baixo d'água - 10mv\n\
+Ar, itens e personagens caem - 10mv\n\
+Deserto, 3x mais sede, 6mv"
+#
+const txt_luta = "Pacífico\nExceto entre jogadores\nQualquer luta"
+#
+const txt_luz = "Claro com eventos de tempo\n\
+Claro sem eventos de tempo\n\
+Luz do sol\nEscuro"
+#
+const txt_porta = "Sem porta\nPorta aberta\nPorta fechada\nPorta trancada"
+#
+const txtajuda = "\b\c3Comandos de salas\b\n\
+  \c2LSALA\b     Lista salas existentes\n\
+  \c2PSALA\b     Pesquisa salas com um determinado título\n\
+  \c2CSALA\b     Cria sala\n\
+  \c2CDIR\b      Cria sala em uma direção\n\
+  \c2ESALA\b     Edita sala\n\
+  \c2ASALA\b     Apaga uma ou mais salas\n\
+  \c2LDESC\b     Lista descrições extras da sala\n\
+  \c2EDESC\b     Edita uma descrição extra da sala\n\
+  \c2ADESC\b     Apaga uma descrição extra da sala\n\
+  \c2LSAI\b      Mostra saídas da sala\n\
+  \c2CSAI\b      Cria saída em uma direção\n\
+  \c2CSAI2\b     Mesmo que CSAI, mas cria também uma saída no sentido contrário\n\
+  \c2ESAI\b      Edita tipo de saída em uma direção\n\
+  \c2ASAI\b      Apaga saída em uma direção"
+
+
+classe adm_larea
+herda comando_adm
+const objcmd = arg1.c_larea ? este
+const txtajuda = "\b\c3Larea\b\n\
+Sintaxe: LAREA [nome]\n\
+Lista as áreas que começam com o nome especificado.\n\
+Se o nome for omitido, lista todas as áreas."
+
+func escr # Listar áreas
+  prog p
+  se !p.iniclasse("a_" + arg1)
+    ret arg0.msg("\bNenhuma área encontrada.")
+  fimse
+  textotxt t
+  t.addfim("\b\c6Áreas (prefixo, nome, autor):\b")
+  enquanto p.lin
+    t.addfim(txt(p.texto, 2) + ", " + [p.texto]:a_nome + ", " + [p.texto]:a_autor)
+    p.depois
+  efim
+  arg0.msg2(t.remove(1000))
+
+
+classe adm_carea
+herda comando_adm
+const txtajuda = "\b\c3Carea\b\n\
+Sintaxe: CAREA <nome>\n\
+Cria uma área com o nome especificado.\n\
+Nota: Nomes de área devem ter de 2 a 16 letras de A a Z."
+
+func escr # Criar área
+  txt100 prefixo
+  prefixo = txtmin(txtremove(arg1, "EMDCT7"))
+  se $a_[prefixo]
+    arg0.msg("\bÁrea já existe: " + prefixo)
+  senao inttotal(prefixo) < 2 || inttotal(prefixo) > 10
+    arg0.msg("\bNome de área deve ter de 2 a 10 caracteres")
+  senao prefixo != txtsepara(prefixo, "DEO+DEOL,DEOL+DEO")
+    arg0.msg("\bNome de área deve ter apenas letras de a a z.")
+  senao
+    prog p
+    p.criar("a_" + prefixo + "\nareas/" + prefixo + "\nherda area")
+    p.criar("b_" + prefixo + "\nareas/" + prefixo + "\nherda sala\nconst s_area=\"" + prefixo + \
+"\"")
+    config:salvar, arg0.msg("\bÁrea criada: " + prefixo)
+    admlog(arg0, "criou área " + prefixo)
+  fimse
+
+
+classe adm_aarea
+herda comando_adm
+const txtajuda = "\b\c3Aarea\b\n\
+Sintaxe: AAREA <nome>\n\
+Apaga a área com o nome especificado, desde que esteja vazia\n\
+(nenhuma sala, personagem, item ou casa)."
+
+func escr # Apagar área
+  txt100 prefixo
+  prog p
+  prefixo = txtmin(txtremove(arg1, "EMDCT7"))
+  se !$a_[prefixo]
+    ret arg0.msg("\bÁrea não existe: " + prefixo)
+# senao p.iniherdainv("b_" + prefixo)
+# ret arg0.msg("\bÁrea contém pelo menos uma sala: " + txt(p.texto, 2))
+  fimse
+  epara p.iniarq("a-" + prefixo), p.lin, p.depois
+    se p.texto != "a_" + prefixo && p.texto != "b_" + prefixo
+      casovar txt(p.texto, 0, 2)
+      casose "c_"
+        arg0.msg("\bÁrea " + prefixo + " contém pelo menos uma casa")
+        ret 1
+      casose "s_"
+        arg0.msg("\bÁrea " + prefixo + " contém pelo menos uma sala")
+        ret 1
+      casose "p_"
+        arg0.msg("\bÁrea " + prefixo + " contém pelo menos um personagem")
+        ret 1
+      casose "i_"
+        arg0.msg("\bÁrea " + prefixo + " contém pelo menos um item")
+        ret 1
+      casofim
+      arg0.msg("\bÁrea " + prefixo + " contém pelo menos uma classe do IntMUD")
+      ret 1
+    fimse
+  efim
+  p.apagar("a_" + prefixo)
+  p.apagar("b_" + prefixo)
+  config:salvar, arg0.msg("\bÁrea apagada: " + prefixo)
+  admlog(arg0, "apagou área " + prefixo)
+
+
+classe adm_earea
+herda comando_adm
+const txtajuda = "\b\c3Earea\b\n\
+Sintaxe: EAREA [nome]\n\
+Edita a área com o nome especificado. Se o nome for omitido, edita a área\n\
+em que você está."
+
+func escr # Editar área
+  txt100 prefixo
+  prog p
+  prefixo = txtmin(txtremove(arg1, "EMDCT7"))
+  se prefixo == ""
+    prefixo = txt(arg0.dono, 2, inttotal(txt(arg0.dono)) - 5)
+  fimse
+  se !$a_[prefixo]
+    arg0.msg("\bÁrea não existe: " + prefixo)
+  senao
+    arg0.sock.var.classe1 = "b_" + prefixo
+    arg0.sock.var.classe2 = "a_" + prefixo
+    arg0.sock.m_menu("menu_area")
+  fimse
+
+
+classe adm_lsala
+herda comando_adm
+const objcmd = arg1.c_lsala ? este
+const txtajuda = "\b\c3Lsala\b\n\
+Sintaxe: LSALA [nome]\n\
+Lista as salas que começam com o nome especificado.\n\
+Se o nome for omitido, lista todas as salas."
+
+func escr
+  listar(arg0, arg1, arg2, "")
+
+func listar # Listar salas
+# arg0 = para que jogador listar
+# arg1 = nome da classe (para comando lperso) ou "" se todas
+# arg2 = permissões do jogador
+# arg3 = nome do personagem (para comando pperso), ou "" se todos
+  debug d
+  d.exec = 100000
+  refvar t = arg0.sock.txtmais
+  t.limpar
+  prog p
+  p.iniclasse("s_" + txtremove(arg1, "EMDCT7"))
+  se int(arg2.c_lsala) >= 2
+    epara nulo, p.lin && t.linhas < 500, p.depois
+      continuar arg3 && txtproc($[p.texto].s_titulo(arg0), arg3) < 0
+      t.addfim(txt(p.texto, 2) + "  " + $[p.texto].s_titulo(arg0))
+    efim
+  senao
+    refvar prefixo = "s_" + arg0.jogarea
+    arg1 == txt(arg0.jogarea, 0, inttotal(arg1)) && p.iniclasse(prefixo)
+    epara nulo, p.lin && t.linhas < 500, p.depois
+      sair prefixo + txtfim(p.texto, 3) != p.texto
+      continuar arg3 && txtproc($[p.texto].s_titulo(arg0), arg3) < 0
+      t.addfim(txt(p.texto, 2) + "  " + $[p.texto].s_titulo(arg0))
+    efim
+  fimse
+  t.addini(t.linhas ? "\b\c6Salas:\b" : "\bNenhuma sala encontrada.")
+  arg0.sock.txtmostra
+
+
+classe adm_psala
+herda adm_lsala
+const objcmd = arg1.c_lsala ? este
+const txtajuda = "\b\c3Psala\b\n\
+Sintaxe: PSALA [título]\n\
+Pesquisa as salas com o título especificado ou parte dele.\n\
+Se o título for omitido, lista todas as salas."
+
+func escr
+  listar(arg0, "", arg2, arg1)
+
+
+classe adm_cdir
+herda comando_adm
+const objcmd = arg1.c_esala ? este
+const txtajuda = "\b\c3Cdir\b\n\
+Sintaxe: CDIR <direção>\n\
+Cria sala na direção especificada. Cria automaticamente uma saída com\n\
+a sala em que você está.\n\
+Exemplo: cdir ne"
+
+func escr # Criar sala na direção especificada
+  se arg2.c_esala <= 1 && arg0.jogarea + txtfim(arg0.dono, 3) != txt(arg0.dono, 2)
+    arg0.msg("\bNão pode editar essa sala")
+  senao arg1 == ""
+    ret arg0.msg("\bTecle o nome da sala ou a direção após CDIR")
+  senao !misc:d1[arg1]
+    ret arg0.msg("\bDireção inválida: " + arg1)
+  fimse
+  prog p
+  uint16 num
+  txt40 nome
+  txt20 dir
+  dir = misc:d1[arg1]
+# Obtém prefixo da área
+  nome = txt(arg0.dono, 0, inttotal(txt(arg0.dono)) - 3)
+  se txt(nome, 0, 2) != "s_"
+    ret arg0.msg("\bVocê não está em uma sala")
+  fimse
+# Checa se já existe sala nessa direção
+  se p.existe(arg0.dono, "dir_" + dir) == 1
+    ret arg0.msg("\bJá existe sala na direção " + dir)
+  fimse
+# Obtém número da sala
+  epara num = 1001, p.existe(nome + txtfim(num, 3)), num++
+    continuar num < 2000
+    ret arg0.msg("\bAtingido limite de salas na área " + txt(nome, 2))
+  efim
+# Cria sala
+  txt300 nome2
+  nome2 = nome + txtfim(num, 3) + "\n" # Nome da classe
+  nome2 += "areas/" + txt(nome, 2) + "\n" # Nome do arquivo
+  nome2 += "herda b_" + txt(nome, 2) + "\n" # Herda propriedades da área
+  nome2 += "const dir_" + misc:d2[dir] + "=$" + arg0.dono # Saída da sala
+  p.criar(nome2)
+  p.criar(arg0.dono, "const dir_" + dir + "=$" + nome + txtfim(num, 3))
+  criar("admordena", "areas/" + txt(nome, 2))
+  criar("admmudou", arg0.dono)
+# config:salvar
+  arg0.msg("\bSala criada em " + dir + ": " + txt(nome, 2) + txtfim(num, 3))
+  admlog(arg0, "criou sala " + txt(nome, 2) + txtfim(num, 3))
+
+
+classe adm_csala
+herda comando_adm
+const objcmd = arg1.c_esala ? este
+const txtajuda = "\b\c3Csala\b\n\
+Sintaxe: CSALA <nome>\n\
+Cria uma sala. Nome deve ser o nome de uma área ou da sala.\n\
+Nomes de sala são sempre nomes de área seguido de um número de 001 a 999."
+
+func escr # Criar sala
+  prog p
+  txt40 nome
+  uint16 num
+# Checa se digitou nome da sala
+  se arg1 == ""
+    ret arg0.msg("Tecle o nome da sala ou área após CSALA")
+  fimse
+# Checa nome completo
+  nome = txtmin(txtremove(arg1, "EMDCT7"))
+  num = int(txtfim(nome, 3)) + 1000
+  se num > 1000 && txtfim(num, 3) == txtfim(arg1, 3)
+    se !p.existe("a_" + txt(nome, 0, inttotal(nome) - 3))
+      ret arg0.msg("Área não existe: " + txt(nome, 0, inttotal(nome) - 3))
+    senao p.existe("s_" + nome)
+      ret arg0.msg("Sala já existe: " + nome)
+    fimse
+# Checa nome de área
+  senao !p.existe("a_" + nome)
+    ret arg0.msg("Área não existe: " + nome)
+  senao
+    epara num = 1001, p.existe("s_" + nome + txtfim(num, 3)), num++
+      continuar num < 2000
+      ret arg0.msg("Atingido limite de salas na área " + nome)
+    efim
+    nome += txtfim(num, 3)
+  fimse
+# Checa se pode criar sala
+  se arg2.c_esala >= 2
+  senao nome != arg0.jogarea + txtfim(nome, 3)
+    ret arg0.msg("Área não existe: " + txt(nome, 0, inttotal(nome) - 3))
+  fimse
+# Cria sala
+  txt200 area
+  area = txt(nome, 0, inttotal(nome) - 3)
+  criar("admordena", "areas/" + area)
+  p.criar("s_" + nome + "\nareas/" + area + "\nherda b_" + area)
+# config:salvar
+  arg0.msg("\bSala criada: " + nome)
+  admlog(arg0, "criou sala " + nome)
+
+
+classe adm_asala
+herda comando_adm
+const objcmd = arg1.c_esala ? este
+const txtajuda = "\b\c3Asala\b\n\
+Sintaxe: ASALA <nomes das salas>\n\
+Apaga uma ou mais salas, mas não apaga as saídas das outras salas para\n\
+as que forem apagadas."
+
+func escr # Apagar sala
+  prog p
+  refvar nome = txtmin(txtremove(arg1, "EMDCT7"))
+  se nome == ""
+    ret arg0.msg("Tecle um ou mais nomes da sala após ASALA")
+  fimse
+  uint16 x
+  enquanto txtsub(nome, x, 1)
+    refvar nome = txtsub(nome, x, 1)
+    se !p.existe("s_" + nome)
+      ret arg0.msg("Sala não existe: " + nome)
+    senao arg2.c_esala >= 2
+    senao nome != arg0.jogarea + txtfim(nome, 3)
+      ret arg0.msg("Não pode apagar a sala: " + nome)
+    fimse
+    x++
+  efim
+  arg0.sock.tpasso = nome
+  passo(arg0.sock, "")
+
+func passo # Confirmar que quer apagar sala
+  arg0.passo = ""
+  se arg1 == "n"
+    arg0.msg("Cancelado")
+  senao arg1 == "s"
+    prog p
+    uint16 x
+    enquanto txtsub(arg0.tpasso, x, 1)
+      p.apagar("s_" + txtsub(arg0.tpasso, x, 1))
+      x++
+    efim
+    config:salvar
+    se x < 2
+      arg0.msg("Sala apagada: " + arg0.tpasso)
+      admlog(arg0, "apagou sala " + arg0.tpasso)
+    senao
+      arg0.msg("Salas apagadas: " + arg0.tpasso)
+      admlog(arg0, "apagou salas " + arg0.tpasso)
+    fimse
+  senao
+    txt10 m1
+    arg0.passo = este
+    txt2(arg0.tpasso) && (m1 = "s")
+    arg0.msg("Apagar sala" + m1 + " " + arg0.tpasso + "? Tecle S ou N")
+  fimse
+  ret 1
+
+
+classe adm_esala
+herda comando_adm
+const objcmd = arg1.c_esala ? este
+const txtajuda = "\b\c3Esala\b\n\
+Sintaxe: ESALA [nome]\n\
+Edita a sala com o nome especificado. Se o nome for omitido, edita a sala\n\
+em que você está."
+
+func escr # Editar sala
+  txt100 nome
+  prog p
+  nome = txtmin(txtremove(arg1, "EMDCT7"))
+  nome == "" && (nome = txt(arg0.dono, 2))
+  se !$s_[nome]
+    ret arg0.msg("\bSala não existe: " + nome)
+  senao arg2.c_esala >= 2
+    se arg0.jogperm != "admin"
+      ret nome == "templo" + txtfim(nome, 3), arg0.msg("Você não pode editar essa área.")
+      ret nome == "junior" + txtfim(nome, 3), arg0.msg("Você não pode editar essa área.")
+      ret nome == "deck" + txtfim(nome, 3), arg0.msg("Você não pode editar essa área.")
+      ret nome == "fabi" + txtfim(nome, 3), arg0.msg("Você não pode editar essa área.")
+      ret nome == "rock" + txtfim(nome, 3), arg0.msg("Você não pode editar essa área.")
+    fimse
+  senao nome != arg0.jogarea + txtfim(nome, 3)
+    ret arg0.msg("\bNão pode editar a sala: " + nome)
+  fimse
+  arg0.sock.var.classe1 = "s_" + nome
+  arg0.sock.m_menu("menu_sala")
+
+
+classe adm_ldesc
+herda comando_adm
+const objcmd = arg1.c_esala ? este
+const txtajuda = "\b\c3Ldesc\b\n\
+Sintaxe: LDESC\n\
+Lista as descrições extras sala sala aonde você está."
+
+func escr # Listar descrições extras
+  prog p
+  se arg2.c_esala <= 1 && arg0.jogarea + txtfim(arg0.dono, 3) != txt(arg0.dono, 2)
+    arg0.msg("\bNão pode editar essa sala")
+  senao !p.inifunc(arg0.dono, "ver_")
+    arg0.msg("\bNenhuma descrição encontrada.")
+  senao
+    textotxt t
+    t.addfim("\b\c6Descrições:\b")
+    enquanto p.lin && t.linhas < 500
+      t.addfim(txt(p.texto, 4))
+      p.depois
+    efim
+    arg0.msg2(t.remove(500))
+  fimse
+
+
+classe adm_edesc
+herda comando_adm
+const objcmd = arg1.c_esala ? este
+const txtajuda = "\b\c3Edesc\b\n\
+Sintaxe: EDESC <nome da descrição>\n\
+Edita uma descrição extra da sala aonde você está.\n\
+Para criar descrições somente diurnas ou somente noturnas, acrescentar\n\
+@d ou @n, respectivamente, no final dos nomes das descrições.\n\
+Exemplo, se quiser uma descrição diurna e outra noturna para uma janela,\n\
+criar as descrições janela@d e janela@n ao invés de janela.\n\
+Por outro lado, se você criar, por exemplo, somente janela@d, a descrição\n\
+da janela só existirá durante o dia."
+
+func escr # Editar descrição extra
+  prog p
+  txt80 nome
+  nome = txtmin(txtremove(txte(arg1), "EMDCT"))
+  se !arg0.dono
+    arg0.msg("\bVocê não está em uma sala")
+  senao arg2.c_esala <= 1 && arg0.jogarea + txtfim(arg0.dono, 3) != txt(arg0.dono, 2)
+    arg0.msg("\bNão pode editar essa sala")
+  senao !arg1
+    arg0.msg("\bDigite o nome da descrição após EDESC")
+  senao txttroca(nome, "@", "") != txtsepara(txttroca(nome, "@", ""), "LV+DO", "DO+LV")
+    arg0.msg("\bNomes de descrições só podem ter letras e espaço")
+  senao
+    arg0.sock.var.opcnome = "Descrição " + nome
+    arg0.sock.var.opcclasse = txt(arg0.dono)
+    arg0.sock.var.opcvar = "ver_" + txts(nome)
+    arg0.sock.var.opcpasso = ""
+    $opc_texto.passo(arg0.sock, "\b")
+  fimse
+
+
+classe adm_adesc
+herda comando_adm
+const objcmd = arg1.c_esala ? este
+const txtajuda = "\b\c3Adesc\b\n\
+Sintaxe: ADESC <nome da descrição>\n\
+Apaga uma descrição extra da sala aonde você está."
+
+func escr # Apagar descrição extra
+  prog p
+  se !arg0.dono
+    arg0.msg("\bVocê não está em uma sala")
+  senao arg2.c_esala <= 1 && arg0.jogarea + txtfim(arg0.dono, 3) != txt(arg0.dono, 2)
+    arg0.msg("\bNão pode editar essa sala")
+  senao !arg1
+    arg0.msg("\bDigite o nome da descrição após ADESC")
+  senao !p.existe(arg0.dono, "ver_" + arg1)
+    arg0.msg("\bDescrição não existe: " + arg1)
+  senao
+    p.apagar(arg0.dono, "ver_" + arg1)
+    config:salvar, arg0.msg("\bDescrição apagada: " + arg1)
+    admlog(arg0, "apagou descrição " + arg1 + " de " + txt(arg0.dono, 2))
+  fimse
+
+
+classe menu_area_sala
+# Opções em comum dos comandos Larea e Lsala
+#
+const nome6 = "Terreno"
+const tipo6 = "opc_opcao"
+const clas6 = var.classe1
+const vari6 = "s_terreno"
+const extr6 = adm_sala:txt_terreno
+#
+const nome7 = "Movimentos ataque"
+const info7 = "Quantidade de movimentos que um ataque de outra sala usa para chegar nessa"
+const tipo7 = "opc_numero"
+const clas7 = var.classe1
+const vari7 = "s_atk_move"
+#
+const nome8 = "Luz"
+const tipo8 = "opc_opcao"
+const clas8 = var.classe1
+const vari8 = "s_luz"
+const extr8 = adm_sala:txt_luz
+#
+const nome9 = "Recuperação"
+const info9 = "Taxa de recuperação de vida, mana e movimentos\n\
+Quanto maior, mais recupera; 0 não recupera"
+const tipo9 = "opc_numero"
+const clas9 = var.classe1
+const vari9 = "s_recup"
+#
+const nome10 = "Fome e sede"
+const tipo10 = "opc_opcao"
+const clas10 = var.classe1
+const vari10 = "s_fome"
+const extr10 = "Presente\nAusente\nSome aos poucos"
+#
+const nome11 = "Apagar itens"
+const info11 = "Em quantos minutos sem jogador na sala deve começar a apagar os itens"
+const tipo11 = "opc_numero"
+const clas11 = var.classe1
+const vari11 = "s_item"
+#
+const nome12 = "Morre ao entrar"
+const tipo12 = "opc_opcao"
+const clas12 = var.classe1
+const vari12 = "s_morre"
+const extr12 = "Não\n\
+Sim\n\
+Sim e perde itens e dinheiro\n\
+Sim e perde itens\n\
+Sim e perde dinheiro"
+#
+const nome13 = "Ao tentar falar"
+const info13 = "Mensagem recebida ao usar o comando falar; se nulo permite falar"
+const tipo13 = "opc_linha"
+const clas13 = var.classe1
+const vari13 = "s_falar"
+#
+const nome14 = "Ao tentar gritar"
+const info14 = "Mensagem recebida ao usar o comando gritar; se nulo permite gritar"
+const tipo14 = "opc_linha"
+const clas14 = var.classe1
+const vari14 = "s_gritar"
+#
+const nome15 = "Batalha"
+const tipo15 = "opc_opcao"
+const clas15 = var.classe1
+const vari15 = "s_luta"
+const extr15 = adm_sala:txt_luta
+#
+const nome16 = "Sem resgate"
+const info16 = "Se não é possível resgatar outro jogador"
+const tipo16 = "opc_simnao"
+const clas16 = var.classe1
+const vari16 = "s_naoresg"
+#
+const nome17 = "Sem magia"
+const tipo17 = "opc_simnao"
+const clas17 = var.classe1
+const vari17 = "s_semmagia"
+#
+const nome18 = "Comando retornar"
+const tipo18 = "opc_opcao"
+const clas18 = var.classe1
+const vari18 = "s_retornar"
+const extr18 = "Permitido\n\
+Não permitido\n\
+Muda o ponto de retorno para essa sala\n\
+Muda o ponto de retorno se não possuir"
+#
+const nome19 = "Comando reserva"
+const tipo19 = "opc_simnao"
+const clas19 = var.classe1
+const vari19 = "s_reserva"
+#
+const nome20 = "Sala ao voltar"
+const info20 = "Quando um jogador sair do jogo e voltar, para qual sala deve voltar"
+const tipo20 = "opc_sala"
+const clas20 = var.classe1
+const vari20 = "s_voltar"
+#
+const nome21 = "PNJs na sala"
+const info21 = "Quantidade máxima de PNJs na sala; não afeta o reset"
+const tipo21 = "opc_numero"
+const clas21 = var.classe1
+const vari21 = "s_pnj"
+#
+const nome22 = "Jogadores na sala"
+const info22 = "Quantidade máxima de jogadores na sala"
+const tipo22 = "opc_numero"
+const clas22 = var.classe1
+const vari22 = "s_jog"
+#
+const nome23 = "Soltar itens"
+const tipo23 = "opc_opcao"
+const clas23 = var.classe1
+const vari23 = "s_soltar"
+const extr23 = "Permitido\nNão permitido\nDestrói afundando\nDestrói caindo\nDesintegra"
+#
+const nome24 = "Volume dentro"
+const tipo24 = "opc_numero"
+const clas24 = var.classe1
+const vari24 = "volmax"
+#
+const nome25 = "Objetos máximo"
+const info25 = "Inclui objetos dentro de outros objetos que estão na sala"
+const tipo25 = "opc_numero"
+const clas25 = var.classe1
+const vari25 = "objmax"
+#
+const nome26 = "Som da sala"
+const info26 = "Nome do som tocado ao entrar na sala; vide adm som"
+const tipo26 = "opc_linha"
+const clas26 = var.classe1
+const vari26 = "s_som"
+#
+const nome27 = "Salas de doação"
+const info27 = "Para que salas os itens doados vão"
+const tipo27 = "opc_listasala"
+const clas27 = var.classe1
+const vari27 = "s_doarsalas"
+const extr27 = "20"
+#
+const nome28 = "Itens doados"
+const info28 = "Itens doados que essa sala aceita; se vazio aceita qualquer item"
+const tipo28 = "opc_vetor"
+const clas28 = var.classe1
+const vari28 = "s_doarsim"
+const extr28 = config:produtos
+#
+const nome29 = "Itens não doados"
+const info29 = "Itens doados que essa sala não aceita"
+const tipo29 = "opc_vetor"
+const clas29 = var.classe1
+const vari29 = "s_doarnao"
+const extr29 = config:produtos
+#
+const nome30 = "Nome da entrada"
+const info30 = "Nome da porta correspondente a essa sala, quando ela pertence a um item\n\
+Se definido, pode-se entrar no item por essa sala, e sair sai do item"
+const tipo30 = "opc_linha"
+const clas30 = var.classe1
+const vari30 = "s_entrada"
+#
+const nome31 = "Sem entrada de automóveis"
+const tipo31 = "opc_simnao"
+const clas31 = var.classe1
+const vari31 = "s_autonao"
+const extr31 = "não\nsim"
+
+
+classe menu_area
+herda comando_menu, menu_area_sala
+const titulo = "Área " + txt(var.classe2, 2)
+const colunas = 25
+#
+const nome1 = "Nome"
+const tipo1 = "opc_linha-"
+const clas1 = var.classe2
+const vari1 = "a_nome"
+#
+const nome2 = "Autor"
+const tipo2 = "opc_linha-"
+const clas2 = var.classe2
+const vari2 = "a_autor"
+#
+const nome3 = "Tempo de reset"
+const info3 = "Tempo aproximado em minutos"
+const tipo3 = "opc_numero"
+const clas3 = var.classe2
+const vari3 = "a_tempo"
+const exec3 = "reset_atualiza"
+#
+const nome4 = "Modo de reset"
+const tipo4 = "opc_opcao"
+const clas4 = var.classe2
+const vari4 = "a_reset"
+const extr4 = "Nunca\nQuando não há jogadores\nNormal"
+#
+const nome5 = "Mensagem de reset"
+const info5 = "Enviada para os jogadores na área quando ocorre reset"
+const tipo5 = "opc_linha"
+const clas5 = var.classe2
+const vari5 = "a_txtreset"
+
+
+classe menu_sala
+herda comando_menu, menu_area_sala
+const titulo = "Sala " + txt(var.classe1, 2)
+const colunas = 25
+#
+const nome1 = "Título"
+const tipo1 = "opc_linha"
+const clas1 = var.classe1
+const vari1 = "s_titulo"
+#
+const nome2 = "Descrição"
+const info2 = "Aceita caracteres especiais do personagem; vide adm mens"
+const tipo2 = "opc_texto"
+const clas2 = var.classe1
+const vari2 = "s_desc"
+#
+const nome3 = "Desc de noite"
+const info3 = "Se quiser uma descrição diferente quando etiver de noite"
+const tipo3 = "opc_texto"
+const clas3 = var.classe1
+const vari3 = "s_noite"
+#
+const nome4 = "Desc completa"
+const info4 = "Se quiser substituir a descrição completa, mostrada ao teclar 'olhar'"
+const tipo4 = "opc_texto"
+const clas4 = var.classe1
+const vari4 = "descsala"
+#
+const nome5 = "Ocultar desc"
+const info5 = "Se não deve mostrar descrição ao entrar na sala"
+const tipo5 = "opc_simnao"
+const clas5 = var.classe1
+const vari5 = "s_ocultar"
+#
+const nome51 = "Eventos hora"
+const info51 = "Se a função cmd_hora é chamada quando a hora MUD mudar (5 minutos)"
+const tipo51 = "opc_simnao"
+const clas51 = var.classe1
+const vari51 = "evhora"
+const exec51 = "ajustaobj"
+#
+const nome52 = "Eventos sala"
+const info52 = "Se recebe eventos da própria sala"
+const tipo52 = "opc_simnao"
+const clas52 = var.classe1
+const vari52 = "eveste"
+const exec52 = "ajustaobj"

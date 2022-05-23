@@ -1,0 +1,1444 @@
+classe a_domino
+herda area
+const a_nome = "dominó"
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_tempo = 5
+
+
+classe b_domino
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_area = "domino"
+
+
+classe i_domino001
+herda comum_itemperso
+const nome = "Portal"
+const descnome = "Um brilhante portal"
+const descpos = "Um portal está aqui, para ajudar os jogadores"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 0
+const renascer = 0
+const i_captura = 0
+const i_pegar = "Um portal desaparece e re aparece atraz de você"
+const i_salaver = $s_domino001
+const i_salaentrar = $s_domino001
+const i_salas = "domino101"
+const i_abertoini = 0 # Container: 0 Não
+const i_tranc = 0 # Trancar: 0 Não pode ser trancado
+const i_comechave = 0 # Come chave: Não
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 1000
+const tipoitem = 1 # Tipo de item: 0-Possui metal
+const valor = 0
+const vestirsim = 0 # Podem vestir: 0 Todos
+const volexp = 0 # Expande: Não
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const manterperso = 0 # Mantém em jogador: Não
+
+
+classe i_domino002
+herda comum_item
+const nome = "disco de duelo"
+const descnome = "Um disco de duelo"
+const descpos = "Um disco de duelo foi perdido por aqui"
+const descver = "Um disco de duelos\n\
+Utilizado para invocar os monstros de seu baralho\n\
+e ativar cartas especiais"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 0
+const renascer = 0
+const armatipo = 0 # Tipo de arma: 0 Não é arma
+const i_captura = 0
+const mantersala = 0 # Mantém na sala: Não
+const tipoitem = 8 # Tipo de item: 3-Vestimenta
+const valor = 1000000
+const vestir1 = 196608 # Aonde vestir: 16-no pulso direito, 17-no pulso esquerdo
+const vestirsim = 0 # Podem vestir: 0 Todos
+const inivar = "z["
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const manterperso = 0 # Mantém em jogador: Não
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1500 * pnivel + 2000
+  pmovemax += 500 * pnivel + 3000
+  bitver |= 4144
+
+
+classe i_domino003
+herda comum_item
+const nome = "Carregador"
+const descnome = "Um carregador"
+const descpos = "Um carregador foi colocado aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 0
+const renascer = 0
+const i_captura = 0
+const mantersala = 0 # Mantém na sala: Não
+const pesoobj = 50
+const tipoitem = 1 # Tipo de item: 0-Possui metal
+const valor = 100000
+const vestirsim = 0 # Podem vestir: 0 Todos
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const manterperso = 1 # Mantém em jogador: Sim
+
+
+classe i_domino004
+herda comum_item
+const nome = "cueca"
+const descnome = "uma cueca"
+const descpos = "Uma cueca foi perdida aqui"
+const msexo = 0 # Sexo Msg: 0 Feminino
+const nivel = 100
+const renascer = 0
+const armatipo = 0 # Tipo de arma: 0 Não é arma
+const i_captura = 0
+const mantersala = 0 # Mantém na sala: Não
+const pesoobj = 30
+const tipoitem = 8 # Tipo de item: 3-Vestimenta
+const valor = 50000
+const vestir1 = 536870912 # Aonde vestir: 29-como tapa sexo
+const vestirsim = 0 # Podem vestir: 0 Todos
+const manterperso = 0 # Mantém em jogador: Não
+
+
+classe i_domino005
+herda comum_item
+const nome = "calça dins"
+const descnome = "Uma calça dins"
+const descpos = "Uma calça dins está aqui, pegando poeira"
+const msexo = 0 # Sexo Msg: 0 Feminino
+const nivel = 100
+const armatipo = 0 # Tipo de arma: 0 Não é arma
+const i_captura = 0
+const mantersala = 0 # Mantém na sala: Não
+const pesoobj = 400
+const tipoitem = 8 # Tipo de item: 3-Vestimenta
+const valor = 20000
+const vestir1 = 16777216 # Aonde vestir: 24-nas pernas
+const vestirsim = 0 # Podem vestir: 0 Todos
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos item: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const manterperso = 0 # Mantém em jogador: Não
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100 * pnivel + 500
+  pmovemax += 600 * pnivel + 1000
+
+
+classe i_domino006
+herda comum_item
+const nome = "camiseta"
+const descnome = "Uma camiseta"
+const descpos = "Uma camiseta suja está aqui"
+const msexo = 0 # Sexo Msg: 0 Feminino
+const nivel = 10
+const i_captura = 0
+const mantersala = 0 # Mantém na sala: Não
+const pesoobj = 100
+const tipoitem = 8 # Tipo de item: 3-Vestimenta
+const valor = 10000
+const vestir1 = 4096 # Aonde vestir: 12-no corpo
+const vestirsim = 0 # Podem vestir: 0 Todos
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const manterperso = 0 # Mantém em jogador: Não
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200 * pnivel + 400
+  pmovemax += 100 * pnivel + 100
+
+
+classe i_domino007
+herda comum_item
+const nome = "blusa de manga"
+const descnome = "Uma blusa de manga"
+const descpos = "Uma blusa de manga está aqui no chão"
+const msexo = 0 # Sexo Msg: 0 Feminino
+const nivel = 100
+const i_captura = 0
+const mantersala = 0 # Mantém na sala: Não
+const pesoobj = 200
+const tipoitem = 8 # Tipo de item: 3-Vestimenta
+const valor = 50000
+const vestir1 = 4096 # Aonde vestir: 12-no corpo
+const vestirsim = 0 # Podem vestir: 0 Todos
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos item: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const manterperso = 0 # Mantém em jogador: Não
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500 * pnivel + 5000
+  pmovemax += 500 * pnivel + 2000
+
+
+classe i_domino008
+herda comum_item
+const nome = "Casaco"
+const descnome = "Um casaco de pele de carneiro"
+const descpos = "Um casaco de pele de carneiro está aqui, para esquentar alguém"
+const nivel = 100
+const renascer = 0
+const i_captura = 0
+const mantersala = 0 # Mantém na sala: Não
+const pesoobj = 500
+const tipoitem = 8 # Tipo de item: 3-Vestimenta
+const valor = 5000
+const vestir1 = 8192 # Aonde vestir: 13-sobre o corpo
+const vestirsim = 0 # Podem vestir: 0 Todos
+const manterperso = 0 # Mantém em jogador: Não
+
+
+classe i_domino009
+herda comum_item
+const nome = "O cajado banhado em sangue"
+const descnome = "Um cajado banhado em sangue"
+const descpos = "Emanando uma aura negra, um cajado banhado em sangue foi perdido aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 200
+const renascer = 20
+const armacarregar = 0 # Carregar: 0 Não permite
+const armamanual = 0 # Só ataca manual: Não
+const armamax = 200
+const armamin = 100
+const armamunicao = 0 # Origem da munição: 0 Nenhuma
+const armafalha = 15
+const armaaddprecisao = 1000
+const armamove = 100
+const armatipo = 2 # Tipo de arma: 2 Cajado
+const i_captura = 0
+const i_pegar = ""
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 100
+const tipoitem = 16 # Tipo de item: 4-Cajado (1-arma)
+const valor = 17
+const vestirsim = 0 # Podem vestir: 0 Todos
+const manterperso = 1 # Mantém em jogador: Sim
+const m_atribs1 = "*... Ele está emitindo uma luz cegante"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv &= ~2
+  bitver |= 4414
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100 * pnivel + 300
+  pmanamax += 100 * pnivel + 500
+  pmovemax += 200 * pnivel + 600
+  pveloc1 += 100 * pnivel
+  atknorm += 300 * pnivel
+  defnorm += 150 * pnivel + 100
+  atkesp += 500 * pnivel + 300
+  defesp += 300 * pnivel + 500
+  evasao += 30 * pnivel + 400
+  precisao += 300 * pnivel + 400
+
+const m_atribs2 = "*... Ele está protejido por uma luz cegante"
+
+
+classe i_domino010
+herda comum_item
+const nome = "bermuda"
+const descnome = "Uma bermuda"
+const descpos = "Uma bermuda foi perdida aqui"
+const msexo = 0 # Sexo Msg: 0 Feminino
+const armatipo = 0 # Tipo de arma: 0 Não é arma
+const i_captura = 0
+const pesoobj = 20
+const tipoitem = 8 # Tipo de item: 3-Vestimenta
+const valor = 500
+const vestir1 = 16777216 # Aonde vestir: 24-nas pernas
+const vestirsim = 0 # Podem vestir: 0 Todos
+
+
+classe i_domino011
+herda comum_item
+const nome = "calsinha bordada"
+const descnome = "Uma calsinha bordada"
+const descpos = "Uma calsinha de renda foi perdida aqui"
+const msexo = 0 # Sexo Msg: 0 Feminino
+const tipoitem = 8 # Tipo de item: 3-Vestimenta
+const valor = 1000
+const vestir1 = 536870912 # Aonde vestir: 29-como tapa sexo
+
+
+classe p_domino001
+herda comum_persobat
+const nome = "Senhor môtto"
+const descnome = "O senhor môtto"
+const descpadr = "O senhor môtto está aqui, arrumando as coisas nas pratilheiras"
+const descver = "O senhor Môtto\nUm senhor de aprocimadamente com seus 60 anos"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 50000
+const volobj = 1000
+const volexp = 0 # Expande: Não
+const objmax = 100
+const nivel = 0
+const tipo1 = "Humano"
+const tipo2 = "Pnj"
+const equip1 = 196608 # Equip posições: 16-no pulso direito, 17-no pulso esquerdo
+const equip2 = 1073741823 # Equip adicionar: 0-como escudo, 1-como símbolo, 2-Na cabeça, 3-Sobre \
+os ombros, 4-no olho direito, 5-no olho esquerdo
+const lojaini = 8
+const lojafim = 23
+const lojaitem = "domino002 0\ndomino003 0"
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_atk_anda = 0 # Anda ataque: Não
+const p_atk_desvia = 0 # Desvia ataque: Não
+const p_captura = 0 # Capturar: 0 Não
+const p_comecorpo = 0 # Come corpos: Não
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 500
+const p_fugir = 0
+const p_imortal = 0 # Imortal: Não
+const p_lembra = 20
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+const p_naoseguir = 0 # Não podem seguir: Não
+const p_persegue = 1 # Persegue jogadores: 1 Mesma área se atacarem
+const p_perseguevel = 60
+const p_recebe = 0 # Recebe itens: Não
+const p_soltar = 0 # Dar e soltar: 0 Pode-se dar e soltar
+const inivar = "h_socar=8,h_voadora=8,h_gancho=8,h_chicote_do_dragão=8,z_moedas=10000"
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10000 * pnivel + 200000
+  pmovemax += 1000 * pnivel + 5000
+  pveloc1 += 500 * pnivel
+  atknorm += 100 * pnivel + 20000
+  defnorm += 150 * pnivel + 20000
+  atkesp += 1000 * pnivel + 20000
+  defesp += 800 * pnivel + 45000
+  evasao += 2 * pnivel + 16000
+  precisao += 2 * pnivel + 20000
+  pesomax += 100 * pnivel + 30000
+  bitver |= 4158
+
+
+classe p_domino002
+herda comum_persobat
+const nome = "leonardo"
+const descnome = "Leonardo, o vendedor de roupas"
+const descpadr = "Leonardo, o vendedor de roupas está aqui, arrumando as pratilheiras"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 70000
+const volexp = 0 # Expande: Não
+const objmax = 4
+const tipo1 = "humano"
+const tipo2 = "pnj"
+const equip1 = 0 # Equip posições:
+const equip2 = 1073741567 # Equip adicionar: 0-como escudo, 1-como símbolo, 2-Na cabeça, 3-Sobre \
+os ombros, 4-no olho direito, 5-no olho esquerdo
+const lojaini = 9
+const lojafim = 23
+const lojaitem = "domino007 0\n\
+domino005 0\n\
+domino006 0\n\
+domino008 0\n\
+domino004 0\n\
+domino010 27\n\
+domino011 30"
+const p_atk_anda = 0 # Anda ataque: Não
+const p_atk_desvia = 0 # Desvia ataque: Não
+const p_captura = 0 # Capturar: 0 Não
+const p_comecorpo = 0 # Come corpos: Não
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_imortal = 0 # Imortal: Não
+const p_lembra = 180
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+const p_movervel = 120
+const p_naoresg = 1 # Sem resgate: Sim
+const p_naoseguir = 0 # Não podem seguir: Não
+const p_persegue = 1 # Persegue jogadores: 1 Mesma área se atacarem
+const p_perseguevel = 60
+const p_recebe = 0 # Recebe itens: Não
+const p_soltar = 0 # Dar e soltar: 0 Pode-se dar e soltar
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+
+classe p_domino011
+herda comum_persobat
+const nome = "mago negro"
+const descnome = "o mago negro"
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 1120
+const tipo1 = "pnj"
+const tipo2 = "mago"
+const tipo3 = "trevas"
+const p_atk_anda = 1 # Anda ataque: Sim
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_atktipo = "magia das trevas"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 120000
+const inivar = "m_magia_negra=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200000 * pnivel + 200000000
+  atknorm += 50000 * pnivel + 50000000
+  defnorm += 200000 * pnivel + 200000000
+  atkesp += 101000 * pnivel + 50000000
+  defesp += 200000 * pnivel + 200000000
+  evasao += 50 * pnivel + 15000
+  precisao += 50 * pnivel + 15000
+  bitver |= 2094
+
+
+classe p_domino100
+herda comum_persobat
+const nome = "Obelisco, o atormentador"
+const ident = "obelisco atormentador"
+const descnome = "Obelisco, o atormentador"
+const descver = "A vinda desta criatura poderosa será anunciada por ventos ardentes e pelo \
+tremor da terra. E com a chegada deste horror, aqueles que ainda respiram conhecerão o\n\
+verdadeiro significado do sono eterno."
+
+
+classe p_domino101
+herda comum_persobat
+const nome = "Slifer, o Dragão Celeste"
+const ident = "Slifer Dragão Celeste"
+const descnome = "Slifer, o Dragão Celeste"
+const descver = "Os céus se turvam e os trovões rugem, anunciando a vinda desta criatura antiga, \
+e a alvorada do verdadeiro poder."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 2000
+const tipo1 = "pnj"
+const tipo2 = "Dragão"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500000000
+  pveloc1 += 65535
+  atknorm += 400000000
+  defnorm += 500000000
+  atkesp += 400000000
+  defesp += 500000000
+  evasao += 65535
+  precisao += 65535
+
+
+classe p_domino102
+herda comum_persobat
+const nome = "O Dragão Alado de Rá"
+const ident = "dragão alado rá"
+const descnome = "O Dragão Alado de Rá"
+const descver = "Os espíritos cantam sobre uma poderosa criatura que reina sobre tudo o que é \
+místico."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 2000
+const tipo1 = "pnj"
+const tipo2 = "dragão"
+
+
+classe s_domino001
+herda b_domino
+const s_titulo = "O centro da cidade Dominó"
+const s_fome = 0 # Fome e sede: 0 Presente
+const s_item = 5
+const s_luz = 0 # Luz: 0 Claro com eventos de tempo
+const s_morre = 0 # Morre ao entrar: 0 Não
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const objmax = 100
+const evhora = 0 # Eventos hora: Não
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino002
+const dir_s = $s_domino023
+const dir_l = $s_domino018
+const dir_o = $s_domino036
+
+
+classe s_domino002
+herda b_domino
+const s_titulo = "Uma rua"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_s = $s_domino001
+const dir_l = $s_domino003
+
+
+classe s_domino003
+herda b_domino
+const s_titulo = "Infrente a loja de jogos do senhor môtto"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_o = $s_domino002
+const dir_entrar = $s_domino004
+
+
+classe s_domino004
+herda b_domino
+const s_titulo = "Dentro da loja de jogos do senhor Môtto"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const eveste = 1 # Eventos sala: Sim
+const dir_c = $s_domino005
+const dir_sair = $s_domino003
+const s_reset = "P 100 domino001 500 600 1 h_chutar=8,h_socar=8,h_gancho=8,h_voadora=8,H_chicote_\
+do_dragão=8,z_moedas=10000000"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_domino001:objsolto.total < 1
+    criar("p_domino001", este, rand(500, 600), "h_chutar=8,h_socar=8,h_gancho=8,h_voadora=8,H_chi\
+cote_do_dragão=8,z_moedas=10000000")
+  fimse
+
+
+classe s_domino005
+herda b_domino
+const s_titulo = "Subindo as escadas para a casa do senhor môtto"
+const eveste = 1 # Eventos sala: Sim
+const dir_c = $s_domino006
+const dir_b = $s_domino004
+
+
+classe s_domino006
+herda b_domino
+const s_titulo = "No meio das escadas"
+const eveste = 1 # Eventos sala: Sim
+const dir_c = $s_domino007
+const dir_b = $s_domino005
+
+
+classe s_domino007
+herda b_domino
+const s_titulo = "No fim da escada"
+const eveste = 1 # Eventos sala: Sim
+const dir_c = $s_domino008
+const dir_b = $s_domino006
+
+
+classe s_domino008
+herda b_domino
+const s_titulo = "Dentro da casa do senhor môtto"
+const eveste = 1 # Eventos sala: Sim
+const dir_s = $s_domino009
+const dir_b = $s_domino007
+
+
+classe s_domino009
+herda b_domino
+const s_titulo = "Um corredor"
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino008
+const dir_s = $s_domino012
+const dir_l = $s_domino010
+const dir_o = $s_domino011
+
+
+classe s_domino010
+herda b_domino
+const s_titulo = "O quarto do senhor môtto"
+const eveste = 1 # Eventos sala: Sim
+const dir_o = $s_domino009
+
+
+classe s_domino011
+herda b_domino
+const s_titulo = "O quarto de Yug"
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_domino009
+
+
+classe s_domino012
+herda b_domino
+const s_titulo = "Continuando pelo corredor"
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino009
+const dir_s = $s_domino014
+const dir_l = $s_domino013
+
+
+classe s_domino013
+herda b_domino
+const s_titulo = "Um quarto de óspedes"
+const eveste = 1 # Eventos sala: Sim
+const dir_o = $s_domino012
+
+
+classe s_domino014
+herda b_domino
+const s_titulo = "Continuando pelo corredor"
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino012
+const dir_s = $s_domino017
+const dir_l = $s_domino015
+const dir_o = $s_domino016
+
+
+classe s_domino015
+herda b_domino
+const s_titulo = "A cozinha"
+const eveste = 1 # Eventos sala: Sim
+const dir_o = $s_domino014
+
+
+classe s_domino016
+herda b_domino
+const s_titulo = "A sala de jantar"
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_domino014
+
+
+classe s_domino017
+herda b_domino
+const s_titulo = "A sala de estar"
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino014
+
+
+classe s_domino018
+herda b_domino
+const s_titulo = "Continuando pelo centro da cidade"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino019
+const dir_s = $s_domino021
+const dir_l = $s_domino057
+const dir_o = $s_domino001
+
+
+classe s_domino019
+herda b_domino
+const s_titulo = "Na frente de um restaurante"
+const eveste = 1 # Eventos sala: Sim
+const dir_s = $s_domino018
+const dir_entrar = $s_domino020
+
+
+classe s_domino020
+herda b_domino
+const s_titulo = "Dentro do restaurante"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const eveste = 1 # Eventos sala: Sim
+const dir_sair = $s_domino019
+
+
+classe s_domino021
+herda b_domino
+const s_titulo = "Na frente de uma lanchonete"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino018
+const dir_entrar = $s_domino022
+
+
+classe s_domino022
+herda b_domino
+const s_titulo = "Dentro de uma lanchonete"
+const eveste = 1 # Eventos sala: Sim
+const dir_sair = $s_domino021
+
+
+classe s_domino023
+herda b_domino
+const s_titulo = "A rua das lojas"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino001
+const dir_s = $s_domino028
+const dir_l = $s_domino024
+const dir_o = $s_domino026
+
+
+classe s_domino024
+herda b_domino
+const s_titulo = "Na frente da loja de roupas da cidade dominó"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_o = $s_domino023
+const dir_entrar = $s_domino025
+
+
+classe s_domino025
+herda b_domino
+const s_titulo = "Dentro da loja de roupas da cidade dominó"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const eveste = 1 # Eventos sala: Sim
+const dir_sair = $s_domino024
+const s_reset = "P 100 domino002 500 600 1 h_chutar=5,h_socar=5,z_moedas5000"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_domino002:objsolto.total < 1
+    criar("p_domino002", este, rand(500, 600), "h_chutar=5,h_socar=5,z_moedas5000")
+  fimse
+
+
+classe s_domino026
+herda b_domino
+const s_titulo = "Na frente da loja de armaduras da cidade dominó"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_domino023
+const dir_entrar = $s_domino027
+
+
+classe s_domino027
+herda b_domino
+const s_titulo = "Dentro da loja de armaduras da cidade dominó"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const eveste = 1 # Eventos sala: Sim
+const dir_sair = $s_domino026
+
+
+classe s_domino028
+herda b_domino
+const s_titulo = "Continuando pela rua das lojas"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const dir_n = $s_domino023
+const dir_s = $s_domino033
+const dir_l = $s_domino029
+const dir_o = $s_domino031
+
+
+classe s_domino029
+herda b_domino
+const s_titulo = "Na frente do mcdonalds"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_o = $s_domino028
+const dir_entrar = $s_domino030
+const portaini_entrar = 2 # Estado inicial: 2 Porta fechada
+const portanome_entrar = "A porta do mcdonalds"
+const portaartigo_entrar = 0 # Artigo porta: 0 a (porta)
+const fugir_entrar = 1 # Sem fuga: Sim
+const inv_entrar = 0 # Invisível: Não
+const fecha_entrar = 1 # Fecha ao passar: Sim
+const tranc_entrar = 0 # Trancar: 0 Não pode ser trancado
+const voar_entrar = 0 # Voar: Não
+
+
+classe s_domino030
+herda b_domino
+const s_titulo = "Dentro do mcdonalds"
+const eveste = 1 # Eventos sala: Sim
+const dir_sair = $s_domino029
+const portaini_sair = 2 # Estado inicial: 2 Porta fechada
+const portanome_sair = "A porta do mcdonalds"
+const portaartigo_sair = 0 # Artigo porta: 0 a (porta)
+const comechave_sair = 0 # Come chave: Não
+const inv_sair = 0 # Invisível: Não
+const fecha_sair = 1 # Fecha ao passar: Sim
+const tranc_sair = 0 # Trancar: 0 Não pode ser trancado
+const voar_sair = 0 # Voar: Não
+
+
+classe s_domino031
+herda b_domino
+const s_titulo = "Na frente do sobuei"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_domino028
+const dir_entrar = $s_domino032
+
+
+classe s_domino032
+herda b_domino
+const s_titulo = "Dentro do sobuei"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const eveste = 1 # Eventos sala: Sim
+const dir_sair = $s_domino031
+
+
+classe s_domino033
+herda b_domino
+const s_titulo = "O fim da rua das lojas"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const dir_n = $s_domino028
+const dir_l = $s_domino034
+const dir_o = $s_domino035
+
+
+classe s_domino034
+herda b_domino
+const s_titulo = "A loja das piscinas"
+const eveste = 1 # Eventos sala: Sim
+const dir_o = $s_domino033
+
+
+classe s_domino035
+herda b_domino
+const s_titulo = "A loja de artigos para bebês"
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_domino033
+
+
+classe s_domino036
+herda b_domino
+const s_titulo = "Continuando pelo centro"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino037
+const dir_l = $s_domino001
+const dir_o = $s_domino045
+
+
+classe s_domino037
+herda b_domino
+const s_titulo = "A rua das lojas"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino042
+const dir_s = $s_domino036
+const dir_l = $s_domino038
+const dir_o = $s_domino040
+
+
+classe s_domino038
+herda b_domino
+const s_titulo = "Na frente do burger king"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_o = $s_domino037
+const dir_entrar = $s_domino039
+
+
+classe s_domino039
+herda b_domino
+const s_titulo = "Dentro do buger king"
+const eveste = 1 # Eventos sala: Sim
+const dir_sair = $s_domino038
+
+
+classe s_domino040
+herda b_domino
+const s_titulo = "Na frente do bóbs"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_domino037
+const dir_entrar = $s_domino041
+
+
+classe s_domino041
+herda b_domino
+const s_titulo = "Dentro do bóbs"
+const eveste = 1 # Eventos sala: Sim
+const dir_sair = $s_domino040
+
+
+classe s_domino042
+herda b_domino
+const s_titulo = "No fim da ruua das lojas"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_s = $s_domino037
+const dir_l = $s_domino043
+
+
+classe s_domino043
+herda b_domino
+const s_titulo = "Na frente da loja de armas da cidade"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_o = $s_domino042
+const dir_entrar = $s_domino044
+
+
+classe s_domino044
+herda b_domino
+const s_titulo = "Dentro da loja de armas da cidade"
+const eveste = 1 # Eventos sala: Sim
+const dir_sair = $s_domino043
+
+
+classe s_domino045
+herda b_domino
+const s_titulo = "quase no fim do centro da cidade"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_domino036
+const dir_o = $s_domino046
+
+
+classe s_domino046
+herda b_domino
+const s_titulo = "No fim da cidade"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino047
+const dir_s = $s_domino049
+const dir_l = $s_domino045
+const dir_o = $s_domino055
+
+
+classe s_domino047
+herda b_domino
+const s_titulo = "Na entrada de uma arena de duelos"
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino048
+const dir_s = $s_domino046
+const inv_s = 1 # Invisível: Sim
+
+
+classe s_domino048
+herda b_domino
+const s_titulo = "Na arena de duelos"
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const eveste = 1 # Eventos sala: Sim
+const dir_s = $s_domino047
+const inv_s = 1 # Invisível: Sim
+const dir_sair = $s_domino046
+const inv_sair = 1 # Invisível: Sim
+
+
+classe s_domino049
+herda b_domino
+const s_titulo = "infrente um parquinho"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino046
+const dir_entrar = $s_domino050
+
+
+classe s_domino050
+herda b_domino
+const s_titulo = "Dentro de um parquinho"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino051
+const dir_s = $s_domino052
+const dir_l = $s_domino053
+const dir_o = $s_domino054
+const dir_sair = $s_domino049
+
+
+classe s_domino051
+herda b_domino
+const s_titulo = "A gangorra"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_s = $s_domino050
+
+
+classe s_domino052
+herda b_domino
+const s_titulo = "Na frente da camelástica"
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino050
+
+
+classe s_domino053
+herda b_domino
+const s_titulo = "Na frente do escorregador"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_o = $s_domino050
+
+
+classe s_domino054
+herda b_domino
+const s_titulo = "O balanço"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_domino050
+
+
+classe s_domino055
+herda b_domino
+const s_titulo = "Nos portões oeste da cidade"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino091
+const dir_s = $s_domino080
+const dir_l = $s_domino046
+const dir_o = $s_domino056
+
+
+classe s_domino056
+herda b_domino
+const s_titulo = "Fora da cidade dominó"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_domino055
+
+
+classe s_domino057
+herda b_domino
+const s_titulo = "Quase no fim da parte leste da cidade"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_domino058
+const dir_o = $s_domino018
+
+
+classe s_domino058
+herda b_domino
+const s_titulo = "No fim da cidade"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_s = $s_domino059
+const dir_l = $s_domino078
+const dir_o = $s_domino057
+
+
+classe s_domino059
+herda b_domino
+const s_titulo = "Uma rua ao sul da cidade"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino058
+const dir_s = $s_domino068
+const dir_l = $s_domino060
+
+
+classe s_domino060
+herda b_domino
+const s_titulo = "Na entrada leste do muzeu dominó"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_o = $s_domino059
+const dir_entrar = $s_domino061
+
+
+classe s_domino061
+herda b_domino
+const s_titulo = "Dentro do muzeu dominó"
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino062
+const dir_s = $s_domino062
+const dir_l = $s_domino062
+const dir_o = $s_domino062
+const dir_sair = $s_domino076
+
+
+classe s_domino062
+herda b_domino
+const s_titulo = "Continuando pelo muzeu Dominó"
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino065
+const dir_s = $s_domino061
+const dir_l = $s_domino063
+const dir_o = $s_domino064
+
+
+classe s_domino063
+herda b_domino
+const s_titulo = "Na frente de uma tábua de pedra"
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const eveste = 1 # Eventos sala: Sim
+const dir_o = $s_domino062
+
+
+classe s_domino064
+herda b_domino
+const s_titulo = "Na frente de uma tábua de pedra"
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_domino062
+
+
+classe s_domino065
+herda b_domino
+const s_titulo = "Se aprocimando de um altar"
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino066
+const dir_s = $s_domino062
+
+
+classe s_domino066
+herda b_domino
+const s_titulo = "Na frente de um altar de mármore"
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const eveste = 1 # Eventos sala: Sim
+const dir_s = $s_domino065
+const dir_c = $s_domino067
+
+
+classe s_domino067
+herda b_domino
+const s_titulo = "Num altar de mármore"
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const eveste = 1 # Eventos sala: Sim
+const dir_b = $s_domino066
+
+
+classe s_domino068
+herda b_domino
+const s_titulo = "Continuando pela rua"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino059
+const dir_l = $s_domino069
+
+
+classe s_domino069
+herda b_domino
+const s_titulo = "Continuando pela rua"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_s = $s_domino070
+const dir_l = $s_domino071
+const dir_o = $s_domino068
+
+
+classe s_domino070
+herda b_domino
+const s_titulo = "Entrada sul do muzeu dominó"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino069
+const dir_entrar = $s_domino061
+
+
+classe s_domino071
+herda b_domino
+const s_titulo = "Continuando pela rua"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_domino072
+const dir_o = $s_domino069
+
+
+classe s_domino072
+herda b_domino
+const s_titulo = "Continuando pela rua"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino073
+const dir_s = $s_domino074
+const dir_o = $s_domino071
+
+
+classe s_domino073
+herda b_domino
+const s_titulo = "Na entrada norte do muzeu Dominó"
+const eveste = 1 # Eventos sala: Sim
+const dir_s = $s_domino072
+const dir_entrar = $s_domino061
+
+
+classe s_domino074
+herda b_domino
+const s_titulo = "Continuando pela rua"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino072
+const dir_s = $s_domino075
+
+
+classe s_domino075
+herda b_domino
+const s_titulo = "Continuando pela rua"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino074
+const dir_s = $s_domino077
+const dir_o = $s_domino076
+
+
+classe s_domino076
+herda b_domino
+const s_titulo = "Na entrada oeste do muzeu Dominó"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_domino075
+const dir_entrar = $s_domino061
+
+
+classe s_domino077
+herda b_domino
+const s_titulo = "No fim da rua"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino075
+
+
+classe s_domino078
+herda b_domino
+const s_titulo = "Na saída leste da cidade"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino091
+const dir_s = $s_domino080
+const dir_l = $s_domino079
+const dir_o = $s_domino058
+
+
+classe s_domino079
+herda b_domino
+const s_titulo = "Fora da cidade dominó"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_o = $s_domino078
+
+
+classe s_domino080
+herda b_domino
+const s_titulo = "Parte sul da cidade"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino078
+const dir_s = $s_domino081
+
+
+classe s_domino081
+herda b_domino
+const s_titulo = "Continuando pela parte sul"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino080
+const dir_s = $s_domino082
+
+
+classe s_domino082
+herda b_domino
+const s_titulo = "Continuando pela rua"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino081
+const dir_s = $s_domino083
+
+
+classe s_domino083
+herda b_domino
+const s_titulo = "Continuando pelo lado sul"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino082
+const dir_s = $s_domino084
+
+
+classe s_domino084
+herda b_domino
+const s_titulo = "Continuando pela rua sul"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino083
+const dir_s = $s_domino087
+const dir_l = $s_domino085
+
+
+classe s_domino085
+herda b_domino
+const s_titulo = "Na frente da loja de animais"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const dir_o = $s_domino084
+const dir_entrar = $s_domino086
+
+
+classe s_domino086
+herda b_domino
+const s_titulo = "Dentro da loja de animais"
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_sair = $s_domino085
+
+
+classe s_domino087
+herda b_domino
+const s_titulo = "Uma ponte"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino084
+const dir_s = $s_domino088
+const dir_l = $s_domino090
+const dir_o = $s_domino090
+const dir_b = $s_domino090
+
+
+classe s_domino088
+herda b_domino
+const s_titulo = "No meio da ponte"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino087
+const dir_s = $s_domino089
+const dir_l = $s_domino090
+const dir_o = $s_domino090
+const dir_b = $s_domino090
+
+
+classe s_domino089
+herda b_domino
+const s_titulo = "No fim da ponte"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const dir_n = $s_domino088
+const dir_s = $s_domino090
+const dir_l = $s_domino090
+const dir_o = $s_domino090
+const dir_b = $s_domino090
+
+
+classe s_domino090
+herda b_domino
+const s_titulo = "Um rio"
+const s_desc = "Você começa a cair rapidamente\n\
+Você tenta, desesperadamente se segurar em alguma coisa\n\
+a única coisa que você consegue pensar é, será que é o fim\n\
+O rio está se aprocimando cada vez mais\n\
+Puf!\n\
+O rio vai te puxando cada vez mais para baixo, te deixando sem ar\n\
+chega uma hora que você não é capaz de resistir\n\
+Você morre afogado, adeus"
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+const s_terreno = 9 # Terreno: 9 Em baixo d'água - 10mv
+
+
+classe s_domino091
+herda b_domino
+const s_titulo = "A parte norte da cidade"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino092
+const dir_s = $s_domino055
+
+
+classe s_domino092
+herda b_domino
+const s_titulo = "Continuando pela parte norte"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino093
+const dir_s = $s_domino091
+const dir_l = $s_domino100
+const dir_o = $s_domino100
+const dir_b = $s_domino100
+
+
+classe s_domino093
+herda b_domino
+const s_titulo = "Continuando na parte norte"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino094
+const dir_s = $s_domino092
+const dir_l = $s_domino100
+const dir_o = $s_domino100
+const dir_b = $s_domino100
+
+
+classe s_domino094
+herda b_domino
+const s_titulo = "Continuando na parte norte"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino095
+const dir_s = $s_domino093
+const dir_l = $s_domino100
+const dir_o = $s_domino100
+const dir_b = $s_domino100
+
+
+classe s_domino095
+herda b_domino
+const s_titulo = "Subindo pela ponte"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino096
+const dir_s = $s_domino094
+const dir_l = $s_domino100
+const dir_o = $s_domino100
+const dir_b = $s_domino100
+
+
+classe s_domino096
+herda b_domino
+const s_titulo = "Continuando pela ponte"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino097
+const dir_s = $s_domino095
+const dir_l = $s_domino100
+const dir_o = $s_domino100
+const dir_b = $s_domino100
+
+
+classe s_domino097
+herda b_domino
+const s_titulo = "Quase no meio da ponte"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const evhora = 0 # Eventos hora: Não
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino098
+const dir_s = $s_domino096
+const dir_l = $s_domino100
+const dir_o = $s_domino100
+const dir_b = $s_domino100
+
+
+classe s_domino098
+herda b_domino
+const s_titulo = "No meio da ponte"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino099
+const dir_s = $s_domino097
+const dir_l = $s_domino100
+const dir_o = $s_domino100
+const dir_b = $s_domino100
+
+
+classe s_domino099
+herda b_domino
+const s_titulo = "No fim da ponte"
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_domino100
+const dir_s = $s_domino098
+const dir_l = $s_domino100
+const dir_o = $s_domino100
+const dir_b = $s_domino100
+
+
+classe s_domino100
+herda b_domino
+const s_titulo = "Caíndo pela ponte"
+const s_desc = "Derrepente você escorrega da ponte\n\
+Tudo que você encherga é o rio em sua frente\n\
+Você está caíndo e caíndo...\n\
+Tenta, desesperadamente se segurar em augo\n\
+Você sente o rio cada vez mas perto\n\
+Plaft\n\
+Caíndo no rio você tenta lutar contra a correntesa que começa te levar para baixo\n\
+Chega uma hora que você fica sem forças para continuar, e só te resta esperar a morte, mesmo \
+assim, você luta, até o fim inevitável. Você morre."
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos sala: Sim
+
+
+classe s_domino101
+herda b_domino
+const s_titulo = "Dentro de um portal"
+const s_entrada = "Dentro de um portal"
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos sala: Sim

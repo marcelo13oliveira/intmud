@@ -1,0 +1,78 @@
+classe cmd_saldo
+herda comando_comum
+const posic = 8
+const txtajuda = "\b\c3Saldo\b\n\
+ Sintaxe: SALDO\n\
+ Mostra o valor disponível em sua conta."
+
+func escr
+  ret !arg0.dono.dentro1.objini("i_templo022"), arg0.msg("Não há um caixa eletrônico por \
+perto.")
+  txt100 lin
+  txt100 lin2
+  se !arg0.var.z_saldo_
+    lin = "Nenhuma moeda"
+  senao arg0.var.z_saldo_ == 1
+    lin = "Uma moeda"
+  senao arg0.var.z_saldo_ == 2
+    lin = "Duas moedas"
+  senao
+    lin = txtnum(arg0.var.z_saldo_, ".") + " moedas"
+  fimse
+  se arg0.persoesc == arg0 || !arg0.persoesc.var.z_saldo_
+  senao arg0.persoesc.var.z_saldo_ == 1
+    lin2 = " uma moeda"
+  senao arg0.var.z_saldo_ == 2
+    lin2 = " duas moedas"
+  senao
+    lin2 = " " + txtnum(arg0.var.z_saldo_, ".") + " moedas"
+  fimse
+  lin2 && (lin += ", " + txtcopiamai(arg0.persoesc.nome, "A") + lin2)
+  arg0.msg("Você possui na sua conta: " + lin + ".")
+  $mens.p(arg0)
+  $mens.mvis2("", "$P verifica seu saldo no caixa eletrônico.")
+
+
+classe cmd_sacar
+herda comando_comum
+
+func escr
+  se !arg0.dono.dentro1.objini("i_templo022")
+    ret arg0.msg("não a caixa eletrônico por perto")
+  fimse
+  se arg1 == "tudo"
+    ret !arg0.var.z_saldo_, arg0.msg("Não há moedas em sua conta para sacar.")
+    arg0.msg("Você saca " + arg0.var.z_saldo_ + " moedas de sua conta bancária.")
+    $mens.p(arg0)
+    $mens.mvis2("", "$P faz um saque no caixa eletrônico.")
+    arg0.var.z_moedas_ += arg0.var.z_saldo_
+    arg0.var.z_saldo_ = 0
+    ret 1
+  fimse
+  ret txt(intpos(arg1)) != arg1, arg0.msg("Digite a quantidade de moedas que deseja sacar.")
+  se arg1 == 0
+    arg0.msg("Não tem como sacar 0 moedas de ouro!")
+    ret 1
+  fimse
+  se arg1 == 1
+    se arg0.var.z_saldo_ < 1
+      arg0.msg("Mais você não tem uma moeda de ouro em sua conta para sacar.")
+      ret 1
+    fimse
+    arg0.var.z_moedas_ += 1
+    arg0.var.z_saldo_ -= 1
+    $mens.p(arg0)
+    $mens.mvis2("Você saca uma moeda do caixa eletrônico.", "$P faz um saque no caixa eletrônico.\
+")
+    ret 1
+  fimse
+  se arg0.var.z_saldo_ < arg1
+    arg0.msg("Você não tem " + arg1 + " moedas de ouro em sua conta bancária para sacar.")
+    ret 1
+  fimse
+  arg0.var.z_saldo_ -= arg1
+  arg0.var.z_moedas_ += arg1
+  arg0.msg("Você saca " + arg1 + " moedas de sua conta bancária.")
+  $mens.p(arg0)
+  $mens.mvis2("", "$P faz uma transação bancária.")
+  ret 1

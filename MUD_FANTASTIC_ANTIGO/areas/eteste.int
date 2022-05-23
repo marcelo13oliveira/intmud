@@ -1,0 +1,449 @@
+classe a_eteste
+herda area
+const a_nome = "Um grande laboratório"
+
+
+classe b_eteste
+herda sala
+const s_fome = 1 # Fome e sede: 1 Ausente
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_recup = 500
+const s_area = "eteste"
+
+
+classe i_eteste001
+herda comum_itemperso
+const nome = "Mjolnir, o Martelo Encantado de Thor"
+const ident = "mjolnir martelo encantado"
+const descpos = "Mjolnir, o Martelo Encantado de Thor foi depositado aqui, envolta por eletricida\
+de."
+const descver = "Mjolnir, o Martelo Encantado do deus do Trovão possui uma beleza sem igual.\n\
+Ele foi forjado no coração de uma estrela, com um minério místico especial chamado Uru.\n\
+A cabeça prateada do martelo é inteiramente retangular, e em ambas as laterais há um desenho de \
+um longo raio, feito com os diamantes mais puros de Asgard!\n\
+Seu cabo negro é intricado por diversas linhas cor de safira, que serpenteiam toda a sua \
+extensão como se estivesse envolto por eletrecidade.\n\
+No final do cabo você vê uma pequena corda, para que possa amarrar suas mãos quando for girar o \
+poderoso Martelo Mjolnir."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 800
+const armamax = 2000
+const armamin = 500
+const armatipo = 2 # Tipo de arma: 2 Cajado
+const f_fome = 200
+const f_sede = 200
+const i_pegar = "Você leva um choque ao tentar pegar o Martelo do deus do Trovão!"
+const mantersala = 0 # Mantém na sala: Não
+const tipoitem = 16 # Tipo de produto: 4-Cajado
+const inivar = "m_bola de fogo"
+const manterperso = 1 # Mantém em jogador: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmanamax += 400000
+  precisao += 800000
+  pesomax += 100 * pnivel
+  bitver |= 6206
+  bitinv |= 16
+  atktipo.14 *= 0.99 # Elétrico
+
+const armafalha = 1
+
+
+classe i_eteste002
+herda comum_itemperso
+const nome = "Uma maleta de itens divinos"
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const manterperso = 1 # Mantém em jogador: Sim
+
+
+classe i_eteste003
+herda comum_item
+const nome = "Uma aliança de ouro lavrada com escrições prateadas"
+const descpos = "Uma pessoa descuidada perdeu uma bela aliança de ouro lavrada com escrições \
+prateadas aqui"
+const descver = "Esta fina argola foi trabalhada em puro ouro avermelhado, que cintila ao menor \
+contato com a luz.\n\
+Em sua circunferência há belíssimas inscrições lavradas em prata com o seguintes dizeres:\n\
+\"Livremente servimos\n\
+Porque livremente amamos, conforme nosso arbítrio\n\
+De amar ou não\n\
+Assim nos erguemos ou caímos.\""
+const vestir1 = "c00000"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmanamax += 50 * pnivel + 70000
+  bitver |= 514
+
+
+classe i_eteste004
+herda comum_itemperso
+const nome = "O trono flamejante dos imortais"
+const descpos = "o majestoso trono dos imortais está ao centro da sala, emanando uma esplendorosa\
+ luz"
+const i_movel = 2 # Mobília: 2 Sentar e dormir
+const i_lugar = 2
+const m_atribs1 = "(envolto por chamas azuladas)"
+const m_atribs2 = "(envolto por chamas azuladas)"
+
+
+classe i_eteste005
+herda comum_item
+const nome = "Um pingente de ouro com um rubi em formato de um coração"
+const ident = "pingente ouro coração rubi formato"
+const descpos = "Um belo pingente de ouro foi deixado aqui, com um rubi em formato de coração \
+reluzindo fortemente em escarlate."
+const descver = "Ao deslizar seus dedos por esse pingente, logo se percebe que ele foi\n\
+cuidadosamente feito pelas pedras mais nobres e o ouro mais fino que pode-se\n\
+encontrar. Seu brilho estonteante fascina seus olhos incrédulos, pois tal\n\
+jóia preciosa contém uma beleza que desnorteiam seus sentidos e lhe faz\n\
+acreditar que é apenas um sonho, e então ele irá simplesmente dissolver em\n\
+suas mãos. Ao piscar repetitivamente, você passa seus olhos novamente sobre\n\
+o magnífico pingente, o qual você vê vários fragmentos de pequenos cristais\n\
+que aparentam ser minúsculos corações, onde estão perfeitamente engastadas\n\
+numa armação originalíssima feita do ouro mais puro e da prata mais fina. Ao\n\
+fim do pingente pende-se um magnífico rubi em formato de um coração, que\n\
+reluz fortemente em escarlarte na medida que você a examina atônito. O\n\
+interessante sobre essa pedra é que pode-se sentir uma suave pulsação que\n\
+emite da mesma, como se ela estivesse em sincronia com o ritmo de seu\n\
+próprio coração."
+const vestir1 = "300"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pesomax += 1000 * pnivel + 10000
+  bitver |= 6174
+
+
+classe i_eteste006
+herda comum_item
+const nome = "Um belíssimo buquê de rosas"
+const ident = "buquê rosa"
+const descpos = "Um belíssimo buquê de rosas espalha seu inebriante aroma pelo local."
+const vestir1 = "100000"
+
+
+classe i_eteste007
+herda comum_itemperso
+const nome = "Uma estátua dos deuses Eragon e Arya"
+const descpos = "Uma esplendorosa estátua dos Deuses Eragon e Arya está localizada ao centro da \
+sala."
+const descver = "Com a postura altiva e orgulhosa como só a nobreza seria capaz de\n\
+exibir, os Deuses na estátua foram feitos com a exatidão para chegar a\n\
+perfeição.\n\
+O Deus foi representado com um porte robusto transpassando em seu\n\
+semblante uma coragem inabalável. Com cabelos negros arrepiados e pele\n\
+alva e olhos azuis como o mar, parece olhar a figura em seus braços com\n\
+grande carinho.\n\
+A deusa graciosa e esbelta com longos cabelos negros como azeviche e\n\
+olhos verdes esmeralda, parece fitar ao longe como se contemplasse a belíssima\n\
+paisagem, enquanto sorri por está nos braços do amado.\n\
+No pedestal da estátua pode-se ler:\n\
+\"Venha o mundo nos desafiar! Pois enquanto nosso amor existir e juntos\n\
+permanecemos, não há barreira que não conseguimos quebrar.\""
+
+
+classe i_eteste008
+herda comum_itemperso
+const nome = "Um sofá de veludo"
+const descpos = "Um espaçoso sofá de veludo se encontra aqui, ao centro da sala."
+const i_movel = 1 # Mobília: 1 Sentar
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_eteste009
+herda comum_itemperso
+const nome = "Um cachimbo da pás"
+const ident = "cachimbo"
+const descpos = "Um cachimbo está aqui"
+const luzitem = 4 # Tipo de luz: 4 Lampião (acende/apaga, produz fogo)
+const luzini = 2000000000
+const valor = 50
+const vestir1 = "100000"
+const evperso = 1 # Eventos dono perso: Sim
+
+func cmd_escr
+  se arg1 == "fumar"
+    se luzini == 0
+      arg0.msg("Você precisa acender primeiro.")
+      ret 1
+    senao
+      se arg0.p_bebida > 247
+        arg0.msg("Você não consegue levar um cachimbo a boca.")
+        ret 1
+      senao
+        arg0.p_bebida += 60
+        $mens.p(arg0)
+        $mens.mtodos2("$P da um longo trago no cachimbo, soltando uma densa fumaça no ar", "$P \
+da um longo trago no cachimbo, soltando baforadas de fumaça no ar.")
+        ret 1
+
+
+classe i_eteste010
+herda comum_item
+const nome = "um trage de couro negro"
+const vestir1 = "1000"
+const eveste = 0 # Eventos item: Não
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 0 # Eventos dono item: Não
+const evsala = 0 # Eventos dono sala: Não
+
+
+classe i_eteste011
+herda comum_item
+const nome = "uma justa calça de couro negro"
+const vestir1 = "2000000"
+
+
+classe i_eteste012
+herda comum_item
+const nome = "um belo diadema de ouro com um cintilante diamante em formato de uma lágrima"
+const vestir1 = "2"
+
+
+classe i_eteste013
+herda comum_item
+const nome = "um par de botas negras de cano longo"
+const vestir1 = "20000000"
+
+
+classe i_eteste014
+herda comum_item
+const nome = "Tämerlein, a lendária espada do cavaleiro"
+const armamax = 1000000000
+const armamin = 1000000000
+const armafalha = 7
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+
+
+classe i_eteste015
+herda comum_item
+const nome = "Uma lareira"
+const descpos = "O caloroso fogo crepita alegremente na lareira, deixando tudo mais aconchegante.\
+"
+const i_pegar = "Está preso a parede"
+
+
+classe i_eteste016
+herda comum_itemperso
+const nome = "Um longo, primoroso e brando tapete dourado"
+const descpos = "Um longo, primoroso e brando tapete dourado cobre todo o chão."
+const i_pegar = "Antes de pegar o tapete deverá tirar tudo que está sobre ele."
+const i_movel = 3 # Mobília: 3 Sentar confortavelmente
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_eteste017
+herda comum_itemperso
+const nome = "Uma bela jarra de cristal"
+const descpos = "Uma bela jarra de cristal contendo água encontra-se aqui, sobre a mesinha de \
+centro."
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_sede = 250
+const f_msgperso = "Você pega uma jarra de cristal de uma mesinha, toma longos goles e à coloca \
+novamente no lugar."
+const f_msgoutros = "$p pega uma jarra de cristal de uma mesinha, toma longos goles e à coloca \
+novamente no lugar."
+const i_pegar = "Você não pode pegar isto!"
+
+
+classe i_eteste018
+herda comum_itemperso
+const nome = "Um confortável sofá de veludo"
+const descpos = "Um sofá de veludo extremamente confortável rodeia o salão."
+const i_pegar = "Isso é muito pesado para que você consiga pegar!"
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_lugar = 15
+
+
+classe i_eteste019
+herda comum_itemperso
+const nome = "Um dos vários pufes fofinhos"
+const descpos = "Almofadas fofas estão espalhadas junto aos pufes fofinhos."
+const i_pegar = "Isso é muito pesado para que você consiga pegar!"
+const i_movel = 3 # Mobília: 3 Sentar confortavelmente
+const i_abertoini = 1 # Container: 1 Sempre aberto
+
+
+classe i_eteste020
+herda comum_itemperso
+const nome = "uma mesinha de centro"
+const ident = "mesinha"
+const descnome = "uma mesinha de centro"
+const descpos = "Uma linda mesinha envidraçada encontra-se ao centro da sala, com lindas flores \
+sobre ela."
+const i_pegar = "Você não pode pegar isto!"
+const i_abertoini = 1 # Container: 1 Sempre aberto
+
+
+classe i_eteste021
+herda comum_item
+const nome = "Um reluzente candelabro de cristal."
+const descpos = "Um reluzente candelabro de cristal está suspenso no teto do salão, emitindo uma \
+fraca luz dourada."
+const i_pegar = "Você não consegue alcansar algo que está preso ao teto!."
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_eteste022
+herda comum_itemperso
+const nome = "Uma bandeja de prata."
+const descnome = "Uma bandeja de prata cheia de alimentos"
+const tipoitem = 2048 # Tipo de produto: 11-Container
+const vestir1 = "100000"
+
+
+classe i_eteste023
+herda comum_item
+const nome = "Uma porção de churrasco"
+const ident = "porção churrasco"
+const descnome = "Uma porção de churrasco"
+const descpos = "O aroma dessa porção de churrasco predomina o ambiente."
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 250
+const f_diges = 50
+const f_msgperso = "Você prazerosamente se delicia com uma porção de churrasco."
+const f_msgoutros = "$p prazerosamente se delicia com uma porção de churrasco."
+const valor = 4000
+
+
+classe i_eteste024
+herda comum_itemperso
+const nome = "Uma espaçosa cama"
+const descpos = "Uma espaçosa cama de casal com a cabeceira em forma de coração está ao centro \
+do quarto."
+const i_pegar = "Não dá, é muito pesada."
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_eteste025
+herda comum_itemperso
+const nome = "enorme caixa"
+const ident = "enorme caixa"
+const descnome = "Uma enorme caixa de presente"
+const descpos = "Uma enorme caixa de presente foi colocada cuidadosamente aqui."
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const objmax = 2
+const tipoitem = 2048 # Tipo de item: 11-Container
+
+
+classe p_eteste002
+herda comum_persobat
+const nome = "Fírmen, O dragão verde"
+const descpadr = "Fírmen, o dragão verde te observa do canto da sala com seus cintilantes \
+olhos"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 1000
+const tipo1 = "Dragão"
+const tipo2 = "Fogo"
+const p_imortal = 1 # Imortal: Sim
+const inivar = "h_canção_do_dragão=8,h_cospir_fogo=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 4000000 * pnivel + 600000000
+  pmanamax += 4000000 * pnivel + 100000000
+  pmovemax += 4000000 * pnivel + 4000000
+  pveloc1 += 10000000 * pnivel + 100000000
+  atknorm += 10000000 * pnivel + 100000000
+  defnorm += 10000000 * pnivel + 100000000
+  atkesp += 10000000 * pnivel + 10000000
+  defesp += 10000000 * pnivel + 10000000
+  evasao += 10000000 * pnivel + 1000000000
+  precisao += 10000000 * pnivel + 10000000
+  pesomax += 1000000000
+  bitver |= 2062
+  bitinv |= 16
+
+
+classe s_eteste001
+herda b_eteste
+const s_titulo = "Um grande laboratório."
+const s_desc = "Aqui é uma sala de todos os tipos de testes e esperimentos.\n\
+Monstros caminham por você, com um braço ou uma perna faltando, provavelmente esperimentos que \
+deram errados. Há vários equipamentos espalhados pelo chão, espadas tortas, escudos destruídos e \
+muito mais.\n\
+Ao centro da sala, sentado em uma poutrona está o deus Eragon, meditando sobre novos esperimentos\
+ para ser criados."
+const s_recup = 0
+const dir_n = $s_eteste002
+const dir_s = $s_eteste005
+const dir_l = $s_eteste003
+const dir_o = $s_eteste004
+const dir_sair = $s_templo024
+const inv_sair = 1 # Invisível: Sim
+
+
+classe s_eteste002
+herda b_eteste
+const s_titulo = "Um canto do laboratório."
+const s_desc = "Você está em um canto do laboratório.\n\
+Há vários portais brilhantes nas paredes, levando para outras dimenções desconhecidas.\n\
+Um poder misterioso conjura algumas criaturas para batalhar, provavelmente para testar seus \
+acertos, danos e etc."
+const s_recup = 500
+const dir_n = $s_eteste007
+const dir_s = $s_eteste001
+
+
+classe s_eteste003
+herda b_eteste
+const s_titulo = "Um canto do laboratório."
+const s_desc = "Você está em um canto do laboratório.\n\
+Há vários portais brilhantes nas paredes, levando para outras dimenções desconhecidas.\n\
+Um poder misterioso conjura algumas criaturas para batalhar, provavelmente para testar seus \
+acertos, danos e etc."
+const s_recup = 80
+const dir_l = $s_eteste006
+const dir_o = $s_eteste001
+
+
+classe s_eteste004
+herda b_eteste
+const s_titulo = "Um canto do laboratório."
+const s_desc = "Você está em um canto do laboratório.\n\
+Há vários portais brilhantes nas paredes, levando para outras dimenções desconhecidas.\n\
+Um poder misterioso conjura algumas criaturas para batalhar, provavelmente para testar seus \
+acertos, danos e etc."
+const s_recup = 500
+const dir_n = $s_eteste006
+const dir_l = $s_eteste001
+const dir_o = $s_eteste007
+
+
+classe s_eteste005
+herda b_eteste
+const s_titulo = "Um canto no laboratório."
+const s_desc = "Você está em um canto do laboratório.\n\
+Há vários portais brilhantes nas paredes, levando para outras dimenções desconhecidas.\n\
+Um poder misterioso conjura algumas criaturas para batalhar, provavelmente para testar seus \
+acertos, danos e etc."
+const s_recup = 500
+const dir_n = $s_eteste001
+
+
+classe s_eteste006
+herda b_eteste
+const s_titulo = "Um grande salão."
+const s_desc = "Você se encontra em um grandioso salão, o mais belo que seus olhos já\n\
+viram. Vários lustres de cristais pendem do imenso teto acima,\n\
+proporcionando uma fraca iluminação ao ambiente, que o deixa com um bom\n\
+clima de romance. Diversos quadros e tapeçarias cobrem uma boa parte das\n\
+paredes, muitos retratando lindas paisagens românticas, outras de\n\
+cenários magníficos que mal parece que foram pintadas por mãos mortais.\n\
+Várias mesas estão espalhadas pelo salão, com um par de casal sentados\n\
+em cada uma delas. Juntamente, estão diversos pratos de comida, garrafas\n\
+de champanhe e velas. Tudo para tornar uma noite perfeita, você supõem.\n\
+Uma suave melodia pode ser ouvida, enchendo o salão com a música\n\
+perfeita para o momento certo."
+const dir_s = $s_eteste004
+
+
+classe s_eteste007
+herda b_eteste
+const s_titulo = "Um amplo e aconchegante quarto"
+const s_desc = ""
+const dir_l = $s_eteste004

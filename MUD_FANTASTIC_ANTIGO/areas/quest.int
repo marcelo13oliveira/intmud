@@ -1,0 +1,664 @@
+classe a_quest
+herda area
+const a_nome = "itens únicos."
+const a_autor = "vedita"
+
+
+classe b_quest
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_area = "quest"
+
+
+classe i_quest001
+herda comum_itemperso
+const nome = "mochila de aventureiro"
+const descnome = "uma mochila de aventureiro"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const i_msgabriu = "$P abriu o zíper $d $a."
+const i_msgfechou = "$P fechou o zíper $d $a."
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 500
+const valor = 3000000
+const vestir1 = 1050624 # Aonde vestir: 11-nas costas, 20-segurando
+const eveste = 1 # Eventos item: Sim
+const quest = 50
+const manterperso = 1 # Mantém em jogador: Sim
+#
+
+func cmd_pegarobj
+  se arg2 == este
+    ret arg0.dentrocasa, nulo
+    ret arg0.dono.dono.dono.var.z_dono == arg0.descnome, nulo
+    ret arg0.j_imortal, nulo
+    ret arg1 == $s_quest001, arg0.msg("Você pode apenas identificar esse item.")
+    arg0.msg("Você não consegue pegar " + arg2.descnome + ".")
+    ret 1
+  fimse
+#
+
+func cmd_soltarobj
+  ret arg0.dono.dono.var.z_dono == arg0.descnome, nulo
+  ret arg0.dentrocasa, nulo
+  ret arg0.j_imortal, nulo
+  ret arg0.dono == $s_templo027, nulo
+  se arg2 == este
+    arg0.msg("Você não consegue soltar " + descnome + ".")
+    ret 1
+  fimse
+#
+
+func cmd_doarobj
+  se arg2 == este
+    arg0.msg("Você não consegue doar " + arg2.descnome + ".")
+    ret 1
+  fimse
+#
+
+func cmd_darobj
+  se arg2 == este
+    ret arg1.j_imortal, nulo
+    ret arg0.j_imortal, nulo
+    arg0.msg("Você não pode dar " + arg2.descnome + " a ninguém.")
+    ret 1
+  fimse
+
+const i_som_abre = "abmochila"
+const i_som_fecha = "abmochila"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pesomax += 500 * pnivel + 20000
+
+
+classe i_quest002
+herda comum_item
+const nivel = 0
+
+
+classe i_quest003
+herda comum_itemgrupo
+
+
+classe i_quest004
+herda comum_item
+const nome = "anel"
+const descnome = "o anel do guardião eterno"
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const i_dar = "Não é possível dar este item a ninguém."
+const cmd_darobj = arg2 == este && arg0.msg(i_dar)
+const cmd_pegarobj = arg2 == este && !arg1.item && arg0.msg("Não pode pegar " + descnome + " do \
+chão.")
+
+
+classe i_quest005
+herda comum_itemgrupo
+const nome = "10 pontos de quest"
+const descnome = "10 pontos de quest"
+const descpos = "10 pontos de quest foram jogados aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const valor = 1000000000
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_pegouobj
+  se arg2 == este
+    apagar(este)
+    arg0.var.z_quest_ += 10
+  fimse
+#
+
+func cmd_deuobj
+  se arg2 == este
+    apagar(este)
+    arg1.var.z_quest_ += 10
+  fimse
+
+
+classe p_quest001
+herda comum_persobat
+const nome = "glórfindel"
+const descnome = "Glórfindel, o lendário"
+const descpadr = "Glórfindel está aqui, pronto para negociar com você."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const volobj = 5000
+const objmax = 200
+const nivel = 150
+const tipo1 = "anão"
+const tipo2 = "druida"
+const lojaini = 3
+const lojafim = 23
+const lojaitem = "templo028 0"
+const p_atktipo = "chutar"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 20000
+const p_morreu1 = "$p desmorona, sentindo a vida o abandonar."
+const p_morreu2 = "$p cai ao chão, inconciente."
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "z_moedas=400000,h_chutar=8,h_socar=8"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const m_atribs1 = "* ... Está protegid$s por uma aura de sabedoria."
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2000
+  pmanamax += 2000
+  pmovemax += 2000
+  pveloc1 += 400
+  atknorm += 3000
+  defnorm += 3000
+  atkesp += 3000
+  defesp += 3000
+  evasao += 400
+  precisao += 400
+  pesomax += 200000
+  bitver |= 6206
+  bitinv |= 16
+  atktipo.0 *= 1.7 # Tipos Normais
+  atktipo.1 *= 1.7 # Tipos Especiais
+  atktipo.12 *= 2 # Luz
+  deftipo.0 *= 0.8 # Tipos Normais
+  deftipo.1 *= 0.8 # Tipos Especiais
+  deftipo.12 *= 0.7 # Luz
+  deftipo.13 *= 0.7 # Trevas
+
+
+classe p_quest002
+herda comum_persobat
+const nome = "Lílian"
+const descnome = "Lílian, a designer de equipamentos"
+const tipoitem = 8 # Compra produtos: 3-Vestimenta
+const p_agressivo = 0 # Agressivo: 0 Pacífico
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_mudadono
+  listaobj l
+  epara l.addfim(dono.dentro2), l, l.ini.remove
+    se l.objini.perso
+      misc:evento(l.objini)
+    fimse
+  efim
+
+func cmd_chegou
+  misc:evento(arg0)
+  misc:tempo("entrou", arg0)
+#
+#
+
+func entrou20
+  arg0.msg("Lílian cumprimenta você com um beijo no rosto.")
+#
+
+func entrou50
+  arg0.msg("Lílian diz: Vendo itens personalizados. Para listar os tipos de itens digite \
+lista.")
+  arg0.msg("Para comprar, digite comprar seguido do número do item na lista e o nome personalizad\
+o para ele.")
+  arg0.msg("Por exemplo, se desejar adquirir um item para a cabeça com o título de capacete de \
+bronze, digite:\nComprar 1 um capacete de bronze\nOu um item para o corpo chamado armadura de \
+prata, digite:\ncomprar 2 uma armadura de prata")
+#
+
+func cmd_escr
+  se arg1 == "lista" || arg1 == "list" || arg1 == "lis" || arg1 == "li"
+    arg0.msg("Lílian, a designer de equipamentos informa:")
+    arg0.msg2("1. Para a cabeça: $100000 - Nível 100\n  2. Para o corpo: $100000 nível 100\n  3. \
+Para as pernas: $100000 - Nível 100\n  4. para os braços: $100000 - nível 100\n  .5. Para as \
+mãos: $100000 - Nível 100\n  .6. Para os pés: $100000 - Nível 100\n  .7. para o pulso: $100000 - \
+Nível 100\n  .8. Para o tornozelo: $100000 - Nível 100\n  .9. como tapa sexo: $2000 - nível 10\n \
+ .10. Para os ombros: $100000 - Nível 80\n  .11. para o busto: $2500 - nível 15\n  .12. Para a \
+cintura:     25000     - n50\n  .13. como chaveiro:     $5000\n  .14. Para as orelhas:     \
+$100000 - nível 120\n  .15. para o pescoço:     $100000 - nível 100\n  .16. Sobre o corpo:     \
+$100000 - nível 150\n17. barraca personalizada: $120000000\n18. Para o dedo: $100000 n0\n 19. \
+Sobre os olhos: $100000   n100\n20. Sobre/no rosto - $50000 n50")
+    ret 1
+  fimse
+  se txt1(arg1) == "comprar" || txt1(arg1) == "compra" || txt1(arg1) == "compr" || txt1(arg1) == \
+"comp"
+    txt200 p
+    txt200 s
+    p = txt2(arg1)
+    s = txt2(p)
+    ret txtproc(arg1, "cacete") >= 0, arg0.msg("Lílian diz: Não vendemos isso aqui.")
+    refvar n = txtsub(arg1, 1, 1)
+    se n == "1"
+      ret arg0.var.z_moedas_ < 100000, arg0.msg("Você não possui $100000.")
+      refvar r = criar("i_equips001", arg0, 1)
+      r.var.z_nome = s
+      arg0.var.z_moedas_ -= 100000
+      $mens.p(arg0, este, r)
+      $mens.mvis1("$P compra $o $d $a.")
+      ret 1
+    senao n == "3"
+      ret arg0.var.z_moedas_ < 1000000, arg0.msg("Você não possui $1000000.")
+      arg0.var.z_moedas_ -= 1000000
+      refvar r = criar("i_equips005", arg0, 1, "z_nome=" + s)
+      $mens.p(arg0, este, r)
+      $mens.mvis1("$P compra $o $d $a por 100000 moedas.")
+      ret 1
+    senao n == "4"
+      ret arg0.var.z_moedas_ < 1000000, arg0.msg("Você não possui $1000000.")
+      arg0.var.z_moedas_ -= 1000000
+      refvar r = criar("i_equips006", arg0, 1, "z_nome=" + s)
+      $mens.p(arg0, este, r)
+      $mens.mvis1("$P compra $o $d $a por 100000 moedas.")
+      ret 1
+    senao n == "5"
+      ret arg0.var.z_moedas_ < 100000, arg0.msg("Você não possui $100000.")
+      arg0.var.z_moedas_ -= 100000
+      refvar r = criar("i_equips007", arg0, 1, "z_nome=" + s)
+      $mens.p(arg0, este, r)
+      $mens.mvis1("$P compra $o $d $a por 100000 moedas.")
+      ret 1
+    senao n == "6"
+      ret arg0.var.z_moedas_ < 100000, arg0.msg("Você não possui $100000.")
+      arg0.var.z_moedas_ -= 100000
+      refvar r = criar("i_equips008", arg0, 1, "z_nome=" + s)
+      $mens.p(arg0, este, r)
+      $mens.mvis1("$P compra $o $d $a por 100000 moedas.")
+      ret 1
+    senao n == "7"
+      ret arg0.var.z_moedas_ < 100000, arg0.msg("Você não possui $100000.")
+      arg0.var.z_moedas_ -= 100000
+      refvar r = criar("i_equips009", arg0, 1, "z_nome=" + s)
+      $mens.p(arg0, este, r)
+      $mens.mvis1("$P compra $o $d $a por 100000 moedas.")
+      ret 1
+    senao n == "8"
+      ret arg0.var.z_moedas_ < 100000, arg0.msg("Você não possui $100000.")
+      arg0.var.z_moedas_ -= 100000
+      refvar r = criar("i_equips010", arg0, 1, "z_nome=" + s)
+      $mens.p(arg0, este, r)
+      $mens.mvis1("$P compra $o $d $a por 100000 moedas.")
+      ret 1
+    senao n == "9"
+      ret arg0.var.z_moedas_ < 2000, arg0.msg("Você não possui $2000.")
+      arg0.var.z_moedas_ -= 2000
+      refvar r = criar("i_equips011", arg0, 1, "z_nome=" + s)
+      $mens.p(arg0, este, r)
+      $mens.mvis1("$P compra $o $d $a por 2000 moedas.")
+      ret 1
+    senao n == "10"
+      ret arg0.var.z_moedas_ < 2000, arg0.msg("Você não possui $2000.")
+      arg0.var.z_moedas_ -= 2000
+      refvar r = criar("i_equips012", arg0, 1, "z_nome=" + s)
+      $mens.p(arg0, este, r)
+      $mens.mvis1("$P compra $o $d $a por 2000 moedas.")
+      ret 1
+    senao n == "2"
+      ret arg0.var.z_moedas_ < 100000, arg0.msg("Você não possui $100000.")
+      arg0.var.z_moedas_ -= 100000
+      refvar r = criar("i_equips002", arg0, 1)
+      r.var.z_nome = s
+      $mens.p(arg0, este, r)
+      $mens.mvis1("$P compra $o $d $a por 100000 moedas.")
+      ret 1
+    senao n == "11"
+      ret arg0.var.z_moedas_ < 2500, arg0.msg("Você não possui $2500.")
+      arg0.var.z_moedas_ -= 2500
+      refvar r = criar("i_equips013", arg0, 1, "z_nome=" + s)
+      $mens.p(arg0, este, r)
+      $mens.mvis1("$P compra $o $d $a por 2500 moedas.")
+      ret 1
+    senao n == "12"
+      ret arg0.var.z_moedas_ < 25000, arg0.msg("Você não possui $25000.")
+      arg0.var.z_moedas_ -= 25000
+      refvar r = criar("i_equips018", arg0, 1, "z_nome=" + s)
+      $mens.p(arg0, este, r)
+      $mens.mvis1("$P compra $o $d $a por 2500 moedas.")
+      ret 1
+    senao n == "13"
+      ret arg0.var.z_moedas_ < 5000, arg0.msg("Você não possui $5000.")
+      arg0.var.z_moedas_ -= 5000
+      refvar r = criar("i_itens042", arg0, 1, "z_nome=" + s)
+      $mens.p(arg0, este, r)
+      $mens.mvis1("$P compra $o $d $a por 2500 moedas.")
+      ret 1
+    senao n == "14"
+      ret arg0.var.z_moedas_ < 100000, arg0.msg("Você não possui $100000.")
+      arg0.var.z_moedas_ -= 100000
+      refvar r = criar("i_joias014", arg0, 1, "z_nome=" + s)
+      $mens.p(arg0, este, r)
+      $mens.mvis1("$P compra $o $d $a por 100000 moedas.")
+      ret 1
+    senao n == "15"
+      ret arg0.var.z_moedas_ < 100000, arg0.msg("Você não possui $100000.")
+      arg0.var.z_moedas_ -= 100000
+      refvar r = criar("i_joias015", arg0, 1, "z_nome=" + s)
+      $mens.p(arg0, este, r)
+      $mens.mvis1("$P compra $o $d $a por 100000 moedas.")
+      ret 1
+    senao n == "16"
+      ret arg0.var.z_moedas_ < 100000, arg0.msg("Você não possui $100000.")
+      arg0.var.z_moedas_ -= 100000
+      refvar r = criar("i_equips019", arg0, 1, "z_nome=" + s)
+      $mens.p(arg0, este, r)
+      $mens.mvis1("$P compra $o $d $a por 100000 moedas.")
+      ret 1
+    senao n == "17"
+      ret arg0.var.z_moedas_ < 200000000, arg0.msg("Você não tem 200000000 moedas.")
+      arg0.var.z_moedas_ -= 200000000
+      refvar i = criar("i_moveis051", arg0, 1, "z_nome=" + s + ",z_dono=" + arg0.descnome)
+      $mens.p(arg0, este, i)
+      $mens.mtodos1("$P compra $o $d $a por 800000 moedas.")
+      ret 1
+    senao n == "18"
+      ret arg0.var.z_moedas_ < 800000, arg0.msg("Você não tem 800000 moedas.")
+      arg0.var.z_moedas_ -= 800000
+      refvar i = criar("i_joias019", arg0, 1, "z_nome=" + s + ",z_dono=" + arg0.descnome)
+      $mens.p(arg0, este, i)
+      $mens.mtodos1("$P compra $o $d $a por 800000 moedas.")
+      ret 1
+    senao n == "19"
+      ret arg0.var.z_moedas_ < 100000, arg0.msg("Você não tem 100000 moedas.")
+      arg0.var.z_moedas_ -= 100000
+      refvar i = criar("i_equips021", arg0, 1)
+      i.var.z_nome = s
+      $mens.p(arg0, este, i)
+      $mens.mtodos1("$P compra $o $d $a por 800000 moedas.")
+      ret 1
+    senao n == "20"
+      ret arg0.var.z_moedas_ < 50000, arg0.msg("Você não tem 50000 moedas.")
+      arg0.var.z_moedas_ -= 50000
+      refvar i = criar("i_equips022", arg0, 1)
+      i.var.z_nome = s
+      $mens.p(arg0, este, i)
+      $mens.mtodos1("$P compra $o $d $a por 800000 moedas.")
+      ret 1
+    fimse
+  fimse
+
+
+classe p_quest003
+herda comum_perso
+const nome = "Mirock"
+const descnome = "Mirock, o negociador"
+const descpadr = "Um senhor, aparentando ser de descendência oriental está sentado aqui, expondo \
+seus itens a venda para os visitantes."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const tipo1 = "humano"
+const tipo2 = "normal"
+const lojaitem = "templo096 0\n\
+adquest001 200\n\
+templo028 0\n\
+dracula022 0\n\
+cosmos032 0\n\
+templo025 0\n\
+templo043 0\n\
+templo090 0\n\
+templo091 0\n\
+evento012 0\n\
+templo084 0\n\
+templo095 0\n\
+evento011 0\n\
+quest001 0\n\
+templo098 0\n\
+dracula020 0\n\
+adquest003 0\n\
+templo051 0\n\
+templo092 0\n\
+dracula019 0"
+const tipoitem = 30 # Compra produtos: 1-arma, 2-Armadura, 3-Vestimenta, 4-Cajado
+const evsala = 0 # Eventos dono sala: Não
+
+
+classe p_quest004
+herda comum_perso
+const nome = "Armilton"
+const descnome = "Armilton: o designer de armamentos"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 200
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+  misc:tempo("entrou", arg0)
+
+func entrou50
+#
+  teclou("f olá: " + arg0.descnome + "")
+#
+
+func entrou70
+  teclou("f Para ver as armas que personalizo digite lista, e para comprar, digite comprar, \
+seguido do número e o nome da arma")
+#
+
+func entrou100
+  teclou("f por exemplo: comprar 1 um escudo de prata.")
+#
+
+func cmd_escr
+  se arg1 == "lista" || arg1 == "list" || arg1 == "lis" || arg1 == "li"
+    arg0.msg("Armilton: o designer de armamentos informa:")
+    arg0.msg("1. Como escudo, $200000 nível 100.")
+    arg0.msg("2. Como espada, $300000 nível 110.")
+    arg0.msg("3. como cajado, $300000 nível 120.")
+    arg0.msg("4. Como varinha, $300000 nível 100.")
+    ret 1
+  fimse
+  se txt1(arg1) == "comprar" || txt1(arg1) == "compra" || txt1(arg1) == "compr" || txt1(arg1) == \
+"comp"
+    refvar p = txt2(arg1)
+    refvar n = txt1(p)
+    refvar s = txt2(p)
+    se n == "1"
+      ret arg0.var.z_moedas_ < 200000, arg0.msg("Você não possui $200000.")
+      refvar r = criar("i_equips014", arg0, 1)
+      r.var.z_nome = s
+      arg0.var.z_moedas_ -= 200000
+      $mens.p(arg0, este, r)
+      $mens.mvis1("$P compra $o $d $a.")
+      ret 1
+    senao n == "2"
+      ret arg0.var.z_moedas_ < 300000, arg0.msg("Você não possui $300000.")
+      refvar r = criar("i_equips016", arg0, 1)
+      r.var.z_nome = s
+      arg0.var.z_moedas_ -= 300000
+      $mens.p(arg0, este, r)
+      $mens.mvis1("$P compra $o $d $a.")
+      ret 1
+    senao n == "3"
+      ret arg0.var.z_moedas_ < 300000, arg0.msg("Você não possui $300000.")
+      refvar r = criar("i_equips017", arg0, 1)
+      r.var.z_nome = s
+      arg0.var.z_moedas -= 300000
+      $mens.p(arg0, este, r)
+      $mens.mvis1("$P compra $o $d $a.")
+      ret 1
+    senao n == "4"
+      ret arg0.var.z_moedas_ < 300000, arg0.msg("Você não possui $300000.")
+      refvar r = criar("i_equips015", arg0, 1)
+      r.var.z_nome = s
+      arg0.var.z_moedas_ -= 300000
+      $mens.p(arg0, este, r)
+      $mens.mvis1("$P compra $O $d $a.")
+      ret 1
+    fimse
+  fimse
+
+
+classe p_quest005
+herda comum_perso
+const nome = "perguntanderson"
+const descnome = "Perguntânderson"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const evsala = 1 # Eventos dono sala: Sim
+
+
+classe s_quest001
+herda b_quest
+const s_titulo = "o covil dos aventureiros"
+const s_desc = "chegando aqui, seus olhos se maravilham com tudo, estátuas de mármore,\n\
+finas artes tão delicadas, e bém trabalhadas não deixando dúvida que foram\n\
+feitas, por ártifíces élficos. belas imagens retratam antigos eróis, de\n\
+grande coragem e poder: Magos a combater criaturas místicas, guerreiros em\n\
+feroses batalhas com dragões ancestráis, necromantes batalhando contra\n\
+forças sombrias, clérigos tentando proteger o mundo do mal. A sala é\n\
+sustentada por pilares de mármore, adornados por ouro."
+const s_doarsalas = "rio023"
+const s_morre = 0 # Morre ao entrar: 0 Não
+const s_soltar = 0 # Soltar itens: 0 Permitido
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_quest004
+const a_reset = "P 100 quest003 0 0 1"
+const s_reset = "P 100 quest003 0 0 1\n\
+S 100 templo096 1 S\n\
+S 100 adquest001 1 S\n\
+S 100 templo028 1 S\n\
+S 100 templo025 1 S\n\
+S 100 templo043 1 S\n\
+S 100 templo090 1 S\n\
+S 100 templo091 1 S\n\
+S 100 evento012 1 S\n\
+S 100 templo084 1 S\n\
+S 100 templo098 1 S\n\
+S 100 templo095 1 S\n\
+S 100 quest001 1 S\n\
+S 100 evento011 1 S\n\
+S 100 dracula020 1 S\n\
+S 100 templo051 1 S\n\
+S 100 templo092 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_quest003:objsolto.total < 1
+    criar("p_quest003", este, 0)
+  fimse
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "templo" || arg1 == "retornar"
+    $mens.p(arg0)
+    refvar m1 = "$P atravessa o portal......"
+    refvar m2 = "$P entra em um portal mágico e desaparece logo em seguida."
+    $mens.mtodos2(m1, m2)
+    arg0.mudadono($s_rio001)
+    $mens.p(arg0)
+    $mens.mtodos2("", "$P aparece de dentro de um portal mágico.")
+    ret 1
+  fimse
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_quest003:objsolto.total < 1
+    criar("p_quest003", este, 0)
+  fimse
+  !dentro1.objini("i_templo096") && criar("i_templo096", este, 1)
+  !dentro1.objini("i_adquest001") && criar("i_adquest001", este, 1)
+  !dentro1.objini("i_templo028") && criar("i_templo028", este, 1)
+  !dentro1.objini("i_templo025") && criar("i_templo025", este, 1)
+  !dentro1.objini("i_templo043") && criar("i_templo043", este, 1)
+  !dentro1.objini("i_templo090") && criar("i_templo090", este, 1)
+  !dentro1.objini("i_templo091") && criar("i_templo091", este, 1)
+  !dentro1.objini("i_evento012") && criar("i_evento012", este, 1)
+  !dentro1.objini("i_templo084") && criar("i_templo084", este, 1)
+  !dentro1.objini("i_templo098") && criar("i_templo098", este, 1)
+  !dentro1.objini("i_templo095") && criar("i_templo095", este, 1)
+  !dentro1.objini("i_quest001") && criar("i_quest001", este, 1)
+  !dentro1.objini("i_evento011") && criar("i_evento011", este, 1)
+  !dentro1.objini("i_dracula020") && criar("i_dracula020", este, 1)
+  !dentro1.objini("i_templo051") && criar("i_templo051", este, 1)
+  !dentro1.objini("i_templo092") && criar("i_templo092", este, 1)
+
+func cmd_pegarobj
+  se arg1 == este
+    ret arg0.msg("Você não pode pegar nada daqui, pode apenas identificar os itens.")
+  fimse
+#
+
+func cmd_soltarobj
+  se arg1 == este
+    ret arg0.msg("Você não pode soltar nada aqui.")
+  fimse
+
+
+classe s_quest002
+herda b_quest
+const s_titulo = "Estou aqui."
+const s_desc = "Você acaba de adentrar a grande loja de equipamentos personalizados. Por\n\
+todos os cantos, existem peles, tecidos, metais e outros materiais, usados\n\
+na confecção dos itens encomendados pelos jogadores."
+const dir_o = $s_templo002
+const dir_b = $s_quest001
+
+
+classe s_quest003
+herda b_quest
+const s_titulo = "Quest center"
+
+
+classe s_quest004
+herda b_quest
+const s_titulo = "Um corredor de pedras douradas"
+const dir_l = $s_quest005
+const dir_o = $s_quest001
+
+
+classe s_quest005
+herda b_quest
+const s_titulo = "Continuando no corredor"
+const dir_n = $s_quest006
+const dir_o = $s_quest004
+
+
+classe s_quest006
+herda b_quest
+const s_titulo = "Um corredor inclinado"
+const dir_n = $s_quest007
+const dir_s = $s_quest005
+
+
+classe s_quest007
+herda b_quest
+const s_titulo = "Seguindo no corredor inclinado"
+const dir_n = $s_quest008
+const dir_s = $s_quest006
+
+
+classe s_quest008
+herda b_quest
+const s_titulo = "No fim do corredor"
+const dir_s = $s_quest007
+
+
+classe s_quest009
+herda b_quest
+const s_titulo = "Salão de resgate de premiações"
+const dir_s = $s_quest008
+#
+
+func cmd_salaperso
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  se arg0.var.z_coelho
+    refvar presente = rand(3)
+    se presente == 0
+      criar("i_evento010", arg0, 1)
+      criar("i_evento010", arg0, 1)
+      arg0.var.z_coelho_ = 0
+      arg0.msg("Feliz páscoa!")
+      arg0.msg("Você ganhou um par de orelhas de coelho!")
+    senao presente == 1
+      criar("i_evento009", arg0, 1)
+      arg0.var.z_coelho_ = 0
+      arg0.msg("Feliz páscoa!")
+      arg0.msg("Você ganhou um par de patas de coelho!")
+    senao
+      criar("i_evento013", arg0, 1)
+      arg0.var.z_coelho_ = 0
+      arg0.msg("Feliz páscoa!")
+      arg0.msg("Você ganhou um casaco de pele de coelho!")
+    fimse
+  fimse

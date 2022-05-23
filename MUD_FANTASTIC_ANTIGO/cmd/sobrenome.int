@@ -1,0 +1,22 @@
+classe cmd_sobrenome
+herda comando_comum
+
+func escr
+  se arg0.pnivel < 1
+    arg0.msg("Você precisa chegar no nível 1 para usar esse comando")
+  senao inttotal(arg1) > 12
+    arg0.msg("O sobrenome do personagem não pode passar de 12 caracteres.")
+  senao txtproc(arg1, arg0.nome, 0) != -1
+    arg0.msg("Não é permitido colocar como sobrenome o mesmo nome do personagem.")
+    ret 1
+  senao
+    arg0.var.z_sobrenome = arg1
+    arg0.msg(arg1 ? "sobrenome do personagem alterado." : "sobrenome do personagem apagado.")
+  fimse
+
+const t_ = "" # menor que
+const t_ = "" # maior que
+const t_ = "" # abre colchetes
+const t_ = "" # fecha colchetes
+const t_ = "" # abre chaves
+const t_ = "" # fecha chaves

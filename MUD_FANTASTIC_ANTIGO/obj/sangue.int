@@ -1,0 +1,39 @@
+classe comum_sangue
+herda comum_item
+const nome = "¢"
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+inttempo sangue
+inttempo b
+
+func cmd_ini
+  b = 1
+
+func b_exec
+  refvar d = ref(dono)
+  d.var.j_bl_++
+  sangue = 1800
+
+func sangue_exec
+  dono.msg("Uma poça de sangue secou.")
+  refvar d = ref(dono)
+  d.var.j_bl_ += -1
+  este.apagar(100000)
+
+func cmd_pegarobj
+  se arg2 == este
+    arg0.msg("Você não pode pegar uma poça de sangue.")
+    ret 1
+
+func descpos
+  refvar d = ref(dono)
+  se d.var.j_bl_ == 1
+    ret "Há uma poça de sangue aqui."
+  senao
+    se d.var.j_bl_ == 2
+      ret "Ha um pouco de sangue aqui."
+    senao
+      se d.var.j_bl_ == 3
+        ret "houve um derramamento de sangue aqui."
+      senao
+        ret "Tem muito sangue aqui."

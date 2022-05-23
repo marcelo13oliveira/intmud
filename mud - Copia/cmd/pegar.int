@@ -1,0 +1,153 @@
+classe cmd_pegar
+herda comando_comum
+const txtajuda = "\b\c3Pegar\b\n\
+Sintaxe: PEGAR <objeto>\n\
+         PEGAR <quantidade> <objeto>\n\
+         PEGAR <objeto> <container>\n\
+         PEGAR <quantidade> <objeto> <container>\n\
+Pega um objeto do chão ou de um container (uma bolsa, uma estante, etc).\n\
+Para pegar tudo (até 10 objetos) tecle TUDO ao invés do objeto."
+const posic = 5
+#
+uint32 total # Quantidade de itens do mesmo tipo
+txt20 mens # Parte da mensagem
+int8 achou # Quantos itens achou
+
+func escr
+  ref item # Item aonde está soltando os itens
+  ref sala # Aonde soltar os itens
+  txt100 erro # Mensagem de erro
+  listaobj l
+  refvar perm_msg = $perm_[arg0.jogperm].item
+  ret perm_msg, $mensjog.msg(perm_msg, arg0)
+  epara l.addfim(arg0.evento), l, l.ini.remove
+    ret l.objini.cmd_pegar(arg0, arg1), nulo
+  efim
+  arg0.p_espera < 3 && (arg0.p_espera = 3)
+# Obtém o objeto de onde pegar
+  misc:separa(arg1) # Separa nome do objeto do nome do alvo
+  se !misc:sep2 # Se não tem alvo, o alvo é a sala
+    item = sala = arg0.dono
+    mens = "."
+    se sala.var.ini("u_") && !sala.var.u_[arg0.nome]_
+      ret arg0.msg("Melhor não pegar nada daqui.")
+    fimse
+  senao
+    item = misc:itemtudo(arg0, misc:sep2) # Procura o alvo para o personagem arg0
+    sala = item.item ? item.i_salapegar
+    se !item
+      ret arg0.msg("Você não vê " + misc:sep2 + ".")
+    senao item.dono.s_sala && item.dono.var.ini("u_") && !item.dono.var.u_[arg0.nome]_
+      ret arg0.msg("Melhor não pegar nada daqui.")
+    senao !item.i_aberto && !sala
+      ret arg0.msg(txtcopiamai(item.descnome, "A") + " não é container.")
+    senao item.i_aberto > 2 && !arg0.j_imortal
+      ret arg0.msg(txtcopiamai(item.descnome, "A") + " está fechad" + (item.msexo ? "o." : \
+"a."))
+    fimse
+    !sala && (sala = item)
+    mens = " $d $a."
+  fimse
+# Pega os itens
+  nomeobj n # Para reconhecer os itens
+  n.ini(misc:sep1, misc:objmax, misc:tudo)
+  achou = 0, erro = "Você não vê isso."
+  epara l.addfim(sala.dentro1), l && achou < 10, l.ini.remove
+    continuar !l.objini.visivel(arg0) || !n.nome(l.objini.ident, l.objini.objtot)
+    total = n # Quantidade de itens
+    refvar erro1 = pegarobj(arg0, item, sala, l.objini)
+    erro1 && (erro = erro1)
+  efim
+  ret achou, nulo
+# Pega moedas
+  se sala.var.z_moedas_ && sala.visivel(arg0) && n.nome("moedas", sala.var.z_moedas_)
+    total = int(misc:sep1) ? n : sala.var.z_moedas
+    ret pegarmoedas(arg0, sala)
+  fimse
+# Não encontrou o item
+  arg0.msg(erro)
+
+func pegarobj
+# arg0 = personagem
+# arg1 = item ou sala de onde quer pegar (para mensagens)
+# arg2 = objeto que representa o conteúdo interno de arg1
+# arg3 = item que quer pegar
+# total = quantidade de itens
+# Faz achou++ se pegou o item
+# Retorna mensagem de erro ou nulo se conseguiu pegar
+  ret arg3.i_pegar, arg3.i_pegar
+  listaitem i
+  epara i = arg3.dentro2.ini, i, i.depois
+    ret i.obj.s_sala, "Você não consegue pegar isso."
+  efim
+  se arg3.persolugar
+    casovar arg3.persolugar.objini.posicao
+    casose "4"
+      ret "Você não consegue pegar porque tem alguém dormindo em cima."
+    casose "5"
+      ret "Você não consegue pegar porque tem alguém descansando em cima."
+    casose "6"
+      ret "Você não consegue pegar porque tem alguém sentado em cima."
+    casofim
+    ret "Você não consegue pegar porque tem alguém em cima."
+  senao arg3.cabedentro(arg0) < total
+    ret "Você não consegue carregar tanta coisa."
+  senao arg0 == arg2.dono
+  senao arg0.pesoden - arg0.pesoveste + arg3.pesotot * total / arg3.objtot > arg0.pesomax
+    se arg3.pesotot > arg3.objtot * arg0.pesomax
+      ret "Isso é pesado demais."
+    fimse
+    ret "Você não consegue carregar tanto peso."
+  fimse
+  achou++
+  listaobj e
+  epara e.addfim(arg0.evento), e, e.ini.remove
+    ret e.objini.cmd_pegarobj(arg0, arg1, arg3, total, arg0), nulo
+  efim
+  epara e.addfim(arg1.evento), e, e.ini.remove
+    ret e.objini.cmd_pegarobj(arg0, arg1, arg3, total, arg1), nulo
+  efim
+  epara e.addfim(arg3.evento), e, e.ini.remove
+    ret e.objini.cmd_pegarobj(arg0, arg1, arg3, total, arg3), nulo
+  efim
+  $mens.p(arg0, arg1, arg3)
+  se total <= 1
+    $mens.mvis1("$P pega $o" + mens)
+  senao
+    $mens.mvis1("$P pega " + total + "x $o" + mens)
+  fimse
+  refvar r = arg3.mudadono(arg0, total)
+  epara e.addfim(arg0.evento), e, e.ini.remove
+    e.objini.cmd_pegouobj(arg0, arg1, r, total, arg0)
+  efim
+  epara e.addfim(arg1.evento), e, e.ini.remove
+    e.objini.cmd_pegouobj(arg0, arg1, r, total, arg1)
+  efim
+  epara e.addfim(r.evento), e, e.ini.remove
+    e.objini.cmd_pegouobj(arg0, arg1, r, total, r)
+  efim
+  arg0.p_espera += 2
+
+func pegarmoedas
+# arg0=personagem, arg1=de onde pegar, total=quantidade de moedas
+  listaobj e
+  epara e.addfim(arg0.evento), e, e.ini.remove
+    ret e.objini.cmd_pegarmoedas(arg0, arg1, total, arg0), nulo
+  efim
+  epara e.addfim(arg1.evento), e, e.ini.remove
+    ret e.objini.cmd_pegarmoedas(arg0, arg1, total, arg1), nulo
+  efim
+  ret !total, nulo
+  arg1.var.z_moedas_ -= total
+  arg1.var.z_moedas_ < 0 && (arg1.var.z_moedas = "")
+  arg0.var.z_moedas_ += total
+  arg0.p_espera += 2
+  arg1.objmudou = 1
+  $mens.p(arg0, arg1)
+  se total == 1
+    $mens.mvis1("$P pega uma moeda" + mens)
+  senao total == 2
+    $mens.mvis1("$P pega duas moedas" + mens)
+  senao
+    $mens.mvis1("$P pega " + total + " moedas" + mens)
+  fimse

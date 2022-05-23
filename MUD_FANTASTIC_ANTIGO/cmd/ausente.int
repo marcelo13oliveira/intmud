@@ -1,0 +1,21 @@
+classe cmd_ausente
+herda comando_comum
+const posic = 0
+const txtajuda = "\b\c3Ausente\b\n\
+Sintaxe: Ausente\n\
+Mostra aos jogadores que você está ausente."
+#
+#
+
+func escr
+  ret arg0.dentro2.objini("e_ausente"), nulo
+  criar("e_ausente", arg0)
+  se arg1
+    $mens.p(arg0)
+    arg0.var.z_ausente = arg1
+    $mens.mens = arg1
+    $mens.mvis1("\d=ausente $P está ausente: ($m)")
+  senao
+    $mens.p(arg0)
+    $mens.mvis1("\d=ausente $P está ausente")
+  fimse

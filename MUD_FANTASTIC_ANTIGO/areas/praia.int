@@ -1,0 +1,958 @@
+classe a_praia
+herda area
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_nome = "Praia dos gula gula"
+const a_tempo = 10
+const a_txtreset = "Você escuta as ondas do mar se movimentando para lá e para cá."
+
+
+classe b_praia
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_recup = 1
+const s_som = "praia"
+const s_area = "praia"
+
+
+classe i_praia001
+herda comum_itemgrupo
+const nome = "pastel de camarão"
+const descnome = "um pastel de camarão"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 90
+const f_msgperso = "$p saboreia um delicioso camarão assado da tia tana."
+const valor = 50
+
+
+classe i_praia002
+herda comum_itemgrupo
+const nome = "pérola"
+const descnome = "uma pérola"
+const descpos = "Uma pérola jaz aqui, brilhante."
+const tipoitem = 128 # Tipo de produto: 7-Tesouro
+const valor = 2000000
+
+
+classe i_praia003
+herda comum_itemgrupo
+const nome = "maiô"
+const descnome = "um maiô"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 35
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 500
+const vestir1 = 4096 # Aonde vestir: 12-no corpo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10 * pnivel + 100
+  deftipo.1 *= 1.1 # Tipos Especiais
+  deftipo.7 *= 1.1 # Água
+
+
+classe i_praia004
+herda comum_itemgrupo
+const nome = "coco"
+const descnome = "um coco"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_sede = 60
+const f_msgoutros = f_msgperso
+const valor = 600
+const eveste = 1 # Eventos item: Sim
+sav uint8 bebeu
+#
+
+func f_msgperso
+  ret bebeu < 7, "$p bebe água de coco!"
+  ret "$p bebe o último gole de água do coco e o joga fora!"
+#
+
+func cmd_bebeu
+  bebeu += 1
+  bebeu >= 8 && apagar(este)
+
+
+classe i_praia005
+herda comum_item
+const nome = "cachorro quente"
+const descnome = "um cachorro quente"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 120
+const f_msgperso = "$p saboreia lentamente um cachorro quente, sujando a boca com molho de \
+tomate!"
+const valor = 80
+
+
+classe p_praia001
+herda comum_persobat
+const nome = "caranguejo"
+const descnome = "um caranguejo"
+const descpadr = "Um enorme carangueijo está por aqui, com suas enormes mãos em forma de \
+pinça"
+const nivel = 60
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 1200
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 220
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 20 * pnivel + 2000
+  defnorm += 800
+  defesp += 800
+
+
+classe p_praia002
+herda comum_persobat
+const nome = "camarão"
+const descnome = "um camarão"
+const descpadr = "Um camarão está deitado aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 66
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 1300
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 210
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 25 * pnivel + 4000
+  defnorm += 900
+  defesp += 900
+
+
+classe p_praia003
+herda comum_persobat
+const nome = "mulher de biquini"
+const descnome = "uma mulher de biquini"
+const descver = "Com um corpo escutural, belas curvas seios e bumbum fartos, essa bela mulher \
+atrai a atenção de todos que por aqui passam.\n\
+Usando um biquini bem curto, que deixa a mostra parte dos seus seios, ela caminha pela praia se \
+insinuando para os homens."
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 1450
+const p_morreu1 = "\d=mulhermorta $P ainda rebola uma última vez e cai estendida no chão sem \
+vida."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 250
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+  se arg0.psexo == 1
+    misc:tempo("entrou", arg0)
+    ret 1
+  fimse
+#
+
+func entrou50
+  $mens.p(este, arg0)
+  $mens.mvis1("$p olha para $a e dá uma rebolada.")
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 25 * pnivel + 400
+  defnorm += 800
+  defesp += 850
+
+
+classe p_praia004
+herda comum_perso
+const nome = "tia tana"
+const descnome = "tia tana"
+const lojaitem = "praia001 0"
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_chegou
+  misc:evento(arg0)
+  misc:tempo("entrou", arg0)
+
+func entrou60
+  $mens.p(este, arg0)
+  $mens.mvis1("$p diz: oi sobrinh$t querid$t! Vai querer o quê hein mulesta?")
+
+
+classe p_praia005
+herda comum_persobat
+const nome = "ostra"
+const descnome = "uma enorme ostra"
+const descpadr = "Uma enorme ostra está aqui."
+const nivel = 70
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 1350
+
+
+classe p_praia006
+herda comum_perso
+const nome = "velho joalheiro"
+const ident = "velho joalheiro"
+const descnome = "um velho joalheiro"
+const descpadr = "Um velho joalheiro está sentado aqui, analizando algumas pedras preciosas para \
+a confecção de novas joias."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const tipoitem = 128 # Compra produtos: 7-Tesouro
+const p_recebe = 1 # Recebe itens: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "conversar joalheiro"
+    se arg0.var.z_joalheiro
+      arg0.msg("O joalheiro diz: Já lhe falei, " + arg0.descnome + ". Quero uma pérola. Agora \
+vá!")
+    senao arg0.var.z_joa
+      arg0.msg("O joalheiro diz: Não preciso de ajuda por enquanto, " + arg0.descnome + ". \
+Obrigado.")
+    senao
+      misc:tempo("conversarjoalheiro", arg0)
+    fimse
+    ret 1
+  casofim
+#
+
+func conversarjoalheiro10
+  teclou("cum " + arg0.descnome)
+#
+
+func conversarjoalheiro40
+  teclou("f Eu estou trabalhando na confecção de novos colares, mas o estoque de pérolas acabou \
+e não posso me ausentar da minha barraca.")
+  teclou("f Será que você não poderia arranjar pelo menos uma pérola para que eu possa continuar \
+o meu trabalho?")
+  teclou("f Ah! E claro, saberei muito bem como recompensá-l" + (arg0.msexo ? "o" : "a") + \
+"!")
+  arg0.var.z_joalheiro_ = 1
+#
+
+func cmd_darobj
+  se arg1 == este
+    ret !arg0.var.z_joalheiro_, arg0.msg("O joalheiro diz: Não quero nada no momento.")
+    se arg2.nome != "pérola"
+      arg0.msg("O joalheiro olha para você com uma cara estranha e diz: Isso não é uma pérola, " \
++ arg0.descnome + "! Não tente me enganar!")
+      ret 1
+    fimse
+  fimse
+#
+
+func cmd_deuobj
+  se arg1 == este
+    apagar(arg2)
+    arg0.msg("O joalheiro lhe cumprimenta novamente.")
+    teclou("f Muito obrigado, " + arg0.descnome + "!")
+    arg0.msg("Você recebe 10 pontos de aventura.")
+    arg0.var.z_quest_ += 10
+    arg0.ganhaexp(rand(500, 2000))
+    arg0.var.z_joalheiro_ = 0
+    arg0.var.z_joa@ = 48000
+  fimse
+
+
+classe p_praia007
+herda comum_persobat
+const nome = "tartaruga"
+const descnome = "uma tartaruga"
+const descpadr = "Uma tartaruga está se arrastando por aqui."
+const nivel = 60
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 1700
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 300
+
+
+classe p_praia008
+herda comum_persobat
+const nome = "salvavidas"
+const descnome = "um salvavidas"
+const descpadr = "Um forte e jovem salvavidas atenta-se ao movimento na praia, para que não \
+ocorra nenhum acidente."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 90
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 2000
+const p_morreu1 = "\d=homemmorto Com um grande impacto, $P desaba ao chão, sem vida."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 200
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 20 * pnivel + 3000
+
+
+classe p_praia009
+herda comum_perso
+const nome = "cocovaldo"
+const descnome = "Cocovaldo, o vendedor de cocos"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const lojaitem = "praia004 0"
+
+
+classe p_praia010
+herda comum_perso
+const nome = "Cassilda"
+const ident = "Cassilda vendedora"
+const descnome = "Cassilda, a vendedora de cachorro quente"
+const lojaitem = "praia005 0"
+
+
+classe p_praia011
+herda comum_perso
+const nome = "Lorena"
+const ident = "lorena vendedora loira moça jovem bela"
+const descnome = "Lorena"
+const descpadr = "Uma jovem com belas curvas está aqui, apresentando os itens de sua loja para \
+os clientes."
+
+
+classe p_praia012
+herda comum_perso
+const nome = "Kamila"
+const ident = "kamila vendedora açaí"
+const descnome = "Kamila"
+const descpadr = "com muita gentileza e com um belo sorriso no rosto, Kamila atende a todos com \
+muita praticidade"
+const descver = "essa linda jovem, parece esbanjar felicidade e uma tranquilidade típica de \
+alguém que ama o mar.\n\
+seus belos e brilhantes cabelos vermelhos, parece refletir sobre os incandescentes raios do sol, \
+destacando ainda mais-sua beleza estonteante,\n\
+e evidenciando ainda mais seus traços já tão fortes.\n\
+seus olhos de um azul intenso como as límpidas águas do oceano, te fitam com intensidade, e com \
+amabilidade.\n\
+e o sorriso doce, contrastando com a pureza existente em seu rosto delicado e de maçãs proeminent\
+es, te inibem diante de tamanha beleza,\n\
+porém, você é incapaz de cansar de olhar para esta moça."
+const lojaitem = "item135 0"
+
+
+classe s_praia001
+herda b_praia
+const s_titulo = "O calçadão da praia."
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_pnj = 0
+const dir_n = $s_praia015
+const dir_s = $s_campraia010
+const dir_l = $s_praia017
+const dir_o = $s_praia018
+
+
+classe s_praia002
+herda b_praia
+const s_titulo = "No calçadão da praia"
+const dir_n = $s_praia003
+const dir_s = $s_praia015
+const dir_l = $s_praia004
+const dir_o = $s_praia005
+const a_reset = "I 100 rio007 1\nP 100 praia001 60 65 5 z_moedas=50000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_praia001:objsolto.total < 5
+    criar("p_praia001", este, rand(60, 65), "z_moedas=50000")
+  fimse
+
+
+classe s_praia003
+herda b_praia
+const s_titulo = "a grande praia"
+const s_fome = 1 # Fome e sede: 1 Ausente
+const dir_n = $s_praia014
+const dir_s = $s_praia002
+const dir_l = $s_praia008
+const dir_o = $s_praia023
+const a_reset = "P 100 praia003 70 74 4 z_moedas=20000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_praia003:objsolto.total < 4
+    criar("p_praia003", este, rand(70, 74), "z_moedas=20000")
+  fimse
+
+
+classe s_praia004
+herda b_praia
+const s_titulo = "A grande praia"
+const dir_n = $s_praia008
+const dir_l = $s_praia007
+const dir_o = $s_praia002
+
+
+classe s_praia005
+herda b_praia
+const s_titulo = "A grande praia"
+const dir_n = $s_praia023
+const dir_l = $s_praia002
+const dir_o = $s_praia013
+const a_reset = "P 100 praia002 66 70 5 z_moedas=75000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_praia002:objsolto.total < 5
+    criar("p_praia002", este, rand(66, 70), "z_moedas=75000")
+  fimse
+
+
+classe s_praia006
+herda b_praia
+const s_titulo = "No calçadão da praia"
+const dir_n = $s_praia012
+const dir_o = $s_praia017
+
+
+classe s_praia007
+herda b_praia
+const s_titulo = "A grande praia"
+const dir_n = $s_praia010
+const dir_l = $s_praia030
+const dir_o = $s_praia004
+
+
+classe s_praia008
+herda b_praia
+const s_titulo = "A grande praia"
+const dir_n = $s_praia009
+const dir_s = $s_praia004
+const dir_l = $s_praia010
+const dir_o = $s_praia003
+
+
+classe s_praia009
+herda b_praia
+const s_titulo = "à beira das águas do mar"
+const dir_n = $s_praia034
+const dir_s = $s_praia008
+const dir_l = $s_praia011
+const dir_no = $s_praia031
+const a_reset = "P 100 praia005 0 0 2 z_moedas=100000\nI 100 praia002 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  se p_praia005:objsolto.total < 2
+    p = u = criar("p_praia005", este, 0, "z_moedas=100000")
+  fimse
+  u && criar("i_praia002", u, 1)
+
+
+classe s_praia010
+herda b_praia
+const s_titulo = "A grande praia"
+const dir_n = $s_praia011
+const dir_s = $s_praia007
+const dir_l = $s_praia029
+const dir_o = $s_praia008
+
+
+classe s_praia011
+herda b_praia
+const s_titulo = "à beira das águas do mar"
+const dir_n = $s_praia035
+const dir_s = $s_praia010
+const dir_l = $s_praia028
+const dir_o = $s_praia009
+const a_reset = "P 100 praia005 0 0 4 z_moedas=100000\n\
+I 100 praia002 1\n\
+P 100 praia005 0 0 2 z_moedas=100000\n\
+I 100 praia002 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  se p_praia005:objsolto.total < 4
+    p = u = criar("p_praia005", este, 0, "z_moedas=100000")
+  fimse
+  u && criar("i_praia002", u, 1)
+  p = u = nulo
+  se p_praia005:objsolto.total < 2
+    p = u = criar("p_praia005", este, 0, "z_moedas=100000")
+  fimse
+  u && criar("i_praia002", u, 1)
+
+
+classe s_praia012
+herda b_praia
+const s_titulo = "A barraca do joalheiro"
+const dir_s = $s_praia006
+const s_reset = "P 100 praia006 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_praia006:objsolto.total < 1
+    criar("p_praia006", este, 0)
+  fimse
+
+
+classe s_praia013
+herda b_praia
+const s_titulo = "A grande praia"
+const dir_n = $s_praia024
+const dir_l = $s_praia005
+const dir_o = $s_praia016
+const a_reset = "P 100 praia007 0 0 5 z_moedas=500000\n\
+P 100 praia007 0 0 5 z_moedas=500000\n\
+P 100 praia007 0 0 5 z_moedas=500000\n\
+P 100 praia007 0 0 5 z_moedas=500000\n\
+P 100 praia007 0 0 5 z_moedas=500000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_praia007:objsolto.total < 5
+    criar("p_praia007", este, 0, "z_moedas=500000")
+  fimse
+  se p_praia007:objsolto.total < 5
+    criar("p_praia007", este, 0, "z_moedas=500000")
+  fimse
+  se p_praia007:objsolto.total < 5
+    criar("p_praia007", este, 0, "z_moedas=500000")
+  fimse
+  se p_praia007:objsolto.total < 5
+    criar("p_praia007", este, 0, "z_moedas=500000")
+  fimse
+  se p_praia007:objsolto.total < 5
+    criar("p_praia007", este, 0, "z_moedas=500000")
+  fimse
+
+
+classe s_praia014
+herda b_praia
+const s_titulo = "A grande praia"
+const dir_s = $s_praia003
+const dir_o = $s_praia026
+
+
+classe s_praia015
+herda b_praia
+const s_titulo = "No calçadão da praia"
+const dir_n = $s_praia002
+const dir_s = $s_praia001
+
+
+classe s_praia016
+herda b_praia
+const s_titulo = "Um posto de salvavidas"
+const dir_l = $s_praia013
+const a_reset = "P 100 praia008 0 0 10 h_socar=4,z_moedas=300000\n\
+P 100 praia008 0 0 10 h_socar=4,z_moedas=250000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_praia008:objsolto.total < 10
+    criar("p_praia008", este, 0, "h_socar=4,z_moedas=300000")
+  fimse
+  se p_praia008:objsolto.total < 10
+    criar("p_praia008", este, 0, "h_socar=4,z_moedas=250000")
+  fimse
+
+
+classe s_praia017
+herda b_praia
+const s_titulo = "No calçadão da praia"
+const dir_n = $s_praia020
+const dir_s = $s_praia064
+const dir_l = $s_praia006
+const dir_o = $s_praia001
+
+
+classe s_praia018
+herda b_praia
+const s_titulo = "No calçadão da praia"
+const dir_n = $s_praia019
+const dir_s = $s_praia065
+const dir_l = $s_praia001
+const dir_o = $s_praia021
+
+
+classe s_praia019
+herda b_praia
+const s_titulo = "Uma barraca de água de coco"
+const dir_s = $s_praia018
+const s_reset = "P 100 praia009 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_praia009:objsolto.total < 1
+    criar("p_praia009", este, 0)
+  fimse
+
+
+classe s_praia020
+herda b_praia
+const s_titulo = "Uma barraca de pastel"
+const s_pnj = 0
+const dir_s = $s_praia017
+const s_reset = "P 100 praia004 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_praia004:objsolto.total < 1
+    criar("p_praia004", este, 0)
+  fimse
+
+
+classe s_praia021
+herda b_praia
+const s_titulo = "No calçadão da praia"
+const dir_n = $s_praia022
+const dir_l = $s_praia018
+
+
+classe s_praia022
+herda b_praia
+const s_titulo = "Uma barraquinha de cachorro quente"
+const dir_s = $s_praia021
+const s_reset = "P 100 praia010 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_praia010:objsolto.total < 1
+    criar("p_praia010", este, 0)
+  fimse
+
+
+classe s_praia023
+herda b_praia
+const s_titulo = "a grande praia"
+const dir_n = $s_praia026
+const dir_s = $s_praia005
+const dir_l = $s_praia003
+const dir_o = $s_praia024
+
+
+classe s_praia024
+herda b_praia
+const s_titulo = "a grande praia"
+const dir_n = $s_praia027
+const dir_s = $s_praia013
+const dir_l = $s_praia023
+const dir_o = $s_praia025
+
+
+classe s_praia025
+herda b_praia
+const s_titulo = "Outro posto de salvavidas"
+const dir_l = $s_praia024
+
+
+classe s_praia026
+herda b_praia
+const s_titulo = "A grande praia"
+const dir_s = $s_praia023
+const dir_l = $s_praia014
+const dir_o = $s_praia027
+
+
+classe s_praia027
+herda b_praia
+const s_titulo = "A grande praia"
+const dir_s = $s_praia024
+const dir_l = $s_praia026
+
+
+classe s_praia028
+herda b_praia
+const s_titulo = "à beira das águas do mar"
+const dir_n = $s_praia036
+const dir_s = $s_praia029
+const dir_o = $s_praia011
+const dir_ne = $s_praia060
+
+
+classe s_praia029
+herda b_praia
+const s_titulo = "A grande praia"
+const dir_n = $s_praia028
+const dir_s = $s_praia030
+const dir_o = $s_praia010
+
+
+classe s_praia030
+herda b_praia
+const s_titulo = "A grande praia"
+const dir_n = $s_praia029
+const dir_o = $s_praia007
+
+
+classe s_praia031
+herda b_praia
+const s_titulo = "Dentro d'água"
+const dir_n = $s_praia032
+const dir_se = $s_praia009
+
+
+classe s_praia032
+herda b_praia
+const s_titulo = "Dentro d'água"
+const dir_n = $s_praia033
+const dir_s = $s_praia031
+const dir_l = $s_praia034
+const dir_no = $s_praia045
+
+
+classe s_praia033
+herda b_praia
+const s_titulo = "Uma parte raza nas águas"
+const dir_n = $s_praia054
+const dir_s = $s_praia032
+const dir_l = $s_praia038
+
+
+classe s_praia034
+herda b_praia
+const s_titulo = "Dentro d'água"
+const dir_n = $s_praia038
+const dir_s = $s_praia009
+const dir_l = $s_praia035
+const dir_o = $s_praia032
+
+
+classe s_praia035
+herda b_praia
+const s_titulo = "Dentro d'água"
+const dir_n = $s_praia039
+const dir_s = $s_praia011
+const dir_l = $s_praia036
+const dir_o = $s_praia034
+
+
+classe s_praia036
+herda b_praia
+const s_titulo = "Dentro d'água"
+const dir_n = $s_praia040
+const dir_s = $s_praia028
+const dir_l = $s_praia037
+const dir_o = $s_praia035
+
+
+classe s_praia037
+herda b_praia
+const s_titulo = "Dentro d'água"
+const dir_n = $s_praia041
+const dir_s = $s_praia060
+const dir_o = $s_praia036
+const dir_ne = $s_praia042
+
+
+classe s_praia038
+herda b_praia
+const s_titulo = "Uma parte raza nas águas"
+const dir_s = $s_praia034
+const dir_l = $s_praia039
+const dir_o = $s_praia033
+
+
+classe s_praia039
+herda b_praia
+const s_titulo = "Uma parte raza nas águas"
+const dir_s = $s_praia035
+const dir_l = $s_praia040
+const dir_o = $s_praia038
+
+
+classe s_praia040
+herda b_praia
+const s_titulo = "Uma Parte raza nas águas"
+const dir_s = $s_praia036
+const dir_l = $s_praia041
+const dir_o = $s_praia039
+const dir_ne = $s_praia050
+
+
+classe s_praia041
+herda b_praia
+const s_titulo = "Uma parte raza nas águas"
+const dir_s = $s_praia037
+const dir_o = $s_praia040
+
+
+classe s_praia042
+herda b_praia
+const s_titulo = "Dentro d'água"
+const dir_l = $s_praia043
+const dir_so = $s_praia037
+
+
+classe s_praia043
+herda b_praia
+const s_titulo = "Dentro d'água"
+const dir_o = $s_praia042
+const dir_ne = $s_praia044
+
+
+classe s_praia044
+herda b_praia
+const s_titulo = "Dentro d'água"
+const dir_l = $s_praia049
+const dir_so = $s_praia043
+
+
+classe s_praia045
+herda b_praia
+const s_titulo = "Dentro d'água"
+const dir_o = $s_praia046
+const dir_se = $s_praia032
+
+
+classe s_praia046
+herda b_praia
+const s_titulo = "Dentro d'água"
+const dir_l = $s_praia045
+const dir_no = $s_praia047
+
+
+classe s_praia047
+herda b_praia
+const s_titulo = "Dentro d'água"
+const dir_o = $s_praia048
+const dir_se = $s_praia046
+
+
+classe s_praia048
+herda b_praia
+const s_titulo = "Dentro d'água"
+const dir_l = $s_praia047
+
+
+classe s_praia049
+herda b_praia
+const s_titulo = "Dentro d'água"
+const dir_o = $s_praia044
+
+
+classe s_praia050
+herda b_praia
+const s_titulo = "Uma parte raza nas águas"
+const dir_l = $s_praia051
+const dir_so = $s_praia040
+
+
+classe s_praia051
+herda b_praia
+const s_titulo = "Uma parte raza nas águas"
+const dir_o = $s_praia050
+const dir_ne = $s_praia052
+
+
+classe s_praia052
+herda b_praia
+const s_titulo = "Uma parte raza nas águas"
+const dir_l = $s_praia053
+const dir_so = $s_praia051
+
+
+classe s_praia053
+herda b_praia
+const s_titulo = "Uma parte raza nas águas"
+const dir_o = $s_praia052
+
+
+classe s_praia054
+herda b_praia
+const s_titulo = "Uma parte mais funda na água"
+const dir_s = $s_praia033
+const dir_l = $s_praia055
+
+
+classe s_praia055
+herda b_praia
+const s_titulo = "Uma parte mais funda na água"
+const dir_l = $s_praia056
+const dir_o = $s_praia054
+
+
+classe s_praia056
+herda b_praia
+const s_titulo = "Uma parte mais funda na água"
+const dir_l = $s_praia057
+const dir_o = $s_praia055
+
+
+classe s_praia057
+herda b_praia
+const s_titulo = "Uma parte mais funda na água"
+const dir_o = $s_praia056
+const dir_ne = $s_praia058
+
+
+classe s_praia058
+herda b_praia
+const s_titulo = "Uma parte mais funda na água"
+const dir_l = $s_praia059
+const dir_so = $s_praia057
+
+
+classe s_praia059
+herda b_praia
+const s_titulo = "Uma parte mais funda na água"
+const dir_o = $s_praia058
+
+
+classe s_praia060
+herda b_praia
+const s_titulo = "À beira das águas do mar"
+const dir_n = $s_praia037
+const dir_l = $s_praia061
+const dir_so = $s_praia028
+
+
+classe s_praia061
+herda b_praia
+const s_titulo = "A beira das águas do mar"
+const dir_o = $s_praia060
+const dir_ne = $s_praia062
+
+
+classe s_praia062
+herda b_praia
+const s_titulo = "À beira das águas do mar"
+const dir_l = $s_praia063
+const dir_so = $s_praia061
+
+
+classe s_praia063
+herda b_praia
+const s_titulo = "À beira das águas do mar"
+const dir_o = $s_praia062
+
+
+classe s_praia064
+herda b_praia
+const s_titulo = "Loja de roupas para banho"
+const dir_n = $s_praia017
+const s_reset = "P 100 praia011 0 0 1\nE 100 roupas019 1 13"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_praia011:objsolto.total < 1
+    p = u = criar("p_praia011", este, 0)
+  fimse
+  se u
+    r = criar("i_roupas019", u, 1), r.vestir(13), u.recalc = 1
+  fimse
+
+
+classe s_praia065
+herda b_praia
+const s_titulo = "uma barraquinha de açaí"
+const dir_n = $s_praia018
+const a_reset = "P 100 praia012 0 0 1 nn"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_praia012:objsolto.total < 1
+    criar("p_praia012", este, 0, "nn")
+  fimse

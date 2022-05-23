@@ -1,0 +1,2543 @@
+classe a_paraiso
+herda area
+const a_luta = 1
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_txtreset = "Uma leve brisa faz você se sentir mais tranquilo"
+const a_tempo = 30
+const a_nome = "O paraíso"
+
+
+classe b_paraiso
+herda sala
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_recup = 5
+const s_area = "paraiso"
+
+
+classe i_paraiso001
+herda comum_itemperso
+const nome = "A balança da justiça"
+const ident = "balança justiça"
+const descnome = "A balança da justiça"
+const descpos = "Dois pratos bonitos em forma de balança foram deixados aqui."
+const descver = "Quando você olha para os pratos, você percebe que eles parecem balançar\n\
+para trás e para frente por sua própria vontade, como se estivesse pesando\n\
+algo que é para você ainda invisível."
+const nivel = 53
+const renascer = 5
+const pesoobj = 1000
+const vestir1 = "1000000" # Aonde vestir: 24-segurando
+const vestirnao = "necromante"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 110
+  pmanamax += 230
+  pveloc1 += 55
+  pesomax += 5000
+
+
+classe i_paraiso002
+herda comum_itemperso
+const nome = "O protetor dos fiéis"
+const ident = "escudo protetor fiéis"
+const descnome = "O protetor dos fiéis"
+const descpos = "Um escudo pesado foi abandonado por um indigno de segurá-lo."
+const descver = "Ele foge de suas tentativas de se concentrar nele, desviando o olhar, pois\n\
+desvia As armas que vão tentar matá-lo."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 40
+const renascer = 5
+const pesoobj = 3000
+const vestir1 = "8000" # Aonde vestir: 15-Como escudo
+const vestirnao = "guerreiro\nladrão"
+const vestirsim = 0 # Podem vestir: 0 Todos
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50
+  pmanamax += 70
+  pmovemax += -20
+  pveloc1 += 22
+  atknorm += 40
+  defnorm += 10
+  atkesp += 20
+  defesp += 20
+  evasao += 10
+  precisao += 15
+  pesomax += 5000
+
+
+classe i_paraiso003
+herda comum_itemperso
+const nome = "O pergaminho do mensageiro"
+const descnome = "O pergaminho do mensageiro"
+const descpos = "Você vê um pergaminho de rolagem sólida e forrado de prata descansando no \
+chão."
+const descver = "Parece ser algum tipo de feitiço projetado para transportar o seu\n\
+utilizador através de grandes distâncias, mas como fazer uso disso é\n\
+impossível dizer."
+
+
+classe i_paraiso004
+herda comum_itemperso
+const nome = "Uma espada resplandecente"
+const ident = "espada resplandecente"
+const descnome = "Uma espada resplandecente"
+const descpos = "Você se assusta com a visão de uma espada que brilha quando você se aproxima \
+dela."
+const descver = "A borda da lâmina é revestida com a escrita, verso religioso,\n\
+aparentemente, em uma multa, roteiro prata-atado e fluindo."
+const nivel = 73
+const renascer = 5
+const armamax = 1900
+const armamin = 300
+const armaprecisao = 100
+const armaaddprecisao = 100
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const pesoobj = 1250
+const vestirnao = "assassino\nclerigo\nfeiticeiro\nladrão\nmago"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 130
+
+
+classe i_paraiso005
+herda comum_itemperso
+const nome = "O amuleto de Ra"
+const descnome = "O amuleto de Ra"
+const descpos = "Você encontrou um disco brilhante bonito com uma imagem de ouro do deus do \
+sol."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 1
+const renascer = 10
+const pesoobj = 400
+const vestir1 = "20" # Aonde vestir: 5-No pescoço
+const vestirnao = "assassino\nespadachim\nguerreiro\nladrão"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30
+  pmanamax += 5
+  pmovemax += 20
+  pveloc1 += -5
+  atknorm += 35
+  defnorm += 11
+  atkesp += 25
+  defesp += -5
+  precisao += 25
+
+
+classe i_paraiso006
+herda comum_itemperso
+const nome = "A imagem esculpida de Azathoth"
+const descnome = "A imagem esculpida de Azathoth"
+const descpos = "Você franze a testa, desgostoso com o ícone hediondo de um falso deus que você \
+encontrou."
+const renascer = 5
+const pesoobj = 250
+const vestir1 = "1000000" # Aonde vestir: 24-segurando
+const vestirnao = "clerigo"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5
+  pmanamax += 5
+  pmovemax += 5
+  pveloc1 += 2
+  atknorm += 5
+  defnorm += -2
+  atkesp += 5
+  defesp += -2
+
+
+classe i_paraiso007
+herda comum_itemperso
+const nome = "A surata do livro"
+const descnome = "A surata do livro"
+const descpos = "Você percebe um pergaminho fino, com roteiro de fluxo e rica guarnição decorativ\
+a."
+const descver = "Al-Kafirun Diz: \"Oh voses que rejeitam a fé, eu não adoro o que vocês\n\
+adoram, nem vocês adoram o que eu adoro. Para você ser o seu caminho, e Eu\n\
+sigo o meu.\""
+const nivel = 69
+const renascer = 10
+const luzitem = 7 # Tipo de luz: 7 Automático (acende ao vestir, sem fogo)
+const luzini = 74400
+const pesoobj = 150
+const vestir1 = "400000" # Aonde vestir: 22-Como luz
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 600
+  pmanamax += 600
+  pmovemax += 155
+  pveloc1 += 70
+  atknorm += 99
+  defnorm += 99
+  atkesp += 55
+  evasao += 180
+  precisao += -70
+  pesomax += -10000
+
+
+classe i_paraiso008
+herda comum_itemperso
+const nome = "A forja da concórdia"
+const ident = "luvas forja concórdia"
+const descnome = "A forja da concórdia"
+const descpos = "É certamente o melhor dos homens que deixou estas luvas para ajudá-lo."
+const descver = "Realmente um trabalho perfeito, que somente o melhor dos homens conseguiria\n\
+realizar."
+const nivel = 1
+const renascer = 5
+const pesoobj = 1000
+const vestir1 = "400" # Aonde vestir: 10-Nas mãos
+const vestirnao = "mago\nnecromante"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += -30
+  pmanamax += -30
+  pmovemax += -20
+  pveloc1 += 8
+  atknorm += 19
+  defnorm += 13
+  atkesp += 11
+  defesp += 19
+
+
+classe i_paraiso009
+herda comum_itemperso
+const nome = "Uma chama etérea"
+const descpos = "A sala inteira se ilumina de uma chama em seus pés."
+const descver = "Mesmo estando próximo enche você com uma sensação de paz e o conforta."
+const nivel = 1
+const renascer = 5
+const luzitem = 7 # Tipo de luz: 7 Automático (acende ao vestir, sem fogo)
+const luzini = 148800
+const pesoobj = 120
+const vestir1 = "400000" # Aonde vestir: 22-Como luz
+const vestirnao = "assassino\nespadachim\nguerreiro\nladrão"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += -10
+  pmanamax += 55
+  pmovemax += 55
+  atknorm += 7
+  defnorm += 22
+  atkesp += 22
+  evasao += 9
+  precisao += 9
+  pesomax += 100000
+
+
+classe i_paraiso010
+herda comum_itemperso
+const nome = "Uma cimitarra adornada"
+const descnome = "Uma cimitarra adornada"
+const descpos = "Uma cimitarra de jóias está encostada aqui, a procura de um novo dono."
+const descver = "Da borda ao punho da cimitarra é enfeitado em uma matriz linda de pedras \
+e\n\
+metais preciosos."
+const nivel = 42
+const renascer = 5
+const armamax = 1943
+const armamin = 674
+const armaaddprecisao = 100
+const armatipo = 3 # Tipo de arma: 3 Lâmina curta
+const pesoobj = 900
+const tipoitem = 2 # Tipo de produto: 1-Arma
+const valor = 500
+const vestirnao = "guerreiro"
+const armaprecisao = 100
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5000
+  atknorm += -150
+  defnorm += -150
+  atkesp += -150
+  defesp += -150
+  evasao += 150
+  precisao += 150
+
+
+classe i_paraiso011
+herda comum_item
+const nome = "Um tecido desbotado"
+const descnome = "Um tecido desbotado"
+const descpos = "Um tecido roto e desbotado de pano foi deixado aqui, esquecido."
+const descver = "Ele tem algum tipo de milícia insignia sobre ele, talvez uma indicação de\n\
+um posto ou prêmio em alguma ordem militar desconhecido para você."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 1
+const renascer = 5
+const pesoobj = 300
+const vestir1 = "80" # Aonde vestir: 7-Sobre o corpo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 36
+  pmanamax += 36
+  pmovemax += 36
+  pveloc1 += 2
+  atknorm += 9
+  defnorm += -5
+  atkesp += 9
+  defesp += -5
+  evasao += 10
+
+
+classe i_paraiso012
+herda comum_item
+const nome = "Um carvão em brasa"
+const descnome = "Um carvão em brasa"
+const descpos = "Você olha rapidamente para uma brasa latente que repousa em seus pés."
+const descver = "Ele brilha para trás de você, aparentando estar com raiva."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 70
+const renascer = 2
+const pesoobj = 473
+const vestir1 = "400000" # Aonde vestir: 22-Como luz
+const vestirnao = "bispo\nclérigo"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += -500
+  pmanamax += -500
+  pmovemax += -400
+  pveloc1 += 66
+  atknorm += 93
+  defnorm += 81
+  atkesp += 93
+  defesp += 88
+  evasao += 100
+  precisao += -30
+
+
+classe i_paraiso013
+herda comum_item
+const nome = "Uma história em cinzas"
+const descnome = "Uma história em cinzas"
+const descpos = "Você encontrou um livro queimado, de alguma história esquecida no chão."
+const descver = "Portanto, esta é a piada do bobo da corte. Lamentável que todas as nossas\n\
+obras tenham virado pó, E terminará em nada. É por isso que ele ri."
+const pesoobj = 950
+
+
+classe i_paraiso014
+herda comum_item
+const nome = "Um pingente dourado"
+const descnome = "Um pingente dourado"
+const descpos = "Você vê um belo pingente de artesanato antigo e nobre."
+const descver = "É uma versão ainda mais passada de uma antiga cruz cristã, um loop oval\n\
+Acima dos braços cruzados de ouro branco."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 0
+const renascer = 5
+const pesoobj = 500
+const vestir1 = "20" # Aonde vestir: 5-No pescoço
+const vestirnao = "bispo\nclerigo\nfeiticeiro\nmago\nnecromante"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 55
+  pmanamax += -20
+  pveloc1 += 3
+  atknorm += 10
+  defnorm += 10
+
+
+classe i_paraiso015
+herda comum_itemperso
+const nome = "Uma espada flamejante"
+const descnome = "Uma espada flamejante"
+const descpos = "Uma lâmina flamejante ilumina toda a sala."
+const nivel = 53
+const renascer = 7
+const armamax = 2600
+const armamin = 60
+const armaprecisao = 100
+const armaaddprecisao = 100
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const pesoobj = 2000
+const vestirnao = "assassino\n\
+bispo\n\
+clerigo\n\
+feiticeiro\n\
+humano\n\
+ladrao\n\
+mago\n\
+necromante"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 599
+  pmanamax += 599
+  pveloc1 += 55
+  atknorm += 99
+  precisao += 99
+
+
+classe i_paraiso016
+herda comum_itemperso
+const nome = "A Máscara da vida"
+const ident = "Máscara vida"
+const descnome = "A máscara da vida"
+const descpos = "Uma linda máscara azulada foi deixada aqui."
+const descver = " Esta máscara, pertencente ao antigo deus alá, é extremamente linda.  Com\n\
+detalhes em puro ouro azulado, ela lhe dá uma sensação de vitorioso  Seu\n\
+charme e sua levesa são mais do que graciosos, e ela emite um brilho e\n\
+vibrações estridentes!"
+const nivel = 90
+const renascer = 10
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 1000
+const vestir1 = "4" # Aonde vestir: 2-No rosto
+const vestirnao = "anão\nhumano"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1500
+  pmanamax += 1000
+  pmovemax += 1000
+  pveloc1 += 55
+  atknorm += 88
+  defnorm += 77
+  atkesp += 89
+  defesp += 77
+  evasao += 88
+  precisao += -62
+  pesomax += 100000
+
+
+classe p_paraiso001
+herda comum_persobat
+const nome = "Um Bufão"
+const descnome = "Um Bufão"
+const descpadr = "Um bufão louco e bêbado está sentado aqui, perdido em um entorpecimento \
+profundo."
+const descver = "Ele fixa um obscuro olhar em você. Enquanto ele lentamente afaga o próprio\n\
+queixo, você o ouve murmurar coisas confusas: dragões, o templo, a queda de\n\
+grandes impérios. Ele gargalha à sua frente e toma mais um gole."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 120
+const tipo1 = "npc"
+const equip3 = 0 # Equip remover:
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 190
+const inivar = "h_segundo_ataque=8,z_moedas=2300"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morrer
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$w... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: arrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!\n\
+$A grita: Que o Deus Ekord te acompanhe, $R.\n\
+$A grita: Que o Deus Surt te acompanhe, $R.\n\
+$A grita: Que a Deusa Liza te acompanhe, $R.\n\
+$A grita: Que o Deus Seiya te acompanhe, $R.\n\
+$A grita: Que o Deus Herackles te acompanhe, $R.\n\
+$A grita: Me agradeçam! Pois matei $R, o ser mais feio deste mundo! Mhuahaaua"
+
+
+classe p_paraiso002
+herda comum_persobat
+const nome = "Iblis"
+const descnome = "Iblis"
+const descpadr = "Você pára em admiração diante do mais bonito de todos os anjos, o anjo \
+caído."
+const descver = "Ele sorri calmamente, e começa a contar a você sobre o tempo em que ele não\n\
+se ajoelharia, em que não se prostraria diante dos primeiros seres humanos.\n\
+Ele então faz um gesto diante de ti, sorrindo, e conjura uma imagem de todas\n\
+as tentações que serão suas caso você se torne seu seguidor."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 150
+const tipo1 = "npc"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 200
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morrer
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$w... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: arrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!\n\
+$A grita: Que o Deus Ekord te acompanhe, $R.\n\
+$A grita: Que o Deus Surt te acompanhe, $R.\n\
+$A grita: Que a Deusa Liza te acompanhe, $R.\n\
+$A grita: Que o Deus Seiya te acompanhe, $R.\n\
+$A grita: Que o Deus Herackles te acompanhe, $R.\n\
+$A grita: Me agradeçam! Pois matei $R, o ser mais feio deste mundo! Mhuahaaua"
+
+
+classe p_paraiso003
+herda comum_persobat
+const nome = "A tentação"
+const descnome = "A Tentação"
+const descpadr = "Você interrompe seu andar, nervoso, à medida em que uma voz sussura sobre seu \
+ombro."
+const descver = "Não há nenhuma figura física relacionada à presença que domina este lugar,\n\
+apenas risos atormentados, gemidos, gritos e súplicas."
+const nivel = 160
+const tipo1 = "npc"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 191
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=1"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morrer
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$w... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: arrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!\n\
+$A grita: Que o Deus Ekord te acompanhe, $R.\n\
+$A grita: Que o Deus Surt te acompanhe, $R.\n\
+$A grita: Que a Deusa Liza te acompanhe, $R.\n\
+$A grita: Que o Deus Seiya te acompanhe, $R.\n\
+$A grita: Que o Deus Herackles te acompanhe, $R.\n\
+$A grita: Me agradeçam! Pois matei $R, o ser mais feio deste mundo! Mhuahaaua"
+
+
+classe p_paraiso004
+herda comum_persobat
+const nome = "O dragão que rosna"
+const descnome = "O dragão que rosna"
+const descpadr = "Um dragão rosnando vira violentamente em sua direção, com fome de sua alma."
+const descver = "A serpente da babilônia, o antigo e violento monstro colorido que tem\n\
+observado toda a humanidade sucumbiu diante do poder dele, vira para você,\n\
+como uma última vítima."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 170
+const tipo1 = "npc"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 194
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=20000"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morrer
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$w... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: arrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!\n\
+$A grita: Que o Deus Ekord te acompanhe, $R.\n\
+$A grita: Que o Deus Surt te acompanhe, $R.\n\
+$A grita: Que a Deusa Liza te acompanhe, $R.\n\
+$A grita: Que o Deus Seiya te acompanhe, $R.\n\
+$A grita: Que o Deus Herackles te acompanhe, $R.\n\
+$A grita: Me agradeçam! Pois matei $R, o ser mais feio deste mundo! Mhuahaaua"
+
+
+classe p_paraiso005
+herda comum_persobat
+const nome = "O demônio"
+const descnome = "O Demônio"
+const descpadr = "Uma chama de fogo do inferno envolve você, dominada por um demônio em chamas."
+const descver = "Você não vê nada além de uma inexoravelmente vermelha e quente fúria do\n\
+senhor do mundo inferior, a quem você teme entregar seu destino."
+const nivel = 180
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 196
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=10000"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morrer
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$w... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: arrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!\n\
+$A grita: Que o Deus Ekord te acompanhe, $R.\n\
+$A grita: Que o Deus Surt te acompanhe, $R.\n\
+$A grita: Que a Deusa Liza te acompanhe, $R.\n\
+$A grita: Que o Deus Seiya te acompanhe, $R.\n\
+$A grita: Que o Deus Herackles te acompanhe, $R.\n\
+$A grita: Me agradeçam! Pois matei $R, o ser mais feio deste mundo! Mhuahaaua"
+
+
+classe p_paraiso006
+herda comum_persobat
+const nome = "O arcanjo Raphael"
+const descnome = "O arcanjo Raphael"
+const descpadr = "O arcanjo Raphael olha para cima e em seguida em sua direção, o desaprovando."
+const descver = "É impossível formar uma idéia sólida deste arcanjo. Não possuindo nada de\n\
+humano, e cochichando, ele dissipa toda e qualquer imagem acerca dele que\n\
+você possa tentar criar em sua mente."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 200
+const tipo1 = "npc"
+const tipo2 = "npc"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 200
+const inivar = "e_sanc=0,h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=1"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morrer
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$w... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: arrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!\n\
+$A grita: Que o Deus Ekord te acompanhe, $R.\n\
+$A grita: Que o Deus Surt te acompanhe, $R.\n\
+$A grita: Que a Deusa Liza te acompanhe, $R.\n\
+$A grita: Que o Deus Seiya te acompanhe, $R.\n\
+$A grita: Que o Deus Herackles te acompanhe, $R.\n\
+$A grita: Me agradeçam! Pois matei $R, o ser mais feio deste mundo! Mhuahaaua"
+
+
+classe p_paraiso007
+herda comum_persobat
+const nome = "Uriel, o anjo da escuridão"
+const descnome = "Uriel, o anjo da escuridão"
+const descpadr = "Uriel, o anjo da escuridão, guarda o caminho adiante."
+const descver = "Após a queda do portador da luz, o Senhor precisou do serviço de um quarto,\n\
+que foi este anjo, Uriel, que chegou à mais alta posição possível."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 200
+const tipo1 = "npc"
+const tipo2 = "npc"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 201
+const inivar = "e_negra=0,h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=1"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morrer
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$w... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: arrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!\n\
+$A grita: Que o Deus Ekord te acompanhe, $R.\n\
+$A grita: Que o Deus Surt te acompanhe, $R.\n\
+$A grita: Que a Deusa Liza te acompanhe, $R.\n\
+$A grita: Que o Deus Seiya te acompanhe, $R.\n\
+$A grita: Que o Deus Herackles te acompanhe, $R.\n\
+$A grita: Me agradeçam! Pois matei $R, o ser mais feio deste mundo! Mhuahaaua"
+
+
+classe p_paraiso008
+herda comum_persobat
+const nome = "O velho arruinado"
+const descnome = "O velho arruinado"
+const descpadr = "Um velho homem fracassado estremece aqui, berrando para o mundo."
+const descver = "Ele veste um uniforme desbotado, decorado com honrarias criadas por ele\n\
+próprio. Possui as mandíbulas frouxas e pastosas bolsas brancas penduradas\n\
+sob seus olhos, repletos de ódio. Um tufo emaranhado de cabelo negro se\n\
+dispersa sobre a fronte da cabeça, enquanto a mão direita dele sacode e\nsacode."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 175
+const tipo1 = "npc"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 190
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=1"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morrer
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$w... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: arrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!\n\
+$A grita: Que o Deus Ekord te acompanhe, $R.\n\
+$A grita: Que o Deus Surt te acompanhe, $R.\n\
+$A grita: Que a Deusa Liza te acompanhe, $R.\n\
+$A grita: Que o Deus Seiya te acompanhe, $R.\n\
+$A grita: Que o Deus Herackles te acompanhe, $R.\n\
+$A grita: Me agradeçam! Pois matei $R, o ser mais feio deste mundo! Mhuahaaua"
+
+
+classe p_paraiso009
+herda comum_persobat
+const nome = "Al-Hakim, o califa louco"
+const descnome = "Al-Hakim, o califa louco"
+const descpadr = "O califa louco al-Hakim está aqui, retalhando um pequeno garoto."
+const descver = "Pele escura, mas de olhos muito brancos. Aparentemente coberto apenas por\n\
+uma túnica de lã, ele não toma banho há meses, nem come nada há dias...\n\
+entretanto, possui um sorriso ainda fascinante."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 165
+const tipo1 = "npc"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 190
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=10000"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morrer
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$w... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: arrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!\n\
+$A grita: Que o Deus Ekord te acompanhe, $R.\n\
+$A grita: Que o Deus Surt te acompanhe, $R.\n\
+$A grita: Que a Deusa Liza te acompanhe, $R.\n\
+$A grita: Que o Deus Seiya te acompanhe, $R.\n\
+$A grita: Que o Deus Herackles te acompanhe, $R.\n\
+$A grita: Me agradeçam! Pois matei $R, o ser mais feio deste mundo! Mhuahaaua"
+
+
+classe p_paraiso010
+herda comum_persobat
+const nome = "Judas Iscariotes"
+const descnome = "Judas Iscariotes"
+const descpadr = "Um apóstolo impertinente se aproxima lentamente, extendendo os braços em um \
+abraço."
+const descver = "Você não vê nada além da melancolia de um homem que venderia seu próprio\n\
+Deus."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 155
+const tipo1 = "npc"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 190
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=1"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morrer
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$w... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: arrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!\n\
+$A grita: Que o Deus Ekord te acompanhe, $R.\n\
+$A grita: Que o Deus Surt te acompanhe, $R.\n\
+$A grita: Que a Deusa Liza te acompanhe, $R.\n\
+$A grita: Que o Deus Seiya te acompanhe, $R.\n\
+$A grita: Que o Deus Herackles te acompanhe, $R.\n\
+$A grita: Me agradeçam! Pois matei $R, o ser mais feio deste mundo! Mhuahaaua"
+
+
+classe p_paraiso011
+herda comum_persobat
+const nome = "O Faraó"
+const descnome = "O Faraó"
+const descpadr = "Faraó foi enviado para cá em retribuição por uma vida de maldades."
+const descver = "Suntuosamente vestido e postado numa posição de arrogância e ganância, ele\n\
+olha para você com nada mais do que um sorriso de desprezo."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 145
+const tipo1 = "npc"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 190
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=10000"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morrer
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$w... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: arrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!\n\
+$A grita: Que o Deus Ekord te acompanhe, $R.\n\
+$A grita: Que o Deus Surt te acompanhe, $R.\n\
+$A grita: Que a Deusa Liza te acompanhe, $R.\n\
+$A grita: Que o Deus Seiya te acompanhe, $R.\n\
+$A grita: Que o Deus Herackles te acompanhe, $R.\n\
+$A grita: Me agradeçam! Pois matei $R, o ser mais feio deste mundo! Mhuahaaua"
+
+
+classe p_paraiso012
+herda comum_persobat
+const nome = "O bebê inoscente"
+const descnome = "O bebê inoscente"
+const descpadr = "Repousando no chão enrolado em lençóis está o mais inocente dos bebês."
+const descver = "O bebê está distante de sua presença, perdido em um satisfeito e preguiçoso\n\
+bocejo."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 130
+const tipo1 = "npc"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 192
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=2500"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morrer
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$w... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: arrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!\n\
+$A grita: Que o Deus Ekord te acompanhe, $R.\n\
+$A grita: Que o Deus Surt te acompanhe, $R.\n\
+$A grita: Que a Deusa Liza te acompanhe, $R.\n\
+$A grita: Que o Deus Seiya te acompanhe, $R.\n\
+$A grita: Que o Deus Herackles te acompanhe, $R.\n\
+$A grita: Me agradeçam! Pois matei $R, o ser mais feio deste mundo! Mhuahaaua"
+
+
+classe p_paraiso013
+herda comum_persobat
+const nome = "O adolescente"
+const descnome = "O adolescente"
+const descpadr = "Você pára, surpreso, ao observar um garoto adolescente examinando você à \
+distância."
+const descver = "Ele é jovem, e ainda não conhece a crueldade deste mundo. Você acompanha \
+o\n\
+olhar dele e percebe que ele se encontra contemplando maravilhado a\n\
+plenitude da lua cheia."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 140
+const tipo1 = "npc"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 192
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=5000"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morrer
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$w... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: arrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!\n\
+$A grita: Que o Deus Ekord te acompanhe, $R.\n\
+$A grita: Que o Deus Surt te acompanhe, $R.\n\
+$A grita: Que a Deusa Liza te acompanhe, $R.\n\
+$A grita: Que o Deus Seiya te acompanhe, $R.\n\
+$A grita: Que o Deus Herackles te acompanhe, $R.\n\
+$A grita: Me agradeçam! Pois matei $R, o ser mais feio deste mundo! Mhuahaaua"
+
+
+classe p_paraiso014
+herda comum_persobat
+const nome = "O homem"
+const descnome = "O homem"
+const descpadr = "Um homem de meia idade está aqui, ajoelhando em oração."
+const descver = "Ele apresenta um olhar cansado, com as linhas da idade marcando a face"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 150
+const tipo1 = "npc"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 192
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=10000"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morrer
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$w... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: arrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!\n\
+$A grita: Que o Deus Ekord te acompanhe, $R.\n\
+$A grita: Que o Deus Surt te acompanhe, $R.\n\
+$A grita: Que a Deusa Liza te acompanhe, $R.\n\
+$A grita: Que o Deus Seiya te acompanhe, $R.\n\
+$A grita: Que o Deus Herackles te acompanhe, $R.\n\
+$A grita: Me agradeçam! Pois matei $R, o ser mais feio deste mundo! Mhuahaaua"
+
+
+classe p_paraiso015
+herda comum_persobat
+const nome = "A Alma incorpórea"
+const descnome = "A Alma incorpórea"
+const descpadr = "Você é oprimido pela presença de uma alma que transcendeu o próprio corpo."
+const descver = "Você percebe alguns cheiros e sabores, trazidos pelos ventos que vêm dos\n\
+jardins. Nada consegue explicar ou descrever esta perfeição, esta felicidade\n\
+absoluta."
+const nivel = 160
+const tipo1 = "npc"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 0 # Corpo: 0 Não deixa corpo
+const p_exp = 192
+const p_morreu1 = "Antes de $P desaparecer, uma chama sai de seu corpo e ilumina toda sala."
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morrer
+  criar("I_paraiso009", dono)
+
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morrer
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$w... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: arrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!\n\
+$A grita: Que o Deus Ekord te acompanhe, $R.\n\
+$A grita: Que o Deus Surt te acompanhe, $R.\n\
+$A grita: Que a Deusa Liza te acompanhe, $R.\n\
+$A grita: Que o Deus Seiya te acompanhe, $R.\n\
+$A grita: Que o Deus Herackles te acompanhe, $R.\n\
+$A grita: Me agradeçam! Pois matei $R, o ser mais feio deste mundo! Mhuahaaua"
+
+
+classe p_paraiso016
+herda comum_persobat
+const nome = "O Arcanjo Miguel"
+const descnome = "O Arcanjo Miguel"
+const descpadr = "O arcanjo Miguel se vira e começa a observar você."
+const descver = "Conhecido como o Mensageiro, este é o anjo que trouxe a Palavra Divina para\n\
+os profetas escolhidos, que em troca trouxeram o Selo dos Profetas em uma\n\
+jornada milagrosa para a cidade santa de Jerusalém. No princípio você não vê\n\
+nada além de um brilho luminoso e confortante, então a imagem se exaspera de\n\
+repente, e permite que você veja uma face, olhos e mãos. Entretanto, a\n\
+imagem enfraquece, e você não consegue ver nada mais."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 200
+const tipo1 = "npc"
+const tipo2 = "npc"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 210
+const inivar = "e_sanc=0,h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=1"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morrer
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$w... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: arrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!\n\
+$A grita: Que o Deus Ekord te acompanhe, $R.\n\
+$A grita: Que o Deus Surt te acompanhe, $R.\n\
+$A grita: Que a Deusa Liza te acompanhe, $R.\n\
+$A grita: Que o Deus Seiya te acompanhe, $R.\n\
+$A grita: Que o Deus Herackles te acompanhe, $R.\n\
+$A grita: Me agradeçam! Pois matei $R, o ser mais feio deste mundo! Mhuahaaua"
+
+
+classe p_paraiso017
+herda comum_persobat
+const nome = "O arcanjo gabriel"
+const descnome = "O arcanjo gabriel"
+const descpadr = "O arcanjo Gabriel sorri, e começa a lhe dizer algo."
+const descver = "Conhecido como o Mensageiro, este é o anjo que trouxe a Palavra Divina Para\n\
+os profetas escolhidos, que em troca trouxeram o Selo dos Profetas Em uma\n\
+jornada milagrosa para a cidade santa de Jerusalém."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 200
+const tipo1 = "npc"
+const tipo2 = "npc"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 210
+const inivar = "e_sanc=0,h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=1"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morrer
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$w... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: arrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!\n\
+$A grita: Que o Deus Ekord te acompanhe, $R.\n\
+$A grita: Que o Deus Surt te acompanhe, $R.\n\
+$A grita: Que a Deusa Liza te acompanhe, $R.\n\
+$A grita: Que o Deus Seiya te acompanhe, $R.\n\
+$A grita: Que o Deus Herackles te acompanhe, $R.\n\
+$A grita: Me agradeçam! Pois matei $R, o ser mais feio deste mundo! Mhuahaaua"
+
+
+classe p_paraiso018
+herda comum_persobat
+const nome = "Alá, o criador"
+const ident = "alá criador deus"
+const descnome = "Alá, o criador"
+const descpadr = "Você resiste ao desejo de desviar seus olhos da visão de um verdadeiro \
+Deus."
+const descver = "Esta visão é diferente para cada homem, pois é um espelho no interior da\n\
+verdadeira natureza do corpo e da alma de cada pessoa. Inicialmente se pode\n\
+ver um velho homem honrado, mas, tão facilmente como uma mão estendida\n\
+gentilmente, se transforma em um sorriso, e em jardins... Jardins."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 220
+const tipo1 = "npc"
+const tipo2 = "npc"
+const tipo3 = "npc"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 1100
+const inivar = "e_sanc=0,e_barreira_água=0,e_escudo_ar=0,h_segundo_ataque=8,h_terceiro_a \
+taque=8,h_quarto_ataque=8,z_moedas=10000"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morrer
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$w... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: arrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!\n\
+$A grita: Que o Deus Ekord te acompanhe, $R.\n\
+$A grita: Que o Deus Surt te acompanhe, $R.\n\
+$A grita: Que a Deusa Liza te acompanhe, $R.\n\
+$A grita: Que o Deus Seiya te acompanhe, $R.\n\
+$A grita: Que o Deus Herackles te acompanhe, $R.\n\
+$A grita: Me agradeçam! Pois matei $R, o ser mais feio deste mundo! Mhuahaaua"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 300000
+
+
+classe p_paraiso019
+herda comum_persobat
+const nome = "Ali"
+const descnome = "Ali"
+const descpadr = "Você se encontra em frente a Ali, o quarto e último Califa de Rashidun."
+const descver = "Alguns o vêem como o mais próximo de Deus dentre todos os Califas, aquele\n\
+que mais merece nosso respeito e reverência. Ainda outros o vêem como um\n\
+cismático, um herege, alguém que deve ser morto e esquecido. Ao olhar para\n\
+ele agora, cabe a você decidir por si mesmo."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 165
+const tipo1 = "npc"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 193
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=8000"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morrer
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$w... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: arrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!\n\
+$A grita: Que o Deus Ekord te acompanhe, $R.\n\
+$A grita: Que o Deus Surt te acompanhe, $R.\n\
+$A grita: Que a Deusa Liza te acompanhe, $R.\n\
+$A grita: Que o Deus Seiya te acompanhe, $R.\n\
+$A grita: Que o Deus Herackles te acompanhe, $R.\n\
+$A grita: Me agradeçam! Pois matei $R, o ser mais feio deste mundo! Mhuahaaua"
+
+
+classe p_paraiso020
+herda comum_persobat
+const nome = "Otman"
+const descnome = "Otman"
+const descpadr = "O terceiro dos Califas bem-guiados, Otman, está à sua frente."
+const descver = "Ele foi escolhido como líder por uma \"panelinha\" de rivais invejosos\n\
+daquele que podia concordar como nenhum outro. A memória do Profeta\n\
+desaparecendo rapidamente da mente dos fiéis, ele pouco podia fazer, e, no\n\
+final, foi morto por seus inimigos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 155
+const tipo1 = "npc"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 193
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=8000"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morrer
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$w... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: arrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!\n\
+$A grita: Que o Deus Ekord te acompanhe, $R.\n\
+$A grita: Que o Deus Surt te acompanhe, $R.\n\
+$A grita: Que a Deusa Liza te acompanhe, $R.\n\
+$A grita: Que o Deus Seiya te acompanhe, $R.\n\
+$A grita: Que o Deus Herackles te acompanhe, $R.\n\
+$A grita: Me agradeçam! Pois matei $R, o ser mais feio deste mundo! Mhuahaaua"
+
+
+classe p_paraiso021
+herda comum_persobat
+const nome = "Omar"
+const descnome = "Omar"
+const descpadr = "Você vê Omar, o segundo de Rashidun, sucessor do Profeta."
+const descver = "Você fica pasmo com a santidade desse homem. Ele olha para você com\n\
+tristeza, dizendo: \"Eu não desejo lutar com você, mas se você recusar a\n\
+verdade da Palavra, então eu devo.\""
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 145
+const tipo1 = "npc"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 193
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=8000"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morrer
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$w... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: arrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!\n\
+$A grita: Que o Deus Ekord te acompanhe, $R.\n\
+$A grita: Que o Deus Surt te acompanhe, $R.\n\
+$A grita: Que a Deusa Liza te acompanhe, $R.\n\
+$A grita: Que o Deus Seiya te acompanhe, $R.\n\
+$A grita: Que o Deus Herackles te acompanhe, $R.\n\
+$A grita: Me agradeçam! Pois matei $R, o ser mais feio deste mundo! Mhuahaaua"
+
+
+classe p_paraiso022
+herda comum_persobat
+const nome = "Abu Bakr"
+const descnome = "Abu Bakr"
+const descpadr = "Abu Bakr, o primeiro de Rashidun, lamenta sobre a morte do Profeta."
+const descver = "Você vê um homem simples, vestido em simples robes negros, curvado e\n\
+pensativo, remoendo as memórias de um homem que ele nunca imaginou que\n\
+pudesse morrer."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 135
+const tipo1 = "npc"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 193
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=8000"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morrer
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$w... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: arrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!\n\
+$A grita: Que o Deus Ekord te acompanhe, $R.\n\
+$A grita: Que o Deus Surt te acompanhe, $R.\n\
+$A grita: Que a Deusa Liza te acompanhe, $R.\n\
+$A grita: Que o Deus Seiya te acompanhe, $R.\n\
+$A grita: Que o Deus Herackles te acompanhe, $R.\n\
+$A grita: Me agradeçam! Pois matei $R, o ser mais feio deste mundo! Mhuahaaua"
+
+
+classe p_paraiso023
+herda comum_persobat
+const nome = "O querubim"
+const descnome = "O querubim"
+const descpadr = "O querubim da espada flamejante olha para você e ri por entre os dentes."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 115
+const tipo1 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 190
+const inivar = "e_sanc=0,h_segundo_ataque=8,z_moedas=150"
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_mover
+  se arg2 == "n"
+    $mens.p(este, arg0)
+    $mens.mtodos1("$P grita: Ninguém passa por aqui sem antes me derrotar!")
+    atkauto(arg0, 8)
+    ret 1
+
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morrer
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$w... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: arrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!\n\
+$A grita: Que o Deus Ekord te acompanhe, $R.\n\
+$A grita: Que o Deus Surt te acompanhe, $R.\n\
+$A grita: Que a Deusa Liza te acompanhe, $R.\n\
+$A grita: Que o Deus Seiya te acompanhe, $R.\n\
+$A grita: Que o Deus Herackles te acompanhe, $R.\n\
+$A grita: Me agradeçam! Pois matei $R, o ser mais feio deste mundo! Mhuahaaua"
+
+
+classe s_paraiso001
+herda b_paraiso
+const s_titulo = "Um Teste de Lealdade"
+const s_desc = "É aqui, finalmente, que decisões devem ser feitas. A primeira a confrontar\n\
+você é bastante simples... Caminhar nas trevas ou caminhar na luz. Apenas o\n\
+fundo de sua alma pode decidir, mas lembre-se: a mesma verdade se encontra\n\
+no final de ambos os caminhos."
+const dir_c = $s_paraiso003
+const dir_b = $s_paraiso002
+const a_reset = "P 100 paraiso001 0 0 1\nE 100 paraiso013 1 25"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_paraiso001:objsolto.total < 1
+    p = u = criar("p_paraiso001", este, 0)
+  fimse
+  se u
+    r = criar("i_paraiso013", u, 1), r.vestir(25), u.recalc = 1
+  fimse
+
+
+classe s_paraiso002
+herda b_paraiso
+const s_titulo = "Corredores do Esquecido"
+const s_desc = "Até os mais obscuros têm um caminho na estrada para a verdade. Foi neste\n\
+lugar, tão vazio e esquecido, que Deus escolheu o pior, e o trouxe para\n\
+perto de Si uma última vez."
+const dir_l = $s_paraiso004
+const dir_c = $s_paraiso001
+const dir_o = $s_paraiso016
+
+
+classe s_paraiso003
+herda b_paraiso
+const s_titulo = "Chahada"
+const s_desc = "Foi escrito certa vez em um antigo pergaminho, em um manuscrito\n\
+interessante e harmonioso, que, na verdade, não há nenhum deus além de Alá,\n\
+e que Maomé foi o último de Seus profetas. Com essa revelação, tudo se\n\
+tornou vazio e sem sentido."
+const dir_l = $s_paraiso017
+const dir_o = $s_paraiso032
+const dir_b = $s_paraiso001
+
+
+classe s_paraiso004
+herda b_paraiso
+const s_titulo = "Perigo Espiritual"
+const s_desc = "Alguns males são palpáveis, sólidos, tão evidentes que cospem em sua cara.\n\
+Outros são mais espertos, mais sutis, e são esses que apresentam os maiores\n\
+perigos. Olhando para o corredor à sua frente, um grande medo preenche seu\n\
+coração, junto com uma pesada ansiedade."
+const dir_n = $s_paraiso005
+const dir_o = $s_paraiso002
+
+
+classe s_paraiso005
+herda b_paraiso
+const s_titulo = "A queda"
+const s_desc = "No início, ele era o melhor, o mais belo de todos os anjos, e a mais amada\n\
+criação de Deus. Olhe para sua própria beleza, humano, e faça o que ele não\n\
+conseguiu. Olhe para sua própria beleza, e aprenda a ajoelhar!"
+const dir_n = $s_paraiso006
+const dir_s = $s_paraiso004
+const a_reset = "P 100 paraiso002 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_paraiso002:objsolto.total < 1
+    criar("p_paraiso002", este, 0)
+  fimse
+
+
+classe s_paraiso006
+herda b_paraiso
+const s_titulo = "Tentação"
+const s_desc = "Tentação é o SE, o considerar, o pensar duas vezes, o \"Eu serei um homem\n\
+melhor... se...\". E esse 'se' é normalmente tomado, sentado sozinho, ouvindo\n\
+àquela voz que chama por você, que oferece um caminho tão fácil, mas tão\ntorto."
+const dir_n = $s_paraiso007
+const dir_s = $s_paraiso005
+const a_reset = "P 100 paraiso003 0 0 1\nE 58 paraiso006 1 25"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_paraiso003:objsolto.total < 1
+    p = u = criar("p_paraiso003", este, 0)
+  fimse
+  se u && rand(100) < 58
+    r = criar("i_paraiso006", u, 1), r.vestir(25), u.recalc = 1
+  fimse
+
+
+classe s_paraiso007
+herda b_paraiso
+const s_titulo = "O Último Dia"
+const s_desc = "O estampido de uma grande batalha balança estes corredores, os gemidos da\n\
+terra irrompendo no balanço do Tempo Final. Esteja pronto para aquele dia,\n\
+esteja muito pronto, pois se não estiver, ele chamará você para um de seus\n\
+próprios."
+const dir_n = $s_paraiso008
+const dir_s = $s_paraiso006
+const a_reset = "P 100 paraiso004 0 0 1\nE 70 paraiso005 1 6"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_paraiso004:objsolto.total < 1
+    p = u = criar("p_paraiso004", este, 0)
+  fimse
+  se u && rand(100) < 70
+    r = criar("i_paraiso005", u, 1), r.vestir(6), u.recalc = 1
+  fimse
+
+
+classe s_paraiso008
+herda b_paraiso
+const s_titulo = "Ardor"
+const s_desc = "Dor e horror indescritíveis, uma escuridão abafada apenas por uma angústia\n\
+que queima, o fogo inextinguível vindo não apenas de alguma madeira\n\
+queimando ou lava derretida, mas do brilho e dor do horrível, almas\n\
+torturadas que rodeam, a qualquer lugar que você olhe."
+const dir_n = $s_paraiso009
+const dir_s = $s_paraiso007
+const a_reset = "P 100 paraiso005 0 0 1\nE 39 paraiso012 1 23"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_paraiso005:objsolto.total < 1
+    p = u = criar("p_paraiso005", este, 0)
+  fimse
+  se u && rand(100) < 39
+    r = criar("i_paraiso012", u, 1), r.vestir(23), u.recalc = 1
+  fimse
+
+
+classe s_paraiso009
+herda b_paraiso
+const s_titulo = "Mediação"
+const s_desc = "Está escrito que ninguém deve rogar a Deus em favor de outro. Nenhuma\n\
+oração de outro pode salvar a alma de um homem condenado. as únicas\n\
+esperanças desse são as orações dele próprio."
+const dir_s = $s_paraiso008
+const dir_o = $s_paraiso010
+const dir_c = $s_paraiso027
+const a_reset = "P 100 paraiso006 0 0 1\nE 100 paraiso002 1 16"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_paraiso006:objsolto.total < 1
+    p = u = criar("p_paraiso006", este, 0)
+  fimse
+  se u
+    r = criar("i_paraiso002", u, 1), r.vestir(16), u.recalc = 1
+  fimse
+
+
+classe s_paraiso010
+herda b_paraiso
+const s_titulo = "Peregrinação"
+const s_desc = "É uma incumbência de todo muçulmano realizar uma peregrinação a Meca ao\n\
+menos uma vez na vida, se a ele for possível e, àqueles desafortunados o\n\
+bastante, seguir uma vida do menor dos males, como um peregrino de coração\n\
+aberto e penitente deve perdoá-los de tudo."
+const dir_l = $s_paraiso009
+const dir_o = $s_paraiso011
+const dir_c = $s_paraiso026
+
+
+classe s_paraiso011
+herda b_paraiso
+const s_titulo = "Arrependimento"
+const s_desc = "Deus perdoa aqueles que por ignorância cometerão um mal, pois Ele é\n\
+onisciente e sábio. Mas Ele não perdoará aqueles que fazem o mal e, quando a\n\
+morte chega a eles, dizem: \"Agora eu me arrependo!\" Para esses Nós\n\
+preparamos um doloroso flagelo."
+const dir_s = $s_paraiso012
+const dir_l = $s_paraiso010
+const dir_c = $s_paraiso025
+const a_reset = "P 100 paraiso007 0 0 1\nE 100 paraiso004 1 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_paraiso007:objsolto.total < 1
+    p = u = criar("p_paraiso007", este, 0)
+  fimse
+  se u
+    r = criar("i_paraiso004", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_paraiso012
+herda b_paraiso
+const s_titulo = "Ódio"
+const s_desc = "Há pouco na vida que vêm fácil, e na verdade, é pouco aquilo que é um\n\
+rápido caminho para a condenação. Você faz um rápido agradecimento por ter\n\
+chegado ao final desses julgamentos, mas suas palavras se afogam em algo\n\
+muito mais alto, uma reza mecânica que entope seus ouvidos, em fúria. Você\n\
+ouve uma ladainha, repetitiva e constante, de uma única frase:\n\
+\"Eu sigo o caminho ditado pela história com a certeza cega de um sonâmbulo.\""
+const dir_n = $s_paraiso011
+const dir_s = $s_paraiso013
+const a_reset = "P 100 paraiso008 0 0 1\nE 67 paraiso011 1 8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_paraiso008:objsolto.total < 1
+    p = u = criar("p_paraiso008", este, 0)
+  fimse
+  se u && rand(100) < 67
+    r = criar("i_paraiso011", u, 1), r.vestir(8), u.recalc = 1
+  fimse
+
+
+classe s_paraiso013
+herda b_paraiso
+const s_titulo = "Hipocrisia"
+const s_desc = "Ele clamou à população por rígida pureza religiosa, reforçando estritamente\n\
+os momentos de oração e as mais corretas formas das palavras do Almuadem.\n\
+Tudo isso ele fortaleceu com seu exemplo mais impecável, rejeitando todas as\n\
+riquezas e andando em trapos através da capital, no lombo de um burro.\n\
+Apesar disso, lembre-se: atrás de portas fechadas, todos os homens são\n\
+hipócritas."
+const dir_n = $s_paraiso012
+const dir_s = $s_paraiso014
+const a_reset = "P 100 paraiso009 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_paraiso009:objsolto.total < 1
+    criar("p_paraiso009", este, 0)
+  fimse
+
+
+classe s_paraiso014
+herda b_paraiso
+const s_titulo = "Tentação"
+const s_desc = "Contos antigos narram uma conversa entre o diabo e o profeta Jesus: o diabo\n\
+ofereceu seu reino, riquezas grandiosas, a tentação de que da morte que se\n\
+aproximava fosse salvo pelos anjos dele. Até mesmo esse Mensageiro de Deus\n\
+foi forçado a parar e pensar imagine o quão difícil isso poderia ser aos\ndemais."
+const dir_n = $s_paraiso013
+const dir_s = $s_paraiso015
+const a_reset = "P 100 paraiso010 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_paraiso010:objsolto.total < 1
+    criar("p_paraiso010", este, 0)
+  fimse
+
+
+classe s_paraiso015
+herda b_paraiso
+const s_titulo = "Maus Conselhos"
+const s_desc = "Alguns foram trazidos para cá não pelo que fizeram, mas pelo que deixaram\n\
+de fazer. São essas, as pobres almas que foram apresentadas à verdade\n\
+evidente e a rejeitaram de mente honesta, que merecem acima de tudo nossa\npena."
+const dir_n = $s_paraiso014
+const dir_s = $s_paraiso016
+const a_reset = "P 100 paraiso011 0 0 1\nE 63 paraiso014 1 6"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_paraiso011:objsolto.total < 1
+    p = u = criar("p_paraiso011", este, 0)
+  fimse
+  se u && rand(100) < 63
+    r = criar("i_paraiso014", u, 1), r.vestir(6), u.recalc = 1
+  fimse
+
+
+classe s_paraiso016
+herda b_paraiso
+const s_titulo = "Mal na Terra"
+const s_desc = "O que quer que carregue, essa fúria a transforma em uma arma. A ira\n\
+alimenta a todos com armas. Quando um homem furioso tem sede de sangue,\n\
+qualquer coisa servirá a ele como lança. A raiva transforma um graveto em\n\
+uma clava."
+const dir_n = $s_paraiso015
+const dir_l = $s_paraiso002
+
+
+classe s_paraiso017
+herda b_paraiso
+const s_titulo = "Recompensa Espiritual"
+const s_desc = "Eis que Alá é o Provedor, o mais Generoso. Ele não suportaria que seus\n\
+fiéis seguissem no caminho da luz sem orientação. Ele proveu os Profetas,\n\
+levou a paz a eles, e nos exemplos de seus próprios crescimentos, devemos\n\
+encontrar a verdade de nosso próprio ser."
+const dir_n = $s_paraiso018
+const dir_o = $s_paraiso003
+
+
+classe s_paraiso018
+herda b_paraiso
+const s_titulo = "Criação"
+const s_desc = "Na criação dos céus e da terra, e na alternância entre noite e dia, há\n\
+sinais para os homens de bom senso tais homens que relembram Alá dizem:\n\
+\"Senhor, Tu não criaste isto em vão!\""
+const dir_n = $s_paraiso019
+const dir_s = $s_paraiso017
+const a_reset = "P 100 paraiso012 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_paraiso012:objsolto.total < 1
+    criar("p_paraiso012", este, 0)
+  fimse
+
+
+classe s_paraiso019
+herda b_paraiso
+const s_titulo = "Revelação"
+const s_desc = "O Arcanjo Gabriel foi até ele e disse: \"Leia!\" Ele respondeu: \"Mas eu eu\n\
+não posso!\" A ordem foi repetida por três vezes, até que o próprio Arcanjo\n\
+disse: \"Leia, em nome do Senhor que criou o homem a partir de grumos de\n\
+sangue. Louvado seja Deus, Senhor do Universo.\""
+const dir_n = $s_paraiso020
+const dir_s = $s_paraiso018
+const a_reset = "P 100 paraiso013 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_paraiso013:objsolto.total < 1
+    criar("p_paraiso013", este, 0)
+  fimse
+
+
+classe s_paraiso020
+herda b_paraiso
+const s_titulo = "Conversão"
+const s_desc = "Incrédulos, eu não venero o que vocês veneram, nem vocês veneram o que eu\n\
+venero. Eu nunca devo venerar aquilo que você venera, nem deve você venerar\n\
+aquilo que eu venero. Você tem a sua religião, e eu tenho a minha."
+const dir_n = $s_paraiso021
+const dir_s = $s_paraiso019
+const ver_mob = "Um homem de meia idade está aqui, ajoelhando em oração."
+const a_reset = "P 100 paraiso014 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_paraiso014:objsolto.total < 1
+    criar("p_paraiso014", este, 0)
+  fimse
+
+
+classe s_paraiso021
+herda b_paraiso
+const s_titulo = "Livramento"
+const s_desc = "A ponderação foi feita, as almas dispostas em prontidão, e a medição final\n\
+feita. Para aqueles que vieram até aqui, com certeza este é o dia da\n\
+imortalidade!"
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_paraiso022
+const dir_s = $s_paraiso020
+const ver_mob = "Você é oprimido pela presença de uma alma que transcendeu o próprio corpo."
+const a_reset = "P 100 paraiso015 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_paraiso015:objsolto.total < 1
+    criar("p_paraiso015", este, 0)
+  fimse
+
+
+classe s_paraiso022
+herda b_paraiso
+const s_titulo = "O ANDAR SUPERIOR"
+const s_desc = "Você viajou pelo caminho da virtude, e sua própria jornada imitou a\n\
+evolução da alma mais perfeita. Agora apenas o caminho final aguarda por\n\
+você morra como aquele na sala anterior a esta e sua morte não significará\nnada."
+const dir_s = $s_paraiso021
+const dir_o = $s_paraiso023
+const ver_mob = "O arcanjo Miguel se vira e começa a observar você."
+const a_reset = "P 100 paraiso016 0 0 1\nE 100 paraiso001 1 25"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_paraiso016:objsolto.total < 1
+    p = u = criar("p_paraiso016", este, 0)
+  fimse
+  se u
+    r = criar("i_paraiso001", u, 1), r.vestir(25), u.recalc = 1
+  fimse
+
+const dir_b = $s_paraiso027
+
+
+classe s_paraiso023
+herda b_paraiso
+const s_titulo = "O ANDAR SUPERIOR"
+const s_desc = "Quando o registro das ações do homem é aberto, e os céus são desvendados\n\
+quando o Inferno queima ferozmente e o Paraíso é trazido para perto: então\n\
+cada alma saberá o que fez."
+const dir_l = $s_paraiso022
+const dir_o = $s_paraiso024
+const dir_b = $s_paraiso026
+
+
+classe s_paraiso024
+herda b_paraiso
+const s_titulo = "O ANDAR SUPERIOR"
+const s_desc = "Você seguiu pelo caminho da virtude, e passou por exemplos dos verdadeiros\n\
+modelos do Profeta. Apenas a jornada final o aguarda. Viva assim e você\n\
+viverá para sempre."
+const dir_s = $s_paraiso036
+const dir_l = $s_paraiso023
+const dir_b = $s_paraiso025
+const ver_mob = "O arcanjo Gabriel sorri, e começa a lhe dizer algo."
+const a_reset = "P 100 paraiso017 0 0 1\nE 100 paraiso003 1 25"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_paraiso017:objsolto.total < 1
+    p = u = criar("p_paraiso017", este, 0)
+  fimse
+  se u
+    r = criar("i_paraiso003", u, 1), r.vestir(25), u.recalc = 1
+  fimse
+
+
+classe s_paraiso025
+herda b_paraiso
+const s_titulo = "O Encontro Final"
+const s_desc = "O restante da escuridão se encontra atrás de você apenas o caminho da\n\
+virtude permanece. Vá em frente com o coração puro. Apenas os penitentes\n\
+devem encontrar o que procuram."
+const dir_l = $s_paraiso026
+const dir_c = $s_paraiso024
+const dir_b = $s_paraiso011
+
+
+classe s_paraiso026
+herda b_paraiso
+const s_titulo = "O Encontro Final"
+const s_desc = "O restante da escuridão se encontra atrás de você apenas o caminho da\n\
+virtude permanece. Vá em frente com o coração puro. Apenas os penitentes\n\
+devem encontrar o que procuram."
+const dir_n = $s_paraiso028
+const dir_l = $s_paraiso027
+const dir_o = $s_paraiso025
+const dir_c = $s_paraiso023
+const dir_b = $s_paraiso010
+
+
+classe s_paraiso027
+herda b_paraiso
+const s_titulo = "O Encontro Final"
+const s_desc = "O restante da escuridão se encontra atrás de você apenas o caminho da\n\
+virtude permanece. Vá em frente com o coração puro. Apenas os penitentes\n\
+devem encontrar o que procuram."
+const dir_o = $s_paraiso026
+const dir_c = $s_paraiso022
+const dir_b = $s_paraiso009
+
+
+classe s_paraiso028
+herda b_paraiso
+const s_titulo = "Um Caminho Virtuoso"
+const s_desc = "Ó Compassivo, ó Misericordioso, Soberano do Dia do Julgamento! Apenas a Ti\n\
+veneramos, e apenas a Ti clamamos por ajuda. Guie-nos no Caminho da Virtude,\n\
+o caminho daqueles que o Senhor tem favorecido, não o daqueles que dele têm\n\
+se desviado."
+const dir_n = $s_paraiso029
+const dir_s = $s_paraiso026
+
+
+classe s_paraiso029
+herda b_paraiso
+const s_titulo = "Progressão"
+const s_desc = "Estávamos nós desgastados pela Primeira Criação? No entanto, eles ainda\n\
+estão em dúvida sobre uma nova criação. NÓS criamos o homem. Nós conhecemos\n\
+os meandros de sua alma, e estamos mais próximos dele do que sua própria\n\
+jugular."
+const dir_n = $s_paraiso030
+const dir_s = $s_paraiso028
+
+
+classe s_paraiso030
+herda b_paraiso
+const s_titulo = "Julgamento"
+const s_desc = "Indubitavelmente o caminho mais curto é o virtuoso. Apenas mais alguns\n\
+passos o esperam antes que uma decisão final seja tomada e um lar dado a\n\
+você para toda a eternidade."
+const dir_n = $s_paraiso031
+const dir_s = $s_paraiso029
+
+
+classe s_paraiso031
+herda b_paraiso
+const s_titulo = "O Trono Derradeiro"
+const s_desc = "Você finalmente chegou ao lugar de repouso do mais sagrado. Uma visão\n\
+assustadoramente cristalina foi concedida a você: sete guardiões margeiam o\n\
+redor do trono, todos banhados por uma morna luz pura. É aqui que a escolha\n\
+final está para ser feita, e nada que você faça poderá modificar o que está\n\
+por vir."
+const dir_s = $s_paraiso030
+const ver_mob = "Você resiste ao desejo de desviar seus olhos da visão de um verdadeiro Deus."
+const a_reset = "P 100 paraiso018 0 0 1\nE 50 paraiso016 1 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_paraiso018:objsolto.total < 1
+    p = u = criar("p_paraiso018", este, 0)
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_paraiso016", u, 1), r.vestir(3), u.recalc = 1
+  fimse
+
+
+classe s_paraiso032
+herda b_paraiso
+const s_titulo = "Luz TERRENA"
+const s_desc = "Deslizar para o mal é fácil, mas andar neste caminho é o mais difícil de\n\
+todos. Mesmo os quatro que você encontrará aqui hoje já ultrapassaram a\n\
+linha ao menos uma vez em suas vidas, e ainda ainda alguns indivíduos que\n\
+amaldiçoam o simples som de seus nomes. Apesar de tudo isso, confronte-os\n\
+agora, e deixe que suas ações sirvam a você como exemplo."
+const dir_n = $s_paraiso033
+const dir_l = $s_paraiso003
+
+
+classe s_paraiso033
+herda b_paraiso
+const s_titulo = "A Luz de Rashidun"
+const s_desc = "Muitos acreditavam que o Profeta nunca morreria, mas quando se prova\n\
+evidente de seu corpo confrontou a todos, logo se mostrou necessário pensar\n\
+no futuro. Os quatro que vieram após ele foram chamados de Rashidun, os\n\
+Califas bem-guiados que espalhariam a palavra e luz, e com elas forjariam um\n\
+dos maiores impérios da história."
+const dir_n = $s_paraiso034
+const dir_s = $s_paraiso032
+const a_reset = "P 100 paraiso022 0 0 1\nE 60 paraiso010 1 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_paraiso022:objsolto.total < 1
+    p = u = criar("p_paraiso022", este, 0)
+  fimse
+  se u && rand(100) < 60
+    r = criar("i_paraiso010", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_paraiso034
+herda b_paraiso
+const s_titulo = "A Luz de Rashidun"
+const s_desc = "Os primeiros Califas foram escolhidos através de consulta ao nobre conselho\n\
+de anciãos, os quais, com a esperança de deixar o mundo do Islã sozinho,\n\
+votaram para eleger aquele dentre eles que acreditavam que fosse o mais\n\
+fraco. A cada momento, entretanto, estiveram errado. Cada eleito era mais\n\
+nobre e mais justo do que o anterior."
+const dir_n = $s_paraiso035
+const dir_s = $s_paraiso033
+const a_reset = "P 100 paraiso021 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_paraiso021:objsolto.total < 1
+    criar("p_paraiso021", este, 0)
+  fimse
+
+
+classe s_paraiso035
+herda b_paraiso
+const s_titulo = "A Luz de Rashidun"
+const s_desc = "Todo conto majestoso e feliz precisa terminar, e normalmente todos muito\n\
+cedo, e assim se deu com a era de ouro do Califado. O Rashidun era composto\n\
+por homens puros, homens bons, fiéis ao caminho, mas seus seguidores logo\n\
+começaram a brigar, e a guerra civil estava no horizonte."
+const dir_n = $s_paraiso036
+const dir_s = $s_paraiso034
+const a_reset = "P 100 paraiso020 0 0 1\nE 53 paraiso007 1 23"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_paraiso020:objsolto.total < 1
+    p = u = criar("p_paraiso020", este, 0)
+  fimse
+  se u && rand(100) < 53
+    r = criar("i_paraiso007", u, 1), r.vestir(23), u.recalc = 1
+  fimse
+
+
+classe s_paraiso036
+herda b_paraiso
+const s_titulo = "A Luz de Rashidun"
+const s_desc = "O fim de Rashidun marcou o início do Cisma. As memórias do Profeta e os\n\
+exemplos vivos dos Califas se mostraram exemplos insuficientes ao fiéis. Ali\n\
+morreu, e alguns dizem que com ele o Califado morreu também, um mártir, seu\n\
+sangue ainda correndo num rio sem nome."
+const dir_s = $s_paraiso035
+const dir_n = $s_paraiso024
+const a_reset = "P 100 paraiso019 0 0 1\nE 61 paraiso008 1 11"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_paraiso019:objsolto.total < 1
+    p = u = criar("p_paraiso019", este, 0)
+  fimse
+  se u && rand(100) < 61
+    r = criar("i_paraiso008", u, 1), r.vestir(11), u.recalc = 1
+  fimse
+
+
+classe s_paraiso037
+herda b_paraiso
+const s_titulo = "Uma estrada vinda da margem"
+const s_desc = "Você se encontra em uma pequena estrada, seguindo para longe da margem do\n\
+Rio das Almas Perdidas. As águas negras do rio podem ser vistas e ouvidas\n\
+logo a sul daqui. Olhando ao leste e oeste é possível avistar as muralhas\n\
+das escarpas rochosas. Ao longe, ao norte, um estranho caminho parece levar\n\
+diretamente para as profundezas da montanha."
+const dir_n = $s_paraiso038
+const dir_s = $s_paraiso041
+
+
+classe s_paraiso038
+herda b_paraiso
+const s_titulo = "Uma estrada extensa"
+const s_desc = "Você permanece aqui imerso num vazio espiritual, começando um comprido e\n\
+perigoso caminho. Sua submissão honesta já foi feita, mas a verdade em seu\n\
+coração ainda está para ser contada. Saia daqui agora, e não volte até que\n\
+tenha amadurecido."
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_paraiso039
+const fugir_n = 1 # Sem fuga: Sim
+const dir_s = $s_paraiso037
+const a_reset = "P 100 paraiso023 0 0 1\nE 100 paraiso015 1 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_paraiso023:objsolto.total < 1
+    p = u = criar("p_paraiso023", este, 0)
+  fimse
+  se u
+    r = criar("i_paraiso015", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_paraiso039
+herda b_paraiso
+const s_titulo = "Uma estrada extensa"
+const s_desc = "Você pára por um momento, gritando de frustação. Provavelmente foi aquele\n\
+pecado que foi evitado, de todos aqueles de que se arrependeu. Um flash de\n\
+luz rapidamente acerta você, machucando-o intensamente. Momentos depois a\n\
+dor passa, e o caminho da virtude se revela à sua frente."
+const dir_n = $s_paraiso040
+const dir_s = $s_paraiso038
+
+
+classe s_paraiso040
+herda b_paraiso
+const s_titulo = "Uma estrada extensa"
+const s_desc = "A estrada se ilumina, a neblina e a dor dos primeiros passos ficam para\n\
+trás. Apesar da claridade repentina, sua mente ainda está assombrada,\n\
+invadida pela imagem de uma velha ajoelhada no chão, rezando de olhos\n\
+fechados, sorrindo e chorando."
+const dir_n = $s_paraiso001
+const dir_s = $s_paraiso039
+
+
+classe s_paraiso041
+herda b_paraiso
+const s_titulo = "A Cabeceira do Rio das Almas Perdidas"
+const s_desc = "Você está no limite do que é comumente considerado o rio mais negro de todo\n\
+o mundo. Olhando a água pantanosa que se concentra neste vale rochoso você\n\
+consegue entender porque a água correnteza abaixo é tão escura. As paredes\n\
+rochosas o alcançam, bloqueando todas as saídas, exceto a norte, que leva à\n\
+margem, e ao sul, onde o rio fui."
+const eveste = 0 # Eventos sala: Não
+const dir_n = $s_paraiso037
+const dir_s = $s_paraiso042
+const evsala = 1
+
+func cmd_mover
+  se arg2 == "n" && arg0.prenascer < 1
+    arg0.msg("Você não renasceu a quantidade de vezes o suficiente para explorar este local!")
+    ret 1
+  fimse
+
+
+classe s_paraiso042
+herda b_paraiso
+const s_titulo = "O rio das almas perdidas"
+const s_desc = "O rio continua para norte e para o sul, através de uma água límpida e\n\
+cândida."
+const dir_n = $s_paraiso041
+const dir_s = $s_paraiso043
+
+
+classe s_paraiso043
+herda b_paraiso
+const s_titulo = "O rio das almas perdidas"
+const s_desc = "O rio continua para norte e para o sul, através de uma água límpida e\n\
+cândida."
+const dir_n = $s_paraiso042
+const dir_s = $s_paraiso044
+
+
+classe s_paraiso044
+herda b_paraiso
+const s_titulo = "O rio das almas perdidas"
+const s_desc = "O rio continua para norte e para o sul, através de uma água límpida e\n\
+cândida."
+const dir_n = $s_paraiso043
+const dir_s = $s_paraiso045
+
+
+classe s_paraiso045
+herda b_paraiso
+const s_titulo = "O rio das almas perdidas"
+const s_desc = "O rio continua para norte e para o sul, através de uma água límpida e\n\
+cândida."
+const dir_n = $s_paraiso044
+const dir_s = $s_paraiso046
+
+
+classe s_paraiso046
+herda b_paraiso
+const s_titulo = "A divisão no rio"
+const s_desc = "Um acidente faz com que as águas do rio corram para baixo a partir de\n\
+rochas, dividindo-se em dois corpos de água. O rio tem um movimento contínuo\n\
+em seu curso, e você pode perceber que as rochas se dividiram e\n\
+desintegraram, aparentando terem sido dilaceradas por uma força enorme.\n\
+Parece impossível atravessar o rio."
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_paraiso045
+const dir_s = $s_rios031

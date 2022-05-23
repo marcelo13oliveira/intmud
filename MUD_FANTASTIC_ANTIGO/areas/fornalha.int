@@ -1,0 +1,474 @@
+classe a_fornalha
+herda area
+const a_nome = "A fornalha fervente"
+const a_autor = "Drácula"
+const a_tempo = 10
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_txtreset = "Você sente um calor infernal tomar conta do seu corpo."
+
+
+classe b_fornalha
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_recup = 1
+const s_area = "fornalha"
+
+
+classe i_fornalha001
+herda comum_itemperso
+const nome = "um caldeirão"
+const descnome = "Um caldeirão de fogo fervente"
+const descpos = "Um enorme caldeirão borbulhando um líquido vermelho e extremamente quente está \
+no meio do local, pronto para receber novos corpos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_salas = "fornalha050"
+const i_movel = 1 # Mobília: 1 Sentar
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_sentouobj
+  se arg1 == este
+    criar("e_queimando", arg0)
+  fimse
+#
+
+func cmd_morrer
+  ret arg1.jog, nulo
+  $mens.p(arg1, arg0)
+  refvar m1 = "$P pega o corpo de $A e o joga dentro do caldeirão para cozinhar."
+  refvar m2 = "$P pega seu corpo e joga dentro do caldeirão para cozinhar."
+  $mens.mvis3(m1, m2, m1)
+  arg0.mudadono(dentro2.objini("s_fornalha050"))
+  ret 1
+
+
+classe i_fornalha011
+herda comum_itemperso
+const nome = "uma carteira branca"
+const ident = "carteira"
+const descnome = "uma carteira branca"
+const descpos = "uma carteira de couro foi deixada aqui."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const nivel = 25
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const valor = 20000
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pveloc1 += 10 * pnivel + 75
+  precisao += 10 * pnivel + 75
+
+
+classe p_fornalha001
+herda comum_persobat
+const nome = "um monstro vermelho"
+const ident = "monstro"
+const descpadr = "cuspindo fogo para todos os lados, um monstro vermelho caminha por aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 550
+const p_atktipo = "m_lancar_fogo=8"
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 0 # Corpo: 0 Não deixa corpo
+const p_exp = 39000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const inivar = "m_fogo=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 325 * pnivel + 800000
+  pmovemax += 150 * pnivel + 150
+  atknorm += 1500 * pnivel + 1500
+  defnorm += 1000 * pnivel + 1000
+  atkesp += 1500 * pnivel + 1500
+  defesp += 1700 * pnivel + 1700
+  precisao += 160 * pnivel + 160
+  bitver |= 2364
+  atktipo.6 *= 2 # Fogo
+
+
+classe p_fornalha002
+herda comum_persobat
+const nome = "um monstro negro"
+const ident = "um monstro"
+const descpadr = "com châmas no olhar, um monstro negro olha fixamente para você."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 700
+const nivel = 585
+const p_atktipo = "m_lancar_fogo=8"
+const p_comecorpo = 1 # Come corpos: Sim
+const p_exp = 40000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const inivar = "m_fogo=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 325 * pnivel + 650000
+  pmovemax += 150 * pnivel + 150
+  atknorm += 1500 * pnivel + 1500
+  defnorm += 1700 * pnivel + 1700
+  atkesp += 1500 * pnivel + 1500
+  defesp += 1700 * pnivel + 1700
+  precisao += 160 * pnivel + 160
+  bitver |= 316
+
+
+classe p_fornalha003
+herda comum_persobat
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 60
+
+
+classe p_fornalha010
+herda comum_persobat
+const nome = "o guardião da fornalha"
+const ident = "guardião"
+const descpadr = "um guardião está aqui, olhando tudo ao seu redor."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 700
+const nivel = 600
+const p_atktipo = "m_lancar_fogo=8"
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 0 # Corpo: 0 Não deixa corpo
+const p_exp = 40000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const inivar = "m_fogo=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 550 * pnivel + 950000
+  pmovemax += 190 * pnivel + 190
+  atknorm += 2500 * pnivel + 2500
+  defnorm += 1700 * pnivel + 1700
+  atkesp += 2000 * pnivel + 2000
+  defesp += 1700 * pnivel + 1700
+  precisao += 200 * pnivel + 200
+  bitver |= 6204
+
+
+classe p_fornalha011
+herda comum_persobat
+const nome = "monfor, o monstro da fornalha"
+const ident = "monstro"
+const descpadr = "acorrentado por uma corrente de fogo, com várias manchas de sangue por todo o \
+corpo, monfor, o monstro da fornalha está aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 700
+const nivel = 610
+const p_atktipo = "m_lançar_fogo=1"
+const p_corpo = 0 # Corpo: 0 Não deixa corpo
+const p_exp = 40000
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+const inivar = "m_fogo=1"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 325 * pnivel + 900000
+  pmovemax += 180 * pnivel + 180
+  atknorm += 2500 * pnivel + 2500
+  defnorm += 1700 * pnivel + 1700
+  atkesp += 2500 * pnivel + 2500
+  defesp += 1700 * pnivel + 1700
+  precisao += 180 * pnivel + 180
+  bitver |= 12
+
+
+classe s_fornalha001
+herda b_fornalha
+const s_titulo = "Na entrada da fornalha de fogo."
+const s_desc = "Você está na entrada da fornalha. Daqui, você vê uma enorme fumaça saindo de \
+dentro e, também, é possível ouvir um forte ruido, dos monstros que vivem nesse lugar."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_terreno = 2 # Terreno: 2 Campo, um campo aberto - 2mv
+const dir_n = $s_fornalha002
+const a_reset = "P 100 fornalha001 585 590 5"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_fornalha001:objsolto.total < 5
+    criar("p_fornalha001", este, rand(585, 590))
+  fimse
+
+
+classe s_fornalha002
+herda b_fornalha
+const s_titulo = "nos portões da fornalha"
+const s_desc = "Aqui, monstros andam por todos os lados, esperando uma brexa para tirar a vida \
+dos guerreiros que ousam entrar nesse lugar.\n\
+Para sul você volta e, para norte, adentra os portões da fornalha."
+const dir_n = $s_fornalha003
+const portaini_n = 0 # Estado inicial: 0 Sem porta
+const portanome_n = "as portas da fornalha"
+const portaartigo_n = 1 # Artigo porta: 1 as (portas)
+const fecha_n = 0 # Fecha ao passar: Não
+const dir_s = $s_fornalha001
+const a_reset = "P 100 fornalha002 585 610 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_fornalha002:objsolto.total < 10
+    criar("p_fornalha002", este, rand(585, 610))
+  fimse
+
+
+classe s_fornalha003
+herda b_fornalha
+const s_titulo = "Dentro da fornalha"
+const s_desc = "Você está agora dentro da fornalha! Ao seu redor, há várias châmas tornando o \
+local ainda mais quente e seu corpo quase não suporta a temperatura desse lugar."
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const dir_s = $s_fornalha002
+const portaini_s = 0 # Estado inicial: 0 Sem porta
+const portanome_s = "as portas da fornalha"
+const portaartigo_s = 1 # Artigo porta: 1 as (portas)
+const fecha_s = 0 # Fecha ao passar: Não
+const dir_o = $s_fornalha004
+const a_reset = "P 100 fornalha002 90 100 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_fornalha002:objsolto.total < 10
+    criar("p_fornalha002", este, rand(90, 100))
+  fimse
+
+
+classe s_fornalha004
+herda b_fornalha
+const s_titulo = "Caminhando sobre brasas."
+const s_desc = "Você está caminhando sobre várias cinzas. Seus pés começam a sofrer queimaduras, \
+de maneira que dificulta sua caminhada. Para sul você continua, para leste você volta."
+const dir_s = $s_fornalha005
+const dir_l = $s_fornalha003
+#
+
+func cmd_salaperso
+  ret !arg0.jog, nulo
+  criar("e_queimando", arg0)
+
+
+classe s_fornalha005
+herda b_fornalha
+const s_titulo = "continuando a caminhar sobre brasas"
+const s_desc = "chegando aqui, você percebe que as feridas em seus pés almentam, causando uma \
+dor insuportável."
+const dir_n = $s_fornalha004
+const dir_o = $s_fornalha006
+
+
+classe s_fornalha006
+herda b_fornalha
+const s_titulo = "Nas profundidades da fornalha."
+const s_desc = "Agora, você sente um calor insuportável tomar conta de seu corpo. e, ao olhar \
+para a frente, você não consegue ver nada além de um clarão de fogo e um grito de se arrepiar!"
+const dir_s = $s_fornalha010
+const dir_l = $s_fornalha005
+
+
+classe s_fornalha007
+herda b_fornalha
+const s_titulo = "No estremo oeste da fornalha"
+const s_desc = "Caminhando sobre brasas"
+const dir_l = $s_fornalha010
+const dir_o = $s_fornalha016
+
+
+classe s_fornalha008
+herda b_fornalha
+const s_titulo = "No esconderijo dos monstros:"
+const s_desc = "Aqui o calor é insuportável. Chamas surgem de todos os lados, causando graves \
+ferimentos por todo seu corpo. Um lençol de fogo cai do teto, matando-$s!"
+const s_morre = 4 # Morre ao entrar: 4 Sim e perde dinheiro
+
+
+classe s_fornalha009
+herda b_fornalha
+const s_titulo = "No estremo leste da fornalha"
+const s_desc = "Caminhando sobre brasas"
+const dir_l = $s_fornalha012
+const dir_o = $s_fornalha010
+
+
+classe s_fornalha010
+herda b_fornalha
+const s_titulo = "no centro da fornalha"
+const s_desc = "Chegando aqui, seu corpo treme. ao mesmo tempo que você se depara frente a \
+frente com um grande caudeirão de fogo e um enorme monstro enfurecido. Aos poucos, o calor se \
+assenta e você pode contemplar o horrível monstro da fornalha à sua frente."
+const dir_n = $s_fornalha006
+const dir_s = $s_fornalha008
+const dir_l = $s_fornalha009
+const dir_o = $s_fornalha007
+const a_reset = "P 100 fornalha010 600 605 5\nP 100 fornalha011 610 610 1"
+const s_reset = "S 100 fornalha001 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_fornalha001") && criar("i_fornalha001", este, 1)
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_fornalha010:objsolto.total < 5
+    criar("p_fornalha010", este, rand(600, 605))
+  fimse
+  se p_fornalha011:objsolto.total < 1
+    criar("p_fornalha011", este, 610)
+  fimse
+
+
+classe s_fornalha011
+herda b_fornalha
+const s_titulo = "Câmara de gelo:"
+const s_falar = "Você está congelada"
+const s_gritar = "você está congelada"
+
+
+classe s_fornalha012
+herda b_fornalha
+const s_titulo = "No extremo leste da fornalha:"
+const dir_l = $s_fornalha013
+const dir_o = $s_fornalha009
+
+
+classe s_fornalha013
+herda b_fornalha
+const s_titulo = "No extremo leste da fornalha:"
+const dir_l = $s_fornalha014
+const dir_o = $s_fornalha012
+
+
+classe s_fornalha014
+herda b_fornalha
+const s_titulo = "No extremo leste da fornalha:"
+const dir_l = $s_fornalha015
+const dir_o = $s_fornalha013
+
+
+classe s_fornalha015
+herda b_fornalha
+const s_titulo = "No extremo leste da fornalha:"
+const dir_s = $s_fornalha025
+const dir_o = $s_fornalha014
+
+
+classe s_fornalha016
+herda b_fornalha
+const s_titulo = "No extremo oeste da fornalha:"
+const dir_l = $s_fornalha007
+const dir_o = $s_fornalha017
+
+
+classe s_fornalha017
+herda b_fornalha
+const s_titulo = "No extremo oeste da fornalha:"
+const dir_l = $s_fornalha016
+const dir_o = $s_fornalha018
+
+
+classe s_fornalha018
+herda b_fornalha
+const s_titulo = "No extremo oeste da fornalha:"
+const dir_l = $s_fornalha017
+const dir_o = $s_fornalha019
+
+
+classe s_fornalha019
+herda b_fornalha
+const s_titulo = "No extremo oeste da fornalha:"
+const dir_s = $s_fornalha020
+const dir_l = $s_fornalha018
+
+
+classe s_fornalha020
+herda b_fornalha
+const s_titulo = "Na parte sul da fornalha:"
+const dir_n = $s_fornalha019
+const dir_s = $s_fornalha021
+
+
+classe s_fornalha021
+herda b_fornalha
+const s_titulo = "Na parte sul da fornalha:"
+const dir_n = $s_fornalha020
+const dir_s = $s_fornalha022
+
+
+classe s_fornalha022
+herda b_fornalha
+const s_titulo = "Na parte sul da fornalha:"
+const dir_n = $s_fornalha021
+const dir_s = $s_fornalha023
+
+
+classe s_fornalha023
+herda b_fornalha
+const s_titulo = "Na parte sul da fornalha:"
+const dir_n = $s_fornalha022
+const dir_s = $s_fornalha024
+
+
+classe s_fornalha024
+herda b_fornalha
+const s_titulo = "No extremo sul da fornalha:"
+const dir_n = $s_fornalha023
+
+
+classe s_fornalha025
+herda b_fornalha
+const s_titulo = "Na parte sul da fornalha:"
+const dir_n = $s_fornalha015
+const dir_s = $s_fornalha026
+
+
+classe s_fornalha026
+herda b_fornalha
+const s_titulo = "Na parte sul da fornalha:"
+const dir_n = $s_fornalha025
+const dir_s = $s_fornalha027
+
+
+classe s_fornalha027
+herda b_fornalha
+const s_titulo = "Na parte sul da fornalha:"
+const dir_n = $s_fornalha026
+const dir_s = $s_fornalha028
+
+
+classe s_fornalha028
+herda b_fornalha
+const s_titulo = "Na parte sul da fornalha:"
+const dir_n = $s_fornalha027
+const dir_s = $s_fornalha029
+
+
+classe s_fornalha029
+herda b_fornalha
+const s_titulo = "No extremo sul da fornalha:"
+const dir_n = $s_fornalha028
+
+
+classe s_fornalha050
+herda b_fornalha
+const s_titulo = "Dentro do caldeirão"
+const s_desc = "Ao entrar no caldeirão, você sente todo o seu corpo queimar e consumir sua \
+carne, até você derreter completamente.\n\
+É, car$s aventureir$s, sua jornada acaba aqui!"
+const s_entrada = "caldeirão"
+const s_morre = 1 # Morre ao entrar: 1 Sim
+const eveste = 1 # Eventos sala: Sim
+#
+
+func cmd_mover
+  arg0.msg("bubububububbububububububububbububububububububububbububububu")
+  ret 1

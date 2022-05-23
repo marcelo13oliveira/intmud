@@ -1,0 +1,2817 @@
+classe a_mideniad
+herda area
+const a_nome = "Mideniad, o reino gelado"
+const a_autor = "heracles"
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_txtreset = "você sente vários flocos de gelo caindo sobre você"
+const a_tempo = 40
+
+
+classe b_mideniad
+herda sala
+const s_item = 0
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_luz = 0 # Luz: 0 Claro com eventos de tempo
+const s_pnj = 120
+const s_recup = 0
+const s_semmagia = 0 # Sem magia: Não
+const s_retornar = 0 # Comando retornar: 0 Permitido
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const objmax = 1000
+const s_area = "mideniad"
+
+
+classe i_mideniad001
+herda comum_itemperso
+const nome = "Chave pequena"
+const descnome = "Uma chave pequena"
+const descpos = "Uma pequena chave foi jogada aqui."
+const descver = "Uma chave que carrega todo o segredo de Mideniad!"
+const i_chave = "Guardião do reino gelado"
+const volobj = 10
+
+
+classe i_mideniad002
+herda comum_itemperso
+const nome = "O anel dos nibelungos"
+const ident = "anel nibelungos"
+const descnome = "o anel dos nibelungos"
+const descpos = "um anel foi deixado aqui"
+const descver = "você fica imprecionado com a forte energia que este anel emana"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 100
+const renascer = 20
+const pesoobj = 100
+const tipoitem = 0 # Tipo de produto:
+const valor = 5000
+const vestir1 = 24576 # Aonde vestir: 13-No dedo direito, 14-No dedo esquerdo
+const vestirsim = 0 # Podem vestir: 0 Todos
+const volobj = 10
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1000
+  pmanamax += 1000
+  pmovemax += 1000
+  pveloc1 += 300
+  atknorm += 300
+  defnorm += 300
+  atkesp += 300
+  defesp += 300
+  evasao += 200
+  precisao += 300
+  pesomax += 200000
+
+
+classe i_mideniad003
+herda comum_itemperso
+const nome = "o escudo de manderic"
+const nivel = 100
+const renascer = 10
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 5000
+const vestir1 = 32768 # Aonde vestir: 15-Como escudo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500
+  pmanamax += 500
+  pmovemax += -100
+  pveloc1 += 70
+  atknorm += 70
+  defnorm += 200
+  atkesp += 70
+  defesp += 200
+  evasao += 90
+  precisao += 90
+  pesomax += 100000
+
+
+classe i_mideniad004
+herda comum_itemperso
+const nome = "o elmo do cavalo marinho"
+const nivel = 100
+const renascer = 20
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 5000
+const vestir1 = 2 # Aonde vestir: 1-Na cabeça
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1000
+  pmanamax += 900
+  pveloc1 += 59
+  atknorm += 200
+  defnorm += 190
+  atkesp += 200
+  defesp += 190
+  evasao += 100
+  precisao += 190
+
+
+classe i_mideniad005
+herda comum_itemperso
+const nome = "as perneiras de krakem"
+const nivel = 100
+const renascer = 20
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 5000
+const vestir1 = 131072 # Aonde vestir: 17-Nas pernas
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 800
+  pmanamax += 800
+  pmovemax += 800
+  pveloc1 += 55
+  atknorm += 200
+  defnorm += 100
+  atkesp += 200
+  defesp += 100
+  evasao += 90
+  precisao += 91
+  pesomax += 100000
+
+
+classe i_mideniad006
+herda comum_itemperso
+const nome = "As Manoplas da salamandra satânica"
+const nivel = 100
+const renascer = 20
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 5000
+const vestir1 = 1024 # Aonde vestir: 10-Nas mãos
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 600
+  pmanamax += 600
+  pmovemax += 1500
+  pveloc1 += 66
+  atknorm += 240
+  defnorm += 230
+  atkesp += 240
+  defesp += -50
+  evasao += 100
+  precisao += 180
+  pesomax += -2000
+
+
+classe i_mideniad007
+herda comum_itemperso
+const nome = "as braçadeiras do dragão marinho"
+const nivel = 100
+const renascer = 20
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 5000
+const vestir1 = 512 # Aonde vestir: 9-Nos braços
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += -200
+  pmanamax += 600
+  pveloc1 += 70
+  atknorm += 300
+  defnorm += 130
+  atkesp += 230
+  defesp += 200
+  evasao += 120
+  precisao += 300
+  pesomax += 50000
+
+
+classe i_mideniad008
+herda comum_itemperso
+const nome = "a armadura das 7 bestas"
+const nivel = 130
+const renascer = 20
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 2
+const vestir1 = 64 # Aonde vestir: 6-No corpo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1500
+  pmanamax += 1500
+  pmovemax += 1500
+  pveloc1 += 70
+  atknorm += 200
+  defnorm += 210
+  atkesp += -50
+  defesp += 210
+  evasao += 150
+  precisao += 100
+  pesomax += -20000
+
+
+classe i_mideniad009
+herda comum_itemperso
+const nome = "a flauta de sorento"
+const nivel = 100
+const renascer = 20
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 5000
+const vestir1 = 4194304 # Aonde vestir: 22-Como luz
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500
+  pmanamax += 500
+  pveloc1 += 55
+  atknorm += 200
+  defnorm += 200
+  atkesp += 200
+  defesp += 200
+  evasao += 120
+  precisao += 150
+
+
+classe i_mideniad010
+herda comum_itemperso
+const nome = "a lança de chrysaor"
+const nivel = 5
+const renascer = 30
+const armamax = 1300
+const armamin = 90
+const armaprecisao = 100
+const armatipo = 3 # Tipo de arma: 3 Lâmina curta
+const tipoitem = 2 # Tipo de produto: 1-Arma
+const valor = 5000
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500
+  pmanamax += 500
+  pmovemax += 500
+  pveloc1 += 90
+  atknorm += 300
+  atkesp += -100
+  evasao += 90
+  precisao += 200
+  pesomax += 10000
+
+
+classe i_mideniad011
+herda comum_itemperso
+const nome = "o tridente de poseidon"
+const nivel = 150
+const renascer = 30
+const armamax = 15000
+const armamin = 7500
+const armaprecisao = 100
+const armaaddprecisao = 100
+const armatipo = 3 # Tipo de arma: 3 Lâmina curta
+const tipoitem = 2 # Tipo de produto: 1-Arma
+const valor = 300000
+const vestir1 = 16777216 # Aonde vestir: 24-segurando
+const manterperso = 1 # Mantém em jogador: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500
+  pmanamax += 600
+  pmovemax += 2500
+  pveloc1 += 200
+  atknorm += 800
+  defnorm += 800
+  atkesp += 800
+  defesp += 800
+  evasao += 800
+  precisao += 800
+
+
+classe i_mideniad012
+herda comum_itemperso
+const nome = "o colar de conchas"
+const nivel = 100
+const renascer = 20
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 5000
+const vestir1 = 32 # Aonde vestir: 5-No pescoço
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1000
+  pmanamax += 1000
+  pmovemax += 1723
+  pveloc1 += 65
+  atknorm += 180
+  defnorm += 180
+  atkesp += 180
+  defesp += 180
+  evasao += 180
+  precisao += -20
+
+
+classe i_mideniad013
+herda comum_itemperso
+const nome = "um caco de coral"
+const ident = "um caco de coral"
+const descnome = "um caco de coral"
+const descpos = "um kako está aqui"
+const descver = "esse pequeno caco de coraltambem é uma das armas q posseidom mas gosta de\n\
+usar por que lenbra uma batalha q ele travou com o momstro do mar chamado kraquem\n\
+quando ele andava em seus territorios o monstro atacou e cumeçou uma\n\
+luta até q a criatura feril ele entao posseidom viu q estava sangrando\n\
+muito até q ele percebeu q em meio o sangue tinha um coral diferemte q\n\
+brilhava intenço entao posseidom pegou esse coral e atacol a criatura\n\
+que fugiu e posseidom decretou q esse caco de coral seria um cibulo de\n\
+poder e força assim como seu tridente"
+const nivel = 120
+const renascer = 30
+const armamax = 30000
+const armamin = 15000
+const armaprecisao = 100
+const armaaddprecisao = 100
+const armatipo = 3 # Tipo de arma: 3 Lâmina curta
+const tipoitem = 2 # Tipo de produto: 1-Arma
+const valor = 500000
+const vestir1 = 16777216 # Aonde vestir: 24-segurando
+const manterperso = 1 # Mantém em jogador: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2000
+  pmanamax += -1500
+  pmovemax += 2000
+  pveloc1 += 1000
+  atknorm += 1000
+  defnorm += 1000
+  atkesp += 1000
+  defesp += 1000
+  evasao += 1000
+  precisao += 1000
+  pesomax += 200000
+
+
+classe p_mideniad001
+herda comum_persobat
+const nome = "Morlinder, o guardião do reino gelado"
+const ident = "Morlinder guardião reino gelado"
+const descnome = "Morlinder, o guardião do reino gelado"
+const descver = "Bem alto e assustador, esse é o guardião mais temido do mundo do gelo.\n\
+Dizem as lendas, que ele guarda chaves misteriosas dos mistérios mais\n\
+profundos de Mideniad!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 200
+const tipo1 = "npc"
+const tipo2 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 100000
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+const p_movervel = 1000
+const inivar = "h_terceiro_ataque=8,e_sanc=0,e_barreira_fogo=0,h_chutar=4"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200000
+
+
+classe p_mideniad002
+herda comum_persobat
+const nome = "Drastigan, o protetor dos nibelungos"
+const ident = "Drastigan protetor nibelungos"
+const descnome = "Drastigan, o protetor dos nibelungos"
+const descver = "Com sua pele invunerável e com uma surpriendente força, este ser foi substituído\
+ para guardar todo o tesouro dos nibelungos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 100
+const nivel = 200
+const tipo1 = "npc"
+const tipo2 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 300000
+const inivar = "h_terceiro_ataque=8,e_sanc=0,e_barreira_fogo=0,h_chutar=2"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500000
+  pveloc1 += 80
+  bitver |= 2048
+  bitinv |= 16
+
+
+classe p_mideniad003
+herda comum_persobat
+const nome = "manderic"
+const ident = "Manderic Deus Mideniad Reino gelado"
+const descnome = "manderic"
+const descpadr = "*Manderic, o deus de mideniad está aqui"
+const descver = "este é um ser, muito forte e poderoso.\ntome cuidado com ele."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 200
+const tipo1 = "npc"
+const tipo2 = "npc"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 300000
+const inivar = "h_terceiro_ataque=8,e_sanc=0,e_barreira_fogo=0,e_barreira_areia=0,e_escudo_ar=0,e\
+_barreira-água=8,h_chutar=6"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func cmd_atacar
+  se txt(arg2) == "cmd_rasteira"
+    $mens.p(arg0, arg1)
+    $mens.mtodos1("Quando $p tenta derrubar $a com uma rasteira, el$w salta, esquivando-se.")
+    ret 1
+  fimse
+  se txt(arg2) == "cmd_derrubar"
+    $mens.p(arg0, arg1)
+    $mens.mtodos1("Quando $p tenta derrubar $a com um soco, el$w salta, esquivando-se.")
+    ret 1
+  fimse
+  se txt(arg2) == "cmd_desarmar"
+    $mens.p(arg0, arg1)
+    $mens.mvis1("$P não consegue desarmar $A.")
+    ret 1
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 600000
+
+
+classe p_mideniad004
+herda comum_persobat
+const nome = "krishna"
+const ident = "krishna"
+const descnome = "krishna"
+const descpadr = "Krishna, o marina protetor do pilar índico está aqui."
+const descver = "Krishna e um dos 7 generais marinas de poseidon, e protegido pela escama de \
+chrysaor, usa uma lanca e seu golpe secreto e o maha roshini. Krishna é protetor do pilar do \
+oceano índico."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 1000
+const nivel = 200
+const tipo1 = "npc"
+const tipo2 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 300000
+const p_imortal = 0 # Imortal: Não
+const inivar = "e_sanc=0,z_moedas=2000,h_segundo_ataque=8,h_terceiro_ataque=8,h_quarto_ataque=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func cmd_mover
+  se arg2 == "l"
+    $mens.p(este, arg0)
+    $mens.mtodos1("$P empede $A de passar.")
+    ret 1
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 400000
+  atknorm += 170
+  precisao += 100
+  bitver |= 2048
+  atktipo.0 *= 2 # Tipos Normais
+
+
+classe p_mideniad005
+herda comum_persobat
+const nome = "sorento"
+const ident = "sorento"
+const descnome = "sorento"
+const descpadr = "Sorento, o marina protetor do pilar Atlântico sul está aqui."
+const descver = "Sorento é um dos 7 generais marinas de poseidon. E protegido pela escama de \
+sirene, seu principal golpe e a sinfonia final da morte, onde usa sua flauta para criar um som \
+atordoante que além de entrar nos ouvidos, também pode penetrar a mente. Sorento é o protetor do \
+pilar do oceano do atlântico sul.\n\
+Sorento é um dos 7 generais marinas de poseidon. E protegido pela escama de sirene, seu principal\
+ golpe e a sinfonia final da morte, onde usa sua flauta para criar um som atordoante que .além \
+de entrar nos ouvidos, também pode penetrar a mente. Sorento é o protetor do pilar do oceano do \
+atlântico sul."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 200
+const tipo1 = "npc"
+const tipo2 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 300000
+const inivar = "e_sanc=0,z_moedas=2000,h_segundo_ataque=8,h_terceiro_ataque=8,h_quarto_ataque=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func cmd_mover
+  se arg2 == "l"
+    $mens.p(este, arg0)
+    $mens.mtodos1("$P empede $A de passar.")
+    ret 1
+
+func cmd_atacar
+  se txt(arg2) == "cmd_rasteira"
+    $mens.p(arg0, arg1)
+    $mens.mtodos1("Quando $p tenta derrubar $a com uma rasteira, el$w salta, esquivando-se.")
+    ret 1
+  fimse
+  se txt(arg2) == "cmd_derrubar"
+    $mens.p(arg0, arg1)
+    $mens.mtodos1("Quando $p tenta derrubar $a com um soco, el$w salta, esquivando-se.")
+    ret 1
+  fimse
+  se txt(arg2) == "cmd_desarmar"
+    $mens.p(arg0, arg1)
+    $mens.mvis1("$P não consegue desarmar $A.")
+    ret 1
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500000
+  atknorm += 175
+  precisao += 100
+  bitver |= 2048
+  atktipo.0 *= 2 # Tipos Normais
+
+
+classe p_mideniad006
+herda comum_persobat
+const nome = "Hio"
+const ident = "hio"
+const descnome = "hio"
+const descpadr = "Hio, o marina protetor do pilar pacífico sul está aqui."
+const descver = "hio é responssável pelo pilar do oceano pacífico sul"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 200
+const tipo1 = "npc"
+const tipo2 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 300000
+const inivar = "e_sanc=0,z_moedas=2000,h_segundo_ataque=8,h_terceiro_ataque=8,h_quarto_ataque=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func cmd_mover
+  se arg2 == "l"
+    $mens.p(este, arg0)
+    $mens.mtodos1("$P empede $A de passar.")
+    ret 1
+
+func cmd_atacar
+  se txt(arg2) == "cmd_rasteira"
+    $mens.p(arg0, arg1)
+    $mens.mtodos1("Quando $p tenta derrubar $a com uma rasteira, el$w salta, esquivando-se.")
+    ret 1
+  fimse
+  se txt(arg2) == "cmd_derrubar"
+    $mens.p(arg0, arg1)
+    $mens.mtodos1("Quando $p tenta derrubar $a com um soco, el$w salta, esquivando-se.")
+    ret 1
+  fimse
+  se txt(arg2) == "cmd_desarmar"
+    $mens.p(arg0, arg1)
+    $mens.mvis1("$P não consegue desarmar $A.")
+    ret 1
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500000
+  atknorm += 180
+  precisao += 100
+  atktipo.0 *= 2 # Tipos Normais
+
+
+classe p_mideniad007
+herda comum_persobat
+const nome = "kassa"
+const ident = "kassa"
+const descnome = "kassa"
+const descpadr = "Kassa, o marina protetor do pilar antártico está aqui."
+const descver = "ele é um dos marinas que protege o reino de poseidon."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 200
+const tipo1 = "npc"
+const tipo2 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 300000
+const inivar = "e_sanc=0,z_moedas=2000,h_segundo_ataque=8,h_terceiro_ataque=8,h_quarto_ataque=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func cmd_mover
+  se arg2 == "l"
+    $mens.p(este, arg0)
+    $mens.mtodos1("$P empede $A de passar.")
+    ret 1
+
+func cmd_atacar
+  se txt(arg2) == "cmd_rasteira"
+    $mens.p(arg0, arg1)
+    $mens.mtodos1("Quando $p tenta derrubar $a com uma rasteira, el$w salta, esquivando-se.")
+    ret 1
+  fimse
+  se txt(arg2) == "cmd_derrubar"
+    $mens.p(arg0, arg1)
+    $mens.mtodos1("Quando $p tenta derrubar $a com um soco, el$w salta, esquivando-se.")
+    ret 1
+  fimse
+  se txt(arg2) == "cmd_desarmar"
+    $mens.p(arg0, arg1)
+    $mens.mvis1("$P não consegue desarmar $A.")
+    ret 1
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500000
+  atknorm += 185
+  precisao += 100
+  bitver |= 2048
+  atktipo.0 *= 2 # Tipos Normais
+
+
+classe p_mideniad008
+herda comum_persobat
+const nome = "kanon"
+const ident = "kanon"
+const descnome = "kanon"
+const descpadr = "kanon, o marina protetor do pilar atlantico norte está aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 200
+const tipo1 = "npc"
+const tipo2 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 300000
+const inivar = "e_sanc=0,z_moedas=2000,h_segundo_ataque=8,h_terceiro_ataque=8,h_quarto_ataque=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func cmd_mover
+  se arg2 == "l"
+    $mens.p(este, arg0)
+    $mens.mtodos1("$P empede $A de passar.")
+    ret 1
+
+func cmd_atacar
+  se txt(arg2) == "cmd_rasteira"
+    $mens.p(arg0, arg1)
+    $mens.mtodos1("Quando $p tenta derrubar $a com uma rasteira, el$w salta, esquivando-se.")
+    ret 1
+  fimse
+  se txt(arg2) == "cmd_derrubar"
+    $mens.p(arg0, arg1)
+    $mens.mtodos1("Quando $p tenta derrubar $a com um soco, el$w salta, esquivando-se.")
+    ret 1
+  fimse
+  se txt(arg2) == "cmd_desarmar"
+    $mens.p(arg0, arg1)
+    $mens.mvis1("$P não consegue desarmar $A.")
+    ret 1
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500000
+  atknorm += 190
+  precisao += 100
+  bitver |= 2048
+  atktipo.0 *= 2 # Tipos Normais
+
+
+classe p_mideniad009
+herda comum_persobat
+const nome = "isak"
+const ident = "isak"
+const descnome = "isak"
+const descpadr = "isak, o marina protetor do pilar ártico está aqui"
+const descver = "ele protege o pilar do oceano ártico"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 200
+const tipo1 = "npc"
+const tipo2 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 300000
+const inivar = "e_sanc=0,z_moedas=2000,h_segundo_ataque=8,h_terceiro_ataque=8,h_quarto_ataque=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func cmd_mover
+  se arg2 == "l"
+    $mens.p(este, arg0)
+    $mens.mtodos1("$P empede $A de passar.")
+    ret 1
+
+func cmd_atacar
+  se txt(arg2) == "cmd_rasteira"
+    $mens.p(arg0, arg1)
+    $mens.mtodos1("Quando $p tenta derrubar $a com uma rasteira, el$w salta, esquivando-se.")
+    ret 1
+  fimse
+  se txt(arg2) == "cmd_derrubar"
+    $mens.p(arg0, arg1)
+    $mens.mtodos1("Quando $p tenta derrubar $a com um soco, el$w salta, esquivando-se.")
+    ret 1
+  fimse
+  se txt(arg2) == "cmd_desarmar"
+    $mens.p(arg0, arg1)
+    $mens.mvis1("$P não consegue desarmar $A.")
+    ret 1
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500000
+  atknorm += 195
+  precisao += 100
+  bitver |= 2048
+  atktipo.0 *= 2 # Tipos Normais
+
+
+classe p_mideniad010
+herda comum_persobat
+const nome = "Biam"
+const ident = "baian"
+const descnome = "Biam"
+const descpadr = "Biam, o marina protetor do pilar pacífico norte está aqui."
+const descver = "com cabelos castanhos e olhos azús este é baian, um dos 7 generais de poseidon"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 200
+const tipo1 = "npc"
+const tipo2 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 300000
+const inivar = "e_sanc=0,z_moedas=2000,h_segundo_ataque=8,h_terceiro_ataque=8,h_quarto_ataque=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func cmd_mover
+  se arg2 == "l"
+    $mens.p(este, arg0)
+    $mens.mtodos1("$P empede $A de passar.")
+    ret 1
+
+func cmd_atacar
+  se txt(arg2) == "cmd_rasteira"
+    $mens.p(arg0, arg1)
+    $mens.mtodos1("Quando $p tenta derrubar $a com uma rasteira, el$w salta, esquivando-se.")
+    ret 1
+  fimse
+  se txt(arg2) == "cmd_derrubar"
+    $mens.p(arg0, arg1)
+    $mens.mtodos1("Quando $p tenta derrubar $a com um soco, el$w salta, esquivando-se.")
+    ret 1
+  fimse
+  se txt(arg2) == "cmd_desarmar"
+    $mens.p(arg0, arg1)
+    $mens.mvis1("$P não consegue desarmar $A.")
+    ret 1
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500000
+  atknorm += 200
+  precisao += 100
+  bitver |= 2048
+  atktipo.0 *= 2 # Tipos Normais
+
+
+classe p_mideniad011
+herda comum_persobat
+const nome = "thetes"
+const ident = "thetes"
+const descnome = "thetes"
+const descpadr = "thetes a sereia está aqui."
+const descver = "esta é thetes a sereia, cuidado não olhe tanto tempo para ela."
+const nivel = 205
+const tipo1 = "npc"
+const tipo2 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 300000
+const inivar = "e_sanc=0,z_moedas=2000,h_segundo_ataque=8,h_terceiro_ataque=8,h_quarto_ataque=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func cmd_mover
+  se arg2 == "N"
+    $mens.p(este, arg0)
+    $mens.mtodos1("$P empede $A de passar.")
+    ret 1
+
+func cmd_atacar
+  se txt(arg2) == "cmd_rasteira"
+    $mens.p(arg0, arg1)
+    $mens.mtodos1("Quando $p tenta derrubar $a com uma rasteira, el$w salta, esquivando-se.")
+    ret 1
+  fimse
+  se txt(arg2) == "cmd_derrubar"
+    $mens.p(arg0, arg1)
+    $mens.mtodos1("Quando $p tenta derrubar $a com um soco, el$w salta, esquivando-se.")
+    ret 1
+  fimse
+  se txt(arg2) == "cmd_desarmar"
+    $mens.p(arg0, arg1)
+    $mens.mvis1("$P não consegue desarmar $A.")
+    ret 1
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500000
+  atknorm += 205
+  precisao += 100
+  bitver |= 2048
+  atktipo.0 *= 2 # Tipos Normais
+
+
+classe p_mideniad012
+herda comum_persobat
+const nome = "poseidon"
+const ident = "poseidon o deus dos mares"
+const descnome = "poseidon o deus dos mares"
+const descpadr = "*Poseidon, o deus dos mares está aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 210
+const tipo1 = "npc"
+const tipo2 = "npc"
+const tipo3 = "pnj"
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 1000000
+const inivar = "e_sanc=0,h_segundo_ataque=8,h_terceiro_ataque=8,h_quarto_ataque=8,z_moedas=100000\
+,h_lamina_curta=8,h_chutar=8,e_chama_protetora=0,e_barreira_de_areia=0,e_escudo_de_ar=0,e_luz_cel\
+estial=0, e_escudo_de_espinhos=0"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func cmd_mover
+  se arg2 == "B"
+    $mens.p(este, arg0)
+    $mens.mtodos1("$P empede $A de passar.")
+    ret 1
+
+func cmd_atacar
+  se txt(arg2) == "cmd_rasteira"
+    $mens.p(arg0, arg1)
+    $mens.mtodos1("Quando $p tenta derrubar $a com uma rasteira, el$w salta, esquivando-se.")
+    ret 1
+  fimse
+  se txt(arg2) == "cmd_derrubar"
+    $mens.p(arg0, arg1)
+    $mens.mtodos1("Quando $p tenta derrubar $a com um soco, el$w salta, esquivando-se.")
+    ret 1
+  fimse
+  se txt(arg2) == "cmd_desarmar"
+    $mens.p(arg0, arg1)
+    $mens.mvis1("$P não consegue desarmar $A.")
+    ret 1
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1000000
+  atktipo.0 *= 2 # Tipos Normais
+  atktipo.5 *= 2 # Perfurante
+
+
+classe p_mideniad013
+herda comum_persobat
+const nome = "Um pinguin macho"
+const ident = "pinguin macho"
+const descnome = "Um pinguin macho"
+const descpadr = "Um pinguim macho está aqui."
+const descver = "um pinguin macho, e ele é responssável pela protessão dos demais pinguins"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 150
+const tipo1 = "npc"
+const tipo2 = "pnj"
+const p_corpo = 0 # Corpo: 0 Não deixa corpo
+const p_exp = 120000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 400
+const inivar = "h_terceiro_ataque=8,e_barreira_água=0,h_chutar=3"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 15000
+  precisao += 500
+  deftipo.2 *= 0.5 # Contusão
+
+
+classe p_mideniad014
+herda comum_persobat
+const nome = "Uma pinguin fêmea"
+const ident = "Pinguim fêmea"
+const descnome = "Uma pinguin fêmea"
+const descpadr = "uma pinguin está aqui cuidando dos seus afazeres"
+const descver = "você está diante de uma maravilhosa pinguin, ela sorrir para você."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const nivel = 170
+const tipo1 = "npc"
+const tipo2 = "pnj"
+const p_exp = 135000
+const p_morreu1 = "$P cai sem vida, e desaparece no meio a tanta neve."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 600
+const inivar = "h_chutar=2,e_barreira_água=0"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 15000
+  precisao += 500
+
+
+classe p_mideniad015
+herda comum_persobat
+const nome = "Uma pinguim criança"
+const ident = "pinguin criança"
+const descnome = "Uma pinguim criança"
+const descpadr = "uma pinguin está aqui brincando com a neve"
+const descver = "você sente vontade de leva-la para a sua casa, mais não é possível, ela não \
+sobreviveria."
+const nivel = 140
+const tipo1 = "npc"
+const tipo2 = "pnj"
+const p_exp = 125000
+const p_morreu1 = "$P cai sem vida, e desaparece no meio da neve."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 600
+const inivar = "h_terceiro_ataque=8,e_barreira_água=0,h_chutar=6"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 15000
+  precisao += 500
+
+
+classe p_mideniad016
+herda comum_persobat
+const nome = "Um pinguim adulto"
+const ident = "Pinguim adulto"
+const descnome = "um pinguin adulto"
+const descpadr = "um pinguin adulto está aqui"
+const descver = "este pinguin é maior do que os demais, você fica assustado"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 170
+const tipo1 = "npc"
+const tipo2 = "pnj"
+const p_exp = 130000
+const p_morreu1 = "$P cai sem vida, e desaparece no meio de tanta neve."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 400
+const inivar = "h_terceiro_ataque=8,e_barreira_água=0,h_chutar=5"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 15000
+  precisao += 490
+
+
+classe p_mideniad018
+herda comum_persobat
+const nome = "Maiara"
+const ident = "Maiara"
+const descnome = "Maiara"
+const descpadr = "Adormecida em uma cama de gelo, Maiara está aqui"
+const descver = "Com um corpo de uma menina de 15 anos, esta moça tem longos e lizos cabelos \
+pretos que batem na cintura. Seus olhos verdes esmeralda refletem no cubo e sua expressão \
+paresse de tristeza. A história conta que ela se apaixonou por poseidon, mas ele não à amava. \
+Então descidiu congelar ela para que todas as manhãs podesse admirar a beleza dela e sentir seu \
+perfume."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const volobj = 100000000
+const objmax = 1000000
+const nivel = 210
+const pospadr = 8 # Posição padrão: 8 Em pé
+const tipo1 = "pnj"
+const tipo2 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 100000
+const p_recebe = 0 # Recebe itens: Não
+const inivar = "h_segundo_ataque=8,z_moedas=20000"
+const evhora = 0 # Eventos hora: Não
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$w... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: arrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe s_mideniad001
+herda b_mideniad
+const s_titulo = "entrando em Mideniad"
+const s_desc = "Você está diante de um enorme portão. Após você olhar de cima a baixo, você\n\
+ver enormes pedras de gelo sobre o portão. Algo vem a sua cabeça, será que este\n\
+portão ainda abre?"
+const s_recup = 400
+const dir_n = $s_mideniad002
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const dir_s = $s_mar050
+
+
+classe s_mideniad002
+herda b_mideniad
+const s_titulo = "uma estrada congelada"
+const s_desc = "Você está caminhando por uma enorme estrada. Após você tocar seus pés no\n\
+chão, você percebe que a estrada não e tão ampla. Varias pedras de gelo estão\n\
+espalhadas pelo chão e você quase nao consegue se movimentar. Cuidado, você\n\
+poderá ficar congelado aqui!\n\
+ Você percebe um pequeno bloco de gelo solto ao chão. O que será isto, uma passagem?"
+const dir_n = $s_mideniad003
+const dir_s = $s_mideniad001
+const dir_b = $s_mideniad101
+const portaini_b = 2 # Estado inicial: 2 Porta fechada
+const portanome_b = "Um bloco de gelo"
+const portaartigo_b = 2 # Artigo porta: 2 o (portão)
+const inv_b = 1 # Invisível: Sim
+const fecha_b = 1 # Fecha ao passar: Sim
+
+
+classe s_mideniad003
+herda b_mideniad
+const s_titulo = "uma estrada congelada"
+const s_desc = "Você está caminhando por uma enorme estrada. Após você tocar seus pés no\n\
+chão, você percebe que a estrada não e tão ampla. Varias pedras de gelo estão\n\
+espalhadas pelo chão e você quase nao consegue se movimentar. Cuidado, você\n\
+poderá ficar congelado aqui!"
+const dir_n = $s_mideniad004
+const dir_s = $s_mideniad002
+
+
+classe s_mideniad004
+herda b_mideniad
+const s_titulo = "uma estrada congelada"
+const s_desc = "Você está caminhando por uma enorme estrada. Após você tocar seus pés no\n\
+chão, você percebe que a estrada não e tão ampla. Varias pedras de gelo estão\n\
+espalhadas pelo chão e você quase nao consegue se movimentar. Cuidado, você\n\
+poderá ficar congelado aqui!"
+const dir_n = $s_mideniad005
+const dir_s = $s_mideniad003
+
+
+classe s_mideniad005
+herda b_mideniad
+const s_titulo = "uma bifurcação"
+const s_desc = "Você está em uma bifurcação. Como na estrada, aqui também a muitas pedras \
+de\n\
+gelo. Cuidado com sua escolha, ou você poderá ficar preso aqui!"
+const dir_n = $s_mideniad006
+const dir_s = $s_mideniad004
+const dir_l = $s_mideniad007
+
+
+classe s_mideniad006
+herda b_mideniad
+const s_titulo = "uma estrada congelada"
+const s_desc = "Você está caminhando por uma enorme estrada. Após você tocar seus pés no\n\
+chão, você percebe que a estrada não e tão ampla. Varias pedras de gelo estão\n\
+espalhadas pelo chão e você quase nao consegue se movimentar. Cuidado, você\n\
+poderá ficar congelado aqui!"
+const dir_n = $s_mideniad019
+const dir_s = $s_mideniad005
+
+
+classe s_mideniad007
+herda b_mideniad
+const s_titulo = "Na base de uma enorme montanha congelada"
+const s_desc = "Você está na base de uma enorme montanha congelada. Daqui de baixo, você não\n\
+vê nada de mais além de... Gelo! Cuidado aventureiro, se não escalar com\n\
+cuidado você podera escorregar de la de cima!"
+const dir_o = $s_mideniad005
+const dir_c = $s_mideniad008
+
+
+classe s_mideniad008
+herda b_mideniad
+const s_titulo = "escalando uma montanha congelada"
+const s_desc = "Você está escalando uma enorme montanha. Após você tocar seus pés na\n\
+montanha, você quase escorrega. Cuidado, continuar a subir não parece muito\nseguro!"
+const dir_c = $s_mideniad009
+const dir_b = $s_mideniad007
+
+
+classe s_mideniad009
+herda b_mideniad
+const s_titulo = "escalando uma montanha congelada"
+const s_desc = "Você está escalando uma enorme montanha. Após você tocar seus pés na\n\
+montanha, você quase escorrega. Cuidado, continuar a subir não parece muito\nseguro!"
+const dir_c = $s_mideniad010
+const dir_b = $s_mideniad008
+
+
+classe s_mideniad010
+herda b_mideniad
+const s_titulo = "escalando uma montanha congelada"
+const s_desc = "Você está escalando uma enorme montanha. Após você tocar seus pés na\n\
+montanha, você quase escorrega. Cuidado, continuar a subir não parece muito\nseguro!"
+const dir_c = $s_mideniad011
+const dir_b = $s_mideniad009
+
+
+classe s_mideniad011
+herda b_mideniad
+const s_titulo = "escalando uma montanha congelada"
+const s_desc = "Você está escalando uma enorme montanha. Após você tocar seus pés na\n\
+montanha, você quase escorrega. Cuidado, continuar a subir não parece muito\nseguro!"
+const dir_s = $s_mideniad012
+const dir_b = $s_mideniad010
+
+
+classe s_mideniad012
+herda b_mideniad
+const s_titulo = "escalando uma montanha congelada"
+const s_desc = "Você está escalando uma enorme montanha. Após você tocar seus pés na\n\
+montanha, você quase escorrega. Cuidado, continuar a subir não parece muito\nseguro!"
+const dir_n = $s_mideniad011
+const dir_l = $s_mideniad013
+
+
+classe s_mideniad013
+herda b_mideniad
+const s_titulo = "uma passagem na montanha"
+const s_desc = "Você está em uma pequena passagem na montanha. Aqui as pedras de gelo são\n\
+maiores ainda e você quase não consegue se movimentar. O frio toma conta do seu\n\
+corpo, cuidado!"
+const dir_o = $s_mideniad012
+const dir_c = $s_mideniad014
+
+
+classe s_mideniad014
+herda b_mideniad
+const s_titulo = "continuando a escalar na montanha"
+const s_desc = "Você está em uma pequena passagem na montanha. Aqui as pedras de gelo são\n\
+maiores ainda e você quase não consegue se movimentar. O frio toma conta do seu\n\
+corpo, cuidado!"
+const dir_c = $s_mideniad015
+const dir_b = $s_mideniad013
+
+
+classe s_mideniad015
+herda b_mideniad
+const s_titulo = "continuando a escalar na montanha"
+const s_desc = "Você está escalando uma enorme montanha. Após você tocar seus pés na\n\
+montanha, você quase escorrega. Cuidado, continuar a subir não parece muito\nseguro!"
+const dir_c = $s_mideniad016
+const dir_b = $s_mideniad014
+
+
+classe s_mideniad016
+herda b_mideniad
+const s_titulo = "no topo da montanha congelada"
+const s_desc = "Aaa! Aqui o frio começa a impedir você até de se mecher! Muitas pedras de\n\
+gelo está ao seu redor e do nada muitas pedras começa a cair sobre você.\n\
+Cuidado!"
+const dir_l = $s_mideniad017
+const portaini_l = 3 # Estado inicial: 3 Porta trancada
+const portanome_l = "A passagem estranha"
+const fechadura_l = "guardião do reino gelado"
+const comechave_l = 1 # Come chave: Sim
+const tranc_l = 1 # Trancar: 1 Pode ser trancado
+const dir_b = $s_mideniad015
+const a_reset = "P 100 mideniad001 0 0 1 h_defender=8,h_derrubar=2,h_chutar=4\n\
+I 100 mideniad001 1\n\
+D 100 l 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  se p_mideniad001:objsolto.total < 1
+    p = u = criar("p_mideniad001", este, 0, "h_defender=8,h_derrubar=2,h_chutar=4")
+  fimse
+  u && criar("i_mideniad001", u, 1)
+  mudaporta("l", 3)
+
+
+classe s_mideniad017
+herda b_mideniad
+const s_titulo = "uma passagem estranha"
+const s_desc = "Você está caminhando por uma passagem pequena e estranha. Dizem as lendas\n\
+que um terrível ser lhe aguarda neste lugar!"
+const dir_o = $s_mideniad016
+const dir_b = $s_mideniad018
+
+
+classe s_mideniad018
+herda b_mideniad
+const s_titulo = "Na caverna dos nibelungos!"
+const s_desc = "Você se encontra em uma enorme caverna, feita de enormes rochas e pedras.\n\
+Não a nada iluminando aqui, a não ser uma pequena tocha ao longe. Um terrível\n\
+cheiro invade suas narinas e um ser aparece do nada!"
+const dir_c = $s_mideniad017
+const portaini_c = 2 # Estado inicial: 2 Porta fechada
+const a_reset = "P 100 mideniad002 0 0 1 h_defender=8,h_desviar=8,h_apunhalar=2,h_chutar=3\n\
+E 100 Mideniad002 1 14"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_mideniad002:objsolto.total < 1
+    p = u = criar("p_mideniad002", este, 0, "h_defender=8,h_desviar=8,h_apunhalar=2,h_chutar=3")
+  fimse
+  se u
+    r = criar("i_Mideniad002", u, 1), r.vestir(14), u.recalc = 1
+  fimse
+
+
+classe s_mideniad019
+herda b_mideniad
+const s_titulo = "uma estrada congelada"
+const s_desc = "Você está caminhando por uma enorme estrada. Após você tocar seus pés no\n\
+chão, você percebe que a estrada não e tão ampla. Varias pedras de gelo estão\n\
+espalhadas pelo chão e você quase nao consegue se movimentar. Cuidado, você\n\
+poderá ficar congelado aqui!"
+const dir_n = $s_mideniad020
+const dir_s = $s_mideniad006
+
+
+classe s_mideniad020
+herda b_mideniad
+const s_titulo = "uma bifurcação"
+const s_desc = "Você está em uma bifurcação. Aqui nessa bifurcação, você sente mais medo.\n\
+Pegadas no gelo aparecem do nada, do que será?"
+const s_pnj = 0
+const dir_n = $s_mideniad021
+const dir_s = $s_mideniad019
+const dir_b = $s_mideniad022
+
+
+classe s_mideniad021
+herda b_mideniad
+const s_titulo = "uma estrada congelada"
+const s_desc = "Você está caminhando por uma enorme estrada. Após você tocar seus pés no\n\
+chão, você percebe que a estrada não e tão ampla. Varias pedras de gelo estão\n\
+espalhadas pelo chão e você quase nao consegue se movimentar. Cuidado, você\n\
+poderá ficar congelado aqui!"
+const dir_n = $s_mideniad023
+const dir_s = $s_mideniad020
+
+
+classe s_mideniad022
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const s_pnj = 20
+const dir_n = $s_mideniad064
+const dir_s = $s_mideniad065
+const dir_l = $s_mideniad063
+const dir_c = $s_mideniad020
+
+
+classe s_mideniad023
+herda b_mideniad
+const s_titulo = "uma estrada congelada"
+const s_desc = "Você está caminhando por uma enorme estrada. Após você tocar seus pés no\n\
+chão, você percebe que a estrada não e tão ampla. Varias pedras de gelo estão\n\
+espalhadas pelo chão e você quase nao consegue se movimentar. Cuidado, você\n\
+poderá ficar congelado aqui!"
+const dir_n = $s_mideniad024
+const dir_s = $s_mideniad021
+
+
+classe s_mideniad024
+herda b_mideniad
+const s_titulo = "uma estrada congelada"
+const s_desc = "Você está caminhando por uma enorme estrada. Após você tocar seus pés no\n\
+chão, você percebe que a estrada não e tão ampla. Varias pedras de gelo estão\n\
+espalhadas pelo chão e você quase nao consegue se movimentar. Cuidado, você\n\
+poderá ficar congelado aqui!"
+const dir_s = $s_mideniad023
+const dir_l = $s_mideniad025
+
+
+classe s_mideniad025
+herda b_mideniad
+const s_titulo = "no final da estrada"
+const s_desc = "Você está no final da estrada. Depois de caminhar e caminhar, você chega \
+no\n\
+final dela. Cuidado aventureiro, perigos o aguardam!"
+const dir_n = $s_mideniad026
+const dir_o = $s_mideniad024
+
+
+classe s_mideniad026
+herda b_mideniad
+const s_titulo = "no caminho do palácio"
+const s_desc = "Você está caminhando por um caminho muito estranho. Como em toda parte do\n\
+reino, aqui também a muitas pedras de gelo. Como por encanto, você não sente\n\
+tanto frio como nas outras partes do reino."
+const dir_n = $s_mideniad028
+const dir_s = $s_mideniad025
+
+
+classe s_mideniad027
+herda b_mideniad
+const s_titulo = "uma floresta congelada"
+const s_desc = ""
+const dir_n = $s_mideniad025
+
+
+classe s_mideniad028
+herda b_mideniad
+const s_titulo = "no caminho do palácio"
+const s_desc = "Você está caminhando por uma enorme estrada. Após você tocar seus pés no\n\
+chão, você percebe que a estrada não e tão ampla. Varias pedras de gelo estão\n\
+espalhadas pelo chão e você quase nao consegue se movimentar. Cuidado, você\n\
+poderá ficar congelado aqui!"
+const dir_n = $s_mideniad029
+const dir_s = $s_mideniad026
+
+
+classe s_mideniad029
+herda b_mideniad
+const s_titulo = "no caminho do palácio"
+const s_desc = "Você está caminhando por uma enorme estrada. Após você tocar seus pés no\n\
+chão, você percebe que a estrada não e tão ampla. Varias pedras de gelo estão\n\
+espalhadas pelo chão e você quase nao consegue se movimentar. Cuidado, você\n\
+poderá ficar congelado aqui!"
+const dir_s = $s_mideniad028
+const dir_l = $s_mideniad030
+
+
+classe s_mideniad030
+herda b_mideniad
+const s_titulo = "em frente ao palácio"
+const s_desc = "Aaa! Que beleza! Após você olhar ao seu redor, um enorme palácio se\n\
+materializa diante de você. Daqui de fora você vê as janelas fechadas, as\n\
+paredes com enormes pedras de gelo e o teto. Você vai arriscar entrar nessa\n\
+propriedade?"
+const dir_o = $s_mideniad029
+const dir_c = $s_mideniad031
+
+
+classe s_mideniad031
+herda b_mideniad
+const s_titulo = "dentro do palácio"
+const s_desc = "Você está dentro do palácio. Acho que você se enganou, aventureiro! Após\n\
+você tocar seus pés aqui, você sente a temperatura voltar ao normal. As paredes\n\
+estão pintadas, os quadros estão perfeitos e um enorme carpete foi estendido no\nchão."
+const dir_n = $s_mideniad032
+const dir_l = $s_mideniad034
+const dir_b = $s_mideniad030
+
+
+classe s_mideniad032
+herda b_mideniad
+const s_titulo = "um corredor amplo"
+const s_desc = ".Você está caminhando por um enorme corredor amplo. Após você tocar seus \
+pés\n\
+aqui, você sente a temperatura mudar. Você sente um enorme frio começar a o\n\
+possuir, cuidado!"
+const dir_n = $s_mideniad036
+const dir_s = $s_mideniad031
+
+
+classe s_mideniad033
+herda b_mideniad
+const s_titulo = "Sem nome"
+const s_desc = ""
+const dir_n = $s_mideniad031
+
+
+classe s_mideniad034
+herda b_mideniad
+const s_titulo = "no corredor"
+const s_desc = "Você está andando por um enorme corredor. Você começa observar as paredes \
+do\n\
+corredor e vê enormes quadros com fotos estranhas. Você tenta ler o que esta\n\
+escrito mais do nada as palavras somem. Uma forte luz brilha a diante, cuidado!"
+const dir_l = $s_mideniad038
+const dir_o = $s_mideniad031
+
+
+classe s_mideniad035
+herda b_mideniad
+const s_titulo = "Sem nome"
+const s_desc = ""
+const dir_n = $s_mideniad031
+
+
+classe s_mideniad036
+herda b_mideniad
+const s_titulo = "um corredor amplo"
+const s_desc = ".Você está caminhando por um enorme corredor amplo. Após você tocar seus \
+pés\n\
+aqui, você sente a temperatura mudar. Você sente um enorme frio começar a o\n\
+possuir, cuidado!"
+const dir_s = $s_mideniad032
+const dir_c = $s_mideniad037
+
+
+classe s_mideniad037
+herda b_mideniad
+const s_titulo = "No trono de Manderic"
+const s_desc = "Você está diante de um enorme trono congelado. Um enorme tapete foi\n\
+estendido aqui, cheio de pedras de gelo."
+const dir_b = $s_mideniad036
+const a_reset = "P 100 mideniad003 0 0 1\nE 100 mideniad003 1 16"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_mideniad003:objsolto.total < 1
+    p = u = criar("p_mideniad003", este, 0)
+  fimse
+  se u
+    r = criar("i_mideniad003", u, 1), r.vestir(16), u.recalc = 1
+  fimse
+
+
+classe s_mideniad038
+herda b_mideniad
+const s_titulo = "no corredor"
+const s_desc = "Você está andando por um enorme corredor. Você começa observar as paredes \
+do\n\
+corredor e vê enormes quadros com fotos estranhas. Você tenta ler o que está\n\
+escrito mais do nada as palavras somem. Uma forte luz brilha a diante, cuidado!"
+const dir_s = $s_mideniad039
+const dir_o = $s_mideniad034
+
+
+classe s_mideniad039
+herda b_mideniad
+const s_titulo = "uma passagem esterna"
+const s_desc = "Aaa! Essa passagem parece que foi abandonada a anos! Com várias pedras de\n\
+gelo nas paredes e o teto quase caindo, você quase não consegue passar pela\n\
+passagem."
+const dir_n = $s_mideniad038
+const dir_s = $s_mideniad040
+
+
+classe s_mideniad040
+herda b_mideniad
+const s_titulo = "entrando no mar congelado"
+const s_desc = "Você está entrando em um enorme mar. Daqui de fora você não ve nenhum\n\
+perigo, mais o frio e terrível."
+const dir_n = $s_mideniad039
+const dir_l = $s_mideniad041
+
+
+classe s_mideniad041
+herda b_mideniad
+const s_titulo = "no mar congelado"
+const s_desc = "você está no mar congelado. Quanto mais você avança, um frio enorme toma\n\
+conta de você. A água esta totalmente congelada e cada parte do seu corpo\n\
+protesta."
+const dir_l = $s_mideniad042
+const dir_o = $s_mideniad040
+
+
+classe s_mideniad042
+herda b_mideniad
+const s_titulo = "no mar congelado"
+const s_desc = "você está no mar congelado. Quanto mais você avança, um frio enorme toma\n\
+conta de você. A água esta totalmente congelada e cada parte do seu corpo\n\
+protesta."
+const dir_s = $s_mideniad043
+const dir_o = $s_mideniad041
+
+
+classe s_mideniad043
+herda b_mideniad
+const s_titulo = "no mar congelado"
+const s_desc = "você está no mar congelado. Quanto mais você avança, um frio enorme toma\n\
+conta de você. A água esta totalmente congelada e cada parte do seu corpo\n\
+protesta."
+const dir_n = $s_mideniad042
+const dir_l = $s_mideniad044
+
+
+classe s_mideniad044
+herda b_mideniad
+const s_titulo = "no mar congelado"
+const s_desc = "você está no mar congelado. Quanto mais você avança, um frio enorme toma\n\
+conta de você. A água esta totalmente congelada e cada parte do seu corpo\n\
+protesta."
+const dir_l = $s_mideniad045
+const dir_o = $s_mideniad043
+
+
+classe s_mideniad045
+herda b_mideniad
+const s_titulo = "no mar congelado"
+const s_desc = "você está no mar congelado. Quanto mais você avança, um frio enorme toma\n\
+conta de você. A água esta totalmente congelada e cada parte do seu corpo\n\
+protesta."
+const dir_o = $s_mideniad044
+const dir_b = $s_mideniad046
+
+
+classe s_mideniad046
+herda b_mideniad
+const s_titulo = "Mergulhando nas garudas"
+const s_desc = "Você começa a mergulhar e mergulhar. Seu corpo começa a se afundar e você\n\
+quase perde suas forças. Cuidado, tudo começa a ficar mais escuro!"
+const dir_c = $s_mideniad045
+const dir_b = $s_mideniad047
+
+
+classe s_mideniad047
+herda b_mideniad
+const s_titulo = "mergulhando nas guarudas"
+const s_desc = "você está no mar congelado. Quanto mais você avança, um frio enorme toma\n\
+conta de você. A água esta totalmente congelada e cada parte do seu corpo\n\
+protesta."
+const dir_l = $s_mideniad048
+const dir_c = $s_mideniad046
+
+
+classe s_mideniad048
+herda b_mideniad
+const s_titulo = "mergulhando nas guarudas"
+const s_desc = "você está no mar congelado. Quanto mais você avança, um frio enorme toma\n\
+conta de você. A água esta totalmente congelada e cada parte do seu corpo\n\
+protesta."
+const dir_o = $s_mideniad047
+const dir_b = $s_mideniad049
+
+
+classe s_mideniad049
+herda b_mideniad
+const s_titulo = "entrando no reino de poseidon"
+const s_desc = "Você está entrando em terras desconhecidas. Após você tocar seus pés aqui,\n\
+você percebe que não está sozinho. O que será que está por vir?"
+const dir_s = $s_mideniad050
+const dir_c = $s_mideniad048
+const dir_b = $s_mideniad102
+
+
+classe s_mideniad050
+herda b_mideniad
+const s_titulo = "no reino de poseidon"
+const s_desc = "você se encontra no reino de poseidon. Que beleza maravilhosa! Com várias\n\
+algas nas paredes e no teto e muitas pedras de gelo no chão, esse reino foi\n\
+construido a milhões de anos. Você olha mais atentamente e algo vem em sua\n\
+mente, como será que um reino desse vive em um mundo tão gelado?"
+const dir_n = $s_mideniad049
+const dir_s = $s_mideniad051
+
+
+classe s_mideniad051
+herda b_mideniad
+const s_titulo = "nas escadarias"
+const s_desc = "você está caminhando, por uma escadaria\n\
+essa escadaria foi bém construída.\n\
+com algas e conchas, enormes pilares sustentam elas e não a nem um perigo de você cair."
+const dir_n = $s_mideniad050
+const dir_s = $s_mideniad052
+
+
+classe s_mideniad052
+herda b_mideniad
+const s_titulo = "no pilar do oceano índico"
+const s_desc = "este é o sétimo pilar que sustenta o reino de poseidon"
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const dir_n = $s_mideniad051
+const fugir_n = 1 # Sem fuga: Sim
+const dir_l = $s_mideniad053
+const fugir_l = 1 # Sem fuga: Sim
+const rec_l = 1 # Sem fuga: Sim
+const a_reset = "P 100 Mideniad004 0 0 1\nE 20 mideniad010 1 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_Mideniad004:objsolto.total < 1
+    p = u = criar("p_Mideniad004", este, 0)
+  fimse
+  se u && rand(100) < 20
+    r = criar("i_mideniad010", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_mideniad053
+herda b_mideniad
+const s_titulo = "no pilar do oceano atlântico sul"
+const s_desc = "Esse e o sexto pilar que sustenta o reino de poseidon"
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const dir_l = $s_mideniad054
+const fugir_l = 1 # Sem fuga: Sim
+const dir_o = $s_mideniad052
+const fugir_o = 1 # Sem fuga: Sim
+const rec_l = 1 # recuar: Sim
+const rec_l = 1 # Sem fuga: Sim
+const a_reset = "P 100 mideniad005 0 0 1\nE 100 mideniad009 1 23"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_mideniad005:objsolto.total < 1
+    p = u = criar("p_mideniad005", este, 0)
+  fimse
+  se u
+    r = criar("i_mideniad009", u, 1), r.vestir(23), u.recalc = 1
+  fimse
+
+
+classe s_mideniad054
+herda b_mideniad
+const s_titulo = "no pilar do oceano pacífico sul"
+const s_desc = "Esse e o quinto pilar que sustenta o reino de poseidon"
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const dir_l = $s_mideniad055
+const fugir_l = 1 # Sem fuga: Sim
+const dir_o = $s_mideniad053
+const fugir_o = 1 # Sem fuga: Sim
+const rec_l = 1 # recuar: Sim
+const a_reset = "P 100 mideniad006 0 0 1\nE 100 mideniad008 1 7"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_mideniad006:objsolto.total < 1
+    p = u = criar("p_mideniad006", este, 0)
+  fimse
+  se u
+    r = criar("i_mideniad008", u, 1), r.vestir(7), u.recalc = 1
+  fimse
+
+
+classe s_mideniad055
+herda b_mideniad
+const s_titulo = "No pilar do oceano antártico"
+const s_desc = "Esse e o quarto pilar que sustenta o reino de poseidon"
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const dir_l = $s_mideniad056
+const fugir_l = 1 # Sem fuga: Sim
+const dir_o = $s_mideniad054
+const fugir_o = 1 # Sem fuga: Sim
+const rec_l = 1 # recuar: Sim
+const a_reset = "P 100 mideniad007 0 0 1\nE 100 mideniad006 1 11"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_mideniad007:objsolto.total < 1
+    p = u = criar("p_mideniad007", este, 0)
+  fimse
+  se u
+    r = criar("i_mideniad006", u, 1), r.vestir(11), u.recalc = 1
+  fimse
+
+
+classe s_mideniad056
+herda b_mideniad
+const s_titulo = "no pilar do oceano atlantico norte"
+const s_desc = "Esse e o terceiro pilar que sustenta o reino de poseidon"
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const dir_l = $s_mideniad057
+const fugir_l = 1 # Sem fuga: Sim
+const dir_o = $s_mideniad055
+const fugir_o = 1 # Sem fuga: Sim
+const rec_l = 1 # recuar: Sim
+const a_reset = "P 100 mideniad008 0 0 1\nE 100 mideniad007 1 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_mideniad008:objsolto.total < 1
+    p = u = criar("p_mideniad008", este, 0)
+  fimse
+  se u
+    r = criar("i_mideniad007", u, 1), r.vestir(10), u.recalc = 1
+  fimse
+
+
+classe s_mideniad057
+herda b_mideniad
+const s_titulo = "No pilar do oceano ártico"
+const s_desc = "este é o segundo pilar que sustenta o reino de poseidon"
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const dir_l = $s_mideniad058
+const fugir_l = 1 # Sem fuga: Sim
+const dir_o = $s_mideniad056
+const rec_l = 1 # recuar: Sim
+const a_reset = "P 100 mideniad009 0 0 1\nE 100 mideniad005 1 18"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_mideniad009:objsolto.total < 1
+    p = u = criar("p_mideniad009", este, 0)
+  fimse
+  se u
+    r = criar("i_mideniad005", u, 1), r.vestir(18), u.recalc = 1
+  fimse
+
+
+classe s_mideniad058
+herda b_mideniad
+const s_titulo = "No pilar do oceano pacifico norte"
+const s_desc = "Esse e o primeiro pilar que sustenta o reino de poseidon"
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const dir_l = $s_mideniad059
+const fugir_l = 1 # Sem fuga: Sim
+const dir_o = $s_mideniad057
+const rec_l = 1 # recuar: Sim
+const rec_l = 1 # Sem fuga: Sim
+const a_reset = "P 100 mideniad010 0 0 1\nE 100 mideniad004 1 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_mideniad010:objsolto.total < 1
+    p = u = criar("p_mideniad010", este, 0)
+  fimse
+  se u
+    r = criar("i_mideniad004", u, 1), r.vestir(2), u.recalc = 1
+  fimse
+
+
+classe s_mideniad059
+herda b_mideniad
+const s_titulo = "no grande pilar principal"
+const s_desc = "você está no grande pilar principal você está mais próximo do que nunca, de \
+poseidon, o deus dos mares!"
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const dir_n = $s_mideniad060
+const fugir_n = 1 # Sem fuga: Sim
+const dir_o = $s_mideniad058
+const rec_l = 1 # recuar: Sim
+const a_reset = "P 100 mideniad011 0 0 1\nE 100 mideniad012 1 6"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_mideniad011:objsolto.total < 1
+    p = u = criar("p_mideniad011", este, 0)
+  fimse
+  se u
+    r = criar("i_mideniad012", u, 1), r.vestir(6), u.recalc = 1
+  fimse
+
+
+classe s_mideniad060
+herda b_mideniad
+const s_titulo = "subindo uma escadaria de conchas"
+const s_desc = "você está subindo uma escadaria feita de conchas, de molúsculos e outros tipos \
+de animais marinhos.\n\
+tenha bastante cuidado, pois esta escada paresse ser bém antiga."
+const dir_s = $s_mideniad059
+const dir_c = $s_mideniad061
+
+
+classe s_mideniad061
+herda b_mideniad
+const s_titulo = "subindo uma escadaria de conchas"
+const s_desc = "você está subindo uma escadaria feita de conchas, de molúsculos e outros tipos \
+de animais marinhos.\n\
+tenha bastante cuidado, pois esta escada paresse ser bém antiga."
+const dir_c = $s_mideniad062
+const fugir_c = 1 # Sem fuga: Sim
+const dir_b = $s_mideniad060
+
+
+classe s_mideniad062
+herda b_mideniad
+const s_titulo = "No templo de poseidon"
+const s_desc = "Você está em um templo muito antigo e estruturado. Varios pilares sustentam\n\
+.este templo e uma enorme parede esta a sua frente. Degraus feitos de conchas\n\
+estão na entrada e você só vê uma saída."
+const s_semmagia = 1 # Sem magia: Sim
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const dir_b = $s_mideniad061
+const fugir_b = 1 # Sem fuga: Sim
+const rec_l = 1 # recuar: Sim
+const a_reset = "P 100 mideniad012 0 0 1\nI 30 mideniad013 1\nE 100 mideniad011 1 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_mideniad012:objsolto.total < 1
+    p = u = criar("p_mideniad012", este, 0)
+  fimse
+  u && rand(100) < 30 && criar("i_mideniad013", u, 1)
+  se u
+    r = criar("i_mideniad011", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_mideniad063
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_n = $s_mideniad073
+const dir_s = $s_mideniad074
+const dir_o = $s_mideniad022
+
+
+classe s_mideniad064
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_n = $s_mideniad094
+const dir_s = $s_mideniad022
+const dir_l = $s_mideniad071
+const dir_o = $s_mideniad072
+const a_reset = "P 100 mideniad016 170 200 40"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_mideniad016:objsolto.total < 40
+    criar("p_mideniad016", este, rand(170, 200))
+  fimse
+
+
+classe s_mideniad065
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_n = $s_mideniad022
+const dir_s = $s_mideniad068
+const dir_l = $s_mideniad067
+const dir_o = $s_mideniad066
+const a_reset = "P 100 mideniad014 140 160 40"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_mideniad014:objsolto.total < 40
+    criar("p_mideniad014", este, rand(140, 160))
+  fimse
+
+
+classe s_mideniad066
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_n = $s_mideniad079
+const dir_s = $s_mideniad080
+const dir_l = $s_mideniad065
+
+
+classe s_mideniad067
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_n = $s_mideniad077
+const dir_s = $s_mideniad078
+const dir_o = $s_mideniad065
+
+
+classe s_mideniad068
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_n = $s_mideniad065
+const dir_l = $s_mideniad069
+const dir_o = $s_mideniad070
+const a_reset = "P 100 mideniad013 160 180 40"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_mideniad013:objsolto.total < 40
+    criar("p_mideniad013", este, rand(160, 180))
+  fimse
+
+
+classe s_mideniad069
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_n = $s_mideniad075
+const dir_s = $s_mideniad076
+const dir_o = $s_mideniad068
+const a_reset = "P 100 mideniad016 190 210 40"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_mideniad016:objsolto.total < 40
+    criar("p_mideniad016", este, rand(190, 210))
+  fimse
+
+
+classe s_mideniad070
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_l = $s_mideniad068
+const a_reset = "P 100 mideniad015 180 200 40"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_mideniad015:objsolto.total < 40
+    criar("p_mideniad015", este, rand(180, 200))
+  fimse
+
+
+classe s_mideniad071
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_n = $s_mideniad081
+const dir_s = $s_mideniad082
+const dir_l = $s_mideniad083
+const dir_o = $s_mideniad064
+
+
+classe s_mideniad072
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_n = $s_mideniad086
+const dir_s = $s_mideniad087
+const dir_l = $s_mideniad064
+const dir_o = $s_mideniad088
+const a_reset = "P 100 mideniad015 200 210 50"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_mideniad015:objsolto.total < 50
+    criar("p_mideniad015", este, rand(200, 210))
+  fimse
+
+
+classe s_mideniad073
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_s = $s_mideniad063
+
+
+classe s_mideniad074
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_n = $s_mideniad063
+
+
+classe s_mideniad075
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_s = $s_mideniad069
+const a_reset = "P 100 mideniad016 200 200 40"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_mideniad016:objsolto.total < 40
+    criar("p_mideniad016", este, 200)
+  fimse
+
+
+classe s_mideniad076
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_n = $s_mideniad069
+
+
+classe s_mideniad077
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_s = $s_mideniad067
+
+
+classe s_mideniad078
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_n = $s_mideniad067
+
+
+classe s_mideniad079
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_s = $s_mideniad066
+
+
+classe s_mideniad080
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_n = $s_mideniad066
+const a_reset = "P 100 mideniad014 200 210 60"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_mideniad014:objsolto.total < 60
+    criar("p_mideniad014", este, rand(200, 210))
+  fimse
+
+
+classe s_mideniad081
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_s = $s_mideniad071
+const a_reset = "P 100 mideniad016 200 210 90"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_mideniad016:objsolto.total < 90
+    criar("p_mideniad016", este, rand(200, 210))
+  fimse
+
+
+classe s_mideniad082
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_n = $s_mideniad071
+
+
+classe s_mideniad083
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_n = $s_mideniad084
+const dir_s = $s_mideniad085
+const dir_o = $s_mideniad071
+
+
+classe s_mideniad084
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_s = $s_mideniad083
+const a_reset = "P 100 mideniad014 200 210 80"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_mideniad014:objsolto.total < 80
+    criar("p_mideniad014", este, rand(200, 210))
+  fimse
+
+
+classe s_mideniad085
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_n = $s_mideniad083
+const a_reset = "P 100 mideniad013 200 210 80"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_mideniad013:objsolto.total < 80
+    criar("p_mideniad013", este, rand(200, 210))
+  fimse
+
+
+classe s_mideniad086
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_s = $s_mideniad072
+
+
+classe s_mideniad087
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_n = $s_mideniad072
+
+
+classe s_mideniad088
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_n = $s_mideniad089
+const dir_s = $s_mideniad090
+const dir_l = $s_mideniad072
+const dir_o = $s_mideniad091
+
+
+classe s_mideniad089
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_s = $s_mideniad088
+
+
+classe s_mideniad090
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_n = $s_mideniad088
+
+
+classe s_mideniad091
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_n = $s_mideniad092
+const dir_s = $s_mideniad093
+const dir_l = $s_mideniad088
+
+
+classe s_mideniad092
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_s = $s_mideniad091
+
+
+classe s_mideniad093
+herda b_mideniad
+const s_titulo = "no território dos pinguins"
+const s_desc = "Você está andando por um enorme território. Aqui nesse lugar, você vê várias\n\
+tocas de enormes pinguins. Cuidado aventureiro, eles o observam de longe!"
+const dir_n = $s_mideniad091
+
+
+classe s_mideniad094
+herda b_mideniad
+const s_titulo = "na toca do lider dos pinguins"
+const s_desc = "você está em uma pequena toca bém congelada\n\
+várias pedras de gelo estão no teto e o chão está muito escorregadio cuidado, o que será que \
+acontesseu aqui?\n\
+ou melhor, quem vive aqui?"
+const dir_s = $s_mideniad064
+
+
+classe s_mideniad095
+herda b_mideniad
+const s_titulo = "Um corredor"
+const s_desc = "Aqui é um corredor todo branco com várias conchas espalhadas no chão, e nas \
+paredes há quadros com corais colados.\n\
+Há também duas portas, que levam a setores diferentes do palácio."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_n = $s_mideniad031
+
+
+classe s_mideniad096
+herda b_mideniad
+const s_titulo = "Um corredor estreito."
+const s_desc = "Este corredor é simplesmente estranho. Pegadas pelo local, e marcas de ferramenta\
+s nas paredes"
+const s_terreno = 6 # Terreno: 6 Montanha, excessivamente montanhoso - 6mv
+const dir_l = $s_mideniad097
+const dir_o = $s_mideniad095
+
+
+classe s_mideniad097
+herda b_mideniad
+const s_titulo = "Continuando pelo corredor."
+const s_desc = "O corredor aqui é semelhante ao outro antes deste, porém, aqui á mais iluminação \
+do que o anterior."
+const s_terreno = 6 # Terreno: 6 Montanha, excessivamente montanhoso - 6mv
+const dir_l = $s_mideniad098
+const dir_o = $s_mideniad096
+
+
+classe s_mideniad098
+herda b_mideniad
+const s_titulo = "Uma pequena descida"
+const s_desc = "Há uma pequena escada que va para baixo, mas não da para ter ideia do que tem lá \
+em baixo."
+const s_terreno = 6 # Terreno: 6 Montanha, excessivamente montanhoso - 6mv
+const dir_o = $s_mideniad097
+const dir_b = $s_mideniad099
+
+
+classe s_mideniad099
+herda b_mideniad
+const s_titulo = "Descendo as escadas."
+const s_desc = ""
+const dir_c = $s_mideniad098
+const dir_b = $s_mideniad100
+
+
+classe s_mideniad100
+herda b_mideniad
+const s_titulo = "Descendo as escadas."
+const s_desc = ""
+const s_terreno = 6 # Terreno: 6 Montanha, excessivamente montanhoso - 6mv
+const dir_c = $s_mideniad099
+const dir_b = $s_ciclopes001
+
+
+classe s_mideniad101
+herda b_mideniad
+const s_titulo = "Um cubo de gelo"
+const s_desc = "Você está em um quadrado feito de gelo, onde a temperatura chega a -10 graus. O \
+clima é pesado e um doce pergume emana por este local. Uma cama feita de gelo está aqui, e nela \
+adormece uma jovem garota. Você não tem certeza do que vê, mas sabe que é algo fora do normal.\n"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_semmagia = 0 # Sem magia: Não
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const eveste = 1 # Eventos sala: Sim
+const dir_c = $s_mideniad002
+const fugir_c = 1 # Sem fuga: Sim
+const a_reset = "P 100 mideniad018 0 0 1 e_sanc=0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_mideniad018:objsolto.total < 1
+    criar("p_mideniad018", este, 0, "e_sanc=0")
+  fimse

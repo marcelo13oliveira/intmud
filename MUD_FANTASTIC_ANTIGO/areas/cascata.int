@@ -1,0 +1,264 @@
+classe a_cascata
+herda area
+
+
+classe b_cascata
+herda sala
+const s_area = "cascata"
+
+
+classe p_cascata001
+herda comum_persobat
+const nome = "duende"
+const descnome = "um duende"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 100
+const tipo1 = "duende"
+const tipo2 = "ladrão"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+sav uint16 rol
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  se !var.z_jogando
+    misc:tempo("chegou", arg0)
+  fimse
+#
+
+func chegou10
+  teclou("f Opa! E aí menininh" + (arg0.msexo ? "o" : "a") + "! Quer jogar um cassino?")
+  var.z_perguntou_ = 1
+#
+#
+
+func cmd_falou
+  se txt(arg1, 0, 3) == "sim"
+    ret !var.z_perguntou_, nulo
+    var.z_perguntou_ = 0
+    var.z_jogando = arg0.descnome
+    jogar(arg0)
+  senao txt(arg1, 0, 3) == "não"
+    ret !var.z_perguntou_, nulo
+    var.z_perguntou_ = 0
+    teclou("f ok.")
+    var.z_jogando = ""
+  fimse
+#
+
+func jogar
+  teclou("F Escolha: 1, 2, ou 3.")
+  rol = rand(1, 3)
+  var.z_turn_ = 1
+#
+
+func cmd_escr
+  se var.z_turn_ && arg0.descnome == var.z_jogando
+    refvar num = txt(arg1, 0, 1)
+    ret num != 1 && num != 2 && num != 3, nulo
+    var.z_turn_ = 0
+    se num == rol
+      refvar m = rand(5000, 15000)
+      teclou("f Parabéns, " + arg0.descnome + "! Você ganhou " + m + " moedas.")
+      arg0.var.z_moedas_ += m
+    senao
+      teclou("f Você não está com muita sorte. Acabou de perder 5000 moedas.")
+      arg0.var.z_moedas_ -= 5000
+      var.z_moedas_ += 5000
+    fimse
+    var.z_jogando = ""
+    jogardenovo(arg0)
+    ret 1
+  fimse
+#
+
+func jogardenovo
+  teclou("f quer jogar de novo? Sim ou não?")
+  var.z_perguntou_ = 1
+
+
+classe p_cascata002
+herda comum_persobat
+const nome = "lobo"
+const descnome = "um lobo"
+const descpadr = "Um lobo feroz olha ameaçadoramente em sua direção, com as presas de fora, \
+pronto para o ataque."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 50
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 25000
+  atknorm += 500
+  defnorm += 900
+  defesp += 900
+  evasao += 750
+  precisao += 500
+
+
+classe s_cascata001
+herda b_cascata
+const s_titulo = "Entrando na cidade de Cascata"
+const dir_l = $s_cascata002
+
+
+classe s_cascata002
+herda b_cascata
+const s_titulo = "Na pequena cidade de Cascata"
+const dir_n = $s_cascata004
+const dir_s = $s_cascata003
+const dir_l = $s_cascata005
+const dir_o = $s_cascata001
+
+
+classe s_cascata003
+herda b_cascata
+const s_titulo = "Na pequena cidade de Cascata"
+const dir_n = $s_cascata002
+const dir_l = $s_cascata007
+
+
+classe s_cascata004
+herda b_cascata
+const s_titulo = "Na pequena cidade de Cascata"
+const dir_s = $s_cascata002
+const dir_l = $s_cascata006
+
+
+classe s_cascata005
+herda b_cascata
+const s_titulo = "Na pequena cidade de Cascata"
+const dir_n = $s_cascata006
+const dir_s = $s_cascata007
+const dir_l = $s_cascata008
+const dir_o = $s_cascata002
+
+
+classe s_cascata006
+herda b_cascata
+const s_titulo = "Na pequena cidade de Cascata"
+const dir_s = $s_cascata005
+const dir_l = $s_cascata009
+const dir_o = $s_cascata004
+
+
+classe s_cascata007
+herda b_cascata
+const s_titulo = "Um cassino!"
+const dir_n = $s_cascata005
+const dir_l = $s_cascata010
+const dir_o = $s_cascata003
+
+
+classe s_cascata008
+herda b_cascata
+const s_titulo = "Loja! 'Bom preço de armas!"
+const dir_n = $s_cascata009
+const dir_s = $s_cascata010
+const dir_l = $s_cascata013
+const dir_o = $s_cascata005
+
+
+classe s_cascata009
+herda b_cascata
+const s_titulo = "Na pequena cidade de Cascata"
+const dir_s = $s_cascata008
+const dir_l = $s_cascata011
+const dir_o = $s_cascata006
+
+
+classe s_cascata010
+herda b_cascata
+const s_titulo = "Uma Fazenda!"
+const dir_n = $s_cascata008
+const dir_l = $s_cascata014
+const dir_o = $s_cascata007
+
+
+classe s_cascata011
+herda b_cascata
+const s_titulo = "A beira de um riacho!"
+const dir_n = $s_cascata012
+const dir_s = $s_cascata013
+const dir_l = $s_cascata018
+const dir_o = $s_cascata009
+
+
+classe s_cascata012
+herda b_cascata
+const s_titulo = "Uma parte escondida da cidade!"
+const dir_s = $s_cascata011
+
+
+classe s_cascata013
+herda b_cascata
+const s_titulo = "Na pequena cidade de Cascata"
+const dir_n = $s_cascata011
+const dir_s = $s_cascata014
+const dir_l = $s_cascata017
+const dir_o = $s_cascata008
+
+
+classe s_cascata014
+herda b_cascata
+const s_titulo = "Na pequena cidade de Cascata"
+const dir_n = $s_cascata013
+const dir_s = $s_cascata015
+const dir_l = $s_cascata016
+const dir_o = $s_cascata010
+
+
+classe s_cascata015
+herda b_cascata
+const s_titulo = "Uma parte escondida da cidade!"
+const dir_n = $s_cascata014
+
+
+classe s_cascata016
+herda b_cascata
+const s_titulo = "Na pequena cidade de Cascata"
+const dir_n = $s_cascata017
+const dir_l = $s_cascata019
+const dir_o = $s_cascata014
+
+
+classe s_cascata017
+herda b_cascata
+const s_titulo = "Um cassino!"
+const dir_n = $s_cascata018
+const dir_s = $s_cascata016
+const dir_l = $s_cascata020
+const dir_o = $s_cascata013
+
+
+classe s_cascata018
+herda b_cascata
+const s_titulo = "Na pequena cidade de Cascata"
+const dir_s = $s_cascata017
+const dir_l = $s_cascata021
+const dir_o = $s_cascata011
+
+
+classe s_cascata019
+herda b_cascata
+const s_titulo = "Loja! 'Nossas armas!"
+const dir_n = $s_cascata020
+const dir_o = $s_cascata016
+
+
+classe s_cascata020
+herda b_cascata
+const s_titulo = "Na pequena cidade de Cascata"
+const dir_n = $s_cascata021
+const dir_s = $s_cascata019
+const dir_o = $s_cascata017
+
+
+classe s_cascata021
+herda b_cascata
+const s_titulo = "Na pequena cidade de Cascata"
+const dir_s = $s_cascata020
+const dir_o = $s_cascata018

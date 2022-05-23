@@ -1,0 +1,4352 @@
+classe a_acamp
+herda area
+const a_nome = "O acampamento nômade"
+const a_autor = "Kary"
+const a_tempo = 30
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_acamp
+herda sala
+const s_doarsalas = "torvani101"
+const s_item = 4
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_pnj = 6
+const s_recup = 2
+const s_reserva = 1 # Comando reserva: Sim
+const s_terreno = 2 # Terreno: 2 Campo, um campo aberto - 2mv
+const s_area = "acamp"
+
+
+classe i_acamp001
+herda comum_item
+const nome = "uma espada de duas mãos"
+const ident = "espada duas mãos"
+const descnome = "uma espada de duas mãos"
+const descpos = "O brilho da lâmina de uma espada de duas mãos parece alimentar-se da luz do \
+ambiente."
+const nivel = 120
+const armamax = 280
+const armamin = 75
+const armafalha = 15
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const pesoobj = 300
+const tipoitem = 3 # Tipo de produto: 0-Possui metal, 1-Arma
+const valor = 10000
+const vestir1 = "0"
+const vestirnao = ""
+const volmax = 0
+const p_atktipo = "bater"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 10
+
+const i_som_emp1 = "desembanha"
+
+
+classe i_acamp002
+herda comum_itemperso
+const nome = "Camas confortáveis"
+const ident = "camas confortáveis"
+const descnome = "Uma das camas"
+const descpos = "Algumas camas confortáveis o convidam para um descanso merecido."
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_lugar = 50
+const pesoobj = 1
+const eveste = 1 # Eventos item: Sim
+
+func cmd_pegarobj
+  se arg2 == este
+    arg0.msg("Você não pode pegar uma cama.")
+    ret 1
+
+
+classe i_acamp003
+herda comum_item
+const nome = "uma espada de lâmina vermelha"
+const ident = "espada lâmina sangue vermelha"
+const descnome = "uma espada de lâmina vermelha"
+const descpos = "Uma espada suja de sangue foi atirada num canto"
+const nivel = 120
+const armamax = 270
+const armamin = 100
+const armatipo = 3 # Tipo de arma: 3 Lâmina curta
+const pesoobj = 300
+const tipoitem = 3 # Tipo de produto: 0-Possui metal, 1-Arma
+const valor = 10000
+const volmax = 0
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 11
+  precisao += 11
+  atktipo.5 *= 2 # Perfurante
+
+const armafalha = -50
+
+
+classe i_acamp004
+herda comum_item
+const nome = "Um poderoso machado"
+const ident = "machado"
+const descnome = "Um poderoso machado"
+const descpos = "O poderoso machado de um dos patriarcas do acampamento está jogado ao chão."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 155
+const armamax = 250
+const armamin = 80
+const armatipo = 5 # Tipo de arma: 5 Maca e Martelo
+const pesoobj = 1
+const tipoitem = 2 # Tipo de produto: 1-Arma
+const valor = 20000
+const volobj = 200
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += -150
+  pveloc1 += -150
+  atknorm += 12
+  precisao += 12
+
+const armafalha = -150
+
+
+classe i_acamp005
+herda comum_item
+const nome = "Uma maça pesada"
+const ident = "maça"
+const descnome = "Uma maça pesada"
+const descpos = "Uma maça muito pesada está atirada ao chão."
+const nivel = 175
+const armamax = 330
+const armamin = 230
+const armatipo = 5 # Tipo de arma: 5 Maca e Martelo
+const pesoobj = 1000
+const tipoitem = 3 # Tipo de produto: 0-Possui metal, 1-Arma
+const valor = 40000
+const vestirnao = ""
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100
+  pmovemax += 100
+  pveloc1 += 10
+  atknorm += 25
+  precisao += 10
+
+const armafalha = -200
+
+
+classe i_acamp006
+herda comum_item
+const nome = "Um barril d'água"
+const ident = "barril"
+const descnome = "Um barril d'água"
+const descpos = "Um barril de água limpa e fresca foi colocado sobre um pedestal para servir aos \
+viajantes."
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_sede = 100
+const f_magia1 = "cura"
+const f_magia2 = "heal"
+const f_msgperso = "$P bebe água fresca de um barril"
+const f_msgoutros = "$P bebe água fresca de um barril"
+const f_nivel1 = 1000
+const eveste = 1 # Eventos item: Sim
+
+func cmd_pegarobj
+  se arg2 == este
+    arg0.msg("Você não consegue pegar um barril d'água.")
+    ret 1
+
+const f_nivel2 = 1000
+const f_magia3 = "heal"
+const f_nivel3 = 1000
+
+
+classe i_acamp007
+herda comum_item
+const nome = "embrulho de peles"
+const ident = "embrulho peles"
+const descnome = "Um grande embrulho de peles"
+const descpos = "Um grande embrulho contendo peles de animais aguarda quem o deverá transportar."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 1
+const tipoitem = 65536 # Tipo de produto: 16-peles
+const valor = 100000
+const volobj = 3000
+
+
+classe i_acamp008
+herda comum_item
+const nome = "Uma pesada e reforçada armadura de ferro"
+const ident = "pesada reforçada armadura ferro"
+const descnome = "Uma pesada e reforçada armadura de ferro"
+const descpos = "Uma pesada e reforçada armadura de ferro foi deixada em um canto para quem lhe \
+puder suportar o peso."
+const nivel = 100
+const pesoobj = 200
+const tipoitem = 0 # Tipo de produto:
+const valor = 600000
+const vestir1 = 4096 # Aonde vestir: 12-no corpo
+const vestirnao = ""
+const volobj = 1
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200
+  pmanamax += 200
+  pmovemax += 200
+  defnorm += 20
+
+
+classe i_acamp009
+herda comum_item
+const nome = "Um par de pesadas manoplas de ferro com pregos"
+const ident = "pesada manopla ferro prego"
+const descnome = "Um par de pesadas manoplas de ferro com pregos"
+const descpos = "Por pouco você não piza num dos pregos dessas estranhas manoplas de ferro."
+const nivel = 100
+const pesoobj = 100
+const tipoitem = 0 # Tipo de produto:
+const valor = 200000
+const vestir1 = 262144 # Aonde vestir: 18-nas mãos
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 60
+  precisao += 30
+  atktipo.3 *= 2.2 # Luta
+
+
+classe i_acamp010
+herda comum_itemperso
+const nome = "O símbolo do guerreiro general"
+const ident = "símbolo general guerreiro insígnia"
+const descnome = "O símbolo do guerreiro general"
+const descpos = "Alguém perdeu Uma insígnia com duas espadas cruzadas pelo caminho."
+const nivel = 130
+const pesoobj = 10
+const tipoitem = 0 # Tipo de produto:
+const valor = 10000000
+const vestir1 = 2 # Aonde vestir: 1-como símbolo
+const eveste = 1 # Eventos item: Sim
+const manterperso = 0 # Mantém em jogador: Não
+
+func cmd_darobj
+  se arg2 == este
+    arg0.msg("O símbolo do guerreiro general é uma honra que deve ser conquistada, não entregue \
+a alguém que não a mereça.")
+    ret 1
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 150
+  pmanamax += 150
+  pmovemax += 150
+  pveloc1 += 10
+  atknorm += 15
+  defnorm += 15
+  defesp += 15
+  precisao += 15
+
+
+classe i_acamp011
+herda comum_itemperso
+const nome = "Uma espada flamejante"
+const ident = "espada flamejante"
+const descpos = "O calor proveniente de uma espada de lâmina suspeita aquece levemente o \
+lugar."
+const nivel = 100
+const armamax = 240
+const armamin = 130
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const pesoobj = 1000
+const tipoitem = 0 # Tipo de produto:
+const valor = 10000000
+const vestir1 = "0"
+const vestirnao = "guerreiro"
+const volobj = 1
+const armaatk = "ataque flamejante"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmanamax += 200
+  atknorm += 10
+  atkesp += 20
+  defesp += 20
+  precisao += 20
+
+const armafalha = 45
+
+
+classe i_acamp012
+herda comum_item
+const nome = "Um churrascão de frango"
+const ident = "churrasco churrascão frango carne"
+const descnome = "Um churrascão de frango"
+const descpos = "Um churrascão com um delicioso molho foi atirado ao chão, que desperdício!"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 50
+const f_diges = 100
+const f_msgperso = "Um a um, todos os pedaços de carne do espeto vão desaparecendo com a \
+ferocidade que você os devora."
+const f_msgoutros = "Um a um, todos os pedaços de carne do espeto vão desaparecendo com a \
+ferocidade que $P os devora."
+const valor = 300
+
+
+classe i_acamp013
+herda comum_item
+const nome = "uma caneca de suco de laranja"
+const ident = "suco laranja caneca copo"
+const descnome = "uma caneca de suco de laranja"
+const descpos = "Uma caneca dupla de suco de laranja foi servida bem a sua frente."
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_sede = 60
+const f_msgperso = "Você bebe todo o seu suco de laranja em longas goladas."
+const f_msgoutros = "$P bebe todo o seu suco de laranja em longas goladas."
+const tipoitem = 0 # Tipo de produto:
+const valor = 100
+
+
+classe i_acamp014
+herda comum_itemperso
+const nome = "Um pequeno brinco de ouro com o formato de uma folha"
+const ident = "brinco pequeno ouro folha"
+const descnome = "Um pequeno brinco de ouro com o formato de uma folha"
+const descpos = "Uma pequenina jóia de ouro com o formato de uma folha ficou caído em seu \
+caminho."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 100
+const pesoobj = 200
+const tipoitem = 128 # Tipo de produto: 7-Tesouro
+const valor = 300000
+const vestir1 = 384 # Aonde vestir: 7-na orelha direita, 8-na orelha esquerda
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10 * pnivel + 100
+  pmanamax += 2 * pnivel + 50
+  defnorm += 1 * pnivel + 10
+
+
+classe i_acamp015
+herda comum_item
+const nome = "As botas do combatente"
+const ident = "botas combatente"
+const descnome = "As botas do combatente"
+const descpos = "Um odor estranho impregna o ambiente, e parece vir de um par de botas de \
+combate atiradas em um canto."
+const nivel = 140
+const pesoobj = 600
+const tipoitem = 12 # Tipo de produto: 2-Armadura, 3-Vestimenta
+const valor = 30000
+const vestir1 = 134217728 # Aonde vestir: 27-nos pés
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmovemax += 2 * pnivel + 30
+  atknorm += 5
+  defnorm += 15
+  defesp += 15
+  evasao += 30
+  precisao += 10
+
+
+classe p_acamp001
+herda comum_persobat
+const nome = "Um caçador experiente"
+const ident = "caçador homem humano"
+const descnome = "Um caçador experiente"
+const descpadr = "Um caçador experiente esconde-se nas sombras a espera de sua caça."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 55000
+const nivel = 120
+const tipo1 = "humano"
+const equip2 = "0"
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 120
+const p_fugir = 50
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+const inivar = "var.z_moedas_=250000"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos em perso: Sim
+const evsala = 1 # Eventos em sala: Sim
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5000
+  atknorm += 20
+  defnorm += 2
+  evasao += 2
+  precisao += 150
+  bitver |= 258
+
+
+classe p_acamp002
+herda comum_persobat
+const nome = "Uma caçadora experiente"
+const ident = "caçadora humana mulher"
+const descnome = "Uma caçadora experiente"
+const descpadr = "Uma mulher oculta-se por entre árvores a espera de uma boa caça."
+const pesoobj = 78000
+const nivel = 130
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 130
+const p_fugir = 60
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5000
+  atknorm += 20
+  defnorm += 5
+  evasao += 2
+  precisao += 150
+  bitver |= 258
+
+
+classe p_acamp003
+herda comum_persobat
+const nome = "Um guerreiro aprendiz"
+const ident = "aprendiz guerreiro homem jovem humano"
+const descnome = "Um guerreiro aprendiz"
+const descpadr = "Um guerreiro aprendiz está fazendo sua milésima ronda pelo acampamento."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 125
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 125
+const p_fugir = 40
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 400
+const inivar = "var.z_moedas=100000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20
+  precisao += 150
+
+
+classe p_acamp004
+herda comum_persobat
+const nome = "Uma anciã"
+const ident = "velha senhora idosa anciã mulher humana"
+const descnome = "Uma anciã"
+const descpadr = "Caminhando com muletas improvizadas, essa anciã dá seu melhor para vencer a \
+morte dia após dia."
+const pesoobj = 60000
+const nivel = 130
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 130
+const p_morreu1 = "$P grita de dor e desespero e dá seu último suspiro junto com uma golfada de \
+sangue. $P está morta!"
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 800
+const inivar = "var.z_moedas=150000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20
+  precisao += 150
+
+
+classe p_acamp005
+herda comum_persobat
+const nome = "Um guerreiro experiente"
+const ident = "guerreiro experiente homem humano"
+const descnome = "Um guerreiro experiente"
+const descpadr = "Um guerreiro experiente está aqui, vigiando a saída do acampamento."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 90000
+const nivel = 145
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 145
+const p_morreu1 = "Não, não p... posso... falhar! $P dá um longo grito de ódio e frustração e em \
+seguida se permite morrer."
+const inivar = "var.z_moedas=300000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20
+  precisao += 150
+
+
+classe p_acamp006
+herda comum_persobat
+const nome = "Uma mocinha sorridente"
+const ident = "mocinha moça jovem mulher garota humana"
+const descnome = "Uma mocinha sorridente"
+const descpadr = "Uma mocinha simpática e sorridente está sentada aqui, admirando o movimento do \
+acampamento"
+const pesoobj = 45000
+const nivel = 120
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 120
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+const inivar = "var.z_moedas=3500"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20
+  precisao += 150
+
+
+classe p_acamp007
+herda comum_persobat
+const nome = "Um velho artesão"
+const ident = "artesão velho homem humano"
+const descnome = "Um velho artesão"
+const descpadr = "Um velho artesão nem nota sua presença enquanto concerta uma tralha qualquer"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 150
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 150
+const inivar = "var.z_moedas=400000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1000
+  atknorm += 20
+  defnorm += 10
+  precisao += 150
+
+
+classe p_acamp008
+herda comum_persobat
+const nome = "Uma senhora"
+const ident = "senhora mulher humana"
+const descnome = "Uma senhora"
+const descpadr = "Uma senhora corre por todos os cantos mantendo a órdem por onde passa"
+const pesoobj = 75000
+const nivel = 140
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 140
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const inivar = "var.z_moedas=100000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20
+  precisao += 150
+
+
+classe p_acamp009
+herda comum_persobat
+const nome = "Um rapazinho distraído"
+const ident = "rapaz rapazinho homem humano jovem"
+const descnome = "Um rapazinho distraído"
+const descpadr = "Um jovemzinho distraído mata seu tempo desenhando ou rabiscando pelos cantos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 30000
+const nivel = 120
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 120
+const inivar = "var.z_moedas=50000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20
+  precisao += 150
+
+
+classe p_acamp010
+herda comum_persobat
+const nome = "Uma guerreira aprendiz"
+const ident = "guerreira aprendiz mulher humano"
+const descnome = "Uma guerreira aprendiz"
+const descpadr = "Uma guerreira aprendiz está aqui tirando uma soneca enquanto pode."
+const pesoobj = 89000
+const nivel = 160
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 160
+const inivar = "var.z_moedas=100000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20
+  precisao += 150
+
+
+classe p_acamp011
+herda comum_persobat
+const nome = "Um velho guerreiro aposentado"
+const ident = "guerreiro velho humano homem"
+const descnome = "Um velho guerreiro aposentado"
+const descpadr = "Um velho guerreiro aposentado da voltas e voltas enquanto procura algo com o \
+que distrair-se."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 79000
+const nivel = 150
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 150
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20
+  precisao += 150
+
+
+classe p_acamp012
+herda comum_persobat
+const nome = "O patriarca da família"
+const ident = "pai patriarca homem humano"
+const descnome = "O patriarca da família"
+const descpadr = "o patriarca da família dedica-se a afiar seu poderoso machado, ignorando o \
+resto do mundo."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 68000
+const nivel = 160
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 160
+const inivar = "var.z_moedas=600000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 3000
+  atknorm += 20
+  defnorm += 10
+  precisao += 150
+
+
+classe p_acamp013
+herda comum_persobat
+const nome = "Um jovem artesão"
+const ident = "artesão jovem homem humano"
+const descnome = "Um jovem artesão"
+const descpadr = "Um jovem artesão junta peças para uma nova invenção."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 68000
+const nivel = 130
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 130
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20
+  precisao += 150
+
+
+classe p_acamp014
+herda comum_persobat
+const ident = "artesã mulher jovem humana"
+const descnome = "Uma jovem artesã"
+const descpadr = "Uma jovem artesã verifica as peças e dá o acabamento em outras, dedicando-se \
+ao trabalho da família."
+const nivel = 120
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 120
+const inivar = "var.z_moedas=300000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20
+  precisao += 150
+
+
+classe p_acamp015
+herda comum_persobat
+const nome = "Uma dama sorridente"
+const ident = "dama senhora mulher humana"
+const descnome = "Uma dama sorridente"
+const descpadr = "Uma adorável senhora caminha de um lado para outro recolhendo coisas do chão e \
+colocando-as em seu devido lugar."
+const pesoobj = 71000
+const nivel = 140
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 140
+const inivar = "var.z_moedas=100000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20
+  precisao += 150
+
+
+classe p_acamp016
+herda comum_perso
+const nome = "O guardião do acampamento"
+const ident = "homem humano guardião"
+const descnome = "O guardião do acampamento"
+const descpadr = "O guardião do acampamento mantém-se atento a todos os seus movimentos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 86000
+const nivel = 250
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const equip1 = "100400"
+
+func cmd_chegou # Chegou na sala
+  ret !arg0.jog, nulo # Retorna se não for jogador
+  misc:evento(arg0) # Receber eventos do jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou30 # 1 segundo depois do jogador chegar
+  arg0.msg("O guardião do acampamento diz: 'Se desejar viver conosco, apenas digite desejo morar \
+aqui, e mediante ao pagamento de 50 moedas terá minha permição para ficar o tempo que quiser em \
+nossas terras.")
+
+func cmd_falou
+  se arg1 == "Desejo morar aqui"
+    ret arg0.var.z_salafim == txt(dono), arg0.msg("O guardião do acampamento diz 'Mas você já \
+mora aqui.")
+    ret arg0.var.z_moedas_ < 50, arg0.msg("O guardião do acampamento diz 'Para morar conosco \
+você deve contribuir com 50 moedas, a quantia que você não tem. vá conseguir!")
+    arg0.var.z_moedas_ -= 50
+    arg0.var.z_salafim = dono
+    $mens.p(este, arg0)
+    $mens.mtodos1("O guardião recolhe sua contribuição e aceita-lhe como mais novo morador do \
+acampamento.")
+
+
+classe p_acamp017
+herda comum_persobat
+const nome = "Um guarda renomado"
+const ident = "guarda renomado homem humano"
+const descnome = "Um guarda renomado"
+const descpadr = "Um renomado guarda faz uma minuciosa vistoria pelo acampamento a fim de \
+encontrar invasores em suas terras."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 90000
+const nivel = 200
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 200
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const inivar = "var.z_moedas=300000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5000
+  atknorm += 20
+  defnorm += 20
+  precisao += 150
+  bitinv &= ~2
+  bitver |= 2050
+
+
+classe p_acamp018
+herda comum_persobat
+const nome = "Uma bondosa senhora"
+const ident = "guerreira mulher humana bondosa senhora velha"
+const descnome = "Uma bondosa senhora"
+const descpadr = "Uma bondosa senhora mantém-se firme na entrada da barraca, determinada em não \
+deixar você passar."
+const pesoobj = 79000
+const nivel = 190
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 190
+const inivar = "var.z_moedas=130000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10000
+  atknorm += 20
+  defnorm += 10
+  precisao += 150
+
+
+classe p_acamp019
+herda comum_persobat
+const nome = "Uma antiga carregadora do acampamento"
+const ident = "velha humana mulher senhora"
+const descnome = "Uma antiga carregadora do acampamento"
+const descpadr = "Com suas forças minadas pela idade e pela doença, uma velha e castigada \
+carregadora está descansando tranquilamente aqui."
+const nivel = 135
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 135
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20
+  precisao += 150
+
+
+classe p_acamp020
+herda comum_persobat
+const nome = "Um velho campeão"
+const ident = "velho campeão guerreiro ancião homem humano guarda"
+const descnome = "Um velho campeão"
+const descpadr = "Um velho campeão posta-se imponente a frente da barraca e não parece disposto \
+a deixar você passar."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 86000
+const nivel = 190
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 190
+const inivar = "var.h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=100000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10000
+  atknorm += 20
+  defnorm += 10
+  precisao += 150
+
+
+classe p_acamp021
+herda comum_persobat
+const nome = "O armeiro"
+const ident = "armeiro homem humano"
+const descnome = "O armeiro"
+const descpadr = "Um habilidoso armeiro mal se da conta de sua presença enquanto trabalha em um \
+novo item para sua pequena loja."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 74000
+const nivel = 200
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 200
+const inivar = "var.z_moedas=400000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 15000
+  atknorm += 20
+  defnorm += 20
+  precisao += 150
+
+
+classe p_acamp022
+herda comum_persobat
+const nome = "A armeira"
+const ident = "simpática mocinha armeira vendedora mulher"
+const descnome = "A armeira"
+const descpadr = "Uma simpática e eficiente mocinha organiza os itens e atende seus clientes com \
+agilidade."
+const pesoobj = 57000
+const nivel = 175
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 175
+const inivar = "var.h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=100000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 15000
+  atknorm += 20
+  defnorm += 20
+  precisao += 150
+
+
+classe p_acamp023
+herda comum_persobat
+const nome = "Mohorrn"
+const ident = "mohorrn ferreiro homem humano"
+const descnome = "Mohorrn"
+const descpadr = "Mohorrn está aqui, forjando um novo equipamento a ser vendido."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 100
+const nivel = 200
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 200
+const inivar = "var.h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=100000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 15000
+  atknorm += 20
+  defnorm += 20
+  precisao += 150
+
+
+classe p_acamp024
+herda comum_persobat
+const nome = "O vendedor de armas"
+const ident = "vendedor homem humano"
+const descnome = "O vendedor de armas"
+const descpadr = "Com um olhar atento e perigoso, O vendedor de armas atende seus clientes com \
+um discreto sorriso sádico no rosto."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 100
+const nivel = 205
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 205
+const inivar = "var.h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=100000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 12000
+  atknorm += 20
+  defnorm += 20
+  precisao += 150
+
+
+classe p_acamp025
+herda comum_persobat
+const nome = "Um guerreiro em treinamento"
+const ident = "guerreiro homem humano"
+const descnome = "Um guerreiro em treinamento"
+const descpadr = "Um guerreiro em treinamento bloqueia a entrada da barraca empunhando sua maça \
+pesada."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 100
+const nivel = 180
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 180
+const inivar = "var.z_moedas=100,h_maca_e_martelo=1"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20
+  precisao += 150
+
+
+classe p_acamp026
+herda comum_persobat
+const nome = "Um guerreiro cansado"
+const ident = "guerreiro cansado ferido homem humano"
+const descnome = "Um guerreiro cansado"
+const descpadr = "Um guerreiro ferido está caído aqui, recuperando-se de um treinamento pesado"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 82000
+const nivel = 190
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 190
+const inivar = "var.z_moedas=50000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10000
+  atknorm += 20
+  precisao += 150
+
+
+classe p_acamp027
+herda comum_persobat
+const nome = "Um mestre habilidoso"
+const ident = "guerreiro mestre professor homem humano"
+const descnome = "Um mestre habilidoso"
+const descpadr = "O mestre dos guerreiros orienta a aula e insentiva seus pupilos a lutar!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 91000
+const nivel = 210
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 210
+const inivar = "var.z_moedas=100000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20
+  precisao += 150
+
+
+classe p_acamp028
+herda comum_persobat
+const nome = "Um jovem aprendiz"
+const ident = "guerreiro aprendiz jovem homem humano"
+const descnome = "Um jovem aprendiz"
+const descpadr = "Um jovem aprendiz esforça-se para sobreviver a mais uma aula prática."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 51000
+const nivel = 170
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 170
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 4000
+  atknorm += 20
+  precisao += 150
+
+
+classe p_acamp029
+herda comum_persobat
+const nome = "Um guerreiro veterano"
+const ident = "guerreiro veterano homem humano"
+const descnome = "Um guerreiro veterano"
+const descpadr = "Suado, sangrando e cheio de ematomas, esse guerreiro veterano esforça-se para \
+sobreviver a uma batalha feróz!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 74000
+const nivel = 210
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 210
+const p_morreu1 = "$P recebe o último golpe e cai no chão, morto. O corpo de $P é recolhido por \
+seus companheiros enquanto seu oponente é declarado vencedor!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20
+  precisao += 150
+
+
+classe p_acamp030
+herda comum_persobat
+const nome = "Um guerreiro aprendiz"
+const ident = "aprendiz guerreiro homem humano"
+const descnome = "Um guerreiro aprendiz"
+const descpadr = "Um guerreiro aprendiz esforça-se para sobreviver a mais uma aula intensiva"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 76000
+const nivel = 195
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 195
+const inivar = "var.z_moedas=100000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10000
+  atknorm += 20
+  defnorm += 10
+  precisao += 150
+
+
+classe p_acamp031
+herda comum_persobat
+const nome = "Uma guerreira em treinamento"
+const ident = "guerreira mulher humano"
+const descnome = "Uma guerreira em treinamento"
+const descpadr = "Uma guerreira em treinamento posta-se a frente da barraca e parece estar \
+disposta a impedir sua passagem."
+const pesoobj = 79000
+const nivel = 190
+const tipo1 = "guerreiro"
+const tipo2 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 190
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20
+  precisao += 150
+
+
+classe p_acamp032
+herda comum_persobat
+const nome = "Uma guerreira de folga"
+const ident = "guerreira mulher humano"
+const descnome = "Uma guerreira de folga"
+const descpadr = "Uma guerreira de folga descança em camas improvisadas no canto da sala."
+const pesoobj = 63000
+const nivel = 180
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 180
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 12000
+  atknorm += 20
+  defnorm += 10
+  precisao += 150
+
+
+classe p_acamp033
+herda comum_persobat
+const nome = "Uma guerreira cansada"
+const ident = "guerreira cansada ferida mulher humano"
+const descnome = "Uma guerreira cansada"
+const descpadr = "Uma guerreira ferida está caída aqui, recuperando-se de um treinamento \
+pesado"
+const pesoobj = 81000
+const nivel = 190
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const equip1 = "600"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 190
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20
+  precisao += 150
+
+
+classe p_acamp034
+herda comum_persobat
+const nome = "Uma instrutora"
+const ident = "guerreira instrutora mulher humano"
+const descnome = "Uma instrutora"
+const descpadr = "Uma instrutora rígida orienta as aulas e estimula suas alunas a lutar!"
+const nivel = 215
+const tipo1 = "humano"
+const tipo2 = "guerreira"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 215
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10000
+  atknorm += 20
+  defnorm += 10
+  precisao += 150
+
+
+classe p_acamp035
+herda comum_persobat
+const nome = "Uma guerreira aprendiz"
+const ident = "Guerreira aprendiz humano mulher"
+const descnome = "Uma guerreira aprendiz"
+const descpadr = "Uma Jovem aprendiz esforça-se para sobreviver a mais uma aula prática."
+const pesoobj = 82000
+const nivel = 190
+const tipo1 = "guerreiro"
+const tipo2 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 190
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20
+  precisao += 150
+
+
+classe p_acamp036
+herda comum_persobat
+const nome = "Uma guerreira em treinamento"
+const ident = "guerreira aprendiz mulher jovem humano"
+const descnome = "Uma guerreira em treinamento"
+const descpadr = "Uma Jovem aprendiz esforça-se para sobreviver a mais uma aula intensiva"
+const pesoobj = 66000
+const nivel = 200
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 200
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 13000
+  atknorm += 20
+  defnorm += 13
+  precisao += 150
+
+
+classe p_acamp037
+herda comum_persobat
+const nome = "Uma guerreira veterana"
+const ident = "guerreira veterana jovem mulher humano"
+const descnome = "Uma guerreira veterana"
+const descpadr = "Suada, sangrando e cheia de ematomas, essa guerreira veterana esforça-se para \
+sobreviver a uma batalha feróz!"
+const pesoobj = 59000
+const nivel = 210
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 210
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20
+  precisao += 150
+
+
+classe p_acamp038
+herda comum_persobat
+const nome = "Uma senhora baixinha"
+const nivel = 130
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 130
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20
+  defnorm += 10
+  precisao += 150
+
+
+classe p_acamp039
+herda comum_persobat
+const nome = "Um velho caçador"
+const ident = "velho caçador homem humano"
+const descnome = "Um velho caçador"
+const descpadr = "Um velho caçador ocupa-se em preparar carne e peles para vender no comércio."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 92000
+const nivel = 160
+const tipo1 = "homem"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 160
+const inivar = "var.z_moedas=200000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20
+  precisao += 150
+
+
+classe p_acamp040
+herda comum_persobat
+const nome = "Uma velha cozinheira"
+const ident = "velha cozinheira mulher humano"
+const descnome = "Uma velha cozinheira"
+const descpadr = "Uma simpática velhinha prepara doces e salgados para vender pelo acampamento"
+const pesoobj = 61000
+const nivel = 130
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 130
+const inivar = "var.z_moedas=180000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20
+  precisao += 150
+
+
+classe p_acamp041
+herda comum_persobat
+const nome = "Um jovem costureiro"
+const ident = "costureiro jovem homem humano"
+const descnome = "Um jovem costureiro"
+const descpadr = "Um rapazinho está sentado em um canto, costurando agasalhos de peles para o \
+inverno."
+const nivel = 120
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 120
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20
+  precisao += 150
+
+
+classe p_acamp042
+herda comum_persobat
+const nome = "Um caçador"
+const ident = "caçador homem humano"
+const descnome = "Um caçador"
+const descpadr = "Um homem habilidoso separa peças de carne para distribuir nas redondesas."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 101000
+const nivel = 160
+const tipo1 = "homem"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 160
+const inivar = "var.z_moedas=200000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20
+  precisao += 150
+
+
+classe p_acamp043
+herda comum_persobat
+const nome = "Um guerreiro renomado"
+const ident = "guerreiro renomado homem humano"
+const descnome = "Um guerreiro renomado"
+const descpadr = "Um forte e musculoso guerreiro renomado mata seu tempo entre uma aventura e \
+outra descansando na barraca."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 102000
+const nivel = 220
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 220
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 3000
+  atknorm += 20
+  defnorm += 10
+  precisao += 150
+
+
+classe p_acamp044
+herda comum_persobat
+const nome = "Uma guerreira renomada"
+const ident = "guerreira mulher humano"
+const descnome = "Uma guerreira renomada"
+const descpadr = "Uma forte e musculosa guerreira renomada mata seu tempo entre uma aventura e \
+outra descansando na barraca."
+const pesoobj = 100000
+const nivel = 220
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 220
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 12000
+  atknorm += 20
+  defnorm += 10
+  precisao += 150
+
+
+classe p_acamp045
+herda comum_persobat
+const nome = "Um guerreiro campeão"
+const ident = "guerreiro campeão homem humano"
+const descnome = "Um guerreiro campeão"
+const descpadr = "Um guerreiro campeão descansa de suas andanças enquanto diverte-se com seus \
+companheiros de barraca."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 97000
+const nivel = 250
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 250
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10 * pnivel + 3000
+  atknorm += 5 * pnivel + 20
+  defnorm += 10
+  defesp += 10 * pnivel + 15
+  precisao += 5 * pnivel + 150
+
+
+classe p_acamp046
+herda comum_persobat
+const nome = "Uma guerreira campeã"
+const ident = "guerreira campeã mulher humano"
+const descnome = "Uma guerreira campeã"
+const descpadr = "Uma guerreira campeã descansa seus músculos cansados no conforto de sua \
+barraca."
+const nivel = 250
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 250
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10000
+  atknorm += 20
+  defnorm += 10
+  precisao += 150
+
+
+classe p_acamp047
+herda comum_persobat
+const nome = "Guardião"
+const ident = "guardião laherinir homem guerreiro"
+const descnome = "Um guardião"
+const descpadr = "O guardião de Laherinir posta-se a frente da barraca, impedindo a passagem de \
+qualquer intruso."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 270
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 270
+const inivar = "var.h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=1000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10000
+  atknorm += 20
+  defnorm += 30
+  precisao += 170
+
+
+classe p_acamp048
+herda comum_persobat
+const nome = "Um carregador de mercadorias"
+const ident = "carregador mercador homem humano empregado"
+const descnome = "Um carregador de mercadorias"
+const descpadr = "Um carregador transporta diversos embrulhos para os mercadores do acampamento."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 69000
+const nivel = 145
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 145
+const p_fugir = 500
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20
+  precisao += 150
+
+
+classe p_acamp049
+herda comum_persobat
+const nome = "Um mago"
+const ident = "mago homem humano"
+const descnome = "Um mago"
+const descpadr = "Um mago habilidoso consentra seus esforços em proteger o perímetro magicamente.\
+"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 64000
+const nivel = 220
+const tipo1 = "humano"
+const tipo2 = "mago"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 220
+const inivar = "h_bater=5,h_lâmina_longa=5"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 20000
+  atknorm += 30
+  defnorm += 30
+  defesp += 20
+  precisao += 150
+  bitver |= 62
+
+
+classe p_acamp050
+herda comum_persobat
+const nome = "Martelo de pedra"
+const ident = "martelo pedra líder homem guerreiro humano"
+const descnome = "Martelo de pedra"
+const descpadr = "O temível Martelo de pedra admira o acampamento e  distribui órdens a seus \
+homens de seu posto elevado."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 103000
+const nivel = 300
+const tipo1 = "homem"
+const tipo2 = "guerreiro"
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 300
+const inivar = "h_segundo_ataque=8,h_socar=3,h_chutar=3,h_bater=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100000
+  pveloc1 += 190
+  atknorm += 60
+  defnorm += 90
+  defesp += 30
+  precisao += 200
+  bitver |= 2108
+
+
+classe p_acamp051
+herda comum_perso
+const nome = "Uma cozinheira"
+const ident = "cozinheira humano mulher"
+const descnome = "Uma cozinheira"
+const descpadr = "Uma habilidosa cozinheira prepara algumas porções de carne para servir aos \
+moradores do acampamento"
+const nivel = 100
+const equip1 = "100200"
+const lojaitem = "acamp012 0\nacamp013 0"
+const taxavenda = 5
+
+
+classe p_acamp052
+herda comum_persobat
+const nome = "Laherinir"
+const ident = "mulher simpática Laherinir"
+const descnome = "Laherinir"
+const descpadr = "A simpática Laherinir ocupa-se com a barraca e a educação das donzelas do \
+acampamento."
+const nivel = 280
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 280
+const inivar = "var.h_segundo_ataque=8,h_terceiro_ataque=8,h_socar=8,z_moedas=1500000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 20000
+  atknorm += 30
+  defnorm += 30
+  precisao += 170
+
+
+classe p_acamp053
+herda comum_persobat
+const nome = "Donzela"
+const ident = "menina moça jovem donzela"
+const descnome = "Uma adorável donzela"
+const descpadr = "Uma adorável donzela está descansando aqui, distraída e pensativa."
+const nivel = 130
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 130
+const inivar = "var.h_segundo_ataque=8,h_socar=5"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 3000
+  atknorm += 20
+  defnorm += 20
+  precisao += 100
+
+
+classe p_acamp054
+herda comum_persobat
+const nome = "guardião"
+const ident = "guardião Konnuth homem guerreiro"
+const descnome = "Um guardião"
+const descpadr = "O guardião do Konnuth posta-se a frente da barraca, impedindo a passagem de \
+qualquer intruso."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 300
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 300
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,h_socar=8,h_chutar=3"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 20000
+  atknorm += 50
+  defnorm += 50
+  precisao += 200
+  atktipo.0 *= 1.5 # Tipos Normais
+  atktipo.3 *= 1.5 # Luta
+
+
+classe p_acamp055
+herda comum_persobat
+const nome = "Konnuth"
+const ident = "Konnuth homem guerreiro pai antecessor"
+const descnome = "Konnuth"
+const descpadr = "Konnuth, pai e antecessor do martelo de pedra, termina seus dias repousando \
+solitário em uma barraca."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 300
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 15000
+  atknorm += 30
+  defnorm += 30
+  precisao += 200
+
+
+classe p_acamp056
+herda comum_persobat
+const nome = "Filha de Konnuth"
+const ident = "filha konnuth mulher guerreira"
+const descnome = "Uma das filhas de Konnuth"
+const descpadr = "A filha de Konnuth repousa tranquila, curtindo seus momentos de paz."
+const nivel = 180
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 180
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=1000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10000
+  atknorm += 20
+  defnorm += 20
+  precisao += 180
+
+
+classe p_acamp057
+herda comum_persobat
+const nome = "guardião"
+const ident = "Guardião homem guerreiro nynlir"
+const descnome = "Um guardião"
+const descpadr = "O guardião da nynlir posta-se a frente da barraca, impedindo a passagem de \
+qualquer intruso."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 300
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 300
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,h_socar=8,h_chutar=3"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 20000
+  atknorm += 50
+  defnorm += 50
+  precisao += 200
+  atktipo.0 *= 1.5 # Tipos Normais
+  atktipo.3 *= 1.5 # Luta
+
+
+classe p_acamp058
+herda comum_persobat
+const nome = "pupilo"
+const ident = "homem guerreiro pupilo jovem menino"
+const descnome = "Um jovem pupilo"
+const descpadr = "Um pupilo de Nynlir está caído, descansando de seus treinamentos pesados."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 180
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 180
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10000
+  atknorm += 20
+  defnorm += 20
+  precisao += 150
+
+
+classe p_acamp059
+herda comum_persobat
+const nome = "pupila"
+const ident = "pupila jovem menina guerreira"
+const descnome = "Um jovem pupilo"
+const descpadr = "Uma pupila de Nynlir está caída, descansando de seus treinamentos pesados."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const nivel = 180
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 180
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10000
+  atknorm += 20
+  defnorm += 20
+  precisao += 150
+
+
+classe p_acamp060
+herda comum_persobat
+const nome = "pupilo"
+const ident = "homem guerreiro pupilo jovem menino"
+const descnome = "Um pupilo de Nynlir"
+const descpadr = "Um pupilo experiente esforça-se para sobreviver ao teste rigoroso da Nynlir."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 260
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 260
+const inivar = "var.h_segundo_ataque=8,h_terceiro_ataque=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10000
+  atknorm += 25
+  defnorm += 25
+  precisao += 160
+
+
+classe p_acamp061
+herda comum_persobat
+const nome = "pupila"
+const ident = "mulher guerreira pupila jovem experiente"
+const descnome = "Uma pupila de Nynlir"
+const descpadr = "Uma pupila experiente esforça-se para sobreviver ao teste rigoroso da Nynlir."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const nivel = 260
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 260
+const inivar = "var.h_segundo_ataque=8,h_terceiro_ataque=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10000
+  atknorm += 25
+  defnorm += 25
+  precisao += 160
+
+
+classe p_acamp062
+herda comum_persobat
+const nome = "Nynlir"
+const ident = "Nynlir mestre mestra mulher guerreira"
+const descnome = "Nynlir"
+const descpadr = "Nynlir faz movimentos rigorosos com as mãos enquanto instiga seus pupilos a \
+total agrecividade!"
+const nivel = 300
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 300
+const inivar = "var.h_segundo_ataque=8,h_terceiro_ataque=8,h_socar=3,h_chutar=3"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 20000
+  atknorm += 30
+  defnorm += 30
+  precisao += 200
+
+
+classe p_acamp063
+herda comum_persobat
+const nome = "Uma jovem caçadora"
+const ident = "jovem caçadora mulher"
+const descnome = "Uma jovem caçadora"
+const descpadr = "Uma jovem caçadora está concentrada, separando peles para costura."
+const nivel = 170
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 170
+const inivar = "var.h_segundo_ataque=8,h_terceiro_ataque=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10000
+  atknorm += 20
+  defnorm += 20
+  precisao += 170
+
+
+classe p_acamp064
+herda comum_persobat
+const nome = "Um velho campeão"
+const ident = "velho campeão guerreiro ancião homem humano guarda"
+const descnome = "Um velho campeão"
+const descpadr = "Um velho campeão descansa seus ossos cansados de guerra, aproveitando a \
+tranquilidade de sua barraca"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 86000
+const nivel = 190
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 190
+const inivar = "var.h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=100000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 13000
+  atknorm += 20
+  defnorm += 20
+  precisao += 200
+
+
+classe p_acamp065
+herda comum_persobat
+const nome = "carregador"
+const ident = "carregador velho doente homem"
+const descnome = "Um velho carregador doente."
+const descpadr = "Inútil graças a doença e o tempo, esse carregador termina seus dias em casa, \
+vendo a vida passar diante de seus olhos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 140
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 140
+const inivar = "var.z_moedas=200000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10000
+  atknorm += 10
+  defnorm += 20
+
+
+classe s_acamp001
+herda b_acamp
+const s_titulo = "Ruídos ao redor"
+const s_desc = ""
+const dir_l = $s_acamp002
+const dir_o = $s_mansao167
+const a_reset = "P 100 acamp001 130 140 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp001:objsolto.total < 10
+    criar("p_acamp001", este, rand(130, 140))
+  fimse
+
+
+classe s_acamp002
+herda b_acamp
+const s_titulo = "Som de vida ao longe"
+const s_desc = ""
+const dir_l = $s_acamp005
+const dir_o = $s_acamp001
+const dir_ne = $s_acamp004
+const dir_se = $s_acamp003
+const a_reset = "P 100 acamp002 135 145 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp002:objsolto.total < 3
+    criar("p_acamp002", este, rand(135, 145))
+  fimse
+
+
+classe s_acamp003
+herda b_acamp
+const s_titulo = "Reencontrando a trilha"
+const s_desc = ""
+const dir_n = $s_acamp006
+const dir_no = $s_acamp002
+
+
+classe s_acamp004
+herda b_acamp
+const s_titulo = "Um esconderijo por trás das árvores"
+const s_desc = ""
+const dir_so = $s_acamp002
+const a_reset = "P 100 acamp001 130 140 10\nP 100 acamp001 130 140 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp001:objsolto.total < 10
+    criar("p_acamp001", este, rand(130, 140))
+  fimse
+  se p_acamp001:objsolto.total < 10
+    criar("p_acamp001", este, rand(130, 140))
+  fimse
+
+
+classe s_acamp005
+herda b_acamp
+const s_titulo = "Um esconderijo por trás das árvores"
+const s_desc = ""
+const dir_o = $s_acamp002
+const a_reset = "P 100 acamp001 130 140 10\n\
+P 100 acamp001 130 140 10\n\
+P 100 acamp001 130 140 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp001:objsolto.total < 10
+    criar("p_acamp001", este, rand(130, 140))
+  fimse
+  se p_acamp001:objsolto.total < 10
+    criar("p_acamp001", este, rand(130, 140))
+  fimse
+  se p_acamp001:objsolto.total < 10
+    criar("p_acamp001", este, rand(130, 140))
+  fimse
+
+
+classe s_acamp006
+herda b_acamp
+const s_titulo = "As árvores diminuem"
+const s_desc = ""
+const dir_s = $s_acamp003
+const dir_l = $s_acamp007
+
+
+classe s_acamp007
+herda b_acamp
+const s_titulo = "Sinais de um acampamento"
+const s_desc = ""
+const dir_o = $s_acamp006
+const dir_b = $s_acamp008
+const a_reset = "P 100 acamp048 145 160 20 z_moedas=200000\nP 100 acamp003 125 135 5"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp048:objsolto.total < 20
+    criar("p_acamp048", este, rand(145, 160), "z_moedas=200000")
+  fimse
+  se p_acamp003:objsolto.total < 5
+    criar("p_acamp003", este, rand(125, 135))
+  fimse
+
+
+classe s_acamp008
+herda b_acamp
+const s_titulo = "Um campo aberto"
+const s_desc = ""
+const dir_l = $s_acamp009
+const dir_c = $s_acamp007
+const a_reset = "P 100 acamp003 125 135 5"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp003:objsolto.total < 5
+    criar("p_acamp003", este, rand(125, 135))
+  fimse
+
+
+classe s_acamp009
+herda b_acamp
+const s_titulo = "Saída Oeste do Acampamento"
+const s_desc = ""
+const dir_l = $s_acamp010
+const dir_o = $s_acamp008
+const a_reset = "P 100 acamp048 145 160 20 z_moedas=200000\n\
+P 100 acamp048 145 160 20 z_moedas=200000\n\
+P 100 acamp005 145 155 4\n\
+E 100 acamp001 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_acamp048:objsolto.total < 20
+    criar("p_acamp048", este, rand(145, 160), "z_moedas=200000")
+  fimse
+  se p_acamp048:objsolto.total < 20
+    criar("p_acamp048", este, rand(145, 160), "z_moedas=200000")
+  fimse
+  se p_acamp005:objsolto.total < 4
+    p = u = criar("p_acamp005", este, rand(145, 155))
+  fimse
+  se u
+    r = criar("i_acamp001", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_acamp010
+herda b_acamp
+const s_titulo = "Lado oeste do acampamento"
+const s_desc = ""
+const dir_l = $s_acamp011
+const dir_o = $s_acamp009
+
+
+classe s_acamp011
+herda b_acamp
+const s_titulo = "Lado oeste do acampamento"
+const s_desc = ""
+const dir_n = $s_acamp126
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const dir_s = $s_acamp132
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const dir_l = $s_acamp012
+const dir_o = $s_acamp010
+const a_reset = "D 100 n 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("n", 2)
+
+
+classe s_acamp012
+herda b_acamp
+const s_titulo = "Centro do acampamento"
+const s_desc = ""
+const dir_n = $s_acamp020
+const dir_s = $s_acamp023
+const dir_l = $s_acamp017
+const dir_o = $s_acamp011
+const dir_c = $s_acamp113
+const dir_ne = $s_acamp013
+const dir_no = $s_acamp015
+const dir_se = $s_acamp014
+const dir_so = $s_acamp016
+const a_reset = "P 100 acamp048 145 160 20 z_moedas=200000\n\
+P 100 acamp048 145 160 20 z_moedas=200000\n\
+P 100 acamp006 120 130 1\n\
+E 70 acamp014 0 7\n\
+P 100 acamp004 95 110 3\n\
+P 100 acamp003 125 135 5"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_acamp048:objsolto.total < 20
+    criar("p_acamp048", este, rand(145, 160), "z_moedas=200000")
+  fimse
+  se p_acamp048:objsolto.total < 20
+    criar("p_acamp048", este, rand(145, 160), "z_moedas=200000")
+  fimse
+  se p_acamp006:objsolto.total < 1
+    p = u = criar("p_acamp006", este, rand(120, 130))
+  fimse
+  se u && rand(100) < 70
+    r = criar("i_acamp014", u, 0), r.vestir(7), u.recalc = 1
+  fimse
+  se p_acamp004:objsolto.total < 3
+    criar("p_acamp004", este, rand(95, 110))
+  fimse
+  se p_acamp003:objsolto.total < 5
+    criar("p_acamp003", este, rand(125, 135))
+  fimse
+
+
+classe s_acamp013
+herda b_acamp
+const s_titulo = "A tenda da cozinheira"
+const s_desc = ""
+const s_pnj = 0
+const dir_so = $s_acamp012
+const a_reset = "P 100 acamp051 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp051:objsolto.total < 1
+    criar("p_acamp051", este, 0)
+  fimse
+
+
+classe s_acamp014
+herda b_acamp
+const s_titulo = "A tenda do curandeiro"
+const s_desc = ""
+const dir_no = $s_acamp012
+
+
+classe s_acamp015
+herda b_acamp
+const s_titulo = "Armazém de ervas"
+const s_desc = ""
+const dir_se = $s_acamp012
+
+
+classe s_acamp016
+herda b_acamp
+const s_titulo = "Armazém de suprimentos"
+const s_desc = ""
+const dir_ne = $s_acamp012
+
+
+classe s_acamp017
+herda b_acamp
+const s_titulo = "O lado Leste do acampamento"
+const s_desc = ""
+const dir_n = $s_acamp114
+const dir_s = $s_acamp115
+const dir_l = $s_acamp018
+const dir_o = $s_acamp012
+const a_reset = "E 97 ulrich003 1 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+
+
+classe s_acamp018
+herda b_acamp
+const s_titulo = "O lado Leste do acampamento"
+const s_desc = ""
+const dir_n = $s_acamp116
+const dir_s = $s_acamp117
+const dir_l = $s_acamp019
+const dir_o = $s_acamp017
+
+
+classe s_acamp019
+herda b_acamp
+const s_titulo = "O lado Leste do acampamento"
+const s_desc = ""
+const dir_n = $s_acamp118
+const dir_s = $s_acamp119
+const dir_l = $s_acamp053
+const dir_o = $s_acamp018
+
+
+classe s_acamp020
+herda b_acamp
+const s_titulo = "O lado norte do acampamento"
+const s_desc = ""
+const dir_n = $s_acamp021
+const dir_s = $s_acamp012
+const a_reset = "P 100 acamp017 200 210 6"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp017:objsolto.total < 6
+    criar("p_acamp017", este, rand(200, 210))
+  fimse
+
+
+classe s_acamp021
+herda b_acamp
+const s_titulo = "O lado norte do acampamento"
+const s_desc = ""
+const dir_n = $s_acamp022
+const dir_s = $s_acamp020
+
+
+classe s_acamp022
+herda b_acamp
+const s_titulo = "O lado norte do acampamento"
+const s_desc = ""
+const dir_n = $s_acamp056
+const dir_s = $s_acamp021
+
+
+classe s_acamp023
+herda b_acamp
+const s_titulo = "O lado sul do acampamento"
+const s_desc = ""
+const dir_n = $s_acamp012
+const dir_s = $s_acamp024
+const dir_ = $s_acamp174
+
+
+classe s_acamp024
+herda b_acamp
+const s_titulo = "O lado sul do acampamento"
+const s_desc = ""
+const dir_n = $s_acamp023
+const dir_s = $s_acamp025
+
+
+classe s_acamp025
+herda b_acamp
+const s_titulo = "O lado sul do acampamento"
+const s_desc = ""
+const dir_n = $s_acamp024
+const dir_s = $s_acamp026
+
+
+classe s_acamp026
+herda b_acamp
+const s_titulo = "Acampamento sul"
+const s_desc = ""
+const dir_n = $s_acamp025
+const dir_s = $s_acamp082
+const dir_l = $s_acamp027
+const dir_o = $s_acamp058
+const a_reset = "P 100 acamp048 145 160 20 z_moedas=200000\n\
+P 100 acamp048 145 160 20 z_moedas=200000\n\
+P 100 acamp017 200 210 6"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp048:objsolto.total < 20
+    criar("p_acamp048", este, rand(145, 160), "z_moedas=200000")
+  fimse
+  se p_acamp048:objsolto.total < 20
+    criar("p_acamp048", este, rand(145, 160), "z_moedas=200000")
+  fimse
+  se p_acamp017:objsolto.total < 6
+    criar("p_acamp017", este, rand(200, 210))
+  fimse
+
+
+classe s_acamp027
+herda b_acamp
+const s_titulo = "Parte leste do acampamento sul"
+const s_desc = ""
+const dir_n = $s_acamp028
+const dir_s = $s_acamp033
+const dir_l = $s_acamp034
+const dir_o = $s_acamp026
+
+
+classe s_acamp028
+herda b_acamp
+const s_titulo = "Entrada de um barraquinho de madeira"
+const s_desc = ""
+const dir_n = $s_acamp029
+const dir_s = $s_acamp027
+const dir_l = $s_acamp031
+const dir_o = $s_acamp032
+const a_reset = "P 100 acamp039 160 175 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp039:objsolto.total < 1
+    criar("p_acamp039", este, rand(160, 175))
+  fimse
+
+const dir_ = $s_acamp173
+
+
+classe s_acamp029
+herda b_acamp
+const s_titulo = "Uma pequena salinha aconchegante"
+const s_desc = ""
+const dir_s = $s_acamp028
+const dir_o = $s_acamp030
+
+
+classe s_acamp030
+herda b_acamp
+const s_titulo = "Um quarto simples"
+const s_desc = ""
+const dir_l = $s_acamp029
+
+
+classe s_acamp031
+herda b_acamp
+const s_titulo = "Uma pequena cozinha"
+const s_desc = ""
+const dir_o = $s_acamp028
+const a_reset = "P 100 acamp040 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp040:objsolto.total < 1
+    criar("p_acamp040", este, 0)
+  fimse
+
+
+classe s_acamp032
+herda b_acamp
+const s_titulo = "Um depósito de peles"
+const s_desc = ""
+const dir_l = $s_acamp028
+const a_reset = "P 100 acamp063 0 0 1\nS 100 acamp007 0 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp063:objsolto.total < 1
+    criar("p_acamp063", este, 0)
+  fimse
+  !dentro1.objini("i_acamp007") && criar("i_acamp007", este, 0)
+
+
+classe s_acamp033
+herda b_acamp
+const s_titulo = "O barracão de ferramentas"
+const s_desc = ""
+const dir_n = $s_acamp027
+
+
+classe s_acamp034
+herda b_acamp
+const s_titulo = "Parte leste do acampamento sul"
+const s_desc = ""
+const dir_l = $s_acamp035
+const dir_o = $s_acamp027
+
+
+classe s_acamp035
+herda b_acamp
+const s_titulo = "Parte leste do acampamento sul"
+const s_desc = ""
+const dir_n = $s_acamp036
+const dir_s = $s_acamp039
+const dir_l = $s_acamp045
+const dir_o = $s_acamp034
+
+
+classe s_acamp036
+herda b_acamp
+const s_titulo = "A barraca do Konnuth"
+const s_desc = ""
+const dir_n = $s_acamp037
+const dir_s = $s_acamp035
+const dir_l = $s_acamp038
+const a_reset = "P 100 acamp054 0 0 2\nP 100 acamp054 0 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp054:objsolto.total < 2
+    criar("p_acamp054", este, 0)
+  fimse
+  se p_acamp054:objsolto.total < 2
+    criar("p_acamp054", este, 0)
+  fimse
+
+
+classe s_acamp037
+herda b_acamp
+const s_titulo = "O quarto das filhas de Konnuth"
+const s_desc = ""
+const dir_s = $s_acamp036
+const a_reset = "P 100 acamp056 0 0 4\n\
+P 100 acamp056 0 0 4\n\
+P 100 acamp056 0 0 4\n\
+P 100 acamp056 0 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp056:objsolto.total < 4
+    criar("p_acamp056", este, 0)
+  fimse
+  se p_acamp056:objsolto.total < 4
+    criar("p_acamp056", este, 0)
+  fimse
+  se p_acamp056:objsolto.total < 4
+    criar("p_acamp056", este, 0)
+  fimse
+  se p_acamp056:objsolto.total < 4
+    criar("p_acamp056", este, 0)
+  fimse
+
+
+classe s_acamp038
+herda b_acamp
+const s_titulo = "Os aposentos de Konnuth"
+const s_desc = ""
+const dir_o = $s_acamp036
+const a_reset = "P 100 acamp055 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp055:objsolto.total < 1
+    criar("p_acamp055", este, 0)
+  fimse
+
+
+classe s_acamp039
+herda b_acamp
+const s_titulo = "A entrada da barraca da Nynlir"
+const s_desc = ""
+const dir_n = $s_acamp035
+const dir_s = $s_acamp040
+const dir_l = $s_acamp043
+const dir_o = $s_acamp044
+const a_reset = "P 100 acamp057 0 0 2\nP 100 acamp057 0 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp057:objsolto.total < 2
+    criar("p_acamp057", este, 0)
+  fimse
+  se p_acamp057:objsolto.total < 2
+    criar("p_acamp057", este, 0)
+  fimse
+
+
+classe s_acamp040
+herda b_acamp
+const s_titulo = "A barraca da nynlir"
+const s_desc = ""
+const dir_n = $s_acamp039
+const dir_s = $s_acamp172
+const dir_l = $s_acamp041
+const dir_o = $s_acamp042
+
+
+classe s_acamp041
+herda b_acamp
+const s_titulo = "Dormitório dos pupilos da Nynlir"
+const s_desc = ""
+const dir_o = $s_acamp040
+const a_reset = "P 100 acamp058 0 0 6\nP 100 acamp058 0 0 6\nP 100 acamp058 0 0 6"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp058:objsolto.total < 6
+    criar("p_acamp058", este, 0)
+  fimse
+  se p_acamp058:objsolto.total < 6
+    criar("p_acamp058", este, 0)
+  fimse
+  se p_acamp058:objsolto.total < 6
+    criar("p_acamp058", este, 0)
+  fimse
+
+
+classe s_acamp042
+herda b_acamp
+const s_titulo = "Dormitório das pupilas da Nynlir"
+const s_desc = ""
+const dir_l = $s_acamp040
+const a_reset = "P 100 acamp059 0 0 6\nP 100 acamp059 0 0 6\nP 100 acamp059 0 0 6"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp059:objsolto.total < 6
+    criar("p_acamp059", este, 0)
+  fimse
+  se p_acamp059:objsolto.total < 6
+    criar("p_acamp059", este, 0)
+  fimse
+  se p_acamp059:objsolto.total < 6
+    criar("p_acamp059", este, 0)
+  fimse
+
+
+classe s_acamp043
+herda b_acamp
+const s_titulo = "Dormitório dos pupilos da Nynlir"
+const s_desc = ""
+const dir_o = $s_acamp039
+const a_reset = "P 100 acamp058 0 0 3\nP 100 acamp058 0 0 3\nP 100 acamp058 0 0 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp058:objsolto.total < 3
+    criar("p_acamp058", este, 0)
+  fimse
+  se p_acamp058:objsolto.total < 3
+    criar("p_acamp058", este, 0)
+  fimse
+  se p_acamp058:objsolto.total < 3
+    criar("p_acamp058", este, 0)
+  fimse
+
+
+classe s_acamp044
+herda b_acamp
+const s_titulo = "Dormitório das pupilas da Nynlir"
+const s_desc = ""
+const dir_l = $s_acamp039
+const a_reset = "P 100 acamp059 0 0 3\nP 100 acamp059 0 0 3\nP 100 acamp059 0 0 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp059:objsolto.total < 3
+    criar("p_acamp059", este, 0)
+  fimse
+  se p_acamp059:objsolto.total < 3
+    criar("p_acamp059", este, 0)
+  fimse
+  se p_acamp059:objsolto.total < 3
+    criar("p_acamp059", este, 0)
+  fimse
+
+
+classe s_acamp045
+herda b_acamp
+const s_titulo = "Parte leste do acampamento sul"
+const s_desc = ""
+const dir_l = $s_acamp046
+const dir_o = $s_acamp035
+
+
+classe s_acamp046
+herda b_acamp
+const s_titulo = "Parte leste do acampamento sul"
+const s_desc = ""
+const dir_n = $s_acamp047
+const dir_l = $s_acamp052
+const dir_o = $s_acamp045
+
+
+classe s_acamp047
+herda b_acamp
+const s_titulo = "A entrada da barraca da dama laherinir"
+const s_desc = ""
+const dir_n = $s_acamp048
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const dir_s = $s_acamp046
+const a_reset = "P 100 acamp047 0 0 2\nP 100 acamp047 0 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp047:objsolto.total < 2
+    criar("p_acamp047", este, 0)
+  fimse
+  se p_acamp047:objsolto.total < 2
+    criar("p_acamp047", este, 0)
+  fimse
+
+
+classe s_acamp048
+herda b_acamp
+const s_titulo = "A barraca da dama laherinir"
+const s_desc = ""
+const dir_n = $s_acamp051
+const dir_s = $s_acamp047
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const dir_l = $s_acamp050
+const dir_o = $s_acamp049
+const a_reset = "P 100 acamp053 0 0 12\n\
+P 100 acamp053 0 0 12\n\
+P 100 acamp053 0 0 12\n\
+P 100 acamp052 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp053:objsolto.total < 12
+    criar("p_acamp053", este, 0)
+  fimse
+  se p_acamp053:objsolto.total < 12
+    criar("p_acamp053", este, 0)
+  fimse
+  se p_acamp053:objsolto.total < 12
+    criar("p_acamp053", este, 0)
+  fimse
+  se p_acamp052:objsolto.total < 1
+    criar("p_acamp052", este, 0)
+  fimse
+
+
+classe s_acamp049
+herda b_acamp
+const s_titulo = "O quarto das donzelas"
+const s_desc = ""
+const dir_l = $s_acamp048
+const a_reset = "P 100 acamp053 0 0 12\nP 100 acamp053 0 0 12\nP 100 acamp053 0 0 12"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp053:objsolto.total < 12
+    criar("p_acamp053", este, 0)
+  fimse
+  se p_acamp053:objsolto.total < 12
+    criar("p_acamp053", este, 0)
+  fimse
+  se p_acamp053:objsolto.total < 12
+    criar("p_acamp053", este, 0)
+  fimse
+
+
+classe s_acamp050
+herda b_acamp
+const s_titulo = "O quarto das donzelas"
+const s_desc = ""
+const dir_o = $s_acamp048
+const a_reset = "P 100 acamp053 0 0 12\nP 100 acamp053 0 0 12\nP 100 acamp053 0 0 12"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp053:objsolto.total < 12
+    criar("p_acamp053", este, 0)
+  fimse
+  se p_acamp053:objsolto.total < 12
+    criar("p_acamp053", este, 0)
+  fimse
+  se p_acamp053:objsolto.total < 12
+    criar("p_acamp053", este, 0)
+  fimse
+
+
+classe s_acamp051
+herda b_acamp
+const s_titulo = "O quarto das donzelas"
+const s_desc = ""
+const dir_s = $s_acamp048
+const a_reset = "P 100 acamp053 0 0 12\nP 100 acamp053 0 0 12\nP 100 acamp053 0 0 12"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp053:objsolto.total < 12
+    criar("p_acamp053", este, 0)
+  fimse
+  se p_acamp053:objsolto.total < 12
+    criar("p_acamp053", este, 0)
+  fimse
+  se p_acamp053:objsolto.total < 12
+    criar("p_acamp053", este, 0)
+  fimse
+
+
+classe s_acamp052
+herda b_acamp
+const s_titulo = "Parte leste do acampamento sul"
+const s_desc = ""
+const dir_o = $s_acamp046
+const dir_n = $s_acamp109
+const a_reset = "P 100 acamp005 145 155 4\nE 100 acamp001 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_acamp005:objsolto.total < 4
+    p = u = criar("p_acamp005", este, rand(145, 155))
+  fimse
+  se u
+    r = criar("i_acamp001", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_acamp053
+herda b_acamp
+const s_titulo = "O lado Leste do acampamento"
+const s_desc = ""
+const dir_n = $s_acamp120
+const dir_s = $s_acamp122
+const dir_l = $s_acamp054
+const dir_o = $s_acamp019
+
+
+classe s_acamp054
+herda b_acamp
+const s_titulo = "O lado Leste do acampamento"
+const s_desc = ""
+const dir_n = $s_acamp124
+const dir_l = $s_acamp055
+const dir_o = $s_acamp053
+
+
+classe s_acamp055
+herda b_acamp
+const s_titulo = "O lado Leste do acampamento"
+const s_desc = ""
+const dir_n = $s_acamp106
+const dir_s = $s_acamp107
+const dir_l = $s_acamp112
+const dir_o = $s_acamp054
+
+
+classe s_acamp056
+herda b_acamp
+const s_titulo = "Acampamento norte"
+const s_desc = ""
+const dir_n = $s_acamp083
+const dir_s = $s_acamp022
+const dir_l = $s_acamp057
+const a_reset = "P 100 acamp048 145 160 20 z_moedas=200000\n\
+P 100 acamp048 145 160 20 z_moedas=200000\n\
+P 100 acamp017 200 210 6\n\
+P 100 acamp003 125 135 5"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp048:objsolto.total < 20
+    criar("p_acamp048", este, rand(145, 160), "z_moedas=200000")
+  fimse
+  se p_acamp048:objsolto.total < 20
+    criar("p_acamp048", este, rand(145, 160), "z_moedas=200000")
+  fimse
+  se p_acamp017:objsolto.total < 6
+    criar("p_acamp017", este, rand(200, 210))
+  fimse
+  se p_acamp003:objsolto.total < 5
+    criar("p_acamp003", este, rand(125, 135))
+  fimse
+
+
+classe s_acamp057
+herda b_acamp
+const s_titulo = "Parte Leste do acampamento norte"
+const s_desc = ""
+const dir_n = $s_acamp084
+const dir_s = $s_acamp085
+const dir_l = $s_acamp089
+const dir_o = $s_acamp056
+
+
+classe s_acamp058
+herda b_acamp
+const s_titulo = "Parte oeste do acampamento sul"
+const s_desc = ""
+const dir_n = $s_acamp059
+const dir_s = $s_acamp064
+const dir_l = $s_acamp026
+const dir_o = $s_acamp069
+
+
+classe s_acamp059
+herda b_acamp
+const s_titulo = "Barraca de treinamento dos guerreiros"
+const s_desc = ""
+const dir_n = $s_acamp060
+const dir_s = $s_acamp058
+const a_reset = "D 100 n 2\nP 100 acamp025 180 200 1\nE 100 acamp005 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  mudaporta("n", 2)
+  se p_acamp025:objsolto.total < 1
+    p = u = criar("p_acamp025", este, rand(180, 200))
+  fimse
+  se u
+    r = criar("i_acamp005", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_acamp060
+herda b_acamp
+const s_titulo = "Barraca de treinamento dos guerreiros"
+const s_desc = ""
+const dir_n = $s_acamp063
+const dir_s = $s_acamp059
+const dir_l = $s_acamp061
+const dir_o = $s_acamp062
+const a_reset = "P 100 acamp026 190 200 2\nP 100 acamp026 190 200 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp026:objsolto.total < 2
+    criar("p_acamp026", este, rand(190, 200))
+  fimse
+  se p_acamp026:objsolto.total < 2
+    criar("p_acamp026", este, rand(190, 200))
+  fimse
+
+
+classe s_acamp061
+herda b_acamp
+const s_titulo = "Treinamento de neófitos"
+const s_desc = ""
+const dir_o = $s_acamp060
+const a_reset = "P 100 acamp028 170 185 5\n\
+P 100 acamp028 170 185 5\n\
+P 100 acamp028 170 185 5\n\
+P 100 acamp028 170 185 5\n\
+P 100 acamp028 170 185 5\n\
+P 100 acamp027 200 210 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp028:objsolto.total < 5
+    criar("p_acamp028", este, rand(170, 185))
+  fimse
+  se p_acamp028:objsolto.total < 5
+    criar("p_acamp028", este, rand(170, 185))
+  fimse
+  se p_acamp028:objsolto.total < 5
+    criar("p_acamp028", este, rand(170, 185))
+  fimse
+  se p_acamp028:objsolto.total < 5
+    criar("p_acamp028", este, rand(170, 185))
+  fimse
+  se p_acamp028:objsolto.total < 5
+    criar("p_acamp028", este, rand(170, 185))
+  fimse
+  se p_acamp027:objsolto.total < 3
+    criar("p_acamp027", este, rand(200, 210))
+  fimse
+
+
+classe s_acamp062
+herda b_acamp
+const s_titulo = "Treinamento intensivo"
+const s_desc = ""
+const dir_l = $s_acamp060
+const a_reset = "P 100 acamp030 210 215 5\n\
+P 100 acamp030 210 215 5\n\
+P 100 acamp030 210 215 5\n\
+P 100 acamp030 210 215 5\n\
+P 100 acamp030 210 215 5\n\
+P 100 acamp027 200 210 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp030:objsolto.total < 5
+    criar("p_acamp030", este, rand(210, 215))
+  fimse
+  se p_acamp030:objsolto.total < 5
+    criar("p_acamp030", este, rand(210, 215))
+  fimse
+  se p_acamp030:objsolto.total < 5
+    criar("p_acamp030", este, rand(210, 215))
+  fimse
+  se p_acamp030:objsolto.total < 5
+    criar("p_acamp030", este, rand(210, 215))
+  fimse
+  se p_acamp030:objsolto.total < 5
+    criar("p_acamp030", este, rand(210, 215))
+  fimse
+  se p_acamp027:objsolto.total < 3
+    criar("p_acamp027", este, rand(200, 210))
+  fimse
+
+
+classe s_acamp063
+herda b_acamp
+const s_titulo = "Prova de sobrevivência. a morte do fraco é a glória do herói!"
+const s_desc = ""
+const dir_s = $s_acamp060
+const a_reset = "P 100 acamp029 210 215 5\n\
+P 100 acamp029 210 215 5\n\
+P 100 acamp029 210 215 5\n\
+P 100 acamp029 210 215 5\n\
+P 100 acamp029 210 215 5\n\
+P 100 acamp027 200 210 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp029:objsolto.total < 5
+    criar("p_acamp029", este, rand(210, 215))
+  fimse
+  se p_acamp029:objsolto.total < 5
+    criar("p_acamp029", este, rand(210, 215))
+  fimse
+  se p_acamp029:objsolto.total < 5
+    criar("p_acamp029", este, rand(210, 215))
+  fimse
+  se p_acamp029:objsolto.total < 5
+    criar("p_acamp029", este, rand(210, 215))
+  fimse
+  se p_acamp029:objsolto.total < 5
+    criar("p_acamp029", este, rand(210, 215))
+  fimse
+  se p_acamp027:objsolto.total < 3
+    criar("p_acamp027", este, rand(200, 210))
+  fimse
+
+
+classe s_acamp064
+herda b_acamp
+const s_titulo = "Barraca de treinamento das guerreiras"
+const s_desc = ""
+const dir_n = $s_acamp058
+const dir_s = $s_acamp065
+const a_reset = "P 100 acamp031 190 210 1\nD 100 s 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp031:objsolto.total < 1
+    criar("p_acamp031", este, rand(190, 210))
+  fimse
+  mudaporta("s", 2)
+
+
+classe s_acamp065
+herda b_acamp
+const s_titulo = "Barraca de treinamento das guerreiras"
+const s_desc = ""
+const dir_n = $s_acamp064
+const dir_s = $s_acamp066
+const dir_l = $s_acamp067
+const dir_o = $s_acamp068
+const a_reset = "P 100 acamp033 190 210 2\n\
+P 100 acamp033 190 210 2\n\
+P 100 acamp032 180 210 3\n\
+P 100 acamp032 180 210 3\n\
+P 100 acamp032 180 210 3\n\
+D 100 n 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp033:objsolto.total < 2
+    criar("p_acamp033", este, rand(190, 210))
+  fimse
+  se p_acamp033:objsolto.total < 2
+    criar("p_acamp033", este, rand(190, 210))
+  fimse
+  se p_acamp032:objsolto.total < 3
+    criar("p_acamp032", este, rand(180, 210))
+  fimse
+  se p_acamp032:objsolto.total < 3
+    criar("p_acamp032", este, rand(180, 210))
+  fimse
+  se p_acamp032:objsolto.total < 3
+    criar("p_acamp032", este, rand(180, 210))
+  fimse
+  mudaporta("n", 2)
+
+
+classe s_acamp066
+herda b_acamp
+const s_titulo = "Teste de sobrevivência. Eis que nasce uma amazona"
+const s_desc = ""
+const dir_n = $s_acamp065
+const a_reset = "P 100 acamp037 200 210 5\n\
+P 100 acamp037 200 210 5\n\
+P 100 acamp037 200 210 5\n\
+P 100 acamp037 200 210 5\n\
+P 100 acamp037 200 210 5\n\
+P 100 acamp034 210 215 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp037:objsolto.total < 5
+    criar("p_acamp037", este, rand(200, 210))
+  fimse
+  se p_acamp037:objsolto.total < 5
+    criar("p_acamp037", este, rand(200, 210))
+  fimse
+  se p_acamp037:objsolto.total < 5
+    criar("p_acamp037", este, rand(200, 210))
+  fimse
+  se p_acamp037:objsolto.total < 5
+    criar("p_acamp037", este, rand(200, 210))
+  fimse
+  se p_acamp037:objsolto.total < 5
+    criar("p_acamp037", este, rand(200, 210))
+  fimse
+  se p_acamp034:objsolto.total < 3
+    criar("p_acamp034", este, rand(210, 215))
+  fimse
+
+
+classe s_acamp067
+herda b_acamp
+const s_titulo = "Treinamento de neófitas"
+const s_desc = ""
+const dir_o = $s_acamp065
+const a_reset = "P 100 acamp035 190 200 5\n\
+P 100 acamp035 190 200 5\n\
+P 100 acamp035 190 200 5\n\
+P 100 acamp035 190 200 5\n\
+P 100 acamp035 190 200 5\n\
+P 100 acamp034 210 215 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp035:objsolto.total < 5
+    criar("p_acamp035", este, rand(190, 200))
+  fimse
+  se p_acamp035:objsolto.total < 5
+    criar("p_acamp035", este, rand(190, 200))
+  fimse
+  se p_acamp035:objsolto.total < 5
+    criar("p_acamp035", este, rand(190, 200))
+  fimse
+  se p_acamp035:objsolto.total < 5
+    criar("p_acamp035", este, rand(190, 200))
+  fimse
+  se p_acamp035:objsolto.total < 5
+    criar("p_acamp035", este, rand(190, 200))
+  fimse
+  se p_acamp034:objsolto.total < 3
+    criar("p_acamp034", este, rand(210, 215))
+  fimse
+
+
+classe s_acamp068
+herda b_acamp
+const s_titulo = "Treinamento intensivo"
+const s_desc = ""
+const dir_l = $s_acamp065
+const a_reset = "P 100 acamp036 200 205 5\n\
+P 100 acamp036 200 205 5\n\
+P 100 acamp036 200 205 5\n\
+P 100 acamp036 200 205 5\n\
+P 100 acamp036 200 205 5\n\
+P 100 acamp034 210 215 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp036:objsolto.total < 5
+    criar("p_acamp036", este, rand(200, 205))
+  fimse
+  se p_acamp036:objsolto.total < 5
+    criar("p_acamp036", este, rand(200, 205))
+  fimse
+  se p_acamp036:objsolto.total < 5
+    criar("p_acamp036", este, rand(200, 205))
+  fimse
+  se p_acamp036:objsolto.total < 5
+    criar("p_acamp036", este, rand(200, 205))
+  fimse
+  se p_acamp036:objsolto.total < 5
+    criar("p_acamp036", este, rand(200, 205))
+  fimse
+  se p_acamp034:objsolto.total < 3
+    criar("p_acamp034", este, rand(210, 215))
+  fimse
+
+
+classe s_acamp069
+herda b_acamp
+const s_titulo = "Parte oeste do acampamento sul"
+const s_desc = ""
+const dir_l = $s_acamp058
+const dir_o = $s_acamp070
+
+
+classe s_acamp070
+herda b_acamp
+const s_titulo = "Parte oeste do acampamento sul"
+const s_desc = ""
+const dir_n = $s_acamp071
+const dir_s = $s_acamp072
+const dir_l = $s_acamp069
+const dir_o = $s_acamp073
+
+
+classe s_acamp071
+herda b_acamp
+const s_titulo = "Barracão de armas"
+const s_desc = ""
+const dir_s = $s_acamp070
+const dir_o = $s_acamp075
+const a_reset = "P 100 acamp024 200 210 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp024:objsolto.total < 1
+    criar("p_acamp024", este, rand(200, 210))
+  fimse
+
+
+classe s_acamp072
+herda b_acamp
+const s_titulo = "Barracão de armaduras"
+const s_desc = ""
+const dir_n = $s_acamp070
+const dir_o = $s_acamp076
+const a_reset = "P 100 acamp022 175 180 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp022:objsolto.total < 1
+    criar("p_acamp022", este, rand(175, 180))
+  fimse
+
+
+classe s_acamp073
+herda b_acamp
+const s_titulo = "Parte oeste do acampamento sul"
+const s_desc = ""
+const dir_n = $s_acamp075
+const dir_s = $s_acamp076
+const dir_l = $s_acamp070
+const dir_o = $s_acamp074
+
+
+classe s_acamp074
+herda b_acamp
+const s_titulo = "Parte oeste do acampamento sul"
+const s_desc = ""
+const dir_n = $s_acamp077
+const dir_s = $s_acamp079
+const dir_l = $s_acamp073
+const dir_o = $s_acamp081
+
+
+classe s_acamp075
+herda b_acamp
+const s_titulo = "Barraca do ferreiro mohorrn"
+const s_desc = ""
+const dir_s = $s_acamp073
+const dir_l = $s_acamp071
+const a_reset = "P 100 acamp023 200 210 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp023:objsolto.total < 1
+    criar("p_acamp023", este, rand(200, 210))
+  fimse
+
+
+classe s_acamp076
+herda b_acamp
+const s_titulo = "Barraca do armeiro"
+const s_desc = ""
+const dir_n = $s_acamp073
+const dir_l = $s_acamp072
+const a_reset = "P 100 acamp021 200 210 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp021:objsolto.total < 1
+    criar("p_acamp021", este, rand(200, 210))
+  fimse
+
+
+classe s_acamp077
+herda b_acamp
+const s_titulo = "A barraca dos anciãos"
+const s_desc = ""
+const dir_n = $s_acamp078
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const dir_s = $s_acamp074
+const a_reset = "D 100 n 2\nP 100 acamp020 190 200 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("n", 2)
+  se p_acamp020:objsolto.total < 1
+    criar("p_acamp020", este, rand(190, 200))
+  fimse
+
+
+classe s_acamp078
+herda b_acamp
+const s_titulo = "A barraca dos anciãos"
+const s_desc = ""
+const dir_s = $s_acamp077
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const a_reset = "P 100 acamp064 0 0 6\n\
+P 100 acamp064 0 0 6\n\
+P 100 acamp064 0 0 6\n\
+P 100 acamp064 0 0 3\n\
+P 100 acamp064 0 0 3\n\
+P 100 acamp064 0 0 3\n\
+D 100 s 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp064:objsolto.total < 6
+    criar("p_acamp064", este, 0)
+  fimse
+  se p_acamp064:objsolto.total < 6
+    criar("p_acamp064", este, 0)
+  fimse
+  se p_acamp064:objsolto.total < 6
+    criar("p_acamp064", este, 0)
+  fimse
+  se p_acamp064:objsolto.total < 3
+    criar("p_acamp064", este, 0)
+  fimse
+  se p_acamp064:objsolto.total < 3
+    criar("p_acamp064", este, 0)
+  fimse
+  se p_acamp064:objsolto.total < 3
+    criar("p_acamp064", este, 0)
+  fimse
+  mudaporta("s", 2)
+
+
+classe s_acamp079
+herda b_acamp
+const s_titulo = "A barraca das anciãs"
+const s_desc = ""
+const dir_n = $s_acamp074
+const dir_s = $s_acamp080
+const a_reset = "P 100 acamp018 190 200 1\nD 100 s 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp018:objsolto.total < 1
+    criar("p_acamp018", este, rand(190, 200))
+  fimse
+  mudaporta("s", 2)
+
+
+classe s_acamp080
+herda b_acamp
+const s_titulo = "A barraca das anciãs"
+const s_desc = ""
+const dir_n = $s_acamp079
+const a_reset = "D 100 n 2\n\
+P 100 acamp019 0 0 6\n\
+P 100 acamp019 0 0 6\n\
+P 100 acamp019 0 0 6\n\
+P 100 acamp019 0 0 6\n\
+P 100 acamp019 0 0 6\n\
+P 100 acamp019 0 0 6"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("n", 2)
+  se p_acamp019:objsolto.total < 6
+    criar("p_acamp019", este, 0)
+  fimse
+  se p_acamp019:objsolto.total < 6
+    criar("p_acamp019", este, 0)
+  fimse
+  se p_acamp019:objsolto.total < 6
+    criar("p_acamp019", este, 0)
+  fimse
+  se p_acamp019:objsolto.total < 6
+    criar("p_acamp019", este, 0)
+  fimse
+  se p_acamp019:objsolto.total < 6
+    criar("p_acamp019", este, 0)
+  fimse
+  se p_acamp019:objsolto.total < 6
+    criar("p_acamp019", este, 0)
+  fimse
+
+
+classe s_acamp081
+herda b_acamp
+const s_titulo = "Parte oeste do acampamento sul"
+const s_desc = ""
+const dir_l = $s_acamp074
+const a_reset = "P 100 acamp017 200 210 6"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp017:objsolto.total < 6
+    criar("p_acamp017", este, rand(200, 210))
+  fimse
+
+
+classe s_acamp082
+herda b_acamp
+const s_titulo = "Saída sul do acampamento"
+const s_desc = ""
+const dir_n = $s_acamp026
+const dir_s = $s_acamp130
+const a_reset = "P 100 acamp005 145 155 4\nE 100 acamp001 0 0\nP 100 acamp003 125 135 5"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_acamp005:objsolto.total < 4
+    p = u = criar("p_acamp005", este, rand(145, 155))
+  fimse
+  se u
+    r = criar("i_acamp001", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  se p_acamp003:objsolto.total < 5
+    criar("p_acamp003", este, rand(125, 135))
+  fimse
+
+
+classe s_acamp083
+herda b_acamp
+const s_titulo = "Saída Norte do acampamento"
+const s_desc = ""
+const dir_s = $s_acamp056
+const a_reset = "P 100 acamp005 145 155 4\nE 100 acamp001 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_acamp005:objsolto.total < 4
+    p = u = criar("p_acamp005", este, rand(145, 155))
+  fimse
+  se u
+    r = criar("i_acamp001", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_acamp084
+herda b_acamp
+const s_titulo = "Barraca dos cassadores"
+const s_desc = ""
+const dir_s = $s_acamp057
+const a_reset = "P 100 acamp042 160 175 3\n\
+P 100 acamp042 160 175 3\n\
+P 100 acamp042 160 175 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp042:objsolto.total < 3
+    criar("p_acamp042", este, rand(160, 175))
+  fimse
+  se p_acamp042:objsolto.total < 3
+    criar("p_acamp042", este, rand(160, 175))
+  fimse
+  se p_acamp042:objsolto.total < 3
+    criar("p_acamp042", este, rand(160, 175))
+  fimse
+
+
+classe s_acamp085
+herda b_acamp
+const s_titulo = "Barraca dos guerreiros renomados"
+const s_desc = ""
+const dir_n = $s_acamp057
+const dir_s = $s_acamp086
+const a_reset = "P 100 acamp043 220 230 8 z_moedas=1000000\n\
+P 100 acamp043 220 230 8 z_moedas=1000000\n\
+P 100 acamp043 220 230 8 z_moedas=1000000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp043:objsolto.total < 8
+    criar("p_acamp043", este, rand(220, 230), "z_moedas=1000000")
+  fimse
+  se p_acamp043:objsolto.total < 8
+    criar("p_acamp043", este, rand(220, 230), "z_moedas=1000000")
+  fimse
+  se p_acamp043:objsolto.total < 8
+    criar("p_acamp043", este, rand(220, 230), "z_moedas=1000000")
+  fimse
+
+
+classe s_acamp086
+herda b_acamp
+const s_titulo = "Barraca dos guerreiros renomados"
+const s_desc = ""
+const dir_n = $s_acamp085
+const dir_l = $s_acamp088
+const dir_o = $s_acamp087
+const a_reset = "P 100 acamp043 220 230 8 z_moedas=1000000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp043:objsolto.total < 8
+    criar("p_acamp043", este, rand(220, 230), "z_moedas=1000000")
+  fimse
+
+
+classe s_acamp087
+herda b_acamp
+const s_titulo = "Quarto dos guerreiros renomados"
+const s_desc = ""
+const dir_l = $s_acamp086
+const a_reset = "P 100 acamp043 220 230 8 z_moedas=1000000\n\
+P 100 acamp043 220 230 8 z_moedas=1000000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp043:objsolto.total < 8
+    criar("p_acamp043", este, rand(220, 230), "z_moedas=1000000")
+  fimse
+  se p_acamp043:objsolto.total < 8
+    criar("p_acamp043", este, rand(220, 230), "z_moedas=1000000")
+  fimse
+
+
+classe s_acamp088
+herda b_acamp
+const s_titulo = "Quarto dos guerreiros renomados"
+const s_desc = ""
+const dir_o = $s_acamp086
+const a_reset = "P 100 acamp043 220 230 8 z_moedas=1000000\n\
+P 100 acamp043 220 230 8 z_moedas=1000000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp043:objsolto.total < 8
+    criar("p_acamp043", este, rand(220, 230), "z_moedas=1000000")
+  fimse
+  se p_acamp043:objsolto.total < 8
+    criar("p_acamp043", este, rand(220, 230), "z_moedas=1000000")
+  fimse
+
+
+classe s_acamp089
+herda b_acamp
+const s_titulo = "Parte Leste do acampamento norte"
+const s_desc = ""
+const dir_l = $s_acamp090
+const dir_o = $s_acamp057
+
+
+classe s_acamp090
+herda b_acamp
+const s_titulo = "Parte Leste do acampamento norte"
+const s_desc = ""
+const dir_n = $s_acamp091
+const dir_l = $s_acamp095
+const dir_o = $s_acamp089
+
+
+classe s_acamp091
+herda b_acamp
+const s_titulo = "Barraca das guerreiras renomadas"
+const s_desc = ""
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_acamp092
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const dir_s = $s_acamp090
+const a_reset = "P 100 acamp044 220 230 8 z_moedas=1000000\n\
+P 100 acamp044 220 230 8 z_moedas=1000000\n\
+P 100 acamp044 220 230 8 z_moedas=1000000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp044:objsolto.total < 8
+    criar("p_acamp044", este, rand(220, 230), "z_moedas=1000000")
+  fimse
+  se p_acamp044:objsolto.total < 8
+    criar("p_acamp044", este, rand(220, 230), "z_moedas=1000000")
+  fimse
+  se p_acamp044:objsolto.total < 8
+    criar("p_acamp044", este, rand(220, 230), "z_moedas=1000000")
+  fimse
+
+
+classe s_acamp092
+herda b_acamp
+const s_titulo = "Barraca das guerreiras renomadas"
+const s_desc = ""
+const dir_s = $s_acamp091
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const dir_l = $s_acamp094
+const dir_o = $s_acamp093
+const a_reset = "P 100 acamp044 220 230 8 z_moedas=1000000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp044:objsolto.total < 8
+    criar("p_acamp044", este, rand(220, 230), "z_moedas=1000000")
+  fimse
+
+
+classe s_acamp093
+herda b_acamp
+const s_titulo = "Quarto das guerreiras renomadas"
+const s_desc = ""
+const dir_l = $s_acamp092
+const a_reset = "P 100 acamp044 220 230 8 z_moedas=1000000\n\
+P 100 acamp044 220 230 8 z_moedas=1000000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp044:objsolto.total < 8
+    criar("p_acamp044", este, rand(220, 230), "z_moedas=1000000")
+  fimse
+  se p_acamp044:objsolto.total < 8
+    criar("p_acamp044", este, rand(220, 230), "z_moedas=1000000")
+  fimse
+
+
+classe s_acamp094
+herda b_acamp
+const s_titulo = "Quarto das guerreiras renomadas"
+const s_desc = ""
+const dir_o = $s_acamp092
+const a_reset = "P 100 acamp044 220 230 8 z_moedas=1000000\n\
+P 100 acamp044 220 230 8 z_moedas=1000000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp044:objsolto.total < 8
+    criar("p_acamp044", este, rand(220, 230), "z_moedas=1000000")
+  fimse
+  se p_acamp044:objsolto.total < 8
+    criar("p_acamp044", este, rand(220, 230), "z_moedas=1000000")
+  fimse
+
+
+classe s_acamp095
+herda b_acamp
+const s_titulo = "Parte Leste do acampamento norte"
+const s_desc = ""
+const dir_l = $s_acamp096
+const dir_o = $s_acamp090
+
+
+classe s_acamp096
+herda b_acamp
+const s_titulo = "Parte Leste do acampamento norte"
+const s_desc = ""
+const dir_n = $s_acamp098
+const dir_s = $s_acamp102
+const dir_l = $s_acamp097
+const dir_o = $s_acamp095
+
+
+classe s_acamp097
+herda b_acamp
+const s_titulo = "Parte Leste do acampamento norte"
+const s_desc = ""
+const dir_s = $s_acamp111
+const dir_o = $s_acamp096
+const a_reset = "P 100 acamp048 145 160 20 z_moedas=200000\n\
+P 100 acamp048 145 160 20 z_moedas=200000\n\
+P 100 acamp017 200 210 6"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp048:objsolto.total < 20
+    criar("p_acamp048", este, rand(145, 160), "z_moedas=200000")
+  fimse
+  se p_acamp048:objsolto.total < 20
+    criar("p_acamp048", este, rand(145, 160), "z_moedas=200000")
+  fimse
+  se p_acamp017:objsolto.total < 6
+    criar("p_acamp017", este, rand(200, 210))
+  fimse
+
+
+classe s_acamp098
+herda b_acamp
+const s_titulo = "Barraca dos campeões em guerra"
+const s_desc = ""
+const dir_n = $s_acamp099
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const dir_s = $s_acamp096
+const a_reset = "P 100 acamp045 250 260 8 z_moedas=1000000\n\
+P 100 acamp045 250 260 8 z_moedas=1000000\n\
+P 100 acamp045 250 260 8 z_moedas=1000000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp045:objsolto.total < 8
+    criar("p_acamp045", este, rand(250, 260), "z_moedas=1000000")
+  fimse
+  se p_acamp045:objsolto.total < 8
+    criar("p_acamp045", este, rand(250, 260), "z_moedas=1000000")
+  fimse
+  se p_acamp045:objsolto.total < 8
+    criar("p_acamp045", este, rand(250, 260), "z_moedas=1000000")
+  fimse
+
+
+classe s_acamp099
+herda b_acamp
+const s_titulo = "Barraca dos campeões em guerra"
+const s_desc = ""
+const dir_s = $s_acamp098
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const dir_l = $s_acamp100
+const dir_o = $s_acamp101
+const a_reset = "P 100 acamp045 250 260 8 z_moedas=1000000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp045:objsolto.total < 8
+    criar("p_acamp045", este, rand(250, 260), "z_moedas=1000000")
+  fimse
+
+
+classe s_acamp100
+herda b_acamp
+const s_titulo = "Quarto dos Campeões em guerra"
+const s_desc = ""
+const dir_o = $s_acamp099
+const a_reset = "P 100 acamp045 250 260 8 z_moedas=1000000\n\
+P 100 acamp045 250 260 8 z_moedas=1000000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp045:objsolto.total < 8
+    criar("p_acamp045", este, rand(250, 260), "z_moedas=1000000")
+  fimse
+  se p_acamp045:objsolto.total < 8
+    criar("p_acamp045", este, rand(250, 260), "z_moedas=1000000")
+  fimse
+
+
+classe s_acamp101
+herda b_acamp
+const s_titulo = "Quarto dos Campeões em guerra"
+const s_desc = ""
+const dir_l = $s_acamp099
+const a_reset = "P 100 acamp045 250 260 8 z_moedas=1000000\n\
+P 100 acamp045 250 260 8 z_moedas=1000000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp045:objsolto.total < 8
+    criar("p_acamp045", este, rand(250, 260), "z_moedas=1000000")
+  fimse
+  se p_acamp045:objsolto.total < 8
+    criar("p_acamp045", este, rand(250, 260), "z_moedas=1000000")
+  fimse
+
+
+classe s_acamp102
+herda b_acamp
+const s_titulo = "Barraca das campeãs em guerra"
+const s_desc = ""
+const dir_n = $s_acamp096
+const dir_s = $s_acamp103
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const a_reset = "P 100 acamp046 250 260 8 z_moedas=1000000\n\
+P 100 acamp046 250 260 8 z_moedas=1000000\n\
+P 100 acamp046 250 260 8 z_moedas=1000000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp046:objsolto.total < 8
+    criar("p_acamp046", este, rand(250, 260), "z_moedas=1000000")
+  fimse
+  se p_acamp046:objsolto.total < 8
+    criar("p_acamp046", este, rand(250, 260), "z_moedas=1000000")
+  fimse
+  se p_acamp046:objsolto.total < 8
+    criar("p_acamp046", este, rand(250, 260), "z_moedas=1000000")
+  fimse
+
+
+classe s_acamp103
+herda b_acamp
+const s_titulo = "Barraca das campeãs em guerra"
+const s_desc = ""
+const s_pnj = 0
+const dir_n = $s_acamp102
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const dir_l = $s_acamp104
+const dir_o = $s_acamp105
+const a_reset = "P 100 acamp046 250 260 8 z_moedas=1000000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp046:objsolto.total < 8
+    criar("p_acamp046", este, rand(250, 260), "z_moedas=1000000")
+  fimse
+
+
+classe s_acamp104
+herda b_acamp
+const s_titulo = "Quarto das campeãs em guerra"
+const s_desc = ""
+const dir_o = $s_acamp103
+const a_reset = "P 100 acamp046 250 260 8 z_moedas=1000000\n\
+P 100 acamp046 250 260 8 z_moedas=1000000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp046:objsolto.total < 8
+    criar("p_acamp046", este, rand(250, 260), "z_moedas=1000000")
+  fimse
+  se p_acamp046:objsolto.total < 8
+    criar("p_acamp046", este, rand(250, 260), "z_moedas=1000000")
+  fimse
+
+
+classe s_acamp105
+herda b_acamp
+const s_titulo = "Quarto das campeãs em guerra"
+const s_desc = ""
+const dir_l = $s_acamp103
+const a_reset = "P 100 acamp046 250 260 8 z_moedas=1000000\n\
+P 100 acamp046 250 260 8 z_moedas=1000000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp046:objsolto.total < 8
+    criar("p_acamp046", este, rand(250, 260), "z_moedas=1000000")
+  fimse
+  se p_acamp046:objsolto.total < 8
+    criar("p_acamp046", este, rand(250, 260), "z_moedas=1000000")
+  fimse
+
+
+classe s_acamp106
+herda b_acamp
+const s_titulo = "O lado leste do acampamento"
+const s_desc = ""
+const dir_n = $s_acamp110
+const dir_s = $s_acamp055
+
+
+classe s_acamp107
+herda b_acamp
+const s_titulo = "O lado leste do acampamento"
+const s_desc = ""
+const dir_n = $s_acamp055
+const dir_s = $s_acamp108
+
+
+classe s_acamp108
+herda b_acamp
+const s_titulo = "O lado leste do acampamento"
+const s_desc = ""
+const dir_n = $s_acamp107
+const dir_s = $s_acamp109
+
+
+classe s_acamp109
+herda b_acamp
+const s_titulo = "O lado leste do acampamento"
+const s_desc = ""
+const dir_n = $s_acamp108
+const dir_s = $s_acamp052
+const a_reset = "P 100 acamp017 200 210 6"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp017:objsolto.total < 6
+    criar("p_acamp017", este, rand(200, 210))
+  fimse
+
+
+classe s_acamp110
+herda b_acamp
+const s_titulo = "O lado leste do acampamento"
+const s_desc = ""
+const dir_n = $s_acamp111
+const dir_s = $s_acamp106
+const a_reset = "P 100 acamp017 200 210 6"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp017:objsolto.total < 6
+    criar("p_acamp017", este, rand(200, 210))
+  fimse
+
+
+classe s_acamp111
+herda b_acamp
+const s_titulo = "O lado leste do acampamento"
+const s_desc = ""
+const dir_s = $s_acamp110
+const dir_n = $s_acamp097
+
+
+classe s_acamp112
+herda b_acamp
+const s_titulo = "Saída Leste do acampamento"
+const s_desc = ""
+const dir_o = $s_acamp055
+const a_reset = "P 100 acamp048 145 160 20 z_moedas=200000\n\
+P 100 acamp048 145 160 20 z_moedas=200000\n\
+P 100 acamp005 145 155 4\n\
+E 100 acamp001 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_acamp048:objsolto.total < 20
+    criar("p_acamp048", este, rand(145, 160), "z_moedas=200000")
+  fimse
+  se p_acamp048:objsolto.total < 20
+    criar("p_acamp048", este, rand(145, 160), "z_moedas=200000")
+  fimse
+  se p_acamp005:objsolto.total < 4
+    p = u = criar("p_acamp005", este, rand(145, 155))
+  fimse
+  se u
+    r = criar("i_acamp001", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_acamp113
+herda b_acamp
+const s_titulo = "Sobre um grande palanque de madeira"
+const s_desc = ""
+const s_pnj = 0
+const eveste = 1 # Eventos sala: Sim
+const dir_s = $s_acamp167
+const dir_l = $s_acamp164
+const dir_o = $s_acamp157
+const dir_c = $s_acamp171
+const dir_b = $s_acamp012
+const a_reset = "P 100 acamp016 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp016:objsolto.total < 1
+    criar("p_acamp016", este, 0)
+  fimse
+
+func cmd_salaperso
+  misc:evento(arg0)
+
+
+classe s_acamp114
+herda b_acamp
+const s_titulo = "Uma barraca bagunçada"
+const s_desc = ""
+const dir_s = $s_acamp017
+const a_reset = "P 100 acamp007 150 160 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp007:objsolto.total < 1
+    criar("p_acamp007", este, rand(150, 160))
+  fimse
+
+
+classe s_acamp115
+herda b_acamp
+const s_titulo = "Uma casinha de madeira"
+const s_desc = ""
+const dir_n = $s_acamp017
+const a_reset = "P 100 acamp011 0 0 1\nE 100 acamp003 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_acamp011:objsolto.total < 1
+    p = u = criar("p_acamp011", este, 0)
+  fimse
+  se u
+    r = criar("i_acamp003", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_acamp116
+herda b_acamp
+const s_titulo = "Uma cazinha de madeira"
+const s_desc = ""
+const dir_s = $s_acamp018
+const a_reset = "P 100 acamp065 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp065:objsolto.total < 1
+    criar("p_acamp065", este, 0)
+  fimse
+
+
+classe s_acamp117
+herda b_acamp
+const s_titulo = "Uma barraca quebrada"
+const s_desc = ""
+const dir_n = $s_acamp018
+
+
+classe s_acamp118
+herda b_acamp
+const s_titulo = "Uma casinha organizada"
+const s_desc = ""
+const dir_s = $s_acamp019
+
+
+classe s_acamp119
+herda b_acamp
+const s_titulo = "Morada das beatas"
+const s_desc = ""
+const dir_n = $s_acamp019
+
+
+classe s_acamp120
+herda b_acamp
+const s_titulo = "Barraca da família conselheira"
+const s_desc = ""
+const dir_n = $s_acamp121
+const dir_s = $s_acamp053
+
+
+classe s_acamp121
+herda b_acamp
+const s_titulo = "Barraca da família conselheira"
+const s_desc = ""
+const dir_s = $s_acamp120
+
+
+classe s_acamp122
+herda b_acamp
+const s_titulo = "Barraca da família conselheira"
+const s_desc = ""
+const dir_n = $s_acamp053
+const dir_s = $s_acamp123
+
+
+classe s_acamp123
+herda b_acamp
+const s_titulo = "Barraca da família conselheira"
+const s_desc = ""
+const dir_n = $s_acamp122
+
+
+classe s_acamp124
+herda b_acamp
+const s_titulo = "Barraca da guarda masculina"
+const s_desc = ""
+const dir_s = $s_acamp054
+
+
+classe s_acamp125
+herda b_acamp
+const s_titulo = "Barraca da guarda feminina"
+const s_desc = ""
+const dir_n = $s_acamp054
+
+
+classe s_acamp126
+herda b_acamp
+const s_titulo = "Entrada da casa de uma das grandes famílias"
+const s_desc = ""
+const dir_s = $s_acamp011
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const dir_o = $s_acamp131
+const dir_c = $s_acamp127
+const a_reset = "D 100 s 2\nD 100 s 2\nP 100 acamp008 140 145 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("s", 2)
+  mudaporta("s", 2)
+  se p_acamp008:objsolto.total < 1
+    criar("p_acamp008", este, rand(140, 145))
+  fimse
+
+
+classe s_acamp127
+herda b_acamp
+const s_titulo = "Uma rústica casinha"
+const s_desc = ""
+const dir_l = $s_acamp128
+const dir_o = $s_acamp129
+const dir_b = $s_acamp126
+
+
+classe s_acamp128
+herda b_acamp
+const s_titulo = "Um quarto"
+const s_desc = ""
+const dir_o = $s_acamp127
+const a_reset = "P 100 acamp012 160 165 1\nE 100 acamp004 0 0\nE 70 acamp015 0 29"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_acamp012:objsolto.total < 1
+    p = u = criar("p_acamp012", este, rand(160, 165))
+  fimse
+  se u
+    r = criar("i_acamp004", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  se u && rand(100) < 70
+    r = criar("i_acamp015", u, 0), r.vestir(29), u.recalc = 1
+  fimse
+
+
+classe s_acamp129
+herda b_acamp
+const s_titulo = "Um quarto"
+const s_desc = ""
+const dir_l = $s_acamp127
+const a_reset = "P 100 acamp010 160 170 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp010:objsolto.total < 1
+    criar("p_acamp010", este, rand(160, 170))
+  fimse
+
+
+classe s_acamp130
+herda b_acamp
+const s_titulo = "Saída sul do acampamento"
+const s_desc = ""
+const dir_n = $s_acamp082
+const dir_s = $s_acamp133
+
+
+classe s_acamp131
+herda b_acamp
+const s_titulo = "Um quarto"
+const s_desc = ""
+const dir_l = $s_acamp126
+const a_reset = "P 100 acamp009 120 135 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp009:objsolto.total < 1
+    criar("p_acamp009", este, rand(120, 135))
+  fimse
+
+
+classe s_acamp132
+herda b_acamp
+const s_titulo = "Entrada da casa de uma das grandes famílias"
+const s_desc = ""
+const dir_n = $s_acamp011
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const dir_o = $s_acamp134
+const dir_c = $s_acamp135
+const a_reset = "P 100 acamp013 120 135 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp013:objsolto.total < 1
+    criar("p_acamp013", este, rand(120, 135))
+  fimse
+
+
+classe s_acamp133
+herda b_acamp
+const s_titulo = "O início de uma trilha nos arredores do acampamento"
+const s_desc = ""
+const dir_n = $s_acamp130
+const dir_s = $s_acamp138
+
+
+classe s_acamp134
+herda b_acamp
+const s_titulo = "Um quarto"
+const s_desc = ""
+const dir_l = $s_acamp132
+const a_reset = "P 100 acamp014 120 135 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp014:objsolto.total < 1
+    criar("p_acamp014", este, rand(120, 135))
+  fimse
+
+
+classe s_acamp135
+herda b_acamp
+const s_titulo = "Uma rústica casinha"
+const s_desc = ""
+const dir_l = $s_acamp136
+const dir_o = $s_acamp137
+const dir_b = $s_acamp132
+const a_reset = "P 100 acamp015 140 150 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp015:objsolto.total < 1
+    criar("p_acamp015", este, rand(140, 150))
+  fimse
+
+
+classe s_acamp136
+herda b_acamp
+const s_titulo = "Um quarto"
+const s_desc = ""
+const dir_o = $s_acamp135
+
+
+classe s_acamp137
+herda b_acamp
+const s_titulo = "Um quarto"
+const s_desc = ""
+const dir_l = $s_acamp135
+
+
+classe s_acamp138
+herda b_acamp
+const s_titulo = "O início de uma trilha nos arredores do acampamento"
+const s_desc = ""
+const dir_n = $s_acamp133
+const dir_o = $s_acamp139
+
+
+classe s_acamp139
+herda b_acamp
+const s_titulo = "Uma trilha entre as árvores"
+const s_desc = ""
+const dir_s = $s_acamp140
+const dir_l = $s_acamp138
+
+
+classe s_acamp140
+herda b_acamp
+const s_titulo = "Mato, árvores e curvas"
+const s_desc = ""
+const dir_n = $s_acamp139
+const dir_se = $s_acamp141
+
+
+classe s_acamp141
+herda b_acamp
+const s_titulo = "Pegadas entre as árvores"
+const s_desc = ""
+const dir_b = $s_acamp142
+const dir_no = $s_acamp140
+
+
+classe s_acamp142
+herda b_acamp
+const s_titulo = "Pegadas entre as árvores"
+const s_desc = ""
+const s_pnj = 0
+const dir_c = $s_acamp141
+
+
+classe s_acamp143
+herda b_acamp
+const s_titulo = "no meio de uma armadilha!"
+const s_desc = ""
+const dir_n = $s_acamp144
+const dir_s = $s_acamp145
+const dir_l = $s_acamp153
+const dir_o = $s_acamp148
+const dir_c = $s_acamp147
+const dir_b = $s_acamp149
+const dir_ne = $s_acamp146
+const dir_no = $s_acamp152
+const dir_se = $s_acamp150
+const dir_so = $s_acamp151
+
+
+classe s_acamp144
+herda b_acamp
+const s_titulo = "Debaixo de uma grande pedra"
+const s_desc = ""
+const dir_s = $s_acamp143
+
+
+classe s_acamp145
+herda b_acamp
+const s_titulo = "Pisando em falso"
+const s_desc = ""
+const dir_n = $s_acamp143
+
+
+classe s_acamp146
+herda b_acamp
+const s_titulo = "Um clique na escuridão"
+const s_desc = ""
+const dir_so = $s_acamp143
+
+
+classe s_acamp147
+herda b_acamp
+const s_titulo = "Escada de cordas"
+const s_desc = ""
+const dir_b = $s_acamp143
+
+
+classe s_acamp148
+herda b_acamp
+const s_titulo = "Por entre os dentes de uma fera"
+const s_desc = ""
+const dir_l = $s_acamp143
+
+
+classe s_acamp149
+herda b_acamp
+const s_titulo = "Uma pedra solta"
+const s_desc = ""
+const dir_c = $s_acamp143
+
+
+classe s_acamp150
+herda b_acamp
+const s_titulo = "Morte rápida"
+const s_desc = ""
+const dir_no = $s_acamp143
+
+
+classe s_acamp151
+herda b_acamp
+const s_titulo = "A trilha continua"
+const s_desc = ""
+const dir_ne = $s_acamp143
+const dir_so = $s_acamp154
+
+
+classe s_acamp152
+herda b_acamp
+const s_titulo = "A armadilha do cassador"
+const s_desc = ""
+const dir_se = $s_acamp143
+
+
+classe s_acamp153
+herda b_acamp
+const s_titulo = "Sua última morada"
+const s_desc = ""
+const dir_o = $s_acamp143
+
+
+classe s_acamp154
+herda b_acamp
+const s_titulo = "Perdido na escuridão"
+const s_desc = ""
+const dir_s = $s_acamp155
+const dir_ne = $s_acamp151
+
+
+classe s_acamp155
+herda b_acamp
+const s_titulo = "Perdido na escuridão"
+const s_desc = ""
+const dir_n = $s_acamp154
+const dir_l = $s_acamp156
+
+
+classe s_acamp156
+herda b_acamp
+const s_titulo = "Um pequeno caminho entre duas árvores"
+const s_desc = ""
+const dir_s = $s_fazenda001
+const dir_o = $s_acamp155
+
+
+classe s_acamp157
+herda b_acamp
+const s_titulo = "Um corredor sobre o palanque"
+const s_desc = ""
+const dir_l = $s_acamp113
+const dir_o = $s_acamp158
+
+
+classe s_acamp158
+herda b_acamp
+const s_titulo = "Uma varandinha"
+const s_desc = ""
+const dir_n = $s_acamp159
+const dir_l = $s_acamp157
+const a_reset = "D 100 n 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("n", 2)
+
+
+classe s_acamp159
+herda b_acamp
+const s_titulo = "Uma pequena sala"
+const s_desc = ""
+const dir_s = $s_acamp158
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const dir_l = $s_acamp160
+const a_reset = "D 100 s 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("s", 2)
+
+
+classe s_acamp160
+herda b_acamp
+const s_titulo = "Um corredor"
+const s_desc = ""
+const dir_n = $s_acamp162
+const dir_s = $s_acamp161
+const dir_l = $s_acamp163
+const dir_o = $s_acamp159
+
+
+classe s_acamp161
+herda b_acamp
+const s_titulo = "Um quarto"
+const s_desc = ""
+const dir_n = $s_acamp160
+
+
+classe s_acamp162
+herda b_acamp
+const s_titulo = "Um quarto"
+const s_desc = ""
+const dir_s = $s_acamp160
+
+
+classe s_acamp163
+herda b_acamp
+const s_titulo = "O quarto principal"
+const s_desc = ""
+const dir_o = $s_acamp160
+
+
+classe s_acamp164
+herda b_acamp
+const s_titulo = "Um corredor sobre o palanque"
+const s_desc = ""
+const dir_n = $s_acamp165
+const dir_o = $s_acamp113
+
+
+classe s_acamp165
+herda b_acamp
+const s_titulo = "Uma sala de descanso"
+const s_desc = ""
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_pnj = 0
+const s_recup = 170
+const s_semmagia = 0 # Sem magia: Não
+const dir_s = $s_acamp164
+const dir_l = $s_acamp166
+const a_reset = "S 100 acamp006 0 S\nS 100 acamp002 0 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_acamp006") && criar("i_acamp006", este, 0)
+  !dentro1.objini("i_acamp002") && criar("i_acamp002", este, 0)
+
+
+classe s_acamp166
+herda b_acamp
+const s_titulo = "Uma sala de cura"
+const s_desc = ""
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_pnj = 0
+const s_recup = 170
+const s_semmagia = 1 # Sem magia: Sim
+const dir_o = $s_acamp165
+const a_reset = "S 100 acamp002 0 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_acamp002") && criar("i_acamp002", este, 0)
+
+
+classe s_acamp167
+herda b_acamp
+const s_titulo = "Um corredor sobre o palanque"
+const s_desc = ""
+const dir_n = $s_acamp113
+const dir_s = $s_acamp168
+
+
+classe s_acamp168
+herda b_acamp
+const s_titulo = "Ao encontro do grande líder"
+const s_desc = ""
+const dir_n = $s_acamp167
+const dir_c = $s_acamp169
+
+
+classe s_acamp169
+herda b_acamp
+const s_titulo = "Ao encontro do grande líder"
+const s_desc = ""
+const dir_n = $s_acamp170
+const dir_b = $s_acamp168
+
+
+classe s_acamp170
+herda b_acamp
+const s_titulo = "Diante do grande líder"
+const s_desc = ""
+const dir_s = $s_acamp169
+const a_reset = "P 100 acamp050 300 315 1 z_moedas=3000000\n\
+E 15 acamp010 0 1\n\
+E 50 acamp008 0 13\n\
+E 50 acamp009 0 19"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_acamp050:objsolto.total < 1
+    p = u = criar("p_acamp050", este, rand(300, 315), "z_moedas=3000000")
+  fimse
+  se u && rand(100) < 15
+    r = criar("i_acamp010", u, 0), r.vestir(1), u.recalc = 1
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_acamp008", u, 0), r.vestir(13), u.recalc = 1
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_acamp009", u, 0), r.vestir(19), u.recalc = 1
+  fimse
+
+
+classe s_acamp171
+herda b_acamp
+const s_titulo = "Uma torre improvisada"
+const s_desc = ""
+const dir_b = $s_acamp113
+const a_reset = "P 100 acamp049 220 230 1 z_moedas=1000000\nE 20 acamp011 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_acamp049:objsolto.total < 1
+    p = u = criar("p_acamp049", este, rand(220, 230), "z_moedas=1000000")
+  fimse
+  se u && rand(100) < 20
+    r = criar("i_acamp011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_acamp172
+herda b_acamp
+const s_titulo = "O teste cruel da Nynlir"
+const dir_n = $s_acamp040
+const a_reset = "P 100 acamp062 0 0 1\n\
+P 100 acamp061 0 0 2\n\
+P 100 acamp061 0 0 2\n\
+P 100 acamp060 0 0 2\n\
+P 100 acamp060 0 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp062:objsolto.total < 1
+    criar("p_acamp062", este, 0)
+  fimse
+  se p_acamp061:objsolto.total < 2
+    criar("p_acamp061", este, 0)
+  fimse
+  se p_acamp061:objsolto.total < 2
+    criar("p_acamp061", este, 0)
+  fimse
+  se p_acamp060:objsolto.total < 2
+    criar("p_acamp060", este, 0)
+  fimse
+  se p_acamp060:objsolto.total < 2
+    criar("p_acamp060", este, 0)
+  fimse

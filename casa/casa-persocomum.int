@@ -1,0 +1,332 @@
+classe personagem
+# Personagem
+sav listaitem idono # Uso interno: aonde o personagem
+sav listaobj dentro1 # Lista de personagens que possui
+sav listaobj dentro2 # Efeitos que estão afetando o personagem
+sav textovar var # Variáveis do personagem
+ref alvo # Quem o personagem está atacando
+listaitem atkrec # Quem esse personagem atacou; recebe experiência se vencer
+listaobj atkenv # Quem atacou esse personagem; dá experiência se perder
+inttempo t_aguarde # Tempo para processar próximo comando
+inttempo t_proc # Para processar comportamento do personagem
+txt512 t_aguardetxt # Próximo comando
+const perso = 1 # Indica que é personagem
+const persobat = este # Personagem usado na batalha
+const persoesc = este # Personagem escolhido
+sav uint16 nivel # Nível do personagem
+sav uint32 pvida # Pontos de vida atuais, quando chega a 0 morre
+sav uint32 expatual # Experiência atual
+intexec recalc # Se deve recalcular defesa, ataque e velocidade
+int8 deftipo.14 # Bônus de defesa para os diferentes tipos de ataque
+# deftipo.0 = água
+# deftipo.1 = ar
+# deftipo.2 = elétrico
+# deftipo.3 = fogo
+# deftipo.4 = força
+# deftipo.5 = gás
+# deftipo.6 = gelo
+# deftipo.7 = pedra
+# deftipo.8 = planta
+# deftipo.9 = terra
+# deftipo.10 = verme
+# deftipo.11 = normal
+# deftipo.12 = perfurante
+# deftipo.13 = cortante
+# defesa total = defesa base * misc:defbonus.[128 + deftipo]
+uint32 veloc # Velocidade
+uint32 defesa # Defesa base
+uint32 ataque # Ataque base
+uint32 pvidamax # Quantidade máxima de pontos de vida
+# const agressivo = 0 # Se é agressivo (ataca jogadores)
+# const persegue = 0 # Se persegue jogadores
+const avisachegou = nome + " " + nivel + " chegou" # Mensagem quando entra no jogo
+
+func ini # Personagem foi criado
+# Variáveis
+  t_proc = 10
+  dono = arg0
+  nivel = arg1
+  recalc_exec
+  pvida = pvidamax
+# Mensagem que chegou
+  txt100 avisamsg
+  avisamsg = avisachegou
+  avisamsg && $mens.p(este) + $mens.mtodos1(avisamsg)
+# Habilidades e outras variáveis
+  se arg2
+    textotxt t
+    t.addfim(txttroca(arg2, ",", "\n"))
+    enquanto t.linhas
+      var.mudar(t.remove + "=1")
+    efim
+    recuperar # Recupera status
+  fimse
+
+func fim # Personagem foi apagado
+  atkenv.limpar
+
+varfunc dono # O dono do personagem
+# IMPORTANTE: varfunc também está definido na classe jogador
+  ret !args, idono.objlista # Nenhum argumento: retorna objeto que contém este
+  idono.remove
+  idono = ref(arg0).dentro1.addfim(este) # Adiciona personagem
+
+func objjog # Objeto do jogador
+  ret dono.perso ? dono : este
+
+func esperar # Personagem espera um tempo até poder agir novamente
+# arg0 = tempo, em décimos de segundo
+  uint32 x
+  x = arg0
+  se x > 0
+    t_aguarde == 0 && (t_aguardetxt = "")
+    t_aguarde < x && (t_aguarde = x)
+    dono.perso && dono.esperar(x)
+  fimse
+
+func teclou # Personagem escreveu algo
+  ref obj # Objeto que vai processar o comando
+  ref obj2 # Objeto com menor prioridade
+  prog p # Para procurar o objeto
+# Checa se deve aguardar
+  se t_aguarde
+    t_aguardetxt = arg0
+    msg("Aguarde")
+    ret
+  senao arg0 == ""
+    ret
+  senao arg0 == config:senhaadm && config:senhaadm
+    e_admin = !e_admin
+    e_admin && msg("Você virou administrador, tecle adm para saber os comandos")
+    !e_admin && msg("Você deixou de ser administrador")
+    ret
+  fimse
+# Obtém o comando
+  epara p.iniclasse("cmd_" + txttroca(txt1(arg0), "ç", "c")), p.lin, p.depois
+    obj = $[p.texto].obj(este, arg0)
+    continuar !obj # Continua se não encontrou um objeto
+    sair !obj.ultimo # Sai se não for objeto com baixa prioridade
+    obj2 = obj
+  efim
+  !obj && (obj = obj2)
+# Obtém objetos para gerar eventos
+  listaobj l
+  !dono.perso && l.addfim(dono)
+  l.addfim(este, dentro2)
+# Eventos escreveu
+  enquanto l && !l.objini.cmd_escr(este, arg0, obj)
+    l.ini.remove
+  efim
+# Checa se comando válido
+  se l # Se processou algum evento escreveu, retorna
+    ret
+  senao !obj # Se nenhum objeto, avisa comando desconhecido
+    msg("O quê?")
+    ret
+  fimse
+# Executa comando
+  obj.escr(este, txt2(arg0))
+
+func t_aguarde_exec
+  se t_aguardetxt
+    txt512 lin
+    lin = t_aguardetxt, t_aguardetxt = ""
+    teclou(lin)
+  fimse
+
+func t_proc_exec
+  t_proc = 10
+  ret dono.perso, nulo # Retorna se pertence a outro personagem
+  ret dono.tempojog < misc:tempo, apagar(este) # Checa tempo de vida
+  ret t_aguarde, nulo # Retorna se deve aguardar
+  se dono.dentro1.total >= 12 && !rand(5) # Muitos personagens, pode explodir
+    apagar(este)
+    listaitem i
+    ref r
+    epara i = dono.dentro1.ini, i, i.depois
+      r = i.obj.persobat
+      se i.obj.jog # Se for jogador, perde alguns pontos de vida
+        r.pvida -= 5
+        i.obj.msg(nome + " se desintegrou, " + r.pvida + " de " + r.pvidamax)
+        r.pvida <= 0 && r.morreu
+      senao # Se não for jogador, recupera os pontos de vida
+        r.pvida = r.pvidamax
+      fimse
+    efim
+    ret
+  fimse
+  se agressivo # Se for agressivo
+    txt100 t1
+    ref r
+    t1 = escolhehab, r = escolhejog
+    ret t1 && r && !ataqueini, $cmd_[t1].ataca(este, r)
+  fimse
+  se persegue # Se persegue jogador
+    txt100 dir
+    uint32 valor
+    valor = dono.tempojog
+    t_proc2(valor, dono.dir_n) && (dir = "n")
+    t_proc2(valor, dono.dir_s) && (dir = "s")
+    t_proc2(valor, dono.dir_l) && (dir = "l")
+    t_proc2(valor, dono.dir_o) && (dir = "o")
+    t_proc2(valor, dono.dir_c) && (dir = "c")
+    t_proc2(valor, dono.dir_b) && (dir = "b")
+    t_proc2(valor, dono.dir_en) && (dir = "entrar")
+    t_proc2(valor, dono.dir_sa) && (dir = "sair")
+    dir && teclou(dir)
+  fimse
+
+func t_proc2
+  se arg0 <= arg1.tempojog && movesala(arg1)
+    arg0 = arg1.tempojog
+    ret 1
+  fimse
+
+func escolhehab # Escolhe e retorna o nome de uma habilidade
+  txt100 t1 # Nome da habilidade
+  uint8 total
+# Obtém a quantidade de habilidades
+  t1 = var.ini("h_")
+  enquanto txt(t1, 0, 2) == "h_"
+    total += 1, t1 = var.depois(t1)
+  efim
+# Checa se tem alguma habilidade
+  se total == 0
+    ret ""
+  fimse
+# Escolhe uma habilidade
+  total = rand(total)
+  t1 = var.ini("h_")
+  enquanto total && t1
+    total -= 1, t1 = var.depois(t1)
+  efim
+  ret txt(t1, 2)
+
+func escolhejog # Escolhe e retorna um jogador
+  listaitem i
+  uint8 total
+# Obtém o alvo
+  epara i = dono.dentro1.ini, i, i.depois
+    i.obj.jog && (total += 1)
+  efim
+# Checa se tem jogador
+  ret total == 0, nulo
+# Escolhe um jogador
+  total = rand(total) + 1
+  epara i = dono.dentro1.ini, i, i.depois
+    i.obj.jog && (total -= 1)
+    ret total == 0, i.obj
+  efim
+
+func persoalvo # Obtém o personagem a partir do nome
+# arg0 = nome do personagem
+  listaitem i
+  nomeobj nome
+  nome.ini(arg0, 1)
+  epara i = dono.dentro1.ini, i, i.depois
+    ret visivel(i.obj) && nome.nome(i.obj.nome), i.obj
+  efim
+
+func visivel # Checa se um personagem está visível (arg0=personagem)
+  ret 1
+
+func recuperar # Recupera status do personagem
+  dentro2.apagar # Apaga todos os stats
+  se pvida == 0 && dono.jog
+    pvida = pvidamax
+    dono.escolhebat # Atualiza persobat
+  senao
+    pvida = pvidamax
+  fimse
+
+func ataqueini # Testa se pode atacar
+# Retorna "" se pode atacar ou a mensagem com o motivo se não pode
+  se persobat.pvida == 0
+    ret "Você está desmaiado"
+  senao dono.sembriga
+    ret "Não é permitido brigas aqui"
+  senao
+    ret ""
+  fimse
+
+func morreu # Personagem morreu
+# Fazer arg0=1 se não deve apagar o personagem
+  pvida = 0
+# Jogador: retira toda experiência e transfere para outro lugar
+  se jog
+    enquanto atkenv
+      atkenv.objini.expatual = 0
+      atkenv.ini.remove
+    efim
+    !arg0 && dono.msg(nome + " morreu")
+    !arg0 && (dono = config:salafim)
+    ret
+# Animal do jogador: não dá experiência
+  senao dono.jog
+    atkenv.limpar
+    !arg0 && dono.dono.msg(nome + " de " + dono.nome + " desmaiou")
+    !arg0 && dono.escolhebat # Atualiza persobat
+    ret
+  fimse
+# Outro personagem: dá experiência
+  real total # Para saber a quantidade de personagens
+  real v1 # Para calcular a experiência ganha
+  total = atkenv.total * 16
+  enquanto atkenv
+    v1 = intpos(nivel - atkenv.objini.nivel + 8)
+    v1 > 16 && (v1 = 16)
+    atkenv.objini.ganhaexp(v1 * (nivel * 10 + 50) / total)
+    atkenv.ini.remove
+  efim
+# Checa se deve gerar mensagens e apagar objeto
+  se arg0
+# Não tomar nenhuma providência
+  senao dono.perso
+    dono.dono.msg(nome + " de " + dono.nome + " desmaiou")
+    dono.escolhebat
+  senao
+    dono.msg(nome + " morreu")
+    apagar(este)
+  fimse
+
+func ganhaexp # Personagem ganha experiência
+# arg0 = experiência
+  expatual += arg0
+  se expatual > expmax
+    expatual -= expmax
+    nivel += 1
+    dono.msg(nome + " foi para nível " + nivel)
+    recalc = 1 # Recalcular atributos do personagem
+  fimse
+
+func ver # Quando alguém tecla ver seguido do nome do personagem
+  arg0.msg(nome + " nível " + nivel + " vida " + pvida + " de " + pvidamax)
+  ret 1
+
+func novoefeito # Cria novo efeito para o personagem
+# arg0 = nome da classe do efeito
+  listaitem i
+  epara i = dentro2.ini, i, i.depois
+    continuar arg0 != i.obj # Se não encontrou o efeito
+    i.obj.ini2 # Encontrou: reforça o efeito
+    ret
+  efim
+  ref r
+  r = criar(arg0) # Cria objeto do efeito
+  r.idono = dentro2.addfim(r) # Indica que efeito pertence ao personagem
+  !r.idono && apagar(r) # Se o dono do efeito estiver errado: apaga efeito
+  r.ini1 # Procedimentos do efeito quando é criado
+
+func apagarefeito # Apaga efeito do personagem
+# arg0 = nome da classe do efeito
+  listaitem i
+  epara i = dentro2.ini, i, i.depois
+    arg0 == i.obj && apagar(i.obj)
+  efim
+
+func objefeito # Retorna o objeto do efeito ou nulo se não existir
+# arg0 = nome da classe do efeito
+  listaitem i
+  epara i = dentro2.ini, i, i.depois
+    ret arg0 == i.obj, i.obj
+  efim

@@ -1,0 +1,445 @@
+classe a_midoeste
+herda area
+const a_autor = "Ulrich"
+const a_tempo = 120
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_nome = "estrada oeste"
+
+
+classe b_midoeste
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_pnj = 100
+const s_recup = 2
+const s_reserva = 1 # Comando reserva: Sim
+const s_area = "midoeste"
+
+
+classe p_midoeste001
+herda comum_persobat
+const nome = "viajante"
+const ident = "viajante"
+const descnome = "Um viajante"
+const descpadr = "Um viajante caminha por aqui"
+const nivel = 290
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 250
+
+
+classe s_midoeste001
+herda b_midoeste
+const s_titulo = "Uma estrada para o oeste"
+const s_desc = ""
+const dir_l = $s_midgaard089
+const dir_o = $s_midoeste002
+const a_reset = "P 100 perso002 0 0 200"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_perso002:objsolto.total < 200
+    criar("p_perso002", este, 0)
+  fimse
+
+
+classe s_midoeste002
+herda b_midoeste
+const s_titulo = "Continuando na estrada"
+const s_desc = ""
+const dir_n = $s_midoeste049
+const dir_l = $s_midoeste001
+const dir_o = $s_midoeste003
+
+
+classe s_midoeste003
+herda b_midoeste
+const s_titulo = "uma interseção"
+const s_desc = ""
+const dir_n = $s_midoeste004
+const dir_s = $s_midoeste021
+const dir_l = $s_midoeste002
+const dir_o = $s_midoeste028
+
+
+classe s_midoeste004
+herda b_midoeste
+const s_titulo = "O início de uma trilha"
+const s_desc = ""
+const dir_n = $s_midoeste005
+const dir_s = $s_midoeste003
+
+
+classe s_midoeste005
+herda b_midoeste
+const s_titulo = "Ainda na trilha, por entre árvores"
+const s_desc = ""
+const dir_s = $s_midoeste004
+const dir_no = $s_midoeste006
+const a_reset = "P 100 perso002 0 0 200"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_perso002:objsolto.total < 200
+    criar("p_perso002", este, 0)
+  fimse
+
+
+classe s_midoeste006
+herda b_midoeste
+const s_titulo = "adentrando a floresta"
+const s_desc = ""
+const dir_o = $s_midoeste007
+const dir_se = $s_midoeste005
+
+
+classe s_midoeste007
+herda b_midoeste
+const s_titulo = "continuando pela floresta"
+const s_desc = ""
+const dir_n = $s_midoeste008
+const dir_l = $s_midoeste006
+
+
+classe s_midoeste008
+herda b_midoeste
+const s_titulo = "próximo a um pequeno rio"
+const s_desc = ""
+const dir_s = $s_midoeste007
+const dir_o = $s_midoeste009
+
+
+classe s_midoeste009
+herda b_midoeste
+const s_titulo = "as margens do rio"
+const s_desc = ""
+const dir_n = $s_midoeste010
+const dir_l = $s_midoeste008
+const dir_o = $s_midoeste011
+
+
+classe s_midoeste010
+herda b_midoeste
+const s_titulo = "ainda nas margens do rio"
+const s_desc = ""
+const dir_n = $s_midoeste013
+const dir_s = $s_midoeste009
+const dir_o = $s_midoeste012
+
+
+classe s_midoeste011
+herda b_midoeste
+const s_titulo = "parte raza"
+const s_desc = ""
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_n = $s_midoeste012
+const dir_l = $s_midoeste009
+const dir_o = $s_midoeste034
+
+
+classe s_midoeste012
+herda b_midoeste
+const s_titulo = "uma parte um pouco mais profunda"
+const s_desc = ""
+const s_pnj = 0
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_s = $s_midoeste011
+const dir_l = $s_midoeste010
+const dir_o = $s_midoeste031
+
+
+classe s_midoeste013
+herda b_midoeste
+const s_titulo = "subida íngrime"
+const s_desc = ""
+const dir_s = $s_midoeste010
+const dir_ne = $s_midoeste014
+
+
+classe s_midoeste014
+herda b_midoeste
+const s_titulo = "subida íngrime, entre árvores frutíferas"
+const s_desc = ""
+const dir_n = $s_midoeste015
+const dir_so = $s_midoeste013
+
+
+classe s_midoeste015
+herda b_midoeste
+const s_titulo = "Às bordas da floresta"
+const s_desc = ""
+const dir_s = $s_midoeste014
+const dir_l = $s_midoeste016
+
+
+classe s_midoeste016
+herda b_midoeste
+const s_titulo = "uma estrada para leste"
+const s_desc = ""
+const dir_l = $s_midoeste017
+const dir_o = $s_midoeste015
+
+
+classe s_midoeste017
+herda b_midoeste
+const s_titulo = "divisão entre dois caminhos"
+const s_desc = ""
+const dir_n = $s_midoeste018
+const dir_o = $s_midoeste016
+
+
+classe s_midoeste018
+herda b_midoeste
+const s_titulo = "caminhando para norte"
+const s_desc = ""
+const dir_n = $s_midoeste019
+const dir_s = $s_midoeste017
+
+
+classe s_midoeste019
+herda b_midoeste
+const s_titulo = "uma estrada de terra"
+const s_desc = ""
+const dir_s = $s_midoeste018
+const dir_o = $s_midoeste020
+
+
+classe s_midoeste020
+herda b_midoeste
+const s_titulo = "uma pequena estrada de terra"
+const s_desc = ""
+const objmax = 1000
+const eveste = 0 # Eventos sala: Não
+const dir_s = $s_midleste004
+const dir_l = $s_midoeste019
+
+
+classe s_midoeste021
+herda b_midoeste
+const s_titulo = "Um caminho para o sul"
+const s_desc = ""
+const dir_n = $s_midoeste003
+const dir_s = $s_midoeste022
+
+
+classe s_midoeste022
+herda b_midoeste
+const s_titulo = "Um caminho para o sul"
+const s_desc = ""
+const dir_n = $s_midoeste021
+const dir_s = $s_midoeste023
+
+
+classe s_midoeste023
+herda b_midoeste
+const s_titulo = "Continuando ao longo do caminho"
+const s_desc = ""
+const dir_n = $s_midoeste022
+const dir_s = $s_midoeste024
+
+
+classe s_midoeste024
+herda b_midoeste
+const s_titulo = "uma curva no caminho"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_midoeste023
+const dir_se = $s_ice055
+
+func cmd_mover
+  se arg2 == "l"
+    arg0.msg("Uma barreira foi colocada aqui, impedindo sua passagem.")
+    ret 1
+  fimse
+
+
+classe s_midoeste025
+herda b_midoeste
+const s_titulo = "uma estradinha de terra"
+const s_desc = ""
+const dir_l = $s_midoeste026
+const dir_o = $s_midoeste024
+
+
+classe s_midoeste026
+herda b_midoeste
+const s_titulo = "Continuando pela estradinha"
+const s_desc = ""
+const dir_l = $s_midoeste027
+const dir_o = $s_midoeste025
+
+
+classe s_midoeste027
+herda b_midoeste
+const s_titulo = "Próximo a uma estranha entrada"
+const s_desc = ""
+const dir_l = $s_gnomos001
+const dir_o = $s_midoeste026
+
+
+classe s_midoeste028
+herda b_midoeste
+const s_titulo = "Na estrada"
+const dir_l = $s_midoeste003
+const dir_o = $s_midoeste029
+
+
+classe s_midoeste029
+herda b_midoeste
+const s_titulo = "No fim da estrada"
+const dir_l = $s_midoeste028
+const dir_o = $s_midoeste030
+
+
+classe s_midoeste030
+herda b_midoeste
+const s_titulo = "Próximo a uma cidade"
+const dir_s = $s_hauflings001
+const portaini_s = 1 # Estado inicial: 1 Porta aberta
+const portanome_s = "Os portões da cidade"
+const portaartigo_s = 3 # Artigo porta: 3 os (portões)
+const fecha_s = 1 # Fecha ao passar: Sim
+const dir_l = $s_midoeste029
+
+
+classe s_midoeste031
+herda b_midoeste
+const s_titulo = "uma parte um pouco mais profunda"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_s = $s_midoeste034
+const dir_l = $s_midoeste012
+const dir_o = $s_midoeste032
+
+
+classe s_midoeste032
+herda b_midoeste
+const s_titulo = "uma parte um pouco mais profunda"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_s = $s_midoeste035
+const dir_l = $s_midoeste031
+const dir_o = $s_midoeste033
+
+
+classe s_midoeste033
+herda b_midoeste
+const s_titulo = "uma parte um pouco mais profunda"
+const s_pnj = 0
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_s = $s_midoeste036
+const dir_l = $s_midoeste032
+
+
+classe s_midoeste034
+herda b_midoeste
+const s_titulo = "parte raza"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_n = $s_midoeste031
+const dir_l = $s_midoeste011
+const dir_o = $s_midoeste035
+
+
+classe s_midoeste035
+herda b_midoeste
+const s_titulo = "parte raza"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_n = $s_midoeste032
+const dir_l = $s_midoeste034
+
+
+classe s_midoeste036
+herda b_midoeste
+const s_titulo = "uma parte um pouco mais profunda"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_n = $s_midoeste033
+const dir_s = $s_midoeste037
+
+
+classe s_midoeste037
+herda b_midoeste
+const s_titulo = "na parte profunda do lago"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_n = $s_midoeste036
+const dir_b = $s_midoeste038
+
+
+classe s_midoeste038
+herda b_midoeste
+const s_titulo = "nas profundesas do lago"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_c = $s_midoeste037
+const dir_b = $s_midoeste039
+
+
+classe s_midoeste039
+herda b_midoeste
+const s_titulo = "nas profundesas do lago"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_c = $s_midoeste038
+const dir_b = $s_midoeste040
+
+
+classe s_midoeste040
+herda b_midoeste
+const s_titulo = "nas profundesas do lago"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_c = $s_midoeste039
+const dir_b = $s_midoeste041
+
+
+classe s_midoeste041
+herda b_midoeste
+const s_titulo = "nas profundesas do lago"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_n = $s_midoeste042
+const dir_c = $s_midoeste040
+
+
+classe s_midoeste042
+herda b_midoeste
+const s_titulo = "nas profundesas do lago"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_s = $s_midoeste041
+const dir_o = $s_midoeste043
+const dir_b = $s_gelo001
+
+
+classe s_midoeste043
+herda b_midoeste
+const s_titulo = "nas profundesas do lago"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_s = $s_midoeste044
+const dir_l = $s_midoeste042
+
+
+classe s_midoeste044
+herda b_midoeste
+const s_titulo = "nas profundesas do lago"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_n = $s_midoeste043
+const dir_c = $s_midoeste045
+
+
+classe s_midoeste045
+herda b_midoeste
+const s_titulo = "em um túneo largo"
+const dir_s = $s_midoeste046
+const dir_b = $s_midoeste044
+
+
+classe s_midoeste046
+herda b_midoeste
+const s_titulo = "em um túneo largo"
+const dir_n = $s_midoeste045
+const dir_s = $s_midoeste047
+
+
+classe s_midoeste047
+herda b_midoeste
+const s_titulo = "em um túneo largo"
+const dir_n = $s_midoeste046
+const dir_s = $s_midoeste048
+
+
+classe s_midoeste048
+herda b_midoeste
+const s_titulo = "em um túneo largo"
+const dir_n = $s_midoeste047
+const dir_s = $s_tartaro012

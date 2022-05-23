@@ -1,0 +1,719 @@
+classe a_pesqueiro
+herda area
+const a_nome = "Pesqueiro"
+const a_tempo = 5
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_pesqueiro
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_recup = 10
+const s_area = "pesqueiro"
+
+
+classe i_pesqueiro001
+herda comum_itemgrupo
+const nome = "vara de pescar"
+const descnome = "uma vara de pesca"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const valor = 200
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+
+classe i_pesqueiro002
+herda comum_itemgrupo
+const nome = "vara de pesca"
+const descnome = "uma vara de pesca"
+const descver = "Uma vara de pescar bastante comum. Consiste de uma vara com uma linha bem \
+comprida e um anzol em sua ponta."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const valor = 300
+const inivar = "s"
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 0 # Eventos dono sala: Não
+#
+
+func cmd_mudadono
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "pescar"
+    se !arg0.dono.dentro2.objini("p_pesqueiro002")
+      ret arg0.msg("Você lança a vara de pesca, mas não encontra nada!")
+    senao
+      $mens.p(arg0)
+      $mens.mvis1("$P lança a vara de pesca na água e pesca um peixe!")
+      apagar(arg0.dono.dentro2.objini("p_pesqueiro002"))
+      criar("i_pesqueiro003", arg0, 1)
+      ret 1
+    fimse
+  fimse
+
+
+classe i_pesqueiro003
+herda comum_item
+const nome = "peixe cru"
+const descnome = "um peixe"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const f_diges = 60
+const f_msgperso = "$P devora rapidamente um peixe cru em várias dentadas."
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_escr
+  se arg1 == "fritar peixe"
+    ret !arg0.dono.dentro1.objini("i_moveis033"), arg0.msg("Não há um fogão por perto.")
+    ret !arg0.dentro1.objini("i_itens015"), arg0.msg("Você precisa de uma frigideira.")
+    misc:tempo("fritar", arg0)
+    ret 1
+  fimse
+#
+
+func fritar30
+  $mens.p(arg0, nulo, este)
+  $mens.mvis1("$P joga um pouco de óleo na frigideira e põe $o dentro dela.")
+  mdono(arg0.dentro1.objini("i_itens015"))
+#
+#
+
+func fritar50
+  $mens.p(arg0, nulo, este)
+  $mens.mvis1("Em seguida, $P põe a frigideira sobre o fogão e deixa fritar por um tempo.")
+#
+
+func fritar200
+  $mens.p(arg0, nulo, este)
+  $mens.mvis1("$P vira o peixe na frigideira para fritar bem do outro lado.")
+#
+
+func fritar300
+  $mens.p(arg0, nulo, este)
+  $mens.mvis1("Finalmente, um delicioso cheiro de peixe frito já pode ser sentido e ele já está \
+pronto!")
+  apagar(este)
+  criar("i_pesqueiro004", dono, 1)
+#
+
+
+classe i_pesqueiro004
+herda comum_item
+const nome = "peixe frito"
+const descnome = "um peixe frito"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const f_diges = 120
+const f_msgperso = "$P saboreia com satisfação um crocante e delicioso peixe frito."
+
+
+classe i_pesqueiro005
+herda comum_item
+
+
+classe i_pesqueiro006
+herda comum_item
+
+
+classe i_pesqueiro007
+herda comum_itemperso
+const nome = "rede"
+const ident = "rede pesca"
+const descnome = "Uma grande rede de pesca"
+const descpos = "uma grande e forte rede de pesca está aqui, pronta para ser usada"
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 1200
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_escr
+  se txtsub(arg1, 0, 2) == "jogar rede"
+    refvar dir = txtsub(arg1, 2, 1)
+    ret !arg0.dono.dir_[dir] && dir != "fora", arg0.msg("Impossível lançar a rede nessa direção."\
+)
+    ret dir == "fora" && !arg0.dono.dono, arg0.msg("Para fora de onde?")
+    ref p
+    txt100 lin
+    lin = "$P joga sua rede para "
+    dir == "n" && (lin += "norte")
+    dir == "o" && (lin += "oeste")
+    dir == "fora" && (lin += "fora")
+    dir == "l" && (lin += "leste")
+    dir == "s" && (lin += "sul")
+    dir == "so" && (lin += "sudoeste")
+    dir == "se" && (lin += "sudeste")
+    dir == "ne" && (lin += "nordeste")
+    dir == "no" && (lin += "noroeste")
+    refvar t = arg0.dono.dir_[dir].dentro2.total("p_pesqueiro002")
+    se !t
+      lin += ", mas não encontra nada."
+    senao t == 1
+      lin += " e captura 1 peixe."
+      criar("i_pesqueiro003", arg0, 1)
+    senao
+      lin += " e captura " + t + " peixes."
+      criar("i_pesqueiro003", arg0, "t")
+    fimse
+    $mens.p(arg0)
+    $mens.mvis1(lin)
+    listaobj l
+    epara l.addfim(s.dentro2), l, l.ini.remove
+      se txt(l.objini) == "p_pesqueiro002"
+        apagar(l.objini)
+      fimse
+    efim
+    ret 1
+  fimse
+
+
+classe p_pesqueiro001
+herda comum_perso
+const nome = "luara"
+const ident = "luara vendedora"
+const descnome = "luara, a vendedora de apetrechos de pesca"
+const descpadr = "Luara, a vendedora de apetrechos de pesca organiza alguns itens de sua loja \
+nas estantes."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const lojaitem = "pesqueiro002 0\npesqueiro007 10"
+
+
+classe p_pesqueiro002
+herda comum_persobat
+const nome = "peixe"
+const descnome = "um peixe"
+const descpadr = "Um peixe está nadando aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 30
+const p_atktipo = "bater"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 300
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 100
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 320
+  defnorm += 400
+  defesp += 390
+
+
+classe s_pesqueiro001
+herda b_pesqueiro
+const s_titulo = "Adentrando um belo clube de pesca"
+const s_desc = "Você adentra um belo clube de pesca. Para leste, você vê uma loja, e para o \
+norte, um corredor."
+const dir_n = $s_pesqueiro003
+const dir_s = $s_rio053
+const dir_l = $s_pesqueiro002
+
+
+classe s_pesqueiro002
+herda b_pesqueiro
+const s_titulo = "Loja de apetrechos de pesca."
+const s_som = "loja1"
+const dir_o = $s_pesqueiro001
+const s_reset = "P 100 pesqueiro001 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_pesqueiro001:objsolto.total < 1
+    criar("p_pesqueiro001", este, 0)
+  fimse
+
+
+classe s_pesqueiro003
+herda b_pesqueiro
+const s_titulo = "um espaçoso corredor."
+const dir_n = $s_pesqueiro004
+const dir_s = $s_pesqueiro001
+
+
+classe s_pesqueiro004
+herda b_pesqueiro
+const s_titulo = "uma área coberta"
+const dir_n = $s_pesqueiro005
+const dir_s = $s_pesqueiro003
+
+
+classe s_pesqueiro005
+herda b_pesqueiro
+const s_titulo = "Às bordas de um pequeno lago."
+const s_pnj = 0
+const s_som = "lago"
+const dir_s = $s_pesqueiro004
+const dir_b = $s_pesqueiro006
+
+
+classe s_pesqueiro006
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro013
+const dir_l = $s_pesqueiro007
+const dir_o = $s_pesqueiro008
+const dir_c = $s_pesqueiro005
+
+
+classe s_pesqueiro007
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro014
+const dir_l = $s_pesqueiro011
+const dir_o = $s_pesqueiro006
+
+
+classe s_pesqueiro008
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro015
+const dir_l = $s_pesqueiro006
+const dir_o = $s_pesqueiro009
+
+
+classe s_pesqueiro009
+herda b_pesqueiro
+const s_titulo = "dentro do lago"
+const dir_n = $s_pesqueiro016
+const dir_l = $s_pesqueiro008
+const dir_o = $s_pesqueiro010
+
+
+classe s_pesqueiro010
+herda b_pesqueiro
+const s_titulo = "dentro do lago"
+const dir_n = $s_pesqueiro017
+const dir_l = $s_pesqueiro009
+const dir_o = $s_pesqueiro027
+
+
+classe s_pesqueiro011
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro018
+const dir_l = $s_pesqueiro012
+const dir_o = $s_pesqueiro007
+
+
+classe s_pesqueiro012
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro019
+const dir_l = $s_pesqueiro033
+const dir_o = $s_pesqueiro011
+const a_reset = "P 100 pesqueiro002 20 25 20\n\
+P 100 pesqueiro002 20 25 20\n\
+P 100 pesqueiro002 20 25 20"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_pesqueiro002:objsolto.total < 20
+    criar("p_pesqueiro002", este, rand(20, 25))
+  fimse
+  se p_pesqueiro002:objsolto.total < 20
+    criar("p_pesqueiro002", este, rand(20, 25))
+  fimse
+  se p_pesqueiro002:objsolto.total < 20
+    criar("p_pesqueiro002", este, rand(20, 25))
+  fimse
+
+
+classe s_pesqueiro013
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro020
+const dir_s = $s_pesqueiro006
+const dir_l = $s_pesqueiro014
+const dir_o = $s_pesqueiro015
+
+
+classe s_pesqueiro014
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro021
+const dir_s = $s_pesqueiro007
+const dir_l = $s_pesqueiro018
+const dir_o = $s_pesqueiro013
+
+
+classe s_pesqueiro015
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro022
+const dir_s = $s_pesqueiro008
+const dir_l = $s_pesqueiro013
+const dir_o = $s_pesqueiro016
+
+
+classe s_pesqueiro016
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro023
+const dir_s = $s_pesqueiro009
+const dir_l = $s_pesqueiro015
+const dir_o = $s_pesqueiro017
+
+
+classe s_pesqueiro017
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro024
+const dir_s = $s_pesqueiro010
+const dir_l = $s_pesqueiro016
+const dir_o = $s_pesqueiro029
+const a_reset = "P 100 pesqueiro002 20 25 20 z_moedas=20000\n\
+P 100 pesqueiro002 20 25 20 z_moedas=25000\n\
+P 100 pesqueiro002 20 25 20 z_moedas=25000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_pesqueiro002:objsolto.total < 20
+    criar("p_pesqueiro002", este, rand(20, 25), "z_moedas=20000")
+  fimse
+  se p_pesqueiro002:objsolto.total < 20
+    criar("p_pesqueiro002", este, rand(20, 25), "z_moedas=25000")
+  fimse
+  se p_pesqueiro002:objsolto.total < 20
+    criar("p_pesqueiro002", este, rand(20, 25), "z_moedas=25000")
+  fimse
+
+
+classe s_pesqueiro018
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro025
+const dir_s = $s_pesqueiro011
+const dir_l = $s_pesqueiro019
+const dir_o = $s_pesqueiro014
+
+
+classe s_pesqueiro019
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro026
+const dir_s = $s_pesqueiro012
+const dir_l = $s_pesqueiro035
+const dir_o = $s_pesqueiro018
+
+
+classe s_pesqueiro020
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro045
+const dir_s = $s_pesqueiro013
+const dir_l = $s_pesqueiro021
+const dir_o = $s_pesqueiro022
+const a_reset = "P 100 pesqueiro002 20 25 20 z_moedas=25000\n\
+P 100 pesqueiro002 20 25 20 z_moedas=25000\n\
+P 100 pesqueiro002 20 25 20 z_moedas=25000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_pesqueiro002:objsolto.total < 20
+    criar("p_pesqueiro002", este, rand(20, 25), "z_moedas=25000")
+  fimse
+  se p_pesqueiro002:objsolto.total < 20
+    criar("p_pesqueiro002", este, rand(20, 25), "z_moedas=25000")
+  fimse
+  se p_pesqueiro002:objsolto.total < 20
+    criar("p_pesqueiro002", este, rand(20, 25), "z_moedas=25000")
+  fimse
+
+
+classe s_pesqueiro021
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro044
+const dir_s = $s_pesqueiro014
+const dir_l = $s_pesqueiro025
+const dir_o = $s_pesqueiro020
+
+
+classe s_pesqueiro022
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro046
+const dir_s = $s_pesqueiro015
+const dir_l = $s_pesqueiro020
+const dir_o = $s_pesqueiro023
+
+
+classe s_pesqueiro023
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro047
+const dir_s = $s_pesqueiro016
+const dir_l = $s_pesqueiro022
+const dir_o = $s_pesqueiro024
+
+
+classe s_pesqueiro024
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro048
+const dir_s = $s_pesqueiro017
+const dir_l = $s_pesqueiro023
+const dir_o = $s_pesqueiro031
+const a_reset = "P 100 pesqueiro002 20 25 20 z_moedas=25000\n\
+P 100 pesqueiro002 20 25 20 z_moedas=25000\n\
+P 100 pesqueiro002 20 25 20 z_moedas=25000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_pesqueiro002:objsolto.total < 20
+    criar("p_pesqueiro002", este, rand(20, 25), "z_moedas=25000")
+  fimse
+  se p_pesqueiro002:objsolto.total < 20
+    criar("p_pesqueiro002", este, rand(20, 25), "z_moedas=25000")
+  fimse
+  se p_pesqueiro002:objsolto.total < 20
+    criar("p_pesqueiro002", este, rand(20, 25), "z_moedas=25000")
+  fimse
+
+
+classe s_pesqueiro025
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro043
+const dir_s = $s_pesqueiro018
+const dir_l = $s_pesqueiro026
+const dir_o = $s_pesqueiro021
+
+
+classe s_pesqueiro026
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro042
+const dir_s = $s_pesqueiro019
+const dir_l = $s_pesqueiro037
+const dir_o = $s_pesqueiro025
+const a_reset = "P 100 pesqueiro002 0 0 20 z_moedas=25000\n\
+P 100 pesqueiro002 20 25 20 z_moedas=25000\n\
+P 100 pesqueiro002 20 25 20 z_moedas=25000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_pesqueiro002:objsolto.total < 20
+    criar("p_pesqueiro002", este, 0, "z_moedas=25000")
+  fimse
+  se p_pesqueiro002:objsolto.total < 20
+    criar("p_pesqueiro002", este, rand(20, 25), "z_moedas=25000")
+  fimse
+  se p_pesqueiro002:objsolto.total < 20
+    criar("p_pesqueiro002", este, rand(20, 25), "z_moedas=25000")
+  fimse
+
+
+classe s_pesqueiro027
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro029
+const dir_l = $s_pesqueiro010
+const dir_o = $s_pesqueiro028
+
+
+classe s_pesqueiro028
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro030
+const dir_l = $s_pesqueiro027
+
+
+classe s_pesqueiro029
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro031
+const dir_s = $s_pesqueiro027
+const dir_l = $s_pesqueiro017
+const dir_o = $s_pesqueiro030
+
+
+classe s_pesqueiro030
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro032
+const dir_s = $s_pesqueiro028
+const dir_l = $s_pesqueiro029
+
+
+classe s_pesqueiro031
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro049
+const dir_s = $s_pesqueiro029
+const dir_l = $s_pesqueiro024
+const dir_o = $s_pesqueiro032
+
+
+classe s_pesqueiro032
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro050
+const dir_s = $s_pesqueiro030
+const dir_l = $s_pesqueiro031
+
+
+classe s_pesqueiro033
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro035
+const dir_l = $s_pesqueiro034
+const dir_o = $s_pesqueiro012
+
+
+classe s_pesqueiro034
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro036
+const dir_o = $s_pesqueiro033
+
+
+classe s_pesqueiro035
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro037
+const dir_s = $s_pesqueiro033
+const dir_l = $s_pesqueiro036
+const dir_o = $s_pesqueiro019
+
+
+classe s_pesqueiro036
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro038
+const dir_s = $s_pesqueiro034
+const dir_o = $s_pesqueiro035
+
+
+classe s_pesqueiro037
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro041
+const dir_s = $s_pesqueiro035
+const dir_l = $s_pesqueiro038
+const dir_o = $s_pesqueiro026
+
+
+classe s_pesqueiro038
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_n = $s_pesqueiro040
+const dir_s = $s_pesqueiro036
+const dir_o = $s_pesqueiro037
+
+
+classe s_pesqueiro039
+herda b_pesqueiro
+const s_titulo = "Piscina"
+
+
+classe s_pesqueiro040
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_s = $s_pesqueiro038
+const dir_o = $s_pesqueiro041
+
+
+classe s_pesqueiro041
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_s = $s_pesqueiro037
+const dir_l = $s_pesqueiro040
+const dir_o = $s_pesqueiro042
+
+
+classe s_pesqueiro042
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_s = $s_pesqueiro026
+const dir_l = $s_pesqueiro041
+const dir_o = $s_pesqueiro043
+
+
+classe s_pesqueiro043
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_s = $s_pesqueiro025
+const dir_l = $s_pesqueiro042
+const dir_o = $s_pesqueiro044
+
+
+classe s_pesqueiro044
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_s = $s_pesqueiro021
+const dir_l = $s_pesqueiro043
+const dir_o = $s_pesqueiro045
+
+
+classe s_pesqueiro045
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_s = $s_pesqueiro020
+const dir_l = $s_pesqueiro044
+const dir_o = $s_pesqueiro046
+
+
+classe s_pesqueiro046
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_s = $s_pesqueiro022
+const dir_l = $s_pesqueiro045
+const dir_o = $s_pesqueiro047
+
+
+classe s_pesqueiro047
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_s = $s_pesqueiro023
+const dir_l = $s_pesqueiro046
+const dir_o = $s_pesqueiro048
+
+
+classe s_pesqueiro048
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_s = $s_pesqueiro024
+const dir_l = $s_pesqueiro047
+const dir_o = $s_pesqueiro049
+
+
+classe s_pesqueiro049
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_s = $s_pesqueiro031
+const dir_l = $s_pesqueiro048
+const dir_o = $s_pesqueiro050
+
+
+classe s_pesqueiro050
+herda b_pesqueiro
+const s_titulo = "Dentro do lago"
+const dir_s = $s_pesqueiro032
+const dir_l = $s_pesqueiro049
+
+
+classe s_pesqueiro051
+herda b_pesqueiro
+const s_pnj = 0
+const dir_n = $s_pesqueiro050
+const dir_s = $s_pesqueiro053
+const dir_l = $s_pesqueiro052
+
+
+classe s_pesqueiro052
+herda b_pesqueiro
+const dir_o = $s_pesqueiro051
+
+
+classe s_pesqueiro053
+herda b_pesqueiro
+const dir_n = $s_pesqueiro051

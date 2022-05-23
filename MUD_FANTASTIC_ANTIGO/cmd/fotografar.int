@@ -1,0 +1,166 @@
+classe cmd_fotografar
+herda comando_comum
+#
+const posic = 6
+const txtajuda = "\b\c3Fotografar\b\n\
+Sintaxe: Fotografar <item> ou <personagem>\n\
+Tira uma foto de um personagem ou item, sem argumento, tira foto da sala onde está."
+#
+
+func escr
+  ref camera
+  listaobj t
+  ref tmodel
+  epara t.addfim(arg0.dentro1), t, t.ini.remove
+    se t.objini.i_celular || t.objini.i_camera
+      tmodel = t.objini
+      sair t
+    fimse
+  efim
+  ret !t, arg0.msg("Você não possui uma câmera fotográfica ou celular com câmera.")
+  ref p
+  ref i
+  refvar alvo = arg1
+  se arg0.dono.dir_[alvo]
+    txt512 lin
+    refvar sala = arg0.dono.dir_[alvo]
+    listaobj l
+    epara l.addfim(sala.dentro2, sala.dentro1), l, l.ini.remove
+      se l.objini.perso
+        l.objini != arg0 && (lin += l.objini.descnome + ",\n")
+      senao l.objini.item
+        l.objini != arg0 && (lin += l.objini.descpos + "\n")
+      fimse
+    efim
+    txt512 lin2
+    listaitem item
+    epara item = arg0.dentro1.fim, item, item.antes
+      refvar i = item.obj
+      continuar !i.visivel(arg0)
+      lin2 = item.obj.descnome + ", "
+    efim
+    txt100 var
+    refvar stitulo = sala.var.z_titulo ? sala.var.z_titulo : sala.s_titulo
+    var = "z_foto=" + stitulo
+    refvar f = criar("i_foto", arg0, 1, var)
+    f.descfoto2(lin, lin2, sala.var.z_desc ? sala.var.z_desc : sala.s_desc)
+    $mens.p(arg0, nulo, tmodel)
+    $mens.mens = cmd_[alvo]:dirsai
+    $mens.mtodos1("\d=camera $P direciona a câmera para $m e...")
+    arg0.dono.msg("Flash!")
+    sala.msg("Flash!")
+    ret 1
+  senao !alvo
+    txt512 lin
+    refvar sala = arg0.dono
+    listaobj l
+    epara l.addfim(sala.dentro2, sala.dentro1), l, l.ini.remove
+      se l.objini.perso
+        l.objini != arg0 && (lin += l.objini.descnome + ",\n")
+      senao l.objini.item
+        l.objini != arg0 && (lin += l.objini.descpos + "\n")
+      fimse
+    efim
+    txt512 lin2
+    listaitem item
+    epara item = arg0.dentro1.fim, item, item.antes
+      refvar i = item.obj
+      continuar !i.visivel(arg0)
+      lin2 = item.obj.descnome + ", "
+    efim
+    txt100 var
+    refvar stitulo = sala.var.z_titulo ? sala.var.z_titulo : sala.s_titulo
+    var = "z_foto=" + stitulo
+    refvar f = criar("i_foto", arg0, 1, var)
+    f.descfoto2(lin, lin2, sala.var.z_desc ? sala.var.z_desc : sala.s_desc)
+    $mens.p(arg0)
+    $mens.mvis1("\d=camera $P procura a melhor posição na sala, direcionando a câmera para todos \
+e...")
+    sala.msg("Flash!")
+    ret 1
+  fimse
+  p = misc:persodono(arg0, alvo)
+  i = misc:itemdono(arg0, alvo)
+  ret arg0 == p, arg0.msg("Você não consegue tirar foto de si mesmo com a câmera.")
+  ret !p && !i, arg0.msg("Você não vê " + alvo + ".")
+  se i
+    $mens.p(arg0, nulo, i)
+    $mens.mvis1("$P aponta sua câmera na direção $d $o e...")
+    arg0.dono.msg("Flash!")
+    refvar f = criar("i_foto", arg0, 1, "z_foto=" + i.descnome)
+    refvar stitulo = arg0.dono.var.z_titulo ? arg0.dono.var.z_titulo : arg0.dono.s_titulo
+    f.descfoto3(i.descver, stitulo)
+    ret 1
+  fimse
+  se p
+    $mens.p(arg0, p, tmodel)
+    refvar m1 = "$P aponta $o na direção $d $a, e..."
+    refvar m2 = "$P aponta $o na sua direção, e..."
+    refvar m3 = "$P aponta $o na direção de $A, e..."
+    $mens.p(arg0, p, este)
+    $mens.mvis1(m1, m2, m3)
+    arg0.dono.msg("\d=camera flash!")
+    txt100 vars
+    vars = "z_foto=" + p.descnome
+    refvar f = criar("i_foto", arg0, 1, vars)
+    txt100 pos
+    refvar lugar = p.poslugar.objlista.descnome
+    se p.posicao == 4
+      pos = (p.msexo ? "ele " : "ela ") + " está dormindo"
+    senao p.posicao == 5
+      pos = (p.msexo ? "ele " : "ela ") + " está descansando"
+    senao p.posicao == "6"
+      pos = (p.msexo ? "ele " : "ela ") + "está sentad" + (p.msexo ? "o" : "a")
+    senao p.posicao == "8"
+      pos = (p.msexo ? "ele " : "ela ") + "está em pé"
+    fimse
+    refvar stitulo = p.dono.var.z_titulo ? p.dono.var.z_titulo : p.dono.s_titulo
+    txt512 usando
+    listaobj i
+    epara i.addfim(p.dentro2), i, i.ini.remove
+      continuar !i.objini.item
+      continuar !i.objini.vestpos
+      usando = misc:equip(i.objini.vestpos)
+    efim
+    arg0.msg(usando)
+    se p.dentro2.objini("e_beijando")
+      refvar acao = p.var.j_beijando
+      f.descfoto(p.var.z_desc, pos, lugar, stitulo, acao)
+    senao p.dentro2.objini("e_bebendo")
+      refvar acao = " bebendo " + p.var.j_bebendo
+      f.descfoto(p.var.z_desc, pos, lugar, stitulo, acao)
+    senao p.dentro2.objini("e_sorrindo")
+      refvar acao = " sorrindo"
+      f.descfoto(p.var.z_desc, pos, lugar, stitulo, acao)
+    senao p.dentro2.objini("e_amamentando")
+      refvar acao = " amamentando"
+      f.descfoto(p.var.z_desc, pos, lugar, stitulo, acao)
+    senao p.dentro2.objini("e_lambendo")
+      refvar acao = p.var.j_lambendo
+      f.descfoto(p.var.z_desc, pos, lugar, stitulo, acao)
+    senao p.dentro2.objini("e_dançando")
+      refvar acao = p.var.j_dançando
+      f.descfoto(p.var.z_desc, pos, lugar, stitulo, acao)
+    senao p.dentro2.objini("e_rolando")
+      refvar acao = " rolando de rir"
+      f.descfoto(p.var.z_desc, pos, lugar, stitulo, acao)
+    senao p.dentro2.objini("e_acariciando")
+      refvar acao = p.var.j_acariciando
+      f.descfoto(p.var.z_desc, pos, lugar, stitulo, acao)
+    senao p.dentro2.objini("e_comendo")
+      refvar acao = " comendo " + p.var.j_comendo
+      f.descfoto(p.var.z_desc, pos, lugar, stitulo, acao)
+    senao p.dentro2.objini("e_caindo")
+      refvar acao = " caindo de bêbad" + (p.msexo ? "o" : "a")
+      f.descfoto(p.var.z_desc, pos, lugar, stitulo, acao)
+    senao p.dentro2.objini("e_abraçando")
+      refvar acao = p.var.j_abraçando
+      f.descfoto(p.var.z_desc, pos, lugar, stitulo, acao)
+    senao p.dentro2.objini("e_estapeando")
+      refvar acao = p.var.j_estapeando
+      f.descfoto(p.var.z_desc, pos, lugar, stitulo, acao)
+    senao
+      f.descfoto(p.var.z_desc, pos, lugar, stitulo, nulo, usando)
+    fimse
+    ret 1
+  fimse

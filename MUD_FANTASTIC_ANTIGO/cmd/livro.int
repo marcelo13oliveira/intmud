@@ -1,0 +1,598 @@
+classe cmd_livro
+herda comando_comum
+const posic = 5
+const txtajuda = "Sintaxe: LIVRO <nome do livro>\n\n\
+Imediatamente é aberto um menu que lhe permite editar e ler um livro.\n\n\
+Ao editar um livro, as páginas são ajustadas automaticamente, sendo cada\n\
+página de oito linhas. Caso você queira fazer páginas com menos de oito\n\
+linhas, use um /p para indicar o fim da página atual.\n\n\
+Exemplo:\n\n\
+Bom dia\n\
+/p\n\
+Boa tarde\n\
+/p\n\
+Boa noite\n\n\
+O exemplo acima corresponde a três páginas."
+
+func ini
+  prog p
+  uint8 mudou
+  se !p.existe("comum_obj", "lref")
+    p.criar("comum_obj", "sav textoobj lref # Referências extras de objetos deste objeto")
+    p.fdepois("comum_obj", "lref", "var")
+  fimse
+  textotxt t
+  textopos p1
+  t.addfim(txttroca(comum_item:admordem, " ", "\n"))
+  t.bytes == 1 && t.limpar
+  enquanto 1
+    sair !t.linhas
+    se t.ini.txtproc("\ni_livro\n") == -1
+      p1 = t.ini, p1.txtproc("\ni_comechave\n") >= 0, p1.depois
+      p1.add("i_livro")
+      mudou |= 1
+    fimse
+    se t.ini.txtproc("\ni_caneta\n") == -1
+      p1 = t.ini, p1.txtproc("i_livro"), p1.depois
+      p1.add("i_caneta")
+      mudou |= 1
+    fimse
+    se t.ini.txtproc("\ni_selo\n") == -1
+      p1 = t.ini, p1.txtproc("i_caneta"), p1.depois
+      p1.add("i_selo")
+      mudou |= 1
+    fimse
+    mudou & 1 ? p.criar("comum_item", "const admordem = \"" + txtvis(t.remove(t.linhas)) + \
+"\"")
+    sair
+  efim
+  t.limpar, t.addfim(comum_perso:admordem)
+  t.bytes == 1 && t.limpar
+  enquanto 1
+    sair !t.linhas
+    se t.linhas && t.ini.txtproc("\np_valorcopia\n") == -1
+      p1 = t.ini, p1.txtproc("\np_soltar\n"), p1.depois
+      p1.add("p_valorcopia")
+      mudou |= 2
+    fimse
+    se t.linhas && t.ini.txtproc("\np_copista\n") == -1
+      p1 = t.ini, p1.txtproc("\np_valorcopia\n"), p1.depois
+      p1.add("p_copista")
+      mudou |= 2
+    fimse
+    mudou & 2 ? p.criar("comum_perso", "const admordem = \"" + txtvis(t.remove(t.linhas)) + \
+"\"")
+    sair
+  efim
+  mudou && config:salvar
+  config:salvar
+
+func escr
+# Argumentos:
+# ARG0: Executor do comando
+# ARG1: Texto a utilizar no comando
+  listaobj l
+  txt100 t0.3
+  t0.separar(txtremove(arg1, "emdas"), " ")
+  refvar texto = txtsub(txtremove(arg1, "emdas"), 2)
+# Procurando item no inventário
+  nomeobj n
+  n.ini(t0.0, misc:objmax)
+  achou = 0
+  epara l.addfim(arg0.dentro1), l, l.ini.remove
+    sair l.objini.i_livro && l.objini.visivel(arg0) && n.nome(l.objini.ident)
+  efim
+  se !l
+    ret arg0.msg("Você não vê este livro por aqui.")
+  fimse
+# Referenciando interator do livro
+  l.objini.livdono = arg0, arg0.lref.z_livro = l.objini
+# Obtendo caneta
+  l.limpar
+  epara l.addfim(arg0.dentro1), l, l.ini.remove
+    sair l.objini.visivel(arg0) && l.objini.i_caneta && l.objini.qtinta
+  efim
+  refvar livro = ref(arg0.lref.z_livro)
+  se !livro.var.ini("z_livpag") && !l
+    refvar t = livro.livtitulo ? "um livro intitulado '" + livro.livtitulo + "'" : livro.descnome
+    $mens.p(arg0, livro)
+    $mens.mvis1(txtcopiamai(t, "a") + " está limp$t de conteúdo e você não possui uma caneta ou \
+pena com tinta para escrever algo nel$w.")
+    ret 1
+  fimse
+  arg0.lref.z_caneta = l.objini
+  $cmd_livromenu.passo(arg0.sock, "\b")
+  ret 1
+
+
+classe cmd_livromenu1
+herda comando_comum
+ref livro
+ref caneta
+ref persoref
+ref psock
+txt100 livtit # Texto do título do livro
+const var = perso.var
+const linmax = 1 # Quantidade de linhas por páginas do livro
+
+varfunc perso
+# Argumentos:
+# ARG0: Objeto do jogador
+  ret !arg0, persoref
+  persoref = arg0
+  psock = arg0
+  livro = perso.lref.z_livro
+  caneta = perso.lref.z_caneta
+  livtit = $mens.o_1 = livro.livtitulo ? livro.livtitulo : livro.descnome
+
+
+classe cmd_livromenu_l
+herda cmd_livromenu1
+
+func passo
+# Argumentos:
+# ARG0: Personagem executor do comando
+# ARG1: Texto após o nome do livro
+  perso = arg0.perso
+  refvar n = intpos(arg1)
+  casovar txtmin(txt(arg1, 0, 1))
+  casose "\b"
+    arg0.passo = este
+  casose ""
+    arg0.msg("lendo livro, O mostra opções.")
+    ret 1
+  casose "m"
+    arg0.perso.teclou(txt(arg1, 1))
+    ret 1
+  casose "z"
+    arg0.msg("Fim da leitura.")
+    ret $cmd_livromenu.passo(arg0, "\b")
+  casose
+    se txt(arg1) != intpos(arg1)
+      arg0.msg("Digite um valor numérico no número da página.")
+    senao int(arg1) <= 0
+      arg0.msg("A página deve ser de 1 a " + livro.var.total("z_livpag") + ".")
+    senao !livro.var.z_livpag[txtfim("000" + n, 3)]
+      arg0.msg("Página inexistente.")
+    senao
+      arg0.msg("Página " + txt(n) + ":")
+      arg0.msg(livro.var.z_livpag[txtfim("000" + n, 3)] + "\n---")
+      $mens.o_2 = $mens.proc(livro.livtitulo ? "um livro intitulado '$1'" : "$1", "A", arg0)
+      $mens.mvis2("", "$P folheia $2.")
+    fimse
+    ret 1
+  casofim
+
+
+classe cmd_livromenu_e
+herda cmd_livromenu1, comando_editor
+
+func passo
+  perso = arg0.perso
+  casovar txtmin(arg1, 0, 1)
+  casose "\b"
+    textopos lp0
+    txt80 t0
+    txt80 t1
+    arg0.teditor.limpar
+    (t1 = livro.var.fim("z_livpag")) && (t1 = livro.var.depois(t1))
+    epara t0 = livro.var.ini("z_livpag"), t0 && t0 != t1, t0 = livro.var.depois(t0)
+      refvar q = intsublin(livro.var.[t0])
+      se q < linmax
+        arg0.teditor.addfim(livro.var.[t0] + "\n/p")
+      senao
+        arg0.teditor.addfim(livro.var.[t0])
+      fimse
+    efim
+    lp0 = arg0.teditor.fim, lp0.antes
+    lp0.texto == "/p" && lp0.remove
+    arg0.teditor.bytes == 1 && arg0.teditor.limpar
+    arg0.leditor = arg0.teditor.ini
+    arg0.leditor1 = arg0.teditor.ini
+    arg0.leditor2 = arg0.teditor.fim
+    arg0.leditor2.antes
+    arg0.passo = este
+    $mens.mperso("Editando livro $1, O opções, X salvar, Z sair")
+    ret 1
+  casose "z" # Sair do editor
+    refvar m0 = "$P conclui suas edições $e $a."
+    refvar m1 = "$P fecha $a em um ar conclusivo."
+    $mens.mtodos2(m0, m1)
+    $cmd_livromenu.passo(arg0, "\b")
+    ret 1
+  casose "e"
+    textotxt t # //
+    textopos p # //
+    int1 junta
+    epara p = arg0.teditor.ini, p.lin, p.depois
+      se p.texto(0, 2) == "/p"
+        junta = 0
+      senao junta
+        p.mudar(" ", 0, 0)
+        p.juntar
+      senao
+        junta = 1
+      fimse
+    efim
+    arg0.teditor.dividelin(2, 75)
+    $mens.o_2 = $mens.proc(livro.livtitulo ? "um livro intitulado '$1'" : "$1", arg0), "A"
+    $mens.o_3 = txtcopiamai($mens.proc(livro.livtitulo ? "um livro intitulado '$1'" : "$1", \
+arg0), "A", "A")
+    refvar m0 = "Cada linha $d $2 se ajusta em um perfeito margeamento."
+    refvar m1 = "$3 vibra nas mãos $d $p."
+    $mens.mvis2(m0, m0)
+    ret 1
+  casose "x" # Salvar o texto
+    se arg0.teditor.linhas > 1000
+      arg0.msg("Máximo permitido 8 linhas.")
+      ret 1
+    senao !arg0.teditor.linhas
+      se !livro.var.ini("z_livpag")
+        arg0.msg("Não há nada para apagar neste livro.")
+        ret 1
+      senao
+        livro.var.limpar("z_livpag")
+        refvar m0 = "Você retrocede o efeito do tempo das páginas do livro, definhando todo o \
+seu conteúdo."
+        refvar m1 = "$A nas mãos $d $p parece renovad$t."
+        $mens.mtodos2(m0, m1)
+      fimse
+    senao
+      textotxt lt0
+      textotxt lt1
+      textopos lp0
+      uint8 n
+      uint16 q
+      uint16 pag
+      pag = arg0.teditor.linhas > linmax ? linmax : arg0.teditor.linhas
+      lt0.addfim(arg0.teditor.ini.textolin(arg0.teditor.linhas) + "\n/p")
+      epara lp0 = lt0.ini, lp0.lin, lp0.depois
+        se txt1(lp0.texto) == "/p"
+          n += 1
+          livro.var.z_livpag[txtfim("000" + n, 3)] = lt1.remove(lt1.linhas)
+          pag = intmin(linmax, arg0.teditor.linhas - (intpos(lp0.linha) + 1))
+        senao
+          lt1.addfim(lp0.texto)
+        fimse
+      efim
+      refvar m0 = "Você conclui que o livro editado por você possui um conteúdo satisfatório."
+      refvar m1 = "$P brevemente emite em sua face um ar de satisfação à frente de um livro."
+      $mens.mtodos2(m0, m1)
+    fimse
+# Selecionando autor
+    livro.var.z_livautor_[arg0.nome] = 1
+    txt20 mes.12
+    txt100 lin
+# Ajustando data MUD
+    lin = misc:dia == 0 || isc:dia == 5 ? "Em um " : "Em uma "
+    lin += txtcopiamai(cmd_hora:semanamud(misc:dia), "A") + " às "
+    lin += txtfim("00" + misc:hora, 2) + ":" + txtfim("00" + misc:min, 2)
+    livro.var.z_livmuddata = lin
+# Guarda data da última edição
+    datahora d
+    mes.0 = "janeiro", mes.1 = "fevereiro", mes.2 = "março", mes.3 = "abril"
+    mes.4 = "maio", mes.5 = "junho", mes.6 = "julho", mes.7 = "agosto"
+    mes.8 = "setembro", mes.9 = "outubro", mes.10 = "novembro", mes.11 = "dezembro"
+    d.agora
+    lin = txtcopiamai(cmd_hora:semanamud(d.diasem), "A") + ", "
+    lin += txtfim("00" + d.dia, 2) + " de "
+    lin += txt(mes.[d.mes]) + " de " + txt(d.ano)
+    livro.var.z_livservdata = lin
+    ret 1
+  casofim
+  uint16 n
+  se txt(arg1, 0, 1) == "."
+    se !caneta.qtinta
+      listaobj l
+      epara l.addfim(arg0.dentro1), l, l.ini.remove
+        sair l.objini.visivel(arg0) && l.objini.i_caneta && l.objini.qtinta
+      efim
+      se !l
+        arg0.msg("Você não possui nenhuma caneta ou pena com tinta para escrever algo no \
+livro.")
+        ret 1
+      senao
+        arg0.lref.z_caneta = l.objini
+      fimse
+    fimse
+    refvar t = txt(arg1, 1)
+    n = inttotal(t)
+    caneta.qtinta < n && (n = caneta.qtinta)
+    caneta.qtinta -= n
+  fimse
+  refvar argedit = txt(arg1, 0, 1) == "." ? txt(arg1, 0, n + 1) : arg1
+  ret passoeditor(arg0, argedit, 1000, "Teste")
+
+
+classe cmd_copiar
+herda comando_comum
+const posic = 5
+const txtajuda = "Sintaxe: coiar         <livro>\n\n\
+Entrega o livro indicado a um copista para gerar um exemplar do mesmo.\n\n\
+Nota: Os exemplares dos livros não podem ser editados."
+
+func escr
+  listaobj l
+  epara l.addfim(arg0.dono.dentro2), l, l.ini.remove
+    sair l.objini.visivel(arg0) && l.objini.p_copista
+  efim
+  ret !l, arg0.msg("Não há nenhum copista aqui.")
+  refvar copis = l.objini
+  $mens.p(arg0, copis)
+  ret !arg1, $mens.mperso("$A diz, 'Qual livro você quer que eu faça a cópia?'")
+# Procurando livro conforme texto enviado
+  nomeobj n
+  l.limpar
+  n.ini(arg1, misc:objmax)
+  epara l.addfim(arg0.dentro1), l, l.ini.remove
+    sair l.objini.visivel(arg0) && n.nome(l.objini.ident) && l.objini.i_livro
+  efim
+  ret !l, arg0.msg("Você não possui este livro.")
+  refvar livro = l.objini
+  refvar valor = livro.var.total("z_livpag") * intmax(10, p_valorcopia)
+  $mens.obj = livro
+  se !livro.var.ini("z_livpag")
+    ret $mens.mperso("$A diz, 'Mas $o está em branco.'")
+  senao !livro.livtitulo
+    ret $mens.mperso("$A diz, '" + txtcopiamai(arg0.nome, "A") + ", Antes de replicar $o, el$x \
+precisa primeiro ter um título.")
+  senao livro.i_exemplar
+    ret $mens.mperso("$A diz, '" + txtcopiamai(arg0.nome, "A") + ", sinto muito, mas só faço \
+exemplares da cópia original.'")
+  senao valor > arg0.var.z_moedas_
+    ret $mens.mperso("$A diz, 'Você não possui moedas o suficiente para que eu replique $o.'")
+  senao
+    arg0.var.z_moedas_ -= valor
+    ref r
+    txt80 t0
+    txt80 t1
+    r = criar("comum_exemplar", arg0)
+    r.livtitulo = livro.livtitulo
+    (t1 = livro.var.fim("z_liv")) && (t1 = livro.var.depois(t1))
+    epara t0 = livro.var.ini("z_liv"), t0 && t0 != t1, t0 = livro.var.depois(t0)
+      r.var.[t0] = livro.var.[t0]
+    efim
+    refvar m0 = "$P entrega $o para $a, que rapaidamente $u replica e reentrega-$u para el$v."
+    $mens.mtodos1(m0)
+
+
+classe cmd_livromenu
+herda cmd_livromenu1
+
+func passo
+# b0
+  perso = arg0.perso
+  $mens.p(perso, livro)
+  ret passo_[var.opcpasso](arg0, arg1), 1
+  se livro.var.ini("z_livpag") && txt(arg1, 0, 1) == "q"
+    refvar n = livro.var.total("z_livpag")
+    $mens.mperso("Ao todo: " + (n == 1 ? "uma página escrita" : txt(n) + "páginas escritas") + \
+".")
+    ret 1
+  senao txt(arg1, 0, 1) == "i"
+    refvar t = arg0.txtmais
+    t.limpar
+    se !livro.var.ini("z_livpag")
+      arg0.msg("Este livro ainda não foi escrito por ninguém.")
+    senao
+      t.addfim("Informações:")
+      txt80 t0
+      txt80 t1
+      txt150 lista
+      (t1 = livro.var.fim("z_livautor_")) && (t1 = livro.var.depois(t1))
+      epara t0 = livro.var.ini("z_livautor_"), t0 && t0 != t1, t0 = livro.var.depois(t0)
+        refvar nome = txtsub(txte(t0), 2)
+        lista && (lista += "/")
+        lista += nome
+      efim
+      t0 = (livro.var.total("z_livautor_") <= 1 ? "Autor:" : "Autores:") + " " + lista
+      t.addfim(t0)
+# Mostrando data
+      t.addfim("Data MUD da última alteração: " + livro.var.z_livmuddata)
+      t.addfim("Data do servidor na última alteração: " + livro.var.z_livservdata)
+      arg0.txtmostra
+    fimse
+    ret passo(arg0, "")
+  senao txt(arg1, 0, 1) == "l"
+    se !livro.var.ini("z_livpag")
+      arg0.msg("Mas não há nada para ler.")
+      ret passo(arg0)
+    senao
+      ret $cmd_livromenu_l.passo(arg0, "\b")
+    fimse
+  senao txt(arg1, 0, 1) == "m"
+    arg0.perso.teclou(txt(arg1, 1))
+  senao txt(arg1, 0, 1) == "z"
+    arg0.passo = ""
+    refvar m0 = "$P fecha " + (livro.livtitulo ? "um livro intitulado '" + livro.livtitulo + "'" \
+: "$a.") + "."
+    $mens.mvis2(m0, m0)
+    ret 1
+  senao livro.i_exemplar || livro.i_selo
+    casovar txtmin(txt(arg1, 0, 1))
+    casose
+      perso.msg("Opção inválida.")
+      ret passo(arg0.sock, "\b")
+    casose "\b"
+    casose ""
+      arg0.passo = este
+      perso.msg($mens.proc("Livro $1, O mostra opções.", perso))
+      ret 1
+    casose "o"
+      arg0.txtmais.limpar
+      arg0.txtmais.addfim("Opções:")
+      arg0.txtmais.addfim("L - Ler livro")
+      arg0.txtmais.addfim("I - Informações sobre o livro")
+      arg0.livro.var.ini("z_livpag") && arg0.txtmais.addfim("Q - Mostra quantidade de páginas do \
+livro")
+      arg0.txtmais.addfim("Z - Finalizar interação com o livro")
+      arg0.txtmostra
+      ret passo(arg0)
+    casofim
+  senao # Caso seja a cópia original
+    casovar txtmin(txt(arg1, 0, 1))
+    casose
+      perso.msg("Opção inválida.")
+      ret passo(arg0.sock, "\b")
+    casose "\b"
+    casose ""
+      arg0.passo = este
+      perso.msg($mens.proc("Livro $1, O mostra opções.", perso))
+      ret 1
+    casose "o"
+      arg0.txtmais.limpar
+      listaobj l
+      epara l.addfim(perso.dentro1), l, l.ini.remove
+        sair l.objini.visivel(perso) && l.objini.i_caneta && l.objini.qtinta
+      efim
+      se l
+        arg0.txtmais.addfim("E - Editar livro")
+        arg0.txtmais.addfim("T - Alterar título do livro")
+      fimse
+      se livro.var.ini("z_livpag")
+        arg0.txtmais.addfim("L - Ler livro")
+        arg0.txtmais.addfim("Q - Mostra quantidade de páginas do livro")
+      fimse
+      arg0.txtmais.addfim("Z - Finalizar interação com o livro")
+      arg0.txtmais.ordena
+      arg0.txtmais.addini("Opções:")
+      arg0.txtmostra
+      ret passo(arg0)
+    casose "e"
+      listaobj l
+      epara l.addfim(perso.dentro1), l, l.ini.remove
+        sair l.objini.visivel(perso) && l.objini.i_caneta && l.objini.qtinta
+      efim
+      se !l
+        arg0.msg("Você não possui nenhuma caneta ou pena com tinta para isto.")
+        ret passo(arg0, "")
+      fimse
+      ret $cmd_livromenu_e.passo(arg0, "\b")
+    casose "t"
+      listaobj l
+      epara l.addfim(perso.dentro1), l, l.ini.remove
+        sair l.objini.visivel(perso) && l.objini.i_caneta && l.objini.qtinta
+      efim
+      se !l
+        arg0.msg("Você não possui nenhuma caneta ou pena com tinta para isto.")
+        ret passo(arg0, "")
+      fimse
+      ret passo_[var.opcpasso = "titulo"](arg0, "\b")
+    casofim
+
+func passo_titulo
+  perso = arg0.perso
+  se txt(arg1, 0, 1) == "z"
+    perso.var.opcpasso = ""
+    passo(arg0, "\b")
+  senao txt(arg1, 0, 1) == "\b"
+    perso.msg("Entre com o título, Z cancela.")
+  senao txt(arg1) == ""
+    livro.livtitulo = ""
+    perso.msg("Título do livro apagado.")
+    perso.var.opcpasso = ""
+    passo(arg0, "\b")
+  senao
+    refvar q = intmin(inttotal(arg1), caneta.qtinta)
+    caneta.qtinta -= q
+    refvar t = txt(arg1, 0, q)
+    livro.livtitulo = txt(arg1, 0, q)
+    perso.msg("Título definido: " + txt(t) + ".")
+    perso.var.opcpasso = ""
+    passo(arg0, "\b")
+  fimse
+  ret 1
+
+
+classe comum_exemplar
+herda comum_livro
+const nome = "exemplar do livro '" + livtitulo + "'"
+const ident = "exemplar " + livtitulo
+const descnome = "um exemplar do livro '" + livtitulo + "'"
+const descpos = "Um exemplar do livro '" + livtitulo + "' foi jogado aqui."
+const i_exemplar = 1
+
+
+classe comum_livro
+herda comum_itemperso
+txt100 livtitulo
+txt100 livautor
+ref livdono
+const msexo = 1 # Assumindo ocmo padrão sexo masculino
+const i_livro = 1
+
+func addcont # Adicionando conteúdo do livro
+# argumentos:
+# ARG0: TextoTxt com o conteúdo
+  textotxt t # //
+  textopos p # //
+  int1 junta
+  epara p = arg0.ini, p.lin, p.depois
+    casovar p.texto(0, 1)
+    casose ""
+    casose " "
+      junta = 0
+      continuar
+    casofim
+    se p.texto(0, 2) == "/p"
+      junta = 0
+    senao junta
+      p.mudar(" ", 0, 0)
+      p.juntar
+    senao
+      junta = 1
+    fimse
+  efim
+  arg0.dividelin(2, 75)
+# Ajustando páginas
+  textotxt lt0
+  textotxt lt1
+  uint8 n
+  uint16 q
+  uint16 pag
+  refvar linmax = cmd_livro:linmax
+  pag = arg0.linhas > linmax ? linmax : arg0.linhas
+  lt0.addfim(arg0.ini.textolin(arg0.linhas) + "\n/p")
+  epara p = lt0.ini, p.lin, p.depois
+    se txt1(p.texto) == "/p"
+      n += 1
+      var.z_livpag[txtfim("000" + n, 3)] = lt1.remove(lt1.linhas)
+      pag = intmin(linmax, arg0.linhas - (intpos(p.linha) + 1))
+    senao
+      lt1.addfim(p.texto)
+    fimse
+  efim
+# Se enviou nome do autor
+  se txt(arg1)
+# Selecionando autor
+    var.z_livautor_[txts(arg1)] = 1
+    txt20 mes.12
+    txt100 lin
+# Ajustando data MUD
+    lin = misc:dia == 0 || isc:dia == 5 ? "Em um " : "Em uma "
+    lin += txtcopiamai(cmd_hora:semanamud(misc:dia), "A") + " às "
+    lin += txtfim("00" + misc:hora, 2) + ":" + txtfim("00" + misc:min, 2)
+    var.z_livmuddata = lin
+# Guarda data da última edição
+    datahora d
+    mes.0 = "janeiro", mes.1 = "fevereiro", mes.2 = "março", mes.3 = "abril"
+    mes.4 = "maio", mes.5 = "junho", mes.6 = "julho", mes.7 = "agosto"
+    mes.8 = "setembro", mes.9 = "outubro", mes.10 = "novembro", mes.11 = "dezembro"
+    d.agora
+    lin = txtcopiamai(cmd_hora:semanamud(d.diasem), "A") + ", "
+    lin += txtfim("00" + d.dia, 2) + " de "
+    lin += txt(mes.[d.mes]) + " de " + txt(d.ano)
+    var.z_livservdata = lin
+
+func mudadono
+  se comum_item:mudadono(arg0, arg1) == este
+    fimmenu
+
+func fimmenu # Terminando menu do dinterator do livro
+  livdono.sock.passo = ""
+  livdono.var.limpar("z_liv")
+  livdono = livdono.lref.z_caneta = livdono.lref.z_livro = nulo
+
+func fim
+  fimmenu
+  comum_obj:fim(arg0, arg1, arg2)

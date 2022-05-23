@@ -1,0 +1,305 @@
+classe cmd_invocar
+herda comando_comum
+#
+const txtajuda = "\b\c3Invocar\b\n\
+ Sintaxe: Invocar <animal a invocar>\n\
+Para a lista dos animais que podem ser invocados, digite 'invocar lista'"
+#
+
+func escr
+  ret !arg0.dentro1.objini("i_templo050") && !arg0.var.h_invocar, arg0.msg("Você não conhece a \
+habilidade invocar e não possui um invocador de animais.")
+  nomeobj n
+  n.ini(arg1)
+  se n.nome("águia")
+    ref p
+    epara p = $p_templo001, p, p = objdepois(p)
+      se p.var.z_dono == arg0.descnome
+        ret p.dono == arg0.dono, arg0.msg(p.nome + " já está aqui.")
+        ret p.dono == arg0, arg0.msg(p.descnome + " já está em seu colo.")
+        arg0.msg(p.nome + " será teletransportada.")
+        $mens.p(p, arg0)
+        $mens.mtodos1("$P some ao ouvir o chamado de $A.")
+        p.mudadono(arg0.dono)
+        p.seguirjog(arg0)
+        $mens.p(arg0, p)
+        $mens.mtodos1("\d=aguia $A dáum belo rasante na sala, vindo pousar ao lado de $P.")
+        ret 1
+      fimse
+    efim
+  senao n.nome("morcego")
+    ref p
+    epara p = $p_templo021, p, p = objdepois(p)
+      se p.var.z_dono == arg0.descnome
+        ret p.dono == arg0.dono, arg0.msg(p.descnome + " já está aqui.")
+        ret p.dono == arg0, arg0.msg(p.descnome + " já está em seu colo.")
+        arg0.msg(p.nome + " será teletransportado.")
+        $mens.p(p, arg0)
+        $mens.mtodos1("$P some ao ouvir o chamado de $A.")
+        p.mudadono(arg0.dono)
+        p.seguirjog(arg0)
+        $mens.p(arg0, p)
+        $mens.mtodos1("\d=morcego $A dáum belo rasante na sala, vindo pousarao lado de $P.")
+        ret 1
+      fimse
+    efim
+  senao n.nome("coruja")
+    ref p
+    epara p = $p_animais006, p, p = objdepois(p)
+      se p.var.z_dono == arg0.descnome
+        ret dono.jog, arg0.msg(p.descnome + " já está em seu colo.")
+        ret p.dono == arg0.dono, arg0.msg(p.descnome + " já está do seu lado.")
+        arg0.msg(p.nome + " será teletransportada.")
+        $mens.p(p, arg0)
+        $mens.mvis1("\d=coruja Ao ser invocada pel$t don$t, $P bate as asas, voando rumo a \
+el$w.")
+        p.mudadono(arg0.dono)
+        p.seguirjog(arg0)
+        $mens.p(p, arg0)
+        $mens.mvis1som("Você ouve o som de uma coruja, quando de repente $P pousa aqui diante de \
+$A.", "coruja")
+        ret 1
+      fimse
+    efim
+  senao n.nome("gato")
+    ref p
+    epara p = $p_animais003, p, p = objdepois(p)
+      se p.var.z_dono == arg0.descnome
+        arg0.msg(p.nome + " será teletransportad" + (p.msexo ? "o." : "a."))
+        $mens.p(p, arg0)
+        $mens.mvis1som("$P mia baixinho e desaparece, ao ouvir o chamado d$t don$t.", "gato")
+        p.mudadono(arg0.dono)
+        p.seguirjog(arg0)
+        $mens.p(p, arg0)
+        $mens.mvis1som("Você ouve um miado baixinho quando $P chega aqui, vindo juntar-se ao seu \
+dono.", "gato")
+        ret 1
+      fimse
+    efim
+  senao n.nome("rato")
+    ref p
+    epara p = $p_animais012, p, p = objdepois(p)
+      se p.var.z_dono == arg0.descnome
+        arg0.msg(p.nome + " será teletransportad" + (p.msexo ? "o." : "a."))
+        $mens.p(p, arg0)
+        $mens.mvis1som("$P xia baixinho e desaparece, ao ouvir o chamado d$t don$t.", "gato")
+        p.mudadono(arg0.dono)
+        p.seguirjog(arg0)
+        $mens.p(p, arg0)
+        $mens.mvis1som("Você ouve um alto xiado quando $P chega aqui, vindo juntar-se ao seu \
+dono.", "rato")
+        ret 1
+      fimse
+    efim
+  senao n.nome("macaco")
+    ref p
+    epara p = $p_animais004, p, p = objdepois(p)
+      se p.var.z_dono == arg0.descnome
+        arg0.msg(p.nome + " será teletransportad" + (p.msexo ? "o." : "a."))
+        $mens.p(p)
+        $mens.mvis1("$P some ao ouvir o chamado de " + (arg0.msexo ? "seu dono!" : "sua dona!"))
+        p.mudadono(arg0.dono)
+        p.seguirjog(arg0)
+        $mens.p(p)
+        $mens.mvis1("$P aparece em um redemoinho de fumaça!")
+        ret 1
+      fimse
+    efim
+  senao n.nome("coelho")
+    ref p
+    epara p = $p_bosque002, p, p = objdepois(p)
+      se p.var.z_dono == arg0.descnome
+        arg0.msg(p.nome + " será teletransportad" + (p.msexo ? "o." : "a."))
+        $mens.p(p)
+        $mens.mvis1("$P some ao ouvir o chamado de " + (arg0.msexo ? "seu dono!" : "sua dona!"))
+        p.mudadono(arg0.dono)
+        p.seguirjog(arg0)
+        $mens.p(p)
+        $mens.mvis1("$P aparece em um redemoinho de fumaça!")
+        ret 1
+      fimse
+    efim
+  senao n.nome("cachorro")
+    ref p
+    epara p = $p_animais002, p, p = objdepois(p)
+      se p.var.z_dono == arg0.descnome
+        arg0.msg(p.nome + " será teletransportad" + (p.msexo ? "o." : "a."))
+        $mens.p(p)
+        $mens.mvis1("$P some ao ouvir o chamado de " + (arg0.msexo ? "seu dono!" : "sua dona!"))
+        p.mudadono(arg0.dono)
+        p.seguirjog(arg0)
+        $mens.p(p)
+        $mens.mvis1("$P aparece em um redemoinho de fumaça!")
+        ret 1
+      fimse
+    efim
+  senao n.nome("elefante")
+    ref p
+    epara p = $p_templo013, p, p = objdepois(p)
+      se p.var.z_dono == arg0.descnome
+        arg0.msg(p.nome + " será teletransportado!")
+        p.mudadono(arg0.dono)
+        p.seguirjog(arg0)
+        $mens.p(p)
+        $mens.mvis1("$P aparece em um redemoinho de fumaça.")
+        ret 1
+      fimse
+    efim
+  senao n.nome("leão")
+    ref p
+    epara p = $p_templo005, p, p = objdepois(p)
+      se p.var.z_dono == arg0.descnome
+        ret p.dono == arg0.dono, arg0.msg(p.nome + " já está aqui.")
+        arg0.msg(p.nome + " será teletransportado!")
+        p.seguirjog(arg0)
+        p.mudadono(arg0.dono)
+        $mens.p(p)
+        $mens.mtodos1("\d=leao01 $P aparece em um redemoinho de fumaça.")
+        ret 1
+      fimse
+    efim
+  senao n.nome("boi")
+    ref p
+    epara p = $p_campo016, p, p = objdepois(p)
+      se p.var.z_dono == arg0.descnome
+        ret p.dono == arg0.dono, arg0.msg(p.nome + " já está aqui.")
+        arg0.msg(p.nome + " será teletransportado!")
+        p.seguirjog(arg0)
+        p.mudadono(arg0.dono)
+        $mens.p(p)
+        $mens.mtodos1("$P aparece em um redemoinho de fumaça.")
+        ret 1
+      fimse
+    efim
+  senao n.nome("javali")
+    ref p
+    epara p = $p_safare004, p, p = objdepois(p)
+      se p.var.z_dono == arg0.descnome
+        ret p.dono == arg0.dono, arg0.msg(p.nome + " já está aqui.")
+        arg0.msg(p.nome + " será teletransportado!")
+        p.seguirjog(arg0)
+        p.mudadono(arg0.dono)
+        $mens.p(p)
+        $mens.mtodos1(" $P aparece em um redemoinho de fumaça.")
+        ret 1
+      fimse
+    efim
+  senao n.nome("cobra")
+    ref p
+    epara p = $p_dracula002, p, p = objdepois(p)
+      se p.var.z_dono == arg0.descnome
+        ret p.dono == arg0.dono, arg0.msg(p.nome + " já está aqui.")
+        arg0.msg(p.nome + " será teletransportado!")
+        p.seguirjog(arg0)
+        p.mudadono(arg0.dono)
+        $mens.p(p, arg0)
+        $mens.mtodos1("$A emite um longo silvo, e de repente $P aparece aqui rastejando até \
+el$w.")
+        ret 1
+      fimse
+    efim
+  senao n.nome("preguiça")
+    ref p
+    epara p = $p_safare002, p, p = objdepois(p)
+      se p.var.z_dono == arg0.descnome
+        ret p.dono == arg0.dono, arg0.msg(p.nome + " já está aqui.")
+        arg0.msg(p.nome + " será teletransportado!")
+        p.seguirjog(arg0)
+        p.mudadono(arg0.dono)
+        $mens.p(p)
+        $mens.mtodos1(" $P aparece em um redemoinho de fumaça.")
+        ret 1
+      fimse
+    efim
+  senao n.nome("fênix")
+    ref p
+    epara p = $p_animais009, p, p = objdepois(p)
+      se p.var.z_dono == arg0.descnome
+        ret p.dono == arg0.dono, arg0.msg(p.nome + " já está aqui.")
+        arg0.msg(p.nome + " será teletransportada!")
+        p.seguirjog(arg0)
+        p.mudadono(arg0.dono)
+        $mens.p(p)
+        $mens.mtodos1(" Uma suave música pode ser ouvida ao longe, quando de repente chamas \
+irrompem do alto, e você nota $P surgir, magnificamente bela diante de você.")
+        ret 1
+      fimse
+    efim
+  senao n.nome("jacaré")
+    ref p
+    epara p = $p_zoo005, p, p = objdepois(p)
+      se p.var.z_dono == arg0.descnome
+        arg0.msg(p.nome + " será teletransportado!")
+        p.mudadono(arg0.dono)
+        p.seguirjog(arg0)
+        $mens.p(p)
+        $mens.mvis1("$P aparece em um redemoinho de fumaça.")
+        ret 1
+      fimse
+    efim
+  senao n.nome("urso")
+    ref p
+    epara p = $p_templo006, p, p = objdepois(p)
+      se p.var.z_dono == arg0.descnome
+        arg0.msg(p.nome + " será teletransportado!")
+        p.mudadono(arg0.dono)
+        p.seguirjog(arg0)
+        $mens.p(p)
+        $mens.mvis1("$P aparece em um redemoinho de fumaça!")
+        ret 1
+      fimse
+    efim
+  senao n.nome("gorila")
+    ref p
+    epara p = $p_templo007, p, p = objdepois(p)
+      se p.var.z_dono == arg0.descnome
+        arg0.msg(p.nome + " será teletransportado!")
+        p.mudadono(arg0.dono)
+        p.seguirjog(arg0)
+        $mens.p(p)
+        $mens.mvis1("$P aparece em um redemoinho de fumaça!")
+        ret 1
+      fimse
+    efim
+  senao n.nome("tigre")
+    ref p
+    epara p = $p_templo008, p, p = objdepois(p)
+      se p.var.z_dono == arg0.descnome
+        arg0.msg(p.nome + " será teletransportado!")
+        p.mudadono(arg0.dono)
+        p.seguirjog(arg0)
+        $mens.p(p)
+        $mens.mvis1("Saltando aparentemente do nada, $P se posiciona defensivamente em silêncio \
+ao lado de seu dono.")
+        ret 1
+      fimse
+    efim
+  senao n.nome("leoa")
+    ref p
+    epara p = $p_zoo002, p, p = objdepois(p)
+      se p.var.z_dono == arg0.descnome
+        arg0.msg(p.nome + " será teletransportado!")
+        p.mudadono(arg0.dono)
+        p.seguirjog(arg0)
+        $mens.p(p)
+        $mens.mvis1("$P aparece em um redemoinho de fumaça.")
+        ret 1
+      fimse
+    efim
+  senao n.nome("falcão")
+    ref p
+    epara p = $p_zoo006, p, p = objdepois(p)
+      se p.var.z_dono == arg0.descnome
+        arg0.msg(p.nome + " será teletransportado!")
+        p.seguirjog(arg0)
+        p.mudadono(arg0.dono)
+        $mens.p(p)
+        $mens.mvis1("$P aparece em um redemoinho de fumaça!")
+        ret 1
+      fimse
+    efim
+  senao n.nome("lista")
+    arg0.msg("\b\c3Lista de animais:\b")
+    arg0.msg("Águia.\ncachorro.\ncoelho.\ncoruja.\nElefante.\nFalcão.\nFênix.\nGato.\nGorila.\nJa\
+caré.\nLeão.\nLobo.\nMacaco.\nTigre.\nUrso.")
+  fimse

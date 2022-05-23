@@ -1,0 +1,394 @@
+classe a_dark
+herda area
+const a_autor = "edson"
+const a_tempo = 10
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_nome = "A cidade dos gigantes!"
+
+
+classe b_dark
+herda sala
+const s_item = 1
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_luz = 1 # Luz: 1 Claro sem eventos de tempo
+const s_recup = 2
+const s_reserva = 1 # Comando reserva: Sim
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const s_area = "dark"
+const a_nivel = "100"
+
+
+classe i_dark001
+herda comum_item
+const nome = "fonte"
+const ident = "fonte"
+const descnome = "uma fonte"
+const descpos = "\d=fonte Circundada por uma aura vermelha, uma fonte está aqui, jorrando água \
+cristalina."
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_fome = 4
+const f_sede = 40
+const f_msgperso = "$P se abaixa e toma algumas goladas de água da fonte"
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos em perso: Sim
+
+func cmd_pegarobj
+  se arg2 == este
+    arg0.msg("Isso faz parte do chão")
+    ret 1
+
+
+classe p_dark001
+herda comum_persobat
+const nome = "O prefeito de Killer Dark"
+const ident = "Prefeito"
+const descnome = "O prefeito"
+const descpadr = "O prefeito está passeando por aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 80000
+const nivel = 120
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const inivar = "z_moedas=100000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  precisao += 103
+
+
+classe p_dark002
+herda comum_persobat
+const nome = "Um enorme policial"
+const ident = "Homen policial forte"
+const descnome = "Um forte policial"
+const descpadr = "Um grande homem está aqui, parece ser um dos policiais desse lugar"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const objmax = 4
+const nivel = 80
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "z_moedas=120000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  precisao += 105
+
+
+classe p_dark003
+herda comum_persobat
+const nome = "Uma criança"
+const ident = "gigante criança"
+const descnome = "uma criança enorme"
+const descpadr = "Uma criança está passeando aqui, solitária"
+const objmax = 5
+const nivel = 56
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const inivar = "z_moedas=130000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  precisao += 110
+
+
+classe p_dark004
+herda comum_persobat
+const nome = "Hulk"
+const ident = "homem incrivel hulk"
+const descnome = "O incrível Hulk"
+const descpadr = "Um homem forte, aparentando ter 2 metros de altura está andando por aqui."
+const objmax = 4
+const nivel = 60
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "z_moedas=200000,h_socar=5"
+const eveste = 1 # Eventos perso: Sim
+
+func cmd_pegararg1
+  se arg2 == este
+    arg0.msg("Este corpo é grande demais para ser carregado")
+    ret 1
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  precisao += 105
+
+
+classe p_dark005
+herda comum_persobat
+const nome = "Uma gigante"
+const ident = "gigante mulher"
+const descpadr = "uma gigantesca mulher está aqui, paceando pacificamente"
+const descver = "ela aparenta ter 2 metros, será que ela poderia destruir tudo? a, esqueceu que \
+ela é uma giganta.\n\
+ela é nativa dessa linda cidade. então, ela deve saber que não poderia destruir sua própria \
+cidade\n\
+se foce sua cidade, os gigantes destruirião tudo com essa mulher lógicamente..."
+const nivel = 67
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const inivar = "z_moedas=260000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  precisao += 105
+
+
+classe s_dark001
+herda b_dark
+const s_titulo = "a entrada da cidade dos gigantes"
+const s_desc = ""
+const s_pnj = 0
+const dir_l = $s_dark002
+const portaini_l = 1 # Estado inicial: 1 Porta aberta
+const portanome_l = "Os portões oeste"
+const portaartigo_l = 3 # Artigo porta: 3 os (portões)
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_midgaard093
+
+
+classe s_dark002
+herda b_dark
+const s_titulo = "Os grandes portões oeste"
+const s_desc = ""
+const dir_l = $s_dark003
+const dir_o = $s_dark001
+const portaini_o = 1 # Estado inicial: 1 Porta aberta
+const portanome_o = "Os portões oeste"
+const portaartigo_o = 3 # Artigo porta: 3 os (portões)
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_dark003
+herda b_dark
+const s_titulo = "A rua dos imperadores"
+const s_desc = ""
+const dir_o = $s_dark002
+const dir_n = $s_dark004
+const dir_s = $s_dark005
+const dir_l = $s_dark006
+const a_reset = "P 100 dark005 0 0 20"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dark005:objsolto.total < 20
+    criar("p_dark005", este, 0)
+  fimse
+
+
+classe s_dark004
+herda b_dark
+const s_titulo = "A delegacia"
+const s_desc = ""
+const dir_s = $s_dark003
+const a_reset = "P 100 dark002 0 0 40 z_moedas=120000\nE 40 item037 0 26"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_dark002:objsolto.total < 40
+    p = u = criar("p_dark002", este, 0, "z_moedas=120000")
+  fimse
+  se u && rand(100) < 40
+    r = criar("i_item037", u, 0), r.vestir(26), u.recalc = 1
+  fimse
+
+
+classe s_dark005
+herda b_dark
+const s_titulo = "a prefeitura"
+const s_desc = ""
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_pnj = 0 # PNJs entram: Não
+const s_semmagia = 0 # Sem magia: Não
+const dir_n = $s_dark003
+const a_reset = "P 100 dark001 0 0 1 z_moedas=100000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dark001:objsolto.total < 1
+    criar("p_dark001", este, 0, "z_moedas=100000")
+  fimse
+
+
+classe s_dark006
+herda b_dark
+const s_titulo = "a rua dos imperadores"
+const s_desc = ""
+const dir_o = $s_dark003
+const dir_s = $s_dark007
+const dir_n = $s_dark008
+const dir_l = $s_dark009
+
+
+classe s_dark007
+herda b_dark
+const s_titulo = "uma loja comun"
+const s_desc = "Esta era para ser uma loja com coisas baratas e bem simples\n\
+porém, o dono da mesma não era deste lugar.\n\
+E como você bem sabe, os habtantes deste lugar não são amigáveis.\n\
+Então, eles destruíram tudo o que nela havia, e levaram junto também o vendedor, que tentou \
+resistir mas...\n\
+foi reduzido a pequenos fragmentos com sangue."
+const dir_n = $s_dark006
+
+
+classe s_dark008
+herda b_dark
+const s_titulo = "Uma grande loja"
+const s_desc = ""
+const dir_s = $s_dark006
+
+
+classe s_dark009
+herda b_dark
+const s_titulo = "o centro da cidade"
+const s_desc = ""
+const dir_o = $s_dark006
+const dir_n = $s_dark010
+const dir_s = $s_dark011
+const dir_l = $s_dark012
+const a_reset = "S 100 dark001 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_dark001") && criar("i_dark001", este, 1)
+
+
+classe s_dark010
+herda b_dark
+const s_titulo = "A rua Dark anjel"
+const s_desc = ""
+const dir_s = $s_dark009
+const dir_n = $s_dark015
+const a_reset = "P 100 dark004 0 0 60 z_moedas=200000,h_socar=5"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dark004:objsolto.total < 60
+    criar("p_dark004", este, 0, "z_moedas=200000,h_socar=5")
+  fimse
+
+
+classe s_dark011
+herda b_dark
+const s_titulo = "A parte sul da rua dark anjel"
+const s_desc = ""
+const dir_n = $s_dark009
+const dir_o = $s_dark013
+const dir_l = $s_dark014
+
+
+classe s_dark012
+herda b_dark
+const s_titulo = "A continuação da rua dos imperadores"
+const s_desc = ""
+const dir_o = $s_dark009
+const dir_l = $s_dark016
+
+
+classe s_dark013
+herda b_dark
+const s_titulo = "uma casa enorme"
+const s_desc = ""
+const dir_l = $s_dark011
+
+
+classe s_dark014
+herda b_dark
+const s_titulo = "Uma mansão"
+const s_desc = ""
+const dir_o = $s_dark011
+
+
+classe s_dark015
+herda b_dark
+const s_titulo = "a entrada para o templo dos mortos"
+const s_desc = "aqui é a entrada para o templo onde as pessoas que esses cruéis homens mataram!\n\
+diz a lenda que as almas das pessoas vagam ali dentro. você vai encarar?"
+const dir_s = $s_dark010
+const dir_n = $s_templodosmortos001
+const portanome_n = "Uma passagem, removendo intulhos"
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+
+
+classe s_dark016
+herda b_dark
+const s_titulo = "o crusamento da rua dos imperadores com a rua das fúrias"
+const s_desc = ""
+const dir_o = $s_dark012
+const dir_s = $s_dark017
+const dir_n = $s_dark018
+const dir_l = $s_dark021
+
+
+classe s_dark017
+herda b_dark
+const s_titulo = "a rua das fúrias"
+const s_desc = ""
+const dir_n = $s_dark016
+const dir_s = $s_dark019
+
+
+classe s_dark018
+herda b_dark
+const s_titulo = "a rua das fúrias"
+const s_desc = ""
+const dir_n = $s_dark020
+const dir_s = $s_dark016
+
+
+classe s_dark019
+herda b_dark
+const s_titulo = "a rua das fúrias"
+const s_desc = ""
+const dir_n = $s_dark017
+const a_reset = "P 100 dark003 0 0 100 z_moedas=130000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dark003:objsolto.total < 100
+    criar("p_dark003", este, 0, "z_moedas=130000")
+  fimse
+
+
+classe s_dark022
+herda b_dark
+const s_titulo = "o grandioso portão ao leste"
+const s_desc = ""
+const dir_l = $s_dark023
+const portaini_l = 1 # Estado inicial: 1 Porta aberta
+const portanome_l = "Os portões leste"
+const portaartigo_l = 3 # Artigo porta: 3 os (portões)
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_dark021
+
+
+classe s_dark021
+herda b_dark
+const s_titulo = "o fim da rua dos imperadores"
+const s_desc = ""
+const dir_o = $s_dark016
+const dir_l = $s_dark022
+
+
+classe s_dark020
+herda b_dark
+const s_titulo = "a rua das fúrias"
+const s_desc = ""
+const dir_s = $s_dark018

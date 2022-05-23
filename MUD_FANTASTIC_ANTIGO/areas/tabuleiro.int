@@ -1,0 +1,1526 @@
+classe a_tabuleiro
+herda area
+const a_nome = "O tabuleiro de xadrez de Midgaard"
+const a_autor = "Ulrich e Eragon"
+const a_tempo = 10
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_tabuleiro
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_luz = 0 # Luz: 0 Claro com eventos de tempo
+const s_recup = 2
+const s_reserva = 1 # Comando reserva: Sim
+const s_area = "tabuleiro"
+
+
+classe i_tabuleiro001
+herda comum_item
+const nome = "A lança do cavaleiro negro"
+const descpos = "A lança do cavaleiro negro está jogada no chão"
+const descver = "É uma longa lança negra, que cabe com perfeição em suas mãos.\n\
+Seu cabo é todo negro, com uma ponta muito afiada no final. Você não gostaria de ser atravessado \
+por ela!"
+const descident = "É uma lança, com dano mínimo de 100.\n\
+Dano máximo: 150.\n\
+Precisão: 100."
+const armamax = 100
+const armamin = 53
+const armaaddprecisao = 10
+const armatipo = 3 # Tipo de arma: 3 Lâmina curta
+const tipoitem = 2 # Tipo de produto: 1-Arma
+const valor = 203
+const armafalha = 55
+
+
+classe i_tabuleiro002
+herda comum_item
+const nome = "A lança do cavaleiro branco"
+const descver = "É uma longa lança branca. Você fica impressionado ao descobrir que ela encaixa \
+perfeitamente em suas mãos.\n\
+O cabo é totalmente branco, com uma ponta afiada no final. Você não gostaria de ser atravessado \
+por ela!"
+const descident = "É uma lança de lâmina curta.\n\
+Dano mínimo: 100.\n\
+Dano máximo: 150.\n\
+Precisão: 100."
+const armamax = 100
+const armamin = 45
+const armaaddprecisao = 10
+const armatipo = 3 # Tipo de arma: 3 Lâmina curta
+const armafalha = 55
+
+
+classe i_tabuleiro003
+herda comum_item
+const nome = "Uma coroa real"
+const descver = "Essa coroa é feita do mais puro ouro.\n\
+Várias pedras preciosas estão em cada ponta da coroa, fazendo ela brilhar ainda mais. Ela só \
+pode pertencer a um rei muito poderoso!"
+const descident = "É uma coroa de nível 25.\n\
+Pode ser usado: Na cabeça.\n\
+Vida: 50.\n\
+Mana: 25.\n\
+Dano: 12.\n\
+Precisão: 6.\n\
+Defesa: 6."
+const nivel = 25
+const pesoobj = 5
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const vestir1 = "2"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 60
+  pmanamax += 25
+  atknorm += 12
+  defnorm += 20
+  precisao += 6
+
+
+classe i_tabuleiro004
+herda comum_item
+const nome = "Uma tiara de pérolas"
+const descver = "A tiara é toda feita em prata e ouro, decorada com várias pérolas espalhadas ao \
+redor.\n\
+Ela só pode pertencer a uma rainha muito poderosa!"
+const nivel = 25
+const vestir1 = "2"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30
+  pmanamax += 10
+  atknorm += 7
+  defnorm += 10
+  precisao += 6
+
+
+classe i_tabuleiro005
+herda comum_item
+const nome = "O cetro do bispo branco"
+const descident = "O cetro do bispo branco.\n\
+Pode ser usado: segurando.\n\
+Aumenta atributos em:\n\
+Dano: 12\n\
+Precisão: 9\n\
+Mana: 15."
+const armamax = 100
+const armamin = 52
+const armaaddprecisao = 10
+const armatipo = 2 # Tipo de arma: 2 Cajado
+const vestir1 = "100000"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmanamax += 15
+  atknorm += 12
+  precisao += 9
+
+const armafalha = 55
+
+
+classe i_tabuleiro006
+herda comum_item
+const nome = "O cetro do bispo negro"
+const descident = "O cetro do bispo negro.\n\
+Pode ser usado: segurando.\n\
+Aumenta atributos em:\n\
+Dano: 12\n\
+Precisão: 9.\n\
+Mana: 15."
+const armamax = 100
+const armamin = 52
+const armaaddprecisao = 10
+const armatipo = 2 # Tipo de arma: 2 Cajado
+const vestir1 = "100000"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmanamax += 15
+  atknorm += 12
+  precisao += 9
+
+const armafalha = 55
+
+
+classe i_tabuleiro007
+herda comum_item
+const nome = "O símbolo da corte negra"
+const descident = "O símbolo da corte negra.\n\
+Pode ser usado: como símbolo.\n\
+Dano: 6.\n\
+Precisão: 10."
+const vestir1 = "1"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 6
+  precisao += 10
+
+
+classe i_tabuleiro008
+herda comum_item
+const nome = "O símbolo da corte branca"
+const descident = "O símbolo da corte branca.\n\
+Pode ser usado: como símbolo.\n\
+Dano: 6.\n\
+Precisão: 10."
+const vestir1 = "1"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 6
+  precisao += 10
+
+
+classe i_tabuleiro009
+herda comum_item
+const nome = "A armadura da torre branca"
+const descident = "A armadura da torre branca.\n\
+Pode ser usado: no corpo.\n\
+Dano: 10.\n\
+defesa: 30.\n\
+vida: 15."
+const nivel = 20
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 120
+const vestir1 = "1000"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 15
+  atknorm += 10
+  defnorm += 30
+
+
+classe i_tabuleiro010
+herda comum_item
+const nome = "A armadura da torre negra"
+const descident = "A armadura da torre negra.\n\
+Pode ser usado: no corpo.\n\
+Dano: 10.\n\
+Defesa: 30.\n\
+Vida: 15."
+const nivel = 20
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 130
+const vestir1 = "1000"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 15
+  atknorm += 10
+  defnorm += 30
+
+
+classe p_tabuleiro001
+herda comum_persobat
+const nome = "A torre branca"
+const descpadr = "A torre branca está aqui, carregando alguns arqueiros."
+const descver = "É um grande castelo sobre rodas!"
+const sexoini = 2 # Sexo Perso: 2 Aleatório
+const nivel = 580
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 35000
+const inivar = "z_moedas=10000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500
+  pveloc1 += 70
+  atknorm += 120
+  defnorm += 120
+  precisao += 120
+
+
+classe p_tabuleiro002
+herda comum_persobat
+const nome = "O cavaleiro branco"
+const descpadr = "O cavaleiro branco está aqui, te olhando com dispreso."
+const descver = "É um feroz e poderoso cavaleiro, pronto para proteger seu rei."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 580
+const p_corpo = 1 # Corpo: 1 Deixa corpo vazio
+const p_exp = 35000
+const inivar = "h_lâmina_curta=8,z_moedas=5000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1000 * pnivel + 100000
+  pveloc1 += 60
+  atknorm += 50 * pnivel + 120000
+  defnorm += 360 * pnivel + 250000
+  defesp += 150
+  precisao += 200
+
+
+classe p_tabuleiro003
+herda comum_persobat
+const nome = "O bispo branco"
+const descpadr = "O bispo branco está aqui, abençoando alguém."
+const descver = "Ele é um poderoso bispo, vestido com roupas simples enquanto segura um cetro, \
+pronto pra te abençoar."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 580
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 35000
+const inivar = "h_cajado=8,z_moedas=6000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 250
+  pveloc1 += 50
+  atknorm += 70
+  defnorm += 60
+  precisao += 80
+
+
+classe p_tabuleiro004
+herda comum_persobat
+const nome = "O rei branco"
+const descpadr = "O rei branco está aqui, comandando seu exército."
+const descver = "Ele é um orgulhoso e poderoso rei.\n\
+Não seria sábio de sua parte provocá-lo!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 620
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 35000
+const inivar = "z_moedas=15000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1200
+  pmovemax += 120
+  pveloc1 += 150
+  atknorm += 160
+  defnorm += 150
+  precisao += 200
+
+
+classe p_tabuleiro005
+herda comum_persobat
+const nome = "A dama branca"
+const descpadr = "A dama branca está aqui, a procura de inimigos."
+const descver = "Você vê uma bonita rainha, que está disposta a proteger seu rei a qualquer \
+custo.\n\
+. Ela se posta diante de você com dignidade, e você percebe que não seria fácil derrotá-la."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const nivel = 600
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const inivar = "z_moedas=15000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 900
+  pveloc1 += 200
+  atknorm += 210
+  defnorm += 200
+  defesp += 200
+  precisao += 150
+
+
+classe p_tabuleiro006
+herda comum_persobat
+const nome = "O peão branco"
+const descpadr = "O peão branco está aqui."
+const descver = "É um simples peão, pronto para se sacrificar pelo seu rei."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 560
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 18000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 200
+const inivar = "z_moedas=5000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 40 * pnivel + 15000
+  atknorm += 25 * pnivel + 10000
+  defnorm += 75 * pnivel + 15000
+  atkesp += 50 * pnivel + 10000
+  defesp += 75 * pnivel + 15000
+
+
+classe p_tabuleiro007
+herda comum_persobat
+const nome = "A torre negra"
+const ident = "torre"
+const descpadr = "A torre negra está aqui, carregando alguns arqueiros."
+const descver = "É um grande castelo sobre rodas!"
+const sexoini = 2 # Sexo Perso: 2 Aleatório
+const nivel = 580
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 35000
+const inivar = "z_moedas=10000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1000 * pnivel + 100000
+  pveloc1 += 70
+  atknorm += 50 * pnivel + 120000
+  defnorm += 360 * pnivel + 250000
+  precisao += 100
+
+
+classe p_tabuleiro008
+herda comum_persobat
+const nome = "O cavaleiro negro"
+const descpadr = "O cavaleiro negro está aqui, te olhando com dispreso."
+const descver = "É um feroz e poderoso cavaleiro, pronto para proteger seu rei."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 580
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 35000
+const inivar = "h_lâmina_curta=8,z_moedas=5000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1000 * pnivel + 100000
+  pveloc1 += 60
+  atknorm += 50 * pnivel + 120000
+  defnorm += 360 * pnivel + 250000
+  defesp += 360 * pnivel + 150
+  precisao += 200
+
+
+classe p_tabuleiro009
+herda comum_persobat
+const nome = "O bispo negro"
+const descpadr = "O bispo negro está aqui, sacrificando alguém."
+const descver = "Ele é um poderoso bispo, vestido com roupas simples enquanto segura um cetro \
+negro, pronto pra te usar como sacrifício."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 580
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 35000
+const inivar = "h_cajado=8,z_moedas=6000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1000 * pnivel + 100000
+  pveloc1 += 50
+  atknorm += 50 * pnivel + 120000
+  defnorm += 360 * pnivel + 250000
+  precisao += 80
+
+
+classe p_tabuleiro010
+herda comum_persobat
+const nome = "O rei negro"
+const descpadr = "O rei negro está aqui, dando ordens as suas trópas."
+const descver = "Ele é um orgulhoso e poderoso rei.\n\
+Não seria sábio de sua parte provocá-lo!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 620
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const inivar = "z_moedas=15000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1200
+  pmovemax += 120
+  pveloc1 += 150
+  atknorm += 160
+  defnorm += 150
+  precisao += 200
+
+
+classe p_tabuleiro011
+herda comum_persobat
+const nome = "A dama negra"
+const descpadr = "A dama negra está aqui, a procura de inimigos."
+const descver = ". Você vê uma bonita rainha, que está disposta a proteger seu rei a qualquer \
+custo.\n\
+Ela se posta diante de você com dignidade, e você percebe que não seria fácil derrotá-la."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const nivel = 600
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const inivar = "z_moedas=15000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 900
+  pmovemax += 100
+  pveloc1 += 200
+  atknorm += 210
+  defnorm += 200
+  defesp += 200
+  precisao += 150
+
+
+classe p_tabuleiro012
+herda comum_persobat
+const nome = "O peão negro"
+const descpadr = "O peão negro está aqui."
+const descver = "É um simples peão, pronto para se sacrificar pelo seu rei."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 560
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 18000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 200
+const inivar = "z_moeda=5000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 40 * pnivel + 15000
+  atknorm += 25 * pnivel + 10000
+  defnorm += 75 * pnivel + 15000
+  atkesp += 50 * pnivel + 10000
+  defesp += 75 * pnivel + 15000
+
+
+classe s_tabuleiro001
+herda b_tabuleiro
+const s_titulo = "A entrada para o tabuleiro."
+const s_desc = ""
+const s_pnj = 0
+const dir_o = $s_tabuleiro002
+const dir_l = $s_midgaard054
+
+
+classe s_tabuleiro002
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Você está em um quadrado de mármore preto."
+const dir_n = $s_tabuleiro003
+const dir_s = $s_tabuleiro034
+const dir_l = $s_tabuleiro001
+const dir_o = $s_tabuleiro015
+
+
+classe s_tabuleiro003
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Você está em um quadrado de mármore branco."
+const dir_n = $s_tabuleiro004
+const dir_s = $s_tabuleiro002
+const dir_o = $s_tabuleiro014
+
+
+classe s_tabuleiro004
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Esta é a casa do peão negro."
+const dir_n = $s_tabuleiro005
+const dir_s = $s_tabuleiro003
+const dir_o = $s_tabuleiro013
+const a_reset = "P 100 tabuleiro012 10 12 8\nE 100 tabuleiro007 10 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro012:objsolto.total < 8
+    p = u = criar("p_tabuleiro012", este, rand(10, 12))
+  fimse
+  se u
+    r = criar("i_tabuleiro007", u, 10), r.vestir(1), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro005
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Esta é a casa da torre negra"
+const dir_s = $s_tabuleiro004
+const dir_o = $s_tabuleiro006
+const a_reset = "P 100 tabuleiro007 20 22 2\nE 50 tabuleiro010 12 13"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro007:objsolto.total < 2
+    p = u = criar("p_tabuleiro007", este, rand(20, 22))
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_tabuleiro010", u, 12), r.vestir(13), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro006
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Esta é a casa do cavaleiro negro."
+const dir_s = $s_tabuleiro013
+const dir_l = $s_tabuleiro005
+const dir_o = $s_tabuleiro008
+const a_reset = "P 100 tabuleiro008 17 20 2\nE 100 tabuleiro001 10 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro008:objsolto.total < 2
+    p = u = criar("p_tabuleiro008", este, rand(17, 20))
+  fimse
+  se u
+    r = criar("i_tabuleiro001", u, 10), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro007
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Essa é a casa da torre negra."
+const dir_s = $s_tabuleiro031
+const dir_l = $s_tabuleiro012
+const a_reset = "P 100 tabuleiro007 20 22 2\nE 50 tabuleiro010 12 13"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro007:objsolto.total < 2
+    p = u = criar("p_tabuleiro007", este, rand(20, 22))
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_tabuleiro010", u, 12), r.vestir(13), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro008
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Essa é a casa do bispo negro."
+const dir_s = $s_tabuleiro016
+const dir_l = $s_tabuleiro006
+const dir_o = $s_tabuleiro009
+const a_reset = "P 100 tabuleiro009 20 22 2\nE 50 tabuleiro006 18 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro009:objsolto.total < 2
+    p = u = criar("p_tabuleiro009", este, rand(20, 22))
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_tabuleiro006", u, 18), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro009
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Essa é a casa da dama negra."
+const dir_s = $s_tabuleiro019
+const dir_l = $s_tabuleiro008
+const dir_o = $s_tabuleiro010
+const a_reset = "P 100 tabuleiro011 24 25 1\nE 50 tabuleiro004 25 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro011:objsolto.total < 1
+    p = u = criar("p_tabuleiro011", este, rand(24, 25))
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_tabuleiro004", u, 25), r.vestir(2), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro010
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Essa é a casa do rei negro."
+const dir_s = $s_tabuleiro022
+const dir_l = $s_tabuleiro009
+const dir_o = $s_tabuleiro011
+const a_reset = "P 100 tabuleiro010 30 35 1\nE 40 tabuleiro003 25 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro010:objsolto.total < 1
+    p = u = criar("p_tabuleiro010", este, rand(30, 35))
+  fimse
+  se u && rand(100) < 40
+    r = criar("i_tabuleiro003", u, 25), r.vestir(2), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro011
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Essa é a casa do bispo negro."
+const dir_s = $s_tabuleiro025
+const dir_l = $s_tabuleiro010
+const dir_o = $s_tabuleiro012
+const a_reset = "P 100 tabuleiro009 20 24 2\nE 50 tabuleiro006 18 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro009:objsolto.total < 2
+    p = u = criar("p_tabuleiro009", este, rand(20, 24))
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_tabuleiro006", u, 18), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro012
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Essa é a casa do cavaleiro negro."
+const dir_s = $s_tabuleiro028
+const dir_l = $s_tabuleiro011
+const dir_o = $s_tabuleiro007
+const a_reset = "P 100 tabuleiro008 19 23 2\nE 70 tabuleiro001 10 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro008:objsolto.total < 2
+    p = u = criar("p_tabuleiro008", este, rand(19, 23))
+  fimse
+  se u && rand(100) < 70
+    r = criar("i_tabuleiro001", u, 10), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro013
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Esta é a casa do peão negro."
+const dir_n = $s_tabuleiro006
+const dir_s = $s_tabuleiro014
+const dir_l = $s_tabuleiro004
+const dir_o = $s_tabuleiro016
+const a_reset = "P 100 tabuleiro012 10 12 8\nE 100 tabuleiro007 10 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro012:objsolto.total < 8
+    p = u = criar("p_tabuleiro012", este, rand(10, 12))
+  fimse
+  se u
+    r = criar("i_tabuleiro007", u, 10), r.vestir(1), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro014
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Você está em um quadrado de mármore preto."
+const dir_n = $s_tabuleiro013
+const dir_s = $s_tabuleiro015
+const dir_l = $s_tabuleiro003
+const dir_o = $s_tabuleiro017
+
+
+classe s_tabuleiro015
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Você está em um quadrado de mármore branco."
+const s_pnj = 0
+const dir_n = $s_tabuleiro014
+const dir_s = $s_tabuleiro046
+const dir_l = $s_tabuleiro002
+const dir_o = $s_tabuleiro018
+
+
+classe s_tabuleiro016
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Esta é a casa do peão negro."
+const dir_n = $s_tabuleiro008
+const dir_s = $s_tabuleiro017
+const dir_l = $s_tabuleiro013
+const dir_o = $s_tabuleiro019
+const a_reset = "P 100 tabuleiro012 10 12 8\nE 100 tabuleiro007 10 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro012:objsolto.total < 8
+    p = u = criar("p_tabuleiro012", este, rand(10, 12))
+  fimse
+  se u
+    r = criar("i_tabuleiro007", u, 10), r.vestir(1), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro017
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Você está em um quadrado de mármore branco."
+const dir_n = $s_tabuleiro016
+const dir_s = $s_tabuleiro018
+const dir_l = $s_tabuleiro014
+const dir_o = $s_tabuleiro020
+
+
+classe s_tabuleiro018
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Você está em um quadrado de mármore preto."
+const s_pnj = 0
+const dir_n = $s_tabuleiro017
+const dir_s = $s_tabuleiro051
+const dir_l = $s_tabuleiro015
+const dir_o = $s_tabuleiro021
+
+
+classe s_tabuleiro019
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Esta é a casa do peão negro."
+const dir_n = $s_tabuleiro009
+const dir_s = $s_tabuleiro020
+const dir_l = $s_tabuleiro016
+const dir_o = $s_tabuleiro022
+const a_reset = "P 100 tabuleiro012 10 12 8\nE 100 tabuleiro007 10 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro012:objsolto.total < 8
+    p = u = criar("p_tabuleiro012", este, rand(10, 12))
+  fimse
+  se u
+    r = criar("i_tabuleiro007", u, 10), r.vestir(1), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro020
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Você está em um quadrado de mármore preto."
+const dir_n = $s_tabuleiro019
+const dir_s = $s_tabuleiro021
+const dir_l = $s_tabuleiro017
+const dir_o = $s_tabuleiro023
+
+
+classe s_tabuleiro021
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Você está em um quadrado de mármore branco."
+const s_pnj = 0
+const dir_n = $s_tabuleiro020
+const dir_s = $s_tabuleiro045
+const dir_l = $s_tabuleiro018
+const dir_o = $s_tabuleiro024
+
+
+classe s_tabuleiro022
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Esta é a casa do peão negro."
+const dir_n = $s_tabuleiro010
+const dir_s = $s_tabuleiro023
+const dir_l = $s_tabuleiro019
+const dir_o = $s_tabuleiro025
+const a_reset = "P 100 tabuleiro012 10 12 8\nE 100 tabuleiro007 10 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro012:objsolto.total < 8
+    p = u = criar("p_tabuleiro012", este, rand(10, 12))
+  fimse
+  se u
+    r = criar("i_tabuleiro007", u, 10), r.vestir(1), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro023
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Você está em um quadrado de mármore branco."
+const dir_n = $s_tabuleiro022
+const dir_s = $s_tabuleiro024
+const dir_l = $s_tabuleiro020
+const dir_o = $s_tabuleiro026
+
+
+classe s_tabuleiro024
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Você está em um quadrado de mármore preto."
+const s_pnj = 0
+const dir_n = $s_tabuleiro023
+const dir_s = $s_tabuleiro054
+const dir_l = $s_tabuleiro021
+const dir_o = $s_tabuleiro027
+
+
+classe s_tabuleiro025
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Esta é a casa do peão negro."
+const dir_n = $s_tabuleiro011
+const dir_s = $s_tabuleiro026
+const dir_l = $s_tabuleiro022
+const dir_o = $s_tabuleiro028
+const a_reset = "P 100 tabuleiro012 10 12 8\nE 100 tabuleiro007 10 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro012:objsolto.total < 8
+    p = u = criar("p_tabuleiro012", este, rand(10, 12))
+  fimse
+  se u
+    r = criar("i_tabuleiro007", u, 10), r.vestir(1), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro026
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Você está em um quadrado de mármore preto."
+const dir_n = $s_tabuleiro025
+const dir_s = $s_tabuleiro027
+const dir_l = $s_tabuleiro023
+const dir_o = $s_tabuleiro029
+
+
+classe s_tabuleiro027
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Você está em um quadrado de mármore branco."
+const s_pnj = 0
+const dir_n = $s_tabuleiro026
+const dir_s = $s_tabuleiro062
+const dir_l = $s_tabuleiro024
+const dir_o = $s_tabuleiro030
+
+
+classe s_tabuleiro028
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Esta é a casa do peão negro."
+const dir_n = $s_tabuleiro012
+const dir_s = $s_tabuleiro029
+const dir_l = $s_tabuleiro025
+const dir_o = $s_tabuleiro031
+const a_reset = "P 100 tabuleiro012 10 12 8\nE 100 tabuleiro007 10 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro012:objsolto.total < 8
+    p = u = criar("p_tabuleiro012", este, rand(10, 12))
+  fimse
+  se u
+    r = criar("i_tabuleiro007", u, 10), r.vestir(1), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro029
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Você está em um quadrado de mármore branco."
+const dir_n = $s_tabuleiro028
+const dir_s = $s_tabuleiro030
+const dir_l = $s_tabuleiro026
+const dir_o = $s_tabuleiro032
+
+
+classe s_tabuleiro030
+herda b_tabuleiro
+const s_titulo = "Uma casa preta"
+const s_desc = "Você está em um quadrado de mármore preto."
+const s_pnj = 0
+const dir_n = $s_tabuleiro029
+const dir_s = $s_tabuleiro061
+const dir_l = $s_tabuleiro027
+const dir_o = $s_tabuleiro033
+
+
+classe s_tabuleiro031
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Você está em um quadrado de mármore branco."
+const s_pnj = 0
+const dir_n = $s_tabuleiro007
+const dir_s = $s_tabuleiro032
+const dir_l = $s_tabuleiro028
+const a_reset = "P 100 tabuleiro012 10 12 8\nE 100 tabuleiro007 10 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro012:objsolto.total < 8
+    p = u = criar("p_tabuleiro012", este, rand(10, 12))
+  fimse
+  se u
+    r = criar("i_tabuleiro007", u, 10), r.vestir(1), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro032
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Você está em um quadrado de mármore preto."
+const dir_n = $s_tabuleiro031
+const dir_s = $s_tabuleiro033
+const dir_l = $s_tabuleiro029
+
+
+classe s_tabuleiro033
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Você está em um quadrado de mármore branco."
+const s_pnj = 0
+const dir_n = $s_tabuleiro032
+const dir_s = $s_tabuleiro065
+const dir_l = $s_tabuleiro030
+
+
+classe s_tabuleiro034
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Você está em um quadrado de mármore branco."
+const dir_n = $s_tabuleiro002
+const dir_s = $s_tabuleiro035
+const dir_o = $s_tabuleiro046
+
+
+classe s_tabuleiro035
+herda b_tabuleiro
+const s_titulo = "Uma casa preta"
+const s_desc = "Você está em um quadrado de mármore preto."
+const dir_n = $s_tabuleiro034
+const dir_s = $s_tabuleiro036
+const dir_o = $s_tabuleiro047
+
+
+classe s_tabuleiro036
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Esta é a casa do peão branco."
+const dir_n = $s_tabuleiro035
+const dir_s = $s_tabuleiro037
+const dir_o = $s_tabuleiro048
+const a_reset = "P 100 tabuleiro006 10 12 8\nE 100 tabuleiro008 5 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro006:objsolto.total < 8
+    p = u = criar("p_tabuleiro006", este, rand(10, 12))
+  fimse
+  se u
+    r = criar("i_tabuleiro008", u, 5), r.vestir(1), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro037
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Esta é a casa da torre branca."
+const dir_n = $s_tabuleiro036
+const dir_o = $s_tabuleiro038
+const a_reset = "P 100 tabuleiro001 20 22 2\nE 50 tabuleiro009 12 13"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro001:objsolto.total < 2
+    p = u = criar("p_tabuleiro001", este, rand(20, 22))
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_tabuleiro009", u, 12), r.vestir(13), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro038
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Esta é a casa do cavaleiro branco."
+const dir_n = $s_tabuleiro048
+const dir_l = $s_tabuleiro037
+const dir_o = $s_tabuleiro039
+const a_reset = "P 100 tabuleiro002 18 20 2\nE 70 tabuleiro002 10 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro002:objsolto.total < 2
+    p = u = criar("p_tabuleiro002", este, rand(18, 20))
+  fimse
+  se u && rand(100) < 70
+    r = criar("i_tabuleiro002", u, 10), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro039
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Esta é a casa do bispo branco."
+const dir_n = $s_tabuleiro049
+const dir_l = $s_tabuleiro038
+const dir_o = $s_tabuleiro040
+const a_reset = "P 100 tabuleiro003 18 20 2\nE 50 tabuleiro005 18 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro003:objsolto.total < 2
+    p = u = criar("p_tabuleiro003", este, rand(18, 20))
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_tabuleiro005", u, 18), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro040
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Esta é a casa da dama branca."
+const dir_n = $s_tabuleiro052
+const dir_l = $s_tabuleiro039
+const dir_o = $s_tabuleiro041
+const a_reset = "P 100 tabuleiro005 20 25 1\nE 50 tabuleiro004 25 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro005:objsolto.total < 1
+    p = u = criar("p_tabuleiro005", este, rand(20, 25))
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_tabuleiro004", u, 25), r.vestir(2), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro041
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Esta é a casa do rei branco."
+const dir_l = $s_tabuleiro040
+const dir_o = $s_tabuleiro042
+const dir_n = $s_tabuleiro056
+const a_reset = "P 100 tabuleiro004 30 35 1\nE 40 tabuleiro003 25 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro004:objsolto.total < 1
+    p = u = criar("p_tabuleiro004", este, rand(30, 35))
+  fimse
+  se u && rand(100) < 40
+    r = criar("i_tabuleiro003", u, 25), r.vestir(2), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro042
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Esta é a casa do bispo branco."
+const dir_n = $s_tabuleiro057
+const dir_l = $s_tabuleiro041
+const dir_o = $s_tabuleiro043
+const a_reset = "P 100 tabuleiro003 18 20 2\nE 50 tabuleiro005 18 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro003:objsolto.total < 2
+    p = u = criar("p_tabuleiro003", este, rand(18, 20))
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_tabuleiro005", u, 18), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro043
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Esta é a casa do Cavaleiro branco."
+const dir_n = $s_tabuleiro059
+const dir_l = $s_tabuleiro042
+const dir_o = $s_tabuleiro044
+const a_reset = "P 100 tabuleiro002 20 23 2\nE 70 tabuleiro002 10 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro002:objsolto.total < 2
+    p = u = criar("p_tabuleiro002", este, rand(20, 23))
+  fimse
+  se u && rand(100) < 70
+    r = criar("i_tabuleiro002", u, 10), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro044
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Esta é a casa da torre branca."
+const dir_n = $s_tabuleiro063
+const dir_l = $s_tabuleiro043
+const a_reset = "P 100 tabuleiro001 20 22 2\nE 50 tabuleiro009 12 13"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro001:objsolto.total < 2
+    p = u = criar("p_tabuleiro001", este, rand(20, 22))
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_tabuleiro009", u, 12), r.vestir(13), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro045
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Você está em um quadrado de mármore preto."
+const dir_n = $s_tabuleiro021
+const dir_s = $s_tabuleiro053
+const dir_l = $s_tabuleiro051
+const dir_o = $s_tabuleiro054
+
+
+classe s_tabuleiro046
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Você está em um quadrado de mármore preto."
+const dir_n = $s_tabuleiro015
+const dir_s = $s_tabuleiro047
+const dir_l = $s_tabuleiro034
+const dir_o = $s_tabuleiro051
+
+
+classe s_tabuleiro047
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Você está em um quadrado de mármore branco."
+const dir_n = $s_tabuleiro046
+const dir_s = $s_tabuleiro048
+const dir_l = $s_tabuleiro035
+const dir_o = $s_tabuleiro050
+
+
+classe s_tabuleiro048
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Esta é a casa do peão branco."
+const dir_n = $s_tabuleiro047
+const dir_s = $s_tabuleiro038
+const dir_l = $s_tabuleiro036
+const dir_o = $s_tabuleiro049
+const a_reset = "P 100 tabuleiro006 10 12 8\nE 100 tabuleiro008 5 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro006:objsolto.total < 8
+    p = u = criar("p_tabuleiro006", este, rand(10, 12))
+  fimse
+  se u
+    r = criar("i_tabuleiro008", u, 5), r.vestir(1), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro049
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Esta é a casa do peão branco."
+const dir_n = $s_tabuleiro050
+const dir_s = $s_tabuleiro039
+const dir_l = $s_tabuleiro048
+const dir_o = $s_tabuleiro052
+const a_reset = "P 100 tabuleiro006 10 12 8\nE 100 tabuleiro008 5 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro006:objsolto.total < 8
+    p = u = criar("p_tabuleiro006", este, rand(10, 12))
+  fimse
+  se u
+    r = criar("i_tabuleiro008", u, 5), r.vestir(1), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro050
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Você está em um quadrado de mármore preto."
+const dir_n = $s_tabuleiro051
+const dir_s = $s_tabuleiro049
+const dir_l = $s_tabuleiro047
+const dir_o = $s_tabuleiro053
+
+
+classe s_tabuleiro051
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Você está em um quadrado de mármore branco."
+const dir_n = $s_tabuleiro018
+const dir_s = $s_tabuleiro050
+const dir_l = $s_tabuleiro046
+const dir_o = $s_tabuleiro045
+
+
+classe s_tabuleiro052
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Esta é a casa do peão branco."
+const dir_n = $s_tabuleiro053
+const dir_s = $s_tabuleiro040
+const dir_l = $s_tabuleiro049
+const dir_o = $s_tabuleiro056
+const a_reset = "P 100 tabuleiro006 10 12 8\nE 100 tabuleiro008 5 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro006:objsolto.total < 8
+    p = u = criar("p_tabuleiro006", este, rand(10, 12))
+  fimse
+  se u
+    r = criar("i_tabuleiro008", u, 5), r.vestir(1), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro053
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Você está em um quadrado de mármore branco."
+const dir_n = $s_tabuleiro045
+const dir_s = $s_tabuleiro052
+const dir_l = $s_tabuleiro050
+const dir_o = $s_tabuleiro055
+
+
+classe s_tabuleiro054
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Você está em um quadrado de mármore branco."
+const dir_n = $s_tabuleiro024
+const dir_s = $s_tabuleiro055
+const dir_l = $s_tabuleiro045
+const dir_o = $s_tabuleiro062
+
+
+classe s_tabuleiro055
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Você está em um quadrado de mármore preto."
+const dir_n = $s_tabuleiro054
+const dir_s = $s_tabuleiro056
+const dir_l = $s_tabuleiro053
+const dir_o = $s_tabuleiro058
+
+
+classe s_tabuleiro056
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Esta é a casa do peão branco."
+const dir_n = $s_tabuleiro055
+const dir_s = $s_tabuleiro041
+const dir_l = $s_tabuleiro052
+const dir_o = $s_tabuleiro057
+const a_reset = "P 100 tabuleiro006 10 12 8\nE 100 tabuleiro008 5 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro006:objsolto.total < 8
+    p = u = criar("p_tabuleiro006", este, rand(10, 12))
+  fimse
+  se u
+    r = criar("i_tabuleiro008", u, 5), r.vestir(1), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro057
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Esta é a casa do peão branco."
+const dir_n = $s_tabuleiro058
+const dir_s = $s_tabuleiro042
+const dir_l = $s_tabuleiro056
+const dir_o = $s_tabuleiro059
+const a_reset = "P 100 tabuleiro006 10 12 8\nE 100 tabuleiro008 5 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro006:objsolto.total < 8
+    p = u = criar("p_tabuleiro006", este, rand(10, 12))
+  fimse
+  se u
+    r = criar("i_tabuleiro008", u, 5), r.vestir(1), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro058
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Você está em um quadrado de mármore branco."
+const dir_n = $s_tabuleiro062
+const dir_s = $s_tabuleiro057
+const dir_l = $s_tabuleiro055
+const dir_o = $s_tabuleiro060
+
+
+classe s_tabuleiro059
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Esta é a casa do peão branco."
+const dir_n = $s_tabuleiro060
+const dir_s = $s_tabuleiro043
+const dir_l = $s_tabuleiro057
+const dir_o = $s_tabuleiro063
+const a_reset = "P 100 tabuleiro006 10 12 8\nE 100 tabuleiro008 5 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro006:objsolto.total < 8
+    p = u = criar("p_tabuleiro006", este, rand(10, 12))
+  fimse
+  se u
+    r = criar("i_tabuleiro008", u, 5), r.vestir(1), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro060
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Você está em um quadrado de mármore preto."
+const dir_n = $s_tabuleiro061
+const dir_s = $s_tabuleiro059
+const dir_l = $s_tabuleiro058
+const dir_o = $s_tabuleiro064
+
+
+classe s_tabuleiro061
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Você está em um quadrado de mármore branco."
+const dir_n = $s_tabuleiro030
+const dir_s = $s_tabuleiro060
+const dir_l = $s_tabuleiro062
+const dir_o = $s_tabuleiro065
+
+
+classe s_tabuleiro062
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Você está em um quadrado de mármore preto."
+const dir_s = $s_tabuleiro058
+const dir_l = $s_tabuleiro054
+const dir_o = $s_tabuleiro061
+const dir_n = $s_tabuleiro027
+
+
+classe s_tabuleiro063
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Esta é a casa do peão branco."
+const dir_n = $s_tabuleiro064
+const dir_s = $s_tabuleiro044
+const dir_l = $s_tabuleiro059
+const a_reset = "P 100 tabuleiro006 10 12 8\nE 100 tabuleiro008 5 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_tabuleiro006:objsolto.total < 8
+    p = u = criar("p_tabuleiro006", este, rand(10, 12))
+  fimse
+  se u
+    r = criar("i_tabuleiro008", u, 5), r.vestir(1), u.recalc = 1
+  fimse
+
+
+classe s_tabuleiro064
+herda b_tabuleiro
+const s_titulo = "Uma casa branca."
+const s_desc = "Você está em um quadrado de mármore branco."
+const dir_n = $s_tabuleiro065
+const dir_s = $s_tabuleiro063
+const dir_l = $s_tabuleiro060
+
+
+classe s_tabuleiro065
+herda b_tabuleiro
+const s_titulo = "Uma casa preta."
+const s_desc = "Você está em um quadrado de mármore preto."
+const dir_n = $s_tabuleiro033
+const dir_s = $s_tabuleiro064
+const dir_l = $s_tabuleiro061

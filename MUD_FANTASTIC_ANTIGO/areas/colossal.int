@@ -1,0 +1,858 @@
+classe a_colossal
+herda area
+
+
+classe b_colossal
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_area = "colossal"
+
+
+classe i_colossal001
+herda comum_itemgrupo
+const nome = "molho de chaves"
+const ident = "molho chaves"
+const descnome = "um molho de chaves"
+const descpos = "Existem algumas chaves aqui no chão."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 0 # Tipo: 0 Nenhum
+const f_sede = 0
+const i_chave = "colossal001"
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_colossal002
+herda comum_itemperso
+const nome = "lanterna de metal"
+const ident = "lanterna metal brilhante"
+const descnome = "uma lanterna de metal"
+const descpos = "Há uma lanterna de metal perto."
+const luzitem = 1 # Tipo de luz: 1 Lanterna (acende/apaga, sem fogo)
+const luzini = 10000
+const luzliga = "$o foi acesa."
+const luztxt = "$o se apagou."
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 5000
+
+
+classe i_colossal003
+herda comum_item
+const nome = "garrafa de água"
+const ident = "garrafa água"
+const descnome = "uma garrafa dágua"
+const descpos = "Há uma garrafa dágua aqui."
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_sede = 30
+const f_diges = 120
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_colossal004
+herda comum_item
+const nome = "prato de comida"
+const ident = "prato comida gostosa"
+const descnome = "um prato de comida"
+const descpos = "Há comida gostosa aqui."
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const f_diges = 120
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_colossal005
+herda comum_itemperso
+const nome = "gaiola de vime"
+const descnome = "uma gaiola de vime"
+const descpos = "Há uma gaiola de vime pequena jogada aqui."
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const mantersala = 1 # Mantém na sala: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_escr
+  se arg1 == "soltar pássaro"
+    ret !dentro1.objini("i_colossal007"), arg0.msg("Não há pássaro na gaiola.")
+    refvar p = criar("p_colossal001", arg0.dono, 10)
+    $mens.p(arg0, p)
+    $mens.mtodos1("$P solta $A de dentro da gaiola.")
+    apagar(dentro1.objini("i_colossal007"))
+    se arg0.dono.dentro2.objini("p_colossal002")
+      $mens.p(arg0)
+      $mens.mtodos1("O pequeno pássaro ataca a serpente verde, e numa espantosa fúria joga a \
+serpente longe.")
+      apagar(arg0.dono.dentro2.objini("p_colossal002"))
+    fimse
+    ret 1
+  fimse
+
+
+classe i_colossal006
+herda comum_item
+const nome = "vara preta"
+const ident = "vara varinha preta"
+const descnome = "uma vara preta"
+const descpos = "Uma vara preta com três pés de comprimento com uma estrela encrustada em uma \
+ponta repousa aqui perto"
+
+
+classe i_colossal007
+herda comum_item
+const nome = "pássaro"
+const descnome = "um alegre passarinho"
+const descpos = "Um alegre passarinho está sentado aqui cantando."
+const i_pegar = ""
+
+
+classe i_colossal008
+herda comum_item
+const nome = "uma ponte de cristal"
+const descnome = "uma ponte de cristal"
+const descpos = "uma ponte de cristal agora atravessa a fissura."
+const i_pegar = "Você não pode estar falando sério!"
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_colossal009
+herda comum_item
+const nome = "planta"
+const i_pegar = "A planta tem raízes excepcionalmente fundas e não pode ser puxada livremente."
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func descnome
+  se var.z_regou_ == 3 || !var.z_regou
+    ret "uma minúscula planta."
+  senao var.z_regou_ == 1
+    ret "um pequeno pé de feijão"
+  senao
+    ret "um gigantesco pé de feijão"
+  fimse
+
+func descpos
+  se !var.z_regou_ || var.z_regou_ == 3
+    ret "Há uma minúscula pequena planta na cova, murmurando 'água, água, ...'"
+  senao var.z_regou_ == 1
+    ret "Há um pé de feijão de 12 pés de altura que se estira para cima e para fora da cova, \
+berrando 'Água!! Água!!'"
+  senao var.z_regou_ == 2
+    ret "Há um gigantesco pé de feijão estirado em todo o caminho até o buraco."
+  fimse
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se txt1(arg1) == "molhar" || txt1(arg1) == "regar"
+    var.z_regou_ += 1
+    misc:tempo("regou", arg0)
+    ret 1
+  fimse
+#
+
+func regou10
+  se var.z_regou_ == 1
+    arg0.msg("A planta irrompe em crescimento furioso por alguns segundos.")
+  senao var.z_regou_ == 2
+    arg0.msg("/A planta cresce de modo explosivo, quase enchendo a parte inferior da cova.")
+  senao
+    var.z_regou_ = 0
+    arg0.msg("/Você super-regou a planta!  Ela está se retorcendo! Está, está...")
+  fimse
+
+
+classe i_colossal010
+herda comum_item
+const nome = "brilho de ouro"
+const descnome = "um cintilante brilho de ouro"
+const descpos = "/Há um intenso e cintilante brilho de ouro aqui!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_colossal011
+herda comum_item
+const nome = "joias preciosas"
+const descnome = "algumas joias preciosas"
+const descpos = "Há jóias preciosas aqui."
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 128 # Tipo de item: 7-Tesouro
+
+
+classe i_colossal012
+herda comum_item
+const nome = "barras de prata"
+const descnome = "algumas barras de prata"
+const descpos = "Há barras de prata aqui."
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 128 # Tipo de item: 7-Tesouro
+
+
+classe p_colossal001
+herda comum_persobat
+const nome = "passarinho"
+const ident = "alegre passarinho"
+const descnome = "um alegre passarinho"
+const descpadr = "Um alegre passarinho está sentado aqui cantando."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 12
+const pospadr = 6 # Posição padrão: 6 Sentado
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "pegar pássaro"
+    ret !arg0.dentro1.objini("i_colossal005"), arg0.msg("Você pode pegar o pássaro, mas você não \
+pode levá-lo.")
+    ret arg0.dentro1.objini("i_colossal006"), arg0.msg("O pássaro parecia sem medo quando você \
+entrou, mas quando você aproxima ele se assusta e você não pode pegá-lo.")
+    $mens.p(arg0, este)
+    $mens.mtodos1("$P prende $A em uma gaiola de vime.")
+    criar("i_colossal007", arg0.dentro1.objini("i_colossal005"), 1)
+    apagar(este)
+    ret 1
+  fimse
+
+
+classe p_colossal002
+herda comum_persobat
+const nome = "serpente verde"
+const descnome = "uma serpente feroz verde"
+const descpadr = "Uma serpente feroz verde bloqueia o caminho."
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_mover
+  se arg2 == "n" || arg2 == "s" || arg2 == "o"
+    ret arg0.msg("Você não vai conseguir passar pela serpente!")
+  fimse
+#
+
+func cmd_atacar
+  se arg1 == este
+    ret arg0.msg("Atacando a serpente tanto não funciona, quanto é muito perigoso...")
+  fimse
+
+
+classe s_colossal001
+herda b_colossal
+const s_titulo = "No fim de uma estrada"
+const s_desc = "Você está em pé no fim de uma estrada perto de uma pequena casa de tijolos.\n\
+Ao redor de você existe uma floresta.\n\
+Um pequeno riacho corre para fora da construção e se projeta num barranco."
+const dir_n = $s_colossal006
+const dir_s = $s_colossal005
+const dir_l = $s_colossal002
+const dir_o = $s_colossal004
+const dir_c = $s_colossal004
+
+
+classe s_colossal002
+herda b_colossal
+const s_titulo = "à frente da casa."
+const s_desc = "Você está parado à frente de uma casa de tijolos.\n\
+Para oeste, você volta à estrada."
+const dir_o = $s_colossal001
+const dir_entrar = $s_colossal003
+
+
+classe s_colossal003
+herda b_colossal
+const s_titulo = ""
+const s_desc = "Você está dentro da casa, um excelente lugar para passar a primavera."
+const dir_sair = $s_colossal002
+const a_reset = "S 100 colossal001 1 S\n\
+S 100 colossal002 1 S\n\
+S 100 colossal003 1 S\n\
+S 100 colossal004 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_colossal001") && criar("i_colossal001", este, 1)
+  !dentro1.objini("i_colossal002") && criar("i_colossal002", este, 1)
+  !dentro1.objini("i_colossal003") && criar("i_colossal003", este, 1)
+  !dentro1.objini("i_colossal004") && criar("i_colossal004", este, 1)
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "xyzzy"
+    arg0.teclou("f xyzzy!")
+    arg0.msg("Uma forte luz cega seus olhos de repente!")
+    $mens.p(arg0)
+    $mens.mtodos2("", "$P desapareceu em um flash de luz!")
+    arg0.mudadono($s_colossal011)
+    ret 1
+  casose "pluft"
+    arg0.mudadono($s_colossal022)
+    arg0.msg("Uma voz rouca diz: 'pluft'")
+    ret 1
+  casofim
+
+
+classe s_colossal004
+herda b_colossal
+const s_titulo = "UMA COLINA NA FLORESTA"
+const s_desc = "Você subiu uma colina, ainda na floresta.\n\
+A estrada vai descendo até o outro lado da colina. Há uma casa ao longe."
+const dir_s = $s_colossal005
+const dir_l = $s_colossal001
+const dir_b = $s_colossal001
+
+
+classe s_colossal005
+herda b_colossal
+const s_titulo = "No vale"
+const s_desc = "Você está em um vale na floresta ao lado de um córrego descendo ao longo de\n\
+um leito rochoso."
+const dir_n = $s_colossal001
+const dir_l = $s_colossal006
+const dir_o = $s_colossal006
+const dir_b = $s_colossal007
+
+
+classe s_colossal006
+herda b_colossal
+const s_titulo = "Na floresta"
+const s_desc = "Você está na floresta aberta, com um vale profundo de um lado."
+const dir_s = $s_colossal001
+const dir_l = $s_colossal005
+const dir_o = $s_colossal006
+const dir_b = $s_colossal005
+
+
+classe s_colossal007
+herda b_colossal
+const s_titulo = "No leito do rio"
+const s_desc = "Em seus pés toda a água do córrego espirra em uma rachadura de duas\n\
+polegadas na pedra. A jusante o leito é feito de pedra nua."
+const dir_s = $s_colossal008
+const dir_l = $s_colossal006
+const dir_c = $s_colossal005
+
+
+classe s_colossal008
+herda b_colossal
+const s_titulo = "ACIMA DE UMA GRADE"
+const s_desc = "Você está em uma depressão de 20 pés forrada com muito lixo."
+const dir_l = $s_colossal007
+const dir_b = $s_colossal009
+const portaini_b = 3 # Estado inicial: 3 Porta trancada
+const portanome_b = "a grade"
+const fechadura_b = "colossal001"
+
+
+classe s_colossal009
+herda b_colossal
+const s_titulo = "Embaixo da grade"
+const s_desc = "Você está em uma câmara pequena embaixo de uma grade de aço de 3x3, próximo\n\
+à superfície. Um conduto baixo de maquedame permite rastejar para dentro em\n\
+direção a oeste."
+const s_luz = 3 # Luz: 3 Escuro
+const dir_o = $s_colossal010
+const dir_c = $s_colossal008
+const portaini_c = 3 # Estado inicial: 3 Porta trancada
+const portanome_c = "a grade"
+const fechadura_c = "colossal001"
+
+
+classe s_colossal010
+herda b_colossal
+const s_titulo = "Um conduto baixo"
+const s_desc = "Você está rastejando sobre maquedame em um conduto baixo. Existe uma luz\n\
+difusa na extremidade leste do túnel."
+const s_luz = 3 # Luz: 3 Escuro
+const dir_l = $s_colossal009
+const dir_o = $s_colossal011
+
+
+classe s_colossal011
+herda b_colossal
+const s_titulo = "A SALA DE ESCOMBROS"
+const s_desc = "Você está em um quarto de escombros cheio com material lavado\n\
+proveniente da superfície.\n\
+Um amplo túnel baixo com maquedame se encontra aqui\n\
+tapado com lama e escombros, mas um horrível despenhadeiro\n\
+conduz para cima e para oeste. Uma nota na parede diz:\n\
+       Palavra mágica \"XYZZY\""
+const dir_l = $s_colossal010
+const dir_o = $s_colossal012
+const dir_c = $s_colossal012
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "xyzzy"
+    arg0.teclou("f xyzzy!")
+    arg0.msg("Uma forte luz cega seus olhos de repente!")
+    $mens.p(arg0)
+    $mens.mtodos2("", "$P desapareceu em um flash de luz!")
+    arg0.mudadono($s_colossal003)
+    ret 1
+  casofim
+
+
+classe s_colossal012
+herda b_colossal
+const s_titulo = "UM DESPENHADEIRO"
+const s_desc = "Você está num horrível despenhadeiro inclinado leste/oeste."
+const dir_l = $s_colossal011
+const dir_o = $s_colossal013
+const dir_c = $s_colossal013
+
+
+classe s_colossal013
+herda b_colossal
+const s_titulo = "A RECÂMARA DE PÁSSARO"
+const s_desc = "Você está em uma câmara esplêndida com trinta pés de altura.\n\
+As paredes são rios congelados de pedra laranja.\n\
+Um horrível despenhadeiro e um túnel são as saídas\n\
+nos lados leste e oeste da câmara."
+const dir_l = $s_colossal012
+const dir_o = $s_colossal014
+const a_reset = "P 100 colossal001 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_colossal001:objsolto.total < 1
+    criar("p_colossal001", este, 0)
+  fimse
+
+
+classe s_colossal014
+herda b_colossal
+const s_titulo = "NO TOPO DE UMA COVA PEQUENA"
+const s_desc = "A seus pés está uma cova pequena emanando rastros de névoa branca.\n\
+Um túnel do leste termina aqui com exceção de uma pequena rachadura\n\
+que se sobressai."
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_colossal013
+const dir_o = $s_colossal060
+const dir_b = $s_colossal015
+#
+
+func cmd_mover
+  se arg2 == "o"
+    arg0.msg("A rachadura é extremamente estreita para você para seguir por ela.")
+    ret 1
+  fimse
+
+
+classe s_colossal015
+herda b_colossal
+const s_titulo = "Você está no corredor enevoado"
+const s_desc = "Você está em uma extremidade de um corredor vasto que se estreita\n\
+para a frente e para a frente e se perde de vista para o oeste.\n\
+Existem aberturas em ambos os lados.\n\
+Perto, uma escadaria de pedra larga conduz para baixo.\n\
+O corredor está cheio com fumarolas de névoa branca\n\
+balançando para lá e para cá quase como se estivesse viva.\n\
+Um vento frio invade a escadaria.\n\
+Existe um túnel no topo de uma cúpula atrás de você."
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_colossal018
+const dir_s = $s_colossal016
+const dir_l = $s_colossal014
+const dir_o = $s_colossal017
+const dir_c = $s_colossal014
+#
+
+func cmd_mover
+  se arg2 == "l" || arg2 == "c"
+    ret arg0.dentro1.objini("i_colossal010"), arg0.msg("A cúpula não pode ser escalada.")
+  fimse
+
+
+classe s_colossal016
+herda b_colossal
+const s_titulo = "Você está no quarto do brilho de ouro."
+const s_desc = "Este é um quarto baixo com uma crua nota na parede. A nota diz:\n\
+       \"Não pode subir.\""
+const dir_n = $s_colossal015
+const a_reset = "S 100 colossal010 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_colossal010") && criar("i_colossal010", este, 1)
+
+
+classe s_colossal017
+herda b_colossal
+const s_titulo = "Você está no banco a leste da fissura"
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_colossal015
+const dir_o = $s_colossal054
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+
+func cmd_escr
+  se arg1 == "ondular varinha" || arg1 == "ondular vara"
+    se dentro1.objini("i_colossal008")
+      arg0.msg("A ponte de cristal desapareceu.")
+      apagar(dentro1.objini("i_colossal008"))
+    senao
+      criar("i_colossal008", este)
+      arg0.msg("Uma ponte de cristal agora atravessa a fissura.")
+    fimse
+    ret 1
+  fimse
+#
+
+func cmd_mover
+  se arg2 == "o" && !dentro1.objini("i_colossal008")
+    ret arg0.msg("Não existe nenhum caminho através da fissura.")
+  fimse
+
+
+classe s_colossal018
+herda b_colossal
+const s_titulo = "Você está no corredor do rei da montanha"
+const dir_n = $s_colossal021
+const dir_s = $s_colossal019
+const dir_o = $s_colossal020
+const dir_c = $s_colossal015
+const a_reset = "P 100 colossal002 1000 2000 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_colossal002:objsolto.total < 1
+    criar("p_colossal002", este, rand(1000, 2000))
+  fimse
+
+
+classe s_colossal019
+herda b_colossal
+const s_titulo = "Você está no lado sul da câmara"
+const dir_n = $s_colossal018
+const a_reset = "S 100 colossal011 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_colossal011") && criar("i_colossal011", este, 1)
+
+
+classe s_colossal020
+herda b_colossal
+const s_titulo = "Você está no lado oeste da câmara no corredor do rei da montanha"
+const dir_l = $s_colossal018
+
+
+classe s_colossal021
+herda b_colossal
+const s_titulo = "Você está em uma passagem baixa norte sul num buraco no chão"
+const s_desc = "O buraco afunda para uma passagem de leste para oeste."
+const dir_n = $s_colossal022
+const dir_s = $s_colossal018
+const dir_b = $s_colossal025
+const a_reset = "S 100 colossal012 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_colossal012") && criar("i_colossal012", este, 1)
+
+
+classe s_colossal022
+herda b_colossal
+const s_titulo = "Você está em \"y2\""
+const dir_s = $s_colossal021
+const dir_l = $s_colossal024
+const dir_o = $s_colossal023
+
+
+classe s_colossal023
+herda b_colossal
+const s_titulo = "Você está na janela da cova. A figura sombria parece estar tentando atrair sua \
+atenção"
+const dir_l = $s_colossal022
+
+
+classe s_colossal024
+herda b_colossal
+const s_titulo = "Você está num amontoado de rochas, com rachaduras em todos os lugares"
+const dir_c = $s_colossal015
+const dir_b = $s_colossal022
+
+
+classe s_colossal025
+herda b_colossal
+const s_titulo = "Você está na passagem suja"
+const dir_l = $s_colossal026
+const dir_o = $s_colossal028
+const dir_c = $s_colossal021
+
+
+classe s_colossal026
+herda b_colossal
+const s_titulo = "Você está na beira de uma cova limpa"
+const dir_o = $s_colossal025
+const dir_b = $s_colossal027
+
+
+classe s_colossal027
+herda b_colossal
+const s_titulo = "Você está na parte inferior de uma pequena cova, com um pequeno fluxo d'água"
+const dir_c = $s_colossal026
+
+
+classe s_colossal028
+herda b_colossal
+const s_titulo = "Você está no quarto de pedra poeirento"
+const dir_l = $s_colossal025
+const dir_b = $s_colossal029
+
+
+classe s_colossal029
+herda b_colossal
+const s_titulo = "Você está em uma junção complexa"
+const dir_n = $s_colossal030
+const dir_l = $s_colossal033
+const dir_o = $s_colossal035
+const dir_c = $s_colossal028
+
+
+classe s_colossal030
+herda b_colossal
+const s_titulo = "Você está em um quarto grande esculpido com rocha sedimentar"
+const dir_s = $s_colossal029
+const dir_b = $s_colossal031
+
+
+classe s_colossal031
+herda b_colossal
+const s_titulo = "Você está num longo corredor inclinado com parede desgastadas"
+const dir_c = $s_colossal030
+const dir_b = $s_colossal032
+
+
+classe s_colossal032
+herda b_colossal
+const s_titulo = "Você está num cul-de-sac de mais ou menos oito pés"
+const dir_c = $s_colossal031
+
+
+classe s_colossal033
+herda b_colossal
+const s_titulo = "Você está na sala de espera"
+const dir_l = $s_colossal034
+const dir_o = $s_colossal029
+
+
+classe s_colossal034
+herda b_colossal
+const s_titulo = "Você está na saída da companhia Witt"
+const dir_o = $s_colossal033
+
+
+classe s_colossal035
+herda b_colossal
+const s_titulo = "Você está no Cobertor"
+const dir_l = $s_colossal029
+const dir_o = $s_colossal036
+
+
+classe s_colossal036
+herda b_colossal
+const s_titulo = "Você está no quarto de queijo suíço"
+const dir_l = $s_colossal037
+const dir_o = $s_colossal043
+const dir_ne = $s_colossal035
+const dir_no = $s_colossal038
+
+
+classe s_colossal037
+herda b_colossal
+const s_titulo = "Você está num quarto aconchegante"
+const dir_o = $s_colossal036
+
+
+classe s_colossal038
+herda b_colossal
+const s_titulo = "Você está no quarto oriental"
+const dir_n = $s_colossal040
+const dir_se = $s_colossal036
+
+
+classe s_colossal039
+herda b_colossal
+const dir_l = $s_colossal036
+
+
+classe s_colossal040
+herda b_colossal
+const s_titulo = "Você está na gruta da neblina"
+const dir_s = $s_colossal038
+const dir_o = $s_colossal042
+
+
+classe s_colossal041
+herda b_colossal
+const dir_l = $s_colossal040
+
+
+classe s_colossal042
+herda b_colossal
+const s_titulo = "Você está na alcova"
+const dir_l = $s_colossal040
+
+
+classe s_colossal043
+herda b_colossal
+const s_titulo = "Você está na extremidade leste da sala de duas covas"
+const dir_l = $s_colossal036
+const dir_o = $s_colossal044
+const dir_b = $s_colossal046
+
+
+classe s_colossal044
+herda b_colossal
+const s_titulo = "Você está na borda oeste da sala de duas covas"
+const dir_l = $s_colossal043
+const dir_o = $s_colossal047
+const dir_b = $s_colossal045
+
+
+classe s_colossal045
+herda b_colossal
+const s_titulo = "Você está na cova do oeste"
+const dir_c = $s_colossal044
+
+
+classe s_colossal046
+herda b_colossal
+const s_titulo = "Você está na cova do leste"
+const dir_c = $s_colossal043
+
+
+classe s_colossal047
+herda b_colossal
+const s_titulo = "Você está no quarto de lage"
+const dir_s = $s_colossal044
+const dir_c = $s_colossal048
+
+
+classe s_colossal048
+herda b_colossal
+const s_titulo = "Você está num despenhadeiro secreto norte/sul acima de um quarto grande"
+const dir_n = $s_colossal049
+const dir_s = $s_colossal051
+const dir_b = $s_colossal047
+
+
+classe s_colossal049
+herda b_colossal
+const s_titulo = "Você está no despenhadeiro do espelho"
+const dir_n = $s_colossal050
+const dir_s = $s_colossal048
+
+
+classe s_colossal050
+herda b_colossal
+const s_titulo = "Você está no reservatório"
+const dir_s = $s_colossal049
+
+
+classe s_colossal051
+herda b_colossal
+const s_titulo = "Você está num despenhadeiro secreto"
+const dir_n = $s_colossal048
+const dir_l = $s_colossal052
+
+
+classe s_colossal052
+herda b_colossal
+const s_titulo = "Você está num despenhadeiro secreto que aqui se dirige para leste/oeste"
+const dir_l = $s_colossal018
+const dir_o = $s_colossal051
+
+
+classe s_colossal053
+herda b_colossal
+const s_titulo = "config +sala"
+const dir_o = $s_colossal052
+
+
+classe s_colossal054
+herda b_colossal
+const s_titulo = "Você está no lado oeste da fissura no corredor enevoado"
+const dir_l = $s_colossal059
+const dir_o = $s_colossal055
+
+
+classe s_colossal055
+herda b_colossal
+const s_titulo = "Você está no final oeste do corredor enevoado"
+const dir_l = $s_colossal054
+const dir_o = $s_colossal056
+
+
+classe s_colossal056
+herda b_colossal
+const s_titulo = "Você está no final leste do corredor longo"
+const dir_l = $s_colossal055
+const dir_o = $s_colossal057
+
+
+classe s_colossal057
+herda b_colossal
+const s_titulo = "Você está no final oeste do corredor longo"
+const dir_n = $s_colossal058
+const dir_l = $s_colossal056
+
+
+classe s_colossal058
+herda b_colossal
+const s_titulo = "Você está no cruzamento de uma passagem alta norte/sul e uma baixa leste/oeste"
+const dir_s = $s_colossal057
+
+
+classe s_colossal059
+herda b_colossal
+const s_titulo = "Você está no banco à leste da fissura"
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_colossal015
+const dir_o = $s_colossal054
+const s_reset = "S 100 colossal008 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_colossal008") && criar("i_colossal008", este, 1)
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "ondular vara" || arg1 == "ondular varinha"
+    ret !arg0.dentro1.objini("i_colossal006"), arg0.msg("Mas sem a vara?")
+    arg0.msg("A ponte de cristal desapareceu.")
+    arg0.mudadono($s_colossal017)
+    ret 1
+  fimse
+
+
+classe s_colossal060
+herda b_colossal
+const s_titulo = "A FISSURA"
+const dir_l = $s_colossal014

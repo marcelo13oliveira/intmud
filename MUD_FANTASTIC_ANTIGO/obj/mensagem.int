@@ -1,0 +1,80 @@
+classe i_mensagem
+herda comum_item
+const nome = "cartão rosa com laço vermelho"
+const descnome = "um cartão vermelho com laço rosa em forma de coração"
+const descver = "Recite o cartão para trocar por pontos de aventura, xp ou moedas!\n\
+Feliz dia das mães!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 4 # Tipo: 4 Pergaminho, recitar
+const mantersala = 0 # Mantém na sala: Não
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const frases = "Mãe é Amor. Mãe gera com o corpo, Nutre e cuida com o coração. Mãe é amiga em \
+hora boa, Protetora permanente, Preocupação constante.\n\
+Mãe sabe pintar sorrisos, Enxugar lágrimas. Mãe é colo de infinita capacidade, Peito de inabaláve\
+l paciência, Sorriso e lágrima de empatia e carinho.\n\
+Mãe é expressão criativa da natureza, E na essência transporta o que há de mais divino. Mãe é \
+vida, é sustento do mundo, Pois no ventre carrega a mágica da criação. Mãe é amor incondicional, \
+Que vive eterno e profundo no seu enorme coração.\n\
+Mãe: palavra pequena, mas com um significado infinito, pois quer dizer amor, dedicação, renúncia \
+a si própria, força e sabedoria. Ser mãe não é só dar a luz e sim, participar da vida dos seus \
+frutos gerados ou criados. Obrigado por termos você.\n\
+Amamos as nossas mães quase sem o saber e só nos damos conta da profundidade das raízes desse \
+amor no momento da derradeira separação. \n\
+Um amor mais forte que tudo, mais obstinado que tudo, mais duradouro que tudo, é somente o amor \
+de mãe.\n\
+Um dia pra você é pouco. Você merece todos os dias do ano só por me aguentar dia e noite, \
+mãe.\n\
+Amor de mãe vence preconceitos, supera os limites, enfrenta todos os desafios e te ajuda a \
+vencer. Amor de mãe, só Deus para entender. Simplesmente amor!\n\
+Ser mãe não é uma profissão. Não é nem mesmo um dever: é apenas um direito entre tantos outros...\
+.\n\
+Mãe... Teus braços sempre se abrem quando preciso um abraço. Teu coração sabe compreender quando \
+preciso uma amiga. Teus olhos sensíveis se endurecem quando preciso umalição. Tua força e teu \
+amor me dirigiram pela vida e me deram as asas que precisava para voar."
+#
+
+func cmd_pegarobj
+  se arg2 == este
+    ret arg0.dentro1.objini("i_mensagem"), arg0.msg("Você precisa antes recitar o cartão que \
+está em suas mãos!")
+  fimse
+#
+
+func cmd_soltarobj
+  se arg2 == este && arg1.item
+    ret arg0.msg("Você não pode soltar o cartão antes de recitá-lo!")
+  fimse
+#
+
+func cmd_recitou
+  se arg1 == este && arg2 == arg1
+    $mens.p(arg0)
+    $mens.mtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+    refvar p = rand(1, 3)
+    se p == 1
+      refvar moedas = rand(10000, 10000000)
+      arg0.msg("Parabéns! Você acaba de ganhar " + moedas + " moedas!")
+      arg0.var.z_moedas_ += moedas
+    senao p == 2
+      refvar xp = rand(arg0.expatual, arg0.expatual * 2)
+      arg0.ganhaexp(xp)
+    senao p == 3
+      refvar quest = rand(5, 30)
+      arg0.msg("Parabéns! Você acaba de ganhar " + quest + " pontos de aventura!")
+      arg0.var.z_quest_ += quest
+    fimse
+  fimse
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+  misc:tempo("entrou", arg0)
+#
+
+func entrou60
+  se dono.s_sala
+    arg0.teclou("pegar cartão")
+  fimse

@@ -1,0 +1,25 @@
+classe i_xerox
+herda comum_itemgrupo
+const nome = var.z_titulo ? var.z_titulo : "folha de papel"
+const descnome = var.z_titulo ? var.z_titulo : "uma folha de papel"
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 500
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se txt1(arg1) == "ler"
+    refvar ler = misc:itemdentro(arg0, txt2(arg1))
+    ret ler != este, nulo
+    $mens.p(arg0, nulo, este)
+    $mens.mvis2("", "$P lê o conteúdo $d $o.")
+    arg0.msg(var.z_titulo ? var.z_titulo : "Sem título")
+    arg0.msg("______________________")
+    arg0.msg2(var.z_texto)
+    ret 1
+  fimse

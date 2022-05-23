@@ -1,0 +1,235 @@
+classe a_dequest
+herda area
+const a_nome = "De quest center"
+
+
+classe b_dequest
+herda sala
+const s_fome = 1 # Fome e sede: 1 Ausente
+const s_luz = 1 # Luz: 1 Claro sem eventos de tempo
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const s_soltar = 1 # Soltar itens: 1 Não permitido
+const s_area = "dequest"
+const s_autonao = 1 # Sem entrada de automóveis: Sim
+
+
+classe i_dequest001
+herda comum_itemperso
+const nome = "vitrine"
+const descnome = "uma vitrine de prata"
+const descpos = "Várias vitrines estão encostadas às paredes."
+const i_pegar = "Pegue apenas os itens da vitrine que deseja comprar ."
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const i_msgabriu = "\d=abporta03 $P desliza a porta da vitrine para o lado, a abrindo."
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_pegarobj
+  se arg1 == este
+    ret arg3 > 1, arg0.msg("Pegue apenas um item por vez.")
+    txt200 lin
+    lin = "z_valor_=" + [arg2]:valor + ",z_quest_=" + [arg2]:quest + ",z_nome=" + [arg2]:descnome
+    refvar i = criar("i_dequest002", arg0, 1, lin)
+    $mens.p(arg0, nulo, i)
+    $mens.mtodos2("ângelo lhe entrega $o e diz: Pronto, parceir$s, agora dirija-se ao balcão \
+para o pagamento.", "ângelo entrega uma nota para pagamento a $P.")
+  fimse
+
+
+classe i_dequest002
+herda comum_item
+const nome = "nota para pagamento"
+const descnome = "uma nota para pagamento"
+const valor = var.z_valor_
+#
+
+func descver
+  ret "Nota de pagamento para a compra de " + var.z_nome + "\nValor: " + var.z_valor_ + " mais " \
++ var.z_quest_ + " pontos de quest."
+
+
+classe p_dequest001
+herda comum_perso
+const nome = "Franque"
+const descnome = "Franque"
+const descpadr = "Franque está aqui, atendendo os clientes."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 1200
+const tipo1 = "humano"
+const tipo2 = "homem"
+
+
+classe p_dequest002
+herda comum_perso
+const nome = "Maurício"
+const descnome = "Maurício"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 1200
+const pospadr = 6 # Posição padrão: 6 Sentado
+const tipo1 = "humano"
+const tipo2 = "homem"
+
+
+classe p_dequest003
+herda comum_perso
+const nome = "ângelo"
+const descnome = "ângelo"
+const descpadr = "ângelo está aqui, colocando presso em algumas ármas."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 1200
+const tipo1 = "humano"
+const tipo2 = "homem"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_soltarobj
+
+
+classe p_dequest004
+herda comum_persobat
+const nome = "O segurança"
+const descnome = "Um dos seguranças da loja"
+const descpadr = "Alguns seguranças fortemente armados, faz a segurança da loja."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 1210
+const tipo1 = "humano"
+const tipo2 = "mago"
+
+
+classe p_dequest005
+herda comum_perso
+const nome = "sonia"
+const descnome = "sonia"
+const descpadr = "Sonia está aqui, mostrando alguns acessórios alguns clientes."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 1200
+const tipo1 = "humano"
+const tipo2 = "mulher"
+
+
+classe s_dequest001
+herda b_dequest
+const s_titulo = "Em frente a dequest center:"
+const s_desc = "Uma placa está aqui."
+const s_pnj = 0
+const dir_o = $s_parmilion022
+const dir_c = $s_dequest002
+const ver_placa = "Dequest center, a sua força está aqui!"
+
+
+classe s_dequest002
+herda b_dequest
+const s_titulo = "Nos degrais de mármore branco da loja:"
+const dir_c = $s_dequest003
+const dir_b = $s_dequest001
+
+
+classe s_dequest003
+herda b_dequest
+const s_titulo = "Nas portas da loja:"
+const eveste = 1 # Eventos sala: Sim
+const dir_o = $s_dequest004
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "As portas da de quest"
+const portaartigo_o = 1 # Artigo porta: 1 as (portas)
+const fecha_o = 1 # Fecha ao passar: Sim
+const dir_b = $s_dequest002
+inttempo fechar
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+  misc:tempo("entrou", arg0)
+#
+
+func entrou20
+  se porta_o == 2 && arg0.donoantes != $s_dequest004
+    fechar = 50
+    mudaporta("o", 1, "\d=abporta03 As portas da loja se abrem para sua passagem.", "\d=abporta03\
+ As portas da loja se abriram.")
+  fimse
+#
+
+func fechar_exec
+  se porta_o == 1
+    mudaporta("o", 2, "\d=fporta03 As portas da loja se fecham.", "As portas da loja se fecharam.\
+")
+
+
+classe s_dequest004
+herda b_dequest
+const s_titulo = "De quest center:"
+const dir_n = $s_dequest005
+const dir_s = $s_dequest006
+const dir_l = $s_dequest003
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "As portas da loja"
+const portaartigo_l = 1 # Artigo porta: 1 as (portas)
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_dequest007
+const dir_ne = $s_dequest008
+
+
+classe s_dequest005
+herda b_dequest
+const s_titulo = "Cetor de armaduras:"
+const s_soltar = 1 # Soltar itens: 1 Não permitido
+const dir_s = $s_dequest004
+const a_reset = "P 100 dequest002 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dequest002:objsolto.total < 1
+    criar("p_dequest002", este, 0)
+  fimse
+
+
+classe s_dequest006
+herda b_dequest
+const s_titulo = "Cetor de ármas:"
+const s_soltar = 1 # Soltar itens: 1 Não permitido
+const dir_n = $s_dequest004
+const a_reset = "P 100 dequest003 0 0 1\nS 100 dequest001 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dequest003:objsolto.total < 1
+    criar("p_dequest003", este, 0)
+  fimse
+  !dentro1.objini("i_dequest001") && criar("i_dequest001", este, 1)
+
+
+classe s_dequest007
+herda b_dequest
+const s_titulo = "No baucão:"
+const dir_l = $s_dequest004
+const a_reset = "P 100 dequest001 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dequest001:objsolto.total < 1
+    criar("p_dequest001", este, 0)
+  fimse
+
+
+classe s_dequest008
+herda b_dequest
+const s_titulo = "Na repartição de acessórios para combate:"
+const s_soltar = 1 # Soltar itens: 1 Não permitido
+const dir_so = $s_dequest004
+const a_reset = "P 100 dequest005 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dequest005:objsolto.total < 1
+    criar("p_dequest005", este, 0)
+  fimse

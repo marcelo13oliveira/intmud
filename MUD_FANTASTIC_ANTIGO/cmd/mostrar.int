@@ -1,0 +1,491 @@
+classe cmd_mostrar
+herda comando_comum
+const objnivel = 4
+const posic = 0
+const txtajuda = "Mostrar:\n\
+Sintaxe:\n\
+Mostrar canal opção.\n\
+Mostra a informação desejada no canal especificado.\n\
+Exemplo:\n\
+Mostrar falar vida.\n\
+Mostra sua vida no canal falar.\n\
+Mostrar chat nivel:\n\
+Mostra seu nível no canal chat.\n\
+Digite mostrar lista para obter uma lista completa dos comandos disponíveis."
+
+func escr
+  ret !arg1, arg0.msg("Mostrar o quê?")
+  se arg1 == "lista"
+    arg0.msg2("Os seguintes comandos podem ser digitados por você apóz o nome dos canais:")
+    arg0.msg2("defesa\nnivel\nvida\nmana\nmovimento\nataque\nxp\nvelocidade\ntitulo\nmoedas\nques\
+t\nbanco.\nrenascer\n------")
+    arg0.msg2("mais comandos poderão ser adicionados aqui no futuro.")
+    ret1
+    nomeobj x
+    nomeobj y
+    x.ini(txtsub(arg1, 0, 1))
+    y.ini(txtsub(arg1, 1, 1))
+  senao arg1 == "Falar desc"
+    arg0.teclou("falar A descrissão de meu personagem é a seguinte: " + arg0.var.z_desc_ + \
+"")
+    ret 1
+  senao arg1 == "falar nivel"
+    arg0.teclou("falar Eu estou no nível " + arg0.pnivel + ".")
+    ret1
+  senao arg1 == "falar vida"
+    arg0.teclou("f minha vida atual é: " + arg0.pvida + " de " + arg0.pvidamax + ".")
+    ret1
+  senao arg1 == "falar titulo"
+    ret arg0.var.z_titulo == "", arg0.msg("Você não tem título para mostrar a ninguém.")
+    arg0.teclou("falar Meu título é: " + arg0.var.z_titulo + ".")
+    ret1
+  senao arg1 == "falar moedas"
+    ret arg0.var.z_moedas_ == "", arg0.teclou("Falar eu estou sem moedas.")
+    ret arg0.var.z_moedas_ == 1, arg0.teclou("falar eu tenho apenas uma moeda.")
+    ret arg0.var.z_moedas_ == 2, arg0.teclou("falar Eu tenho duas moedas.")
+    arg0.teclou("falar Eu tenho " + arg0.var.z_moedas_ + " moedas.")
+    ret1
+  senao arg1 == "falar banco"
+    ret arg0.var.z_saldo_ == "", arg0.teclou("falar Minha conta bancária está zerada.")
+    ret arg0.var.z_saldo_ == 1, arg0.teclou("falar Minha conta bancária tem uma moeda...")
+    ret arg0.var.z_saldo_ == 2, arg0.teclou("falar Minha conta bancária tem duas moedas...")
+    arg0.teclou("falar Minha conta bancária tem " + arg0.var.z_saldo_ + " moedas.")
+    ret1
+  senao arg1 == "falar defesa"
+    arg0.teclou("falar minha defesa normal é: " + int(arg0.defnorm / arg0.deftipo.0) + ", e \
+minha defesa especial é: " + int(arg0.atkesp * arg0.atktipo.1) + ".")
+    ret1
+  senao arg1 == "falar ataque"
+    arg0.teclou("Falar meu ataque normal é: " + int(arg0.atknorm * arg0.atktipo.0) + ", e meu \
+ataque especial é: " + int(arg0.atkesp * arg0.atktipo.1) + ".")
+    ret1
+  senao arg1 == "falar mana"
+    arg0.teclou("Falar minha mana é: " + arg0.pmana + " de " + arg0.pmanamax + ".")
+    ret1
+  senao arg1 == "falar movimento"
+    arg0.teclou("Falar meu movimento é: " + arg0.pmove + " de " + arg0.pmovemax + ".")
+    ret1
+  senao arg1 == "falar quest"
+    ret arg0.var.z_quest_ == "", arg0.teclou("falar Eu não tenho nenhum ponto de quest...")
+    ret arg0.var.z_quest_ == 1, arg0.teclou("falar Eu tenho um ponto de quest...")
+    arg0.teclou("falar Eu tenho " + arg0.var.z_quest_ + " pontos de quest.")
+  senao arg1 == "falar velocidade"
+    arg0.teclou("falar Minha velocidade é: " + arg0.pveloc + ".")
+  senao arg1 == "falar xp"
+    arg0.teclou("falar Eu tenho " + arg0.expatual + " pontos de experiência, e preciso para \
+avançar " + arg0.expmax + ".")
+    ret1
+  senao arg1 == "chat desc"
+    arg0.teclou("chat A descrissão de meu personagem é a seguinte: " + arg0.var.z_desc_ + \
+"")
+    ret 1
+  senao arg1 == "chat vida"
+    arg0.teclou("chat Minha vida é: " + arg0.pvida + " de " + arg0.pvidamax + ".")
+    ret1
+  senao arg1 == "chat nível"
+    arg0.teclou("chat Eu estou no nível " + arg0.pnivel + ".")
+    ret1
+  senao arg1 == "chat vida"
+    arg0.teclou("Minha vida atual é: " + arg0.pvida + " de " + arg0.pvidamax + ".")
+    ret1
+  senao arg1 == "chat título"
+    ret arg0.var.z_titulo == "", arg0.msg("Você não tem título para mostrar a ninguém.")
+    arg0.teclou("chat Meu título é: " + arg0.var.z_titulo + ".")
+    ret1
+  senao arg1 == "chat moedas"
+    ret arg0.var.z_moedas_ == "", arg0.teclou("chat eu estou sem moedas.")
+    ret arg0.var.z_moedas_ == 1, arg0.teclou("chat eu tenho apenas uma moeda.")
+    ret arg0.var.z_moedas_ == 2, arg0.teclou("chat Eu tenho duas moedas.")
+    arg0.teclou("chat Eu tenho " + arg0.var.z_moedas_ + " moedas.")
+    ret1
+  senao arg1 == "chat banco"
+    ret arg0.var.z_saldo_ == "", arg0.teclou("chat Minha conta bancária está zerada.")
+    ret arg0.var.z_saldo_ == 1, arg0.teclou("chat Minha conta bancária tem uma moeda...")
+    ret arg0.var.z_saldo_ == 2, arg0.teclou("chat Minha conta bancária tem duas moedas...")
+    arg0.teclou("chat Minha conta bancária tem " + arg0.var.z_saldo_ + " moedas.")
+    ret1
+  senao arg1 == "chat defesa"
+    arg0.teclou("chat minha defesa normal é: " + int(arg0.defnorm / arg0.deftipo.0) + ", e minha \
+defesa especial é: " + int(arg0.atkesp * arg0.atktipo.1) + ".")
+    ret1
+  senao arg1 == "chat ataque"
+    arg0.teclou("chat meu ataque normal é: " + int(arg0.atknorm * arg0.atktipo.0) + ", e meu \
+ataque especial é: " + int(arg0.atkesp * arg0.atktipo.1) + ".")
+    ret1
+  senao arg1 == "chat mana"
+    arg0.teclou("chat minha mana é: " + arg0.pmana + " de " + arg0.pmanamax + ".")
+    ret1
+  senao arg1 == "chat movimento"
+    arg0.teclou("chat meu movimento é: " + arg0.pmove + " de " + arg0.pmovemax + ".")
+    ret1
+  senao arg1 == "chat quest"
+    ret arg0.var.z_quest_ == "", arg0.teclou("chat Eu não tenho nenhum ponto de quest...")
+    ret arg0.var.z_quest_ == 1, arg0.teclou("chat Eu tenho um ponto de quest...")
+    arg0.teclou("chat Eu tenho " + arg0.var.z_quest_ + " pontos de quest.")
+  senao arg1 == "chat velocidade"
+    arg0.teclou("chat Minha velocidade é: " + arg0.pveloc + ".")
+  senao arg1 == "chat xp"
+    arg0.teclou("chat eu tenho " + arg0.expatual + " pontos de experiência, e preciso para \
+avançar " + arg0.expmax + ".")
+    ret1
+  senao arg1 == "congratular desc"
+    arg0.teclou("congratular A descrissão de meu personagem é a seguinte: " + arg0.var.z_desc_ + \
+"")
+    ret 1
+  senao arg1 == "congratular vida"
+    arg0.teclou("congratular Minha vida é: " + arg0.pvida + " de " + arg0.pvidamax + ".")
+    ret1
+  senao arg1 == "congratular nível"
+    arg0.teclou("congratular Eu estou no nível " + arg0.pnivel + ".")
+    ret1
+  senao arg1 == "congratular vida"
+    arg0.teclou("Minha vida atual é: " + arg0.pvida + " de " + arg0.pvidamax + ".")
+    ret1
+  senao arg1 == "congratular título"
+    ret arg0.var.z_titulo == "", arg0.msg("Você não tem título para mostrar a ninguém.")
+    arg0.teclou("congratular Meu título é: " + arg0.var.z_titulo + ".")
+    ret1
+  senao arg1 == "congratular moedas"
+    ret arg0.var.z_moedas_ == "", arg0.teclou("congratular eu estou sem moedas.")
+    ret arg0.var.z_moedas_ == 1, arg0.teclou("congratular eu tenho apenas uma moeda.")
+    ret arg0.var.z_moedas_ == 2, arg0.teclou("congratular Eu tenho duas moedas.")
+    arg0.teclou("congratular Eu tenho " + arg0.var.z_moedas_ + " moedas.")
+    ret1
+  senao arg1 == "congratular banco"
+    ret arg0.var.z_saldo_ == "", arg0.teclou("congratular Minha conta bancária está zerada.")
+    ret arg0.var.z_saldo_ == 1, arg0.teclou("congratular Minha conta bancária tem uma moeda...")
+    ret arg0.var.z_saldo_ == 2, arg0.teclou("congratular Minha conta bancária tem duas moedas..."\
+)
+    arg0.teclou("congratular Minha conta bancária tem " + arg0.var.z_saldo_ + " moedas.")
+    ret1
+  senao arg1 == "congratular defesa"
+    arg0.teclou("congratular minha defesa normal é: " + int(arg0.defnorm / arg0.deftipo.0) + ", \
+e minha defesa especial é: " + int(arg0.atkesp * arg0.atktipo.1) + ".")
+    ret1
+  senao arg1 == "congratular ataque"
+    arg0.teclou("congratular meu ataque normal é: " + int(arg0.atknorm * arg0.atktipo.0) + ", e \
+meu ataque especial é: " + int(arg0.atkesp * arg0.atktipo.1) + ".")
+    ret1
+  senao arg1 == "congratular mana"
+    arg0.teclou("congratular minha mana é: " + arg0.pmana + " de " + arg0.pmanamax + ".")
+    ret1
+  senao arg1 == "congratular movimento"
+    arg0.teclou("congratular meu movimento é: " + arg0.pmove + " de " + arg0.pmovemax + ".")
+    ret1
+  senao arg1 == "congratular quest"
+    ret arg0.var.z_quest_ == "", arg0.teclou("congratular Eu não tenho nenhum ponto de quest...")
+    ret arg0.var.z_quest_ == 1, arg0.teclou("congratular Eu tenho um ponto de quest...")
+    arg0.teclou("congratular Eu tenho " + arg0.var.z_quest_ + " pontos de quest.")
+  senao arg1 == "congratular velocidade"
+    arg0.teclou("congratular Minha velocidade é: " + arg0.pveloc + ".")
+  senao arg1 == "congratular xp"
+    arg0.teclou("congratular Eu tenho " + arg0.expatual + "pontos de experiência, e preciso para \
+avançar " + arg0.expmax + ".")
+    ret1
+  senao arg1 == "telepatia desc"
+    arg0.teclou("telepatia A descrissão de meu personagem é a seguinte: " + arg0.var.z_desc_ + \
+"")
+    ret 1
+  senao arg1 == "telepatia vida"
+    arg0.teclou("telepatia Minha vida é: " + arg0.pvida + " de " + arg0.pvidamax + ".")
+    ret1
+  senao arg1 == "telepatia nível"
+    arg0.teclou("telepatia Eu estou no nível " + arg0.pnivel + ".")
+    ret1
+  senao arg1 == "telepatia vida"
+    arg0.teclou("Minha vida atual é: " + arg0.pvida + " de " + arg0.pvidamax + ".")
+    ret1
+  senao arg1 == "telepatia título"
+    ret arg0.var.z_titulo == "", arg0.msg("Você não tem título para mostrar a ninguém.")
+    arg0.teclou("telepatia Meu título é: " + arg0.var.z_titulo + ".")
+    ret1
+  senao arg1 == "telepatia moedas"
+    ret arg0.var.z_moedas_ == "", arg0.teclou("telepatia eu estou sem moedas.")
+    ret arg0.var.z_moedas_ == 1, arg0.teclou("telepatia eu tenho apenas uma moeda.")
+    ret arg0.var.z_moedas_ == 2, arg0.teclou("telepatia Eu tenho duas moedas.")
+    arg0.teclou("telepatia Eu tenho " + arg0.var.z_moedas_ + " moedas.")
+    ret1
+  senao arg1 == "telepatia banco"
+    ret arg0.var.z_saldo_ == "", arg0.teclou("telepatia Minha conta bancária está zerada.")
+    ret arg0.var.z_saldo_ == 1, arg0.teclou("telepatia Minha conta bancária tem uma moeda...")
+    ret arg0.var.z_saldo_ == 2, arg0.teclou("telepatia Minha conta bancária tem duas moedas...")
+    arg0.teclou("telepatia Minha conta bancária tem " + arg0.var.z_saldo_ + " moedas.")
+    ret1
+  senao arg1 == "telepatia defesa"
+    arg0.teclou("telepatia minha defesa normal é: " + arg0.defnorm + ", e minha defesa especial \
+é: " + arg0.defesp + ".")
+    ret1
+  senao arg1 == "telepatia ataque"
+    arg0.teclou("telepatia meu ataque normal é: " + arg0.atknorm + ", e meu ataque especial é: " \
++ arg0.atkesp + ".")
+    ret1
+  senao arg1 == "telepatia mana"
+    arg0.teclou("telepatia minha mana é: " + arg0.pmana + " de " + arg0.pmanamax + ".")
+    ret1
+  senao arg1 == "telepatia movimento"
+    arg0.teclou("telepatia meu movimento é: " + arg0.pmove + " de " + arg0.pmovemax + ".")
+    ret1
+  senao arg1 == "telepatia quest"
+    ret arg0.var.z_quest_ == "", arg0.teclou("telepatia Eu não tenho nenhum ponto de quest...")
+    ret arg0.var.z_quest_ == 1, arg0.teclou("telepatia Eu tenho um ponto de quest...")
+    arg0.teclou("telepatia Eu tenho " + arg0.var.z_quest_ + " pontos de quest.")
+  senao arg1 == "telepatia velocidade"
+    arg0.teclou("telepatia Minha velocidade é: " + arg0.pveloc + ".")
+  senao arg1 == "telepatia xp"
+    arg0.teclou("telepatia Eu tenho " + arg0.expatual + "pontos de experiência, e preciso para \
+avançar " + arg0.expmax + ".")
+    ret1
+  senao arg1 == "cantar desc"
+    arg0.teclou("cantar A descrissão de meu personagem é a seguinte: " + arg0.var.z_desc_ + \
+"")
+    ret 1
+  senao arg1 == "cantar vida"
+    arg0.teclou("cantar Minha vida é: " + arg0.pvida + " de " + arg0.pvidamax + ".")
+    ret1
+  senao arg1 == "cantar nível"
+    arg0.teclou("cantar Eu estou no nível " + arg0.pnivel + ".")
+    ret1
+  senao arg1 == "cantar vida"
+    arg0.teclou("Minha vida atual é: " + arg0.pvida + " de " + arg0.pvidamax + ".")
+    ret1
+  senao arg1 == "cantar título"
+    ret arg0.var.z_titulo == "", arg0.msg("Você não tem título para mostrar a ninguém.")
+    arg0.teclou("cantar Meu título é: " + arg0.var.z_titulo + ".")
+    ret1
+  senao arg1 == "cantar moedas"
+    ret arg0.var.z_moedas_ == "", arg0.teclou("cantar eu estou sem moedas.")
+    ret arg0.var.z_moedas_ == 1, arg0.teclou("cantar eu tenho apenas uma moeda.")
+    ret arg0.var.z_moedas_ == 2, arg0.teclou("cantar Eu tenho duas moedas.")
+    arg0.teclou("cantar Eu tenho " + arg0.var.z_moedas_ + " moedas.")
+    ret1
+  senao arg1 == "cantar banco"
+    ret arg0.var.z_saldo_ == "", arg0.teclou("cantar Minha conta bancária está zerada.")
+    ret arg0.var.z_saldo_ == 1, arg0.teclou("cantar Minha conta bancária tem uma moeda...")
+    ret arg0.var.z_saldo_ == 2, arg0.teclou("cantar Minha conta bancária tem duas moedas...")
+    arg0.teclou("cantar Minha conta bancária tem " + arg0.var.z_saldo_ + " moedas.")
+    ret1
+  senao arg1 == "cantar defesa"
+    arg0.teclou("cantar minha defesa normal é: " + arg0.defnorm + ", e minha defesa especial é: \
+" + arg0.defesp + ".")
+    ret1
+  senao arg1 == "cantar ataque"
+    arg0.teclou("cantar meu ataque normal é: " + arg0.atknorm + ", e meu ataque especial é: " + \
+arg0.atkesp + ".")
+    ret1
+  senao arg1 == "cantar mana"
+    arg0.teclou("cantar minha mana é: " + arg0.pmana + " de " + arg0.pmanamax + ".")
+    ret1
+  senao arg1 == "cantar movimento"
+    arg0.teclou("cantar meu movimento é: " + arg0.pmove + " de " + arg0.pmovemax + ".")
+    ret1
+  senao arg1 == "cantar quest"
+    ret arg0.var.z_quest_ == "", arg0.teclou("cantar Eu não tenho nenhum ponto de quest...")
+    ret arg0.var.z_quest_ == 1, arg0.teclou("cantar Eu tenho um ponto de quest...")
+    arg0.teclou("cantar Eu tenho " + arg0.var.z_quest_ + " pontos de quest.")
+  senao arg1 == "cantar velocidade"
+    arg0.teclou("cantar Minha velocidade é: " + arg0.pveloc + ".")
+  senao arg1 == "cantar xp"
+    arg0.teclou("cantar Eu tenho " + arg0.expatual + "pontos de experiência, e preciso para \
+avançar " + arg0.expmax + ".")
+    ret1
+  senao arg1 == "gchat desc"
+    arg0.teclou("gchat A descrissão de meu personagem é a seguinte: " + arg0.var.z_desc_ + \
+"")
+    ret 1
+  senao arg1 == "gchat vida"
+    arg0.teclou("gchat Minha vida é: " + arg0.pvida + " de " + arg0.pvidamax + ".")
+    ret1
+  senao arg1 == "gchat nível"
+    arg0.teclou("gchat Eu estou no nível " + arg0.pnivel + ".")
+    ret1
+  senao arg1 == "gchat vida"
+    arg0.teclou("Minha vida atual é: " + arg0.pvida + " de " + arg0.pvidamax + ".")
+    ret1
+  senao arg1 == "gchat título"
+    ret arg0.var.z_titulo == "", arg0.msg("Você não tem título para mostrar a ninguém.")
+    arg0.teclou("gchat Meu título é: " + arg0.var.z_titulo + ".")
+    ret1
+  senao arg1 == "gchat moedas"
+    ret arg0.var.z_moedas_ == "", arg0.teclou("gchat eu estou sem moedas.")
+    ret arg0.var.z_moedas_ == 1, arg0.teclou("gchat eu tenho apenas uma moeda.")
+    ret arg0.var.z_moedas_ == 2, arg0.teclou("gchat Eu tenho duas moedas.")
+    arg0.teclou("gchat Eu tenho " + arg0.var.z_moedas_ + " moedas.")
+    ret1
+  senao arg1 == "gchat banco"
+    ret arg0.var.z_saldo_ == "", arg0.teclou("gchat Minha conta bancária está zerada.")
+    ret arg0.var.z_saldo_ == 1, arg0.teclou("gchat Minha conta bancária tem uma moeda...")
+    ret arg0.var.z_saldo_ == 2, arg0.teclou("gchat Minha conta bancária tem duas moedas...")
+    arg0.teclou("gchat Minha conta bancária tem " + arg0.var.z_saldo_ + " moedas.")
+    ret1
+  senao arg1 == "gchat defesa"
+    arg0.teclou("gchat minha defesa normal é: " + arg0.defnorm + ", e minha defesa especial é: " \
++ arg0.defesp + ".")
+    ret1
+  senao arg1 == "gchat ataque"
+    arg0.teclou("gchat meu ataque normal é: " + arg0.atknorm + ", e meu ataque especial é: " + \
+arg0.atkesp + ".")
+    ret1
+  senao arg1 == "gchat mana"
+    arg0.teclou("gchat minha mana é: " + arg0.pmana + " de " + arg0.pmanamax + ".")
+    ret1
+  senao arg1 == "gchat movimento"
+    arg0.teclou("gchat meu movimento é: " + arg0.pmove + " de " + arg0.pmovemax + ".")
+    ret1
+  senao arg1 == "gchat quest"
+    ret arg0.var.z_quest_ == "", arg0.teclou("gchat Eu não tenho nenhum ponto de quest...")
+    ret arg0.var.z_quest_ == 1, arg0.teclou("gchat Eu tenho um ponto de quest...")
+    arg0.teclou("gchat Eu tenho " + arg0.var.z_quest_ + " pontos de quest.")
+  senao arg1 == "gchat velocidade"
+    arg0.teclou("gchat Minha velocidade é: " + arg0.pveloc + ".")
+  senao arg1 == "gchat xp"
+    arg0.teclou("gchat Eu tenho " + arg0.expatual + "pontos de experiência, e preciso para \
+avançar " + arg0.expmax + ".")
+    ret1
+  senao arg1 == "emocao desc"
+    arg0.teclou("emocao diz que A descrissão de meu personagem é a seguinte: " + arg0.var.z_desc_\
+ + "")
+    ret 1
+  senao arg1 == "emocao vida"
+    arg0.teclou("emocao está com a vida em: " + arg0.pvida + " de " + arg0.pvidamax + ".")
+    ret1
+  senao arg1 == "emocao nível"
+    arg0.teclou("emocao está no nível " + arg0.pnivel + ".")
+    ret1
+  senao arg1 == "emocao vida"
+    arg0.teclou("Minha vida atual é: " + arg0.pvida + " de " + arg0.pvidamax + ".")
+    ret1
+  senao arg1 == "emocao título"
+    ret arg0.var.z_titulo == "", arg0.msg("Você não tem título para mostrar a ninguém.")
+    arg0.teclou("emocao mostra seu título, que é: " + arg0.var.z_titulo + ".")
+    ret1
+  senao arg1 == "emocao moedas"
+    ret arg0.var.z_moedas_ == "", arg0.teclou("emocao está sem moedas.")
+    ret arg0.var.z_moedas_ == 1, arg0.teclou("emocao tem apenas uma moeda.")
+    ret arg0.var.z_moedas_ == 2, arg0.teclou("emocao tem duas moedas.")
+    arg0.teclou("emocao tem " + arg0.var.z_moedas_ + " moedas.")
+    ret1
+  senao arg1 == "emocao banco"
+    ret arg0.var.z_saldo_ == "", arg0.teclou("emocao está com a conta bancária está zerada.")
+    ret arg0.var.z_saldo_ == 1, arg0.teclou("emocao tem apenas uma moeda em sua conta bancária...\
+")
+    ret arg0.var.z_saldo_ == 2, arg0.teclou("emocao está com apenas duas moedas em sua conta \
+bancária...")
+    arg0.teclou("emocao tem " + arg0.var.z_saldo_ + "moedas em sua conta bancária.")
+    ret1
+  senao arg1 == "emocao defesa"
+    arg0.teclou("emocao está com a defesa normal em: " + arg0.defnorm + ", e está com a defesa \
+especial em: " + arg0.defesp + ".")
+    ret1
+  senao arg1 == "emocao ataque"
+    arg0.teclou("emocao está com o ataque em: " + arg0.atknorm + ", e está com o ataque especial \
+em: " + arg0.atkesp + ".")
+    ret1
+  senao arg1 == "emocao mana"
+    arg0.teclou("emocao está com a mana em: " + arg0.pmana + " de " + arg0.pmanamax + ".")
+    ret1
+  senao arg1 == "emocao movimento"
+    arg0.teclou("emocao está com o movimento em: " + arg0.pmove + " de " + arg0.pmovemax + \
+".")
+    ret1
+  senao arg1 == "emocao quest"
+    ret arg0.var.z_quest_ == "", arg0.teclou("emocao está sem pontos de quest...")
+    ret arg0.var.z_quest_ == 1, arg0.teclou("emocao tem apenas um ponto de quest...")
+    arg0.teclou("emocao tem " + arg0.var.z_quest_ + " pontos de quest.")
+  senao arg1 == "emocao velocidade"
+    arg0.teclou("emocao está com a velocidade em: " + arg0.pveloc + ".")
+  senao arg1 == "emocao xp"
+    arg0.teclou("emocao tem " + arg0.expatual + "pontos de experiência, e precisa de " + \
+arg0.expmax + " para ir ao próximo nível.")
+    ret1
+  senao arg1 == "gemot desc"
+    arg0.teclou("gemot diz que a descrissão de meu personagem é a seguinte: " + arg0.var.z_desc_ \
++ "")
+    ret 1
+  senao arg1 == "gemot vida"
+    arg0.teclou("gemot está com a vida em: " + arg0.pvida + " de " + arg0.pvidamax + ".")
+    ret1
+  senao arg1 == "gemot nível"
+    arg0.teclou("gemot está no nível " + arg0.pnivel + ".")
+    ret1
+  senao arg1 == "gemot vida"
+    arg0.teclou("Minha vida atual é: " + arg0.pvida + " de " + arg0.pvidamax + ".")
+    ret1
+  senao arg1 == "gemot título"
+    ret arg0.var.z_titulo == "", arg0.msg("Você não tem título para mostrar a ninguém.")
+    arg0.teclou("gemot mostra seu título, que é: " + arg0.var.z_titulo + ".")
+    ret1
+  senao arg1 == "gemot moedas"
+    ret arg0.var.z_moedas_ == "", arg0.teclou("gemot está sem moedas.")
+    ret arg0.var.z_moedas_ == 1, arg0.teclou("gemot tem apenas uma moeda.")
+    ret arg0.var.z_moedas_ == 2, arg0.teclou("gemot tem duas moedas.")
+    arg0.teclou("gemot tem " + arg0.var.z_moedas_ + " moedas.")
+    ret1
+  senao arg1 == "gemot banco"
+    ret arg0.var.z_saldo_ == "", arg0.teclou("gemot está com a conta bancária está zerada.")
+    ret arg0.var.z_saldo_ == 1, arg0.teclou("gemot tem apenas uma moeda em sua conta bancária..."\
+)
+    ret arg0.var.z_saldo_ == 2, arg0.teclou("gemot está com apenas duas moedas em sua conta \
+bancária...")
+    arg0.teclou("gemot tem " + arg0.var.z_saldo_ + "moedas em sua conta bancária.")
+    ret1
+  senao arg1 == "gemot defesa"
+    arg0.teclou("gemot está com a defesa normal em: " + int(arg0.defnorm / arg0.deftipo.0) + ", \
+e está com a defesa especial em: " + int(arg0.atkesp * arg0.atktipo.1) + ".")
+    ret1
+  senao arg1 == "gemot ataque"
+    arg0.teclou("gemot está com o ataque em: " + int(arg0.atknorm * arg0.atktipo.0) + ", e está \
+com o ataque especial em: " + int(arg0.atkesp / atkexp.0) + ".")
+    ret1
+  senao arg1 == "gemot mana"
+    arg0.teclou("gemot está com a mana em: " + arg0.pmana + " de " + arg0.pmanamax + ".")
+    ret1
+  senao arg1 == "gemot movimento"
+    arg0.teclou("gemot está com o movimento em: " + arg0.pmove + " de " + arg0.pmovemax + \
+".")
+    ret1
+  senao arg1 == "gemot quest"
+    ret arg0.var.z_quest_ == "", arg0.teclou("gemot está sem pontos de quest...")
+    ret arg0.var.z_quest_ == 1, arg0.teclou("gemot tem apenas um ponto de quest...")
+    arg0.teclou("gemot tem " + arg0.var.z_quest_ + " pontos de quest.")
+  senao arg1 == "gemot velocidade"
+    arg0.teclou("gemot está com a velocidade em: " + arg0.pveloc + ".")
+  senao arg1 == "gemot xp"
+    arg0.teclou("gemot tem " + arg0.expatual + "pontos de experiência, e precisa de " + arg0.expm\
+ax + " para ir ao próximo nível.")
+    ret1
+  senao arg1 == "falar renascer"
+    ret arg0.prenascer == "", arg0.teclou("falar eu ainda não renasci nenhuma vez.")
+    ret arg0.prenascer == 1, arg0.teclou("falar eu só renasci uma vez.")
+    arg0.teclou("falar eu já renasci " + arg0.prenascer + "vezes.")
+    ret1
+  senao arg1 == "chat renascer"
+    ret arg0.prenascer == "", arg0.teclou("chat eu ainda não renasci nenhuma vez.")
+    ret arg0.prenascer == 1, arg0.teclou("chat eu só renasci uma vez.")
+    arg0.teclou("chat eu já renasci" + arg0.prenascer + " vezes.")
+    ret1
+  senao arg1 == "emot renascer"
+    ret arg0.prenascer == "", arg0.teclou("emot ainda não renasceu nenhuma vez.")
+    ret arg0.prenascer == 1, arg0.teclou("emot só renasceu uma vez.")
+    arg0.teclou("emot já renasceu" + arg0.prenascer + " vezes.")
+    ret1
+  senao arg1 == "gemot renascer"
+    ret arg0.prenascer == "", arg0.teclou("gemot ainda não renasceu nenhuma vez.")
+    ret arg0.prenascer == 1, arg0.teclou("gemot só renasceu uma vez.")
+    arg0.teclou("gemot já renasceu" + arg0.prenascer + " vezes.")
+    ret1
+  senao arg1 == "cantar renascer"
+    ret arg0.prenascer == "", arg0.teclou("cantar eu ainda não renasci nenhuma vez.")
+    ret arg0.prenascer == 1, arg0.teclou("cantar eu só renasci uma vez.")
+    arg0.teclou("cantar eu já renasci" + arg0.prenascer + " vezes.")
+    ret1
+  senao arg1 == "congratular renascer"
+    ret arg0.prenascer == "", arg0.teclou("congratular eu ainda não renasci nenhuma vez.")
+    ret arg0.prenascer == 1, arg0.teclou("congratular eu só renasci uma vez.")
+    arg0.teclou("congratular eu já renasci" + arg0.prenascer + " vezes.")
+    ret1
+  senao arg1 == "gchat renascer"
+    ret arg0.prenascer == "", arg0.teclou("gchat eu ainda não renasci nenhuma vez.")
+    ret arg0.prenascer == 1, arg0.teclou("gchat eu só renasci uma vez.")
+    arg0.teclou("gchat eu já renasci" + arg0.prenascer + " vezes.")
+    ret1
+  fimse

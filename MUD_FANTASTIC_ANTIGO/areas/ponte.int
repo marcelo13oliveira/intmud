@@ -1,0 +1,101 @@
+classe a_ponte
+herda area
+
+
+classe b_ponte
+herda sala
+const s_area = "ponte"
+
+
+classe i_ponte001
+herda comum_item
+const nome = "carroça"
+const descnome = "uma carroça"
+const i_pegar = "Você não pode pegar uma carroça!"
+const i_salas = "ponte009"
+const mantersala = 1 # Mantém na sala: Sim
+inttempo tempo
+#
+
+func cmd_ini
+  tempo = 100
+#
+
+func tempo_exec
+  mudadono(dono.dir_c)
+  $mens.p(arg0)
+  $mens.mvis1("Uma carroça subiu.")
+  misc:tempo("andar", arg0)
+#
+
+func andar100
+  mudadono(dono.dir_n)
+  $mens.p(arg0)
+  $mens.mvis1("Uma carroça foi para o norte")
+#
+
+func andar200
+  mudadono(dono.dir_n)
+  $mens.p(arg0)
+  $mens.mvis1("Uma carroça foi para o norte")
+#
+
+
+classe s_ponte001
+herda b_ponte
+const s_titulo = "Diante de uma ponte"
+const dir_c = $s_ponte002
+
+
+classe s_ponte002
+herda b_ponte
+const s_titulo = "Sobre uma ponte"
+const dir_n = $s_ponte003
+const dir_b = $s_ponte001
+
+
+classe s_ponte003
+herda b_ponte
+const s_titulo = "Sobre uma ponte"
+const dir_n = $s_ponte004
+const dir_s = $s_ponte002
+
+
+classe s_ponte004
+herda b_ponte
+const s_titulo = "Sobre uma ponte"
+const dir_n = $s_ponte005
+const dir_s = $s_ponte003
+
+
+classe s_ponte005
+herda b_ponte
+const s_titulo = "Sobre uma ponte"
+const dir_n = $s_ponte006
+const dir_s = $s_ponte004
+
+
+classe s_ponte006
+herda b_ponte
+const s_titulo = "Sobre uma ponte"
+const dir_s = $s_ponte005
+const dir_b = $s_ponte007
+
+
+classe s_ponte007
+herda b_ponte
+const s_titulo = "Do outro lado da ponte"
+const dir_l = $s_ponte008
+const dir_c = $s_ponte006
+
+
+classe s_ponte008
+herda b_ponte
+const s_titulo = "Uma ilha"
+const dir_o = $s_ponte007
+
+
+classe s_ponte009
+herda b_ponte
+const s_titulo = "Dentro da carroça"
+const s_entrada = "carroça"

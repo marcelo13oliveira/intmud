@@ -1,0 +1,156 @@
+classe a_estacao
+herda area
+
+
+classe b_estacao
+herda sala
+const s_area = "estacao"
+
+
+classe i_estacao001
+herda comum_item
+const nome = "expresso"
+const ident = "locomotiva vermelha trem expresso"
+const descnome = "o expresso de hogwarts"
+const descpos = "Uma grande locomotiva vermelha a vapor está aqui."
+const i_pegar = "Você é louco?"
+const i_salas = "estacao005"
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1
+inttempo tempo
+#
+
+func cmd_mudadono
+  $mens.p(este)
+  $mens.mvis1("$P chegou.")
+  se dono == $s_estacao002 || dono == $s_hogwarts040
+    tempo = 250
+  fimse
+#
+
+func tempo_exec
+  se dono == $s_estacao002
+    $mens.p(este)
+    $mens.mvis1("$P partiu!")
+    mudadono($s_estacao008)
+    dentro2.objini("s_estacao005").msg("\d=clocomotiva partindo rumo a estação de Hogsmeade...")
+    tempo = 400
+    var.z_destino_ = 1
+  senao dono == $s_hogwarts040
+    $mens.p(este)
+    $mens.mvis1("$P partiu!")
+    mudadono($s_estacao008)
+    dentro2.objini("s_estacao005").msg("\d=clocomotiva partindo rumo a estação de Kings Cross..."\
+)
+    tempo = 400
+    var.z_destino_ = 0
+  senao dono == $s_estacao008
+    se var.z_destino
+      mudadono($s_hogwarts040)
+      dentro2.objini("s_estacao005").msg("\d=plocomotiva O expresso chegou na estação de \
+hogsmeade!")
+    senao
+      mudadono($s_estacao002)
+      dentro2.objini("s_estacao005").msg("\d=plocomotiva O expresso chegou na estação de Kings \
+Cross!")
+    fimse
+  fimse
+
+
+classe p_estacao001
+herda comum_persobat
+const nome = "bruxa do carrinho"
+const descnome = "a bruxa do carrinho"
+const descpadr = "Uma velha bruxa passa pelos compartimentos do trem, empurrando o seu carrinho \
+de doces."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const lojaitem = "dedosdemel001 0\n\
+dedosdemel002 0\n\
+dedosdemel003 0\n\
+dedosdemel004 0\n\
+dedosdemel005 0\n\
+dedosdemel006 0\n\
+dedosdemel007 0"
+
+
+classe s_estacao001
+herda b_estacao
+const s_titulo = "Na estação de King's Cross"
+const s_desc = "Você se encontra em King's Cross, uma movimentada estação de londres.\n\
+Pessoas correm apressadas para lá e para cá, empurrando seus carrinhos com\n\
+bagagens, enquanto aguardam a hora de suas viajens. Para noroeste e nordeste\n\
+estão, respectivamente, as plataformas 9 e 10, com uma barreira entre elas,\n\
+ao norte."
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_estacao002
+const inv_n = 1 # Invisível: Sim
+const dir_s = $s_caldeirao008
+const dir_ne = $s_estacao003
+const dir_no = $s_estacao004
+#
+
+func cmd_mover
+  se arg2 == "n"
+    $mens.p(arg0)
+    $mens.mvis1("$P corre em direção à barreira entre as plataformas nove e dez!")
+    $mens.p(arg0)
+    refvar m1 = "Misteriosamente, você ultrapassa a barreira sólida como se nada houvesse ali e \
+se vê do outro lado."
+    $mens.mvis2(m1, "Misteriosamente, $P desaparesse através da barreira!")
+    arg0.mudadono(dir_n)
+    $mens.p(arg0)
+    $mens.mvis2("", "$P surge de dentro da barreira sul.")
+    ret 1
+  fimse
+
+
+classe s_estacao002
+herda b_estacao
+const s_titulo = "Plataforma nove e três quartos"
+const dir_s = $s_estacao001
+
+
+classe s_estacao003
+herda b_estacao
+const s_titulo = "Plataforma dez"
+const dir_so = $s_estacao001
+
+
+classe s_estacao004
+herda b_estacao
+const s_titulo = "Plataforma nove"
+const dir_se = $s_estacao001
+
+
+classe s_estacao005
+herda b_estacao
+const s_titulo = "Dentro do expresso de hogwarts"
+const s_entrada = "a entrada do expresso de hogwarts"
+const eveste = 1
+#
+
+func cmd_mover
+  se arg2 == "sair" && dono.dono == $s_estacao008
+    arg0.msg("A bruxa do carrinho grita: Não ouse sair do trem com ele em movimento!")
+    ret 1
+  fimse
+
+
+classe s_estacao006
+herda b_estacao
+const s_titulo = "Um compartimento"
+const dir_n = $s_estacao007
+const dir_s = $s_estacao005
+
+
+classe s_estacao007
+herda b_estacao
+const s_titulo = "Outro compartimento"
+const dir_s = $s_estacao006
+
+
+classe s_estacao008
+herda b_estacao
+const s_titulo = "No caminho pelos trilhos"
+const s_desc = "Ao olhar através da janela, você pode observar uma bela paisagem lá fora, \
+enquanto o trem se movimenta pelos trilhos."

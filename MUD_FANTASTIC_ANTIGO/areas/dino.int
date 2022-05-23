@@ -1,0 +1,758 @@
+classe a_dino
+herda area
+const a_nome = "vale dos dinossauros"
+const a_tempo = 10
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_txtreset = "Sons horripilantes são ouvidos ao longe, e os monstros se erguem de volta à \
+vida."
+
+
+classe b_dino
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_recup = 10
+const s_area = "dino"
+
+
+classe p_dino001
+herda comum_persobat
+const nome = "Dinossauro"
+const descnome = "um dinossauro"
+const descpadr = "Um dinossauro caminha tranquilamente pelo vale, comendo as folhas das altas \
+árvores."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 660
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 39000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 300
+const inivar = "h_morder=8,h_arranhar=8,z_moedas=50000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 550 * pnivel + 900000
+  atknorm += 900 * pnivel + 970
+  defnorm += 900 * pnivel + 1200
+  atkesp += 900 * pnivel + 970
+  defesp += 900 * pnivel + 1200
+  precisao += 150 * pnivel + 200
+  bitver |= 6204
+
+
+classe p_dino002
+herda comum_persobat
+const nome = "tiranossauro rex"
+const ident = "tiranossauro dinossauro rex"
+const descnome = "Um tiranossauro rex"
+const descpadr = "Um monstruoso tiranossauro com garras e dentes afiados causa destruição por \
+todo o lugar"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 500
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 30000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 350
+const inivar = "h_morder=8,h_arranhar=8,h_socar=8,z_moedas=50000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500 * pnivel + 950000
+  atknorm += 1750 * pnivel + 1750
+  defnorm += 1650 * pnivel + 1650
+  atkesp += 1750 * pnivel + 1750
+  defesp += 1650 * pnivel + 1650
+  precisao += 25 * pnivel + 200
+  bitver |= 60
+
+
+classe p_dino003
+herda comum_persobat
+const nome = "lula gigante"
+const ident = "gigante marinho monstro lula"
+const descnome = "uma lula gigante"
+const descpadr = "Um gigantesco monstro marinho com enormes tentáculos está nadando por aqui."
+const nivel = 550
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 37000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 350
+const inivar = "h_estrangular=8,h_gas_toxico=8,h_arranhar=8,z_moedas=50000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 25 * pnivel + 900000
+  atknorm += 850 * pnivel + 850
+  defnorm += 1500 * pnivel + 1500
+  atkesp += 850 * pnivel + 850
+  defesp += 1500 * pnivel + 1500
+  precisao += 20 * pnivel + 200
+  bitver |= 60
+
+
+classe p_dino004
+herda comum_persobat
+const nome = "monstro do lago ness"
+const ident = "gigante monstro assustador lago ness"
+const descnome = "o monstro do lago Ness"
+const descpadr = "Um gigantesco monstro de aspecto assustador encontra-se no fundo do lago, \
+devorando todas as criaturas do lago."
+const nivel = 700
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 45000
+const inivar = "h_morder=8,h_estrangular=8,z_moedas=1000000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30 * pnivel + 2000000
+  atknorm += 1900 * pnivel + 1900
+  defnorm += 3500 * pnivel + 3500
+  atkesp += 1900 * pnivel + 1900
+  defesp += 3500 * pnivel + 3500
+  precisao += 300 * pnivel + 300
+  bitver |= 2110
+
+
+classe p_dino005
+herda comum_persobat
+const nome = "dakossauro"
+const ident = "crocodilo monstro gigante dakossauro"
+const descnome = "um Dakossauro"
+const descpadr = "Nadando ameaçadoramente em sua direção, um gigantesco monstro, que se assemelha\
+ a um crocodilo  está aqui."
+const descver = "Dakossauro é um gênero de crocodilo pré-histórico. Ele se adaptou a vida \
+na\n\
+água e sua cauda, braços e pernas se transformaram em nadadeiras. Como ele\n\
+não é um peixe,o Dakossauro precisa colocar a cabeça para fora da água para\n\
+respirar."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 600
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 25000
+const p_mover = 2 # Movimentar: 2 Qualquer lugar
+const p_movervel = 300
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200 * pnivel + 300000
+  atknorm += 1200 * pnivel + 1200
+  defnorm += 1500 * pnivel + 1500
+  atkesp += 1200 * pnivel + 1200
+  defesp += 1500 * pnivel + 1500
+  precisao += 25 * pnivel + 200
+  bitver |= 60
+
+
+classe p_dino006
+herda comum_persobat
+const nome = "um filhote de dinossauro"
+const descnome = "um filhote de dinossauro"
+const descpadr = "um perigoso filhote de dinossauro, está caminhando por aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 650
+const p_atktipo = "bater"
+const p_comecorpo = 1 # Come corpos: Sim
+const p_exp = 35000
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500 * pnivel + 2000000
+  pmovemax += 250 * pnivel + 250
+  atknorm += 1750 * pnivel + 1750
+  defnorm += 1800 * pnivel + 1800
+  atkesp += 1750 * pnivel + 1750
+  defesp += 1800 * pnivel + 1800
+  precisao += 150 * pnivel + 200
+  bitver |= 6172
+
+
+classe p_dino007
+herda comum_persobat
+const nome = "filhote de lula"
+const descnome = "um filhote de lula gigante"
+const descpadr = "um filhote de lula gigante está nadando por aqui."
+const pesoobj = 700
+const nivel = 600
+const p_atktipo = "bater"
+const p_corpo = 0 # Corpo: 0 Não deixa corpo
+const p_exp = 39000
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500 * pnivel + 1700000
+  pmovemax += 25 * pnivel + 200
+  atknorm += 1800 * pnivel + 1800
+  defnorm += 1900 * pnivel + 1900
+  atkesp += 1800 * pnivel + 1800
+  defesp += 1900 * pnivel + 1900
+  precisao += 150 * pnivel + 200
+  bitver |= 60
+
+
+classe p_dino008
+herda comum_persobat
+
+
+classe s_dino001
+herda b_dino
+const s_titulo = "Uma subida íngreme"
+const dir_c = $s_dino002
+
+
+classe s_dino002
+herda b_dino
+const s_titulo = "Subindo por um caminho de pedras soltas"
+const dir_c = $s_dino003
+const dir_b = $s_dino001
+
+
+classe s_dino003
+herda b_dino
+const s_titulo = "Continuando a subir pelo caminho"
+const dir_c = $s_dino004
+const dir_b = $s_dino002
+
+
+classe s_dino004
+herda b_dino
+const s_titulo = "Aproximando-se de um vale"
+const s_pnj = 0
+const dir_o = $s_dino005
+const dir_b = $s_dino003
+
+
+classe s_dino005
+herda b_dino
+const s_titulo = "O vale dos dinossauros"
+const dir_l = $s_dino004
+const dir_o = $s_dino006
+
+
+classe s_dino006
+herda b_dino
+const s_titulo = "Em um vale cercado por gigantescas árvores verdes"
+const dir_n = $s_dino007
+const dir_l = $s_dino005
+const dir_o = $s_dino011
+const a_reset = "P 100 dino006 0 0 8\nP 100 dino001 0 0 30 z_moedas=50000000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dino006:objsolto.total < 8
+    criar("p_dino006", este, 0)
+  fimse
+  se p_dino001:objsolto.total < 30
+    criar("p_dino001", este, 0, "z_moedas=50000000")
+  fimse
+
+
+classe s_dino007
+herda b_dino
+const s_titulo = "Em um vale cercado por altas árvores verdes"
+const dir_n = $s_dino008
+const dir_s = $s_dino006
+const dir_o = $s_dino010
+
+
+classe s_dino008
+herda b_dino
+const s_titulo = "Em um vale cercado por altas árvores verdes"
+const dir_n = $s_dino054
+const dir_s = $s_dino007
+const dir_o = $s_dino009
+
+
+classe s_dino009
+herda b_dino
+const s_titulo = "Em um vale cercado por árvores altas"
+const dir_s = $s_dino010
+const dir_l = $s_dino008
+const dir_o = $s_dino012
+
+
+classe s_dino010
+herda b_dino
+const s_titulo = "Em um vale cercado por árvores altas"
+const dir_n = $s_dino009
+const dir_s = $s_dino011
+const dir_l = $s_dino007
+
+
+classe s_dino011
+herda b_dino
+const s_titulo = "Em um vale cercado por árvores altas"
+const dir_n = $s_dino010
+const dir_l = $s_dino006
+
+
+classe s_dino012
+herda b_dino
+const s_titulo = "às margens de um lago"
+const s_pnj = 0
+const s_som = "lago"
+const dir_l = $s_dino009
+const dir_b = $s_dino013
+
+
+classe s_dino013
+herda b_dino
+const s_titulo = "Descendo um barranco"
+const dir_c = $s_dino012
+const dir_b = $s_dino014
+
+
+classe s_dino014
+herda b_dino
+const s_titulo = "Dentro do lago"
+const dir_n = $s_dino042
+const dir_o = $s_dino015
+const dir_c = $s_dino013
+
+
+classe s_dino015
+herda b_dino
+const s_titulo = "Atravessando o lago"
+const dir_l = $s_dino014
+const dir_o = $s_dino017
+const dir_b = $s_dino016
+
+
+classe s_dino016
+herda b_dino
+const s_titulo = "Descendo mais fundo no lago"
+const dir_o = $s_dino018
+const dir_c = $s_dino042
+
+
+classe s_dino017
+herda b_dino
+const s_titulo = "Atravessando o lago"
+const dir_l = $s_dino015
+const dir_o = $s_dino019
+const dir_b = $s_dino018
+
+
+classe s_dino018
+herda b_dino
+const s_titulo = "Descendo mais fundo no lago"
+const s_pnj = 0
+const dir_l = $s_dino016
+const dir_c = $s_dino017
+const dir_b = $s_dino033
+const a_reset = "P 100 dino005 600 620 8 h_morder=8,h_arranhar=8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dino005:objsolto.total < 8
+    criar("p_dino005", este, rand(600, 620), "h_morder=8,h_arranhar=8")
+  fimse
+
+
+classe s_dino019
+herda b_dino
+const s_titulo = "Atravessando o lago"
+const dir_l = $s_dino017
+const dir_o = $s_dino020
+
+
+classe s_dino020
+herda b_dino
+const s_titulo = "A outra margem do lago"
+const s_pnj = 0
+const dir_l = $s_dino019
+const dir_o = $s_dino021
+
+
+classe s_dino021
+herda b_dino
+const s_titulo = "Um vale destruído"
+const dir_l = $s_dino020
+const dir_o = $s_dino022
+
+
+classe s_dino022
+herda b_dino
+const s_titulo = "Um vale destruído"
+const dir_n = $s_dino026
+const dir_s = $s_dino025
+const dir_l = $s_dino021
+const dir_o = $s_dino023
+
+
+classe s_dino023
+herda b_dino
+const s_titulo = "Um vale destruído"
+const dir_n = $s_dino027
+const dir_s = $s_dino024
+const dir_l = $s_dino022
+
+
+classe s_dino024
+herda b_dino
+const s_titulo = "Um vale destruído"
+const dir_n = $s_dino023
+const dir_s = $s_dino028
+
+
+classe s_dino025
+herda b_dino
+const s_titulo = "Um vale destruído"
+const dir_n = $s_dino022
+
+
+classe s_dino026
+herda b_dino
+const s_titulo = "Um vale destruído"
+const dir_s = $s_dino022
+const dir_o = $s_dino027
+
+
+classe s_dino027
+herda b_dino
+const s_titulo = "Um vale destruído"
+const dir_n = $s_dino030
+const dir_s = $s_dino023
+const dir_l = $s_dino026
+
+
+classe s_dino028
+herda b_dino
+const s_titulo = "Um vale destruído"
+const dir_n = $s_dino024
+const dir_s = $s_dino032
+const dir_o = $s_dino029
+
+
+classe s_dino029
+herda b_dino
+const s_titulo = "Um vale destruído"
+const dir_l = $s_dino028
+const a_reset = "P 100 dino002 0 0 6"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dino002:objsolto.total < 6
+    criar("p_dino002", este, 0)
+  fimse
+
+
+classe s_dino030
+herda b_dino
+const s_titulo = "Um vale destruído"
+const dir_s = $s_dino027
+const dir_o = $s_dino031
+
+
+classe s_dino031
+herda b_dino
+const s_titulo = "Um vale destruído"
+const dir_l = $s_dino030
+const a_reset = "P 100 dino002 0 0 6"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dino002:objsolto.total < 6
+    criar("p_dino002", este, 0)
+  fimse
+
+
+classe s_dino032
+herda b_dino
+const s_titulo = "Um vale destruído"
+const dir_n = $s_dino028
+const a_reset = "P 100 dino002 0 0 6"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dino002:objsolto.total < 6
+    criar("p_dino002", este, 0)
+  fimse
+
+
+classe s_dino033
+herda b_dino
+const s_titulo = "Nas profundezas do lago"
+const dir_c = $s_dino018
+const dir_b = $s_dino034
+const a_reset = "P 100 dino007 600 620 12"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dino007:objsolto.total < 12
+    criar("p_dino007", este, rand(600, 620))
+  fimse
+
+
+classe s_dino034
+herda b_dino
+const s_titulo = "Nas profundezas do lago"
+const dir_n = $s_dino041
+const dir_l = $s_dino035
+const dir_c = $s_dino033
+const dir_ne = $s_dino040
+const a_reset = "P 100 dino003 0 0 8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dino003:objsolto.total < 8
+    criar("p_dino003", este, 0)
+  fimse
+
+
+classe s_dino035
+herda b_dino
+const s_titulo = "Nas profundezas do lago"
+const dir_s = $s_dino036
+const dir_o = $s_dino034
+const a_reset = "P 100 dino003 0 0 8\nP 100 dino003 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dino003:objsolto.total < 8
+    criar("p_dino003", este, 0)
+  fimse
+  se p_dino003:objsolto.total < 10
+    criar("p_dino003", este, 0)
+  fimse
+
+
+classe s_dino036
+herda b_dino
+const s_titulo = "Nas profundezas do lago"
+const dir_n = $s_dino035
+const dir_b = $s_dino037
+const a_reset = "P 100 dino003 0 0 8\nP 100 dino003 0 0 8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dino003:objsolto.total < 8
+    criar("p_dino003", este, 0)
+  fimse
+  se p_dino003:objsolto.total < 8
+    criar("p_dino003", este, 0)
+  fimse
+
+
+classe s_dino037
+herda b_dino
+const s_titulo = "No fundo do lago"
+const s_pnj = 0
+const dir_l = $s_dino038
+const dir_c = $s_dino036
+const a_reset = "P 100 dino004 0 0 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dino004:objsolto.total < 3
+    criar("p_dino004", este, 0)
+  fimse
+
+
+classe s_dino038
+herda b_dino
+const s_titulo = "No fundo do lago"
+const s_pnj = 0
+const dir_n = $s_dino044
+const dir_s = $s_dino043
+const dir_l = $s_dino039
+const dir_o = $s_dino037
+const a_reset = "P 100 dino004 0 0 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dino004:objsolto.total < 3
+    criar("p_dino004", este, 0)
+  fimse
+
+
+classe s_dino039
+herda b_dino
+const s_titulo = "No fundo do lago"
+const s_pnj = 0
+const dir_n = $s_dino047
+const dir_s = $s_dino046
+const dir_l = $s_dino045
+const dir_o = $s_dino038
+const a_reset = "P 100 dino004 0 0 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dino004:objsolto.total < 3
+    criar("p_dino004", este, 0)
+  fimse
+
+
+classe s_dino040
+herda b_dino
+const s_titulo = "Nas profundezas do lago"
+const dir_so = $s_dino034
+
+
+classe s_dino041
+herda b_dino
+const s_titulo = "Engolido por um redemoinho de água"
+const s_desc = "Você começa a rodopiar descontroladamente dentro de um redemoinho, até que\n\
+não consegue ver mais nada ao seu redor. Você tenta gritar, mas não\n\
+consegue. É, acho que é o fim."
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+const s_pnj = 0
+const dir_s = $s_dino034
+
+
+classe s_dino042
+herda b_dino
+const s_titulo = "Dentro do lago"
+const dir_s = $s_dino014
+const dir_b = $s_dino016
+
+
+classe s_dino043
+herda b_dino
+const s_titulo = "No fundo do lago."
+const dir_n = $s_dino038
+
+
+classe s_dino044
+herda b_dino
+const s_titulo = "No fundo do lago."
+const dir_s = $s_dino038
+
+
+classe s_dino045
+herda b_dino
+const s_titulo = "No fundo do lago."
+const dir_s = $s_dino048
+const dir_o = $s_dino039
+
+
+classe s_dino046
+herda b_dino
+const s_titulo = "No fundo do lago."
+const dir_n = $s_dino039
+
+
+classe s_dino047
+herda b_dino
+const s_titulo = "No fundo do lago"
+const dir_s = $s_dino039
+
+
+classe s_dino048
+herda b_dino
+const s_titulo = "No fundo do lago"
+const dir_n = $s_dino045
+const dir_o = $s_dino049
+
+
+classe s_dino049
+herda b_dino
+const s_titulo = "No fundo do lago"
+const dir_l = $s_dino048
+const dir_c = $s_dino050
+
+
+classe s_dino050
+herda b_dino
+const s_titulo = "Uma gruta nas profundezas do lago"
+const dir_s = $s_dino051
+const dir_b = $s_dino049
+
+
+classe s_dino051
+herda b_dino
+const s_titulo = "Nadando ao longo de um túnel"
+const dir_n = $s_dino050
+const dir_s = $s_dino052
+
+
+classe s_dino052
+herda b_dino
+const s_titulo = "Continuando a nadar pelo túnel"
+const dir_n = $s_dino051
+const dir_s = $s_dino053
+
+
+classe s_dino053
+herda b_dino
+const s_titulo = "Nadando pelo túnel"
+const dir_n = $s_dino052
+
+
+classe s_dino054
+herda b_dino
+const s_titulo = "Em um vale cercado por gigantescas árvores."
+const dir_n = $s_dino055
+const dir_s = $s_dino008
+
+
+classe s_dino055
+herda b_dino
+const s_titulo = "Em uma curva para um caminho no vale."
+const dir_s = $s_dino054
+const dir_l = $s_dino056
+
+
+classe s_dino056
+herda b_dino
+const s_titulo = "O início de um largo caminho coberto por folhas secas."
+const s_desc = "Você começa a caminhar sobre folhas secas e galhos secos, que se quebram \
+ao\n\
+serem pisadas por você. Aqui, é impossível caminhar sem ser notado, pois o\n\
+barulho produzido por seus pés ao pisar sobre as folhas ecoa por todo o\n\
+caminho."
+const dir_l = $s_dino057
+const dir_o = $s_dino055
+
+
+classe s_dino057
+herda b_dino
+const s_titulo = "Um largo caminho coberto por folhas secas."
+const dir_l = $s_dino058
+const dir_o = $s_dino056
+
+
+classe s_dino058
+herda b_dino
+const s_titulo = "Um largo caminho coberto com folhas secas."
+const dir_l = $s_dino059
+const dir_o = $s_dino057
+
+
+classe s_dino059
+herda b_dino
+const s_titulo = "Continuando pelo caminho."
+const dir_n = $s_dino060
+const dir_o = $s_dino058
+
+
+classe s_dino060
+herda b_dino
+const s_titulo = "Rumo à escuridão do caminho."
+const dir_n = $s_dino061
+const dir_s = $s_dino059
+
+
+classe s_dino061
+herda b_dino
+const s_titulo = "Rumo à escuridão do caminho."
+const dir_n = $s_dino062
+const dir_s = $s_dino060
+
+
+classe s_dino062
+herda b_dino
+const s_titulo = "Aproximando-se de uma gruta no vale."
+const dir_n = $s_dino063
+const dir_s = $s_dino061
+
+
+classe s_dino063
+herda b_dino
+const s_titulo = "A entrada de uma gruta no vale."
+const dir_s = $s_dino062
+const dir_b = $s_grutavale001

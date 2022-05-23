@@ -1,0 +1,256 @@
+classe a_montaria
+herda area
+
+
+classe b_montaria
+herda sala
+const s_area = "montaria"
+
+
+classe i_montaria001
+herda comum_item
+const nome = "retrovisor da moto"
+const ident = "retrovisor moto"
+const descnome = "o retrovisor da moto"
+const descpos = "Acima do guidão da moto há dois retrovisores, um ao lado direito e outro ao \
+lado esquerdo."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "O retrovisor não pode ser retirado daqui."
+const i_salaver = dono.dono.dono
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe p_montaria001
+herda comum_persobat
+const nome = "Cavalo de montaria"
+const descnome = "um cavalo de montaria"
+const descpadr = "Um cavalo de montaria está aqui, esperando as ordens de seu dono."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const p_agressivo = 0 # Agressivo: 0 Pacífico
+const eveste = 1 # Eventos perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const p_montar = 1
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+
+func cmd_mudadono
+  listaobj l
+  epara l.addfim(dono.dentro2), l, l.ini.remove
+    continuar l.objini == este
+    misc:evento(l.objini)
+  efim
+#
+#
+
+func cmd_escr
+  se arg1 == "desmontar" || arg1 == "descer"
+    ret arg0.descnome != var.z_montando, nulo
+    ret !var.z_montando, arg0.msg("Você não está montado .")
+    apagar(arg0.dentro2.objini("e_montando"))
+    arg0.var.z_montando = ""
+    var.z_montando = ""
+    $mens.p(arg0, este)
+    $mens.mtodos1("$P desmonta $d $a.")
+    ret 1
+  fimse
+
+func cmd_mover
+  ret arg0.descnome != var.z_montando, nulo
+  ret arg0.dono.porta_[arg2] >= 2, arg0.msg("Está fechado.")
+  arg0.msg("Cavalgando...")
+  se arg5
+    $mens.p(arg0, este)
+    $mens.mtodos2("", "$P entrou $e $a montando $A.")
+    mudadono(arg4)
+    arg0.mudadono(arg4)
+    $mens.p(arg0, este)
+    $mens.mtodos2("", "$P entrou aqui montando $A.")
+    ret 1
+  senao arg6
+    $mens.p(arg0, este)
+    $mens.mtodos2("", "$P saiu montando $A.")
+    mudadono(arg6.dono)
+    arg0.mudadono(arg6.dono)
+    $mens.p(arg0, arg6, este)
+    $mens.mtodos2("", "$P saiu $d $a montando $A.")
+    ret 1
+  fimse
+  txt32 dire
+  txt32 dirs
+  txt32 dire2
+  txt32 dirs2
+  dire = txtsub($cmd_[arg2].m_entra2, 0)
+  dirs = txtsub($cmd_[arg2].m_sai2, 0)
+  dire2 = txttroca(dire, "flutuou", "cavalgou")
+  dirs2 = txttroca(dirs, "flutuou", "cavalgou")
+  refvar ndirp = txttroca(dire2, "$m", " montad$s $e $a")
+  refvar ndira = txttroca(dirs2, "$m", " montad$s $e $A")
+  $mens.p(arg0, este)
+  $mens.mtodos2("", ndira)
+  mudadono(arg0.dono.dir_[arg2])
+  arg0.mudadono(arg0.dono.dir_[arg2])
+  $mens.p(arg0, este)
+  $mens.mtodos2("", ndirp)
+  ret 1
+
+
+classe p_montaria002
+herda comum_persoanimal
+const nome = "cavalo de montaria"
+const descnome = "um cavalo de montaria"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+const evest = 1 # Receber eventos do próprio personagem
+#
+
+func cabedentro
+  ret 1
+#
+
+func cmd_falou
+  dentro2.objini.msg("\b" + arg0.descnome + " diz: " + arg1)
+
+
+classe p_montaria003
+herda comum_persobat
+const nome = "cavalo de montaria"
+const ident = "cavalo montaria"
+const descnome = "Um cavalo de montaria"
+const descpadr = "Um belo e imponente cavalo de montaria está aqui, aguardando um cavaleiro \
+digno de montá-lo."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 200
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "montar cavalo"
+    ret !dentro2.objini("s_montaria006"), arg0.msg("Não dá para montar em " + descnome + \
+".")
+    $mens.p(arg0, este)
+    $mens.mtodos1("$P monta em $a.")
+    arg0.mudadono(dentro2.objini("s_montaria006"))
+    ret 1
+  fimse
+#
+
+func cmd_mudadono
+  dentro2.objini("s_montaria006").msg("Cavalgando...")
+  dentro2.objini("s_montaria006").msg(dono.s_titulo)
+  txt100 lin
+  lin = "Saídas: \n"
+  se dono.dir_n
+    lin += "n "
+  fimse
+  se dono.dir_s
+    lin += "s "
+  fimse
+  se dono.dir_l
+    lin += "l "
+  fimse
+  se dono.dir_o
+    lin += "o "
+  fimse
+  se dono.dir_c
+    lin += "c "
+  fimse
+  se dono.dir_b
+    lin += "b "
+  fimse
+  se dono.dir_ne
+    lin += "ne "
+  fimse
+  se dono.dir_no
+    lin += "no "
+  fimse
+  se dono.dir_se
+    lin += "se "
+  fimse
+  se dono.dir_so
+    lin += "so "
+  fimse
+  se dono.dir_entrar
+    lin += "entrar "
+  fimse
+  se dono.dir_sair
+    lin += "sair "
+  fimse
+  dentro2.objini("s_montaria006").msg(lin)
+#
+
+func cabedentro
+  ret 1
+
+
+classe s_montaria001
+herda b_montaria
+const s_titulo = "Campo de montaria"
+const dir_n = $s_montaria003
+const dir_l = $s_montaria002
+
+
+classe s_montaria002
+herda b_montaria
+const s_titulo = "campo de montaria"
+const dir_n = $s_rio001
+const dir_l = $s_montaria005
+const dir_o = $s_montaria001
+const dir_b = $s_rio001
+
+
+classe s_montaria003
+herda b_montaria
+const s_titulo = "campo de montaria"
+const dir_n = $s_montaria004
+const dir_s = $s_montaria001
+const dir_l = $s_rio001
+
+
+classe s_montaria004
+herda b_montaria
+const s_titulo = "campo de montaria"
+const dir_s = $s_montaria003
+
+
+classe s_montaria005
+herda b_montaria
+const s_titulo = "campo de montaria"
+const dir_o = $s_montaria002
+
+
+classe s_montaria006
+herda b_montaria
+const s_titulo = "Em cima do cavalo"
+const dir_b = arg0.dono.dono
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "desmontar"
+    $mens.p(arg0)
+    $mens.mtodos2("", "$P desmontou.")
+    arg0.mudadono(dono.dono)
+    dono.dono.msg(arg0.descnome + " desmontou de cima de " + dono.descnome + ".")
+    ret 1
+  fimse
+  se txt1(arg1) == "cavalgar"
+    ret !dono.dono.dir_[txt2(arg1)], arg0.msg("Impossível cavalgar nessa direção.")
+    dono.teclou(txt2(arg1))
+    ret 1
+  fimse
+
+
+classe s_montaria007
+herda b_montaria
+const dir_c = $s_montaria006

@@ -1,0 +1,38 @@
+classe cmd_where
+herda comando_comum
+const txtajuda = "\b\c3Onde\b\n\
+Sintaxe: ONDE\n\
+Mostra a área em que você está e os jogadores que estiverem por perto."
+const posic = 0
+
+func escr
+  textotxt t0
+  txt100 area
+  ref r
+  epara r = arg0.dono, r.dono, r = r.dono
+  efim
+  area = r.s_area
+# Checa se pode ver a sala
+  se !r.visivel(arg0)
+    se 1 & arg0.bitver
+      arg0.msg("Está escuro...")
+    senao
+      arg0.msg("Você está ceg" + (arg0.msexo ? "o" : "a") + ".")
+    fimse
+    ret
+  fimse
+# Dados da área
+  t0.addfim("\b\c6Área " + $a_[area].a_nome + ":\b")
+# Lista de personagens dos jogadores
+  indiceitem item
+  epara item.ini("pn "), txt1(item.txt) == "pn", item.depois
+# continuar item.obj.jogconfig.18 && !arg0.jogconfig.18
+    continuar !item.obj.visivel(arg0)
+    epara r = item.obj.dono, r.dono, r = r.dono
+    efim
+    continuar area != r.s_area
+    refvar titulo = item.obj.dono.var.z_titulo
+    t0.addfim(item.obj.nome + "    " + (titulo ? titulo : item.obj.dono.s_titulo(arg0)))
+  efim
+  t0.txtmostra
+  arg0.msg2(t0.remove(1000))

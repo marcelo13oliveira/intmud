@@ -1,0 +1,28 @@
+classe cmd_radio
+herda comando_comum
+const posic = 0
+#
+
+func escr
+  se !arg1
+    arg0.msg("Digite a mensagem após radio.")
+  senao arg1
+    se arg0.dono == $s_rio056
+      ref r
+      epara r = $i_itens043, r, r = objdepois(r)
+        se r.var.z_ligado_
+          r.dono.msg("(Rádio fantastic) " + arg0.descnome + " fala como " + (arg0.psexo ? \
+"locutor" : "locutora") + ": '" + arg1 + "'")
+        fimse
+      efim
+    senao
+      ret !arg0.dentro1.objini("i_itens014"), arg0.msg("Você precisa de um celular.")
+      ref r
+      epara r = $i_itens043, r, r = objdepois(r)
+        se r.var.z_ligado_
+          r.dono.msg("(rádio fantastic) " + arg0.descnome + " fala como ouvinte: '" + arg1 + \
+"'")
+        fimse
+      efim
+    fimse
+  fimse

@@ -1,0 +1,140 @@
+classe i_antena
+herda comum_item
+const nome = "antena"
+const descnome = "Uma antena"
+const descpos = "Uma antena está no centro do local, captando os movimentos e enviando-os para a \
+rede de televisão."
+const i_pegar = "Você não tem as ferramentas necessárias para desmontar a antena."
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1
+const evsala = 1
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_mudadono
+  listaobj l
+  epara l.addfim(dono.dentro2), l, l.ini.remove
+    se l.objini.perso
+      misc:evento(l.objini)
+    fimse
+  efim
+#
+
+func cmd_falou
+  txt100 canal
+  canal = txt2(txte(dono))
+  refvar nomecanal = txt(canal, 0, inttotal(canal) - 3)
+  ref p
+  epara p = $i_templo033, p, p = objdepois(p)
+    continuar !p.var.z_ligado_
+    continuar p.var.z_canal != canal
+    se p.dono.s_sala
+      $mens.p(p, arg0)
+      $mens.mens = arg1
+      se txtfim(arg1, 1) == "!"
+        $mens.mvis1som("(" + nomecanal + ") $A exclama: '$m'", "ding")
+      senao txtfim(arg1, 1) == "?"
+        $mens.mvis1som("(" + nomecanal + ") $A pergunta: '$m'", "ding")
+      senao txtfim(arg1, 3) == "..."
+        $mens.mvis1som("(" + nomecanal + ") $A pondera: '$m'", "ding")
+      senao
+        $mens.mvis1som("(" + nomecanal + ") $A diz: '$m'", "ding")
+      fimse
+    fimse
+  efim
+#
+
+func cmd_sussurrou
+  ref p
+  epara p = $i_templo033, p, p = objdepois(p)
+    continuar !p.var.z_ligado_
+    continuar p.var.z_canal != "" + nomecanal + "001"
+    se p.dono.s_sala
+      $mens.p(p, arg0)
+      $mens.mens = arg2
+      $mens.mvis1som("(rio) $A sussurrou para $m", "ding")
+    fimse
+  efim
+#
+
+func cmd_pegouobj
+  se arg4 == arg0
+    txt100 canal
+    canal = txt2(txte(dono))
+    refvar nomecanal = txt(canal, 0, inttotal(canal) - 3)
+    ref p
+    epara p = $i_templo033, p, p = objdepois(p)
+      continuar !p.var.z_ligado_
+      continuar p.var.z_canal != canal
+      se p.dono.s_sala
+        p.pegou(arg0, arg1, arg2, nomecanal)
+      fimse
+    efim
+  fimse
+#
+
+func cmd_soltouobj
+  se arg4 == arg0
+    txt100 canal
+    canal = txt2(txte(dono))
+    refvar nomecanal = txt(canal, 0, inttotal(canal) - 3)
+    ref p
+    epara p = $i_templo033, p, p = objdepois(p)
+      continuar !p.var.z_ligado_
+      continuar p.var.z_canal != canal
+      se p.dono.s_sala
+        p.soltou(arg0, arg1, arg2, nomecanal)
+      fimse
+    efim
+  fimse
+#
+
+func cmd_social
+  se arg3 == arg1
+    txt100 canal
+    canal = txt2(txte(dono))
+    refvar nomecanal = txt(canal, 0, inttotal(canal) - 3)
+    ref p
+    epara p = $i_templo033, p, p = objdepois(p)
+      continuar !p.var.z_ligado_
+      continuar p.var.z_canal != canal
+      se p.dono.s_sala
+        p.socialmsg(arg0, arg1, arg2, nomecanal)
+      fimse
+    efim
+  fimse
+#
+
+func cmd_social1
+  se arg3 == arg1
+    txt100 canal
+    canal = txt2(txte(dono))
+    refvar nomecanal = txt(canal, 0, inttotal(canal) - 3)
+    ref p
+    epara p = $i_templo033, p, p = objdepois(p)
+      continuar !p.var.z_ligado_
+      continuar p.var.z_canal != canal
+      se p.dono.s_sala
+        p.socialmsg1(arg0, nulo, arg2, nomecanal)
+      fimse
+    efim
+  fimse
+#
+
+func cmd_deuobj
+  se arg4 == arg0
+    txt100 canal
+    canal = txt2(txte(dono))
+    refvar nomecanal = txt(canal, 0, inttotal(canal) - 3)
+    ref p
+    epara p = $i_templo033, p, p = objdepois(p)
+      continuar !p.var.z_ligado_
+      continuar p.var.z_canal != canal
+      se p.dono.s_sala
+        p.deuitem(arg0, arg1, arg2, nomecanal)
+      fimse
+    efim
+  fimse

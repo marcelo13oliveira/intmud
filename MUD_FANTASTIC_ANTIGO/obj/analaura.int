@@ -1,0 +1,291 @@
+classe i_analaura
+herda comum_itemperso
+const nome = "bebê"
+const ident = "criança bebê menina"
+const descnome = "Uma bebê"
+const descpos = "Uma bebezinha está aqui, olhando confuza, tentando acostumar-se com o ambiente \
+a sua volta."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 2
+const pesoobj = 2500
+const inivar = "e_\"decarolisa\""
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos em perso: Sim
+const evitem = 1 # Eventos em item: Sim
+const evsala = 1 # Eventos em sala: Sim
+const semdoar = 1
+const manterperso = 1 # Mantém em jogador: Sim
+
+func cmd_soltarobj
+  se arg2 == este
+    arg0.msg("Sua bebê é muito delicada para ser jogada de qualquer geito.")
+    ret 1
+
+func cmd_darobj
+  se arg2 == este
+    arg0.msg("Você não deveria dar uma criança tão pequena a alguém assim...")
+    ret 1
+
+func cmd_pegarobj
+  se arg2 == este
+    arg0.msg("A bebê é muito frágil para que você a pegue desta maneira.")
+    ret 1
+
+func cmd_escr
+  txt100lin(arg0)
+  misc:evento("arg0")
+  se arg1 == "deixar"
+    refvar sala = arg0.contr.dono
+    criar("p_analaura", sala)
+    apagar(este)
+    $mens.p(arg0)
+    $mens.mtodos1("$P deixa sua bebê no chão.")
+    ret 1
+  fimse
+  se arg1 == "comando"
+    arg0.msg("Os comandos para o bebê em seu colo são:")
+    arg0.msg("deixar, deixa a bebê no chão.")
+    arg0.msg("Os comandos para o bebê no chão são:")
+    arg0.msg("digitar, deitar, onde há um berço, faz a bebê dormir no berço.")
+    arg0.msg("Digitar, dormir chiqueirinho, faz a bebê dormir em um chiqueirinho, se houver um \
+na mesma sala.")
+    arg0.msg("Exclamar, laurinha! Faz a bebê te seguir.")
+    arg0.msg("Digitar diga e a mensagem, faz a bebê dizer na sala o que você digitou após \
+diga.")
+    arg0.msg("Falar normal, sem pontuação, espere aqui. Faz a bebÊ parar de seguir você.")
+    arg0.msg("Digitar, dormir chiqueirinho, faz a bebê dormir em um chiqueirinho, se houver um \
+na sala.")
+    arg0.msg("Digitar, sente-se. Faz a bebê sentar-se.")
+    arg0.msg("digitar, levante, faz a bebê ficar em pé.")
+    arg0.msg("Dar itens para a bebê, se for roupa, veste altomaticamente.")
+    arg0.msg("Digitar retirar, A bebê remove tudo o que está usando, e solta tudo de seu \
+inventário na sala.")
+    arg0.msg("Digitar alimentar. Se você tiver uma mamadeira, alimenta a criança.")
+    arg0.msg("A lista poderá ser alterada a qualquer momento.")
+    ret 1
+  fimse
+
+func cmd_hora
+  ret !dono.socktot, nulo # Retorna se não houver jogador na sala
+  refvar hora = (arg0 + 11) % 12 + 1 # Hora MUD de 1 a 12
+  se hora == 1
+    arg0.msg("Ana Laura respira profundamente")
+  senao hora == 2
+    arg0.msg("Aparentemente sonhando, Ana Laura move-se inquieta em seus braços.")
+  senao hora == 3
+    arg0.msg("Ana Laura acorda e chora um pouco, pedindo para sentar.")
+  senao hora == 4
+    arg0.msg("Sua bebê estica o corpinho, sentindo-se incomodada ou impaciente.")
+  senao hora == 5
+    arg0.msg("Ana Laura se sente desconfortável em seu colo. talvez seja uma boa idéia colocá-la \
+no chão.")
+  senao hora == 6
+    arg0.msg("Laurinha baba um pouco em suas roupas.")
+  senao hora == 7
+    arg0.msg("Ana Laura se espreguiça e pousa a cabeça em seu ombro.")
+  senao hora == 8
+    arg0.msg("Ana Laura se estica em seu colo, dormindo preguiçosamente.")
+  senao hora == 9
+    arg0.msg("Ana Laura emite alguns sons sem sentido e sorri.")
+  senao hora == 10
+    arg0.msg("A bebê dá leves sacudidelas em você, apontando curiosa para algo que viu.")
+  senao hora == 11
+    arg0.msg("Laurinha agita-se em seus braços, querendo brincar com você.")
+  senao hora == 12
+    arg0.msg("Ana Laura faz pirraça e quase te ensurdece com seus gritos.")
+    finse
+
+
+classe p_analaura
+herda comum_perso
+const nome = "Ana laura"
+const ident = "criança bebê menina ana laura"
+const descnome = "Ana Laura"
+const descver = "com bochechinhas rosas, cabelos cachiados, essa neném se destaca pelo seu lindo \
+sorriso.\n\
+ela está sempre de bem com a vida, e sorri para quem a olha."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const pesoobj = 2500
+const objmax = 2
+const nivel = 1
+const tipo1 = "criança"
+const p_recebe = 1 # Recebe itens: Sim
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos perso: Sim
+const evperso = 0 # Eventos em perso: Não
+const evsala = 1 # Eventos em sala: Sim
+inttempo tempo
+
+func cmd_chegou
+  misc:evento(arg0)
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "fim"
+    arg0.msg("Você não pode sair sem pegar ana laura no colo.")
+    ret 1
+  casose "fi"
+    arg0.msg("Você não pode sair sem pegar ana laura no colo.")
+    ret 1
+  casose "cmd_quit"
+    arg0.msg("Você não pode sair sem pegar ana laura no colo.")
+    ret 1
+  casose "carregar ana laura"
+    teclou("remover tudo")
+    teclou("soltar tudo")
+    apagar(este)
+    $mens.p(arg0)
+    $mens.mtodos1("$P pega a bebê no colo")
+    criar("i_analaura", arg0)
+    ret 1
+  casose "sente no chiqueirinho"
+    "sente no xiqueirinho"
+    teclou("sit chiq")
+    ret 1
+  casose "dormir chiqueirinho"
+  casose "dormir xiqueirinho"
+    teclou("dormir chiq")
+    ret 1
+  casose "sente na cadeira"
+    teclou("sentar cadeira")
+    ret 1
+  casose "sente no sofá"
+    teclou("sit sof")
+    ret 1
+  casose "sente na cama"
+    teclou("sentar cama")
+    ret 1
+  casose "sente-se"
+    teclou("sentar")
+    ret 1
+  casose "alimentar"
+    ref r
+    r = arg0.dentro1.objini("i_torvani044")
+    se !r
+      arg0.msg("Você não possui uma mamadeira.")
+    senao
+      r.mudadono($p_analaura)
+      $mens.p(arg0)
+      $mens.mtodos1("$P alimenta Ana laura.")
+      teclou("Beber mamadeira")
+      dentro1.objini("i_torvani044").mudadono(arg0)
+      teclou("emot arrota.")
+    fimse
+    ret 1
+  casose "deitar"
+    teclou("dormir berço")
+    ret 1
+  casose "acorde"
+    arg0.msg("você com carinho, acorda ana laura.")
+    posicao = 6
+    ret 1
+  casose "retirar"
+    teclou("remover tudo")
+    teclou("drop tudo")
+    ret 1
+  casose "levante"
+    teclou("levantar")
+    ret 1
+  casofim
+  se arg1 == "comando"
+    arg0.msg("Os comandos para o bebê em seu colo são:")
+    arg0.msg("deixar, deixa a bebê no chão.")
+    arg0.msg("Os comandos para o bebê no chão são:")
+    arg0.msg("digitar, deitar, onde há um berço, faz a bebê dormir no berço.")
+    arg0.msg("Digitar, dormir chiqueirinho, faz a bebê dormir em um chiqueirinho, se houver um \
+na mesma sala.")
+    arg0.msg("Exclamar, laurinha! Faz a bebê te seguir.")
+    arg0.msg("Falar normal, sem pontuação, espere aqui. Faz a bebÊ parar de seguir você.")
+    arg0.msg("Digitar diga e a mensagem, faz a bebê dizer na sala o que você digitou após \
+diga.")
+    arg0.msg("Digitar, dormir chiqueirinho, faz a bebê dormir em um chiqueirinho, se houver um \
+na sala.")
+    arg0.msg("Digitar, sente-se. Faz a bebê sentar-se.")
+    arg0.msg("digitar, levante, faz a bebê ficar em pé.")
+    arg0.msg("Dar itens para a bebê, se for roupa, veste altomaticamente.")
+    arg0.msg("Digitar retirar, A bebê remove tudo o que está usando, e solta tudo de seu \
+inventário na sala.")
+    arg0.msg("Digitar alimentar. Se você tiver uma mamadeira, alimenta a criança.")
+    arg0.msg("A lista poderá ser alterada a qualquer momento.")
+    ret 1
+  fimse
+  se txtsub(arg1, 0, 1) == "diga"
+    teclou("falar " + txtsub(arg1, 1))
+    ret 1
+  fimse
+
+func cmd_falou
+  se arg1 == "laurinha!"
+    seguirjog(arg0)
+    $mens.p(arg0)
+    $mens.mtodos1("Ana Laura começa a seguir $p")
+  fimse
+  se arg1 == "aninha"
+    teclou("sorr carolisa")
+    $mens.p(arg0)
+    $mens.mtodos1("Ana Laura estende as mãozinhas a $P.")
+  fimse
+  se arg1 == "espere aqui"
+    $mens.p(arg0)
+    $mens.mtodos1("Ana laura para de seguir $P")
+    se iseguir.remove
+
+func descpadr
+  se iseguir
+    ret "A bebê de Carolisa está aqui, seguindo" + iseguir.objlista.descnome + "."
+  senao
+    ret "Uma bebezinha está aqui, olhando em volta, tentando acostumar-se com o ambiente a sua \
+volta."
+
+func seguirjog
+  iseguir.remove
+  iseguir = arg0.lseguir.addfim(este)
+
+func cmd_mudadono
+  misc:evento(iseguir.objlista)
+
+func cabedentro
+  ret 1
+
+func cmd_deuobj
+  teclou("vestir tudo")
+  ret 1
+
+func cmd_hora
+  ret !dono.socktot, nulo # Retorna se não houver jogador na sala
+  refvar hora = (arg0 + 11) % 12 + 1 # Hora MUD de 1 a 12
+  $mens.p(este)
+  se hora == 1
+    teclou("abraçar carolisa")
+  senao hora == 2
+    $mens.mtodos1("Ana laura se espreguiça, descançando")
+    posicao = 5
+  senao hora == 3
+    $mens.mtodos1("Parecendo sonhar, Ana Laura procura pela mãe ao lado")
+    teclou("em começa a querer ir em sua direção, estendendo os bracinhos.")
+  senao hora == 4
+    $mens.mtodos1("Ana Laura bate palminhas em um rítmo, em quanto sorri alégre.")
+    $mens.mtodos1("Ana laura começa a olhar para os lados, cadê mamãe? cadê mamãe? Parece que \
+achou!")
+    teclou("env carolisa")
+  senao hora == 6
+    teclou("beijar carolisa")
+  senao hora == 7
+    teclou("dormir")
+  senao hora == 8
+    teclou("acordar")
+    teclou("chorar")
+    $mens.mtodos1("ana laura começa a chorar de fome!")
+  senao hora == 9
+    teclou("em balança a cabeça de um lado para o outro")
+    teclou("susp")
+  senao hora == 10
+    teclou("em baba um pouco, molhando-se com a própria saliva.")
+  senao hora == 11
+    $mens.mtodos1("Ana Laura começa a chorar, sem motivo aparente.")
+  senao hora == 12
+    teclou("em coloca o dedo indicador na boca, como se fosce um delicioso pirulito.")
+  fimse

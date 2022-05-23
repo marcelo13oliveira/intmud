@@ -1,0 +1,125 @@
+classe a_armas
+herda area
+
+
+classe b_armas
+herda sala
+const s_area = "armas"
+
+
+classe i_armas001
+herda comum_itemgrupo
+const nome = "espada longa"
+const descnome = "uma espada longa"
+const nivel = 3
+const armamax = 150
+const armamin = 100
+const armafalha = 5
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const armaatk = "espada"
+
+
+classe i_armas002
+herda comum_item
+const nome = "adaga de bronze"
+const descnome = "uma adaga de bronze"
+const nivel = 30
+const armamax = 180
+const armamin = 90
+const armatipo = 3 # Tipo de arma: 3 Lâmina curta
+const tipoitem = 2 # Tipo de item: 1-arma
+const valor = 750
+const vestirnao = "clérigo\ndruida\nmago\nmonge\nnecromante"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 50
+  atktipo.5 *= 1.01 # Perfurante
+
+
+classe i_armas003
+herda comum_item
+const nome = "arco"
+const descnome = "um arco"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const armamanual = 1 # Só ataca manual: Sim
+const armamax = 600
+const armamin = 500
+const armamunicao = 1 # Origem da munição: 1 Itens no inventário
+const armafalha = 5
+const armamove = 2
+const armatipo = 6 # Tipo de arma: 6 Arco e flecha
+const i_municao = "armas004"
+const vestir1 = 8388608 # Aonde vestir: 23-na cintura
+const armaatk = "flechar"
+
+
+classe i_armas004
+herda comum_itemgrupo
+const nome = "flecha"
+const descnome = "uma flecha"
+
+
+classe i_armas005
+herda comum_itemperso
+const nome = "bainha"
+const descnome = dentro1.objini ? dentro1.objini.descnome + " embainhad" + (dentro1.objini.msexo \
+? "o" : "a") : "uma bainha"
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const objmax = 1
+const vestir1 = 8388608 # Aonde vestir: 23-na cintura
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "desembainhar"
+  casose "desembainha"
+  casose "desembainh"
+  casose "desembain"
+  casose "desembai"
+  casose "desemba"
+  casose "desemb"
+  casose "desem"
+    arg0.teclou("pegar tudo bainha")
+    ret 1
+  casofim
+#
+
+func cmd_soltarobj
+  se arg1 == este && arg2.armatipo == 4
+    ret arg1.dono != arg0, arg0.msg("Antes, precisa segurar a bainha.")
+    $mens.p(arg0, arg1, arg2)
+    $mens.mtodos2("$P embainha $O.")
+    arg2.mdono(arg1, 1)
+    ret 1
+  fimse
+#
+
+func cmd_pegarobj
+  se arg1 == este
+    ret arg1.dono != arg0, arg0.msg("Antes, precisa segurar a bainha.")
+    $mens.p(arg0, arg1, arg2)
+    $mens.mtodos1("\d=desembanha $P desembainha $o.")
+    arg2.mdono(arg0, 1)
+    ret 1
+  fimse
+
+
+classe i_armas006
+herda comum_item
+const nome = "metralhadora"
+const descnome = "uma potente metralhadora"
+const descpos = "Uma potente metralhadora foi jogada aqui."
+const armamax = 600
+const armamin = 300
+const armamunicao = 2 # Origem da munição: 2 Itens na arma
+const armafalha = 5
+const armatipo = 9 # Tipo de arma: 9 atirar
+const i_pegar = "Fique longe dela."
+const pesoobj = 8000
+const i_empunhoumsg = "$P arma-se com $o."
+const volobj = 15
+const armaatk = "metralhadora"
+const i_msgvestiu = "$P arma-se com $o."

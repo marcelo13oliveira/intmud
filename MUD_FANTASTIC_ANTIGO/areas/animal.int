@@ -1,0 +1,112 @@
+classe a_animal
+herda area
+
+
+classe b_animal
+herda sala
+const s_area = "animal"
+
+
+classe p_animal001
+herda comum_persobat
+const nome = var.z_nome ? var.z_nome : "coelho de " + var.z_dono
+const ident = var.z_nome ? var.z_nome + " " + var.z_dono : "coelho " + var.z_dono
+const descnome = var.z_nome ? var.z_nome + ", o coelho de " + var.z_dono : "o coelho de " + \
+var.z_dono
+const objmax = 15
+const nivel = 5
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "h_bicar=8,h_arranhar=8"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const segurar = 1
+const objsav = 1
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  se arg0.descnome == var.z_dono
+    seguirjog(arg0)
+#
+
+func seguirjog
+  misc:evento(arg0)
+  seguir(arg0)
+#
+
+func cmd_mudadono
+  seguir(arg0)
+  misc:evento(iseguir.objlista)
+  arg0.tseguir = 2
+  tseguir = 1
+#
+#
+
+func cabedentro
+  ret 1
+#
+
+func cmd_escr
+  se txt1(arg1) == "coelho"
+    ret arg0.descnome != var.z_dono, nulo
+    se txt2(arg1) == "inv"
+      textotxt t
+      listaitem item
+      epara item = dentro1.fim, item, item.antes
+        refvar i = item.obj
+        continuar !i.visivel(arg0)
+        refvar nn = txtsublin(i.atribs.ini.textolin(2), 1)
+        t.addfim(txt(i.objtot) + i.atribs.ini.texto + txtcopiamai(i.descnome, "A") + nn)
+      efim
+      t.juntalin("(", "x)")
+      se t
+        arg0.msg2("\b\c6" + nome + " carrega:\b\n" + txttroca(t.remove(1000), "\d+", "\n"))
+      senao
+        arg0.msg("\b" + descnome + " não está carregando nada.")
+      fimse
+      ret 1
+    senao
+      refvar comand = txt2(arg1)
+      se txt1(comand) == "nomear"
+        var.z_nome = txt2(comand)
+        arg0.msg("Você mudou o nome da sua coelho para " + var.z_nome + ".")
+        ret 1
+      senao txt2(arg1) == "moedas"
+        arg0.msg(descnome + " possui " + var.z_moedas + " moedas.")
+        ret 1
+      senao txt2(arg1) == "hab"
+        textotxt h
+        txt100 t1
+        txt100 t2
+        epara t1 = var.ini("h_"), t1, t1 = var.depois(t1, "h_")
+          t2 = txte(txt(t1, 2)) # , t2 += txtesp(30 - inttotal(t2))
+          t2 += " / " + txtsublin(misc:aulas, var.[t1]_, 1)
+          txt2(var.[t1]) && (t2 += " R" + txt2(var.[t1]))
+          h.addfim(t2)
+        efim
+        ret !h.linhas, arg0.msg("Nenhuma habilidade.")
+        h.addini("\b\c6Habilidades" + n + " de " + nome + ":\b")
+        arg0.msg2(h.remove(1000))
+        ret 1
+      senao txt2(arg1) == "dmoedas"
+        teclou("dar " + var.z_moedas + " moedas " + arg0.descnome)
+        ret 1
+      senao
+        teclou(comand)
+        ret 1
+      fimse
+    fimse
+
+const objlimite = 15
+
+
+classe p_animal002
+herda comum_persobat
+const objmax = 15
+const nivel = 3
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "h_morder=8,h_arranhar=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim

@@ -1,0 +1,3206 @@
+classe a_dragunia
+herda area
+const a_tempo = 30
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_nome = "Dragúnia, o mundo dos dragões"
+const a_autor = "Ecord e Seiya"
+const a_txtreset = "Um dragão alado voa lá no céu."
+
+
+classe b_dragunia
+herda sala
+const s_item = 0
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_recup = 5
+const s_terreno = 2 # Terreno: 2 Campo, um campo aberto - 2mv
+const s_area = "dragunia"
+
+
+classe i_dragunia001
+herda comum_itemperso
+const nome = "Uma chave sólida"
+const ident = "Chave sólida"
+const descnome = "Uma chave sólida"
+const descpos = "Uma chave muito sólida está no chão."
+const descver = "Você não consegue muito bem saber para que ela serve, mais algo te diz que\n\
+ela abre um lugar muito importante, cheio de mistérios espalhados por todos\n\
+os lados."
+const i_chave = "porta dragão 1"
+const pesoobj = 10
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  deftipo.6 *= 0.58 # Fogo
+  deftipo.7 *= 2 # Água
+
+
+classe i_dragunia002
+herda comum_itemperso
+const nome = "Uma chave flamejante"
+const ident = "Chave flamejante"
+const descnome = "Uma chave flamejante"
+const descpos = "Uma chave, parecendo ser de fogo está no chão. Cuidado!"
+const descver = "Não se sabe ao certo o que essa chave guarda. Dizem ser um lugar, que contém \
+uma grande fortuna!"
+const i_chave = "Porta flamejante"
+const pesoobj = 20
+
+
+classe i_dragunia003
+herda comum_itemperso
+const nome = "Uma chave dourada"
+const descnome = "Uma chave dourada"
+const descpos = "Uma pequena chave, aparecendo ser de um quarto de uma criança está aqui."
+const descver = "Uma chave com a foto de uma criança muito bonita... Pelomenos na foto, não\n\
+é."
+const i_chave = "Porta amarela"
+const pesoobj = 20
+
+
+classe i_dragunia004
+herda comum_itemperso
+const nome = "Uma chave negra"
+const ident = "Chave negra"
+const descnome = "Uma chave negra"
+const descpos = "Uma chave negra está no chão, amaldiçoando o local."
+const descver = "Uma chave muito escura. Ao olhar mais atentamente para ela, você sente medo, e \
+desiste de investiga-la."
+const i_chave = "Porta Escura"
+const pesoobj = 20
+
+
+classe i_dragunia005
+herda comum_itemperso
+const nome = "Uma chave brilhante"
+const ident = "Chave brilhante"
+const descnome = "Uma chave brilhante"
+const descpos = "Uma chave brilhante está no chão. Ela quase que cega você!"
+const descver = "Ao olhar para ela, você quase perde a visão com tanto brilho que sai da\n\
+chave, então você vira rapidamente, esquecendo o que ia fazer."
+const i_chave = "brilhodklasjfkelwfsd"
+const pesoobj = 20
+
+
+classe i_dragunia006
+herda comum_itemperso
+const nome = "Uma chave espelhada"
+const ident = "Chave espelhada reflete imagem"
+const descpos = "Uma chave muito estranha, que contém a sua imagem está no chão."
+const descver = "Ao olhar para essa chave, você se assusta, pois, ela conta tudo sobre você."
+const i_chave = "Porta espelhadafkdajlkfdjkladsjfoiewjafodsklfejwosdijofsd"
+const pesoobj = 20
+
+
+classe i_dragunia007
+herda comum_itemperso
+const nome = "Um baú"
+const ident = "Baú"
+const descnome = "Um baú"
+const descpos = "Um baú está no chão."
+const descver = "Você nunca tinha visto algo igual. O baú é todo dourado, e sua madeira é\n\
+muito bonita. Em seus lados, existem pedras brilhantes, que brilham mais que\n\
+o normal,a ssim que você se aproxima. Em sua tampa, a imagem de um dragão\n\
+muito forte, porém vencido aparece diante de seus olhos. Você sente dó, mais\n\
+algo desvia sua atenção, e você esquece isso. Quando você olha mais\n\
+atentamente o baú, percebe que tem algo lá dentro. O que será?"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "Você tenta, mais algo misterioso segura o baú, empedindo-o de ser pego."
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const evitem = 1 # Eventos dono item: Sim
+
+func cmd_ini
+  var.z_moedas = 10000
+
+
+classe i_dragunia008
+herda i_dragunia007
+
+
+classe i_dragunia009
+herda i_dragunia008
+
+
+classe i_dragunia010
+herda i_dragunia008
+
+
+classe i_dragunia011
+herda i_dragunia008
+
+
+classe i_dragunia012
+herda i_dragunia008
+
+
+classe i_dragunia013
+herda comum_itemperso
+const nome = "A pata do dragão vermelho"
+const ident = "pata dragão vermelho"
+const descnome = "A pata do dragão vermelho"
+const descpos = "Uma pata vermelha, aparentemente de um dragão foi esquecida aqui."
+const descver = "Nada mais do que a pata do dragão vermelho. Você nunca tinha visto algo\n\
+igual. O baú é todo dourado, e sua madeira é muito bonita. Em seus lados,\n\
+existem pedras brilhantes, que brilham mais que o normal,a ssim que você se\n\
+aproxima. Em sua tampa, a imagem de um dragão muito forte, porém vencido\n\
+aparece diante de seus olhos. Você sente dó, mais algo desvia sua atenção, e\n\
+você esquece isso. Quando você olha mais atentamente o baú, percebe que tem\n\
+algo lá dentro. O que será?"
+const nivel = 100
+const renascer = 2
+const pesoobj = 5000
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 1000
+const vestir1 = 524288 # Aonde vestir: 19-Nos pés
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmovemax += 500
+  pveloc1 += 35
+  atknorm += 90
+  defnorm += 90
+  atkesp += 90
+  defesp += 90
+  evasao += 50
+  precisao += -20
+  atktipo.6 *= 1.1 # Fogo
+
+
+classe i_dragunia014
+herda comum_itemperso
+const nome = "O cajado do dragão negro"
+const descnome = "O cajado do dragão negro"
+const descpos = "Um cajado, tão negro quanto a noite está aqui, assustando você."
+const descver = "Uma poderosa luz negra sai do cajado, quando você fixa seus olhos nele. \
+Um\n\
+medo percorre suas espinhas ao notar o quão forte este cajado é. O cajado é\n\
+incrível, e você acha que seu poder de destruição é incompreensível, graças\n\
+ao medo que você sente, e o dragão que precisou mata-lo para ter esse\n\
+magnífico cajado consigo."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 100
+const renascer = 2
+const armamax = 285
+const armamin = 100
+const armaprecisao = 100
+const armatipo = 2 # Tipo de arma: 2 Cajado
+const pesoobj = 1000
+const vestir1 = 16777216 # Aonde vestir: 24-segurando
+const vestirnao = "assassino\nbispo\nclerigo\nespadachim\nguerreiro\nladrão"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200
+  pmanamax += 350
+  pveloc1 += 30
+  atkesp += 120
+  evasao += 70
+  precisao += 100
+
+
+classe i_dragunia015
+herda comum_itemgrupo
+const nome = "Os olhos do dragã marinho"
+const ident = "olhos dragão marinho"
+const descnome = "Os olhos do dragão marinho"
+const descpos = "Um par de olhos foram atirados ao chão."
+const descver = "Um par de olhos gigantes estão aqui, você acredita que sejam olhos de algum\n\
+dragão."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 75
+const renascer = 1
+const pesoobj = 800
+const vestir1 = 1 # Aonde vestir: 0-Flutuando no ar
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 150
+  pmanamax += 100
+  pmovemax += 150
+  pveloc1 += 25
+  atknorm += 50
+  defnorm += 80
+  atkesp += 50
+  defesp += 80
+  precisao += 98
+
+
+classe i_dragunia016
+herda comum_itemperso
+const nome = "A espada do dragão brilhante"
+const ident = "Espada dragão brilhante"
+const descnome = "A espada do dragão brilhante"
+const descpos = "Uma espada, que brilha na medida que você se aproxima está aqui."
+const descver = "Uma espada muito brilhante, que quase cega você, ao olha-la."
+const nivel = 115
+const renascer = 2
+const armamax = 1500
+const armamin = 150
+const armaprecisao = 100
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const pesoobj = 1000
+const vestir1 = 16777216 # Aonde vestir: 24-segurando
+const vestirnao = "assassino\nbispo\nclérigo\nfeiticeiro\nladrão\nmago"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 300
+  pmovemax += 300
+  pveloc1 += 20
+  atknorm += 115
+  atkesp += -40
+  evasao += 70
+  precisao += 115
+
+
+classe i_dragunia017
+herda comum_itemperso
+const nome = "a adaga do dragão azul"
+const ident = "Adaga dragão azul"
+const descnome = "a adaga do dragão azul"
+const descpos = "Uma adaga, muito afiada está no chão."
+const descver = "Você não sabe ao certo de quem, ou para quem foi feita esta adaga, mais sabe \
+que ela é muito forte, e pode matar muitas pessoas, em questão de segundos."
+const nivel = 110
+const renascer = 2
+const armamax = 990
+const armamin = 110
+const armaprecisao = 100
+const armatipo = 3 # Tipo de arma: 3 Lâmina curta
+const pesoobj = 600
+const vestir1 = 16777216 # Aonde vestir: 24-segurando
+const vestirnao = "bispo\nclérigo\nespadachim\nfeiticeiro\nguerreiro\nmago"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 300
+  pmovemax += 300
+  pveloc1 += 37
+  atknorm += 110
+  atkesp += -30
+  evasao += 40
+  precisao += 120
+  pesomax += 30000
+
+
+classe i_dragunia018
+herda comum_itemperso
+const nome = "O Fogo do dragão"
+const ident = "fogo draconiano"
+const descnome = "O Fogo do dragão"
+const descpos = "Um fogo queima aqui, e ilumina todo o local."
+const descver = " Isto é realmente um fogo.\n\
+ Totalmente avermelhado, ele queima intensamente, e parece nunca apagar.\n\
+ Seu calor é extremamente forte, e seu brilho ofuscante. Isto parece ser muito valioso e útio em \
+uma batalha!!!"
+const nivel = 100
+const renascer = 10
+const luzitem = 7 # Tipo de luz: 7 Automático (acende ao vestir, sem fogo)
+const luzini = 37200
+const tipoitem = 256 # Tipo de produto: 8-Fonte de luz
+const valor = 10000
+const vestir1 = 4194304 # Aonde vestir: 22-Como luz
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200
+  pmanamax += 200
+  pmovemax += 200
+  pveloc1 += 40
+  atknorm += 70
+  defnorm += 70
+  atkesp += 70
+  defesp += 70
+  evasao += -20
+  precisao += 70
+  pesomax += 50000
+  bitver |= 4352
+
+
+classe i_dragunia019
+herda comum_itemperso
+const nome = "As asas da escuridão"
+const descnome = "As asas da escuridão"
+const descver = " Estas asas, com seu brilho totalmente obscuro, chama muita a atenção.\n\
+ Com pequenas escamas, ela parece vibrar intensamente, e emana uma aura poderosa.\n\
+ Sua levesa parece surreal, e a forma que ela se adéqua ao seu corpo, é sobre natural.\n\
+ Parece ser uma boa armadura, e um bom equipamento de se ostentar."
+const nivel = 100
+const renascer = 5
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const vestir1 = 256 # Aonde vestir: 8-Nas costas
+const vestirnao = "bispo\nclerigo"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += -100
+  pmanamax += 300
+  pveloc1 += 40
+  atknorm += 70
+  defnorm += 70
+  atkesp += 70
+  defesp += 70
+  evasao += 40
+  precisao += 90
+  pesomax += 100000
+  bitinv |= 16
+
+
+classe p_dragunia001
+herda comum_persobat
+const nome = "Um dragão vermelho"
+const descnome = "Um dragão vermelho"
+const descpadr = "Um dragão vermelho se vira para você, rosnando furioso com fome de sua \
+vida."
+const descver = "Ele é temido por todos por seu enorme poder, nem mesmo os mais fortes dos\n\
+dragões se atrevem a cruzar o seu caminho. O seu ódio só é sanado com a sua\nmorte."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 200
+const tipo1 = "npc"
+const tipo2 = "npc"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 300000
+const inivar = "e_negra=0,e_barreira_fogo=0,h_segundo_ataque=8,h_terceiro_ataque=8,h_quarto_ataqu\
+e=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200000
+  bitver |= 4126
+  bitinv |= 16
+  atktipo.0 *= 2 # Tipos Normais
+  atktipo.6 *= 2 # Fogo
+
+
+classe p_dragunia002
+herda comum_persobat
+const nome = "Um dragão branco"
+const descnome = "Um dragão branco"
+const descpadr = "Um imponente dragão branco se ergue das sombras, pronto para te atacar."
+const descver = "Sua imponência é uma das principais armas desse feroz dragão, que por meio\n\
+de uma força desconhecida por você, tem uma reluzente aura ao seu redor, que\n\
+chega até a brilhar no escuro."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 200
+const tipo1 = "npc"
+const tipo2 = "npc"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 300000
+const inivar = "e_sanc=0,e_barreira_fogo=0,h_segundo_ataque=8,h_terceiro_ataque=8,h_quarto_ataque\
+=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200000
+  bitinv &= ~2
+  bitver |= 62
+  bitinv |= 16
+  atktipo.0 *= 2 # Tipos Normais
+  atktipo.12 *= 2 # Luz
+
+
+classe p_dragunia003
+herda comum_persobat
+const nome = "Um dragão marinho"
+const descnome = "Um dragão marinho"
+const descpadr = "Um dragão marinho surge diante de seus olhos."
+const descver = "Um dragão feroz, ágil e muito forte... O dragão marinho é temido por todos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 200
+const tipo1 = "npc"
+const tipo2 = "npc"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 300000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const inivar = "e_sanc=0,e_barreira_água=0,h_segundo_ataque=8,h_terceiro_ataque=8,h_quarto_ataque\
+=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200000
+  bitver |= 62
+  bitinv |= 16
+  atktipo.0 *= 2 # Tipos Normais
+  atktipo.7 *= 2 # Água
+
+
+classe p_dragunia004
+herda comum_persobat
+const nome = "Um dragão perdido"
+const ident = "Dragão perdido"
+const descnome = "Um dragão perdido"
+const descpadr = "Um dragão está aqui, com fome de sua alma."
+const descver = "Seus olhos a todo tempo mostram ódio, apesar de um azul límpido. Seu corpo\n\
+é muito ágil, e não adianta você correr dele. Quando você foca em analisar\n\
+seus braços, ele se sente ameaçado, e parte pra cima de você, tentando te\n\
+destruir."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 85
+const tipo1 = "pnj"
+const tipo2 = "pnj"
+const tipo3 = "normal"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 150000
+const p_morreu1 = "$P morreu."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const inivar = "h_segundo_ataque=8,h_chutar=4,e_barreira_fogo=0,z_moedas=2300,e_negra=0"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_dragunia005
+herda comum_persobat
+const nome = "Um dragão negro"
+const descnome = "Um dragão negro"
+const descpadr = "A sombra de um dragão se materializa na sua frente."
+const descver = "Ele mais parece uma sombra... Mas não deixe se enganar por isso, sua força\n\
+e equivalente a dos outros dragões mais fortes de Dragúnia."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 200
+const tipo1 = "npc"
+const tipo2 = "npc"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 150000
+const inivar = "e_negra=0,e_barreira_fogo=0,h_segundo_ataque=8,h_terceiro_ataque=8,h_quarto_ataqu\
+e=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200000
+  bitver |= 62
+  bitinv |= 16
+  atktipo.0 *= 2 # Tipos Normais
+  atktipo.13 *= 2 # Trevas
+
+
+classe p_dragunia006
+herda comum_persobat
+const nome = "Um dragão guerreiro"
+const descnome = "Um dragão guerreiro"
+const descpadr = "Um dragão guerreiro passa por aqui, impondo total respeito."
+const descver = "Velocidade e força são as principais características desse ser. Sua postura\n\
+é imponente."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 195
+const tipo1 = "pnj"
+const tipo2 = "pnj"
+const tipo3 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 150000
+const p_fugir = 200
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const inivar = "e_sanc=0,e_barreira_fogo=0,h_segundo_ataque=8,h_terceiro_ataque=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 20000
+  atknorm += 68
+  bitinv |= 16
+  atktipo.0 *= 2 # Tipos Normais
+  atktipo.2 *= 2 # Contusão
+  atktipo.3 *= 2 # Luta
+
+
+classe p_dragunia007
+herda comum_persobat
+const nome = "Um dragão pequeno"
+const ident = "Dragão pequeno"
+const descnome = "Um dragão pequeno"
+const descpadr = "Um dragão pequeno está aqui, encarando você."
+const descver = "Seus olhos são ainda, de uma pessoa boa. Ele passa o tempo todo brincando\n\
+de cuspir fogo para os lados. Mesmo que pequeno, seus braços são enormes, e\n\
+seu corpo é todo musculoso. Do nada ele percebe que você o olha atentamente,\n\
+e mostra seus dentes afiados para você, que sente medo e desvia sua atenção\n\
+para os lados, aterrorisado."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 5400
+const nivel = 70
+const tipo1 = "pnj"
+const tipo2 = "normal"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 135000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const inivar = "h_segundo_ataque=8,e_negra=0,e_barreira_fogo=0,z_moedas=1200"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  defnorm += 40
+
+
+classe p_dragunia008
+herda comum_persobat
+const nome = "Um dragão de duas cabeças"
+const descnome = "Um dragão de duas cabeças"
+const descpadr = "Um dragão de duas cabeças passa voando por você."
+const descver = "Que figura horripilante!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 70
+const tipo1 = "pnj"
+const tipo2 = "normal"
+const tipo3 = "normal"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 135000
+const p_fugir = 200
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const inivar = "e_negra=0,e_barreira_fogo=0,h_segundo_ataque=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1000
+  atknorm += 55
+  bitinv |= 16
+  atktipo.0 *= 2 # Tipos Normais
+  atktipo.6 *= 2 # Fogo
+
+
+classe p_dragunia009
+herda comum_persobat
+const nome = "Um dragão em chamas"
+const ident = "Dragão chamas"
+const descnome = "Um dragão em chamas"
+const descpadr = "Um enorme dragão com chamas por todo o corpo aparece do nada diante de seus \
+olhos."
+const descver = "Com muitas chamas ao redor do corpo, este é um dragão muito diferente. Ele\n\
+é enorme e parece estar com muita raiva. Cuidado!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 21000
+const nivel = 70
+const tipo1 = "pnj"
+const tipo2 = "normal"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 150000
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  deftipo.6 *= 2.5 # Fogo
+  deftipo.7 *= 0.5 # Água
+
+
+classe p_dragunia010
+herda comum_persobat
+const nome = "Um draco andarilho"
+const ident = "draco andarilho"
+const descnome = "Um draco andarilho"
+const descpadr = "Um draco andarilho está aqui, fazendo a sua caminhada diária."
+const descver = "Nada mais do que um homem simples. Seu corpo é bem definido por questão \
+de\n\
+todos os dias estar caminhando. Como você vê agora, ele caminha sem dar\n\
+sinal de cansaço. Seu rosto está coberto de suor e suas roupas estão\n\
+completamente Molhadas."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 54000
+const nivel = 140
+const tipo1 = "pnj"
+const tipo2 = "pnj"
+const tipo3 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 150000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 400
+const inivar = "h_chutar=2,h_socar=2,h_segundo_ataque=8,e_sanc=0"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_dragunia011
+herda comum_persobat
+const nome = "Uma tartaruga dragão"
+const descnome = "Uma tartaruga dragão"
+const descpadr = "Uma tartaruga dragão está aqui, com parte fora d'água."
+const descver = "essa tartaruga é bem estranha, não?"
+const nivel = 110
+const tipo1 = "pnj"
+const tipo2 = "pnj"
+const tipo3 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 150000
+const p_fugir = 200
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const inivar = "e_sanc=0,e_barreira_água=0,h_segundo_ataque=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 3000
+  atknorm += 61
+  bitinv |= 16
+  atktipo.0 *= 2 # Tipos Normais
+  atktipo.7 *= 2 # Água
+
+
+classe p_dragunia012
+herda comum_persobat
+const nome = "Um dragão cromado"
+const descnome = "Um dragão cromado"
+const descpadr = "Um dragão cromado está de fronte a uma porta."
+const descver = "Que brilho intenso!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 200
+const tipo1 = "npc"
+const tipo2 = "normal"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 150000
+const inivar = "e_sanc=0,e_barreira_fogo=0,e_barreira_água=0,e_barreira_areia=0,e_escudo_ar=0,h_s\
+egundo_ataque=8,h_terceiro_ataque=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100000
+  bitinv |= 16
+  atktipo.0 *= 2 # Tipos Normais
+
+
+classe p_dragunia013
+herda comum_persobat
+const nome = "O dragão guardião"
+const ident = "Dragão guardião"
+const descnome = "O dragão guardião"
+const descpadr = "O dragão guardião está aqui, protegendo a porta com sua vida."
+const descver = "Muito auto e robusto, desde sua infância que esse ser jura proteger os\n\
+dragões. Quando você entra na sala ele vira-se para você lhe olhando com\n\
+cara de poucos amigos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 200000
+const nivel = 100
+const tipo1 = "npc"
+const tipo2 = "normal"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 150000
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,h_chutar=2,z_moedas=3200"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100000
+  deftipo.6 *= 0.5 # Fogo
+  deftipo.7 *= 1.5 # Água
+
+
+classe p_dragunia014
+herda comum_persobat
+const nome = "Um dragão dourado"
+const descnome = "Um dragão dourado"
+const descpadr = "Um dragão dourado está de fronte a uma porta."
+const descver = "ele tem um brilho reluzente, que quase o deixa cego."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 200
+const tipo1 = "npc"
+const tipo2 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 150000
+const inivar = "e_sanc=0,e_barreira_fogo=0,e_barreira_água=0,e_barreira_areia=0,e_escudo_ar=0,h_s\
+egundo_ataque=8,h_terceiro_ataque=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100000
+  bitinv |= 16
+  atktipo.0 *= 2 # Tipos Normais
+
+
+classe p_dragunia015
+herda comum_persobat
+const nome = "Um dragão flamejante"
+const descnome = "Um dragão flamejante"
+const descpadr = "Um dragão flamejante está de fronte a uma porta."
+const descver = "Fogo e mais fogo!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 200
+const tipo1 = "npc"
+const tipo2 = "normal"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 150000
+const inivar = "e_sanc=0,e_barreira_fogo=0,h_segundo_ataque=8,h_terceiro_ataque=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100000
+  bitinv |= 16
+  atktipo.0 *= 2 # Tipos Normais
+
+
+classe p_dragunia016
+herda comum_persobat
+const nome = "Um dragão sombrio"
+const descnome = "Um dragão sombrio"
+const descpadr = "Um dragão sombrio está de fronte a uma porta."
+const descver = "Sombras e mais sombras!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 200
+const tipo1 = "npc"
+const tipo2 = "npc"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 150000
+const inivar = "e_negra=0,e_barreira_fogo=0,e_escudo_ar=0,e_barreira_água=0,e_barreira_areia=0,h_\
+segundo_ataque=8,h_terceiro_ataque=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100000
+  bitinv |= 16
+  atktipo.0 *= 2 # Tipos Normais
+
+
+classe p_dragunia017
+herda comum_persobat
+const nome = "Um dragão prateado"
+const descnome = "Um dragão prateado"
+const descpadr = "Um dragão prateado está de fronte a uma porta."
+const descver = "Que brilho cegante!"
+const nivel = 200
+const tipo1 = "npc"
+const tipo2 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 300000
+const inivar = "e_sanc=0,e_barreira_fogo=0,e_escudo_ar=0,e_barreira_água=0,e_barreira_areia=0,h_s\
+egundo_ataque=8,h_terceiro_ataque=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100000
+  bitinv |= 16
+  atktipo.0 *= 2 # Tipos Normais
+
+
+classe p_dragunia018
+herda comum_persobat
+const nome = "Um dragão negro"
+const descnome = "Um dragão negro"
+const descpadr = "Um dragão negro aparece diante de você."
+const descver = "A maldade está estampada no rosto desse gigantesco dragão das trevas."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 200
+const tipo1 = "npc"
+const tipo2 = "npc"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 300000
+const inivar = "e_negra=0,e_barreira_fogo=0,h_segundo_ataque=8,h_terceiro_ataque=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200000
+  bitver |= 62
+  bitinv |= 16
+  atktipo.0 *= 2 # Tipos Normais
+  atktipo.13 *= 2 # Trevas
+
+
+classe p_dragunia019
+herda comum_persobat
+const nome = "Um dragão azul"
+const descnome = "Um dragão azul"
+const descpadr = "Um dragão azul olha furioso para você."
+const descver = "Ele é temido por todos, por toda sua força e velocidade."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 200
+const tipo1 = "npc"
+const tipo2 = "npc"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 300000
+const inivar = "e_sanc=0,e_barreira_fogo=0,h_segundo_ataque=8,h_terceiro_ataque=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200000
+  bitver |= 62
+  bitinv |= 16
+  atktipo.0 *= 2 # Tipos Normais
+
+
+classe p_dragunia020
+herda comum_persobat
+const nome = "Um dragão verde"
+const descnome = "Um dragão verde"
+const descpadr = "Um dragão verde parte furiosamente em sua direção."
+const descver = "O verde é a cor da esperança, mas neste caso... Aí a história muda, agora\n\
+para você o verde significa a cor da morte!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 200
+const tipo1 = "npc"
+const tipo2 = "npc"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 300000
+const inivar = "e_sanc=0,e_barreira_fogo=0,h_segundo_ataque=8,h_terceiro_ataque=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200000
+  bitver |= 62
+  bitinv |= 16
+  atktipo.0 *= 2 # Tipos Normais
+
+
+classe p_dragunia021
+herda comum_persobat
+const nome = "Uma Águia"
+const descnome = "Uma Águia"
+const descpadr = "Uma Águia está aqui, fazendo a ronda sobre seu ninho."
+const descver = "Melhor não mexer com ela!"
+const nivel = 100
+const tipo1 = "pnj"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 5000
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,e_escudo_ar=0"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50000
+  bitver |= 4158
+  bitinv |= 16
+
+
+classe s_dragunia001
+herda b_dragunia
+const s_titulo = "A beira de um penhasco"
+const s_desc = "Que susto! Foi por um triz... Quase que você cai nesse imenso precipício. O\n\
+que não seria nada agradável, não é mesmo, $R? Ao olhar para baixo mais\n\
+atentamente, um frio corre através de sua espinha, juntamente com uma enorme\n\
+curiosidade. Você se pergunta: \"O que será que tem lá em baixo?\" Bom, não\n\
+tem como saber sem ir lá para dar uma olhada, não é jovem aventureiro?"
+const dir_b = $s_dragunia002
+const dir_l = $s_ehrin093
+
+
+classe s_dragunia002
+herda b_dragunia
+const s_titulo = "Escalando um penhasco"
+const s_desc = "Você agora enfrenta uma dura missão. O ar começa a faltar em seus pumões,\n\
+acompanhado de alguns estilhaços de terra que caem sobre seus olhos. Quanto\n\
+mais você desce, mais aumenta a sua curiosidade... \"O que me aguarda lá em\n\
+baixo?\" Você agora só pensa se realmente conseguirá chegar até lá. Ao leste,\n\
+é possível de se observar uma pequena abertura nessa imensa parede de rochas\n\
+e terra."
+const dir_l = $s_dragunia004
+const dir_b = $s_dragunia003
+
+
+classe s_dragunia003
+herda b_dragunia
+const s_titulo = "Escalando um penhasco"
+const s_desc = "Você agora enfrenta uma dura missão. O ar começa a faltar em seus pumões,\n\
+acompanhado de alguns estilhaços de terra que caem sobre seus olhos. Quanto\n\
+mais você desce, mais aumenta a sua curiosidade... \"O que me aguarda lá em\n\
+baixo?\" Você agora só pensa se realmente conseguirá chegar até lá."
+const dir_b = $s_dragunia006
+
+
+classe s_dragunia004
+herda b_dragunia
+const s_titulo = "Uma abertura no grande precipício"
+const s_desc = "Um grande buraco se abre na parede do penhasco, e ao leste você consegue\n\
+ver algo parecido com um covil. O que será que é?"
+const dir_l = $s_dragunia005
+const dir_o = $s_dragunia002
+
+
+classe s_dragunia005
+herda b_dragunia
+const s_titulo = "O covil do Dragão Vermelho"
+const s_desc = "Você adentra o covil do dragão vermelho. Esqueletos e corpos completamente\n\
+desfigurados estão por toda parte do lugar, e um ar fétido toma conta de\n\
+suas narinas. O seu pensamento agora gira em torno do inferno. Depois de\n\
+tudo o que você viu, o seu pensamento não consegue tirar o fato de que a\n\
+morte está próxima, tão próxima que você é capaz de sentir o seu cheiro...\n\
+Que os Deuses o acompanhem, pobre aventureiro."
+const dir_o = $s_dragunia004
+const a_reset = "P 100 dragunia001 0 0 1 h_segundo_ataque=8,h_terceiro_ataque=8\n\
+E 25 dragunia013 1 20"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_dragunia001:objsolto.total < 1
+    p = u = criar("p_dragunia001", este, 0, "h_segundo_ataque=8,h_terceiro_ataque=8")
+  fimse
+  se u && rand(100) < 25
+    r = criar("i_dragunia013", u, 1), r.vestir(20), u.recalc = 1
+  fimse
+
+
+classe s_dragunia006
+herda b_dragunia
+const s_titulo = "No fundo do penhasco"
+const s_desc = "A descida foi extremamente complicada... Mas em fim você conseguiu! Você\n\
+está cercado por paredes gigantescas de rochas e terra, que se erguem\n\
+formando um grande cânion. No centro do lugar uma estranha visão rouba sua\n\
+preciosa atenção. Você fica maravilhado e indignado ao mesmo tempo... Como é\n\
+que pode existir algo como esse aqui nesse fim de mundo??? Um grande vale se\n\
+estende no horizonte, tomando quase que o lugar por completo."
+const dir_n = $s_dragunia106
+const dir_s = $s_dragunia106
+const dir_l = $s_dragunia106
+const dir_o = $s_dragunia007
+const dir_b = $s_dragunia106
+const dir_ne = $s_dragunia106
+const dir_no = $s_dragunia106
+const dir_se = $s_dragunia106
+const dir_so = $s_dragunia106
+
+func cmd_salaperso
+  misc:tempo("entrou", arg0)
+
+func entrou4
+  arg0.msg("Você sente que há algo perigoso por perto!")
+
+
+classe s_dragunia007
+herda b_dragunia
+const s_titulo = "O vale dos dragões"
+const s_desc = "Andando por uma vegetação um tanto estranha, você fica maravilhado com o\n\
+lugar. Árvores se espalham por toda parte, e uma coisa te deixa de queixos\n\
+caídos, aqui nesse vale, dragões caminham por toda parte. Eles parecem ser\n\
+bem calmos... Mas é melhor não deixar que eles notem a sua célebre presença,\n\
+acho que não vão gostar nadinha."
+const dir_n = $s_dragunia008
+const dir_l = $s_dragunia006
+
+
+classe s_dragunia008
+herda b_dragunia
+const s_titulo = "O vale dos dragões"
+const s_desc = "Andando por uma vegetação um tanto estranha, você fica maravilhado com o\n\
+lugar. Árvores se espalham por toda parte, e uma coisa te deixa de queixos\n\
+caídos, aqui nesse vale, dragões caminham por toda parte. Eles parecem ser\n\
+bem calmos... Mas é melhor não deixar que eles notem a sua célebre presença,\n\
+acho que não vão gostar nadinha."
+const dir_n = $s_dragunia009
+const dir_s = $s_dragunia007
+
+
+classe s_dragunia009
+herda b_dragunia
+const s_titulo = "O vale dos dragões"
+const s_desc = "Andando por uma vegetação um tanto estranha, você fica maravilhado com o\n\
+lugar. Árvores se espalham por toda parte, e uma coisa te deixa de queixos\n\
+caídos, aqui nesse vale, dragões caminham por toda parte. Eles parecem ser\n\
+bem calmos... Mas é melhor não deixar que eles notem a sua célebre presença,\n\
+acho que não vão gostar nadinha."
+const dir_s = $s_dragunia008
+const dir_o = $s_dragunia010
+
+
+classe s_dragunia010
+herda b_dragunia
+const s_titulo = "O vale dos dragões"
+const s_desc = "Andando por uma vegetação um tanto estranha, você fica maravilhado com o\n\
+lugar. Árvores se espalham por toda parte, e uma coisa te deixa de queixos\n\
+caídos, aqui nesse vale, dragões caminham por toda parte. Eles parecem ser\n\
+bem calmos... Mas é melhor não deixar que eles notem a sua célebre presença,\n\
+acho que não vão gostar nadinha."
+const dir_n = $s_dragunia011
+const dir_l = $s_dragunia009
+const a_reset = "P 100 dragunia006 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dragunia006:objsolto.total < 10
+    criar("p_dragunia006", este, 0)
+  fimse
+
+
+classe s_dragunia011
+herda b_dragunia
+const s_titulo = "O vale dos dragões"
+const s_desc = "Andando por uma vegetação um tanto estranha, você fica maravilhado com o\n\
+lugar. Árvores se espalham por toda parte, e uma coisa te deixa de queixos\n\
+caídos, aqui nesse vale, dragões caminham por toda parte. Eles parecem ser\n\
+bem calmos... Mas é melhor não deixar que eles notem a sua célebre presença,\n\
+acho que não vão gostar nadinha."
+const dir_n = $s_dragunia012
+const dir_s = $s_dragunia010
+
+
+classe s_dragunia012
+herda b_dragunia
+const s_titulo = "O vale dos dragões"
+const s_desc = "Andando por uma vegetação um tanto estranha, você fica maravilhado com o\n\
+lugar. Árvores se espalham por toda parte, e uma coisa te deixa de queixos\n\
+caídos, aqui nesse vale, dragões caminham por toda parte. Eles parecem ser\n\
+bem calmos... Mas é melhor não deixar que eles notem a sua célebre presença,\n\
+acho que não vão gostar nadinha."
+const dir_n = $s_dragunia023
+const dir_s = $s_dragunia011
+const dir_o = $s_dragunia013
+
+
+classe s_dragunia013
+herda b_dragunia
+const s_titulo = "Se aproximando de uma grande rocha"
+const s_desc = "Uma rocha enorme se ergue a alguns metros de você, cobrindo completamente \
+a\n\
+paisagem do lugar. Uma núvem de fumaça se eleva em direção ao céu, e seu\n\
+subconsciente fica se perguntando: Será que isso tudo é causado pelo dragão\n\
+que mora nesse aglomerado de rochas?"
+const dir_l = $s_dragunia012
+const dir_o = $s_dragunia014
+const a_reset = "P 100 dragunia008 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dragunia008:objsolto.total < 10
+    criar("p_dragunia008", este, 0)
+  fimse
+
+
+classe s_dragunia014
+herda b_dragunia
+const s_titulo = "Diante de uma grande rocha"
+const s_desc = "Uma rocha imensa se ergue diante de seus olhos, ela é tão grande quanto uma\n\
+montanha... Algumas rachaduras estão a vista em toda sua face, e bem lá no\n\
+topo, onde pouco se vê daqui, uma vegetação rasteira cobre por completo a\n\
+parte superior da pedra. A massa de fumaça é ainda mais intensa deste ponto."
+const dir_l = $s_dragunia013
+const dir_c = $s_dragunia015
+
+
+classe s_dragunia015
+herda b_dragunia
+const s_titulo = "Subindo em uma grande rocha"
+const s_desc = "Ao enfrentar essa escalada, você só pensa no que existe lá no topo. As\n\
+rachaduras ficam ainda maiores daqui, e você fica coberto pela curiosidade e\n\
+medo. A fumaça começa a atrapalhar sua subida, e seus olhos ficam ardendo...\n\
+O que será que está causando isso?"
+const dir_c = $s_dragunia016
+const dir_b = $s_dragunia014
+
+
+classe s_dragunia016
+herda b_dragunia
+const s_titulo = "Em uma grande rocha"
+const s_desc = "Andando pela grande rocha você percebe que aqui em cima tudo é mais\n\
+agravado... Passando pelas rachaduras, fumaça, até chegar no perigo...\n\
+Oh!... Sim, perigo. Tudo aqui é mais perigoso, pelo menos é o que o seu\n\
+sentido aguçado de aventureiro lhe indica. Nos arredores da rocha existem\n\
+vestígios de alguma vegetação, muito provavelmente algo desconhecido pelos\n\
+seus olhos... Alguma coisa muito semelhante a um musgo. Ao centro das\n\
+rachaduras, um mato muito verde se ergue,podendo esconder algum risco de\n\
+seus olhos."
+const dir_n = $s_dragunia017
+const dir_s = $s_dragunia018
+const dir_o = $s_dragunia020
+const dir_b = $s_dragunia015
+
+
+classe s_dragunia017
+herda b_dragunia
+const s_titulo = "Em uma grande rocha"
+const s_desc = "Andando pela grande rocha você percebe que aqui em cima tudo é mais\n\
+agravado... Passando pelas rachaduras, fumaça, até chegar no perigo...\n\
+Oh!... Sim, perigo. Tudo aqui é mais perigoso, pelo menos é o que o seu\n\
+sentido aguçado de aventureiro lhe indica. Nos arredores da rocha existem\n\
+vestígios de alguma vegetação, muito provavelmente algo desconhecido pelos\n\
+seus olhos... Alguma coisa muito semelhante a um musgo. Ao centro das\n\
+rachaduras, um mato muito verde se ergue,podendo esconder algum risco de\n\
+seus olhos."
+const dir_s = $s_dragunia016
+const dir_o = $s_dragunia019
+
+
+classe s_dragunia018
+herda b_dragunia
+const s_titulo = "Em uma grande rocha"
+const s_desc = "Andando pela grande rocha você percebe que aqui em cima tudo é mais\n\
+agravado... Passando pelas rachaduras, fumaça, até chegar no perigo...\n\
+Oh!... Sim, perigo. Tudo aqui é mais perigoso, pelo menos é o que o seu\n\
+sentido aguçado de aventureiro lhe indica. Nos arredores da rocha existem\n\
+vestígios de alguma vegetação, muito provavelmente algo desconhecido pelos\n\
+seus olhos... Alguma coisa muito semelhante a um musgo. Ao centro das\n\
+rachaduras, um mato muito verde se ergue,podendo esconder algum risco de\n\
+seus olhos."
+const dir_n = $s_dragunia016
+const dir_o = $s_dragunia021
+
+
+classe s_dragunia019
+herda b_dragunia
+const s_titulo = "Em uma grande rocha"
+const s_desc = "Andando pela grande rocha você percebe que aqui em cima tudo é mais\n\
+agravado... Passando pelas rachaduras, fumaça, até chegar no perigo...\n\
+Oh!... Sim, perigo. Tudo aqui é mais perigoso, pelo menos é o que o seu\n\
+sentido aguçado de aventureiro lhe indica. Nos arredores da rocha existem\n\
+vestígios de alguma vegetação, muito provavelmente algo desconhecido pelos\n\
+seus olhos... Alguma coisa muito semelhante a um musgo. Ao centro das\n\
+rachaduras, um mato muito verde se ergue,podendo esconder algum risco de\n\
+seus olhos."
+const dir_s = $s_dragunia020
+const dir_l = $s_dragunia017
+
+
+classe s_dragunia020
+herda b_dragunia
+const s_titulo = "Em uma grande rocha"
+const s_desc = "Andando pela grande rocha você percebe que aqui em cima tudo é mais\n\
+agravado... Passando pelas rachaduras, fumaça, até chegar no perigo...\n\
+Oh!... Sim, perigo. Tudo aqui é mais perigoso, pelo menos é o que o seu\n\
+sentido aguçado de aventureiro lhe indica. Nos arredores da rocha existem\n\
+vestígios de alguma vegetação, muito provavelmente algo desconhecido pelos\n\
+seus olhos... Alguma coisa muito semelhante a um musgo. Ao centro das\n\
+rachaduras, um mato muito verde se ergue,podendo esconder algum risco de\n\
+seus olhos."
+const dir_n = $s_dragunia019
+const dir_s = $s_dragunia021
+const dir_l = $s_dragunia016
+
+
+classe s_dragunia021
+herda b_dragunia
+const s_titulo = "Em uma grande rocha"
+const s_desc = "Andando pela grande rocha você percebe que aqui em cima tudo é mais\n\
+agravado... Passando pelas rachaduras, fumaça, até chegar no perigo...\n\
+Oh!... Sim, perigo. Tudo aqui é mais perigoso, pelo menos é o que o seu\n\
+sentido aguçado de aventureiro lhe indica. Nos arredores da rocha existem\n\
+vestígios de alguma vegetação, muito provavelmente algo desconhecido pelos\n\
+seus olhos... Alguma coisa muito semelhante a um musgo. Ao centro das\n\
+rachaduras, um mato muito verde se ergue,podendo esconder algum risco de\n\
+seus olhos."
+const dir_n = $s_dragunia020
+const dir_l = $s_dragunia018
+const dir_ne = $s_dragunia022
+
+
+classe s_dragunia022
+herda b_dragunia
+const s_titulo = "O covil do dragão branco"
+const s_desc = "Que má ideia!!! Você veio direto para o local da morte certa. Rezam as\n\
+lendas que o dragão que habita esse lugar é um dos mais ferozes de todo o\n\
+mundo. Ao seu redor existem manchas enormes de sangue, e muitos esqueletos\n\
+espalhados por toda parte... Provavelmente vítimas do poderoso dragão branco."
+const dir_so = $s_dragunia021
+const a_reset = "P 100 dragunia002 0 0 1\nE 25 dragunia016 1 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_dragunia002:objsolto.total < 1
+    p = u = criar("p_dragunia002", este, 0)
+  fimse
+  se u && rand(100) < 25
+    r = criar("i_dragunia016", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_dragunia023
+herda b_dragunia
+const s_titulo = "O vale dos dragões"
+const s_desc = "Andando por uma vegetação um tanto estranha, você fica maravilhado com o\n\
+lugar. Árvores se espalham por toda parte, e uma coisa te deixa de queixos\n\
+caídos, aqui nesse vale, dragões caminham por toda parte. Eles parecem ser\n\
+bem calmos... Mas é melhor não deixar que eles notem a sua célebre presença,\n\
+acho que não vão gostar nadinha."
+const dir_n = $s_dragunia024
+const dir_s = $s_dragunia012
+
+
+classe s_dragunia024
+herda b_dragunia
+const s_titulo = "O vale dos dragões"
+const s_desc = "Andando por uma vegetação um tanto estranha, você fica maravilhado com o\n\
+lugar. Árvores se espalham por toda parte, e uma coisa te deixa de queixos\n\
+caídos, aqui nesse vale, dragões caminham por toda parte. Eles parecem ser\n\
+bem calmos... Mas é melhor não deixar que eles notem a sua célebre presença,\n\
+acho que não vão gostar nadinha."
+const dir_n = $s_dragunia036
+const dir_s = $s_dragunia023
+const dir_o = $s_dragunia025
+
+
+classe s_dragunia025
+herda b_dragunia
+const s_titulo = "Na beira do mar do dragão"
+const s_desc = "As águas atingem os seus pés através da maré alta. Em toda sua volta\n\
+dragões voam a todo instante, e algo te deixa muito curioso... O mar está\n\
+repleto de sombras que se movimentam por toda parte, aparentando estarem\n\
+pertubadas. O que será?"
+const s_pnj = 0
+const dir_l = $s_dragunia024
+const dir_o = $s_dragunia026
+
+
+classe s_dragunia026
+herda b_dragunia
+const s_titulo = "No mar do dragão"
+const s_desc = "As águas são tingidas em um tom muito escuro, e também, extremamente\n\
+turbulentas. Embaixo d'água, sombras se movimentam de um lado para outro e\n\
+você acredita que sejam dragões marinhos. De repente, uma sombra ganha\n\
+forma, e você conclue que realmente são dragões, que seu corpo não gostaria\n\
+de provar o poder."
+const dir_n = $s_dragunia027
+const dir_l = $s_dragunia025
+
+
+classe s_dragunia027
+herda b_dragunia
+const s_titulo = "No mar do dragão"
+const s_desc = "As águas são tingidas em um tom muito escuro, e também, extremamente\n\
+turbulentas. Embaixo d'água, sombras se movimentam de um lado para outro e\n\
+você acredita que sejam dragões marinhos. De repente, uma sombra ganha\n\
+forma, e você conclue que realmente são dragões, que seu corpo não gostaria\n\
+de provar o poder."
+const dir_n = $s_dragunia028
+const dir_s = $s_dragunia026
+
+
+classe s_dragunia028
+herda b_dragunia
+const s_titulo = "No mar do dragão"
+const s_desc = "As águas são tingidas em um tom muito escuro, e também, extremamente\n\
+turbulentas. Embaixo d'água, sombras se movimentam de um lado para outro e\n\
+você acredita que sejam dragões marinhos. De repente, uma sombra ganha\n\
+forma, e você conclue que realmente são dragões, que seu corpo não gostaria\n\
+de provar o poder."
+const dir_s = $s_dragunia027
+const dir_l = $s_dragunia029
+const a_reset = "P 100 dragunia011 0 0 8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dragunia011:objsolto.total < 8
+    criar("p_dragunia011", este, 0)
+  fimse
+
+
+classe s_dragunia029
+herda b_dragunia
+const s_titulo = "No mar do dragão"
+const s_desc = "As águas são tingidas em um tom muito escuro, e também, extremamente\n\
+turbulentas. Embaixo d'água, sombras se movimentam de um lado para outro e\n\
+você acredita que sejam dragões marinhos. De repente, uma sombra ganha\n\
+forma, e você conclue que realmente são dragões, que seu corpo não gostaria\n\
+de provar o poder."
+const dir_n = $s_dragunia030
+const dir_o = $s_dragunia028
+
+
+classe s_dragunia030
+herda b_dragunia
+const s_titulo = "No mar do dragão"
+const s_desc = "As águas são tingidas em um tom muito escuro, e também, extremamente\n\
+turbulentas. Embaixo d'água, sombras se movimentam de um lado para outro e\n\
+você acredita que sejam dragões marinhos. De repente, uma sombra ganha\n\
+forma, e você conclue que realmente são dragões, que seu corpo não gostaria\n\
+de provar o poder. No fundo da água existe uma pequena abertura."
+const dir_n = $s_dragunia105
+const dir_s = $s_dragunia029
+const dir_b = $s_dragunia031
+
+
+classe s_dragunia031
+herda b_dragunia
+const s_titulo = "Na entrada de uma caverna subaquática"
+const s_desc = "Ao mergulhar no mar do dragão, finalmente você chega à entrada de uma\n\
+caverna subaquática. O lugar é silencioso, e você só fica imaginando o que\n\
+deve existir lá dentro."
+const s_pnj = 0
+const dir_c = $s_dragunia030
+const dir_ne = $s_dragunia032
+
+
+classe s_dragunia032
+herda b_dragunia
+const s_titulo = "Na caverna do dragão"
+const s_desc = "Essa caverna submersa é completamente tomada de escuridão. O silêncio é\n\
+aterrorizante, e você não consegue imaginar o que lhe aguarda por aqui. Nas\n\
+paredes da caverna, existem arranhões gigantes que ganham uma forma\n\
+horripilante de um dragão mutilando aventureiros. De onde você vai tirar\n\
+motivação para continuar depois disso?"
+const dir_n = $s_dragunia033
+const dir_so = $s_dragunia031
+
+
+classe s_dragunia033
+herda b_dragunia
+const s_titulo = "Na caverna do dragão"
+const s_desc = "Essa caverna submersa é completamente tomada de escuridão. O silêncio é\n\
+aterrorizante, e você não consegue imaginar o que lhe aguarda por aqui. Nas\n\
+paredes da caverna, existem arranhões gigantes que ganham uma forma\n\
+horripilante de um dragão mutilando aventureiros. De onde você vai tirar\n\
+motivação para continuar depois disso?"
+const dir_s = $s_dragunia032
+const dir_ne = $s_dragunia034
+
+
+classe s_dragunia034
+herda b_dragunia
+const s_titulo = "Na caverna do dragão"
+const s_desc = "Essa caverna submersa é completamente tomada de escuridão. O silêncio é\n\
+aterrorizante, e você não consegue imaginar o que lhe aguarda por aqui. Nas\n\
+paredes da caverna, existem arranhões gigantes que ganham uma forma\n\
+horripilante de um dragão mutilando aventureiros. De onde você vai tirar\n\
+motivação para continuar depois disso?"
+const dir_o = $s_dragunia035
+const dir_so = $s_dragunia033
+
+
+classe s_dragunia035
+herda b_dragunia
+const s_titulo = "O final da caverna do dragão"
+const s_desc = "Nessa parte da caverna a escuridão é ainda mais medonha. Marcas de sangue\n\
+foram gravadas nas paredes, e você imagina como é que isso não foi lavado\n\
+pela água do mar... Curiosidades a parte, uma enorme sombra se materializa\n\
+em sua frente, e você não consegue distinguir o que. Agora é contar com a\n\
+sorte e começar a pedir proteção aos deuses."
+const dir_l = $s_dragunia034
+const a_reset = "P 100 dragunia003 0 0 1\nE 50 dragunia015 1 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_dragunia003:objsolto.total < 1
+    p = u = criar("p_dragunia003", este, 0)
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_dragunia015", u, 1), r.vestir(1), u.recalc = 1
+  fimse
+
+
+classe s_dragunia036
+herda b_dragunia
+const s_titulo = "O vale dos dragões"
+const s_desc = "Andando por uma vegetação um tanto estranha, você fica maravilhado com o\n\
+lugar. Árvores se espalham por toda parte, e uma coisa te deixa de queixos\n\
+caídos, aqui nesse vale, dragões caminham por toda parte. Eles parecem ser\n\
+bem calmos... Mas é melhor não deixar que eles notem a sua célebre presença,\n\
+acho que não vão gostar nadinha."
+const dir_n = $s_dragunia037
+const dir_s = $s_dragunia024
+
+
+classe s_dragunia037
+herda b_dragunia
+const s_titulo = "O vale dos dragões"
+const s_desc = "Andando por uma vegetação um tanto estranha, você fica maravilhado com o\n\
+lugar. Árvores se espalham por toda parte, e uma coisa te deixa de queixos\n\
+caídos, aqui nesse vale, dragões caminham por toda parte. Eles parecem ser\n\
+bem calmos... Mas é melhor não deixar que eles notem a sua célebre presença,\n\
+acho que não vão gostar nadinha."
+const dir_n = $s_dragunia038
+const dir_s = $s_dragunia036
+const dir_o = $s_dragunia051
+
+
+classe s_dragunia038
+herda b_dragunia
+const s_titulo = "Diante de uma pequena montanha"
+const s_desc = "Após muito andar, finalmente você chega ao final norte do vale. Porém,\n\
+diante de você uma pequena montanha se ergue, e a beleza dela é encantadora.\n\
+Sua curiosidade fala mais alto do que seu instinto, e você decide que vai\n\
+escalar essa montanha."
+const dir_s = $s_dragunia037
+const dir_o = $s_dragunia039
+
+
+classe s_dragunia039
+herda b_dragunia
+const s_titulo = "Nos pés da montanha"
+const s_desc = "Você está nos pés de uma montanha. A vegetação que circunda o lugar é\n\
+extremamente maravilhosa, e isso só aumenta a sua curiosidade em escalar.\n\
+Quais perigos o aguardam lá em cima, em $R?"
+const dir_l = $s_dragunia038
+const dir_c = $s_dragunia040
+
+
+classe s_dragunia040
+herda b_dragunia
+const s_titulo = "Escalando uma montanha"
+const s_desc = "O ar começa a ficar rarefeito, e você sente dificuldades para continuar. Em\n\
+sua volta o local é completamente coberto de árvores e gramas, e vários\n\
+pássaros voam por aqui em uma perfeita harmonia. Mas como nem tudo é um mar\n\
+de rosas, no alto da montanha o que você consegue perceber daqui é apenas\n\
+destruição."
+const dir_n = $s_dragunia041
+const dir_b = $s_dragunia039
+
+
+classe s_dragunia041
+herda b_dragunia
+const s_titulo = "Escalando uma montanha"
+const s_desc = "O ar começa a ficar rarefeito, e você sente dificuldades para continuar. Em\n\
+sua volta o local é completamente coberto de árvores e gramas, e vários\n\
+pássaros voam por aqui em uma perfeita harmonia. Mas como nem tudo é um mar\n\
+de rosas, no alto da montanha o que você consegue perceber daqui é apenas\n\
+destruição."
+const dir_s = $s_dragunia040
+const dir_c = $s_dragunia042
+
+
+classe s_dragunia042
+herda b_dragunia
+const s_titulo = "Escalando uma montanha"
+const s_desc = "O ar começa a ficar rarefeito, e você sente dificuldades para continuar. Em\n\
+sua volta o local é completamente coberto de árvores e gramas, e vários\n\
+pássaros voam por aqui em uma perfeita harmonia. Mas como nem tudo é um mar\n\
+de rosas, no alto da montanha o que você consegue perceber daqui é apenas\n\
+destruição."
+const dir_c = $s_dragunia043
+const dir_b = $s_dragunia041
+
+
+classe s_dragunia043
+herda b_dragunia
+const s_titulo = "Se aproximando do cume da montanha"
+const s_desc = "O quanto mais você se aproxima do cume da montanha o calor se intensifica.\n\
+A paisagem do lugar começou a se esvair um pouco, agora o sinal de queimadas\n\
+é evidente por toda parte. Você não sabe os perigos que o aguardam lá em\n\
+cima, por tanto, você começa a rezar, pedindo a proteção dos Deuses nessa\n\
+sua jornada."
+const dir_c = $s_dragunia044
+const dir_b = $s_dragunia042
+
+
+classe s_dragunia044
+herda b_dragunia
+const s_titulo = "O cume da montanha"
+const s_desc = "Finalmente você atingiu o cume da montanha. Um ar completamente distinto \
+de\n\
+todos os outros lugares balança o seu cabelo, e você não consegue entender a\n\
+destruição que reina nesse lugar. Árvores totalmente queimadas, cadáveres de\n\
+animais carbonizados... Tudo isso significa o que??? Será que aqui existe\n\
+algum ser maligno??? Será que ele pode ser... Não é possível!!! Ele é o\n\
+dragão negro será?"
+const dir_n = $s_dragunia045
+const dir_b = $s_dragunia043
+
+
+classe s_dragunia045
+herda b_dragunia
+const s_titulo = "A montanha dos dragões"
+const s_desc = "Andando pela montanha você é dominado por um ar fétido, que invade as suas\n\
+narinas. Olhando para um lado e outro você repara que aqui o clima trás um\n\
+ar de solidão e tristeza. A destruição neste lugar é inimaginável,\n\
+praticamente se tornou impossível de se existir vida aqui."
+const dir_n = $s_dragunia048
+const dir_s = $s_dragunia044
+const dir_l = $s_dragunia046
+const dir_o = $s_dragunia047
+
+
+classe s_dragunia046
+herda b_dragunia
+const s_titulo = "A montanha dos dragões"
+const s_desc = "Andando pela montanha você é dominado por um ar fétido, que invade as suas\n\
+narinas. Olhando para um lado e outro você repara que aqui o clima trás um\n\
+ar de solidão e tristeza. A destruição neste lugar é inimaginável,\n\
+praticamente se tornou impossível de se existir vida aqui."
+const dir_o = $s_dragunia045
+
+
+classe s_dragunia047
+herda b_dragunia
+const s_titulo = "A montanha dos dragões"
+const s_desc = "Andando pela montanha você é dominado por um ar fétido, que invade as suas\n\
+narinas. Olhando para um lado e outro você repara que aqui o clima trás um\n\
+ar de solidão e tristeza. A destruição neste lugar é inimaginável,\n\
+praticamente se tornou impossível de se existir vida aqui."
+const dir_l = $s_dragunia045
+const dir_c = $s_dragunia107
+
+
+classe s_dragunia048
+herda b_dragunia
+const s_titulo = "A montanha dos dragões"
+const s_desc = "Andando pela montanha você é dominado por um ar fétido, que invade as suas\n\
+narinas. Olhando para um lado e outro você repara que aqui o clima trás um\n\
+ar de solidão e tristeza. A destruição neste lugar é inimaginável,\n\
+praticamente se tornou impossível de se existir vida aqui."
+const dir_s = $s_dragunia045
+const dir_c = $s_dragunia049
+
+
+classe s_dragunia049
+herda b_dragunia
+const s_titulo = "A montanha dos dragões"
+const s_desc = "Andando pela montanha você é dominado por um ar fétido, que invade as suas\n\
+narinas. Olhando para um lado e outro você repara que aqui o clima trás um\n\
+ar de solidão e tristeza. A destruição neste lugar é inimaginável,\n\
+praticamente se tornou impossível de se existir vida aqui."
+const dir_n = $s_dragunia050
+const dir_b = $s_dragunia048
+
+
+classe s_dragunia050
+herda b_dragunia
+const s_titulo = "O covil do dragão negro"
+const s_desc = "Resquícios de chamas estão espalhados por toda parte, assim como esqueletos\n\
+e corpos mutilados. Uma grande poça de sangue está no centro do lugar, e nas\n\
+beiradas também existe, porém, o sangue já está seco. Rezam as lendas que\n\
+aqui é o local onde se encontra o temido dragão negro de Dragúnia. É melhor\n\
+tomar cuidado."
+const dir_s = $s_dragunia049
+const fugir_s = 1 # Sem fuga: Sim
+const a_reset = "P 100 dragunia005 0 0 1\nE 20 dragunia019 1 9"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_dragunia005:objsolto.total < 1
+    p = u = criar("p_dragunia005", este, 0)
+  fimse
+  se u && rand(100) < 20
+    r = criar("i_dragunia019", u, 1), r.vestir(9), u.recalc = 1
+  fimse
+
+
+classe s_dragunia051
+herda b_dragunia
+const s_titulo = "A emtrada do deserto dos dragões"
+const s_desc = "certamente não é o que você esperava por mais que se preparasse. perdid$s,\n\
+você gira o corpo olhando ao redor, descobrindo-se na entrada do deserto dos\n\
+dragões, lugar pouco visitado graças a violência dos moradores que ja\n\
+sentiram sua presença e passam a rugir, competindo por um espaço em mais um\n\
+ataque contra os invasores de seu lar que eles defendem com a própria vida."
+const s_pnj = 0
+const dir_l = $s_dragunia037
+const dir_o = $s_dragunia052
+
+
+classe s_dragunia052
+herda b_dragunia
+const s_titulo = "Perdido no deserto"
+const s_desc = "Pânico! Os dragões aqui começam a cerca-l$s e aguardar seus movimentos,\n\
+deliciando-se com sua agonia. Sua corrida desenfreada mais parece uma dança\n\
+maldita devido as curvas e voltas que você dá, lutando pela sua\n\
+sobrevivência. Correr já não é o suficiente, os arbustos e algumas rochas\n\
+atrapalham seu caminho, o ar começa a falhar, as pernas perdem a força assim\n\
+como seus olhos saem de foco. A única maneira de sobreviver é continuar\n\
+resistindo o quanto puder e buscar por um esconderijo, pelo menos para\n\
+controlar-se antes de tentar mais uma vez encontrar o caminho de volta."
+const dir_n = $s_dragunia053
+const dir_l = $s_dragunia053
+const dir_o = $s_dragunia053
+const dir_b = $s_dragunia054
+const dir_no = $s_dragunia054
+const dir_se = $s_dragunia052
+const a_reset = "P 100 dragunia004 0 0 10\n\
+P 100 dragunia004 0 0 10\n\
+P 100 dragunia004 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dragunia004:objsolto.total < 10
+    criar("p_dragunia004", este, 0)
+  fimse
+  se p_dragunia004:objsolto.total < 10
+    criar("p_dragunia004", este, 0)
+  fimse
+  se p_dragunia004:objsolto.total < 10
+    criar("p_dragunia004", este, 0)
+  fimse
+
+
+classe s_dragunia053
+herda b_dragunia
+const s_titulo = "Perdido no deserto"
+const s_desc = "Pânico! Os dragões aqui começam a cerca-l$s e aguardar seus movimentos,\n\
+deliciando-se com sua agonia. Sua corrida desenfreada mais parece uma dança\n\
+maldita devido as curvas e voltas que você dá, lutando pela sua\n\
+sobrevivência. Correr já não é o suficiente, os arbustos e algumas rochas\n\
+atrapalham seu caminho, o ar começa a falhar, as pernas perdem a força assim\n\
+como seus olhos saem de foco. A única maneira de sobreviver é continuar\n\
+resistindo o quanto puder e buscar por um esconderijo, pelo menos para\n\
+controlar-se antes de tentar mais uma vez encontrar o caminho de volta."
+const dir_n = $s_dragunia054
+const dir_l = $s_dragunia055
+const dir_o = $s_dragunia054
+const dir_ne = $s_dragunia055
+const dir_no = $s_dragunia055
+const dir_se = $s_dragunia052
+const dir_so = $s_dragunia055
+
+
+classe s_dragunia054
+herda b_dragunia
+const s_titulo = "Perdido no deserto"
+const s_desc = "Pânico! Os dragões aqui começam a cerca-l$s e aguardar seus movimentos,\n\
+deliciando-se com sua agonia. Sua corrida desenfreada mais parece uma dança\n\
+maldita devido as curvas e voltas que você dá, lutando pela sua\n\
+sobrevivência. Correr já não é o suficiente, os arbustos e algumas rochas\n\
+atrapalham seu caminho, o ar começa a falhar, as pernas perdem a força assim\n\
+como seus olhos saem de foco. A única maneira de sobreviver é continuar\n\
+resistindo o quanto puder e buscar por um esconderijo, pelo menos para\n\
+controlar-se antes de tentar mais uma vez encontrar o caminho de volta."
+const dir_n = $s_dragunia052
+const dir_s = $s_dragunia052
+const dir_l = $s_dragunia053
+const dir_o = $s_dragunia055
+const dir_ne = $s_dragunia052
+const dir_no = $s_dragunia053
+const dir_se = $s_dragunia053
+const dir_so = $s_dragunia052
+
+
+classe s_dragunia055
+herda b_dragunia
+const s_titulo = "Perdido no deserto"
+const s_desc = "Pânico! Os dragões aqui começam a cerca-l$s e aguardar seus movimentos,\n\
+deliciando-se com sua agonia. Sua corrida desenfreada mais parece uma dança\n\
+maldita devido as curvas e voltas que você dá, lutando pela sua\n\
+sobrevivência. Correr já não é o suficiente, os arbustos e algumas rochas\n\
+atrapalham seu caminho, o ar começa a falhar, as pernas perdem a força assim\n\
+como seus olhos saem de foco. A única maneira de sobreviver é continuar\n\
+resistindo o quanto puder e buscar por um esconderijo, pelo menos para\n\
+controlar-se antes de tentar mais uma vez encontrar o caminho de volta."
+const dir_n = $s_dragunia052
+const dir_s = $s_dragunia052
+const dir_l = $s_dragunia056
+const dir_o = $s_dragunia053
+const dir_no = $s_dragunia055
+const dir_se = $s_dragunia053
+const dir_so = $s_dragunia055
+
+
+classe s_dragunia056
+herda b_dragunia
+const s_titulo = "O vulcão"
+const s_desc = "Não! Rapidamente você grita grita por socorro mais percebe que ninguém te\n\
+escuta. Mais a sussegar os seus olhos pode ver que esse vulcão é inofencivo.\n\
+Ao ver isso o seu coração para de bater aceleradamente e volta a pussação\nnormal."
+const s_pnj = 0
+const dir_l = $s_dragunia055
+const dir_o = $s_dragunia057
+const a_reset = "P 100 dragunia009 0 0 10\nP 100 dragunia009 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dragunia009:objsolto.total < 10
+    criar("p_dragunia009", este, 0)
+  fimse
+  se p_dragunia009:objsolto.total < 10
+    criar("p_dragunia009", este, 0)
+  fimse
+
+
+classe s_dragunia057
+herda b_dragunia
+const s_titulo = "Uma vila encravada na rocha"
+const s_desc = "O caminho foi longo, muito susto, por vezes a morte lhe parecia certa e\n\
+sobreviver era um sonho distante, bom demais para ser real. Mas tudo isso\n\
+teve fim quando você chegou até aqui. Perdida no deserto esta uma vila,\n\
+talvez não tão segura porém o suficiente para respirar e se recompor, dando\n\
+continuidade a sua jornada. Para o sul a vila continua enquanto ao leste\n\
+todo aquele terror o aguarda caso pretenda retornar."
+const s_pnj = 0
+const dir_s = $s_dragunia058
+const dir_l = $s_dragunia056
+
+
+classe s_dragunia058
+herda b_dragunia
+const s_titulo = "A estrada principal"
+const s_desc = "A estrada é larga e levemente inclinada, o solo é rochoso e o ar ainda é\n\
+abafado o suficiente para incomodar e atrapalhar seu trajeto. Dracos\n\
+caminham calmamente sem dar importância a você, pelo menos enquanto não se\n\
+sentirem ameaçados de alguma forma. A estrada segue para sul, cada vez mais\n\
+para dentro da vila e mais para junto dos dracos que espalham-se enquanto\n\
+seguem a rotina por você desconhecida."
+const dir_n = $s_dragunia057
+const dir_s = $s_dragunia059
+
+
+classe s_dragunia059
+herda b_dragunia
+const s_titulo = "A estrada principal"
+const s_desc = "A estrada é larga e levemente inclinada, o solo é rochoso e o ar ainda é\n\
+abafado o suficiente para incomodar e atrapalhar seu trajeto. Dracos\n\
+caminham calmamente sem dar importância a você, pelo menos enquanto não se\n\
+sentirem ameaçados de alguma forma. A estrada segue para sul, cada vez mais\n\
+para dentro da vila e mais para junto dos dracos que espalham-se enquanto\n\
+seguem a rotina por você desconhecida."
+const dir_n = $s_dragunia058
+const dir_s = $s_dragunia060
+const a_reset = "P 100 dragunia007 0 0 10\n\
+P 100 dragunia007 0 0 10\n\
+P 100 dragunia007 0 0 10\n\
+P 100 dragunia007 0 0 10\n\
+P 100 dragunia007 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dragunia007:objsolto.total < 10
+    criar("p_dragunia007", este, 0)
+  fimse
+  se p_dragunia007:objsolto.total < 10
+    criar("p_dragunia007", este, 0)
+  fimse
+  se p_dragunia007:objsolto.total < 10
+    criar("p_dragunia007", este, 0)
+  fimse
+  se p_dragunia007:objsolto.total < 10
+    criar("p_dragunia007", este, 0)
+  fimse
+  se p_dragunia007:objsolto.total < 10
+    criar("p_dragunia007", este, 0)
+  fimse
+
+
+classe s_dragunia060
+herda b_dragunia
+const s_titulo = "A estrada principal"
+const s_desc = "A estrada é larga e levemente inclinada, o solo é rochoso e o ar ainda é\n\
+abafado o suficiente para incomodar e atrapalhar seu trajeto. Dracos\n\
+caminham calmamente sem dar importância a você, pelo menos enquanto não se\n\
+sentirem ameaçados de alguma forma. A estrada segue para sul, cada vez mais\n\
+para dentro da vila e mais para junto dos dracos que espalham-se enquanto\n\
+seguem a rotina por você desconhecida."
+const dir_n = $s_dragunia059
+const dir_s = $s_dragunia063
+const dir_l = $s_dragunia062
+const dir_o = $s_dragunia061
+
+
+classe s_dragunia061
+herda b_dragunia
+const s_titulo = "Uma forja"
+const s_desc = "Ao entrar aqui você se pergunta se todos os lugares dessa vila seria assim.\n\
+Quentes e abafados."
+const dir_l = $s_dragunia060
+
+
+classe s_dragunia062
+herda b_dragunia
+const s_titulo = "Uma casa abandonada"
+const s_desc = "Aaaaaaiiiiiii! Que fedor! Os donos dessa casa parecem não se importar com\n\
+os insetos que insistem em sobrevoar os ossos e carne de antigas vítimas que\n\
+lhes serviram de alimentos. Em um canto está um draco devorando a carne de\n\
+um animal irreconhecivel devido ao estado do que fora seu corpo. A única\n\
+saída desse pesadelo está a oeste."
+const dir_o = $s_dragunia060
+
+
+classe s_dragunia063
+herda b_dragunia
+const s_titulo = "No final da avenida"
+const s_desc = "Depois de tanto caminhar e caminhar, você chega ao fim da avenida."
+const dir_n = $s_dragunia060
+const dir_s = $s_dragunia065
+const dir_l = $s_dragunia064
+const a_reset = "P 100 dragunia010 0 0 10\nP 100 dragunia010 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dragunia010:objsolto.total < 10
+    criar("p_dragunia010", este, 0)
+  fimse
+  se p_dragunia010:objsolto.total < 10
+    criar("p_dragunia010", este, 0)
+  fimse
+
+
+classe s_dragunia064
+herda b_dragunia
+const s_titulo = "Uma casa abandonada"
+const s_desc = "Aaaaaaiiiiiii! Que fedor! Os donos dessa casa parecem não se importar com\n\
+os insetos que insistem em sobrevoar os ossos e carne de antigas vítimas que\n\
+lhes serviram de alimentos. Em um canto está um draco devorando a carne de\n\
+um animal irreconhecivel devido ao estado do que fora seu corpo. A única\n\
+saída desse pesadelo está a oeste."
+const dir_o = $s_dragunia063
+
+
+classe s_dragunia065
+herda b_dragunia
+const s_titulo = "Um caminho escuro"
+const s_desc = "Nossa que escuridão. Ao se acostumar com o calor do sol e a vila de clima\n\
+quente você estranha esta parte da vila, escura."
+const s_pnj = 0
+const dir_n = $s_dragunia064
+const dir_o = $s_dragunia066
+
+
+classe s_dragunia066
+herda b_dragunia
+const s_titulo = "Uma curva no caminho"
+const s_desc = "Ao chegar aqui você volta a sentir, aquele calor infernal novamente. Será\n\
+que mais para frente existe mais fogo?"
+const dir_s = $s_dragunia067
+const dir_l = $s_dragunia065
+
+
+classe s_dragunia067
+herda b_dragunia
+const s_titulo = "Uma grande fogueira"
+const s_desc = "Nossa! , o que essa fogueira estar fazendo aqui? Você sente novamente o\n\
+pânico lhe envouver. Mais sua curiosidade é bem mais forte."
+const dir_n = $s_dragunia066
+const dir_s = $s_dragunia068
+
+
+classe s_dragunia068
+herda b_dragunia
+const s_titulo = "Uma estrada queimada"
+const s_desc = "Ao passar os seus olhos por esse pedaço de chão você vê que as criaturas\n\
+que habitam aqui não são de boas índole. Mais fazer o que, você já se acha\n\
+forte o suficiente para. Destruílos."
+const dir_n = $s_dragunia067
+const dir_b = $s_dragunia069
+
+
+classe s_dragunia069
+herda b_dragunia
+const s_titulo = "O solo frájio"
+const s_desc = "Ah! Ao pisar nesse solo meio grande, você vê que sua aventura não está indo\n\
+muito bem. O que fazer agora? Se for corajos$s prossiga. Caso ao contrário,\n\
+volte por onde entrou."
+const dir_s = $s_dragunia070
+const dir_c = $s_dragunia068
+const dir_b = $s_dragunia071
+
+
+classe s_dragunia070
+herda b_dragunia
+const s_titulo = "A confusão"
+const s_desc = "Você veio para o sul e o mundo parece que gira com você. Todos os seus\n\
+dotes mostra quando botou o pé aqui todas as saídas não são mais familiares.\n\
+Agora se for realmente corajos$s siga a suas buscas."
+const dir_n = $s_dragunia097
+const dir_l = $s_dragunia101
+const dir_b = $s_dragunia091
+
+
+classe s_dragunia071
+herda b_dragunia
+const s_titulo = "O subsolo"
+const s_desc = "Ao seguir o caminho para baixo você já esperava por isso. Um caminho\n\
+subterrânio que vai levar você não sabe pra onde."
+const dir_s = $s_dragunia072
+const dir_c = $s_dragunia069
+
+
+classe s_dragunia072
+herda b_dragunia
+const s_titulo = "Seguindo o subsolo"
+const s_desc = "Você já perdeu o medo completamente. Agora só quer ir prosseguir pra ver\n\
+onde isso vai parar."
+const dir_n = $s_dragunia071
+const dir_o = $s_dragunia073
+
+
+classe s_dragunia073
+herda b_dragunia
+const s_titulo = "Seguindo o subsolo"
+const s_desc = "Você já perdeu o medo completamente. Agora só quer ir prosseguir pra ver\n\
+onde isso vai parar."
+const dir_n = $s_dragunia074
+const dir_l = $s_dragunia072
+
+
+classe s_dragunia074
+herda b_dragunia
+const s_titulo = "Uma porta no subsolo"
+const s_desc = "Olha só, uma porta nesse vasto subsolo. Ao ficar um tempo observando a\n\
+porta. Você começa a se perguntar o que existe por trás dela."
+const dir_s = $s_dragunia073
+const dir_b = $s_dragunia075
+const portaini_b = 3 # Estado inicial: 3 Porta trancada
+const fechadura_b = "porta dragão 1"
+const comechave_b = 1 # Come chave: Sim
+const tranc_b = 1 # Trancar: 1 Pode ser trancado
+const a_reset = "P 100 dragunia013 0 0 1\nE 100 dragunia001 1 25\nD 100 b 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_dragunia013:objsolto.total < 1
+    p = u = criar("p_dragunia013", este, 0)
+  fimse
+  se u
+    r = criar("i_dragunia001", u, 1), r.vestir(25), u.recalc = 1
+  fimse
+  mudaporta("b", 3)
+
+
+classe s_dragunia075
+herda b_dragunia
+const s_titulo = "Um corredor estreito"
+const s_desc = "A não, você começa a pençar. Andei tudo aquilo para vim parar em um\n\
+corredor frio e úmido. Mais de repente você começa ouvir urros por todos os\n\
+lados. O que será isso?"
+const dir_n = $s_dragunia085
+const dir_s = $s_dragunia082
+const dir_l = $s_dragunia079
+const dir_o = $s_dragunia076
+const dir_c = $s_dragunia074
+const dir_b = $s_dragunia088
+
+
+classe s_dragunia076
+herda b_dragunia
+const s_titulo = "Um corredor flamejante"
+const s_desc = "Uuuuhpa! Esse corredor paresse que lhe leva para uma fornálha. Será que\n\
+isso é uma armadilha para você aventureir$s."
+const dir_l = $s_dragunia075
+const dir_o = $s_dragunia077
+
+
+classe s_dragunia077
+herda b_dragunia
+const s_titulo = "Uma porta em chamas"
+const s_desc = "Ai! Ao entrar nessa sala você pisa em cima de uma brasa e queima o seu pé\n\
+quase todo. E ao mesmo tempo que fica sentindo dores no seu corpo você fica\n\
+pensando se mora alguém além dessa porta que está incendiando."
+const dir_l = $s_dragunia076
+const dir_o = $s_dragunia078
+const portaini_o = 3 # Estado inicial: 3 Porta trancada
+const portanome_o = "Uma porta flamejante"
+const portaartigo_o = 0 # Artigo porta: 0 a (porta)
+const fechadura_o = "Porta flamejante"
+const comechave_o = 1 # Come chave: Sim
+const fecha_o = 1 # Fecha ao passar: Sim
+const tranc_o = 1 # Trancar: 1 Pode ser trancado
+const a_reset = "P 100 dragunia015 0 0 1\nE 100 dragunia002 1 25\nD 100 o 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_dragunia015:objsolto.total < 1
+    p = u = criar("p_dragunia015", este, 0)
+  fimse
+  se u
+    r = criar("i_dragunia002", u, 1), r.vestir(25), u.recalc = 1
+  fimse
+  mudaporta("o", 3)
+
+
+classe s_dragunia078
+herda b_dragunia
+const s_titulo = "Um quarto de chamas"
+const s_desc = "Nossa, o lugar mais quente que você já entrou na sua vida. Por todos os\n\
+lados você vê fogueiras acesas e tochas queimando. Mais o que mais lhe chama\n\
+a atenção é o ser que está no meio da sala envolto por chamas."
+const dir_l = $s_dragunia077
+const portaini_l = 3 # Estado inicial: 3 Porta trancada
+const portanome_l = "Uma porta flamejante"
+const portaartigo_l = 0 # Artigo porta: 0 a (porta)
+const fecha_l = 1 # Fecha ao passar: Sim
+const tranc_l = 1 # Trancar: 1 Pode ser trancado
+const a_reset = "S 100 dragunia011 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_dragunia011") && criar("i_dragunia011", este, 1)
+
+
+classe s_dragunia079
+herda b_dragunia
+const s_titulo = "Um corredor amarelo"
+const s_desc = "Ao entrar aqui você perde completamente o medo. O corredor apenas mostra\n\
+para você que deve ser o caminho para um quarto de uma criança."
+const dir_l = $s_dragunia080
+const dir_o = $s_dragunia075
+
+
+classe s_dragunia080
+herda b_dragunia
+const s_titulo = "Uma porta amarela"
+const s_desc = "Olha que lindo, uma portinha completa de desenhos do topo até a base. A\n\
+criança desse lugar deve ser muito mimada."
+const dir_l = $s_dragunia081
+const portaini_l = 3 # Estado inicial: 3 Porta trancada
+const portanome_l = "Uma porta amarela"
+const portaartigo_l = 0 # Artigo porta: 0 a (porta)
+const fechadura_l = "Porta amarela"
+const comechave_l = 1 # Come chave: Sim
+const fecha_l = 1 # Fecha ao passar: Sim
+const tranc_l = 1 # Trancar: 1 Pode ser trancado
+const dir_o = $s_dragunia079
+const a_reset = "P 100 dragunia017 0 0 1\nE 100 dragunia003 1 25\nD 100 l 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_dragunia017:objsolto.total < 1
+    p = u = criar("p_dragunia017", este, 0)
+  fimse
+  se u
+    r = criar("i_dragunia003", u, 1), r.vestir(25), u.recalc = 1
+  fimse
+  mudaporta("l", 3)
+
+
+classe s_dragunia081
+herda b_dragunia
+const s_titulo = "Um quarto amarelo"
+const s_desc = "Quando você entra aqui ja vem na alegria de pegar a criança nos braços e\n\
+brincar um pouco com ela. Mais na verdade quando você olha para adiante tem\n\
+uma grande surpresa. Sentado em um canto um dragão sorri maliciosamente para\n\
+você e levanta-se."
+const dir_o = $s_dragunia080
+const portaini_o = 3 # Estado inicial: 3 Porta trancada
+const portanome_o = "Uma porta amarela"
+const portaartigo_o = 0 # Artigo porta: 0 a (porta)
+const fecha_o = 1 # Fecha ao passar: Sim
+const tranc_o = 1 # Trancar: 1 Pode ser trancado
+const a_reset = "S 100 dragunia012 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_dragunia012") && criar("i_dragunia012", este, 1)
+
+
+classe s_dragunia082
+herda b_dragunia
+const s_titulo = "Um corredor escuro"
+const s_desc = "Escuridão! Escuridão! E escuridão. Para todos os lados que você se vira só\n\
+vê um negrume lhe envouvendo."
+const dir_n = $s_dragunia075
+const dir_s = $s_dragunia083
+
+
+classe s_dragunia083
+herda b_dragunia
+const s_titulo = "Uma porta escura"
+const s_desc = "Ao acertar o lado da direção correta para prosseguir em sua empreitada.\n\
+Você não esperaria que só iria encontrar mais escuridão."
+const dir_n = $s_dragunia082
+const dir_s = $s_dragunia084
+const portaini_s = 3 # Estado inicial: 3 Porta trancada
+const portanome_s = "Uma porta escura"
+const portaartigo_s = 0 # Artigo porta: 0 a (porta)
+const fechadura_s = "Porta escura"
+const comechave_s = 1 # Come chave: Sim
+const fecha_s = 1 # Fecha ao passar: Sim
+const tranc_s = 1 # Trancar: 1 Pode ser trancado
+const a_reset = "P 100 dragunia016 0 0 1\nE 100 dragunia004 1 25\nD 100 s 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_dragunia016:objsolto.total < 1
+    p = u = criar("p_dragunia016", este, 0)
+  fimse
+  se u
+    r = criar("i_dragunia004", u, 1), r.vestir(25), u.recalc = 1
+  fimse
+  mudaporta("s", 3)
+
+
+classe s_dragunia084
+herda b_dragunia
+const s_titulo = "Um quarto escuro"
+const s_desc = "O que é isso! Quando você entra aqui você tem uma leve empreção de ter sido\n\
+sugado pela a escuridão. Você se apavora pois a sua visão está inutilizada\n\
+nesse lugar. Quando você volta a calma e todos os outros sentidos se agução.\n\
+Você consegue ouvir um ruído vindo do canto do quarto."
+const dir_n = $s_dragunia083
+const portaini_n = 3 # Estado inicial: 3 Porta trancada
+const portanome_n = "Uma porta escura"
+const portaartigo_n = 0 # Artigo porta: 0 a (porta)
+const fecha_n = 1 # Fecha ao passar: Sim
+const tranc_n = 1 # Trancar: 1 Pode ser trancado
+const a_reset = "S 100 dragunia009 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_dragunia009") && criar("i_dragunia009", este, 1)
+
+
+classe s_dragunia085
+herda b_dragunia
+const s_titulo = "Um corredor brilhante"
+const s_desc = "Brilho! Brilho! E mais brilho. O dono disso deve gostar muito de luzes!"
+const dir_n = $s_dragunia086
+const dir_s = $s_dragunia075
+
+
+classe s_dragunia086
+herda b_dragunia
+const s_titulo = "Uma porta brilhante"
+const s_desc = "Ai! O brilho dessa porta chega a cegar você. Acho bem melhor você recuperar\n\
+a visão. Antes de entrar nesse lugar brilhante!"
+const dir_n = $s_dragunia087
+const portaini_n = 3 # Estado inicial: 3 Porta trancada
+const portanome_n = "Uma porta dourada"
+const portaartigo_n = 0 # Artigo porta: 0 a (porta)
+const fechadura_n = "brilhodklasjfkelwfsd"
+const comechave_n = 1 # Come chave: Sim
+const fecha_n = 1 # Fecha ao passar: Sim
+const tranc_n = 1 # Trancar: 1 Pode ser trancado
+const dir_s = $s_dragunia085
+const a_reset = "P 100 dragunia014 0 0 1\nE 100 dragunia005 1 25\nD 100 n 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_dragunia014:objsolto.total < 1
+    p = u = criar("p_dragunia014", este, 0)
+  fimse
+  se u
+    r = criar("i_dragunia005", u, 1), r.vestir(25), u.recalc = 1
+  fimse
+  mudaporta("n", 3)
+
+
+classe s_dragunia087
+herda b_dragunia
+const s_titulo = "Um quarto brilhante"
+const s_desc = "A não! Depois de tudo os seus olhos aindam ficam sofrendo por esse brilho\n\
+infernal. Você leva as mãos no rosto protejendo de tudo sem reparar no ser\n\
+que te observa. Ao levantar um pouco o rosto você vê em um canto um dragão\n\
+com todas as escamas reluzentes. E então você entende o mistério de tanto\nbrilho."
+const dir_s = $s_dragunia086
+const portaini_s = 3 # Estado inicial: 3 Porta trancada
+const portanome_s = "Uma porta dourada"
+const portaartigo_s = 0 # Artigo porta: 0 a (porta)
+const fecha_s = 1 # Fecha ao passar: Sim
+const tranc_s = 1 # Trancar: 1 Pode ser trancado
+const a_reset = "S 100 dragunia010 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_dragunia010") && criar("i_dragunia010", este, 1)
+
+
+classe s_dragunia088
+herda b_dragunia
+const s_titulo = "Um corredor espelhado"
+const s_desc = "Quando você entra nesse local você se depara olhando para se próprio. Mais\n\
+como pode você está ali na frente se você está aqui? Rapidamente você se\n\
+vira para constar se está tendo alucinação. E vê você olhando para você la\n\
+do outro lado. Quando você observa melhor o corredor, vê que ele é todo\n\
+ladrilhado por espelhos."
+const dir_c = $s_dragunia075
+const dir_b = $s_dragunia089
+
+
+classe s_dragunia089
+herda b_dragunia
+const s_titulo = "Uma porta em forma de espelho"
+const s_desc = "Ao passar pelo o corredor você já sabia que iria encontrar isso aqui. Uma\n\
+enorme porta está a sua frente lhe refletindo e empatando a sua passagem."
+const dir_c = $s_dragunia088
+const dir_b = $s_dragunia090
+const portaini_b = 3 # Estado inicial: 3 Porta trancada
+const portanome_b = "Uma porta espelhada"
+const portaartigo_b = 0 # Artigo porta: 0 a (porta)
+const fechadura_b = "Porta espelhadafkdajlkfdjkladsjfoiewjafodsklfejwosdijofsd"
+const comechave_b = 1 # Come chave: Sim
+const fecha_b = 1 # Fecha ao passar: Sim
+const tranc_b = 1 # Trancar: 1 Pode ser trancado
+const a_reset = "P 100 dragunia012 0 0 1\nE 100 dragunia006 1 25\nD 100 b 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_dragunia012:objsolto.total < 1
+    p = u = criar("p_dragunia012", este, 0)
+  fimse
+  se u
+    r = criar("i_dragunia006", u, 1), r.vestir(25), u.recalc = 1
+  fimse
+  mudaporta("b", 3)
+
+
+classe s_dragunia090
+herda b_dragunia
+const s_titulo = "Um quarto espelhado"
+const s_desc = "Mais o que é isso. Ao entrar aqui você logo vê o dragão na sua frente. A\n\
+única diferença é que você vê ele por todos os lados. E agora, como irá\n\
+ataca-lo se não sabe qual é o correto?"
+const dir_c = $s_dragunia089
+const portaini_c = 3 # Estado inicial: 3 Porta trancada
+const portanome_c = "Uma porta espelhada"
+const portaartigo_c = 0 # Artigo porta: 0 a (porta)
+const fecha_c = 1 # Fecha ao passar: Sim
+const tranc_c = 1 # Trancar: 1 Pode ser trancado
+const a_reset = "S 100 dragunia008 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_dragunia008") && criar("i_dragunia008", este, 1)
+
+
+classe s_dragunia091
+herda b_dragunia
+const s_titulo = "Um caminho sombrio e perigoso"
+const s_desc = "Você começa a andar por um caminho muito misterioso. Após você chegar aqui,\n\
+você ouve lamentos distantes de seres desconhecidos."
+const s_luz = 3 # Luz: 3 Escuro
+const dir_c = $s_dragunia070
+const dir_b = $s_dragunia092
+
+
+classe s_dragunia092
+herda b_dragunia
+const s_titulo = "Um buraco muito fundo"
+const s_desc = "Você está descendo um enorme buraco muito fundo. Após você chegar aqui,\n\
+você não vê nada o que o espera para baixo e não consegue ver também mais de\n\
+onde que você veio!"
+const s_luz = 3 # Luz: 3 Escuro
+const dir_c = $s_dragunia091
+const dir_b = $s_dragunia093
+
+
+classe s_dragunia093
+herda b_dragunia
+const s_titulo = "Um buraco muito fundo."
+const s_desc = "Quanto mais vocë desce, o buraco fica mais fundo e escuro."
+const s_luz = 3 # Luz: 3 Escuro
+const dir_c = $s_dragunia092
+const dir_b = $s_dragunia094
+
+
+classe s_dragunia094
+herda b_dragunia
+const s_titulo = "Um buraco muito fundo"
+const s_desc = "Quanto mais vocë desce, o buraco fica mais fundo e escuro."
+const dir_c = $s_dragunia093
+const dir_b = $s_dragunia095
+
+
+classe s_dragunia095
+herda b_dragunia
+const s_titulo = "Um buraco muito fundo"
+const s_desc = "Quanto mais vocë desce, o buraco fica mais fundo e escuro."
+const dir_l = $s_dragunia096
+const dir_c = $s_dragunia094
+
+
+classe s_dragunia096
+herda b_dragunia
+const s_titulo = "Na caverna do dragão negro"
+const s_desc = "Aaa! Após você chegar aqui, você se assusta! Corpos estão espalhados por\n\
+toda parte e gotas de sangue nas paredes. Cuidado aventureir$s, o perigo\n\
+está próximo!"
+const s_luz = 3 # Luz: 3 Escuro
+const s_semmagia = 1 # Sem magia: Sim
+const dir_o = $s_dragunia070
+const a_reset = "P 100 dragunia018 0 0 1\nE 25 dragunia014 1 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_dragunia018:objsolto.total < 1
+    p = u = criar("p_dragunia018", este, 0)
+  fimse
+  se u && rand(100) < 25
+    r = criar("i_dragunia014", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_dragunia097
+herda b_dragunia
+const s_titulo = "O rio"
+const s_desc = "Quando você bota o seu corpo nessas águas você se sente completamente\n\
+relachad$s. A brisa toca o seu rosto leve mente e tudo em seu corpo fica\n\
+tranquilo diante dessa calma."
+const dir_n = $s_dragunia098
+const dir_s = $s_dragunia070
+
+
+classe s_dragunia098
+herda b_dragunia
+const s_titulo = "Perto de uma cachoeira"
+const s_desc = "Diante de tantas águas você fica paralisad$s por ver lugar tão calmo como\n\
+não existe. Você bota as mãos dentro da água e olha para frente onde você\n\
+ver uma grande e linda cachoeira."
+const dir_n = $s_dragunia099
+const dir_s = $s_dragunia097
+
+
+classe s_dragunia099
+herda b_dragunia
+const s_titulo = "Na cachoeira"
+const s_desc = "Por ver tantas maravilhas e tranquilidade, você resolve vim molhar o seu\n\
+corpo nas águas da cachoeira. Mais será que isso foi realmente sensato? A\n\
+água é muito forte e você não consegue se segurar em nada, você se apavora e\n\
+grita por socorro. Quando você vê a direção que as águas lhe leva, você não\n\
+fica muito contente. Ao fim da cachoeira você vê uma enorme caverna, ou algo\n\
+do tipo. Bem aventureir$s, como todos nós sabemos, água não tem cabelo."
+const dir_s = $s_dragunia098
+const dir_b = $s_dragunia100
+
+
+classe s_dragunia100
+herda b_dragunia
+const s_titulo = "O covil do dragão azul"
+const s_desc = "Veja, era esatamente como você imaginava, um enorme espaço foi aberto no\n\
+final da quela cachoeira. E você começa a se perguntar se a cachoeira foi\n\
+posta lá, ou se isso já estava tudo programado. Com tudo, seus pensamentos\n\
+não tomam forma e você acha que não. Mais ao levantar a sua cabeça, você tem\n\
+a plena certeza que tudo foi bem armado."
+const dir_s = $s_dragunia070
+const a_reset = "P 100 dragunia019 0 0 1\nE 100 dragunia017 1 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_dragunia019:objsolto.total < 1
+    p = u = criar("p_dragunia019", este, 0)
+  fimse
+  se u
+    r = criar("i_dragunia017", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_dragunia101
+herda b_dragunia
+const s_titulo = "Uma mata"
+const s_desc = "Que lugar mais estranho, por todos os lados existe árvores caídas pelo o\n\
+solo. Você imagina se passou um furacão por aqui."
+const dir_l = $s_dragunia102
+const dir_o = $s_dragunia070
+
+
+classe s_dragunia102
+herda b_dragunia
+const s_titulo = "Um descampado"
+const s_desc = "Quando você chega aqui vê que a destruição é pior. Árvores caídas no chão,\n\
+crateras na terra e sangue. Acho que é melhor você voltar para trás\n\
+aventureir$s."
+const dir_s = $s_dragunia103
+const dir_o = $s_dragunia101
+
+
+classe s_dragunia103
+herda b_dragunia
+const s_titulo = "Uma árvore caída"
+const s_desc = "Ao chegar nesse local você esperava ver mais destruição, mais a única coisa\n\
+que encontra é um tronco no chão. O que será que ouve por aqui?"
+const dir_n = $s_dragunia102
+const dir_s = $s_dragunia104
+
+
+classe s_dragunia104
+herda b_dragunia
+const s_titulo = "O covil do dragão verde"
+const s_desc = "Quando você entra aqui vê tudo com outros olhos. Uma destruição total está\n\
+lhe cercando. Corpos por todos os lados, sangue na parede e muitos ossos\n\
+humanos. Melhor voutar se não quiser ser $s próxim$s!"
+const s_luz = 3 # Luz: 3 Escuro
+const dir_n = $s_dragunia103
+const dir_o = $s_dragunia070
+const a_reset = "P 100 dragunia020 0 0 1\nE 30 dragunia018 1 23"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_dragunia020:objsolto.total < 1
+    p = u = criar("p_dragunia020", este, 0)
+  fimse
+  se u && rand(100) < 30
+    r = criar("i_dragunia018", u, 1), r.vestir(23), u.recalc = 1
+  fimse
+
+
+classe s_dragunia105
+herda b_dragunia
+const s_titulo = "No mar do dragão"
+const s_desc = "As águas são tingidas em um tom muito escuro, e também, extremamente\n\
+turbulentas. Embaixo d'água, sombras se movimentam de um lado para outro e\n\
+você acredita que sejam dragões marinhos. De repente, uma sombra ganha\n\
+forma, e você conclue que realmente são dragões, que seu corpo não gostaria\n\
+de provar o poder."
+const dir_s = $s_dragunia030
+
+
+classe s_dragunia106
+herda b_dragunia
+const s_titulo = "Despencando até o chão"
+const s_ocultar = 1 # Ocultar desc: Sim
+const s_pnj = 0
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_dragunia006
+const dir_s = $s_dragunia006
+const dir_o = $s_dragunia006
+const dir_c = $s_dragunia006
+const dir_ne = $s_dragunia006
+const dir_no = $s_dragunia006
+const dir_se = $s_dragunia006
+const dir_so = $s_dragunia006
+
+func cmd_salaperso
+  ret !arg0.jog, nulo # Retorna se não for jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou1
+  arg0.msg("Despencando até o chão")
+  arg0.msg("Por uma infelicidade natural da vida você escolheu o caminho errado. O galho no qual \
+sua mão estava apoiada se cedeu, e você cai em uma velocidade absurda em direção ao solo. Você \
+começa a fazer pedidos de proteção aos Deuses, mas logo percebe que de nada adianta. A sua morte \
+é certeira, e não será em vão. Todos os seus pecados cometidos na terra agora serão confortados \
+com uma morte trágica. A velocidade de sua queda aumenta a cada instante, e seu subconsciente \
+começa a trazer imagens de demônios o rodeando. De repente, com um impacto fortíssimo você \
+atinge contato com o chão, e começa a perceber sua visão escurecendo... Morri! Estou morto! \
+Paguei por todos os meus pecados??? Uma voz ecoa em seus ouvidos: Descanse em paz!")
+  arg0.msg("Saídas: Nenhuma")
+  misc:evento(arg0) # Receber eventos do personagem
+  listaobj l
+  epara l.addfim(arg0.dentro1, arg0.dentro2), l, l.ini.remove
+    l.objini.item && !l.objini.manterperso && apagar(l.objini)
+  efim
+  arg0.morreu
+
+
+classe s_dragunia107
+herda b_dragunia
+const s_titulo = "Se aproximando de um ninho gigantesco"
+const s_desc = "À medida em que você se aproxima, o ninho vai ganhando um tamanho colossal,\n\
+onde seria capaz de cobrir um templo de dimensões médias. Sua curiosidade\n\
+aumenta mais e mais, e o único sentimento presente dentro de você agora é o\n\
+de continuar, para ver o que realmente existe ali encima... Será algum\ndragão?"
+const s_pnj = 0
+const dir_c = $s_dragunia108
+const dir_b = $s_dragunia047
+
+
+classe s_dragunia108
+herda b_dragunia
+const s_titulo = "O ninho da águia"
+const s_desc = "Surpresa! O resultado é completamente diferente de tudo aquilo o que você\n\
+imaginava. Sua escalada intensa lhe trouxe vários pensamentos sobre dragões,\n\
+porém, ao chegar você se depara com uma gigantesca e imponente águia, que\n\
+aparenta fazer de tudo para proteger seu amontoado de ovos."
+const dir_b = $s_dragunia107
+const a_reset = "P 100 dragunia021 0 0 1\nS 20 venore031 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_dragunia021:objsolto.total < 1
+    criar("p_dragunia021", este, 0)
+  fimse
+  !dentro1.objini("i_venore031") && rand(100) < 20 && criar("i_venore031", este, 1)

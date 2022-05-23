@@ -1,0 +1,1915 @@
+classe a_deck
+herda area
+const a_nome = "mansão Hévans."
+const a_tempo = 5
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_deck
+herda sala
+const s_fome = 1 # Fome e sede: 1 Ausente
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_recup = 300
+const s_area = "deck"
+
+
+classe i_deck001
+herda comum_itemperso
+const nome = "uma bela fonte revestida a ouro"
+const descpos = "uma bela fonte, toda revestida em ouro está aqui, derramando água terminantement\
+e"
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_sede = 120
+const f_msgperso = "$P bebe água cristalina de uma fonte revestida em ouro."
+const f_msgoutros = "$P bebe água cristalina de uma fonte revestida em ouro."
+const i_pegar = "é pesada demais."
+const i_salaentrar = $s_deck142
+const i_movel = 1 # Mobília: 1 Sentar
+const i_abertoini = 0 # Container: 0 Não
+const mantersala = 1 # Mantém na sala: Sim
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const f_liquido = "água"
+
+
+classe i_deck002
+herda comum_item
+const nome = "um rodo"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const armatipo = 0 # Tipo de arma: 0 Não é arma
+const tipoitem = 2 # Tipo de item: 1-Arma (3-Vestimenta)
+const vestir1 = "40000"
+const manterperso = 1 # Mantém em jogador: Sim
+
+
+classe i_deck003
+herda comum_item
+const nome = "Um pano"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const tipoitem = 32 # Tipo de item: 5-Varinha
+const vestir1 = "100000"
+const manterperso = 1 # Mantém em jogador: Sim
+
+
+classe i_deck004
+herda comum_itemperso
+const nome = "uma bancada"
+const descpos = "uma bancada revestida em mármore, está aqui com alguns banquinhos ao redor"
+const descver = "com seus bracinhos e pernas fofinhas, e com seu pelo lisinho, a única vontade \
+que você tem é de pegar esse pequeno ursinho e apertá-lo em seus braços.\n\
+ao aproximar-se um pouco mais, nota-se que ele segura um coração contra o peito, com os dizeres:\n\
+i love you sofia!!!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "você não pode pegar uma bancada"
+const mantersala = 1 # Mantém na sala: Sim
+const vestir1 = "100000"
+
+
+classe i_deck005
+herda comum_itemperso
+const nome = "um belo penico azul"
+const descpos = "um pequeno penico azulado foi deixado aqui"
+const i_movel = 2 # Mobília: 2 Sentar e dormir
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_deck006
+herda comum_itemperso
+const nome = "um livro de pensamentos"
+const descpos = "um pequeno livro foi deixado aqui."
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_escr
+  txt100lin(arg0)
+  se arg1 == "ler livro"
+    arg0.msg2("1- Pedacinho do céu.")
+    arg0.msg("2- Voar")
+    arg0.msg("3- amanhã pode ser tarde.")
+    arg0.msg("digite ler, espaço e o número do título.")
+    ret 1
+  fimse
+  se arg1 == "ler 1"
+    arg0.msg("Às vezes você se sente deslocado no planeta que habita, como se o Criador o \
+tivesse jogado a esmo, e você caiu em local inóspito e infeliz...")
+    arg0.msg("Olha ao redor e tem a sensação de que todos estão bem encaixados, como . engrenagen\
+s vivas nessa imensa máquina chamada sociedade..., menos você.")
+    arg0.msg("Parece até que as pessoas não o vêem, não o ouvem, e sente-se como um fantasma que \
+se move, sem rumo e sem alegria.")
+    arg0.msg("E pensa que seria tão bom se você pudesse fazer parte das alegrias de todos, das \
+conquistas alheias, das belezas da natureza que o cerca.")
+    arg0.msg("Seria ainda melhor se todos percebessem seus talentos, seus esforços, . suas \
+pequenas vitórias, e o amparassem nos seus dias de tristezas...")
+    arg0.msg("Sente que pode estar no mundo errado, no momento errado, com as pessoas erradas, e \
+talvez fosse mais feliz se alterasse a rota, trocasse de posição com outra pessoa, fosse outro \
+ser qualquer...")
+    arg0.msg("Você olha o céu e analisa os pássaros, na sua trajetória maravilhosa, a planar ao \
+vento com o sol a brilhar sobre suas penas...")
+    arg0.msg("É delicioso ser pássaro, pensa você.")
+    arg0.msg("Volve os olhos ao mar e analisa os peixes, com suas cores diversas, . tamanhos \
+variados e pensa na maravilha que é nadar no recife entre os corais, na água tépida...")
+    arg0.msg("Seria tão bom ser peixe..., pensa você.")
+    arg0.msg("Observa árvores gigantescas, arbustos, plantas, flores e frutos à disposição dos \
+seres selvagens.")
+    arg0.msg("E pensa que não seria nada mau ser um tigre a desfrutar da liberdade, a correr \
+leve e solto, sem peias, sem amarras...")
+    arg0.msg("Volta seu olhar para o seio da terra e vê seres que cavam tocas profundas, bem \
+feitas e, embora ache escuro, observa os seres que lá habitam e medita que não seria nada ruim \
+habitar as entranhas da terra...")
+    arg0.msg("E assim é a vida de cada um de nós: diferente, formando habilidades múltiplas, \
+desenvolvendo aptidões diversas, com prós e contras.")
+    arg0.msg("Mas, assim como o pássaro não pode nadar, o peixe habitar a selva nem o tigre \
+voar, cada um tem um pedacinho do céu em suas vidas.")
+    arg0.msg("Saiba verificar qual é o seu pedaço do céu.")
+    arg0.msg("Não ambicione o céu alheio.")
+    arg0.msg("É possível que você não esteja preparado para vivenciar a realidade alheia.")
+    arg0.msg("Talvez lhe falte envergadura.")
+    arg0.msg("Talvez lhe sobre possibilidades.")
+    arg0.msg("E não há nada pior do que estar no lugar errado, na hora errada.")
+    arg0.msg("Conscientize-se de que você tem o pedaço do céu que merece e que tem a capacidade \
+de desfrutar.")
+    arg0.msg("De que adiantaria o pôr-do-sol mais esplendoroso para quem não pode enxergar?")
+    arg0.msg("Viva o seu momento, na certeza de que a vida futura lhe reserva experiências \
+diferentes, mestres diferentes e, sobretudo, o pedaço do céu que lhe pertence...")
+    arg0.msg("Pense nisso!")
+    arg0.msg("Este é o seu momento de crescer, de produzir, de colaborar com o Criador exatamente\
+ onde ele o colocou.")
+    ret 1
+  fimse
+  se arg1 == "ler 2"
+    arg0.msg("* Passamos uma vida presos, qual pássaros em suas gaiolas! Medo de amar, de olhar \
+a vida de frente...")
+    arg0.msg("E naquele pequeno espaço, cantamos nossas dores e sonhos!*")
+    arg0.msg("* Muitas vezes, as portas de nossas gaiolas se abrem... Mas permanecemos ali, \
+acostumados, encolhidos as nossas vontades e sonhos!")
+    arg0.msg(" Não tenham dúvidas amigos, à primeira oportunidade, devem alçar o vôo das águias, \
+calmo, confiante, determinado!*")
+    arg0.msg("* Amem sem medo, brinquem um pouco com a vida! Não tenham medo dos rochedos e \
+sobre eles, estendam a suas asas corajosas de águia!")
+    arg0.msg(" Soltem-se ao vento, e deixem-no, levá-los ao sonho!*")
+    arg0.msg(" Não há dores eternas, lágrimas eternas, perdas eternas!")
+    arg0.msg(" Há sorrisos, esperando-lhes, dias de sol, o abraço dos amigos, dos filhos e \
+tantos sonhos lindos!")
+    arg0.msg(" Um amor lhe espera, para com vocês, voar, voar, voar...")
+    arg0.msg(" Porque a vida é um recomeçar diário de um vôo! *")
+    ret 1
+  fimse
+  se arg1 == "ler 3"
+    arg0.msg("Amanhã pode ser tarde...")
+    arg0.msg("Amanhã?... Não nos cabe saber...")
+    arg0.msg("Amanhã pode ser muito tarde")
+    arg0.msg("Para você dizer que ama, para você dizer que perdoa, para você dizer que desculpa, \
+para você dizer que quer tentar de novo...")
+    arg0.msg("Amanhã pode ser muito tarde para você pedir perdão, para você dizer:")
+    arg0.msg("Desculpe-me o erro foi meu!...")
+    arg0.msg("O seu amor, amanhã, pode já ser inútil, o seu perdão, amanhã, pode já não ser \
+preciso, a sua volta, amanhã, pode já não ser esperada,")
+    arg0.msg("A sua carta, amanhã, pode já não ser lida, o seu carinho, amanhã, pode já não ser \
+mais necessário, o seu abraço, amanhã, pode já não encontrar outros braços...")
+    arg0.msg("Porque amanhã pode ser muito... muito tarde!")
+    arg0.msg("Não deixe para amanhã para dizer:")
+    arg0.msg("EU AMO VOCÊ, ESTOU COM SAUDADES DE VOCÊ, PERDOE-ME, ESTA FLOR É PARA VOCÊ, VOCÊ É \
+IMPORTANTE PARA MIM... VOCÊ ESTÁ TÃO BEM...")
+    arg0.msg("Não deixe para amanhã:")
+    arg0.msg("O seu sorriso, O seu abraço, O seu carinho, O seu trabalho, O seu sonho, A sua \
+ajuda...")
+    arg0.msg("Não deixe para amanhã para perguntar:")
+    arg0.msg("Por que você está triste? O que há com você? Ei!... Venha cá, vamos conversar... \
+Cadê o seu sorriso? Ainda tenho chance?... Já percebeu que eu existo?")
+    arg0.msg("Por que não começamos de novo? Estou com você. Sabe que pode contar comigo? Cadê \
+os seus sonhos? Onde está a sua garra?...")
+    arg0.msg("Lembre-se :")
+    arg0.msg("Procure... Vá atrás! Tente mais uma vez!")
+    arg0.msg("as pessoas com quem você mais se importa, são tomadas de você muito depressa!")
+    arg0.msg("Só o hoje é definitivo!")
+    arg0.msg("Não deixe para o amanhã, pois pode ser tarde!")
+    arg0.msg("Amanhã pode ser tarde... muito tarde!")
+    ret 1
+    finse
+
+
+classe i_deck007
+herda comum_itemperso
+const nome = "Um Grande tapete fofo"
+const descpos = "Um tapete está estendido aqui com algumas almofadas destribuidas sobre ele."
+const descver = "Um Grande tapete fofinho"
+const i_pegar = "Não desarruma esse tapete muleque."
+const i_movel = 3 # Mobília: 3 Sentar confortavelmente
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 512 # Tipo de item: 9-Mobília
+
+
+classe i_deck008
+herda comum_itemperso
+const nome = "Uma prateleira de livrinhos infanties"
+const descpos = "Uma prateleira repleta de livrinhos coloridos está aqui"
+const descver = "Uma prateleira bém presa na parede na autura perfeita para um bebê.\n\
+Nela há muitos livrinhos coloridos e cheios de figurinhas perfeito para uma criança explorar."
+const i_pegar = "Isso é pesado de mais para você carregar moçinho!"
+const i_movel = 0 # Mobília: 0 Não
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 512 # Tipo de item: 9-Mobília
+
+
+classe i_deck009
+herda comum_item
+const nome = "uma pulseira"
+const descpos = "uma pulseira foi deixada aqui"
+const vestir1 = "10000"
+const vestirsexo = 2 # Vestir sexo: 2 Somente masculino
+
+
+classe i_deck010
+herda comum_item
+const nome = "uma chupeta"
+const descpos = "uma pequena chupeta foi deixada aqui"
+
+
+classe i_deck011
+herda comum_itemgrupo
+
+
+classe i_deck012
+herda comum_itemperso
+const nome = "uma almofadinha em forma de coração"
+const descpos = "Uma almofadinha em formato de coração está aqui em cima da cama"
+const descver = "olha! realmente parece um coração...."
+const i_pegar = "uma almofadinha levanta, grita por socorro, e se afasta antes que você possa \
+pegá-la."
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_chegou
+  ret arg0.nome == "sofia", nulo
+  ret arg0.nome == "deck", nulo
+  arg0.msg("Ao entrar nesta sala, uma bola gigante de sorvete lhe atinge!")
+  arg0.msg("você sente um frio terrível, perde os sentidos...")
+  arg0.teclou("config -imortal")
+  arg0.morreu
+
+
+classe i_deck013
+herda comum_itemperso
+const nome = "Um móbile"
+const descpos = "Pendurado no berço um móbile todo colorido gira e toca musiquinhas alegrando o \
+bebê."
+const descver = "Um brinquedo todo colorido que gira e toca musiquinhas."
+const mantersala = 1 # Mantém na sala: Sim
+const manterperso = 1 # Mantém em jogador: Sim
+
+
+classe i_deck014
+herda comum_itemperso
+const nome = "Uma cômoda de bebê."
+const descpos = "Uma cômoda com um trocador ao lado está aqui no canto do quarto."
+const descver = "Uma cômoda aparentemente grande, com gavetas largas, imbutido a ela um trocador.\
+"
+const i_pegar = "Isso é muito grande para você carregar sozinho."
+const i_movel = 0 # Mobília: 0 Não
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 512 # Tipo de item: 9-Mobília
+
+
+classe i_deck015
+herda comum_itemperso
+const nome = "Uma banheira de bebê"
+const descpos = "A banheira do bebê está aqui apoiada em um suporte."
+const i_movel = 1 # Mobília: 1 Sentar
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 524800 # Tipo de item: 9-Mobília, 19-Item infantil
+
+
+classe i_deck016
+herda comum_item
+const nome = "Um balcão para banheiro"
+const descpos = "Um balcão de mármori para banheiro com uma pia embutida está aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "Ta maluco! Como vai carregar isso sozinho?"
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 0 # Tipo de item:
+
+
+classe i_deck017
+herda comum_itemperso
+const nome = "Cadeiras"
+const descpos = "Várias cadeiras estão aqui colocadas de frente para piscina"
+const i_movel = 3 # Mobília: 3 Sentar confortavelmente
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 16386 # Tipo de item: 1-Arma, 14-Material orgânico
+
+
+classe i_deck018
+herda comum_item
+const nome = "Uma churrasqueira"
+const descpos = "Uma churrasqueira está aqui, com vários espetos sobre ela."
+const i_pegar = "Isso está preso na parede e você não é o superman!"
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 512 # Tipo de item: 9-Mobília
+
+
+classe i_deck019
+herda comum_itemperso
+const nome = "uma bela cama de casal"
+const descpos = "Uma bela cama de casal foi deixada no meio do quarto."
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 0 # Eventos dono item: Não
+const evsala = 1 # Eventos dono sala: Sim
+
+
+classe i_deck020
+herda comum_item
+const nome = "um pouco de açúcar"
+
+
+classe i_deck021
+herda comum_itemperso
+const nome = "uma correntinha com um pingente em forma de um coração"
+const descpos = "uma pequena correntinha foi deixado aqui, com um coração guardando algo \
+valioso"
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const objmax = 1
+const vestir1 = "200" # Aonde vestir: 9-No pescoço
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_olhar
+  se arg1 == este
+    $mens.p(arg0)
+    $mens.mvis1("$P olha para " + descnome + ".")
+    listaobj l
+    ret !dentro1.objini, arg0.msg("Não há nenhuma foto guardada dentro do coração.")
+    arg0.msg("Dentro do pingente em forma de coração você vê:")
+    epara l.addfim(arg1.dentro1), l, l.ini.remove
+      sair !l.objini
+      arg0.msg(l.objini.descnome)
+    efim
+    ret 1
+  fimse
+
+
+classe i_deck022
+herda comum_item
+const nome = "um pequeno cartão dourado"
+const descver = "O cartão retrata a imagem do cupido atirando uma flecha em um grande coração.\n\
+no centro do coração, você pode ler:\n\
+Que seu coração possa estar sempre ligado ao meu.\n\
+com amor, Deck."
+const vestir1 = "100000" # Aonde vestir: 20-Segurando
+
+
+classe p_deck001
+herda comum_perso
+const nome = "Rick, o pavão falante"
+const descpadr = "Rick, o pavão falante de Chris está aqui, com sua matraca aberta."
+const descver = "mais gostoso do que um peru de natal.\n\
+mais chato do que cachos dourados...\n\
+rick, pega uma das qualidades de seu dono que mais incomodam, a de irrritar os outros.\n\
+você fica com vontade de matar essa ave maluca, mas Deck parece que fez pra atrapalhar, por que \
+esse pavão é pacífico..."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+inttempo tempo
+
+func cmd_chegou
+  tempo = 20
+
+func tempo_exec
+  tempo = 500
+  refvar f = rand(1, 36)
+  se f == 1
+    $mens.p(este)
+    $mens.mtodos1("$P diz: esse mundo anda tão perigoso, que até meu cabelo anda armado.")
+    ret 1
+  senao f == 2
+    $mens.p(este)
+    $mens.mtodos1("$P diz: Aí gatinha. me chama de chocolate, e me faz derreter em sua boca.")
+    ret 1
+  senao f == 3
+    $mens.p(este)
+    $mens.mtodos1("$P grita: Fogo no buraaaco.")
+    ret 1
+  senao f == 4
+    teclou("falar alguém aí quer ser minha pavoa?")
+    ret 1
+  senao f == 5
+    $mens.p(este)
+    $mens.mtodos1("$P diz: A vida é igual Pilates. Se tá fácil, tá errado.")
+    ret 1
+  senao f == 6
+    $mens.p(este)
+    $mens.mtodos1("$P diz: Falam que o álcool causa a morte de muitos, mas não falam quantos \
+nasceram por causa dele.")
+    ret 1
+  senao f == 7
+    $mens.p(este)
+    $mens.mtodos1("$P diz: Não se pode viver só de sonhos, uma hora você vai enjoar e vai querer \
+comer uma coisa mais salgada.")
+    ret 1
+  senao f == 8
+    teclou("falar Me passe o número da sua opinião, quem sabe um dia eu ligue pra ela.")
+    ret 1
+  senao f == 9
+    teclou("falar É muito mais fácil conter a nossa raiva quando o outro cara é maior do que a \
+gente.")
+    ret 1
+  senao f == 10
+    teclou("falar Não é que eu tenha medo de morrer. Só não quero estar lá quando isso acontecer.\
+")
+    ret 1
+  senao f == 11
+    teclou("falar Trabalhar nunca matou ninguém, mas ... pra que arriscar?")
+    ret 1
+  senao f == 12
+    teclou("chorar")
+    teclou("falar É muito triste quando se é rico, bonito e sensual e aí vem o despertador e \
+acaba com tudo.")
+    ret 1
+  senao f == 13
+    teclou("falar Dica de beleza: Ande sempre com um amigo mais feio que você.")
+    teclou("falar aí, quer dar uma volta?")
+    ret 1
+  senao f == 14
+    teclou("falar Se as pessoas dormem de conchinha, será que as conchas dormem de pessoinha?")
+    ret 1
+  senao f == 15
+    teclou("falar Se quem ama cuida, muita gente deve me amar. Porque o que tem de pessoas \
+cuidando da minha vida, não é brincadeira.")
+    ret 1
+  senao f == 16
+    teclou("falar O menino chega para a mãe e diz:")
+    teclou("falar Mãe, me disseram na escola que eu sou muito distraído. - Menino, presta \
+atenção, eu não sou sua mãe. Sua casa é a do lado!")
+    ret 1
+  senao f == 17
+    teclou("falar Dizem que todo mundo merece uma segunda chance. Acho que eu já ficaria \
+satisfeito se me dessem a primeira.")
+    ret 1
+  senao f == 18
+    teclou("falar Quer ganhar milhões de seguidores? Cutuque uma colmeia de abelhas e saia \
+correndo.")
+    ret 1
+  senao f == 19
+    teclou("falar O álcool não é a resposta, ele apenas faz você esquecer a pergunta.")
+    ret 1
+  senao f == 20
+    teclou("falar Malandro é o Canguru que já nasce com o Bolsa Família.")
+    ret 1
+  senao f == 21
+    teclou("falar Ironia do destino é quando um jardineiro tem um filho florzinha e uma filha \
+trepadeira.")
+    ret 1
+  senao f == 22
+    teclou("falar Malandro é o pato, que já nasce com os dedos colados para não pôr aliança.")
+    ret 1
+  senao f == 23
+    teclou("falar Se emperrar, force. Se quebrar, precisava trocar mesmo.")
+    ret 1
+  senao f == 24
+    teclou("falar Errar é humano. Colocar a culpa em alguém, então, nem se fala.")
+    ret 1
+  senao f == 25
+    teclou("falar No fundo, no fundo, é bem fundo.")
+    ret 1
+  senao f == 26
+    teclou("falar Todos têm algo em comum. Nenhum é tão bom quanto eu.")
+    ret 1
+  senao f == 27
+    teclou("falar Quem dá importância às pequenas coisas é mulher de japonês!")
+    ret 1
+  senao f == 28
+    teclou("falar O grande amigo não é o que vem separar a briga, mas sim aquele que chega dando \
+uma voadora.")
+    ret 1
+  senao f == 29
+    teclou("falar O segredo para um bom relacionamento é beleza e paciência. Se der certo, \
+beleza, se não der, paciência.")
+    ret 1
+  senao f == 30
+    teclou("falar Água mole em pedra dura, tanto bate até que molha tudo.")
+    ret 1
+  senao f == 31
+    teclou("falar Meu filho volta pra casa cedo, o seu madruga.")
+    ret 1
+  senao f == 32
+    teclou("falar barco é multado por transportar laranjas no rio só limões.")
+    ret 1
+  senao f == 33
+    teclou("falar células tronco ainda vão quebrar maior galho.")
+    ret 1
+  senao f == 34
+    teclou("falar mulher faz escova sabor uva e sai com o cabelo cheio de cachos.")
+    ret 1
+  senao f == 35
+    teclou("falar partida de futebol de cavalos sempre termina em patadas.")
+    ret 1
+  senao f == 36
+    teclou("falar a manicure só consegue trabalhar se alguém der uma mão pra ela.")
+    ret 1
+  fimse
+
+func cmd_falou
+  se arg1 == "vá para casa rick!"
+    $mens.p(este)
+    $mens.mtodos1("batendo as asas, $P vai embora rindo de suas piadas.")
+    mudadono($s_deck006)
+    ret 1
+  fimse
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 2108
+
+
+classe p_deck002
+herda comum_persobat
+const nome = "Alfred, o mordomo"
+const descpadr = "alfred, o mordomo de Deck, caminha de um lado a outro sempre atendendo as \
+espectativas de seu senhor"
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 120
+
+
+classe p_deck003
+herda comum_persobat
+const nome = "a cozinheira maria"
+const descpadr = "maria, a cozinheira está aqui em frente a pia."
+
+
+classe p_deck004
+herda comum_persobat
+const nome = "Glorinha"
+const descpadr = "Glorinha está aqui, limpando tudo o que vê pela frente"
+const descver = "A oObsecada fachineira Glorinha está sempre limpando, limpa limpa limpa, aaah \
+pobre pano! Aja paciência com essa mulher."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const equip2 = "40000"
+const p_comecorpo = 1 # Come corpos: Sim
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 250
+
+
+classe p_deck005
+herda comum_perso
+const nome = "Gina a bibliotecária"
+const descpadr = "Gina, a bibliotecária está aqui foleando alguns livros."
+const descver = "Nada mais que uma mulher foleando um livro."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+
+
+classe p_deck006
+herda comum_perso
+const nome = "Bebél"
+const descpadr = "Tia Bebél está aqui contando historinhas e fazendo imitações!"
+const descver = "Uma linda moçinha simpática, com um belo sorriso estampado no rosto, está \
+sentada no chão contando historinhas para as crianças."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+
+
+classe p_deck007
+herda comum_perso
+const nome = "Math"
+const descpadr = "Math o guardião do portão está aqui encarando você."
+const descver = "Math é um homem auto e forte, seus músculos marcantes e aparentes, deixam \
+qualquer um tremendo de medo."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 6146
+  inttempo tempo
+
+func cmd_chegou
+  misc:tempo("entrou", arg0)
+
+func entrou10
+  teclou("tapa " + arg0.nome)
+  arg0.msg("mate, o guardião do portão diz: 'estou te vendo seu pilantra!'")
+
+
+classe p_deck008
+herda comum_perso
+const nome = "um coelho gigante"
+const descpadr = "um mega coelho está aqui, desejando-lhe um feliz páscoa"
+const descver = "de olhos vermelhos, de pelo branquinho...\n\
+é a música que vem na sua mente ao olhar pra esse coelho enorme.\n\
+com mais de dois metros de comprimento, ele ocupa uma boa parte do ambiente.\n\
+você se pergunta o que ele faz aqui, mas quem entende a mente de um coelho, não é mesmo?"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 62
+
+
+classe p_deck009
+herda comum_perso
+const nome = "um porteiro"
+const descpadr = "um porteiro, vestido em belos trajes, está aqui aguardando para abrir os \
+portões para você"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_chegou
+  misc:evento(arg0)
+
+func cmd_escr
+  ret !arg0.dentro2.objini("i_carro001"), nulo
+  se arg1 == "businar"
+    $mens.p(arg0)
+    $mens.mvis1("o porteiro abre o portão, para que $P passe com seu carro.")
+    teclou("abrir sair")
+    ret 1
+  fimse
+
+
+classe p_deck010
+herda comum_persobat
+
+
+classe s_deck001
+herda b_deck
+const s_titulo = "Adentrando a manção Évans."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_s = $s_deck004
+const dir_l = $s_deck147
+const dir_o = $s_deck003
+const dir_sair = $s_deck002
+const portaini_sair = 1 # Estado inicial: 1 Porta aberta
+const fecha_sair = 1 # Fecha ao passar: Sim
+
+
+classe s_deck002
+herda b_deck
+const s_titulo = "Em frente a manção Évans."
+const dir_entrar = $s_deck001
+
+
+classe s_deck003
+herda b_deck
+const s_titulo = "canto noroeste do jardim"
+const dir_s = $s_deck006
+const dir_l = $s_deck001
+
+
+classe s_deck004
+herda b_deck
+const s_titulo = "um corredor cortando o centro do jardim"
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_deck001
+const dir_s = $s_deck007
+const dir_l = $s_deck005
+const dir_o = $s_deck006
+
+
+classe s_deck005
+herda b_deck
+const s_titulo = "um explêndido jardim"
+const dir_n = $s_deck147
+const dir_s = $s_deck008
+const dir_o = $s_deck004
+
+
+classe s_deck006
+herda b_deck
+const s_titulo = "um explêndido jardim"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_deck003
+const dir_s = $s_deck009
+const dir_l = $s_deck004
+
+
+classe s_deck007
+herda b_deck
+const s_titulo = "a entrada principal"
+const dir_n = $s_deck004
+const dir_l = $s_deck008
+const dir_o = $s_deck009
+const dir_entrar = $s_deck011
+const portaini_entrar = 2 # Estado inicial: 2 Porta fechada
+const portanome_entrar = "a porta principal"
+const fecha_entrar = 1 # Fecha ao passar: Sim
+
+
+classe s_deck008
+herda b_deck
+const s_titulo = "canto sudeste do jardim"
+const dir_n = $s_deck005
+const dir_o = $s_deck007
+
+
+classe s_deck009
+herda b_deck
+const s_titulo = "canto sudoeste do jardim"
+const dir_n = $s_deck006
+const dir_l = $s_deck007
+
+
+classe s_deck010
+herda b_deck
+const s_titulo = "O corredor principal"
+const s_desc = "Você está andando em um imenso corredor, todo decorado com papéis de parede, ele \
+parece ser o corredor principal da mansão.\n\
+Em suas laterais existem algumas portas que levam aos outros espaços da casa."
+const dir_n = $s_deck011
+const dir_s = $s_deck013
+const dir_o = $s_deck015
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "a porta de um banheiro social"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_deck011
+herda b_deck
+const s_titulo = "hall de entrada"
+const s_desc = "Ao entrar aqui, você fica maravilhado com tudo que vê.\n\
+Você se encontra em uma sala extensa, em suas paredes há algumas obras de arte de alguns \
+artistas famosos\n\
+Ao centro da sala encontra-se uma mesinha redonda com algumas cadeiras em volta, que convida a \
+se sentar.\n\
+No canto oeste da sala há um pequeno bar com diversos tipos de bebidas."
+const dir_s = $s_deck010
+const dir_o = $s_deck012
+const dir_sair = $s_deck007
+const portaini_sair = 2 # Estado inicial: 2 Porta fechada
+const portanome_sair = "a porta principal"
+const fecha_sair = 1 # Fecha ao passar: Sim
+const a_reset = "P 100 deck002 100 100 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_deck002:objsolto.total < 1
+    criar("p_deck002", este, 100)
+  fimse
+
+
+classe s_deck012
+herda b_deck
+const s_titulo = "Um pequeno bár"
+const s_desc = "Ao olhar para esse canto da sala, você avista uma adega repleta de diferentes \
+tipos de bebidas\n\
+como vinhos, vodcas, e entre outras.\n\
+Logo a frente delas uma bancada lhe convida para sentar-se e deliciar-se com alguns drinks."
+const dir_l = $s_deck011
+const a_reset = "S 100 deck004 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_deck004") && criar("i_deck004", este, 1)
+
+
+classe s_deck013
+herda b_deck
+const s_titulo = "O corredor principal"
+const s_desc = "Você está andando em um imenso corredor, todo decorado com papéis de parede, ele \
+parece ser o corredor principal da mansão.\n\
+Em suas laterais existem algumas portas que levam aos outros espaços da casa."
+const dir_n = $s_deck010
+const dir_s = $s_deck014
+const dir_o = $s_deck021
+
+
+classe s_deck014
+herda b_deck
+const s_titulo = "O corredor principal"
+const s_desc = "Você está andando em um imenso corredor, todo decorado com papéis de parede, ele \
+parece ser o corredor principal da mansão.\n\
+Em suas laterais existem algumas portas que levam aos outros espaços da casa."
+const dir_n = $s_deck013
+const dir_s = $s_deck022
+const dir_l = $s_deck016
+const a_reset = "P 100 deck004 0 0 1\nE 100 deck002 1 19\nE 100 deck003 1 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_deck004:objsolto.total < 1
+    p = u = criar("p_deck004", este, 0)
+  fimse
+  se u
+    r = criar("i_deck002", u, 1), r.vestir(19), u.recalc = 1
+  fimse
+  se u
+    r = criar("i_deck003", u, 1), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_deck015
+herda b_deck
+const s_titulo = "Um lavabo"
+const dir_l = $s_deck010
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "a porta de um banheiro social"
+const fecha_l = 1 # Fecha ao passar: Sim
+const a_reset = "S 100 midgaard026 1 S\nS 100 midgaard029 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_midgaard026") && criar("i_midgaard026", este, 1)
+  !dentro1.objini("i_midgaard029") && criar("i_midgaard029", este, 1)
+
+
+classe s_deck016
+herda b_deck
+const s_titulo = "Uma explêndida cozinha"
+const dir_n = $s_deck017
+const dir_s = $s_deck019
+const dir_l = $s_deck020
+const dir_o = $s_deck014
+
+
+classe s_deck017
+herda b_deck
+const s_titulo = "Em frente a pia da cozinha"
+const dir_s = $s_deck016
+const dir_l = $s_deck018
+const a_reset = "P 100 deck003 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_deck003:objsolto.total < 1
+    criar("p_deck003", este, 0)
+  fimse
+
+
+classe s_deck018
+herda b_deck
+const s_titulo = "Entre os fornos"
+const dir_o = $s_deck017
+const dir_s = $s_deck020
+
+
+classe s_deck019
+herda b_deck
+const s_titulo = "Sala de jantar"
+const dir_n = $s_deck016
+
+
+classe s_deck020
+herda b_deck
+const s_titulo = "Continuando na cozinha"
+const dir_n = $s_deck018
+const dir_l = $s_deck062
+const dir_o = $s_deck016
+
+
+classe s_deck021
+herda b_deck
+const s_titulo = "Sala de estar"
+const dir_s = $s_deck023
+const dir_l = $s_deck013
+const dir_o = $s_deck025
+
+
+classe s_deck022
+herda b_deck
+const s_titulo = "O corredor principal"
+const s_desc = "Você está andando em um imenso corredor, todo decorado com papéis de parede, ele \
+parece ser o corredor principal da mansão.\n\
+Em suas laterais existem algumas portas que levam aos outros espaços da casa."
+const dir_n = $s_deck014
+const dir_s = $s_deck028
+const dir_o = $s_deck029
+
+
+classe s_deck023
+herda b_deck
+const s_titulo = "Sala de estar"
+const dir_n = $s_deck021
+const dir_o = $s_deck024
+
+
+classe s_deck024
+herda b_deck
+const s_titulo = "Sala de estar"
+const dir_n = $s_deck025
+const dir_l = $s_deck023
+const dir_o = $s_deck026
+
+
+classe s_deck025
+herda b_deck
+const s_titulo = "Sala de estar"
+const dir_s = $s_deck024
+const dir_l = $s_deck021
+
+
+classe s_deck026
+herda b_deck
+const s_titulo = "Um pequeno corredor"
+const dir_l = $s_deck024
+const dir_o = $s_deck027
+
+
+classe s_deck027
+herda b_deck
+const s_titulo = "Em frente as escadas"
+const s_pnj = 10
+const dir_n = $s_deck067
+const dir_l = $s_deck026
+const dir_c = $s_deck063
+
+
+classe s_deck028
+herda b_deck
+const s_titulo = "Entrando em um quintal"
+const dir_n = $s_deck022
+const dir_s = $s_deck031
+const dir_l = $s_deck050
+const dir_o = $s_deck052
+
+
+classe s_deck029
+herda b_deck
+const s_titulo = "Continuando no corredor"
+const dir_l = $s_deck022
+const dir_o = $s_deck030
+
+
+classe s_deck030
+herda b_deck
+const s_titulo = "Na lavanderia"
+const dir_l = $s_deck029
+const dir_o = $s_deck141
+
+
+classe s_deck031
+herda b_deck
+const s_titulo = "no quintal"
+const dir_n = $s_deck028
+const dir_s = $s_deck043
+const dir_l = $s_deck032
+const dir_o = $s_deck033
+
+
+classe s_deck032
+herda b_deck
+const s_titulo = "Um quiósque"
+const dir_n = $s_deck050
+const dir_s = $s_deck044
+const dir_l = $s_deck035
+const dir_o = $s_deck031
+
+
+classe s_deck033
+herda b_deck
+const s_titulo = "No quintal"
+const dir_s = $s_deck042
+const dir_l = $s_deck031
+const dir_o = $s_deck034
+const dir_n = $s_deck052
+
+
+classe s_deck034
+herda b_deck
+const s_titulo = "No quintal"
+const dir_n = $s_deck053
+const dir_s = $s_deck040
+const dir_l = $s_deck033
+const dir_o = $s_deck055
+
+
+classe s_deck035
+herda b_deck
+const s_titulo = "Um quiósque"
+const dir_n = $s_deck051
+const dir_s = $s_deck045
+const dir_l = $s_deck061
+const dir_o = $s_deck032
+
+
+classe s_deck036
+herda b_deck
+const dir_n = $s_deck035
+
+
+classe s_deck037
+herda b_deck
+const dir_n = $s_deck032
+
+
+classe s_deck038
+herda b_deck
+const dir_n = $s_deck031
+
+
+classe s_deck039
+herda b_deck
+const dir_n = $s_deck033
+
+
+classe s_deck040
+herda b_deck
+const s_titulo = "No quintal"
+const dir_n = $s_deck034
+const dir_s = $s_deck041
+const dir_l = $s_deck042
+const dir_o = $s_deck071
+
+
+classe s_deck041
+herda b_deck
+const s_titulo = "Próximo a piscina"
+const dir_n = $s_deck040
+const dir_s = $s_deck121
+const dir_l = $s_deck046
+
+
+classe s_deck042
+herda b_deck
+const s_titulo = "No quintal"
+const dir_n = $s_deck033
+const dir_s = $s_deck046
+const dir_l = $s_deck043
+const dir_o = $s_deck040
+
+
+classe s_deck043
+herda b_deck
+const s_titulo = "No quintal"
+const dir_n = $s_deck031
+const dir_s = $s_deck047
+const dir_l = $s_deck044
+const dir_o = $s_deck042
+
+
+classe s_deck044
+herda b_deck
+const s_titulo = "Um quiósque"
+const dir_n = $s_deck032
+const dir_s = $s_deck048
+const dir_l = $s_deck045
+const dir_o = $s_deck043
+
+
+classe s_deck045
+herda b_deck
+const s_titulo = "Um quiósque"
+const dir_n = $s_deck035
+const dir_s = $s_deck049
+const dir_l = $s_deck054
+const dir_o = $s_deck044
+
+
+classe s_deck046
+herda b_deck
+const s_titulo = "Próximo a piscina"
+const dir_n = $s_deck042
+const dir_s = $s_deck122
+const dir_l = $s_deck047
+const dir_o = $s_deck041
+
+
+classe s_deck047
+herda b_deck
+const s_titulo = "Próximo a piscina"
+const dir_n = $s_deck043
+const dir_s = $s_deck123
+const dir_l = $s_deck048
+const dir_o = $s_deck046
+
+
+classe s_deck048
+herda b_deck
+const s_titulo = "Próximo a piscina"
+const dir_n = $s_deck044
+const dir_s = $s_deck124
+const dir_l = $s_deck049
+const dir_o = $s_deck047
+
+
+classe s_deck049
+herda b_deck
+const s_titulo = "Próximo a piscina"
+const dir_n = $s_deck045
+const dir_s = $s_deck125
+const dir_o = $s_deck048
+
+
+classe s_deck050
+herda b_deck
+const s_titulo = "No quintal"
+const dir_s = $s_deck032
+const dir_l = $s_deck051
+const dir_o = $s_deck028
+
+
+classe s_deck051
+herda b_deck
+const s_titulo = "No quintal"
+const dir_s = $s_deck035
+const dir_o = $s_deck050
+
+
+classe s_deck052
+herda b_deck
+const s_titulo = "No quintal"
+const dir_s = $s_deck033
+const dir_l = $s_deck028
+const dir_o = $s_deck053
+
+
+classe s_deck053
+herda b_deck
+const s_titulo = "No quintal"
+const dir_s = $s_deck034
+const dir_l = $s_deck052
+
+
+classe s_deck054
+herda b_deck
+const s_titulo = "Sala de jogos"
+const dir_o = $s_deck045
+
+
+classe s_deck055
+herda b_deck
+const s_titulo = "´Área dos banheiros"
+const dir_s = $s_deck057
+const dir_l = $s_deck034
+const dir_o = $s_deck056
+
+
+classe s_deck056
+herda b_deck
+const s_titulo = "Área dos banheiros"
+const dir_s = $s_deck058
+const dir_l = $s_deck055
+const dir_o = $s_deck059
+
+
+classe s_deck057
+herda b_deck
+const s_titulo = "Área dos banheiros"
+const dir_n = $s_deck055
+const dir_o = $s_deck058
+
+
+classe s_deck058
+herda b_deck
+const s_titulo = "Área dos banheiros"
+const dir_n = $s_deck056
+const dir_l = $s_deck057
+const dir_o = $s_deck060
+
+
+classe s_deck059
+herda b_deck
+const s_titulo = "Banheiro feminino"
+const dir_l = $s_deck056
+
+
+classe s_deck060
+herda b_deck
+const s_titulo = "Banheiro masculino"
+const dir_l = $s_deck058
+
+
+classe s_deck061
+herda b_deck
+const s_titulo = "Área das churrasqueiras"
+const dir_o = $s_deck035
+
+
+classe s_deck062
+herda b_deck
+const s_titulo = "Uma dispensa"
+const dir_o = $s_deck020
+
+
+classe s_deck063
+herda b_deck
+const s_titulo = "Nas escadas"
+const dir_c = $s_deck064
+const dir_b = $s_deck027
+
+
+classe s_deck064
+herda b_deck
+const s_titulo = "No andar de cima"
+const dir_s = $s_deck073
+const dir_l = $s_deck065
+const dir_o = $s_deck072
+const dir_b = $s_deck063
+
+
+classe s_deck065
+herda b_deck
+const s_titulo = "No andar de cima"
+const dir_l = $s_deck066
+const dir_o = $s_deck064
+
+
+classe s_deck066
+herda b_deck
+const s_titulo = "Sala de tv"
+const dir_l = $s_deck120
+const dir_o = $s_deck065
+
+
+classe s_deck067
+herda b_deck
+const s_titulo = "Uma bibliotéca"
+const dir_n = $s_deck070
+const dir_s = $s_deck027
+const dir_o = $s_deck068
+const a_reset = "P 100 deck005 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_deck005:objsolto.total < 1
+    criar("p_deck005", este, 0)
+  fimse
+
+
+classe s_deck068
+herda b_deck
+const s_titulo = "Na brinquedotéca"
+const dir_s = $s_deck069
+const dir_l = $s_deck067
+
+
+classe s_deck069
+herda b_deck
+const s_titulo = "Cantinho das histórias"
+const dir_n = $s_deck068
+const a_reset = "P 100 deck006 0 0 1\nS 100 deck007 1 S\nS 100 deck008 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_deck006:objsolto.total < 1
+    criar("p_deck006", este, 0)
+  fimse
+  !dentro1.objini("i_deck007") && criar("i_deck007", este, 1)
+  !dentro1.objini("i_deck008") && criar("i_deck008", este, 1)
+
+
+classe s_deck070
+herda b_deck
+const s_titulo = "Cantinho da leitura"
+const dir_s = $s_deck067
+
+
+classe s_deck071
+herda b_deck
+const s_titulo = "Na sauna"
+const dir_l = $s_deck040
+
+
+classe s_deck072
+herda b_deck
+const s_titulo = "Um banheiro social"
+const dir_l = $s_deck064
+
+
+classe s_deck073
+herda b_deck
+const s_titulo = "Um corredor"
+const dir_n = $s_deck064
+const dir_s = $s_deck074
+
+
+classe s_deck074
+herda b_deck
+const s_titulo = "Um corredor entre os quartos"
+const dir_n = $s_deck073
+const dir_s = $s_deck076
+const dir_o = $s_deck075
+
+
+classe s_deck075
+herda b_deck
+const s_titulo = "Quarto de hóspedis"
+const dir_s = $s_deck081
+const dir_l = $s_deck074
+
+
+classe s_deck076
+herda b_deck
+const s_titulo = "Um corredor entre os quartos"
+const dir_n = $s_deck074
+const dir_s = $s_deck077
+
+
+classe s_deck077
+herda b_deck
+const s_titulo = "Continuando no corredor"
+const dir_n = $s_deck076
+const dir_s = $s_deck083
+const dir_l = $s_deck082
+const dir_o = $s_deck078
+
+
+classe s_deck078
+herda b_deck
+const s_titulo = "O quarto das crianças"
+const dir_s = $s_deck080
+const dir_l = $s_deck077
+const dir_o = $s_deck079
+
+
+classe s_deck079
+herda b_deck
+const s_titulo = "Uma sacada"
+const dir_l = $s_deck078
+
+
+classe s_deck080
+herda b_deck
+const s_titulo = "O banheiro do quarto"
+const dir_n = $s_deck078
+
+
+classe s_deck081
+herda b_deck
+const s_titulo = "Um banheiro"
+const dir_n = $s_deck075
+
+
+classe s_deck082
+herda b_deck
+const s_titulo = "Mais um quarto"
+const dir_o = $s_deck077
+
+
+classe s_deck083
+herda b_deck
+const s_titulo = "Continuando no corredor"
+const dir_n = $s_deck077
+const dir_s = $s_deck084
+const dir_l = $s_deck087
+
+
+classe s_deck084
+herda b_deck
+const s_titulo = "Ainda no corredor"
+const dir_n = $s_deck083
+const dir_s = $s_deck085
+const dir_l = $s_deck088
+
+
+classe s_deck085
+herda b_deck
+const s_titulo = "Próximo a suíti principal"
+const dir_n = $s_deck084
+const dir_s = $s_deck086
+
+
+classe s_deck086
+herda b_deck
+const s_titulo = "Entrando na suíte do casal"
+const dir_n = $s_deck085
+const dir_s = $s_deck089
+
+
+classe s_deck087
+herda b_deck
+const s_titulo = "Mais um quarto para visitas"
+const dir_o = $s_deck083
+
+
+classe s_deck088
+herda b_deck
+const s_titulo = "O cantinho do baby"
+const s_desc = "Seja bém vindo ao meu cantinho!\n\
+Aqui é o meu lugarzinho, posso fazer práticamente tudo aqui\n\
+Eu deixo você vir conhecer, mas ja vou logo avisando, limpe os sapatos e não bagunce minhas \
+coisas!"
+const dir_n = $s_deck115
+const dir_s = $s_deck116
+const dir_l = $s_deck113
+const dir_o = $s_deck084
+
+
+classe s_deck089
+herda b_deck
+const s_titulo = "O quarto do casal"
+const dir_n = $s_deck086
+const dir_l = $s_deck090
+const dir_s = $s_deck092
+const dir_o = $s_deck094
+
+
+classe s_deck090
+herda b_deck
+const s_titulo = "O quarto do casal"
+const dir_s = $s_deck091
+const dir_o = $s_deck089
+
+
+classe s_deck091
+herda b_deck
+const s_titulo = "O quarto do casal"
+const dir_n = $s_deck090
+const dir_s = $s_deck095
+const dir_l = $s_deck112
+const dir_o = $s_deck092
+
+
+classe s_deck092
+herda b_deck
+const s_titulo = "O quarto do casal"
+const dir_n = $s_deck089
+const dir_l = $s_deck091
+const dir_o = $s_deck093
+const dir_s = $s_deck096
+
+
+classe s_deck093
+herda b_deck
+const s_titulo = "Continuando no quarto"
+const dir_n = $s_deck094
+const dir_l = $s_deck092
+
+
+classe s_deck094
+herda b_deck
+const s_titulo = "Continuando no quarto"
+const dir_s = $s_deck093
+const dir_l = $s_deck089
+
+
+classe s_deck095
+herda b_deck
+const s_titulo = "Ainda no quarto principal"
+const dir_n = $s_deck091
+const dir_o = $s_deck096
+
+
+classe s_deck096
+herda b_deck
+const s_titulo = "Próximo ao closet"
+const dir_n = $s_deck092
+const dir_l = $s_deck095
+const dir_o = $s_deck097
+
+
+classe s_deck097
+herda b_deck
+const s_titulo = "No closet"
+const dir_s = $s_deck098
+const dir_l = $s_deck096
+
+
+classe s_deck098
+herda b_deck
+const s_titulo = "No closet"
+const dir_n = $s_deck097
+const dir_s = $s_deck099
+const dir_o = $s_deck100
+
+
+classe s_deck099
+herda b_deck
+const s_titulo = "Próximo ao banheiro"
+const dir_n = $s_deck098
+const dir_s = $s_deck101
+
+
+classe s_deck100
+herda b_deck
+const s_titulo = "Entre os guardarroupas"
+const dir_l = $s_deck098
+
+
+classe s_deck101
+herda b_deck
+const s_titulo = "Na suíte"
+const dir_n = $s_deck099
+const dir_s = $s_deck102
+const dir_o = $s_deck104
+
+
+classe s_deck102
+herda b_deck
+const s_titulo = "Continuando na Suite"
+const dir_n = $s_deck101
+const dir_o = $s_deck103
+
+
+classe s_deck103
+herda b_deck
+const s_titulo = "Ainda na suíte"
+const dir_n = $s_deck104
+const dir_s = $s_deck105
+const dir_l = $s_deck102
+
+
+classe s_deck104
+herda b_deck
+const s_titulo = "Na suíte"
+const dir_s = $s_deck103
+const dir_l = $s_deck101
+
+
+classe s_deck105
+herda b_deck
+const s_titulo = "Quarto de banho"
+const dir_n = $s_deck103
+const dir_s = $s_deck108
+const dir_l = $s_deck106
+
+
+classe s_deck106
+herda b_deck
+const s_titulo = "Quarto de banho"
+const dir_s = $s_deck107
+const dir_o = $s_deck105
+
+
+classe s_deck107
+herda b_deck
+const s_titulo = "Próximo ao bóx"
+const dir_n = $s_deck106
+const dir_o = $s_deck108
+
+
+classe s_deck108
+herda b_deck
+const s_titulo = "Adentrando ao bóx"
+const dir_n = $s_deck105
+const dir_s = $s_deck109
+const dir_l = $s_deck107
+
+
+classe s_deck109
+herda b_deck
+const s_titulo = "Dentro do bóx"
+const dir_n = $s_deck108
+const dir_l = $s_deck110
+
+
+classe s_deck110
+herda b_deck
+const s_titulo = "Dentro da banheira"
+const dir_o = $s_deck109
+const dir_b = $s_deck111
+
+
+classe s_deck111
+herda b_deck
+const s_titulo = "Afundando na banheira"
+const dir_c = $s_deck110
+
+
+classe s_deck112
+herda b_deck
+const s_titulo = "Uma explêndida sacada"
+const dir_s = $s_deck143
+const dir_o = $s_deck091
+
+
+classe s_deck113
+herda b_deck
+const s_titulo = "Caminhando sobre um tapete"
+const s_desc = "Logo ao entrar no quarto, você encontra um enorme tapete cheio de estampas, \
+almofadas e tudo que possa me ajudar a me estimular para ser um super bebê!!!\n\
+Hehe! Como eu adoro rolar nele e abraçar minhas almofadinhas! Vêm cá, eu quero compania!!"
+const dir_n = $s_deck114
+const dir_l = $s_deck118
+const dir_o = $s_deck088
+
+
+classe s_deck114
+herda b_deck
+const s_titulo = "Chegou a hora de dormir"
+const s_desc = "Aiiin como estou cansadinho!\n\
+Acho que brinquei de mais hoje, preciso dormir um pouquinho. (O bebê boceja).\n\
+Boa noite, e até amanhã!"
+const dir_s = $s_deck113
+
+
+classe s_deck115
+herda b_deck
+const s_titulo = "No trocador"
+const s_desc = "Caraca! Quantas roupinhas!\nManhee acho que estou sujinho, vêêm cáá!"
+const dir_s = $s_deck088
+
+
+classe s_deck116
+herda b_deck
+const s_titulo = "É hora de brincar"
+const s_desc = "Um cantinho mais que especial, aonde posso me descobrir, brincar e principalmente\
+, me conhecer,.\n\
+Saber do que gosto, do que não gosto, e acima de tudo, me divertir pra caramba!!!\n\
+Ao entrar aqui, você pode avistar prateleiras repletas de brinquedos e atividades, tudo está \
+organizado em diferentes caixinhas e sextinhas infileirados em algumas prateleiras. Mas agora \
+chega de blá blá blá, eu queeero brincar!!!!"
+const dir_n = $s_deck088
+const dir_l = $s_deck117
+
+
+classe s_deck117
+herda b_deck
+const s_titulo = "Entre os livrinhos"
+const s_desc = "Geeente quantas coisas novas! quantas historinhas! Eu quero lêr todinhas, Você \
+me ensina?\n\
+Ao chegar aqui, você avista muuuitos livrinhos coloridos e repletos de figurinhas de animais, e \
+muitas outras.\n\
+Bom, esse lugar poderia estár mais organizado, mas eu to tão feliiz! Quero conhecer tudinho!"
+const dir_o = $s_deck116
+const a_reset = "S 100 deck007 1 S\nS 100 deck008 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_deck007") && criar("i_deck007", este, 1)
+  !dentro1.objini("i_deck008") && criar("i_deck008", este, 1)
+
+
+classe s_deck118
+herda b_deck
+const s_titulo = "O banheiro do baby"
+const s_desc = "É nesse lugarzinho que depois de gande eu vou fazer minhas nessecidades no meu \
+piniquinho.\n\
+Aaah eu não vejo a hora!"
+const dir_n = $s_deck119
+const dir_o = $s_deck113
+
+
+classe s_deck119
+herda b_deck
+const s_titulo = "Vamos tomar banho!!!"
+const s_desc = "Eee! é a hora do banho!!!\n\
+Águaaaa! Bagunça bagunça baguuuunça!!!\n\
+E ainda, vou ficar limpinho, mas primeiro, deixa eu brincar? Só um pouquinho? Pufavorzinho?\n\
+Deixa deixa deeeeixaaaa!"
+const dir_s = $s_deck118
+
+
+classe s_deck120
+herda b_deck
+const s_titulo = "Uma varanda"
+const dir_o = $s_deck066
+
+
+classe s_deck121
+herda b_deck
+const s_titulo = "Na borda da piscina"
+const dir_n = $s_deck041
+const dir_l = $s_deck122
+const dir_b = $s_deck126
+
+
+classe s_deck122
+herda b_deck
+const s_titulo = "Na borda da piscina"
+const dir_n = $s_deck046
+const dir_l = $s_deck123
+const dir_o = $s_deck121
+const dir_b = $s_deck127
+
+
+classe s_deck123
+herda b_deck
+const s_titulo = "Na borda da piscina"
+const dir_n = $s_deck047
+const dir_l = $s_deck124
+const dir_o = $s_deck122
+const dir_b = $s_deck128
+
+
+classe s_deck124
+herda b_deck
+const s_titulo = "Na borda da piscina"
+const dir_n = $s_deck048
+const dir_l = $s_deck125
+const dir_o = $s_deck123
+const dir_b = $s_deck129
+
+
+classe s_deck125
+herda b_deck
+const s_titulo = "Na borda da piscina"
+const dir_n = $s_deck049
+const dir_o = $s_deck124
+const dir_b = $s_deck130
+
+
+classe s_deck126
+herda b_deck
+const s_titulo = "Dentro da piscina"
+const dir_s = $s_deck131
+const dir_l = $s_deck127
+const dir_c = $s_deck121
+
+
+classe s_deck127
+herda b_deck
+const s_titulo = "Dentro da piscina"
+const dir_l = $s_deck128
+const dir_o = $s_deck126
+const dir_c = $s_deck122
+const dir_s = $s_deck132
+
+
+classe s_deck128
+herda b_deck
+const s_titulo = "Dentro da piscina"
+const dir_l = $s_deck129
+const dir_o = $s_deck127
+const dir_c = $s_deck123
+const dir_s = $s_deck133
+
+
+classe s_deck129
+herda b_deck
+const s_titulo = "Dentro da piscina"
+const dir_l = $s_deck130
+const dir_o = $s_deck128
+const dir_c = $s_deck124
+const dir_s = $s_deck134
+
+
+classe s_deck130
+herda b_deck
+const s_titulo = "Dentro da piscina"
+const dir_o = $s_deck129
+const dir_c = $s_deck125
+const dir_s = $s_deck135
+
+
+classe s_deck131
+herda b_deck
+const s_titulo = "Dentro da piscina"
+const dir_n = $s_deck126
+const dir_s = $s_deck136
+const dir_l = $s_deck132
+
+
+classe s_deck132
+herda b_deck
+const s_titulo = "Dentro da piscina"
+const dir_n = $s_deck127
+const dir_l = $s_deck133
+const dir_o = $s_deck131
+const dir_s = $s_deck137
+
+
+classe s_deck133
+herda b_deck
+const s_titulo = "Dentro da piscina"
+const dir_n = $s_deck128
+const dir_l = $s_deck134
+const dir_o = $s_deck132
+const dir_s = $s_deck138
+
+
+classe s_deck134
+herda b_deck
+const s_titulo = "Dentro da piscina"
+const dir_n = $s_deck129
+const dir_l = $s_deck135
+const dir_o = $s_deck133
+const dir_s = $s_deck139
+
+
+classe s_deck135
+herda b_deck
+const s_titulo = "Dentro da piscina"
+const dir_n = $s_deck130
+const dir_o = $s_deck134
+const dir_s = $s_deck140
+
+
+classe s_deck136
+herda b_deck
+const s_titulo = "Dentro da piscina"
+const dir_n = $s_deck131
+const dir_l = $s_deck137
+
+
+classe s_deck137
+herda b_deck
+const s_titulo = "Dentro da piscina"
+const dir_n = $s_deck132
+const dir_l = $s_deck138
+const dir_o = $s_deck136
+
+
+classe s_deck138
+herda b_deck
+const s_titulo = "Dentro da piscina"
+const dir_n = $s_deck133
+const dir_l = $s_deck139
+const dir_o = $s_deck137
+
+
+classe s_deck139
+herda b_deck
+const s_titulo = "Dentro da piscina"
+const dir_n = $s_deck134
+const dir_l = $s_deck140
+const dir_o = $s_deck138
+
+
+classe s_deck140
+herda b_deck
+const s_titulo = "Dentro da piscina"
+const dir_n = $s_deck135
+const dir_o = $s_deck139
+
+
+classe s_deck141
+herda b_deck
+const s_titulo = "Entre os varais de roupas"
+const dir_l = $s_deck030
+
+
+classe s_deck142
+herda b_deck
+const s_titulo = "dentro da fonte de ouro"
+const dir_sair = $i_deck001
+
+
+classe s_deck143
+herda b_deck
+const s_titulo = "Em frente a uma pequena escada"
+const dir_n = $s_deck112
+const dir_c = $s_deck144
+
+
+classe s_deck144
+herda b_deck
+const s_titulo = "Sobre uma escada"
+const dir_c = $s_deck145
+const dir_b = $s_deck143
+
+
+classe s_deck145
+herda b_deck
+const s_titulo = "um terraço"
+const dir_n = $s_deck146
+const dir_b = $s_deck144
+
+
+classe s_deck146
+herda b_deck
+const s_titulo = "Uma sauna"
+const dir_s = $s_deck145
+
+
+classe s_deck147
+herda b_deck
+const s_titulo = "canto nordeste do jardim"
+const dir_s = $s_deck005
+const dir_o = $s_deck001
+
+
+classe s_deck148
+herda b_deck
+const s_titulo = "debaixo dos cobertores"
+
+
+classe s_deck149
+herda b_deck
+const s_titulo = "um buraco feito por deck"
+const dir_c = $s_deck006
+
+
+classe s_deck150
+herda b_deck
+const s_titulo = "suspenso no ar"
+const s_ocultar = 1 # Ocultar desc: Sim
+
+
+classe s_deck151
+herda b_deck
+const s_titulo = "teste"
+const eveste = 1 # Eventos sala: Sim
+
+func cmd_soltaranim
+  se arg1 == este
+    arg0.msg("não invoque.")
+    ret 1
+  fimse

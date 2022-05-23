@@ -1,0 +1,32 @@
+classe cmd_cavalgar
+herda comando_comum
+const posic = 0
+#
+
+func escr
+  ret !arg0.dono.perso, arg0.msg("Você não está montando nenhum animal.")
+  se !arg1
+    arg0.msg("Digite a direção a cavalgar!")
+  senao
+    ret !arg0.dono.dono.dir_[arg1], arg0.msg("Impossível cavalgar nessa direção.")
+    arg0.dono.teclou(arg1)
+    arg0.msg("Cavalgando...")
+    arg0.dono.dono.dentro2.objlista.msg(arg0.descnome + " chegou aqui em " + arg0.dono.descnome \
++ ".")
+    arg0.msg(arg0.dono.dono.s_titulo)
+    arg0.msg(arg0.dono.dono.s_desc)
+    textotxt t
+    txt80 dir
+    ref r
+#
+    epara dir = misc:listadir, dir, dir = txt2(dir)
+      refvar nome = txt1(dir)
+      continuar !(r = arg0.dono.dono.dir_[nome](arg0)) || arg0.dono.dono.inv_[nome](arg0)
+      t.addfim(txt(txtmai(nome) + "       ", 0, 8))
+    efim
+    se t.linhas
+      arg0.msg2("Saídas: " + t.remove(1000))
+    senao
+      arg0.msg2("Saídas: Nenhuma.")
+    fimse
+  fimse

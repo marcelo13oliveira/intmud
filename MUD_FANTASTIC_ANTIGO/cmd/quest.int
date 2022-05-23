@@ -1,0 +1,92 @@
+classe cmd_nquest
+herda comando_comum
+const posic = 0
+const txtajuda = "\b\c3nquest\b\nSintaxe: nquest\nMostra as quests disponíveis no mud."
+#
+
+func escr
+  arg0.msg("Quests disponíveis:")
+  arg0.msg("A cozinheira do casarão do campo está desesperada com algo que está acontecendo lá. \
+Vá até ela e descubra como pode ajudá-la!")
+  arg0.msg("------")
+  arg0.msg("O padeiro Joab precisa de sua ajuda, converse com ele e tente ajudá-lo.")
+  arg0.msg("-----")
+  arg0.msg("O Velho joalheiro da praia precisa de alguns itens.")
+  arg0.msg("Vá até a sua barraca, saiba quais são esses itens e ajude-o.")
+  arg0.msg("")
+  arg0.msg("")
+  arg0.msg("a delegada liza main nessecita de sua ajuda, va até lá e converse com ela:")
+  arg0.msg("Olá tangamandapianos e tangamandapianas! Eu sou jaiminho, o carteiro. Estou tentando \
+evitar a fadiga... Bem me procurem aqui na vila do chaves e me ajudem!")
+  arg0.msg("O caçador do bosque precisa da sua ajuda. Encontre-o em seu barraco e converse com \
+ele.")
+
+
+classe cmd_quest
+herda comando_comum
+const txtajuda = "\b\c3quest\b\n\
+Sintaxe: QUEST\n\
+Mostra quantos pontos de aventura você tem."
+const posic = 0
+
+func escr
+  txt100 lin
+  txt100 lin2
+  se !arg0.var.z_quest_
+    lin = "Nenhum ponto de aventura"
+  senao arg0.var.z_quest_ == 1
+    lin = "Um ponto de aventura"
+  senao arg0.var.z_quest_ == 2
+    lin = "Dois pontos de aventura"
+  senao
+    lin = txtnum(arg0.var.z_quest_, ".") + " pontos de aventura"
+  fimse
+  se arg0.persoesc == arg0 || !arg0.persoesc.var.z_quest_
+  senao arg0.persoesc.var.z_quest_ == 1
+    lin2 = " um ponto de aventura"
+  senao arg0.var.z_quest_ == 2
+    lin2 = " dois pontos de aventura"
+  senao
+    lin2 = " " + txtnum(arg0.var.z_quest_, ".") + " pontos de aventura"
+  fimse
+  lin2 && (lin += ", " + txtcopiamai(arg0.persoesc.nome, "A") + lin2)
+  arg0.msg(lin + ".")
+
+
+classe cmd_tquest
+herda comando_comum
+const posic = 0
+const txtajuda = "\b\c3Tquest\b\n\
+Sintáxe: tquest <pontos de quest a transferir> <jogador destino>"
+#
+
+func escr
+  ref p
+  ret !arg1, arg0.msg("Transferir quantos pontos? para quem?")
+  ret txt(intpos(txt1(arg1))) != txt1(arg1), arg0.msg("Digite a quantidade de pontos que deseja \
+transferir.")
+  refvar pquest = txt1(arg1)
+  refvar jquest = txt2(arg1)
+  ret arg0.descnome == jquest, arg0.msg("Transferir para você mesmo?")
+  ret !jquest, arg0.msg("Transferir pontos para quem?")
+  enquanto 1
+    refvar nomesav = txts(txtnome(jquest))
+    indiceitem item
+    item.ini("pn " + nomesav)
+    p = item.obj
+    sair p
+    ret intnome(jquest), arg0.msg("Nome inválido para jogador: " + jquest)
+    arqsav sav
+    listaobj l1
+  efim
+  ret arg0.var.z_quest_ < pquest, arg0.msg("Você não possui " + pquest + " pontos de aventura \
+para transferir.")
+  se pquest == "1"
+    arg0.msg("Você transferiu 1 ponto de aventura para " + jquest + ".")
+    p.msg(arg0.descnome + " transferiu 1 ponto de aventura para você.")
+  senao
+    arg0.msg("Você transferiu " + pquest + " pontos de aventura para " + jquest + ".")
+    p.msg(arg0.descnome + " transferiu " + pquest + " pontos de quest para você.")
+  fimse
+  arg0.var.z_quest_ -= pquest
+  p.var.z_quest_ += pquest

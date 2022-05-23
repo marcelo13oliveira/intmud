@@ -1,0 +1,19 @@
+classe cmd_evento
+herda comando_comum
+#
+const posic = 5
+#
+
+func escr
+  ret !arg0.jog, nulo
+  arg0.msg("\b\c3Dia das mães\b\n\nEla tem a capacidade de ouvir o silêncio.\nAdivinhar sentiment\
+os.\nEncontrar a palavra certa nos momentos incertos.\nNos fortalecer quando tudo ao nosso redor \
+parece ruir.\nSabedoria emprestada dos deuses para nos proteger e amparar.\n\nSua existência é \
+em si um ato de amor.\nGerar, cuidar, nutrir.\nAmar, amar, amar...\nAmar com um amor incondiciona\
+l que nada espera em troca.\nAfeto desmedido e incontido, Mãe é um ser infinito.")
+  se arg0.dentro2.objini("e_mãe")
+    apagar(arg0.dentro2.objini("e_mãe"))
+  senao !arg0.dentro2.objini("e_mae")
+    ret arg0.pnivel < 15, arg0.msg("Você ainda não pode participar do evento!")
+    criar("e_mãe", arg0)
+  fimse

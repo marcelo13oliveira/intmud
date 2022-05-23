@@ -1,0 +1,3521 @@
+classe a_hogwarts
+herda area
+const a_nome = "Hogwarts"
+const a_tempo = 20
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_hogwarts
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_recup = 10
+const s_terreno = 2 # Terreno: 2 Campo, um campo aberto - 2mv
+const s_som = "hogwarts"
+const s_area = "hogwarts"
+
+
+classe i_hogwarts001
+herda comum_itemperso
+const nome = "banquinho"
+const descnome = "um banquinho de 4 pernas"
+const descpos = "Há um banquinho de madeira aqui."
+const i_pegar = "Você não pode pegar o banquinho da escola!"
+const i_movel = 1 # Mobília: 1 Sentar
+const i_lugar = 1
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_sentouobj
+  se arg1 == este
+    ret arg0.var.z_casah, arg0.msg("Você já foi selecionado para uma das casas!")
+    misc:tempo("selecionar", arg0)
+  fimse
+#
+
+
+classe i_hogwarts002
+herda comum_itemgrupo
+const nome = "chapéu seletor"
+const descnome = "o chapéu seletor"
+const vestir1 = 4 # Aonde vestir: 2-na cabeça
+#
+
+func cmd_sentarobj
+  se arg1 == este
+    arg0.msg("Você já foi selecionado para uma das casas!")
+    ret 1
+  fimse
+
+
+classe i_hogwarts003
+herda comum_item
+const nome = "cerveja amanteigada"
+const descnome = "uma cerveja amanteigada"
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_bebida = 30
+const f_sede = 20
+const f_msgoutros = f_msgperso
+const valor = 50
+const eveste = 1 # receber eventos do próprio item: sim
+sav uint8 bebeu
+#
+
+func f_msgperso
+  ret bebeu < 3, "$P destampa a garrafa e toma uma dose de cerveja amanteigada com muito \
+prazer!"
+  ret "$P destampa a garrafa, toma o resto de cerveja amanteigada e descarta o recipiente!"
+#
+
+func cmd_bebeu
+  bebeu += 1
+  bebeu >= 4 && apagar(este)
+
+
+classe i_hogwarts004
+herda comum_item
+const nome = "aviso"
+const descnome = "um aviso"
+const descpos = "Há um aviso flutuando no ar, tecle ler aviso"
+const i_pegar = "Impossível, o aviso não é algo sólido!"
+const mantersala = 1 # Mantém na sala: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "ler aviso"
+    arg0.msg("Para entrar, faça cócegas na pera, digitando cocegas pera")
+    arg0.msg("Depois, gire a maçaneta, digitando girar maçaneta")
+    ret 1
+  fimse
+
+
+classe i_hogwarts005
+herda comum_itemgrupo
+const nome = "cerveja amanteigada"
+const descnome = "uma cerveja amanteigada"
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_bebida = 30
+const f_sede = 10
+const f_msgoutros = f_msgpersso
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+sav uint8 bebeu
+#
+
+func f_msgperso
+  ret bebeu < 4, "$P bebe um gole de cerveja amanteigada da garrafa!"
+  ret "$P bebe o último gole de cerveja amanteigada da garrafa e a joga no lixo!"
+#
+
+func cmd_bebeu
+  bebeu += 1
+  bebeu >= 5 && apagar(este)
+
+
+classe i_hogwarts006
+herda comum_itemperso
+const nome = "cadeira"
+const descnome = "uma cadeira luxuosa"
+const i_pegar = "não pode pegar a cadeira do diretor!"
+const i_movel = 1 # Mobília: 1 Sentar
+
+
+classe i_hogwarts007
+herda comum_itemgrupo
+const nome = "uma fonte de água"
+const descnome = "uma fonte de água"
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_sede = 50
+const i_pegar = "não se pode pegar a fonte!"
+
+
+classe i_hogwarts008
+herda comum_item
+const nome = "um portal"
+const descnome = "um portal"
+const i_pegar = "não pode pegar o portal!"
+const i_salaentrar = $s_hogwarts001
+
+
+classe i_hogwarts009
+herda comum_item
+const nome = "espelho"
+const descnome = "o espelho de ojesed"
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_olhar
+  ret arg1 == arg0, nulo
+  se arg1 == este
+    criar("i_hogwarts010", arg0, 1)
+    arg0.msg("Você olha para o Espelho de Ojesed.")
+    arg0.msg("A princípio, você vê sua imagem um pouco assustada.")
+    arg0.msg("De repente, sua imagem sorri para você, levando a mão ao bolso e tirando uma pedra \
+cor de sangue.")
+    arg0.msg("Ela lhe dá uma piscadela e devolve a pedra ao bolso.")
+    arg0.msg("Ao fazer isso, você sente algo pesado cair em seu bolso de verdade.")
+    arg0.msg("Inexplicavelmente, você toma posse da Pedra Filosofal.")
+    ret 1
+  fimse
+
+
+classe i_hogwarts010
+herda comum_item
+const nome = "pedra filosofal"
+const descnome = "a pedra filosofal"
+
+
+classe i_hogwarts011
+herda comum_item
+const nome = "goles"
+const descnome = "a goles"
+
+
+classe i_hogwarts012
+herda comum_item
+const nome = "pomo de ouro"
+const descnome = "o pomo de ouro"
+const descpos = "Um pequeno ponto dourado pode ser visto se movimentando ao longe!"
+const descver = "Você nota que se trata de uma minúscula bola dourada que, com toda certeza,\n\
+cabe nas palmas das suas mãos. Ela possui asas extremamente velozes, que a\n\
+fazem mover-se rapidamente pelo campo e perder-se rapidamente de vista."
+const i_pegar = "Você tenta pegar o pomo, mas ele foge rapidamente do seu campo de visão!"
+
+
+classe i_hogwarts013
+herda comum_itemgrupo
+const nome = "balaço"
+const descnome = "um balaço"
+const msexo = 1 # Sexo Msg: 1 Masculino
+
+
+classe i_hogwarts014
+herda comum_itemperso
+const nome = "Espada"
+const ident = "Espada"
+const descpos = "A espada de Gryffindor repousa em uma redoma de vidro."
+const descver = "Esta espada foi feita por duendes.\n\
+Seu punho possui lindos rubis rutilantes do tamanho de ovos.\n\
+Logo abaixo da bainha, lê-se o seguinte nome: \"Godrico Gryffindor.\""
+const armamanual = 1 # Só ataca manual: Sim
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const tipoitem = 2 # Tipo de item: 1-arma (3-Vestimenta)
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+const manterperso = 1 # Mantém em jogador: Sim
+
+
+classe i_hogwarts015
+herda comum_itemperso
+const nome = "cama"
+const descnome = "uma cama"
+const descpos = "Aqui há várias camas ao longo das paredes."
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+
+
+classe i_hogwarts016
+herda comum_itemgrupo
+const nome = "medalhão"
+const descnome = "o medalhão de Salazar Sliterin"
+const vestir1 = 1536 # Aonde vestir: 9-no pescoço, 10-como símbolo
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_vestir
+  se arg1 == este
+    $mens.p(arg0)
+    $mens.mvis1("$P veste o medalhão e começa a se comportar de modo diferente...")
+    $mens.p(arg0)
+    $mens.mvis1("$P tira a roupa.")
+    ret 1
+  fimse
+
+
+classe i_hogwarts017
+herda comum_item
+const nome = "Um livro de Harry Potter"
+const ident = "Livro harry potter magnífico"
+const descnome = "um livro de Harry Potter"
+const descpos = "Um magnífico livro de capa dura da saga Harry Potter chama sua atenção."
+const descver = "Trata-se de um belo livro, com capa dura e desenhos elaborados. Você sente\n\
+muita, muita vontade de pegá-lo!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = ""
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "ler livro"
+    misc:tempo("leulivro", arg0)
+    ret 1
+  fimse
+#
+
+func cmd_pegarobj
+  se arg2 == este
+    misc:tempo("leulivro", arg0)
+    ret 1
+  fimse
+#
+
+func leulivro30
+  arg0.msg("Curioso...")
+#
+
+func leulivro60
+  arg0.msg("Você pega o livro da estante e foleia suas páginas, a fim de lê-lo.")
+#
+
+func leulivro90
+  arg0.msg("Inesperadamente, dentre uma das páginas, aparece um portal...")
+#
+
+func leulivro120
+  arg0.msg("O portal começa a te puxar para dentro, e de repente...")
+#
+
+func leulivro150
+  arg0.msg("Você atravessa o portal e se vê em...")
+  $mens.p(arg0)
+  $mens.mtodos2("", "Misteriosamente, $P sóme em meio a um portal.")
+  arg0.mudadono($s_potter001)
+
+
+classe i_hogwarts018
+herda comum_itemperso
+const nome = "espada de grffindor"
+const ident = "espada gryffindor rubi prateada"
+const descnome = "uma espada prateada com o punho cravejado de cintilantes pedras de rubi"
+const descpos = "Uma deslumbrante espada prateada com o punho cravejado de rubis no tamanho de \
+ovos repousa suavemente no chaõ."
+const nivel = 140
+const armamax = 900
+const armamin = 600
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 3 # Tipo de item: 0-Possui metal, 1-arma
+const valor = 2000000
+const i_soltar = "não pode soltar a espada, está enfeitiçada."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 150
+  atkesp += 150
+  atktipo.4 *= 1.3 # Cortante
+
+const i_morrer = "Você se aproxima da expada, na intenção de pegá-la, mas de repente um campo \
+magnético o atira para longe, fazendo-lhe cair ao chão, já sem vida."
+
+
+classe i_hogwarts019
+herda comum_item
+const nome = "a chave da cerca"
+const ident = "chave cerca"
+const descnome = "a chave da cerca"
+const descpos = "A chave de uma cerca foi solta aqui no chão."
+const i_chave = "hogwarts019"
+const tipoitem = 1 # Tipo de item: 0-Possui metal
+
+
+classe i_hogwarts084
+herda comum_itemperso
+const nome = "uma adaga"
+const ident = "adaga"
+const descnome = "uma adaga de ouro branco"
+const descpos = "uma adaga feita do mais puro ouro está aqui"
+const msexo = 0 # Sexo Msg: 0 Feminino
+const nivel = 500
+const renascer = 5
+const armamax = 302
+const armamin = 220
+const armafalha = 1
+const armaaddprecisao = 200
+const armatipo = 3 # Tipo de arma: 3 Lâmina curta
+const valor = 90000000
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+const vestirnao = "mago\nnecromante"
+const vestirsim = 1 # Podem vestir: 1 Jogadores e PNJs
+const manterperso = 1 # Mantém em jogador: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 25 * pnivel + 2000
+  pmovemax += 15 * pnivel + 5000
+  pveloc1 += 5 * pnivel + 500
+  atknorm += 50 * pnivel + 600
+  atkesp += 50 * pnivel + 600
+  precisao += 25 * pnivel + 250
+  atktipo.4 *= 2 # Cortante
+  atktipo.5 *= 2 # Perfurante
+
+
+classe p_hogwarts001
+herda comum_persobat
+const nome = "testralho"
+const descnome = "um testralho"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 62
+  bitinv |= 32
+
+
+classe p_hogwarts002
+herda comum_perso
+const nome = "Hagrid"
+const descnome = "Hagrid, o uarda caças"
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+  misc:tempo("entrou", arg0)
+#
+
+func entrou30
+  arg0.msg("Hagrid diz: Olá " + arg0.nome + "! Meu nome é Hagrid!")
+  arg0.msg("Hagrid diz: Eu lhe acompanharei até os jardins do castelo, espere!")
+#
+
+func entrou60
+  arg0.msg("Hagrid chama uma carruagem!")
+  refvar r = criar("i_transporte002", dono, 1)
+  refvar s = criar("p_hogwarts001", dono, 200)
+  r.seguir(s)
+#
+
+func entrou90
+  arg0.msg("Hagrid diz: Vamos, agora entre na carruagem!")
+  arg0.msg("Hagrid empurra você para dentro!")
+  arg0.teclou("entrar carruagem")
+  teclou("entrar carruagem")
+#
+
+
+classe p_hogwarts003
+herda comum_persobat
+const nome = "Madame Hooch"
+const descnome = "Madame Hooch"
+const descpadr = "Madame Hooch sobrevoa lado a outro do campo, montada em sua vassoura!"
+const nivel = 50
+const tipo1 = "humano"
+const tipo2 = "mago"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  ret !arg0.var.z_casah, nulo
+  ret arg0.var.z_timequadribol, nulo
+  misc:evento(arg0)
+  misc:tempo("entrartime", arg0)
+#
+
+func entrartime30
+  $mens.p(este, arg0)
+  $mens.mtodos1("$P diz: Olá $C. Estamos selecionando novos jogadores para os times de quadribol \
+do colégio!")
+#
+
+func entrartime50
+  $mens.p(este, arg0)
+  $mens.mtodos1("$P diz: Você estaria interessado em participar do time de quadribol da sua \
+casa?")
+  $mens.p(este, arg0)
+  $mens.mtodos1("$P diz: Responda 'sim' ou 'não'.")
+#
+
+func cmd_falou
+  ret arg2 == este, nulo
+  se arg1 == "sim"
+    ret arg0.var.z_timequadribol, nulo
+    misc:tempo("entroutime", arg0)
+    ret 1
+  senao arg1 == "não"
+    ret arg0.var.z_timequadribol, nulo
+    $mens.p(este, arg0)
+    $mens.mtodos1("$P diz: Ok, $C. Se mudar de opinião, é só voltar aqui!")
+    ret 1
+  senao
+    $mens.p(este, arg0)
+    $mens.mtodos1("$P diz: Responda 'sim' ou 'não', $A!")
+    ret 1
+  fimse
+#
+
+func entroutime10
+  $mens.p(este, arg0)
+  $mens.mtodos1("$P diz: Parabéns, $C! Você entrou para o time da " + arg0.var.z_casah + \
+"!")
+  arg0.var.z_timequadribol = arg0.var.z_casah
+
+
+classe p_hogwarts004
+herda comum_perso
+const nome = "Madame Pomfrey"
+const ident = "Enfermeira"
+const descnome = "Madame Pomfrey"
+const descpadr = "Madame Pomfrey anda de um lado a outro da enfermaria, ministrando algumas \
+poções e aplicando curativos."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const nivel = 60
+
+
+classe p_hogwarts005
+herda comum_persobat
+const nome = "Olívio Wood"
+const ident = "Capitão Olívio Wood"
+const descnome = "Olívio"
+const descpadr = "O capitão do time de Grifinória está aqui, montando o time de Quadribol de sua \
+casa."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 30
+const pospadr = 6 # Posição padrão: 6 Sentado
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_recebe = 1 # Recebe itens: Sim
+
+
+classe p_hogwarts006
+herda comum_persobat
+const nome = "pomo de ouro"
+const descnome = "o pomo de ouro"
+const descpadr = ""
+
+
+classe p_hogwarts007
+herda comum_perso
+const nome = "Severo Snape"
+const ident = "Professor Severo Snape"
+const descnome = "Snape"
+const descpadr = "O professor Snape caminha pela sala, examinando os caldeirões de seus alunos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 90
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  misc:tempo("entrou", arg0)
+#
+
+func entrou20
+  $mens.p(este, arg0)
+  se arg0.var.z_casah
+    $mens.mvis1("$P encara $A e diz: Atrasad$t outra vez, $c? Menos 10 pontos para " + arg0.var.z\
+_casah + "!")
+    ret 1
+  fimse
+#
+
+
+classe p_hogwarts008
+herda comum_persobat
+const nome = "Marcos Flint"
+const ident = "Capitão Marcos Flint"
+const descnome = "Marcos"
+const descpadr = "O capitão do time de Sonserina está aqui, montando o time de Quadribol de sua \
+casa."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 30
+const pospadr = 6 # Posição padrão: 6 Sentado
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+
+
+classe p_hogwarts009
+herda comum_persobat
+
+
+classe p_hogwarts010
+herda comum_perso
+const nome = "Hagrid"
+const ident = "Hagrid"
+const descpadr = "O professor Hagrid está sentado aqui, tomando uma xícara de chá."
+const descver = "Você se impressiona ao olhar para Hagrid.\n\
+Com enormes barbas e cabelos desgrenhados, Hagrid é 5 vezes maior do que um homem comum."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 200
+const pospadr = 8 # Posição padrão: 8 Em pé
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+
+classe p_hogwarts011
+herda comum_persobat
+const nome = "Canino"
+const ident = "Canino"
+const descpadr = "Canino está aqui, fazendo festas a você."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 100
+
+
+classe p_hogwarts012
+herda comum_perso
+const nome = "Flitwick"
+const ident = "Professor"
+const descnome = "Filch"
+const descpadr = "O professor Flitwick está aqui, selecionando os alunos para as casas."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 60
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+const evsala = 1 # Eventos dono sala: Sim
+#
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_sentouobj
+  refvar r = criar("i_hogwarts002", arg0, 1)
+  r.vestir(3)
+  $mens.p(este, arg0)
+  $mens.mvis3("", "$P põe o chapéu seletor sobre sua cabeça!", "$P põe o chapéu seletor sobre a \
+cabeça de $A!")
+  misc:tempo("vestiu", arg0)
+#
+
+func vestiu30
+  $mens.p(arg0)
+  $mens.mvis2("O chapéu seletor examina a sua mente...", "O chapéu sletor está examinando a \
+mente de $P!")
+#
+
+func vestiu60
+  $mens.p(arg0)
+  $mens.mvis1("O chapéu seletor, após alguns instantes de reflexão chega a conclusão:")
+#
+
+func vestiu90
+  refvar c = rand(1, 4)
+  se c == 1
+    arg0.var.z_casah = "grifinória"
+  senao c == "2"
+    arg0.var.z_casah = "sonserina"
+  senao c == "3"
+    arg0.var.z_casah = "lufa lufa"
+  senao c == "4"
+    arg0.var.z_casah = "corvinal"
+  fimse
+#
+  $mens.p(arg0)
+  $mens.mvis1("O chapéu seletor exclama: " + arg0.var.z_casah + "!")
+
+
+classe p_hogwarts013
+herda comum_persobat
+const nome = "Madame Nora"
+const ident = "Gata"
+const descpadr = "Madame Nora está aqui cheirando o chão, à procura de algum aluno infrator para \
+seu dono."
+const nivel = 30
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+
+classe p_hogwarts014
+herda comum_persobat
+const nome = "príncipe vampiro"
+const ident = "Crowley príncipe vampiro"
+const descnome = "Crowley, o príncipe vampiro"
+const descpadr = "Crowley, o príncipe vampiro está aqui, guardando a entrada para a floresta da \
+noite."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 620
+const tipo1 = "vampiro"
+const tipo2 = "guerreiro"
+const p_atktipo = "sugar"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 37000
+const inivar = "h_socar=8,h_chutar=8,h_voadora=8,h_gancho=8,h_soco_múltiplo=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500 * pnivel + 950000
+  pmovemax += 203 * pnivel + 203
+  atknorm += 950 * pnivel + 1000
+  defnorm += 2500 * pnivel + 2500
+  atkesp += 1000 * pnivel + 1000
+  defesp += 3500 * pnivel + 3500
+  precisao += 250 * pnivel + 300
+  bitver |= 6172
+
+const m_atribs1 = "(Protegido por centenas de vampiros)"
+
+
+classe p_hogwarts015
+herda comum_perso
+const nome = "Argo Filch"
+const ident = "Argo Filch zelador"
+const descnome = "Filch"
+const descpadr = "O zelador Filch está aqui, procurando algum aluno para castigar."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 40
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+
+classe p_hogwarts016
+herda comum_perso
+const nome = "Dobby"
+const ident = "Dobby"
+const descnome = "Dobby"
+const descpadr = "Dobby está aqui, limpando o castelo."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 80
+const p_mover = 1 # Movimentar: 1 Somente na área
+const evsala = 0 # Eventos dono sala: Não
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+  misc:tempo("entrou", arg0)
+#
+
+func entrou30
+  teclou("rev " + arg0.descnome)
+#
+
+func entrou50
+  $mens.p(este, arg0)
+  se arg0.psexo == 1
+    $mens.mvis1("$P diz: Olá $c meu senhor! É uma honra recebê-lo aqui!")
+  senao arg0.psexo == 0
+    $mens.mvis1("$P diz: Olá $c minha senhora! É uma honra recebê-la aqui!")
+  fimse
+
+
+classe p_hogwarts017
+herda comum_perso
+const nome = "Winky"
+const ident = "Winky"
+const descnome = "Winky"
+const descpadr = "Winky está sentada perto do fogo, bebendo uma cerveja amanteigada e parecendo \
+muito infeliz."
+const nivel = 80
+const pospadr = 6 # Posição padrão: 6 Sentado
+
+
+classe p_hogwarts018
+herda comum_persobat
+const nome = "nick quase sem cabeça"
+const descnome = "nick quase sem cabeça"
+const descpadr = "Nick quase sem cabeça, o fantasma da grifinória perambula pelos corredores do \
+castelo, com a cabeça caída para um lado."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const p_agressivo = 0 # Agressivo: 0 Pacífico
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 400
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 512
+
+
+classe p_hogwarts019
+herda comum_persobat
+
+
+classe p_hogwarts020
+herda comum_persobat
+const nome = "Fofo"
+const ident = "Fofo"
+const descpadr = "Fofo, o cão de três cabeças está aqui, guardando um alçapão."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 96
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_morreu1 = "$P cai pesadamente no chão, revelando a tampa de um alçapão."
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_mover
+  ret !arg0.jog, nulo
+  se arg2 == "b"
+    arg0.msg("Fofo impede a sua passagem!")
+    ret 1
+  fimse
+
+
+classe p_hogwarts022
+herda comum_perso
+const nome = "Gárgula"
+const descpadr = "Uma gárgula de pedra está aqui."
+const nivel = 300
+
+
+classe p_hogwarts023
+herda comum_perso
+const nome = "Mulher Gorda"
+const descnome = "o retrato da mulher gorda"
+const descpadr = "O retrato de uma mulher gorda está na parede a sua frente."
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_mover
+  se arg2 == "l"
+    se !arg0.var.d_passar_
+      teclou("f Primeiro, me fale a senha!")
+      ret 1
+    senao arg0.var.z_casah != "grifinória"
+      teclou("F pode ir se mandando, " + arg0.descnome + "! Você não pertence a esta casa!")
+      ret 1
+    fimse
+  fimse
+#
+
+func cmd_falou
+  se txt(arg1, 0, 17) == "sapo de chocolate"
+    se !arg0.var.z_casah != "grifinória"
+      teclou("f pode ir se mandando, " + arg0.descnome + "! Você não pertence a esta casa!")
+      ret 1
+    senao
+      arg0.var.d_passar_ = 1
+      teclou("f Ok, " + arg0.descnome + ". Pode passar!")
+      $mens.p(este)
+      $mens.mtodos1("$P gira, revelando a entrada do salão comunal da grifinória.")
+      ret 1
+    fimse
+
+
+classe p_hogwarts024
+herda comum_perso
+const nome = "Alvo Dumbledore"
+const descnome = "Dumbledore"
+const descpadr = "O professor Dumbledore está sentado atrás de sua escrivaninha, com o olhar \
+muito sério."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 400
+const pospadr = 6 # Posição padrão: 6 Sentado
+const p_recebe = 1 # Recebe itens: Sim
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  misc:tempo("fenix", arg0)
+#
+
+func fenix30
+  arg0.msg("Dumbledore apoia o queixo nas pontas dos longos dedos, olhando para você por cima \
+dos seus oclinhos de meia lua...")
+#
+
+func fenix60
+  se arg0.var.z_fenix_
+    arg0.msg("Dumbledore olha para você e abre um belo sorriso.")
+    ret 1
+  fimse
+  arg0.msg("Dumbledore te analisa cautelosamente dos pés a cabeça e diz:")
+  arg0.msg("_ Hmm... Noto em você, " + arg0.descnome + ", grandes qualidades.")
+  teclou("f Penso que você tem as qualidades perfeitas para criar uma ave como a Fawkes.")
+  teclou("f Criaturas fascinantes, as fênixes. São capazes de sustentar cargas pesadíssimas, \
+suas lágrimas têm poderes curativos e são animais de estimação muitíssimo fiéis.")
+  teclou("f Mas vamos ao que interessa...")
+  criar("p_animais009", arg0, 5)
+  $mens.p(este, arg0)
+  $mens.mtodos1("$P entrega uma fênix a $A.")
+  arg0.var.z_fenix_ = 1
+  ret 1
+
+
+classe p_hogwarts025
+herda comum_perso
+const nome = "Fawkes"
+const descnome = "Fawkes"
+const descpadr = "Fawkes está aqui, descansando em seu poleiro."
+const descver = "Fawkes possui lindas penas vermelhas e douradas.\n\
+Suas lágrimas têm poderes curativos.\n\
+É capaz de sustentar cargas muito pesadas e também, muito leal ao seu dono."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 80
+const pospadr = 5 # Posição padrão: 5 Descansando
+
+
+classe p_hogwarts026
+herda comum_perso
+const nome = "Madame Rosmerta"
+const descnome = "Rosmerta"
+const descpadr = "Madame Rosmerta está aqui, organizando o bar e atendendo os clientes."
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const nivel = 30
+const lojaitem = "hogwarts003 0"
+
+
+classe p_hogwarts027
+herda comum_perso
+const nome = "Vendedor de Doces"
+const descnome = "Vendedor"
+const descpadr = "O vendedor da Dedos de Mel está atrás de um balcão, atendendo os clientes."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 20
+const lojaitem = "dedosdemel001 0\n\
+dedosdemel002 0\n\
+dedosdemel003 0\n\
+dedosdemel004 0\n\
+dedosdemel005 0\n\
+dedosdemel006 0\n\
+dedosdemel008 0\n\
+dedosdemel009 0\n\
+dedosdemel008 0\n\
+dedosdemel011 0"
+
+
+classe p_hogwarts028
+herda comum_persobat
+const nome = "Lobisomem"
+const ident = "Lobisomem"
+const descnome = "Um Lobisomem"
+const descpadr = "Um lobisomem muito feroz está aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 250
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_atk_anda = 1 # Anda ataque: Sim
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_atktipo = "Bater"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 300
+const p_persegue = 1 # Persegue jogadores: 1 Se atacarem
+
+
+classe p_hogwarts029
+herda comum_perso
+const nome = "Remo Lupin"
+const ident = "Lupin"
+const descnome = "Lupin"
+const descpadr = "O professor Lupin está aqui, aguardando seus próximos alunos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 100
+const pospadr = 6 # Posição padrão: 6 Sentado
+const lojaaula = "m_expecto_patronum 8\n\
+m_invocar_patrono 8\n\
+m_lumus 8\n\
+m_reducto 8\n\
+m_acciu 8"
+const taxaaula = 100
+
+
+classe p_hogwarts030
+herda comum_persobat
+const nome = "Basilisco"
+const ident = "Basilisco"
+const descnome = "Um basilisco"
+const descpadr = "Um enorme basilisco rasteja pelo chão."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 280
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_atk_anda = 1 # Anda ataque: Sim
+const p_atk_desvia = 0 # Desvia ataque: Não
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 1 # Movimentar: 1 Somente na área
+const eveste = 1 # Eventos perso: Sim
+#
+
+func cmd_olhar
+  se arg1 == este
+    $mens.p(arg0)
+    $mens.mvis1("$P olha para " + arg1.descnome + ".")
+    $mens.p(arg0)
+    $mens.mvis1("$P foi petrificad$s!")
+    ret 1
+  fimse
+#
+
+
+classe p_hogwarts031
+herda comum_persobat
+const nome = "Vampiro"
+const descnome = "Um vampiro"
+const descpadr = "Um vampiro sedento de sangue está aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 400
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const inivar = "h_absolver=8,h_morder=8,z_moedas=5000"
+
+
+classe p_hogwarts032
+herda comum_perso
+const nome = "Murta Que Geme"
+const ident = "Fantasma"
+const descnome = "Murta"
+const descpadr = "O fantasma da Murta que geme está aqui, chorando sem parar."
+const nivel = 70
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+#
+  misc:tempo("entrou", arg0)
+#
+
+func entrou30
+  $mens.p(este, arg0)
+  $mens.mvis1("$P olha para $A e diz: Vá embora $C! me deixe em paz!")
+
+
+classe p_hogwarts033
+herda comum_persobat
+const nome = "Bicuço"
+const ident = "Bicuço"
+const descnome = "Bicuço"
+const descpadr = "Bicuço está aqui, bicando a terra à procura de doninhas."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 170
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+
+classe p_hogwarts034
+herda comum_persobat
+const nome = "Fenrir Greyback"
+const ident = "Fenrir"
+const descnome = "Fenrir Greyback"
+const descpadr = "Fenrir Greyback está aqui, à procura de uma nova vítima para transformar."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 340
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 300
+
+
+classe p_hogwarts035
+herda comum_persobat
+const nome = "Edwiges"
+const ident = "Edwiges"
+const descnome = "Edwiges"
+const descpadr = "Edwiges está aqui, descansando depois de sua longa caçada."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const nivel = 30
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+
+
+classe p_hogwarts036
+herda comum_persobat
+const nome = "Pichitinho"
+const ident = "Pichitinho"
+const descnome = "Pichitinho"
+const descpadr = "Pichitinho está aqui, excitado para entregar sua próxima carta."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 40
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+
+
+classe p_hogwarts037
+herda comum_persobat
+const nome = "Hermes"
+const ident = "Hermes"
+const descnome = "Hermes"
+const descpadr = "Hermes está aqui descansando, depois de uma longa caçada."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 40
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+
+
+classe p_hogwarts038
+herda comum_persobat
+const nome = "Coruja"
+const ident = "Coruja"
+const descnome = "Uma coruja"
+const descpadr = "Uma coruja está aqui descansando, depois de uma longa caçada."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const nivel = 40
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+
+
+classe p_hogwarts039
+herda comum_persobat
+const nome = "Pirraça"
+const ident = "Pirraça"
+const descnome = "Pirraça"
+const descpadr = "Pirraça está aqui, causando desordem e aflição."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 70
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_persegue = 1 # Persegue jogadores: 1 Mesma área se atacarem
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:tempo("entrou", arg0)
+#
+#
+
+func entrou30
+  arg0.msg("Pirraça solta uma gargalhada!")
+#
+
+func entrou60
+  arg0.msg("Pirraça diz: Passeando por aí a meia noite, aluninho?")
+  arg0.msg("tsk, tsk...")
+  arg0.msg("que feinho, vai ser apanhadinho!")
+#
+
+
+classe p_hogwarts040
+herda comum_persobat
+const nome = "Firenze"
+const ident = "Firenze Centauro"
+const descnome = "Firenze"
+const descpadr = "Firenze está aqui examinando o céu."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 150
+const pospadr = 8 # Posição padrão: 8 Em pé
+const tipo1 = "centauro"
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+
+classe p_hogwarts041
+herda comum_persobat
+const nome = "Agouro"
+const ident = "Agouro Centauro"
+const descnome = "Agouro"
+const descpadr = "Agouro está aqui examinando o céu."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 150
+const tipo1 = "centauro"
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+
+classe p_hogwarts042
+herda comum_persobat
+const nome = "Magoriano"
+const ident = "Magoriano Centauro"
+const descnome = "Magoriano"
+const descpadr = "Magoriano está aqui examinando o céu."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 150
+const tipo1 = "centauro"
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+
+classe p_hogwarts067
+herda comum_persobat
+const nome = "um bebê vampiro"
+const ident = "bebê vampiro"
+const descnome = "um bebê vampiro"
+const descpadr = "um bebê vampiro está aqui procurando uma nova presa."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 700
+const nivel = 560
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_atktipo = "morder"
+const p_captura = 0 # Capturar: 0 Não
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 1 # Corpo: 1 Deixa corpo vazio
+const p_exp = 38000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const inivar = "h_sugar=3"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 350 * pnivel + 300000
+  pmovemax += 140 * pnivel + 140
+  atknorm += 1300 * pnivel + 1300
+  defnorm += 2150 * pnivel + 2150
+  atkesp += 2000 * pnivel + 2000
+  defesp += 2150 * pnivel + 2150
+  precisao += 180 * pnivel + 180
+  bitver |= 2070
+  bitinv |= 16
+
+
+classe p_hogwarts069
+herda comum_persobat
+const nome = "um vampiro poderoso"
+const ident = "vampiro"
+const descnome = "um vampiro poderoso"
+const descpadr = "um poderoso vampiro, está voando por aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 700
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_atktipo = "absolver sangue"
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 1 # Corpo: 1 Deixa corpo vazio
+const p_exp = 37000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const inivar = "h_sugar=3"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 350 * pnivel + 140000
+  pmovemax += 180 * pnivel + 180
+  atknorm += 2130 * pnivel + 2130
+  defnorm += 2160 * pnivel + 2160
+  atkesp += 2130 * pnivel + 2130
+  defesp += 2160 * pnivel + 2160
+  precisao += 195 * pnivel + 195
+  bitver |= 2066
+  bitinv |= 16
+
+
+classe p_hogwarts070
+herda comum_persobat
+const nome = "um vampiro"
+const ident = "vampiro"
+const descnome = "um vampiro negro"
+const descpadr = "um vampiro negro está aqui, a procura de sangue para si alimentar."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 70000
+const nivel = 600
+const p_atktipo = "sugar"
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 1 # Corpo: 1 Deixa corpo vazio
+const p_exp = 41000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const inivar = "h_sugar=3"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 400 * pnivel + 500000
+  pmovemax += 200 * pnivel + 200
+  atknorm += 1750 * pnivel + 1750
+  defnorm += 2700 * pnivel + 2700
+  atkesp += 1750 * pnivel + 1750
+  defesp += 2700 * pnivel + 2700
+  precisao += 200 * pnivel + 200
+  bitver |= 2070
+  bitinv |= 16
+
+
+classe p_hogwarts071
+herda comum_persobat
+const nome = "monstro das sombras"
+const descnome = "um monstro das sombras"
+const descpadr = "Um monstro vaga pelo túnel, a procura de almas."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 700
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_exp = 60000
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10 * pnivel + 1000000
+  pmovemax += 500 * pnivel + 500
+  pveloc1 += 500 * pnivel + 500
+  atknorm += 4100 * pnivel + 4100
+  defnorm += 9000 * pnivel + 9000
+  atkesp += 4100 * pnivel + 4100
+  defesp += 9000 * pnivel + 9000
+  precisao += 250 * pnivel + 350
+  bitver |= 6206
+
+
+classe p_hogwarts072
+herda comum_persobat
+const nome = "monstro das sombras"
+const descnome = "um monstro das sombras"
+const descpadr = "um monstro está aqui a procura de almas."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 700
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_exp = 60000
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10 * pnivel + 1000000
+  pmovemax += 500 * pnivel + 500
+  pveloc1 += 500 * pnivel + 500
+  atknorm += 4100 * pnivel + 4100
+  defnorm += 9000 * pnivel + 9000
+  atkesp += 3900 * pnivel + 4100
+  defesp += 9000 * pnivel + 9000
+  precisao += 250 * pnivel + 350
+  bitver |= 6206
+
+
+classe p_hogwarts073
+herda comum_persobat
+const nome = "alma perdida"
+const descnome = "uma alma perdida"
+const descpadr = "uma alma perdida está aqui em busca de vingança."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 700
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_exp = 60000
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10 * pnivel + 1000000
+  pmovemax += 500 * pnivel + 500
+  pveloc1 += 500 * pnivel + 500
+  atknorm += 9000 * pnivel + 4100
+  defnorm += 9000 * pnivel + 9000
+  atkesp += 4100 * pnivel + 4100
+  defesp += 9000 * pnivel + 9000
+  precisao += 250 * pnivel + 400
+  bitver |= 6206
+
+
+classe p_hogwarts074
+herda comum_persobat
+const nome = "fantasma"
+const descnome = "um fantasma"
+const descpadr = "Um fantasma está no teto do túnel, assombrando a todos que por aqui passam."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 700
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_exp = 48000
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10 * pnivel + 1000000
+  pmovemax += 500 * pnivel + 500
+  pveloc1 += 500 * pnivel + 500
+  atknorm += 3000 * pnivel + 4100
+  defnorm += 3500 * pnivel + 9000
+  atkesp += 3000 * pnivel + 4100
+  defesp += 9000 * pnivel + 9000
+  precisao += 300 * pnivel + 450
+  bitver |= 6206
+
+
+classe p_hogwarts075
+herda comum_persobat
+const nome = "guardião"
+const descnome = "o guardião da morte"
+const descpadr = "o guardião da morte está aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 700
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_exp = 48000
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+const m_atribs1 = "* el$v está rodiado por várias caveiras."
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10 * pnivel + 1000000
+  pmovemax += 500 * pnivel + 500
+  pveloc1 += 500 * pnivel + 500
+  atknorm += 4100 * pnivel + 4100
+  defnorm += 9000 * pnivel + 9000
+  atkesp += 4100 * pnivel + 4100
+  defesp += 9000 * pnivel + 9000
+  precisao += 350 * pnivel + 500
+  bitver |= 6206
+
+
+classe p_hogwarts076
+herda comum_persobat
+const nome = "cavaleiro"
+const descnome = "um cavaleiro da morte"
+const descpadr = "com uma poderosa espada em sua mão, um cavaleiro da morte espera por novas \
+almas."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 700
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 47000
+const p_imortal = 0 # Imortal: Não
+const p_morreu1 = "$p cae ao xão, morto."
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5 * pnivel + 1500000
+  pmovemax += 700 * pnivel + 700
+  pveloc1 += 700 * pnivel + 700
+  atknorm += 4100 * pnivel + 4100
+  defnorm += 9000 * pnivel + 9000
+  atkesp += 4100 * pnivel + 4100
+  defesp += 9000 * pnivel + 9000
+  precisao += 500 * pnivel + 500
+  bitver |= 6206
+
+
+classe p_hogwarts077
+herda comum_persobat
+const nome = "guardião das almas"
+const descnome = "o guardião das almas"
+const descpadr = "o guardião das almas está aqui mantendo algumas almas em cativeiro."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 700
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_exp = 47000
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 7000 * pnivel + 1000000
+  pmovemax += 700 * pnivel + 700
+  pveloc1 += 700 * pnivel + 700
+  atknorm += 4500 * pnivel + 4500
+  defnorm += 9000 * pnivel + 9000
+  atkesp += 4500 * pnivel + 4500
+  defesp += 9000 * pnivel + 9000
+  precisao += 400 * pnivel + 400
+  bitver |= 6206
+
+
+classe p_hogwarts083
+herda comum_persobat
+const nome = "um vampiro"
+const ident = "vampiro"
+const descnome = "Ambrorgio, o rei vampiro"
+const descpadr = "Ambrorgio o rei vampiro pousou aqui diante de você."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 730
+const nivel = 610
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_atktipo = "sugar"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 37000
+const p_morreu1 = "$p diz: 'Muito bem, você me venceu. agora, pegue a arma que carrego, e deça \
+para o sub mundo. acabe com aquelas criaturas. lembre-se, você não pode falhar!'\n\
+  $p morreu."
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+const inivar = "h_sugar=3"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500 * pnivel + 950000
+  pmovemax += 203 * pnivel + 203
+  atknorm += 950 * pnivel + 1000
+  defnorm += 2500 * pnivel + 2500
+  atkesp += 1000 * pnivel + 1000
+  defesp += 3500 * pnivel + 3500
+  precisao += 250 * pnivel + 300
+  bitver |= 2582
+  bitinv |= 16
+
+const m_atribs1 = ") Protegido por milhares de vampiros)"
+
+
+classe p_hogwarts084
+herda comum_persobat
+const nome = "o vampiro guardião"
+const descnome = "um vampiro"
+const descpadr = "um vampiro extremamente poderoso, está aqui fazendo a segurança da câmara \
+negra."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 700
+const nivel = 610
+const p_atktipo = "sugar"
+const p_comecorpo = 1 # Come corpos: Sim
+const p_exp = 40000
+const inivar = "h_sugar=3"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 600 * pnivel + 950000
+  pmovemax += 225 * pnivel + 250
+  atknorm += 1300 * pnivel + 1000
+  defnorm += 1300 * pnivel + 1300
+  atkesp += 1200 * pnivel + 1000
+  defesp += 1000 * pnivel + 1300
+  precisao += 150 * pnivel + 250
+  bitver |= 6174
+
+
+classe p_hogwarts085
+herda comum_persobat
+const nome = "morcego"
+const descnome = "um morcego"
+const descpadr = "um morcego voa do alto da caverna, vindo em sua direção."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_atktipo = "sugar"
+const p_comecorpo = 1 # Come corpos: Sim
+const p_exp = 42000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const inivar = "h_sugar=3"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30 * pnivel + 500000
+  pmovemax += 250
+  pveloc1 += 200
+  atknorm += 1750 * pnivel + 1750
+  defnorm += 3000 * pnivel + 3000
+  atkesp += 1750 * pnivel + 1750
+  defesp += 3000 * pnivel + 3000
+  precisao += 200 * pnivel + 200
+  bitver |= 6174
+  bitinv |= 16
+
+
+classe s_hogwarts001
+herda b_hogwarts
+const s_titulo = "Estrada Para Hogwarts"
+const s_desc = "Você está caminhando por uma longa estrada, rumo ao castelo da Escola de Magia e \
+Bruxaria de Hogwarts.\n\
+Muitos bruxos famosos e lendários estudaram nesse lugar.\n\
+Para norte, você vai em direção ao povoado de Hogsmead, um lugar muito conhecido pela comunidade \
+bruxa.\n\
+E para leste a estrada continua."
+const dir_n = $s_hogwarts040
+const dir_l = $s_hogwarts002
+
+
+classe s_hogwarts002
+herda b_hogwarts
+const s_titulo = "Continuação da Estrada"
+const s_desc = "Você continua pela estrada.\n\
+Para leste, você continua caminhando na estrada.\n\
+E para oeste você volta."
+const dir_l = $s_hogwarts003
+const dir_o = $s_hogwarts001
+const a_reset = "R 100 hogwarts009"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref r # Usado como rascunho
+  (r = dentro1.objini("i_hogwarts009")) + r.apagar(1000)
+
+
+classe s_hogwarts003
+herda b_hogwarts
+const s_titulo = "No Fim da Estrada"
+const s_desc = "Você está no fim da estrada que conduz a Escola de Magia e Bruxaria de Hogwarts.\n\
+Daqui já é possível ver o imponente castelo."
+const dir_s = $s_hogwarts004
+const portanome_s = "Os enormes portões de hogwarts"
+const portaartigo_s = 3 # Artigo porta: 3 os (portões)
+const fecha_s = 0 # Fecha ao passar: Não
+const dir_o = $s_hogwarts002
+
+
+classe s_hogwarts004
+herda b_hogwarts
+const s_titulo = "Nos Portões de Hogwarts"
+const s_desc = "Você está parado diante dos imensos portões da propriedade de Hogwarts.\n\
+No alto, é possível ver dois gigantescos javalis alados.\n\
+Para norte você volta."
+const dir_n = $s_hogwarts003
+const portaini_n = 0 # Estado inicial: 0 Sem porta
+const portanome_n = "Os enormes portões de Hogwarts"
+const portaartigo_n = 3 # Artigo porta: 3 os (portões)
+const fecha_n = 0 # Fecha ao passar: Não
+const dir_s = $s_hogwarts005
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "os enormes portões de Hogwarts"
+const portaartigo_s = 3 # Artigo porta: 3 os (portões)
+const fecha_s = 1 # Fecha ao passar: Sim
+
+
+classe s_hogwarts005
+herda b_hogwarts
+const s_titulo = "Nos Jardins de Hogwarts"
+const s_desc = "Você adentra os jardins da escola.\n\
+Para oeste ficam as estufas, onde ficam algumas plantas mágicas, usadas no preparo de poções.\n\
+Para sul fica a floresta proibida.\n\
+Para leste ficam os gramados da escola.\n\
+E para norte você volta."
+const s_pnj = 0
+const dir_n = $s_hogwarts004
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "os enormes portões de hogwarts"
+const portaartigo_n = 3 # Artigo porta: 3 os (portões)
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_s = $s_hogwarts006
+const dir_l = $s_hogwarts012
+
+
+classe s_hogwarts006
+herda b_hogwarts
+const s_titulo = "Na Orla da Floresta Proibida"
+const s_desc = "Você está na orla da floresta da propriedade de Hogwarts.\n\
+Esta floresta não é recomendada aos estudantes, pois moram as mais terríveis criaturas.\n\
+Para norte você volta.\n\
+Para sul, você se aprofunda na floresta.\n\
+E para oeste, há a cabana de Hagrid."
+const s_pnj = 0
+const dir_n = $s_hogwarts005
+const dir_s = $s_hogwarts010
+const dir_o = $s_hogwarts007
+
+
+classe s_hogwarts007
+herda b_hogwarts
+const s_titulo = "Em Frente a Cabana de Hagrid"
+const s_desc = "Você está em frente a cabana de Hagrid, o guarda-caça e também professor de \
+Trato Das Criaturas Mágicas da escola.\n\
+Há um par de botas muito grandes perto da porta."
+const s_pnj = 0
+const dir_l = $s_hogwarts006
+const dir_entrar = $s_hogwarts009
+const dir_n = $s_hogwarts111
+
+
+classe s_hogwarts008
+herda b_hogwarts
+const s_titulo = "plataforma"
+const dir_s = $s_quadribol012
+
+
+classe s_hogwarts009
+herda b_hogwarts
+const s_titulo = "Na Cabana de Hagrid"
+const s_desc = "Você está em uma enorme cabana de madeira.\n\
+Há uma enorme cama a um canto e emcima de uma lareira, há uma chaleira cheia de água fervendo.\n\
+Em outro canto, há um enorme cesto com vários panos, servindo de cama para Canino."
+const dir_sair = $s_hogwarts007
+const a_reset = "P 100 hogwarts010 0 0 1\nP 100 hogwarts011 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hogwarts010:objsolto.total < 1
+    criar("p_hogwarts010", este, 0)
+  fimse
+  se p_hogwarts011:objsolto.total < 1
+    criar("p_hogwarts011", este, 0)
+  fimse
+
+
+classe s_hogwarts010
+herda b_hogwarts
+const s_titulo = "Na Entrada da Floresta Proibida"
+const s_desc = "Você está entrando na floresta proibida de Hogwarts.\n\
+Cuidado, pois há aqui todo o tipo de criatura perigosa!"
+const s_noite = "A escuridão do local te deixa um tanto temeroso.\n\
+Há boatos que há lobisomens por aqui."
+const dir_n = $s_hogwarts006
+const dir_s = $s_hogwarts011
+const a_reset = "P 100 Hogwarts033 0 0 1 h_arranhar=8,h_arremessar=8,h_bicar=8,h_coice=8,z_moedas\
+=500000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_Hogwarts033:objsolto.total < 1
+    criar("p_Hogwarts033", este, 0, "h_arranhar=8,h_arremessar=8,h_bicar=8,h_coice=8,z_moedas=500\
+000")
+  fimse
+
+
+classe s_hogwarts011
+herda b_hogwarts
+const s_titulo = "Dentro da Floresta Proibida"
+const s_desc = "Você adentra a floresta proibida da propriedade.\n\
+Daqui você já consegue ouvir uivos e outros sons de animais desconhecidos.\n\
+Para sul, a floresta continua e para norte você volta."
+const dir_n = $s_hogwarts010
+const dir_s = $s_hogwarts053
+
+
+classe s_hogwarts012
+herda b_hogwarts
+const s_titulo = "Nos Gramados de Hogwarts"
+const s_desc = "Você está nos gramados de Hogwarts.\n\
+Alunos, professores e funcionários andam de um lado ao outro por aqui, apressados para as aulas \
+ou para outros compromissos.\n\
+Para sul, há o campo de Quadribol.\n\
+Para norte há um lago.\n\
+E para leste, há a entrada do magnífico castelo."
+const dir_s = $s_hogwarts055
+const dir_l = $s_hogwarts013
+const dir_o = $s_hogwarts005
+
+
+classe s_hogwarts013
+herda b_hogwarts
+const s_titulo = "Na Porta do Castelo"
+const s_desc = "Você está parado diante das enormes portas de carvalho do castelo.\n\
+Muita gente passa apressada por você, umas entrando e outras saindo do castelo."
+const s_pnj = 0
+const dir_o = $s_hogwarts012
+const dir_entrar = $s_hogwarts014
+
+
+classe s_hogwarts014
+herda b_hogwarts
+const s_titulo = "Saguão de Entrada"
+const s_desc = "Você está no enorme saguão da escola.\n\
+Você se impressiona com o tamanho do castelo, o qual poderia caber facilmente algumas casas \
+normais dentro.\n\
+Para norte, há uma escadaria que conduz as masmorras.\n\
+Para sul, você adentra o enorme salão principal.\n\
+Para leste, há as escadarias que conduz aos andares do castelo.\n\
+E para oeste, há um corredor, que leva até a cozinha."
+const dir_n = $s_hogwarts025
+const dir_s = $s_hogwarts015
+const dir_l = $s_hogwarts027
+const dir_o = $s_hogwarts017
+const dir_sair = $s_hogwarts013
+const a_reset = "P 100 hogwarts013 0 0 1 h_arranhar=3,h_arremessar=3_h,morder=3,z_moedas=300\n\
+P 100 hogwarts015 0 0 1\n\
+P 100 Hogwarts039 0 0 1 h_arremessar=6,h_chutar=6,h_socar=6,z_moedas=200"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hogwarts013:objsolto.total < 1
+    criar("p_hogwarts013", este, 0, "h_arranhar=3,h_arremessar=3_h,morder=3,z_moedas=300")
+  fimse
+  se p_hogwarts015:objsolto.total < 1
+    criar("p_hogwarts015", este, 0)
+  fimse
+  se p_Hogwarts039:objsolto.total < 1
+    criar("p_Hogwarts039", este, 0, "h_arremessar=6,h_chutar=6,h_socar=6,z_moedas=200")
+  fimse
+
+
+classe s_hogwarts015
+herda b_hogwarts
+const s_titulo = "Salão Principal"
+const s_desc = "Você está no enorme salão principal.\n\
+O lugar está cheio e muito barulhento.\n\
+Aqui há cinco mesas, as mesas das quatro casas da escola e a mesa dos professores.\n\
+Em cima delas, há pratos e taças de ouro ainda vazios e talheres.\n\
+Em um canto, o professor Flitwick está pondo na cabeça de algumas crianças sentadas em um \
+banquinho de quatro pernas um chapéu muito velho, remendado e esfiapado."
+const s_noite = "Ao olhar para o teto, você impressiona, pois ele foi encantado para mostrar o \
+céu à noite."
+const dir_n = $s_hogwarts014
+const dir_o = $s_hogwarts016
+
+
+classe s_hogwarts016
+herda b_hogwarts
+const s_titulo = "Em Frente a um Banquinho de Quatro Pernas"
+const s_desc = "Você olha em volta e nota a presença de vários alunos iniciantes.\n\
+Aqui, os alunos são selecionados para as quatro casas da escola."
+const dir_l = $s_hogwarts015
+const a_reset = "P 100 hogwarts012 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hogwarts012:objsolto.total < 1
+    criar("p_hogwarts012", este, 0)
+  fimse
+
+const s_reset = "S 100 hogwarts001 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_hogwarts001") && criar("i_hogwarts001", este, 1)
+
+
+classe s_hogwarts017
+herda b_hogwarts
+const s_titulo = "No Topo de Uma Escadaria"
+const s_desc = "Você está no topo de uma escadaria, mais não sabe onde ela vai dar.\n\
+Você pode voltar para leste ou descer a escadaria."
+const dir_l = $s_hogwarts014
+const dir_b = $s_hogwarts018
+
+
+classe s_hogwarts018
+herda b_hogwarts
+const s_titulo = "Em Uma Escadaria de Pedras"
+const s_desc = "Você está descendo por uma escadaria de pedras.\n\
+Para baixo ela continua e para cima você volta."
+const dir_c = $s_hogwarts017
+const dir_b = $s_hogwarts019
+
+
+classe s_hogwarts019
+herda b_hogwarts
+const s_titulo = "Continuando a Descer Pela Escadaria de Pedra"
+const s_desc = "Você continua a sua descida pela escadaria de pedra.\n\
+Para baixo ela continua e para cima, você volta."
+const dir_c = $s_hogwarts018
+const dir_b = $s_hogwarts020
+
+
+classe s_hogwarts020
+herda b_hogwarts
+const s_titulo = "No Meio da Escadaria de Pedra"
+const s_desc = "Você está no meio da escadaria de pedra.\nPara baixo, há o fim dela."
+const dir_c = $s_hogwarts019
+const dir_b = $s_hogwarts021
+
+
+classe s_hogwarts021
+herda b_hogwarts
+const s_titulo = "No Fim da Escadaria de Pedra"
+const s_desc = "Você está no fim da escadaria de pedra.\n\
+Para sul, há um corredor iluminado por archotes.\n\
+Para cima, você volta pela escadaria, rumo ao saguão de entrada do castelo."
+const dir_s = $s_hogwarts022
+const dir_c = $s_hogwarts020
+
+
+classe s_hogwarts022
+herda b_hogwarts
+const s_titulo = "Corredor da Cozinha"
+const s_desc = "Você está andando por um corredor muito bem iluminado por archotes.\n\
+Ao olhar em volta, você percebe que há nas paredes pinturas alegres, muitas delas representando \
+comida.\n\
+Para sul, há o fim do corredor."
+const dir_n = $s_hogwarts021
+const dir_s = $s_hogwarts023
+
+
+classe s_hogwarts023
+herda b_hogwarts
+const s_titulo = "No Fim do Corredor"
+const s_desc = "Você está no fim do corredor da cozinha.\n\
+A sua frente, há uma pintura curiosa de uma fruteira de prata, com uma pêra verde."
+const dir_n = $s_hogwarts022
+const dir_s = $s_hogwarts024
+const portaini_s = 0 # Estado inicial: 0 Sem porta
+const portanome_s = "a pintura"
+const inv_s = 1 # Invisível: Sim
+const fecha_s = 1 # Fecha ao passar: Sim
+sav uint8 passar
+#
+
+func cmd_salaperso
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "fazer cocegas pera" || arg1 == "cocegas pera"
+    arg0.msg("A pera na pintura do quadro começa a se contorcer e dar risadas, transformando-se \
+em uma enorme maçaneta verde!")
+    passar = 1
+    ret 1
+  senao arg1 == "girar maçaneta"
+    ret !passar, arg0.msg("É apenas uma pintura e não há uma maçaneta!")
+    arg0.msg("Você gira a maçaneta e abre a porta!")
+    porta_s = 1
+    ret 1
+  fimse
+#
+
+func cmd_mover
+  se arg2 == "s"
+    ret !passar, arg0.msg("Você não pode passar através da pintura na parede!")
+    passar = ""
+    ret
+  fimse
+
+
+classe s_hogwarts024
+herda b_hogwarts
+const s_titulo = "Na Cozinha de Hogwarts"
+const s_desc = "Você adentra a enorme cozinha do castelo.\n\
+.Ao redor das paredes de pedras, há muitos tachos e panelas de latão empilhados.\n\
+No extremo oposto, há um enorme fogão de tijolo.\n\
+Ao entrar aqui, o cheiro delicioso de comida invade suas narinas.\n\
+Elfos domésticos andam de um lado a outro pela cozinha preparando a refeição dos estudantes."
+const dir_n = $s_hogwarts023
+const portaini_n = 0 # Estado inicial: 0 Sem porta
+const portanome_n = "a porta da cozinha de hogwarts"
+const fecha_n = 1 # Fecha ao passar: Sim
+const a_reset = "P 100 Hogwarts016 0 0 1\nP 100 Hogwarts017 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_Hogwarts016:objsolto.total < 1
+    criar("p_Hogwarts016", este, 0)
+  fimse
+  se p_Hogwarts017:objsolto.total < 1
+    criar("p_Hogwarts017", este, 0)
+  fimse
+
+
+classe s_hogwarts025
+herda b_hogwarts
+const s_titulo = "Rumo as Masmorras"
+const s_desc = "Você está caminhando rumo as masmorras.\n\
+Para baixo, você desce e para sul você volta ao saguão de entrada."
+const dir_s = $s_hogwarts014
+const dir_b = $s_hogwarts026
+
+
+classe s_hogwarts026
+herda b_hogwarts
+const s_titulo = "Nas Escadarias das Masmorras"
+const s_desc = "A medida que vai avançando rumo as masmorras, você sente um pouco de frio.\n\
+Para baixo a escadaria continua."
+const dir_c = $s_hogwarts025
+const dir_b = $s_hogwarts068
+
+
+classe s_hogwarts027
+herda b_hogwarts
+const s_titulo = "Acesso aos andares superiores"
+const dir_o = $s_hogwarts014
+const dir_c = $s_hogwarts028
+
+
+classe s_hogwarts028
+herda b_hogwarts
+const s_titulo = "primeiro andar"
+const s_desc = "Você está no primeiro andar do castelo.\n\
+Para norte, há a sala da Profa. McGonagall.\n\
+Para leste, há a ala hospitalar onde os alunos são medicados.\n\
+Para sul, há um estranho banheiro feminino.\n\
+E para cima, há as escadarias que levam para o segundo andar."
+const dir_s = $s_hogwarts060
+const dir_l = $s_hogwarts065
+const dir_c = $s_hogwarts029
+const dir_b = $s_hogwarts027
+
+
+classe s_hogwarts029
+herda b_hogwarts
+const s_titulo = "segundo andar"
+const dir_c = $s_hogwarts030
+const dir_b = $s_hogwarts028
+
+
+classe s_hogwarts030
+herda b_hogwarts
+const s_titulo = "Terceiro Andar"
+const s_desc = "Você está no terceiro andar do castelo.\n\
+Para sul, há uma misteriosa porta trancada.\n\
+Para leste, há uma estátua corcunda de uma bruxa de um olho só.\n\
+Para oeste, há uma sala de aula vazia.\n\
+Para norte, há a sala de Defesa Contra as Artes Das Trevas.\n\
+E para cima, você vai para o quarto andar."
+const dir_n = $s_hogwarts054
+const dir_s = $s_hogwarts031
+const dir_c = $s_hogwarts034
+const dir_b = $s_hogwarts029
+
+
+classe s_hogwarts031
+herda b_hogwarts
+const s_titulo = "Em Frente a Porta Misteriosa"
+const s_desc = "Você está parado em frente a uma porta no terceiro andar.\n\
+Ao tentar abri-la, você nota que ela está muito bem trancada.\n\
+Ao se aproximar, você ouve um rosnado estranho vindo por de trás da porta.\n\
+O que será que há atrás dessa porta?"
+const dir_n = $s_hogwarts030
+const dir_s = $s_hogwarts032
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "a porta misteriosa"
+const fecha_s = 1 # Fecha ao passar: Sim
+
+
+classe s_hogwarts032
+herda b_hogwarts
+const s_titulo = "Diante de um Alçapão"
+const s_desc = "Após conseguir abrir a porta, você adentra uma sala, mais se arrepende imediatame\
+nte de tal feito diante do que vê.\n\
+Parado a sua frente, há um cão enorme, que ocupa todo o espaço entre o chão e o teto.\n\
+O que o assusta mais, é não uma, mais três cabeças do animalão, três pares de olhos maldosos que \
+o encaram e três bocas abertas com os dentes amostra, prontos para despedaçar quem ousar cruzar \
+o seu caminho.\n\
+O rosnado do animal, vindo das três cabeças é ensurdecedor, o que o torna ainda mais apavorante.\n\
+Ao olhar para as patas do cachorro, você percebe que ele está em cima da entrada do que parece \
+ser um alçapão."
+const dir_n = $s_hogwarts031
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "uma porta misteriosa"
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_b = $s_hogwarts033
+const portaini_b = 2 # Estado inicial: 2 Porta fechada
+const inv_b = 1 # Invisível: Sim
+const fecha_b = 1 # Fecha ao passar: Sim
+const a_reset = "P 100 Hogwarts020 0 0 1 h_arranhar=3,h_arremessar=3,z_moedas=10000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_Hogwarts020:objsolto.total < 1
+    criar("p_Hogwarts020", este, 0, "h_arranhar=3,h_arremessar=3,z_moedas=10000")
+  fimse
+
+
+classe s_hogwarts033
+herda b_hogwarts
+const s_titulo = "Caindo Pelo Alçapão"
+const s_desc = "Após soltar seus dedos, você sente que está caindo, sendo puxado cada vez mais \
+para baixo.\n\
+Um vento frio úmido passa rapidamente por você e a claridade lá no alto vai ficando para \
+trás.\n\
+Quando parece que a sua rápida descida não vai mais ter fim, puf!"
+const dir_n = $s_hogwarts113
+const dir_c = $s_hogwarts032
+
+
+classe s_hogwarts034
+herda b_hogwarts
+const s_titulo = "quarto andar"
+const dir_c = $s_hogwarts035
+const dir_b = $s_hogwarts030
+
+
+classe s_hogwarts035
+herda b_hogwarts
+const s_titulo = "quinto andar"
+const dir_c = $s_hogwarts036
+const dir_b = $s_hogwarts034
+
+
+classe s_hogwarts036
+herda b_hogwarts
+const s_titulo = "sexto andar"
+const dir_c = $s_hogwarts037
+const dir_b = $s_hogwarts035
+
+
+classe s_hogwarts037
+herda b_hogwarts
+const s_titulo = "Sétimo Andar"
+const s_desc = "Você está no sétimo e último andar do castelo de Hogwarts.\n\
+Para leste, há uma parede, oculta por um retrato pintado a óleo de uma mulher gorda com um \
+vestido rosa.\n\
+Para sul, há uma gárgula de pedra enorme."
+const dir_n = $s_hogwarts064
+const dir_s = $s_hogwarts038
+const dir_l = $s_hogwarts039
+const dir_b = $s_hogwarts036
+
+
+classe s_hogwarts038
+herda b_hogwarts
+const s_titulo = "Em Frente a Gárgula de Pedra"
+const s_desc = "Você está parado em frente a uma enorme gárgula de pedra no sétimo andar.\n\
+Você a olha e não a acha interessante."
+const dir_n = $s_hogwarts037
+const dir_s = $s_hogwarts041
+const inv_s = 1 # Invisível: Sim
+const a_reset = "P 100 Hogwarts022 0 0 1"
+sav uint8 passar
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_Hogwarts022:objsolto.total < 1
+    criar("p_Hogwarts022", este, 0)
+  fimse
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "gota de limão"
+    arg0.var.d_passar_ = 1
+    $mens.p(arg0)
+    $mens.mtodos1("A gárgula ganha vida, abrindo uma passagem ao sul!")
+    ret 1
+  fimse
+#
+
+func cmd_falou
+  se arg1 == "gota de limão"
+    arg0.var.d_passar_ = 1
+    $mens.p(arg0)
+    $mens.mtodos1("A gárgula ganha vida, abrindo uma passagem ao sul!")
+    ret 1
+  fimse
+
+func cmd_mover
+  se arg2 == "s"
+    ret !arg0.var.d_passar_, arg0.msg("A gárgula se recusa a deixar você passar!")
+    arg0.var.d_passar_ = 0
+  fimse
+
+
+classe s_hogwarts039
+herda b_hogwarts
+const s_titulo = "Em Frente ao Retrato da Mulher Gorda"
+const s_desc = "Você está parado em frente a um retrato pintado a óleo de uma mulher gorda, com \
+um vestido rosa.\n\
+Atrás do quadro, há a entrada para o salão comunal de Grifinória."
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_hogwarts045
+const dir_o = $s_hogwarts037
+#
+
+
+classe s_hogwarts040
+herda b_hogwarts
+const s_titulo = "Na Entrada de Hogsmeade"
+const s_desc = "Você está à caminho do povoado de Hogsmeade.\n\
+Para norte, há a rua principal.\n\
+Para sul, há a estrada que conduz a Hogwarts."
+const dir_n = $s_hogwarts048
+const dir_s = $s_hogwarts001
+
+
+classe s_hogwarts041
+herda b_hogwarts
+const s_titulo = "na base de uma escadaria de pedra circular"
+const s_desc = "Você está em uma escada em caracol.\n\
+Ao pisar aqui, você sente que ela o leva cada vez mais alto, subindo em círculos."
+const dir_n = $s_hogwarts038
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+  misc:tempo("entrou", arg0)
+#
+
+func entrou60
+  arg0.donoantes != $s_hogwarts042 && arg0.mudadono($s_hogwarts042)
+  ret 1
+#
+
+
+classe s_hogwarts042
+herda b_hogwarts
+const s_titulo = "No Fim da Escada em Caracol"
+const s_desc = "Meio tonto devido a subida em círculos, você olha em volta.\n\
+Você está parado no fim da escada.\n\
+Para baixo, há uma porta de carvalho reluzindo, com uma aldrava em forma de grifo."
+const dir_n = $s_hogwarts041
+const dir_b = $s_hogwarts043
+
+
+classe s_hogwarts043
+herda b_hogwarts
+const s_titulo = "Em Frente a Sala de Dumbledore"
+const s_desc = "Após descer a escada em caracol, você se vê parado diante de uma porta de \
+carvalho.\n\
+Ao examiná-la, você nota que há uma aldrava em forma de grifo."
+const dir_s = $s_hogwarts044
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "uma porta de carvalho com uma aldrava em forma de grifo"
+const fecha_s = 1 # Fecha ao passar: Sim
+const dir_c = $s_hogwarts042
+
+
+classe s_hogwarts044
+herda b_hogwarts
+const s_titulo = "Na Sala de Alvo Dumbledore"
+const s_desc = "Você está na sala de Alvo Dumbledore, o diretor da escola.\n\
+Em algumas mesas de pernas finas, há curiosos extrumentos de prata que giram e soltam pequenas \
+baforadas de fumaça.\n\
+Nas paredes, há quadros de antigos diretores e diretoras de Hogwarts, cochilando em suas \
+molduras.\n\
+Em um poleiro atrás da porta, há uma bela fênix.\n\
+Atrás da mesa do diretor, há pousado em uma prateleira o velho chapéu seletor.\n\
+Em uma parede atrás da mesa de Dumbledore, há uma redoma de vidro, onde repousa a espada de \
+Godric Grifindor, um dos quatro fundadores de Hogwarts."
+const dir_n = $s_hogwarts043
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "uma porta de carvalho com uma aldrava em forma de grifo"
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_entrar = $s_hogwarts112
+const a_reset = "P 100 hogwarts024 0 0 1\nP 100 hogwarts025 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hogwarts024:objsolto.total < 1
+    criar("p_hogwarts024", este, 0)
+  fimse
+  se p_hogwarts025:objsolto.total < 1
+    criar("p_hogwarts025", este, 0)
+  fimse
+
+
+classe s_hogwarts045
+herda b_hogwarts
+const s_titulo = "salão comunal da grifinória"
+const s_desc = "Você está no amplo salão comunal de Grifinória.\n\
+Aqui é onde os alunos da casa descansam ou fazem seus deveres quando não estão em aula.\n\
+A sala possui poltronas fofas espalhadas, mais poucas estão ocupadas.\n\
+Há também uma lareira a um canto que aquece todo o ambiente e uma velha cômoda em outro.\n\
+No meio da sala, há uma mesa com vários rolos de pergaminhos empilhados.\n\
+Para sul, há as escadas que conduz ao dormitório masculino e a norte há as escadas que conduzem \
+aos dormitórios femininos."
+const dir_n = $s_hogwarts073
+const dir_s = $s_hogwarts072
+const dir_o = $s_hogwarts039
+const a_reset = "P 100 Hogwarts005 0 0 1 h_chutar=8,h_socar=8,z_moedas=300"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_Hogwarts005:objsolto.total < 1
+    criar("p_Hogwarts005", este, 0, "h_chutar=8,h_socar=8,z_moedas=300")
+  fimse
+
+
+classe s_hogwarts046
+herda b_hogwarts
+const s_titulo = ".No Fundo do Alçapão"
+const s_desc = "Ao contrário do que você esperava, você cai em algo macio.\n\
+Ao apalpar o chão, você percebe que caiu em cima de uma planta.\n\
+Você pensa que é realmente uma sorte essa planta estar aqui para amortecer a queda.\n\
+A umidade toma conta das paredes em volta e você nota que é impossível voltar.\n\
+Para sul, há um corredor de pedra."
+const dir_s = $s_hogwarts047
+
+
+classe s_hogwarts047
+herda b_hogwarts
+const dir_n = $s_hogwarts046
+
+
+classe s_hogwarts048
+herda b_hogwarts
+const s_titulo = "Na Rua Principal de Hogsmeade"
+const s_desc = "Você está na rua principal de Hogsmeade.\nPara norte, a rua continua."
+const dir_n = $s_hogwarts049
+const dir_s = $s_hogwarts040
+
+
+classe s_hogwarts049
+herda b_hogwarts
+const s_titulo = "Rua Principal de Hogsmeade"
+const s_desc = "Você continua a explorar o povoado de Hogsmeade.\n\
+Para leste, há o Três Vassouras.\n\
+Para Oeste, há a loja de doces, a Dedos de Mel.\n\
+E para norte a rua continua."
+const dir_n = $s_hogwarts052
+const dir_s = $s_hogwarts048
+const dir_l = $s_hogwarts050
+const dir_o = $s_hogwarts051
+
+
+classe s_hogwarts050
+herda b_hogwarts
+const s_titulo = "No Três Vassouras"
+const s_desc = "Você está em um bar apinhado de gente.\n\
+O lugar é quente e está um pouco barulhento.\n\
+Uma mulher tipo violão, com o rosto muito bonito anda de um lado a outro no bar, atendendo \
+clientes e vez ou outra colocando ordem no bar."
+const dir_o = $s_hogwarts049
+const a_reset = "P 100 Hogwarts026 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_Hogwarts026:objsolto.total < 1
+    criar("p_Hogwarts026", este, 0)
+  fimse
+
+
+classe s_hogwarts051
+herda b_hogwarts
+const s_titulo = "Na Dedos de Mel"
+const s_desc = "Você está na loja de doces de Hogsmeade.\n\
+Há prateleiras e mais prateleiras com os mais apetitosos doces que você pode imaginar.\n\
+Para sul, há uma escada que conduz ao segundo andar da loja."
+const dir_l = $s_hogwarts049
+const a_reset = "P 100 Hogwarts027 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_Hogwarts027:objsolto.total < 1
+    criar("p_Hogwarts027", este, 0)
+  fimse
+
+
+classe s_hogwarts052
+herda b_hogwarts
+const s_titulo = "Continuando Pela Rua de Hogsmeade"
+const s_desc = "Você continua caminhando pelo fascinante povoado.\n\
+A medida que vai avançando, seus olhos ficam maravilhados ao contemplarem tantos lugares \
+incríveis."
+const dir_s = $s_hogwarts049
+
+
+classe s_hogwarts053
+herda b_hogwarts
+const s_titulo = "Na Floresta Proibida"
+const s_desc = "Você está caminhando pela floresta proibida de Hogwarts.\n\
+Pelo chão, você nota pegadas enormes que se espalham por todos os lados da floresta.\n\
+Para leste, há uma depressão.\n\
+Para sul, você continua pela floresta.\n\
+Para norte, você volta."
+const dir_n = $s_hogwarts011
+const dir_s = $s_hogwarts059
+const a_reset = "P 100 hogwarts028 0 0 6 h_arremessar=3,h_arranhar=3,h_morder=3,z_moedas=1000000\n\
+P 50 hogwarts034 0 0 1 h_arremessar=3,h_arranhar=3,h_morder=3,z_moedas=1000000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hogwarts028:objsolto.total < 6
+    criar("p_hogwarts028", este, 0, "h_arremessar=3,h_arranhar=3,h_morder=3,z_moedas=1000000")
+  fimse
+  se p_hogwarts034:objsolto.total < 1 && rand(100) < 50
+    criar("p_hogwarts034", este, 0, "h_arremessar=3,h_arranhar=3,h_morder=3,z_moedas=1000000")
+  fimse
+
+
+classe s_hogwarts054
+herda b_hogwarts
+const s_titulo = "Na Sala de Defesa Contra as Artes Das Trevas"
+const s_desc = "Você está na sala onde o professor Lupin ensina Defesa Contra as Artes Das \
+Trevas.\n\
+Na parede, há quadros de criaturas sinistras e perigosas.\n\
+Espalhadas pela sala, há mesas e cadeiras vazias, esperando por alunos."
+const dir_s = $s_hogwarts030
+const a_reset = "P 100 Hogwarts029 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_Hogwarts029:objsolto.total < 1
+    criar("p_Hogwarts029", este, 0)
+  fimse
+
+
+classe s_hogwarts055
+herda b_hogwarts
+const s_titulo = "À Caminho do Campo de Quadribol"
+const s_desc = "Você está rumo ao campo de Quadribol da escola.\n\
+Para sul, ele continua e para norte você volta."
+const dir_n = $s_hogwarts012
+const dir_s = $s_hogwarts056
+
+
+classe s_hogwarts056
+herda b_hogwarts
+const s_titulo = "Na Entrada do Campo de Quadribol"
+const s_desc = "Você está parado na entrada do campo de Quadribol.\n\
+Aqui, os alunos jogam Quadribol ou realizam seus treinos.\n\
+Para sul, você adentra o campo de Quadribol.\n\
+Para leste, há o vestiário."
+const s_pnj = 0
+const dir_n = $s_hogwarts055
+const dir_s = $s_quadribol001
+const dir_l = $s_hogwarts057
+
+
+classe s_hogwarts057
+herda b_hogwarts
+const s_titulo = "No Vestiário"
+const s_desc = "Você está no vestiário perto do campo de Quadribol.\n\
+Dobrados em cima de algumas mesas, há os uniformes dos times de Quadribol.\n\
+Para oeste, você volta para a entrada do campo."
+const dir_o = $s_hogwarts056
+
+
+classe s_hogwarts058
+herda b_hogwarts
+const s_titulo = "Nas escadarias rumo às masmorras"
+const s_desc = "Você está no meio das escadarias que conduzem as masmorras do castelo.\n\
+Para Baixo, há o fim das escadarias e para cima você volta."
+const dir_o = $s_hogwarts068
+const dir_b = $s_hogwarts086
+
+
+classe s_hogwarts059
+herda b_hogwarts
+const s_titulo = "Continuando Pela Floresta Proibida"
+const s_desc = "Você continua se arriscando pela imensa floresta proibida de Hogwarts.\n\
+Animais estranhos e bizarros caminham por toda a floresta e você fica impressionado e ao mesmo \
+tempo temeroso por ver tantas criaturas desconhecidas.\n\
+Para sul, a floresta continua e para norte você volta.\n\
+É possível ver uma clareira a oeste."
+const dir_n = $s_hogwarts053
+const dir_s = $s_hogwarts063
+const dir_o = $s_hogwarts102
+const a_reset = "P 100 Hogwarts030 0 0 20 h_arremessar=8,h_morder=8,z_moedas=6000000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_Hogwarts030:objsolto.total < 20
+    criar("p_Hogwarts030", este, 0, "h_arremessar=8,h_morder=8,z_moedas=6000000")
+  fimse
+
+
+classe s_hogwarts060
+herda b_hogwarts
+const s_titulo = "Em frente a um banheiro feminino"
+const s_desc = "Você está parado em frente de um estranho banheiro no primeiro andar.\n\
+Ao encostar o ouvido na porta, o som de água pode ser ouvido e estranhamente o som de alguém \
+chorando.\n\
+A água escorre por baixo da porta, alagando todo o corredor.\n\
+Na porta, há um aviso: \"Interditado.\""
+const dir_n = $s_hogwarts028
+const dir_s = $s_hogwarts061
+
+
+classe s_hogwarts061
+herda b_hogwarts
+const s_titulo = "Dentro do Banheiro Feminino"
+const s_desc = "Você entra no pequeno banheiro.\n\
+O chão está escorregadio devido a água que transborda incessantemente das pias espalhadas pelo \
+banheiro.\n\
+Estranhamente, há uma pia com o desenho de uma cobra na torneira.\n\
+O choro que você ouvia vindo por de trás da porta, pertence ao fantasma de uma garota que flutua \
+tristonho em um box."
+const dir_n = $s_hogwarts060
+const dir_s = $s_hogwarts062
+
+
+classe s_hogwarts062
+herda b_hogwarts
+const s_titulo = "Em um Box no Banheiro Feminino"
+const s_desc = "Você entra em um pequeno e apertado box.\n\
+Flutuando a poucos centímetros do chão, há o fantasma tristonho de uma garota."
+const dir_n = $s_hogwarts061
+const a_reset = "P 100 Hogwarts032 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_Hogwarts032:objsolto.total < 1
+    criar("p_Hogwarts032", este, 0)
+  fimse
+
+
+classe s_hogwarts063
+herda b_hogwarts
+const s_titulo = "Em Uma Parte Escura na Floresta Proibida"
+const dir_n = $s_hogwarts059
+const dir_l = $s_hogwarts082
+
+
+classe s_hogwarts064
+herda b_hogwarts
+const s_titulo = "No Corujal"
+const s_desc = "Você está em uma sala circular revestida de pedra.\n\
+O chão está coberto de palha, titica de coruja, algumas penas, esqueletos de rato e arganazes \
+que vez ou outra alguma coruja regurgita.\n\
+A sala é um tanto fria e varrida por correntes de vento, pois não há vidros nas janelas.\n\
+Centenas de corujas de várias espécies imagináveis estão aninhadas em poleiros que sobem até o \
+alto da torre e outras tantas estão retornando depois de uma longa caçada.\n\
+Algumas se sentem incomodadas com sua presença e a luz do sol que entra pelas janelas sem \
+vidro."
+const dir_s = $s_hogwarts037
+const a_reset = "P 100 Hogwarts035 0 0 1 h_arranhar=8,h_arremessar=8,h_bicar=8,z_moedas=100\n\
+P 100 Hogwarts036 0 0 1 h_arranhar=8,h_arremessar=8,h_bicar=8,z_moedas=100\n\
+P 100 Hogwarts037 0 0 1 h_arranhar=8,h_arremessar=8,h_bicar=8,z_moedas=100\n\
+P 50 hogwarts038 40 50 10 h_arranhar=8,h_bicar=8,z_moedas=100"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_Hogwarts035:objsolto.total < 1
+    criar("p_Hogwarts035", este, 0, "h_arranhar=8,h_arremessar=8,h_bicar=8,z_moedas=100")
+  fimse
+  se p_Hogwarts036:objsolto.total < 1
+    criar("p_Hogwarts036", este, 0, "h_arranhar=8,h_arremessar=8,h_bicar=8,z_moedas=100")
+  fimse
+  se p_Hogwarts037:objsolto.total < 1
+    criar("p_Hogwarts037", este, 0, "h_arranhar=8,h_arremessar=8,h_bicar=8,z_moedas=100")
+  fimse
+  se p_hogwarts038:objsolto.total < 10 && rand(100) < 50
+    criar("p_hogwarts038", este, rand(40, 50), "h_arranhar=8,h_bicar=8,z_moedas=100")
+  fimse
+
+
+classe s_hogwarts065
+herda b_hogwarts
+const s_titulo = "Na Ala Hospitalar"
+const s_desc = "Você está na enfermaria de Hogwarts.\n\
+Ao longo das paredes, há diversas camas, algumas com estudantes que sofreram algum tipo de \
+acidente."
+const dir_o = $s_hogwarts028
+const a_reset = "P 100 Hogwarts004 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_Hogwarts004:objsolto.total < 1
+    criar("p_Hogwarts004", este, 0)
+  fimse
+
+const s_reset = "S 100 hogwarts015 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_hogwarts015") && criar("i_hogwarts015", este, 1)
+
+
+classe s_hogwarts066
+herda b_hogwarts
+const s_titulo = "Na Entrada de Uma Escura Caverna"
+const s_desc = "Você está na entrada de uma pequena caverna, localizada ao fundo da floresta \
+proibida.\n\
+Para leste, você adentra a caverna."
+const dir_l = $s_hogwarts067
+const dir_c = $s_hogwarts082
+
+
+classe s_hogwarts067
+herda b_hogwarts
+const s_titulo = "Dentro da Escura Caverna"
+const s_desc = "Você adentra a caverna.\n\
+Aqui a escuridão é total, que é quase impossível enxergar alguma coisa ou ver onde pisa.\n\
+Na parede, há uma inscrição escrita horrivelmente com sangue."
+const s_luz = 1 # Luz: 1 Claro sem eventos de tempo
+const s_naoresg = 0 # Sem resgate: Não
+const s_pnj = 10
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_s = $s_hogwarts085
+const dir_o = $s_hogwarts066
+const a_reset = "P 100 hogwarts067 0 0 15 h_absouver_sangue=8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hogwarts067:objsolto.total < 15
+    criar("p_hogwarts067", este, 0, "h_absouver_sangue=8")
+  fimse
+
+
+classe s_hogwarts068
+herda b_hogwarts
+const s_titulo = "Nas Escadarias das Masmorras"
+const dir_l = $s_hogwarts058
+const dir_c = $s_hogwarts026
+
+
+classe s_hogwarts069
+herda b_hogwarts
+const s_titulo = "no centro da caverna"
+const s_desc = "Ao chegar aqui, você sente um frio percorrer todo seu corpo.\n\
+Olhando ao seu redor, você nota várias asas de morcegos,  corpos de vários seres perfurados e \
+devorados por enormes vampiros.\n\
+uma vontade de fugir toma conta de você, suas mãos ficam trêmulas, e o medo domina sua mente.\n\
+mais agora é tarde, e não dar para voltar atrás. é vida ou morte!"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_luz = 1 # Luz: 1 Claro sem eventos de tempo
+const s_naoresg = 0 # Sem resgate: Não
+const s_pnj = 10
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_n = $s_hogwarts085
+const dir_s = $s_hogwarts070
+const dir_o = $s_hogwarts103
+const a_reset = "P 100 hogwarts069 575 585 5 h_absouver_sangue=8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hogwarts069:objsolto.total < 5
+    criar("p_hogwarts069", este, rand(575, 585), "h_absouver_sangue=8")
+  fimse
+
+
+classe s_hogwarts070
+herda b_hogwarts
+const s_titulo = "nas profundidades da caverna"
+const s_desc = "Aqui não se pode enchergar nada ao seu redor. Uma enorme escuridão domina o \
+local e miu coisas passam em sua mente.\n\
+Você ouve alguns ruidos, são vampiros voando de algum lugar, aproximando-se de você, cedentos de \
+sangue.\n\
+A cada minuto, você sente que a morte se aproxima."
+const s_naoresg = 0 # Sem resgate: Não
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_n = $s_hogwarts069
+const dir_l = $s_hogwarts071
+const a_reset = "P 100 hogwarts070 590 605 5 h_absouver_sangue_=8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hogwarts070:objsolto.total < 5
+    criar("p_hogwarts070", este, rand(590, 605), "h_absouver_sangue_=8")
+  fimse
+
+
+classe s_hogwarts071
+herda b_hogwarts
+const s_titulo = "próximo a câmara negra"
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_s = $s_hogwarts084
+const dir_o = $s_hogwarts070
+
+
+classe s_hogwarts072
+herda b_hogwarts
+const s_titulo = "Acesso aos dormitórios masculinos"
+const dir_n = $s_hogwarts045
+const dir_c = $s_hogwarts074
+
+
+classe s_hogwarts073
+herda b_hogwarts
+const s_titulo = "Acesso aos dormitórios femininos"
+const eveste = 1 # Eventos sala: Sim
+const dir_s = $s_hogwarts045
+const dir_c = $s_hogwarts075
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+
+func cmd_mover
+  se arg2 == "c" && arg0.psexo == 1
+    $mens.p(arg0)
+    refvar m1 = "Você começa a subir a escadaria rumo aos dormitórios femininos, quando de \
+repente ela se transforma em um escorregador e você sai rolando para baixo!"
+    refvar m2 = "$P começa a subir a escadaria rumo aos dormitórios femininos. De repente, ele \
+volta rolando do que parece ser um escorregador!"
+    $mens.mtodos2(m1, m2)
+    $mens.p(arg0)
+    $mens.marea1("Você ouve a gargalhada de Hermione vinda do alto das escadas, dizendo: Garotos \
+não podem subir aqui, $P!")
+    ret 1
+  fimse
+
+
+classe s_hogwarts074
+herda b_hogwarts
+const s_titulo = "Uma escadaria em caracol"
+const dir_b = $s_hogwarts072
+const dir_no = $s_hogwarts079
+
+
+classe s_hogwarts075
+herda b_hogwarts
+const s_titulo = "Uma escadaria em caracol"
+const dir_b = $s_hogwarts073
+const dir_ne = $s_hogwarts076
+
+
+classe s_hogwarts076
+herda b_hogwarts
+const s_titulo = "Continuação da escadaria"
+const dir_c = $s_hogwarts077
+const dir_so = $s_hogwarts075
+
+
+classe s_hogwarts077
+herda b_hogwarts
+const s_titulo = "No topo da escadaria"
+const dir_b = $s_hogwarts076
+const dir_entrar = $s_hogwarts078
+
+
+classe s_hogwarts078
+herda b_hogwarts
+const s_titulo = "Dormitório feminino"
+const dir_sair = $s_hogwarts077
+const a_reset = "S 100 hogwarts015 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_hogwarts015") && criar("i_hogwarts015", este, 1)
+
+
+classe s_hogwarts079
+herda b_hogwarts
+const s_titulo = "Continuação da escadaria"
+const dir_c = $s_hogwarts080
+const dir_se = $s_hogwarts074
+
+
+classe s_hogwarts080
+herda b_hogwarts
+const s_titulo = "No topo da escadaria"
+const dir_b = $s_hogwarts079
+const dir_entrar = $s_hogwarts081
+
+
+classe s_hogwarts081
+herda b_hogwarts
+const s_titulo = "Dormitório masculino"
+const dir_sair = $s_hogwarts080
+
+
+classe s_hogwarts082
+herda b_hogwarts
+const s_titulo = "às bordas de uma caverna"
+const s_pnj = 0
+const dir_o = $s_hogwarts063
+const dir_b = $s_hogwarts066
+
+
+classe s_hogwarts083
+herda b_hogwarts
+const s_titulo = "Na Câmara negra"
+const s_desc = "ao entrar aqui, você não consegue enchergar nada a sua frente. um cheiro \
+horrível de sangue, toma conta da atimosfera. aos poucos, um barulho vem do alto da câmara, e \
+quando você percebe, o rei vampiro pousa aqui diante de você."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_luz = 3 # Luz: 3 Escuro
+const s_pnj = 0
+const dir_l = $s_hogwarts084
+const portaini_l = 1 # Estado inicial: 1 Porta aberta
+const portanome_l = "a porta da câmara negra"
+const fecha_l = 1 # Fecha ao passar: Sim
+const tranc_l = 1 # Trancar: 1 Pode ser trancado
+const dir_b = $s_hogwarts091
+const a_reset = "P 100 hogwarts083 610 610 1\nI 100 hogwarts084 1\nE 10 dracula002 1 20"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_hogwarts083:objsolto.total < 1
+    p = u = criar("p_hogwarts083", este, 610)
+  fimse
+  u && criar("i_hogwarts084", u, 1)
+  se u && rand(100) < 10
+    r = criar("i_dracula002", u, 1), r.vestir(20), u.recalc = 1
+  fimse
+
+
+classe s_hogwarts084
+herda b_hogwarts
+const s_titulo = "na entrada da câmara negra"
+const s_item = 3
+const s_luz = 1 # Luz: 1 Claro sem eventos de tempo
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_n = $s_hogwarts071
+const dir_o = $s_hogwarts083
+const portaini_o = 3 # Estado inicial: 3 Porta trancada
+const portanome_o = "a porta da câmara negra"
+const fecha_o = 1 # Fecha ao passar: Sim
+const tranc_o = 1 # Trancar: 1 Pode ser trancado
+const a_reset = "P 100 hogwarts084 610 610 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hogwarts084:objsolto.total < 1
+    criar("p_hogwarts084", este, 610)
+  fimse
+
+
+classe s_hogwarts085
+herda b_hogwarts
+const s_titulo = "próximo ao centro da caverna"
+const s_naoresg = 0 # Sem resgate: Não
+const dir_n = $s_hogwarts067
+const dir_s = $s_hogwarts069
+const a_reset = "P 100 hogwarts085 615 630 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hogwarts085:objsolto.total < 10
+    criar("p_hogwarts085", este, rand(615, 630))
+  fimse
+
+
+classe s_hogwarts086
+herda b_hogwarts
+const s_titulo = "No Fim Das Escadarias Das Masmorras"
+const s_desc = "Depois de uma longa descida, você chega ao que parece ser o fim das escadarias \
+que levam as masmorras do castelo.\n\
+Para sul, pode ser visto um corredor e para cima pode voltar para o saguão de entrada."
+const dir_s = $s_hogwarts087
+const dir_c = $s_hogwarts058
+
+
+classe s_hogwarts087
+herda b_hogwarts
+const s_titulo = "Em um Corredor Nas Masmorras"
+const s_desc = "Você está em um corredor muito frio.\n\
+Para sul, há uma sala de aula, onde os estudantes aprendem o preparo de poções.\n\
+Para oeste há a sala de Severo Snape, enquanto que para leste há uma parede lisa."
+const dir_n = $s_hogwarts086
+const dir_s = $s_hogwarts088
+const dir_l = $s_hogwarts089
+
+
+classe s_hogwarts088
+herda b_hogwarts
+const s_titulo = ".Na Sala de Poções"
+const s_desc = "Você está na sala de Poções.\n\
+Espalhadas pela sala, há mesas onde alunos estão sentados, medindo e cortando ingredientes.\n\
+O calor que vem dos caldeirões acezos aquece todo o ambiente.\n\
+Passeando pela sala, Snape examina os caldeirões e toma as notas de seus alunos."
+const dir_n = $s_hogwarts087
+const a_reset = "P 100 Hogwarts007 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_Hogwarts007:objsolto.total < 1
+    criar("p_Hogwarts007", este, 0)
+  fimse
+
+
+classe s_hogwarts089
+herda b_hogwarts
+const s_titulo = "Em Frente a Uma Parede Lisa Nas Masmorras"
+const s_desc = "Você está parado em frente de uma parede lisa.\n\
+Aparentemente, não parece ter nada de estranho, curioso ou misterioso por aqui."
+const eveste = 1 # Eventos sala: Sim
+const dir_s = $s_hogwarts090
+const inv_s = 1 # Invisível: Sim
+const dir_o = $s_hogwarts087
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_mover
+  se arg2 == "s"
+    se !arg0.var.d_passarsonse_
+      ret arg0.msg("Impossível seguir nessa direção.")
+    fimse
+    porta_s = 0
+  fimse
+#
+
+func cmd_falou
+  se arg1 == "puro sangue"
+    $mens.p(arg0)
+    $mens.mvis1("De repente, a parede se dissolidifica, revelando uma porta na direção sul.")
+    porta_s = 2
+    arg0.var.d_passarsonse_ = 1
+  fimse
+#
+
+func cmd_moveu
+  se arg2 == "s"
+    porta_s = 0
+    porta_n = 0
+    dir_s.porta_n = 0
+  fimse
+
+
+classe s_hogwarts090
+herda b_hogwarts
+const s_titulo = "No Salão Comunal da Sonserina"
+const s_desc = "Você está em um aposento comprido e subterrâneo.\n\
+Nas paredes de pedra rústicas e no teto pendem correntes com luzes redondas e esverdeadas.\n\
+O fogo arde na lareira emcimada por um console de madeira esculpida e ao redor da sala, há \
+alguns alunos da casa sentados em cadeiras de espaldar alto.\n\
+Para sul, você vai em direção as escadas que conduzem aos dormitórios masculinos e para oeste há \
+as escadas que conduzem aos dormitórios femininos."
+const dir_n = $s_hogwarts089
+const a_reset = "P 100 Hogwarts008 0 0 1 h_chutar=8,h_socar=8,z_moedas=100000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_Hogwarts008:objsolto.total < 1
+    criar("p_Hogwarts008", este, 0, "h_chutar=8,h_socar=8,z_moedas=100000")
+  fimse
+
+
+classe s_hogwarts091
+herda b_hogwarts
+const s_titulo = "Descendo por um túnel"
+const s_luz = 3 # Luz: 3 Escuro
+const s_naoresg = 1 # Sem resgate: Sim
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const eveste = 1 # Eventos sala: Sim
+const dir_b = $s_hogwarts092
+const a_reset = "P 100 hogwarts071 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hogwarts071:objsolto.total < 1
+    criar("p_hogwarts071", este, 0)
+  fimse
+
+func cmd_salaperso
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_morreu
+  ret !arg1.jog, nulo
+  misc:tempo("matou", arg1)
+#
+
+func matou100
+  $mens.p(arg0)
+  refvar m1 = "Uma densa nuvem de fumaça vai aos poucos envolvendo seu corpo, e quando se \
+discipa..."
+  refvar m2 = "Uma nuvem de fumaça vai aos poucos envolvendo o corpo de $P, e quando se discipa..\
+."
+  $mens.mtodos2(m1, m2)
+  arg0.mudadono(dir_b)
+  listaobj l
+  epara l.addfim(dentro2), l, l.ini.remove
+    se l.objini.tseguir
+      $mens.p(l.objini)
+      refvar m1 = "Uma densa nuvem de fumaça vai aos poucos envolvendo seu corpo, e quando se \
+discipa..."
+      refvar m2 = "Uma nuvem de fumaça vai aos poucos envolvendo o corpo de $P, e quando se \
+discipa..."
+      $mens.mtodos2(m1, m2)
+      l.objini.mudadono(dir_b)
+      $mens.p(l.objini)
+      $mens.mtodos2("", "$P aparece de uma escura nuvem de fumaça.")
+    fimse
+  efim
+
+
+classe s_hogwarts092
+herda b_hogwarts
+const s_titulo = "Descendo Por um Túnel"
+const s_luz = 3 # Luz: 3 Escuro
+const s_naoresg = 1 # Sem resgate: Sim
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const eveste = 1 # Eventos sala: Sim
+const dir_se = $s_hogwarts093
+const a_reset = "P 100 hogwarts072 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hogwarts072:objsolto.total < 1
+    criar("p_hogwarts072", este, 0)
+  fimse
+#
+
+func cmd_salaperso
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_morreu
+  ret !arg1.jog, nulo
+  misc:tempo("matou", arg1)
+#
+
+func matou100
+  $mens.p(arg0)
+  refvar m1 = "Uma densa nuvem de fumaça vai aos poucos envolvendo seu corpo, e quando se \
+discipa..."
+  refvar m2 = "Uma nuvem de fumaça vai aos poucos envolvendo o corpo de $P, e quando se discipa..\
+."
+  $mens.mtodos2(m1, m2)
+  arg0.mudadono(dir_se)
+  listaobj l
+  epara l.addfim(dentro2), l, l.ini.remove
+    se l.objini.tseguir
+      $mens.p(l.objini)
+      refvar m1 = "Uma densa nuvem de fumaça vai aos poucos envolvendo seu corpo, e quando se \
+discipa..."
+      refvar m2 = "Uma nuvem de fumaça vai aos poucos envolvendo o corpo de $P, e quando se \
+discipa..."
+      $mens.mtodos2(m1, m2)
+      l.objini.mudadono(dir_se)
+      $mens.p(l.objini)
+      $mens.mtodos2("", "$P aparece de uma escura nuvem de fumaça.")
+    fimse
+  efim
+#
+
+
+classe s_hogwarts093
+herda b_hogwarts
+const s_titulo = "Aprofundando-se no Túnel"
+const s_luz = 3 # Luz: 3 Escuro
+const s_naoresg = 1 # Sem resgate: Sim
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const eveste = 1 # Eventos sala: Sim
+const dir_b = $s_hogwarts094
+const a_reset = "P 100 hogwarts073 0 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hogwarts073:objsolto.total < 2
+    criar("p_hogwarts073", este, 0)
+  fimse
+
+func cmd_salaperso
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_morreu
+  ret !arg1.jog, nulo
+  misc:tempo("matou", arg1)
+#
+
+func matou100
+  $mens.p(arg0)
+  refvar m1 = "Uma densa nuvem de fumaça vai aos poucos envolvendo seu corpo, e quando se \
+discipa..."
+  refvar m2 = "Uma nuvem de fumaça vai aos poucos envolvendo o corpo de $P, e quando se discipa..\
+."
+  $mens.mtodos2(m1, m2)
+  arg0.mudadono(dir_b)
+  listaobj l
+  epara l.addfim(dentro2), l, l.ini.remove
+    se l.objini.tseguir
+      $mens.p(l.objini)
+      refvar m1 = "Uma densa nuvem de fumaça vai aos poucos envolvendo seu corpo, e quando se \
+discipa..."
+      refvar m2 = "Uma nuvem de fumaça vai aos poucos envolvendo o corpo de $P, e quando se \
+discipa..."
+      $mens.mtodos2(m1, m2)
+      l.objini.mudadono(dir_b)
+      $mens.p(l.objini)
+      $mens.mtodos2("", "$P aparece de uma escura nuvem de fumaça.")
+    fimse
+  efim
+#
+
+
+classe s_hogwarts094
+herda b_hogwarts
+const s_titulo = "Aprofundando-se no Túnel"
+const s_luz = 3 # Luz: 3 Escuro
+const s_naoresg = 1 # Sem resgate: Sim
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const eveste = 1 # Eventos sala: Sim
+const dir_no = $s_hogwarts095
+const a_reset = "P 100 hogwarts073 0 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hogwarts073:objsolto.total < 2
+    criar("p_hogwarts073", este, 0)
+  fimse
+
+func cmd_salaperso
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_morreu
+  ret !arg1.jog, nulo
+  misc:tempo("matou", arg1)
+#
+
+func matou100
+  $mens.p(arg0)
+  refvar m1 = "Uma densa nuvem de fumaça vai aos poucos envolvendo seu corpo, e quando se \
+discipa..."
+  refvar m2 = "Uma nuvem de fumaça vai aos poucos envolvendo o corpo de $P, e quando se discipa..\
+."
+  $mens.mtodos2(m1, m2)
+  arg0.mudadono(dir_no)
+  listaobj l
+  epara l.addfim(dentro2), l, l.ini.remove
+    se l.objini.tseguir
+      $mens.p(l.objini)
+      refvar m1 = "Uma densa nuvem de fumaça vai aos poucos envolvendo seu corpo, e quando se \
+discipa..."
+      refvar m2 = "Uma nuvem de fumaça vai aos poucos envolvendo o corpo de $P, e quando se \
+discipa..."
+      $mens.mtodos2(m1, m2)
+      l.objini.mudadono(dir_no)
+      $mens.p(l.objini)
+      $mens.mtodos2("", "$P aparece de uma escura nuvem de fumaça.")
+    fimse
+  efim
+#
+
+
+classe s_hogwarts095
+herda b_hogwarts
+const s_titulo = "Em uma pequena curva dentro do túnel"
+const s_luz = 3 # Luz: 3 Escuro
+const s_naoresg = 1 # Sem resgate: Sim
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const eveste = 1 # Eventos sala: Sim
+const dir_ne = $s_hogwarts096
+const a_reset = "P 100 hogwarts074 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hogwarts074:objsolto.total < 1
+    criar("p_hogwarts074", este, 0)
+  fimse
+
+func cmd_salaperso
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_morreu
+  ret !arg1.jog, nulo
+  misc:tempo("matou", arg1)
+#
+
+func matou100
+  $mens.p(arg0)
+  refvar m1 = "Uma densa nuvem de fumaça vai aos poucos envolvendo seu corpo, e quando se \
+discipa..."
+  refvar m2 = "Uma nuvem de fumaça vai aos poucos envolvendo o corpo de $P, e quando se discipa..\
+."
+  $mens.mtodos2(m1, m2)
+  arg0.mudadono(dir_ne)
+  listaobj l
+  epara l.addfim(dentro2), l, l.ini.remove
+    se l.objini.tseguir
+      $mens.p(l.objini)
+      refvar m1 = "Uma densa nuvem de fumaça vai aos poucos envolvendo seu corpo, e quando se \
+discipa..."
+      refvar m2 = "Uma nuvem de fumaça vai aos poucos envolvendo o corpo de $P, e quando se \
+discipa..."
+      $mens.mtodos2(m1, m2)
+      l.objini.mudadono(dir_ne)
+      $mens.p(l.objini)
+      $mens.mtodos2("", "$P aparece de uma escura nuvem de fumaça.")
+    fimse
+  efim
+#
+
+
+classe s_hogwarts096
+herda b_hogwarts
+const s_titulo = "Caminhando em direção ao abismo"
+const s_luz = 3 # Luz: 3 Escuro
+const s_naoresg = 1 # Sem resgate: Sim
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const eveste = 1 # Eventos sala: Sim
+const dir_b = $s_hogwarts097
+const a_reset = "P 100 hogwarts075 0 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hogwarts075:objsolto.total < 2
+    criar("p_hogwarts075", este, 0)
+  fimse
+
+func cmd_salaperso
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_morreu
+  ret !arg1.jog, nulo
+  misc:tempo("matou", arg1)
+#
+
+func matou100
+  $mens.p(arg0)
+  refvar m1 = "Uma densa nuvem de fumaça vai aos poucos envolvendo seu corpo, e quando se \
+discipa..."
+  refvar m2 = "Uma nuvem de fumaça vai aos poucos envolvendo o corpo de $P, e quando se discipa..\
+."
+  $mens.mtodos2(m1, m2)
+  arg0.mudadono(dir_b)
+  listaobj l
+  epara l.addfim(dentro2), l, l.ini.remove
+    se l.objini.tseguir
+      $mens.p(l.objini)
+      refvar m1 = "Uma densa nuvem de fumaça vai aos poucos envolvendo seu corpo, e quando se \
+discipa..."
+      refvar m2 = "Uma nuvem de fumaça vai aos poucos envolvendo o corpo de $P, e quando se \
+discipa..."
+      $mens.mtodos2(m1, m2)
+      l.objini.mudadono(dir_b)
+      $mens.p(l.objini)
+      $mens.mtodos2("", "$P aparece de uma escura nuvem de fumaça.")
+    fimse
+  efim
+#
+
+
+classe s_hogwarts097
+herda b_hogwarts
+const s_titulo = "Caminhando em direção ao abismo"
+const s_luz = 3 # Luz: 3 Escuro
+const s_naoresg = 1 # Sem resgate: Sim
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const eveste = 1 # Eventos sala: Sim
+const dir_se = $s_hogwarts098
+const a_reset = "P 100 hogwarts075 0 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hogwarts075:objsolto.total < 2
+    criar("p_hogwarts075", este, 0)
+  fimse
+
+func cmd_salaperso
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_morreu
+  ret !arg1.jog, nulo
+  misc:tempo("matou", arg1)
+#
+
+func matou100
+  $mens.p(arg0)
+  refvar m1 = "Uma densa nuvem de fumaça vai aos poucos envolvendo seu corpo, e quando se \
+discipa..."
+  refvar m2 = "Uma nuvem de fumaça vai aos poucos envolvendo o corpo de $P, e quando se discipa..\
+."
+  $mens.mtodos2(m1, m2)
+  arg0.mudadono(dir_se)
+  listaobj l
+  epara l.addfim(dentro2), l, l.ini.remove
+    se l.objini.tseguir
+      $mens.p(l.objini)
+      refvar m1 = "Uma densa nuvem de fumaça vai aos poucos envolvendo seu corpo, e quando se \
+discipa..."
+      refvar m2 = "Uma nuvem de fumaça vai aos poucos envolvendo o corpo de $P, e quando se \
+discipa..."
+      $mens.mtodos2(m1, m2)
+      l.objini.mudadono(dir_se)
+      $mens.p(l.objini)
+      $mens.mtodos2("", "$P aparece de uma escura nuvem de fumaça.")
+    fimse
+  efim
+#
+
+
+classe s_hogwarts098
+herda b_hogwarts
+const s_titulo = "Nas profundezas do túnel, próximo ao abismo"
+const s_luz = 3 # Luz: 3 Escuro
+const s_naoresg = 1 # Sem resgate: Sim
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const eveste = 1 # Eventos sala: Sim
+const dir_b = $s_hogwarts099
+const a_reset = "P 100 hogwarts076 0 0 1\nE 100 dracula012 1 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_hogwarts076:objsolto.total < 1
+    p = u = criar("p_hogwarts076", este, 0)
+  fimse
+  se u
+    r = criar("i_dracula012", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+
+func cmd_salaperso
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_morreu
+  ret !arg1.jog, nulo
+  misc:tempo("matou", arg1)
+#
+
+func matou100
+  $mens.p(arg0)
+  refvar m1 = "Uma densa nuvem de fumaça vai aos poucos envolvendo seu corpo, e quando se \
+discipa..."
+  refvar m2 = "Uma nuvem de fumaça vai aos poucos envolvendo o corpo de $P, e quando se discipa..\
+."
+  $mens.mtodos2(m1, m2)
+  arg0.mudadono(dir_b)
+  listaobj l
+  epara l.addfim(dentro2), l, l.ini.remove
+    se l.objini.tseguir
+      $mens.p(l.objini)
+      refvar m1 = "Uma densa nuvem de fumaça vai aos poucos envolvendo seu corpo, e quando se \
+discipa..."
+      refvar m2 = "Uma nuvem de fumaça vai aos poucos envolvendo o corpo de $P, e quando se \
+discipa..."
+      $mens.mtodos2(m1, m2)
+      l.objini.mudadono(dir_b)
+      $mens.p(l.objini)
+      $mens.mtodos2("", "$P aparece de uma escura nuvem de fumaça.")
+    fimse
+  efim
+#
+
+
+classe s_hogwarts099
+herda b_hogwarts
+const s_titulo = "na entrada do cativeiro das almas perdidas"
+const s_luz = 1 # Luz: 1 Claro sem eventos de tempo
+const dir_c = $s_hogwarts098
+const dir_entrar = $s_hogwarts100
+const portaini_entrar = 3 # Estado inicial: 3 Porta trancada
+const portanome_entrar = "uma grade de ferro"
+const fecha_entrar = 1 # Fecha ao passar: Sim
+const a_reset = "P 100 hogwarts077 0 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_hogwarts077:objsolto.total < 2
+    criar("p_hogwarts077", este, 0)
+  fimse
+
+
+classe s_hogwarts100
+herda b_hogwarts
+const s_titulo = "dentro do cativeiro"
+const dir_sair = $s_hogwarts101
+const portaini_sair = 3 # Estado inicial: 3 Porta trancada
+const portanome_sair = "As grades do cativeiro"
+const portaartigo_sair = 1 # Artigo porta: 1 as (portas)
+const fecha_sair = 1 # Fecha ao passar: Sim
+const tranc_sair = 2 # Trancar: 2 Tranca ao fechar
+
+
+classe s_hogwarts101
+herda b_hogwarts
+const s_titulo = "A saída do cativeiro"
+const s_desc = "Parabéns!\n\
+Você passou pelos grandes monstros do submundo e conseguiu chegar ao fim!\n\
+Agora você tem um longo caminho pelo caminho do reino das sombras.\n\
+Siga em frente, grande!"
+const eveste = 1 # Eventos sala: Sim
+#
+
+func cmd_salaperso
+  misc:tempo("entrou", arg0)
+#
+
+func entrou60
+  $mens.p(arg0)
+  $mens.mtodos2("Uma nuvem negra de fumaça envolve o seu corpo...", "$P é envolvido por uma \
+nuvem negra de fumaça, desaparecendo logo em seguida.")
+#
+#
+
+func entrou120
+  arg0.mudadono($s_sombras001)
+#
+
+func entrou90
+  arg0.restaurar
+  arg0.msg("Transportando para o reino das sombras...")
+
+
+classe s_hogwarts102
+herda b_hogwarts
+const s_titulo = "Em Uma Clareira na Floresta Proibida"
+const s_desc = "Você está em uma grande clareira.\n\
+Ao chegar aqui, seus olhos se impressionam com o que vêem e você não sabe se fica admirado ou \
+com medo.\n\
+Paradas na clareira com o olhar voltado para o céu, há estranhas criaturas metade homem e metade \
+cavalo com arcos e flechas nas mãos."
+const s_pnj = 0
+const dir_l = $s_hogwarts059
+const a_reset = "P 100 hogwarts041 0 0 1 h_coice=8,h_patada=8,z_moedas=500000\n\
+E 100 teste051 1 0\n\
+I 100 teste052 50\n\
+P 100 hogwarts040 0 0 1 h_coice=8,h_patada=8,z_moedas=500000\n\
+E 100 teste051 1 0\n\
+I 100 teste052 50\n\
+P 100 hogwarts042 0 0 1 h_patada=8,h_coice=8,z_moedas=300000\n\
+E 100 teste051 1 0\n\
+I 100 teste052 15"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_hogwarts041:objsolto.total < 1
+    p = u = criar("p_hogwarts041", este, 0, "h_coice=8,h_patada=8,z_moedas=500000")
+  fimse
+  se u
+    r = criar("i_teste051", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+  u && criar("i_teste052", u, 50)
+  p = u = nulo
+  se p_hogwarts040:objsolto.total < 1
+    p = u = criar("p_hogwarts040", este, 0, "h_coice=8,h_patada=8,z_moedas=500000")
+  fimse
+  se u
+    r = criar("i_teste051", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+  u && criar("i_teste052", u, 50)
+  p = u = nulo
+  se p_hogwarts042:objsolto.total < 1
+    p = u = criar("p_hogwarts042", este, 0, "h_patada=8,h_coice=8,z_moedas=300000")
+  fimse
+  se u
+    r = criar("i_teste051", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+  u && criar("i_teste052", u, 15)
+
+
+classe s_hogwarts103
+herda b_hogwarts
+const s_titulo = "Uma trilha na caverna:"
+const s_pnj = 0
+const dir_l = $s_hogwarts069
+const dir_o = $s_hogwarts104
+
+
+classe s_hogwarts104
+herda b_hogwarts
+const s_titulo = "Uma trilha na caverna:"
+const s_pnj = 0
+const dir_l = $s_hogwarts103
+const dir_o = $s_hogwarts105
+
+
+classe s_hogwarts105
+herda b_hogwarts
+const s_titulo = "Uma trilha na caverna:"
+const s_pnj = 0
+const dir_l = $s_hogwarts104
+const dir_o = $s_hogwarts106
+
+
+classe s_hogwarts106
+herda b_hogwarts
+const s_titulo = "Uma trilha na caverna:"
+const s_pnj = 0
+const dir_l = $s_hogwarts105
+const dir_o = $s_hogwarts107
+
+
+classe s_hogwarts107
+herda b_hogwarts
+const s_titulo = "Uma curva na trilha:"
+const s_pnj = 0
+const dir_s = $s_hogwarts108
+const dir_l = $s_hogwarts106
+
+
+classe s_hogwarts108
+herda b_hogwarts
+const s_titulo = "Continuando pela trilha:"
+const s_pnj = 0
+const dir_n = $s_hogwarts107
+const dir_s = $s_hogwarts109
+
+
+classe s_hogwarts109
+herda b_hogwarts
+const s_titulo = "Continuando pela trilha:"
+const s_pnj = 0
+const dir_n = $s_hogwarts108
+const dir_s = $s_hogwarts110
+
+
+classe s_hogwarts110
+herda b_hogwarts
+const s_titulo = "Continuando pela trilha:"
+const s_pnj = 0
+const dir_n = $s_hogwarts109
+const dir_s = $s_hogwarts111
+
+
+classe s_hogwarts111
+herda b_hogwarts
+const s_titulo = "O começo de uma trilha, próximo a Nyx:"
+const s_pnj = 1
+const dir_n = $s_hogwarts110
+const dir_se = $s_nyx001
+const portaini_se = 3 # Estado inicial: 3 Porta trancada
+const portanome_se = "uma simples cerca de madeira"
+const fechadura_se = "hogwarts019"
+const comechave_se = 1 # Come chave: Sim
+const fecha_se = 1 # Fecha ao passar: Sim
+const tranc_se = 2 # Trancar: 2 Tranca ao fechar
+const a_reset = "P 100 hogwarts014 615 620 1\nI 100 hogwarts019 1\nD 100 se 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  se p_hogwarts014:objsolto.total < 1
+    p = u = criar("p_hogwarts014", este, rand(615, 620))
+  fimse
+  u && criar("i_hogwarts019", u, 1)
+  mudaporta("se", 3)
+
+
+classe s_hogwarts112
+herda b_hogwarts
+const s_titulo = "O puleiro das fênixes"
+const dir_sair = $s_hogwarts044
+
+
+classe s_hogwarts113
+herda b_hogwarts
+const s_titulo = "O início de um longo corredor de pedra."
+const dir_s = $s_hogwarts033
+const dir_b = $s_hogwarts114
+
+
+classe s_hogwarts114
+herda b_hogwarts
+const s_titulo = "Descendo por um longo corredor de pedra."
+const dir_c = $s_hogwarts113
+const dir_b = $s_hogwarts115
+
+
+classe s_hogwarts115
+herda b_hogwarts
+const s_titulo = "Descendo por um longo corredor de pedra."
+const dir_c = $s_hogwarts114
+const dir_b = $s_hogwarts116
+
+
+classe s_hogwarts116
+herda b_hogwarts
+const s_titulo = "Continuando pelo corredor de pedra."
+const dir_o = $s_hogwarts117
+const dir_c = $s_hogwarts115
+
+
+classe s_hogwarts117
+herda b_hogwarts
+const s_titulo = "No fim do corredor de pedra."
+const dir_l = $s_hogwarts116
+const dir_o = $s_hogwarts118
+
+
+classe s_hogwarts118
+herda b_hogwarts
+const s_titulo = "Em uma câmara bem iluminada."
+const dir_l = $s_hogwarts117

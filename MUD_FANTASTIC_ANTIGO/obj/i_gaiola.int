@@ -1,0 +1,57 @@
+classe i_gaiola
+herda comum_itemperso
+const ident = "gaiola"
+const descnome = nome
+const msexo = 0 # Sexo Msg: 0 Feminino
+const i_abertoini = 4 # Container: 4 Inicialmente trancado
+const i_tranc = 1 # Trancar: 1 Pode ser trancado
+const i_fechadura = "rock5562"
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 10000
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+const eveste = 1
+const evperso = 1
+#
+
+func nome
+  ret dentro2.objini("p_templo001"), "uma gaiola com águia"
+  ret dentro2.objini("p_animais006"), "uma gaiola com coruja"
+  ret "uma gaiola"
+#
+
+func descpos
+  ret dentro2.objini("p_animais006"), "Pendurada à parede, há uma gaiola, com uma bela coruja \
+dentro."
+  ret dentro2.objini("p_templo001"), "Pendurada à parede, há uma gaiola, com uma bela águia \
+dentro."
+  ret "uma gaiola foi jogada aqui."
+#
+
+func cmd_escr
+  se txt1(arg1) == "prender"
+    refvar prender = misc:persooutro(arg0, txt2(arg1))
+    ret !prender, arg0.msg("Você não vê " + txt2(arg1))
+    ret prender.var.z_dono != arg0.descnome, arg0.msg("Não pode prender a ave dos outros.")
+    ret txt(prender) != "p_templo001" && txt(prender) != "p_animais006", arg0.msg(txt2(arg1) + " \
+não é ave.")
+    $mens.p(arg0, prender, este)
+    $mens.mtodos1("$P prende $A $e $o.")
+    prender.mudadono(este)
+    ret 1
+  senao arg1 == "soltar águia"
+    refvar ave = dentro2.objini
+    ret txt(ave) != "p_templo001", arg0.msg("Não há águia na gaiola.")
+    $mens.p(arg0, ave, este)
+    $mens.mtodos1("$P solta $A $d $o.")
+    ave.mudadono(arg0.dono)
+    ret 1
+  senao arg1 == "soltar coruja"
+    refvar ave = dentro2.objini
+    ret txt(ave) != "p_animais006", arg0.msg("Não há águia na gaiola.")
+    $mens.p(arg0, ave, este)
+    $mens.mtodos1("Você solta $A $d $o.")
+    ave.mudadono(arg0.dono)
+    ret 1
+  fimse
+
+const manterperso = 1 # Mantém em jogador: Sim

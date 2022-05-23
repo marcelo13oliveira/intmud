@@ -1,0 +1,1172 @@
+classe comando_menu
+herda comando_adm
+const txt_legenda = "Legenda:\n\
+<nulo> Significa que a opção não foi definida.\n\
+<herda> É herdado de outra classe.\n\
+Exemplo, as salas herdam as propriedades das nas áreas.\n\
+Outro texto entre os sinais de menor e maior indicam o modo\n\
+como a opção foi definida. Exemplo, <func> significa função."
+const menu = "<menu>"
+ref sock # Objeto jogsock do jogador
+const var = sock.var
+
+func passo
+  sock = arg0
+  casovar txtmin(arg1)
+  casose ""
+  casose "\b"
+    arg0.var.opcnome = "", arg0.var.opcclasse = "", arg0.var.opcvar = ""
+    arg0.var.opcpasso = "", arg0.var.opcextra = "", arg0.var.opcexec = ""
+    arg0.passo = este
+    arg0.msg(titulo + ", tecle O para saber as opções")
+    ret 1
+  casose "o"
+    arg0.txtmais.limpar
+    arg0.txtmais.addfim("\b" + titulo)
+    prog p
+    epara p.inifunctudo(este, "nome"), p.lin, p.depois # Opções de um dígito
+      continuar inttotal(p.texto) > 5
+      refvar t1 = titu[txt(p.texto, 4)]
+      t1 && arg0.txtmais.addfim(t1)
+      arg0.txtmais.addfim(menu2(txt(p.texto, 4)))
+    efim
+    epara p.inifunctudo(este, "nome"), p.lin, p.depois # Outras opções
+      continuar inttotal(p.texto) == 5
+      refvar t1 = titu[txt(p.texto, 4)]
+      t1 && arg0.txtmais.addfim(t1)
+      arg0.txtmais.addfim(menu2(txt(p.texto, 4)))
+    efim
+    se arg0.jogperm == "admin"
+      arg0.txtmais.addfim("Tecle F seguido de um número se quiser editar como função")
+      arg0.txtmais.addfim("V mostra as variáveis alteradas em cada opção (classe:variável)")
+    fimse
+    arg0.txtmais.addfim("Z Sair, L Legenda, M seguido de um texto executa comando do MUD")
+    arg0.txtmostra
+    ret 1
+  casose "v"
+    sair arg0.jogperm != "admin"
+    arg0.txtmais.limpar
+    txt100 lin
+    prog p
+    epara p.inifunctudo(este, "nome"), p.lin, p.depois # Opções de um dígito
+      continuar inttotal(p.texto) > 5
+      arg0.txtmais.addfim(menu3(txt(p.texto, 4)))
+    efim
+    epara p.inifunctudo(este, "nome"), p.lin, p.depois # Outras opções
+      continuar inttotal(p.texto) == 5
+      arg0.txtmais.addfim(menu3(txt(p.texto, 4)))
+    efim
+    arg0.txtmostra
+    ret 1
+  casose "z"
+    ret $[menufim], $[menufim].passo(arg0, "\b")
+    arg0.msg("Retornando ao jogo")
+    arg0.passo = ""
+    ret 1
+  casose "l"
+    arg0.msg(txt_legenda)
+    ret 1
+  casofim
+  se txt(arg1, 0, 1) == "m" # Executa comando do MUD
+    arg0.perso.teclou(txtremove(txt(arg1, 1), "E"))
+  senao nome[arg1] # Editar opção do menu
+    arg0.var.opcnome = txtremove(nome[arg1], "ED")
+    arg0.var.opcclasse = clas[arg1]
+    arg0.var.opcvar = vari[arg1]
+    arg0.var.opcextra = extr[arg1]
+    arg0.var.opcpasso = este
+    arg0.var.opcvalido_ = txtproc(tipo[arg1], "--") >= 0
+    arg0.var.opcexec = exec[arg1]
+    vari[arg1] && arg0.msg(menu2(arg1))
+    info[arg1] && arg0.msg(info[arg1])
+    refvar tipo = txttroca(tipo[arg1], "-", "")
+    $[tipo].passo(arg0, "\b")
+  senao txt(arg1, 0, 1) == "f" && nome[txt(arg1, 1)] # Editar função
+    se arg0.jogperm != "admin"
+      arg0.msg("Opção inválida: " + arg1)
+    senao txtproc(tipo[txt(arg1, 1)], "-") >= 0
+      arg0.msg("Essa opção não pode ser editada como função; escolha outra")
+      ret 1
+    fimse
+    txt20 opc
+    opc = txt(arg1, 1)
+    arg0.var.opcnome = txtremove(nome[opc], "ED")
+    arg0.var.opcclasse = clas[opc]
+    arg0.var.opcvar = vari[opc]
+    arg0.var.opcextra = extr[opc]
+    arg0.var.opcpasso = este
+    arg0.var.opcexec = exec[opc]
+    se !arg0.var.opcvar
+      arg0.msg2(arg0.var.opcextra)
+      ret 1
+    fimse
+    $opc_func.passo(arg0, "\b")
+  senao # Nenhuma das anteriores
+    arg0.msg("Opção inválida: " + arg1)
+  fimse
+  ret 1
+
+func menu2 # Usado em m_menu para obter o texto de uma opção do menu
+# arg0 = número da opção
+  txt100 lin = "\b\c2" + arg0 + (txt(arg0, 1) ? "\b." : "\b. ") + nome[arg0]
+  refvar maximo = int(colunas)
+  inttotal(lin) < maximo && (lin = txt(lin + txtesp(maximo), 0, maximo))
+  refvar tipo = txttroca(tipo[arg0], "-", "")
+  ret lin + ": " + $[tipo].menu(clas[arg0], vari[arg0], extr[arg0])
+
+func menu3 # Usado em m_menu para obter o nome da variável
+# arg0 = número da opção
+  txt100 lin = arg0 + (txt(arg0, 1) ? "." : ". ") + nome[arg0]
+  refvar maximo = int(colunas) - 4
+  inttotal(lin) < maximo && (lin = txt(lin + txtesp(maximo), 0, maximo))
+  ret lin + ": " + clas[arg0] + ":" + vari[arg0]
+
+
+classe opc_linha
+herda comando_adm
+# Texto de uma linha, do tipo "const x = \"abc\""
+
+func menu
+# arg0=nome da classe, arg1=nome da variável, arg2=nomes das opções (não usado)
+  prog p
+  casovar p.existe(arg0, arg1)
+  casose "1" # Na própria classe
+    ret p_vartexto(arg0, arg1), "\c3" + admdec([arg0]:[arg1]) + "\b"
+    p.inilinha(arg0, arg1)
+    ret "<" + txt1(p.texto) + ">"
+  casose "2" # Em uma classe herdada
+    ret p_vartexto(arg0, arg1), "<herda> \c3" + admdec([arg0]:[arg1]) + "\b"
+    p.inilinha(arg0, arg1)
+    ret "<herda " + txt1(p.texto) + ">"
+  casose # Não foi definido
+    ret "<nulo>"
+  casofim
+
+func passo # Alterando um texto de uma linha
+  prog p
+  se arg1 == "" || arg1 == "\b"
+    arg0.passo = este
+    arg0.msg("Entre com um texto, N nenhum, V texto vazio, Z cancela")
+    ret 1
+  senao arg1 == "v"
+    p.criar(arg0.var.opcclasse, "const " + arg0.var.opcvar + "=\"\"")
+    config:salvar
+    criar("admmudou", arg0.var.opcclasse, arg0.var.opcexec)
+    arg0.msg(arg0.var.opcnome + " mudou para um texto vazio")
+    admlog(arg0, "mudou " + arg0.var.opcclasse + ":" + arg0.var.opcvar + " " + arg0.var.opcnome)
+  senao arg1 == "n"
+    se !arg0.var.opcvalido
+      p.apagar(arg0.var.opcclasse, arg0.var.opcvar)
+      config:salvar
+      criar("admmudou", arg0.var.opcclasse, arg0.var.opcexec)
+      arg0.msg("Apagado: " + arg0.var.opcnome)
+      admlog(arg0, "apagou " + arg0.var.opcclasse + ":" + arg0.var.opcvar + " " + arg0.var.opcnom\
+e)
+    senao
+      p.criar(arg0.var.opcclasse, "const " + arg0.var.opcvar + "=\"\"")
+      config:salvar
+      criar("admmudou", arg0.var.opcclasse, arg0.var.opcexec)
+      arg0.msg(arg0.var.opcnome + " mudou para um texto vazio")
+      admlog(arg0, "mudou " + arg0.var.opcclasse + ":" + arg0.var.opcvar + " " + arg0.var.opcnome\
+)
+    fimse
+  senao arg1 != "z"
+    p.criar(arg0.var.opcclasse, "const " + arg0.var.opcvar + "=\"" + admcod(arg1) + "\"")
+    config:salvar
+    criar("admmudou", arg0.var.opcclasse, arg0.var.opcexec)
+    arg0.msg(arg0.var.opcnome + " mudou para: " + arg1)
+    admlog(arg0, "mudou " + arg0.var.opcclasse + ":" + arg0.var.opcvar + " " + arg0.var.opcnome)
+  fimse
+  ret passosair(arg0)
+
+
+classe opc_ajuda
+herda comando_adm
+const menu = "<ajuda>"
+
+func passo
+  arg0.msg2(arg0.var.opcextra)
+  ret passosair(arg0)
+
+
+classe opc_texto
+herda comando_editor
+# Um texto de várias linhas
+
+func menu # Retorna quantidade de linhas de texto de várias linhas
+# arg0=nome da classe, arg1=nome da variável, arg2=nomes das opções (não usado)
+  prog p
+  casovar p.existe(arg0, arg1)
+  casose "1" # Na própria classe
+    ret p_vartexto(arg0, arg1), menu2([arg0]:[arg1])
+    p.inilinha(arg0, arg1)
+    ret "<" + txt1(p.texto) + ">"
+  casose "2" # Em uma classe herdada
+    ret p_vartexto(arg0, arg1), "<herda> " + menu2([arg0]:[arg1])
+    p.inilinha(arg0, arg1)
+    ret "<herda " + txt1(p.texto) + ">"
+  casose # Não foi definido
+    ret "<nulo> " + menu2([arg0]:[arg1])
+  casofim
+
+func menu2
+  txt10 x = intsublin(arg0)
+  ret x != "1" ? "\c6" + x + " linhas\b" : "\c6Uma linha\b"
+
+func passo # Alterando um texto de várias linhas
+  casovar txtmin(txt(arg1, 0, 1))
+  casose "\b"
+    textopos p1
+    arg0.teditor.limpar
+    arg0.teditor.addfim([arg0.var.opcclasse]:[arg0.var.opcvar])
+    epara p1 = arg0.teditor.ini, p1.lin, p1.depois
+      p1.mudar(admdec(p1.texto))
+    efim
+    arg0.teditor.bytes == 1 && arg0.teditor.limpar
+    arg0.leditor = arg0.teditor.ini
+    arg0.leditor1 = arg0.teditor.ini
+    arg0.leditor2 = arg0.teditor.fim
+    arg0.leditor2.antes
+    arg0.passo = este
+    arg0.msg("Editando " + arg0.var.opcnome + ", O opções, X salvar, Z sair")
+    ret 1
+  casose "z" # Sair do editor
+    arg0.teditor.limpar
+    arg0.msg("Fechando editor")
+    ret passosair(arg0)
+  casose "x" # Salvar o texto
+    prog p
+    se !arg0.var.opcvalido && !arg0.teditor.linhas
+      p.apagar(arg0.var.opcclasse, arg0.var.opcvar)
+      config:salvar
+      criar("admmudou", arg0.var.opcclasse, arg0.var.opcexec)
+      arg0.msg("Apagado: " + arg0.var.opcnome)
+      admlog(arg0, "apagou " + arg0.var.opcclasse + ":" + arg0.var.opcvar + " " + arg0.var.opcnom\
+e)
+      ret 1
+    fimse
+    textopos p1
+    textotxt t1
+    epara p1 = arg0.teditor.ini, p1.lin, p1.depois
+      t1.addfim(txtinvis(p1.texto))
+    efim
+    txt200 t = "const " + arg0.var.opcvar + "=\""
+    p.criar(arg0.var.opcclasse, t + admcod(t1.remove(1000)) + "\"")
+    config:salvar
+    criar("admmudou", arg0.var.opcclasse, arg0.var.opcexec)
+    arg0.msg("Salvou " + arg0.var.opcnome)
+    admlog(arg0, "mudou " + arg0.var.opcclasse + ":" + arg0.var.opcvar + " " + arg0.var.opcnome)
+    ret 1
+  casofim
+  ret passoeditor(arg0, arg1, 2000, arg0.var.opcvar)
+
+
+classe opc_numero
+herda comando_adm
+
+func menu # Retorna número, do tipo "const x = 10"
+# arg0=nome da classe, arg1=nome da variável, arg2=nomes das opções (não usado)
+  prog p
+  casovar p.existe(arg0, arg1)
+  casose "1" # Na própria classe
+    ret p_varnum(arg0, arg1), "\c6" + [arg0]:[arg1] + "\b"
+    p.inilinha(arg0, arg1)
+    ret "<" + txt1(p.texto) + ">"
+  casose "2" # Em uma classe herdada
+    ret p_varnum(arg0, arg1), "<herda> \c6" + [arg0]:[arg1] + "\b"
+    p.inilinha(arg0, arg1)
+    ret "<herda " + txt1(p.texto) + ">"
+  casose # Não foi definido
+    ret "<nulo> \c60\b"
+  casofim
+
+func passo # Alterando um número
+  prog p
+  se arg1 == "" || arg1 == "\b"
+    arg0.passo = este
+    se arg0.var.opcvalido
+      arg0.msg("Entre com um número, Z cancela")
+    senao
+      arg0.msg("Entre com um número, N nenhum, Z cancela")
+    fimse
+    ret 1
+  senao arg1 == "n" && !arg0.var.opcvalido
+    p.apagar(arg0.var.opcclasse, arg0.var.opcvar)
+    config:salvar
+    criar("admmudou", arg0.var.opcclasse, arg0.var.opcexec)
+    arg0.msg("Apagado: " + arg0.var.opcnome)
+    admlog(arg0, "apagou " + arg0.var.opcclasse + ":" + arg0.var.opcvar + " " + arg0.var.opcnome)
+  senao arg1 != "z"
+    int32 valor = arg1
+    se arg1 != valor # Checa se é número
+      ret passo(arg0, "\b")
+    senao arg0.var.opcextra # Checa limites mínimo e máximo
+      se valor < int(txt1(arg0.var.opcextra)) || valor > int(txt2(arg0.var.opcextra))
+        arg0.msg("Entre com um número de " + txt1(arg0.var.opcextra) + " a " + txt2(arg0.var.opce\
+xtra) + ".")
+        ret 1
+      fimse
+    fimse
+    p.criar(arg0.var.opcclasse, "const " + arg0.var.opcvar + "=" + valor)
+    config:salvar
+    criar("admmudou", arg0.var.opcclasse, arg0.var.opcexec)
+    arg0.msg(arg0.var.opcnome + " mudou para: " + valor)
+    admlog(arg0, "mudou " + arg0.var.opcclasse + ":" + arg0.var.opcvar + " " + arg0.var.opcnome)
+  fimse
+  ret passosair(arg0)
+
+
+classe opc_numreal
+herda opc_numero, comando_adm
+# Retorna número, do tipo "const x = 10"
+
+func passo # Alterando um número
+  prog p
+  se arg1 == "" || arg1 == "\b"
+    arg0.passo = este
+    se arg0.var.opcvalido
+      arg0.msg("Entre com um número, Z cancela")
+    senao
+      arg0.msg("Entre com um número, N nenhum, Z cancela")
+    fimse
+    ret 1
+  senao arg1 == "n" && !arg0.var.opcvalido
+    p.apagar(arg0.var.opcclasse, arg0.var.opcvar)
+    config:salvar
+    criar("admmudou", arg0.var.opcclasse, arg0.var.opcexec)
+    arg0.msg("Apagado: " + arg0.var.opcnome)
+    admlog(arg0, "apagou " + arg0.var.opcclasse + ":" + arg0.var.opcvar + " " + arg0.var.opcnome)
+  senao arg1 != "z"
+    real2 valor = arg1
+    se arg1 != valor # Checa se é número
+      ret passo(arg0, "\b")
+    senao arg0.var.opcextra # Checa limites mínimo e máximo
+      se valor < int(txt1(arg0.var.opcextra)) || valor > int(txt2(arg0.var.opcextra))
+        arg0.msg("Entre com um número de " + txt1(arg0.var.opcextra) + " a " + txt2(arg0.var.opce\
+xtra) + ".")
+        ret 1
+      fimse
+    fimse
+    p.criar(arg0.var.opcclasse, "const " + arg0.var.opcvar + "=" + valor)
+    config:salvar
+    criar("admmudou", arg0.var.opcclasse, arg0.var.opcexec)
+    arg0.msg(arg0.var.opcnome + " mudou para: " + valor)
+    admlog(arg0, "mudou " + arg0.var.opcclasse + ":" + arg0.var.opcvar + " " + arg0.var.opcnome)
+  fimse
+  ret passosair(arg0)
+
+
+classe opc_opcao
+herda comando_adm
+
+func menu # Retorna uma opção baseado numa lista de opções
+# arg0=nome da classe, arg1=nome da variável, arg2=nomes das opções
+  prog p
+  casovar p.existe(arg0, arg1)
+  casose "1" # Na própria classe
+    ret p_varnum(arg0, arg1), menu2([arg0]:[arg1], arg2)
+    p.inilinha(arg0, arg1)
+    ret "<" + txt1(p.texto) + ">"
+  casose "2" # Em uma classe herdada
+    ret p_varnum(arg0, arg1), "<herda> " + menu2([arg0]:[arg1], arg2)
+    p.inilinha(arg0, arg1)
+    ret "<herda " + txt1(p.texto) + ">"
+  casose # Não foi definido
+    ret "<nulo> " + menu2(0, arg2)
+  casofim
+
+func menu2 # Retorna o texto correspondente a uma opção
+# arg0 = número da opção atual
+# arg1 = texto com lista de opções separadas por "\n"
+# Retorna: Um texto contendo a opção atual
+  uint16 valor = arg0
+  textotxt t
+  t.addfim(arg1)
+  t.remove(valor)
+  ret "\c6" + valor + (t.linhas ? " " + t.remove(1) + "\b" : " <inválido>\b")
+
+func passo # Alterando uma opção de uma lista de opções
+  prog p
+  se arg1 == "" || arg1 == "\b"
+    arg0.passo = este
+    se arg0.var.opcvalido
+      arg0.msg("Entre com uma opção, O mostra as opções, Z cancela")
+    senao
+      arg0.msg("Entre com uma opção, O mostra as opções, N nenhuma, Z cancela")
+    fimse
+    ret 1
+  senao arg1 == "o"
+    arg0.txtmais.limpar
+    arg0.txtmais.addfim("\bOpções:\n" + arg0.var.opcextra)
+    textopos pos
+    pos = arg0.txtmais.ini
+    epara pos.depois, pos, pos.depois
+      pos.mudar(txt(pos.linha - 1) + " ", 0, 0)
+    efim
+    arg0.txtmostra
+    ret 1
+  senao arg1 == "n" && !arg0.var.opcvalido
+    p.apagar(arg0.var.opcclasse, arg0.var.opcvar)
+    config:salvar
+    criar("admmudou", arg0.var.opcclasse, arg0.var.opcexec)
+    arg0.msg("Apagado: " + arg0.var.opcnome)
+    admlog(arg0, "apagou " + arg0.var.opcclasse + ":" + arg0.var.opcvar + " " + arg0.var.opcnome)
+  senao arg1 != "z"
+    int16 x = arg1
+    textotxt t
+    t.addfim(arg0.var.opcextra)
+    se arg1 != x || x < 0 || x >= t.linhas
+      arg0.msg("Opção inválida")
+      ret passo(arg0, "\b")
+    fimse
+    t.remove(x)
+    txt100 lin = " # " + arg0.var.opcnome + ": " + x + " " + t.ini.texto
+    p.criar(arg0.var.opcclasse, "const " + arg0.var.opcvar + "=" + x + lin)
+    config:salvar
+    criar("admmudou", arg0.var.opcclasse, arg0.var.opcexec)
+    arg0.msg(arg0.var.opcnome + " mudou para: " + x + " " + t.remove)
+    admlog(arg0, "mudou " + arg0.var.opcclasse + ":" + arg0.var.opcvar + " " + arg0.var.opcnome)
+  fimse
+  ret passosair(arg0)
+
+
+classe opc_txtopcao
+herda opc_texto, comando_adm
+
+func passo
+  uint16 linha
+  linha = arg1, arg0.passo = este
+  se arg1 == "" || arg1 == "\b"
+    se arg0.var.opcvalido
+      arg0.msg("Entre com uma opção, O mostra as opções, Z sair")
+    senao
+      arg0.msg("Entre com uma opção, O mostra as opções, N nenhuma, Z sair")
+    fimse
+  senao arg1 == "o"
+    textotxt t
+    t.addfim([arg0.var.opcclasse]:[arg0.var.opcvar])
+    arg0.txtmais.limpar
+    textopos pos
+    epara pos = t.ini, pos, pos.depois
+      arg0.txtmais.addfim("\c2" + arg0.txtmais.linhas + ".\b" + (pos.linha <= 9 ? " ") + \
+pos.texto)
+    efim
+    arg0.txtmais.addini("\bOpções:")
+    pos.antes
+    se pos.texto != "" && t.linhas < int(txt2(arg0.var.opcextra))
+      arg0.txtmais.addfim("\c2" + txt(arg0.txtmais.linhas - 1) + ".\b")
+    fimse
+    linha = txtsub(arg0.var.opcextra, 2)
+    pos = arg0.txtmais.ini, pos.depois, pos.remove(linha)
+    txt100 lin = "Para alterar, tecle um número de " + linha
+    lin += " a " + (txt2(arg0.var.opcextra) - 1)
+    arg0.txtmais.addfim(lin + ", seguido ou não de um texto")
+    arg0.txtmais.addfim("Z Sair, M seguido de um texto executa comando do MUD")
+    arg0.txtmostra
+  senao arg1 == "z"
+    passosair(arg0)
+  senao arg1 == "n" && !arg0.var.opcvalido
+    prog p
+    p.apagar(arg0.var.opcclasse, arg0.var.opcvar)
+    config:salvar
+    criar("admmudou", arg0.var.opcclasse, arg0.var.opcexec)
+    arg0.msg("Apagado: " + arg0.var.opcnome)
+    admlog(arg0, "apagou " + arg0.var.opcclasse + ":" + arg0.var.opcvar + " " + arg0.var.opcnome)
+  senao txt(arg1, 0, 1) == "m" # Executa comando do MUD
+    arg0.perso.teclou(txtremove(txt(arg1, 1), "E"))
+  senao txt(linha) != txt1(arg1)
+    arg0.msg("Opção inexistente: " + txt1(arg1))
+  senao linha < int(txtsub(arg0.var.opcextra, 2)) || linha >= int(txt2(arg0.var.opcextra))
+    txt100 lin
+    lin = "O número da linha vai de " + int(txtsub(arg0.var.opcextra, 2))
+    arg0.msg(lin + " até " + (txt2(arg0.var.opcextra) - 1))
+  senao
+    textotxt t1
+    textopos pos
+    t1.addfim([arg0.var.opcclasse]:[arg0.var.opcvar])
+    t1.linhas < linha && t1.addfim(txtrepete("\n", linha - t1.linhas))
+    pos = t1.ini, pos.linha = linha, pos.mudar(txt2(arg1))
+    pos = t1.fim, pos.antes
+    uint16 linhasmin
+    linhasmin = txt1(arg0.var.opcextra)
+    enquanto pos.linha > linhasmin && pos.texto == ""
+      pos.remove, pos.antes
+    efim
+    pos.linha == linhasmin && pos.texto == "" && pos.remove
+    prog p
+    refvar t = "const " + arg0.var.opcvar + "=\""
+    p.criar(arg0.var.opcclasse, t + txtvis(t1.remove(1000)) + "\"")
+    config:salvar
+    criar("admmudou", arg0.var.opcclasse, arg0.var.opcexec)
+    arg0.msg("Linha " + linha + " foi alterada")
+    admlog(arg0, "mudou " + arg0.var.opcclasse + ":" + arg0.var.opcvar + " " + arg0.var.opcnome)
+  fimse
+  ret 1
+
+
+classe opc_vetor
+herda comando_adm
+
+func menu # Retorna as opções selecionadas de lista de opções
+# arg0=nome da classe, arg1=nome da variável, arg2=nomes das opções
+  prog p
+  casovar p.existe(arg0, arg1)
+  casose "1" # Na própria classe
+    ret p_varnum(arg0, arg1), menu2(arg0, [arg0]:[arg1], arg2)
+    p.inilinha(arg0, arg1)
+    ret "<" + txt1(p.texto) + ">"
+  casose "2" # Em uma classe herdada
+    ret p_varnum(arg0, arg1), "<herda> " + menu2(arg0, [arg0]:[arg1], arg2)
+    p.inilinha(arg0, arg1)
+    ret "<herda " + txt1(p.texto) + ">"
+  casose # Não foi definido
+    ret "<nulo> " + menu2(arg0, [arg0]:[arg1], arg2)
+  casofim
+
+func menu2 # Retorna o texto correspondente a uma opção
+# arg0=nome da classe
+# arg1=opções escolhidas
+# arg2=texto com lista de opções separadas por "\n"
+# Retorna: Um texto contendo as opções escolhidas
+  textotxt t
+  txt512 lin
+  int8 x
+  int32 valor = arg1
+  epara t.addfim(arg2), t.linhas, valor >>= 1
+    valor & 1 ? (lin += ", " + x + "-" + t.remove) : t.remove, x++
+  efim
+  ret lin ? "\c6" + txt(lin, 2) + "\b" : ""
+
+func passo # Alterando uma opção de uma lista de opções
+  prog p
+  refvar classe = arg0.var.opcclasse
+  se arg1 == "" || arg1 == "\b"
+    arg0.passo = este
+    se arg0.var.opcvalido
+      arg0.msg("Entre com uma opção, O mostra as opções, Z sair")
+    senao
+      arg0.msg("Entre com uma opção, O mostra as opções, N nenhuma, Z sair")
+    fimse
+    ret 1
+  senao arg1 == "o"
+    arg0.txtmais.limpar
+    arg0.txtmais.addfim("\bOpções:\n" + arg0.var.opcextra)
+    textopos pos = arg0.txtmais.ini
+    epara pos.depois, pos, pos.depois
+      pos.mudar(txt(pos.linha - 1) + " ", 0, 0)
+    efim
+    arg0.txtmostra
+    ret 1
+  senao arg1 == "n" && !arg0.var.opcvalido
+    p.apagar(classe, arg0.var.opcvar)
+    config:salvar
+    criar("admmudou", classe, arg0.var.opcexec)
+    arg0.msg("Apagado: " + arg0.var.opcnome)
+    admlog(arg0, "apagou " + classe + ":" + arg0.var.opcvar + " " + arg0.var.opcnome)
+  senao arg1 != "z"
+    int32 x = arg1
+    se arg1 != x || x < 0 || x >= intsublin(arg0.var.opcextra)
+      arg0.msg("Opção inválida")
+      ret passo(arg0, "\b")
+    fimse
+    x = intbit(x) ^ [classe]:[arg0.var.opcvar]
+    txt100 lin = txtcor(menu2(classe, x, arg0.var.opcextra))
+    p.criar(classe, "const " + arg0.var.opcvar + "=" + x + " # " + arg0.var.opcnome + ": " + \
+lin)
+    config:salvar
+    criar("admmudou", classe, arg0.var.opcexec)
+    arg0.msg("Escolheu: " + lin)
+    admlog(arg0, "mudou " + classe + ":" + arg0.var.opcvar + " " + arg0.var.opcnome)
+    ret passo(arg0, "\b")
+  fimse
+  ret passosair(arg0)
+
+
+classe opc_vetorhex
+herda comando_adm
+
+func menu # Retorna as opções selecionadas de lista de opções
+# arg0=nome da classe, arg1=nome da variável, arg2=nomes das opções
+  prog p
+  casovar p.existe(arg0, arg1)
+  casose "1" # Na própria classe
+    ret p_vartexto(arg0, arg1), menu2(arg0, [arg0]:[arg1], arg2)
+    p.inilinha(arg0, arg1)
+    ret "<" + txt1(p.texto) + ">"
+  casose "2" # Em uma classe herdada
+    ret p_vartexto(arg0, arg1), "<herda> " + menu2(arg0, [arg0]:[arg1], arg2)
+    p.inilinha(arg0, arg1)
+    ret "<herda " + txt1(p.texto) + ">"
+  casose # Não foi definido
+    ret "<nulo> " + menu2(arg0, [arg0]:[arg1], arg2)
+  casofim
+
+func menu2 # Retorna o texto correspondente a uma opção
+# arg0=nome da classe
+# arg1=opções escolhidas
+# arg2=texto com lista de opções separadas por "\n"
+# Retorna: Um texto contendo as opções escolhidas
+  textotxt t
+  txt512 lin
+  int8 x
+  txt100 valor = arg1
+  epara t.addfim(arg2), t.linhas, valor >>= 1
+    valor & "1" != "0" ? (lin += ", " + x + "-" + t.remove) : t.remove, x++
+  efim
+  ret lin ? "\c6" + txt(lin, 2) + "\b" : ""
+
+func passo # Alterando uma opção de uma lista de opções
+  prog p
+  refvar classe = arg0.var.opcclasse
+  se arg1 == "" || arg1 == "\b"
+    arg0.passo = este
+    se arg0.var.opcvalido
+      arg0.msg("Entre com uma opção, O mostra as opções, Z sair")
+    senao
+      arg0.msg("Entre com uma opção, O mostra as opções, N nenhuma, Z sair")
+    fimse
+    ret 1
+  senao arg1 == "o"
+    arg0.txtmais.limpar
+    arg0.txtmais.addfim("\bOpções:\n" + arg0.var.opcextra)
+    textopos pos = arg0.txtmais.ini
+    epara pos.depois, pos, pos.depois
+      pos.mudar(txt(pos.linha - 1) + " ", 0, 0)
+    efim
+    arg0.txtmostra
+    ret 1
+  senao arg1 == "n" && !arg0.var.opcvalido
+    p.apagar(classe, arg0.var.opcvar)
+    config:salvar
+    criar("admmudou", classe, arg0.var.opcexec)
+    arg0.msg("Apagado: " + arg0.var.opcnome)
+    admlog(arg0, "apagou " + classe + ":" + arg0.var.opcvar + " " + arg0.var.opcnome)
+  senao arg1 != "z"
+    int32 x = arg1
+    se arg1 != x || x < 0 || x >= intsublin(arg0.var.opcextra)
+      arg0.msg("Opção inválida")
+      ret passo(arg0, "\b")
+    fimse
+    txt100 x2 = intbith(x) ^ txt([classe]:[arg0.var.opcvar])
+    txt100 lin = txtcor(menu2(classe, x2, arg0.var.opcextra))
+    p.criar(classe, "const " + arg0.var.opcvar + "=\"" + x2 + "\" # " + arg0.var.opcnome + ": " \
++ lin)
+    config:salvar
+    criar("admmudou", classe, arg0.var.opcexec)
+    arg0.msg("Escolheu: " + lin)
+    admlog(arg0, "mudou " + classe + ":" + arg0.var.opcvar + " " + arg0.var.opcnome)
+    ret passo(arg0, "\b")
+  fimse
+  ret passosair(arg0)
+
+
+classe opc_vetorprodutos
+herda opc_vetor
+#
+# Nota: ao adicionar ou remover algum tipo aqui, acertar também:
+# 1. a função tipoitem2 em item.int
+# 2. a classe classe menu_econfig_itens em econfig.int
+
+func menu2 # Retorna o texto correspondente a uma opção
+# arg0=nome da classe
+# arg1=opções escolhidas
+# arg2=texto com lista de opções separadas por "\n"
+# Retorna: Um texto contendo as opções escolhidas
+  textotxt t
+  txt512 lin1
+  txt512 lin2
+  int8 x
+  int32 valor = arg1
+  int32 tipo
+  [arg0]:i_abertoini && (tipo |= config:item_container)
+  [arg0]:armatipo && (tipo |= config:item_arma)
+  [arg0]:luzitem && (tipo |= config:item_luz)
+  [arg0]:i_chave && (tipo |= config:item_chave)
+  [arg0]:vestir1 && (tipo |= config:item_vestimenta)
+  ([arg0]:f_tipo == 1 || [arg0]:f_tipo == 2) && (tipo |= config:item_bebida)
+  [arg0]:f_tipo == 3 && (tipo |= config:item_comida)
+  [arg0]:f_tipo == 4 && (tipo |= config:item_pergaminho)
+  tipo &= ~valor
+  epara t.addfim(arg2), t.linhas, t.remove
+    tipo & 1 ? (lin2 += ", " + x + "-" + t.ini.texto)
+    valor & 1 ? (lin1 += ", " + x + "-" + t.ini.texto)
+    x++, valor >>= 1, tipo >>= 1
+  efim
+  ret lin1 || lin2, "\c6" + txt2(lin1 + " ") + (lin2 ? "(" + txt2(lin2) + ")") + "\b"
+  ret ""
+
+
+classe opc_tipos
+herda comando_adm
+
+func menu # Retorna uma lista de textos
+# arg0=nome da classe, arg1=nome da variável, arg2=nomes das opções (não usado)
+  prog p
+  casovar p.existe(arg0, arg1)
+  casose "1" # Na própria classe
+    ret p_vartexto(arg0, arg1), "\c3" + txttroca([arg0]:[arg1], "\n", " ") + "\b"
+    p.inilinha(arg0, arg1)
+    ret "<" + txt1(p.texto) + ">"
+  casose "2" # Em uma classe herdada
+    ret p_vartexto(arg0, arg1), "<herda> \c3" + txttroca([arg0]:[arg1], "\n", " ") + "\b"
+    p.inilinha(arg0, arg1)
+    ret "<herda " + txt1(p.texto) + ">"
+  casose # Não foi definido
+    ret "<nulo>"
+  casofim
+
+func passo
+  prog p
+  arg0.passo = este
+  se arg1 == "o"
+    arg0.txtmais.limpar
+    epara p.iniclasse("t_"), p.lin, p.depois
+      arg0.txtmais.addfim(txt(p.texto, 2))
+    efim
+  fimse
+  ret passo2(arg0, arg1, p.existe("t_" + txts(arg1)))
+
+func passo2 # Usado intermanente: alterando um vetor de textos
+# arg0 = objeto jogsock do jogador
+# arg1 = texto digitado pelo usuário
+# arg2 = verdadeiro se o texto for válido para o vetor
+# Se arg0=="o", a variável txtmais deve ter a lista de opções válidas, uma por linha
+  prog p
+  se arg1 == "" || arg1 == "\b"
+    se arg0.var.opcvalido
+      arg0.msg("Entre com uma opção, O mostra as opções, Z sair")
+    senao
+      arg0.msg("Entre com uma opção, O mostra as opções, N nenhuma, Z sair")
+    fimse
+    ret 1
+  senao arg1 == "o"
+    se arg0.txtmais.bytes <= 1
+      arg0.txtmais.limpar
+      arg0.txtmais.addfim("\bNão há nenhuma opção definida")
+    senao
+      arg0.txtmais.addfim(txttroca(arg0.txtmais.remove(5000), "\n", ", "))
+      arg0.txtmais.juntar
+      arg0.txtmais.dividelin(40, 75)
+      arg0.txtmais.addini("\bOpções:")
+    fimse
+    arg0.txtmostra
+    ret 1
+  senao arg1 == "n" && !arg0.var.opcvalido
+    p.apagar(arg0.var.opcclasse, arg0.var.opcvar)
+    config:salvar
+    criar("admmudou", arg0.var.opcclasse, arg0.var.opcexec)
+    arg0.msg("Apagado: " + arg0.var.opcnome)
+    admlog(arg0, "apagou " + arg0.var.opcclasse + ":" + arg0.var.opcvar + " " + arg0.var.opcnome)
+  senao arg1 != "z"
+    txt100 lin = txts(arg1)
+    textotxt t
+    t.addfim([arg0.var.opcclasse]:[arg0.var.opcvar])
+    t.bytes <= 1 && t.limpar
+    textopos pos
+    pos = t.ini
+    se pos.txtproc("\n" + lin + "\n") >= 0
+      pos.remove
+    senao !arg2
+      arg0.msg("Opção inválida: " + lin)
+      ret passo2(arg0, "\b")
+    senao
+      t.addfim(lin), t.ordena
+    fimse
+    lin = "const " + arg0.var.opcvar + "=\""
+    p.criar(arg0.var.opcclasse, lin + txtvis(t.ini.textolin(1000)) + "\"")
+    config:salvar
+    criar("admmudou", arg0.var.opcclasse, arg0.var.opcexec)
+    arg0.msg("Escolheu: " + txttroca(t.ini.textolin(1000), "\n", " "))
+    admlog(arg0, "mudou " + arg0.var.opcclasse + ":" + arg0.var.opcvar + " " + arg0.var.opcnome)
+    ret passo2(arg0, "\b")
+  fimse
+  ret passosair(arg0)
+
+
+classe opc_sala
+herda comando_adm
+const salaitem = 0 # Se aceita também itens
+
+func menu # Retorna sala (constante do tipo "const x = $s_abc")
+# arg0=nome da classe, arg1=nome da variável, arg2=nomes das opções (não usado)
+  prog p
+  casovar p.existe(arg0, arg1)
+  casose "1" # Na própria classe
+    p.inilinha(arg0, arg1)
+    refvar tipo = txt(p.texto, 6, inttotal(arg1) + 6)
+    se txt1(p.texto) != "const"
+      ret "<" + txt1(p.texto) + ">"
+    senao txtproc(txtsepara("x" + txt(txtsub(p.texto, 3), 3), "LD+EO"), " ") >= 0
+      ret "<const>"
+    senao tipo == arg1 + " = $s_"
+      ret "\c6" + txt(p.texto, inttotal(arg1) + 12) + "\b"
+    senao tipo == arg1 + " = $i_"
+      ret "\c6item " + txt(p.texto, inttotal(arg1) + 12) + "\b"
+    senao
+      ret "<const>"
+    fimse
+  casose "2" # Em uma classe herdada
+    p.inilinha(arg0, arg1)
+    refvar tipo = txt(p.texto, 6, inttotal(arg1) + 6)
+    se txt1(p.texto) != "const"
+      ret "<herda " + txt1(p.texto) + ">"
+    senao txtproc(txtsepara("x" + txt(txtsub(p.texto, 3), 3), "LD+EO"), " ") >= 0
+      ret "<herda const>"
+    senao sala == arg1 + " = $s_"
+      ret "<herda> \c6" + txt(p.texto, inttotal(arg1) + 12) + "\b"
+    senao sala == arg1 + " = $i_"
+      ret "<herda> \c6item " + txt(p.texto, inttotal(arg1) + 12) + "\b"
+    senao
+      ret "<herda const>"
+    fimse
+  casose # Não foi definido
+    ret "<nulo>"
+  casofim
+
+func passo # Alterando a sala
+  prog p
+  se arg1 == "" || arg1 == "\b"
+    arg0.passo = este
+    se arg0.var.opcvalido
+      arg0.msg("Entre com o nome da sala, Z cancela")
+    senao
+      arg0.msg("Entre com o nome da sala, N nenhuma, Z cancela")
+    fimse
+    ret 1
+  senao arg1 == "n" && !arg0.var.opcvalido
+    p.apagar(arg0.var.opcclasse, arg0.var.opcvar)
+    config:salvar
+    criar("admmudou", arg0.var.opcclasse, arg0.var.opcexec)
+    arg0.msg("Apagado: " + arg0.var.opcnome)
+    admlog(arg0, "apagou " + arg0.var.opcclasse + ":" + arg0.var.opcvar + " " + arg0.var.opcnome)
+  senao arg1 != "z" && txt1(arg1) != "item"
+    refvar nome = txtmin(txts(arg1))
+    se !p.existe("s_" + nome)
+      arg0.msg("\bSala \"" + nome + "\" não existe, escolha outra.")
+      ret 1
+    fimse
+    p.criar(arg0.var.opcclasse, "const " + arg0.var.opcvar + "=$s_" + nome)
+    config:salvar
+    criar("admmudou", arg0.var.opcclasse, arg0.var.opcexec)
+    arg0.msg(arg0.var.opcnome + " mudou para " + nome)
+    admlog(arg0, "mudou " + arg0.var.opcclasse + ":" + arg0.var.opcvar + " " + arg0.var.opcnome)
+  senao arg1 != "z"
+    refvar nome = txtmin(txt2(arg1))
+    se !salaitem
+      arg0.msg("\bEssa opção não aceita itens.")
+      ret 1
+    senao !p.existe("i_" + nome)
+      arg0.msg("\bItem \"" + nome + "\" não existe, escolha outro.")
+      ret 1
+    fimse
+    p.criar(arg0.var.opcclasse, "const " + arg0.var.opcvar + "=$i_" + nome)
+    config:salvar
+    criar("admmudou", arg0.var.opcclasse, arg0.var.opcexec)
+    arg0.msg(arg0.var.opcnome + " mudou para item " + nome)
+    admlog(arg0, "mudou " + arg0.var.opcclasse + ":" + arg0.var.opcvar + " " + arg0.var.opcnome)
+  fimse
+  ret passosair(arg0)
+
+
+classe opc_salaitem
+herda opc_sala
+const salaitem = 1 # Se aceita também itens
+
+
+classe opc_listasala
+herda comando_editor
+# Um texto contendo nomes das salas (nomes dos objetos sem o "s_" no começo)
+#
+const prefixo = "s_"
+const m_aviso1 = "Entre com o nome da sala, O mostra as salas, Z cancela"
+const m_aviso2 = "Entre com o nome da sala, O mostra as salas, N nenhuma, Z cancela"
+const m_lista = "Salas:"
+const m_nenhum = "Nenhuma sala"
+const m_adicionado = "Sala adicionada: "
+const m_removido = "Sala removida: "
+const m_naoexiste = "Sala não existe: "
+const m_limite = "Atingido limite de salas"
+const m_nome = $s_[arg1].s_titulo(arg0)
+const m_total = arg0 == 1 ? "\c6Uma sala\b" : "\c6" + arg0 + " salas\b"
+
+func menu # Retorna quantidade de linhas de texto de várias linhas
+# arg0=nome da classe, arg1=nome da variável, arg2=nomes das opções (não usado)
+  prog p
+  casovar p.existe(arg0, arg1)
+  casose "1" # Na própria classe
+    ret p_vartexto(arg0, arg1), m_total(intsublin([arg0]:[arg1]))
+    p.inilinha(arg0, arg1)
+    ret "<" + txt1(p.texto) + ">"
+  casose "2" # Em uma classe herdada
+    ret p_vartexto(arg0, arg1), "<herda> " + m_total(intsublin([arg0]:[arg1]))
+    p.inilinha(arg0, arg1)
+    ret "<herda " + txt1(p.texto) + ">"
+  casose # Não foi definido
+    ret "<nulo> " + m_total(intsublin([arg0]:[arg1]))
+  casofim
+
+func passo # Alterando
+  prog p
+  se arg1 == "" || arg1 == "\b"
+    arg0.passo = este
+    se arg0.var.opcvalido
+      arg0.msg(m_aviso1)
+    senao
+      arg0.msg(m_aviso2)
+    fimse
+    ret 1
+  senao arg1 == "n" && !arg0.var.opcvalido
+    p.apagar(arg0.var.opcclasse, arg0.var.opcvar)
+    config:salvar
+    criar("admmudou", arg0.var.opcclasse, arg0.var.opcexec)
+    arg0.msg("Apagado: " + arg0.var.opcnome)
+    admlog(arg0, "apagou " + arg0.var.opcclasse + ":" + arg0.var.opcvar + " " + arg0.var.opcnome)
+  senao arg1 == "o"
+    textotxt t
+    t.addfim([arg0.var.opcclasse]:[arg0.var.opcvar])
+    se t.bytes <= 1
+      arg0.msg(m_nenhum)
+      ret 1
+    fimse
+    textopos pos
+    arg0.txtmais.limpar
+    arg0.txtmais.addfim(m_lista)
+    epara pos = t.ini, pos.lin, pos.depois
+      arg0.txtmais.addfim(pos.texto + "  " + m_nome(arg0, pos.texto))
+    efim
+    arg0.txtmostra
+    ret 1
+  senao arg1 != "z"
+    refvar nome = txtmin(txts(arg1))
+    textotxt t
+    t.addfim([arg0.var.opcclasse]:[arg0.var.opcvar])
+    t.bytes <= 1 && t.limpar
+    textopos pos
+    pos = t.ini
+    se pos.txtproc("\n" + nome + "\n") >= 0
+      pos.remove
+      arg0.msg(m_removido + nome)
+    senao !p.existe(prefixo + nome)
+      arg0.msg(m_naoexiste + nome)
+      ret passo(arg0, "\b")
+    senao arg0.var.opcextra && t.linhas >= arg0.var.opcextra_
+      arg0.msg(m_limite)
+      ret passo(arg0, "\b")
+    senao
+      t.addfim(nome), t.ordena
+      arg0.msg(m_adicionado + nome)
+    fimse
+    refvar lin = "const " + arg0.var.opcvar + "=\""
+    p.criar(arg0.var.opcclasse, lin + txtvis(t.ini.textolin(1000)) + "\"")
+    config:salvar
+    criar("admmudou", arg0.var.opcclasse, arg0.var.opcexec)
+    admlog(arg0, "mudou " + arg0.var.opcclasse + ":" + arg0.var.opcvar + " " + arg0.var.opcnome)
+    ret passo(arg0, "\b")
+  fimse
+  ret passosair(arg0)
+
+
+classe opc_listaperso
+herda opc_listasala
+# Um texto contendo nomes dos personagens (nomes dos objetos sem o "p_" no começo)
+#
+const prefixo = "p_"
+const m_aviso1 = "Entre com o nome do personagem, O mostra os personagens, Z cancela"
+const m_aviso2 = "Entre com o nome do personagem, O mostra os personagens, N nenhum, Z cancela"
+const m_lista = "Personagens:"
+const m_nenhum = "Nenhum personagem"
+const m_adicionado = "Personagem adicionado: "
+const m_removido = "Personagem removido: "
+const m_naoexiste = "Personagem não existe: "
+const m_limite = "Atingido limite de personagens"
+const m_nome = p_[arg1]:nome
+const m_total = arg0 == 1 ? "\c6Um personagem\b" : "\c6" + arg0 + " personagens\b"
+
+
+classe opc_listaitem
+herda opc_listasala
+# Um texto contendo nomes dos itens (nomes dos objetos sem o "i_" no começo)
+#
+const prefixo = "i_"
+const m_aviso1 = "Entre com o nome do item, O mostra os itens, Z cancela"
+const m_aviso2 = "Entre com o nome do item, O mostra os itens, N nenhum, Z cancela"
+const m_lista = "Itens:"
+const m_nenhum = "Nenhum item"
+const m_adicionado = "Item adicionado: "
+const m_removido = "Item removido: "
+const m_naoexiste = "Item não existe: "
+const m_limite = "Atingido limite de itens"
+const m_nome = i_[arg1]:nome
+const m_total = arg0 == 1 ? "\c6Um item\b" : "\c6" + arg0 + " itens\b"
+
+
+classe opc_listaefeito
+herda opc_listasala
+# Um texto contendo nomes dos efeitos (nomes dos objetos sem o "e_" no começo)
+#
+const prefixo = "e_"
+const m_aviso1 = "Entre com o nome do efeito, O mostra os itens, Z cancela"
+const m_aviso2 = "Entre com o nome do efeito, O mostra os efeitos, N nenhum, Z cancela"
+const m_lista = "Efeitos:"
+const m_nenhum = "Nenhum efeito"
+const m_adicionado = "Efeito adicionado: "
+const m_removido = "Efeito removido: "
+const m_naoexiste = "Efeito não existe: "
+const m_limite = "Atingido limite de efeitos"
+const m_nome = e_[arg1]:nome
+const m_total = arg0 == 1 ? "\c6Um efeito\b" : "\c6" + arg0 + " efeitos\b"
+
+
+classe admmudou
+herda comando_adm
+# Organiza constantes da classe na ordem definida pela constante admordem
+# da classe. Depois, se o nome da função especificada não for nulo,
+# chama essa função de todos os objetos da classe.
+# Modo de usar:
+# criar("admmudou", <nome da classe>, [nome da função])
+#
+txt100 nomeclasse
+txt100 nomefunc
+intexec ordem
+intexec repete
+listaobj l # Objetos cuja função ainda não foi chamada
+textotxt t # Usado para organizar as constantes no início da classe
+prog p # Usado para organizar as constantes no início da classe
+txt100 tantes # Nome da constante anterior em textotxt t
+int1 mudou # Se ocorreu alguma mudança no programa
+uint8 cont # Contador, como medida de segurança
+
+func ini
+  nomeclasse = arg0, nomefunc = arg1, ordem = 1
+
+func ordem_exec
+  tantes = ""
+  t.limpar
+  ++cont < 50 && t.addfim(txttroca([nomeclasse]:admordem, " ", "\n"))
+  p.inifunccl(nomeclasse)
+  enquanto t.linhas
+    se p.existe(nomeclasse, t.ini.texto) != 1 || p.vartipo(nomeclasse, t.ini.texto) != "const"
+      t.remove
+    senao p.texto == t.ini.texto
+      p.depois, tantes = t.remove
+    senao tantes
+      p.fdepois(nomeclasse, t.remove, tantes)
+      ordem = 1, mudou = 1
+      ret
+    senao
+      p.fantes(nomeclasse, t.remove)
+      ordem = 1, mudou = 1
+      ret
+    fimse
+  efim
+  mudou && config:salvar
+# Aqui obtém os objetos para chamar uma função de cada objeto
+  ret !nomefunc, apagar(este)
+  se txtproc(nomefunc, ":") > 0
+    refvar ind = txtproc(nomefunc, ":")
+    nomeclasse = txt(nomefunc, 0, ind)
+    nomefunc = txt(nomefunc, ind + 1)
+  fimse
+  repete = 1
+  ref r
+  epara r = $[nomeclasse], r, r = objdepois(r)
+    l.addfim(r)
+  efim
+
+func repete_exec
+  ret !l, apagar(este)
+  refvar r = ref(l.objini)
+  repete = 1, l.ini.remove, r.[nomefunc]
+
+
+classe opc_simnao
+herda comando_adm
+
+func menu # Retorna opção que pode ser 0 (não) ou 1 (sim)
+# arg0=nome da classe, arg1=nome da variável, arg2=nomes das opções (não usado)
+  prog p
+  casovar p.existe(arg0, arg1)
+  casose "1" # Na própria classe
+    se !p_varnum(arg0, arg1)
+      p.inilinha(arg0, arg1)
+      ret "<" + txt1(p.texto) + ">"
+    senao [arg0]:[arg1]
+      ret "\c6" + [arg0]:[arg1] + " Sim\b"
+    senao
+      ret "\c6" + [arg0]:[arg1] + " Não\b"
+    fimse
+  casose "2" # Em uma classe herdada
+    se !p_varnum(arg0, arg1)
+      p.inilinha(arg0, arg1)
+      ret "<herda " + txt1(p.texto) + ">"
+    senao [arg0]:[arg1]
+      ret "<herda> \c6" + [arg0]:[arg1] + " Sim\b"
+    senao
+      ret "<herda> \c6" + [arg0]:[arg1] + " Não\b"
+    fimse
+  casose # Não foi definido
+    ret "<nulo> \c60 Não\b"
+  casofim
+
+func passo # Alterando uma opção que pode ser "SIM" ou "NÃO"
+  prog p
+  casovar txtmin(arg1)
+  casose "0"
+  casose "1"
+    txt100 lin = " # " + arg0.var.opcnome + ": " + (arg1 == 1 ? "Sim" : "Não")
+    p.criar(arg0.var.opcclasse, "const " + arg0.var.opcvar + "=" + arg1 + lin)
+    config:salvar
+    criar("admmudou", arg0.var.opcclasse, arg0.var.opcexec)
+    arg0.msg(arg0.var.opcnome + " mudou para: " + (arg1 == 1 ? "1 sim" : "0 não"))
+    admlog(arg0, "mudou " + arg0.var.opcclasse + ":" + arg0.var.opcvar + " " + arg0.var.opcnome)
+  casose "z"
+    sair
+  casose "n"
+    se !arg0.var.opcvalido
+      p.apagar(arg0.var.opcclasse, arg0.var.opcvar)
+      config:salvar
+      criar("admmudou", arg0.var.opcclasse, arg0.var.opcexec)
+      arg0.msg("Apagado: " + arg0.var.opcnome)
+      refvar lin = "apagou " + arg0.var.opcclasse + ":" + arg0.var.opcvar
+      admlog(arg0, lin + " " + arg0.var.opcnome)
+      sair
+    fimse
+  casose
+    arg0.passo = este
+    se arg0.var.opcvalido
+      arg0.msg("Escolha: 0 não, 1 sim, Z cancela")
+    senao
+      arg0.msg("Escolha: 0 não, 1 sim, N nenhum, Z cancela")
+    fimse
+    ret 1
+  casofim
+  ret passosair(arg0)
+
+
+classe opc_tipodep
+herda comando_adm, opc_tipos
+
+func passo
+  prog p
+  arg0.passo = este
+  se arg1 == "o"
+    arg0.txtmais.limpar
+    epara p.iniclasse("cmd_"), p.lin, p.depois
+      $[p.texto].cmdmenu && arg0.txtmais.addfim("h_" + txt(p.texto, 4))
+    efim
+    epara p.iniclasse("magia_"), p.lin, p.depois
+      arg0.txtmais.addfim("m_" + txt(p.texto, 6))
+    efim
+    epara p.iniclasse("idioma_"), p.lin, p.depois
+      arg0.txtmais.addfim("i_" + txt(p.texto, 7))
+    efim
+  fimse
+  casovar txtmin(txt(arg1, 0, 2))
+  casose "h_"
+    ret passo2(arg0, arg1, $cmd_[txt(arg1, 2)].cmdmenu != nulo)
+  casose "m_"
+    ret passo2(arg0, arg1, $magia_[txt(arg1, 2)] != nulo)
+  casose "i_"
+    ret passo2(arg0, arg1, $idioma_[txt(arg1, 2)] != nulo)
+  casofim
+  ret passo2(arg0, arg1, 0)

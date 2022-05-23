@@ -1,0 +1,376 @@
+classe a_goblins
+herda area
+const a_nome = "miden'nir"
+const a_tempo = 10
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_autor = "Edson, com a ajuda de Ian"
+
+
+classe b_goblins
+herda sala
+const s_item = 4
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_luz = 0 # Luz: 0 Claro com eventos de tempo
+const s_pnj = 6
+const s_recup = 2
+const s_reserva = 1 # Comando reserva: Sim
+const s_terreno = 4 # Terreno: 4 Floresta densa - 3mv
+const s_area = "goblins"
+
+
+classe p_goblins001
+herda comum_persobat
+const nome = "goblin"
+const ident = "goblin"
+const descnome = "um goblin"
+const descpadr = "Um goblin está aqui, murmurando algo para si mesmo"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo: 1 Masculino
+const nivel = 14
+const pospadr = 8 # Posição padrão: 8 Em pé
+const tipo1 = "z1"
+const equip1 = "0"
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_morreu2 = "1"
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const p_naoseguir = 1 # Não podem seguir: Sim
+const inivar = "z_moedas=300,h_socar=1"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100
+  pmanamax += 100
+  pmovemax += 30
+  pveloc1 += 1
+  atknorm += 3
+  precisao += 200
+  atktipo.1 *= 0.12 # Tipos Especiais
+  deftipo.0 *= 0.3 # Tipos Normais
+
+
+classe p_goblins002
+herda comum_persobat
+const nome = "o dono da estalagem"
+const ident = "homem dono instalagem"
+const descnome = "O dono da instalagem"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 12
+const pospadr = 5 # Posição padrão: 5 Descansando
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 1 # Movimentar: 1 Somente na área
+const inivar = "cmd_z=40000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  precisao += 80
+
+
+classe p_goblins003
+herda comum_persobat
+const nome = "wyvern"
+const ident = "wyvern"
+const descnome = "Um wyvern"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 16
+const pospadr = 8 # Posição padrão: 8 Em pé
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  precisao += 80
+
+
+classe p_goblins004
+herda comum_persobat
+const nome = "goblin tenente"
+const ident = "goblin tenente"
+const descnome = "um goblin tenente"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 32
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  precisao += 80
+
+
+classe s_goblins001
+herda b_goblins
+const s_titulo = "a trilha para miden'nir"
+const s_desc = "   Você está em uma floresta iluminada. Um caminho leva ao sul, mas a\n\
+passagem ao leste é possível também. Ao oeste, fumaça pode ser vista\n\
+subindo sobre o topo das árvores. O portão sul de Midgaard fica ao norte daqui."
+const dir_n = $s_midgaard078
+const portaini_n = 1 # Estado inicial: 1 Porta aberta
+const portanome_n = "O portão sul"
+const portaartigo_n = 2 # Artigo porta: 2 o (portão)
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_s = $s_goblins002
+const dir_l = $s_goblins012
+const dir_o = $s_goblins003
+const portaini_o = 1 # Estado inicial: 1 Porta aberta
+const portanome_o = "Os portões da estalagem"
+const portaartigo_o = 3 # Artigo porta: 3 os (portões)
+const fecha_o = 1 # Fecha ao passar: Sim
+const a_reset = "P 100 goblins001 0 0 40"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_goblins001:objsolto.total < 40
+    criar("p_goblins001", este, 0)
+  fimse
+
+
+classe s_goblins002
+herda b_goblins
+const s_titulo = "miden'nir"
+const s_desc = ""
+const dir_n = $s_goblins001
+const dir_s = $s_goblins004
+const dir_o = $s_goblins005
+
+
+classe s_goblins003
+herda b_goblins
+const s_titulo = "a frente da estalagem"
+const s_desc = "   Você está em um caminho bem usado que se abre em uma clareira.\n\
+Uma velha estrutura de madeira está aqui com uma negra fumaça subindo de sua\n\
+chaminé. Uma placa pintada é visível em um poste ao oeste. Você poderia seguir\n\
+ao norte ou ao sul em torno da estalagem, ou pode deixar este lugar e\n\
+retornar para a floresta."
+const dir_n = $s_goblins006
+const dir_s = $s_goblins009
+const dir_l = $s_goblins001
+const portaini_l = 1 # Estado inicial: 1 Porta aberta
+const portanome_l = "Os portões da estalagem"
+const portaartigo_l = 3 # Artigo porta: 3 os (portões)
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_goblins007
+
+
+classe s_goblins004
+herda b_goblins
+const s_titulo = "Uma Encrusilhada"
+const s_desc = ""
+const dir_n = $s_goblins002
+const dir_s = $s_goblins016
+const dir_l = $s_goblins014
+const a_reset = "P 100 goblins001 0 0 30"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_goblins001:objsolto.total < 30
+    criar("p_goblins001", este, 0)
+  fimse
+
+
+classe s_goblins005
+herda b_goblins
+const s_titulo = "Um esconderijo"
+const s_desc = ""
+const s_pnj = 0
+const dir_l = $s_goblins002
+const inv_l = 1 # Invisível: Sim
+
+
+classe s_goblins006
+herda b_goblins
+const s_titulo = "A parte norte da estalagem"
+const s_desc = ""
+const dir_s = $s_goblins003
+
+
+classe s_goblins007
+herda b_goblins
+const s_titulo = "A estalagem do Lenhador"
+const s_desc = "   Você está na sala comum da Estalagem do Lenhador. Uma fina névoa de fumaça\n\
+paira no ar aqui. A estalagem está bem vazia, pois a floresta foi tomada\n\
+por muitos goblins ultimamente, e estas bandas não são mais seguras.\n\
+O bar está ao norte daqui."
+const s_pnj = 0
+const dir_n = $s_goblins008
+const dir_l = $s_goblins003
+
+
+classe s_goblins008
+herda b_goblins
+const s_titulo = "dentro da estalagem"
+const s_desc = ""
+const s_pnj = 1
+const dir_s = $s_goblins007
+const a_reset = "P 100 goblins002 0 0 1 z_moedas=400"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_goblins002:objsolto.total < 1
+    criar("p_goblins002", este, 0, "z_moedas=400")
+  fimse
+
+
+classe s_goblins009
+herda b_goblins
+const s_titulo = "a sul da estalagen"
+const s_desc = ""
+const dir_n = $s_goblins003
+const dir_o = $s_goblins010
+const a_reset = "E 97 item054 1 20"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+
+
+classe s_goblins010
+herda b_goblins
+const s_titulo = "atraz da estalagen"
+const s_desc = ""
+const dir_l = $s_goblins009
+const dir_o = $s_goblins011
+
+
+classe s_goblins011
+herda b_goblins
+const s_titulo = "o depózito de licho"
+const s_desc = ""
+const s_soltar = 3 # Soltar itens: 3 Destrói caindo
+const dir_l = $s_goblins010
+
+
+classe s_goblins012
+herda b_goblins
+const s_titulo = "um esconderijo"
+const s_desc = ""
+const s_pnj = 0
+const dir_o = $s_goblins001
+const inv_o = 1 # Invisível: Sim
+
+
+classe s_goblins013
+herda b_goblins
+const s_titulo = "Sem nome"
+const s_desc = ""
+const dir_l = $s_goblins002
+
+
+classe s_goblins014
+herda b_goblins
+const s_titulo = "Um esconderígio na floresta"
+const s_desc = ""
+const s_pnj = 0
+const dir_o = $s_goblins004
+const inv_o = 1 # Invisível: Sim
+
+
+classe s_goblins015
+herda b_goblins
+const s_titulo = "um caminho escuro"
+const s_desc = "   Você está se contorcendo entre as árvores que estão muito próximas de \
+seu\n\
+corpo. O caminho continua ao norte e ao sul. As árvores estão muito juntas ao\n\
+leste, mas você pode ir por lá."
+const dir_n = $s_goblins016
+const dir_s = $s_goblins019
+const dir_l = $s_nyx001
+
+
+classe s_goblins016
+herda b_goblins
+const s_titulo = "No caminho lamacento"
+const s_desc = ""
+const dir_n = $s_goblins004
+const dir_s = $s_goblins015
+const dir_l = $s_goblins017
+const dir_o = $s_goblins018
+
+
+classe s_goblins017
+herda b_goblins
+const s_titulo = "ainda no caminho lamacento"
+const s_desc = ""
+const dir_o = $s_goblins016
+
+
+classe s_goblins018
+herda b_goblins
+const s_titulo = "um esconderijo no caminho"
+const s_desc = ""
+const s_pnj = 0 # PNJs entram: Não
+const s_recup = -1
+const dir_l = $s_goblins016
+const inv_l = 1 # Invisível: Sim
+
+
+classe s_goblins019
+herda b_goblins
+const s_titulo = "A carnificina"
+const s_desc = ""
+const eveste = 0 # Eventos sala: Não
+const dir_n = $s_goblins015
+const dir_l = $s_goblins020
+const a_reset = "P 100 goblins003 0 0 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_goblins003:objsolto.total < 3
+    criar("p_goblins003", este, 0)
+  fimse
+
+
+classe s_goblins020
+herda b_goblins
+const s_titulo = "Uma trilha"
+const s_desc = ""
+const dir_l = $s_goblins021
+const dir_o = $s_goblins019
+
+
+classe s_goblins021
+herda b_goblins
+const s_titulo = "Continuando pela trilha"
+const s_desc = ""
+const dir_l = $s_goblins022
+const dir_o = $s_goblins020
+
+
+classe s_goblins022
+herda b_goblins
+const s_titulo = "Uma divisória no caminho"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_goblins023
+const dir_l = $s_goblins024
+const dir_o = $s_goblins021
+
+func cmd_mover
+  se arg2 == "n"
+    arg0.msg("Área em construção.")
+    ret 1
+  fimse
+
+
+classe s_goblins023
+herda b_goblins
+const s_titulo = "No caminho para o quartel general"
+const s_desc = ""
+const dir_n = $s_goblins025
+const dir_s = $s_goblins022
+
+
+classe s_goblins024
+herda b_goblins
+const s_titulo = "Ainda na trilha"
+const s_desc = ""
+const dir_l = $s_inverno105
+const dir_o = $s_goblins022
+
+
+classe s_goblins025
+herda b_goblins
+const s_titulo = "Continuando pelo caminho"
+const s_desc = ""
+const dir_s = $s_goblins023

@@ -1,0 +1,376 @@
+classe a_floresta
+herda area
+const a_tempo = 20
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_floresta
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_recup = 1
+const s_som = "floresta"
+const s_area = "floresta"
+
+
+classe p_floresta001
+herda comum_persobat
+const nome = "lobo"
+const descnome = "um lobo feroz"
+const descpadr = "Um lobo feroz caminha pela floresta, parecendo nenhum pouco a vontade com sua \
+presença."
+const nivel = 250
+const p_atk_anda = 1 # Anda ataque: Sim
+const p_exp = 5000
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 20 * pnivel + 1000
+
+
+classe p_floresta002
+herda comum_persobat
+const nome = "onça pintada"
+const descnome = "uma onça pintada"
+const p_atk_anda = 1 # Anda ataque: Sim
+const p_atk_desvia = 0 # Desvia ataque: Não
+const p_exp = 5800
+
+
+classe p_floresta003
+herda comum_persobat
+const nome = "serpente"
+const ident = "cobra serpente"
+const descnome = "uma gigantesca serpente"
+const descpadr = "Uma gigantesca serpente rasteja ameaçadoramente em sua direção."
+const nivel = 200
+const p_atk_anda = 1 # Anda ataque: Sim
+const p_atktipo = "picar"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 5750
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 250
+const inivar = "h_picar=8,m_envenenar=8"
+
+
+classe p_floresta004
+herda comum_persobat
+const nome = "onça"
+const ident = "onça pintada"
+const descnome = "uma onça pintada"
+const descpadr = "Uma enorme onça pintada lhe fita com um olhar ameaçador, enquanto se aproxima \
+cada vez mais rápido de você."
+const nivel = 250
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_atk_anda = 1 # Anda ataque: Sim
+const p_atktipo = "morder"
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 5000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const inivar = "h_morder=8,h_arranhar=8,z_moedas=5000"
+
+
+classe p_floresta005
+herda comum_persobat
+const nome = "raposa"
+const descnome = "uma raposa"
+const descpadr = "Uma esperta raposa caminha silenciosamente pela floresta, em busca de animais \
+para caçar."
+const nivel = 220
+const p_atk_anda = 1 # Anda ataque: Sim
+const p_atktipo = "arremessar"
+const p_exp = 6000
+const inivar = "h_arremessar=8,h_morder=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 6402
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atkesp += 14
+
+
+classe p_floresta006
+herda comum_persobat
+const nome = "tigre"
+const ident = "tigre feroz"
+const descnome = "um tigre feroz"
+const descpadr = "Feroz e muito faminto, um tigre circula pela floresta a procura de carne \
+fresca para devorar."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 250
+const tipo1 = "felino"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_atk_anda = 1 # Anda ataque: Sim
+const p_atktipo = "mordida"
+const p_comecorpo = 1 # Come corpos: Sim
+const p_lembra = 10
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 250
+const p_persegue = 1 # Persegue jogadores: 1 Mesma área se atacarem
+const p_perseguevel = 25
+const inivar = "h_morder=8,h_arranhar=8,z_moedas=10000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 300 * pnivel
+  pmovemax += 300 * pnivel
+  atknorm += 50 * pnivel
+  defnorm += 150 * pnivel
+  defesp += 150 * pnivel
+  evasao += 15 * pnivel
+  precisao += 20 * pnivel
+  bitver |= 4354
+
+
+classe s_floresta001
+herda b_floresta
+const s_titulo = "Adentrando a floresta."
+const dir_l = $s_rioleste027
+const dir_o = $s_floresta002
+
+
+classe s_floresta002
+herda b_floresta
+const s_titulo = "Na floresta"
+const dir_l = $s_floresta001
+const dir_o = $s_floresta003
+
+
+classe s_floresta003
+herda b_floresta
+const s_titulo = "Rumo a escuridão"
+const dir_n = $s_floresta004
+const dir_l = $s_floresta002
+const dir_o = $s_floresta011
+
+
+classe s_floresta004
+herda b_floresta
+const s_titulo = "Uma trilha escura"
+const s_desc = "Você está no início de uma trilha cercada por árvores altas. O céu está\n\
+quase que totalmente coberto pelas copas das árvores, tornando o caminho\n\
+muito escuro. Você quase não vê onde pisa, e no chão há raízes, folhas e\n\
+galhos quebrados, que tornam sua caminhada bem mais complicada."
+const dir_n = $s_floresta005
+const dir_s = $s_floresta003
+
+
+classe s_floresta005
+herda b_floresta
+const s_titulo = "Seguindo na trilha escura."
+const dir_s = $s_floresta004
+const dir_no = $s_floresta006
+const a_reset = "P 100 floresta003 0 0 6 h_picar=8,h_morder=8,z_moedas=125000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_floresta003:objsolto.total < 6
+    criar("p_floresta003", este, 0, "h_picar=8,h_morder=8,z_moedas=125000")
+  fimse
+
+
+classe s_floresta006
+herda b_floresta
+const s_titulo = "No meio da trilha"
+const dir_se = $s_floresta005
+const dir_so = $s_floresta007
+
+
+classe s_floresta007
+herda b_floresta
+const s_titulo = "Saindo da trilha"
+const dir_n = $s_floresta015
+const dir_o = $s_floresta008
+const dir_ne = $s_floresta006
+
+
+classe s_floresta008
+herda b_floresta
+const s_titulo = "Próximo ao território dos lobos"
+const dir_l = $s_floresta007
+const dir_o = $s_floresta009
+
+
+classe s_floresta009
+herda b_floresta
+const s_titulo = "No território dos Iokays lobos"
+const dir_l = $s_floresta008
+const dir_b = $s_floresta010
+
+
+classe s_floresta010
+herda b_floresta
+const s_titulo = "Uma gigantesca toca"
+const dir_c = $s_floresta009
+const a_reset = "P 100 floresta001 0 0 10 h_morder=8,h_arranhar=8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_floresta001:objsolto.total < 10
+    criar("p_floresta001", este, 0, "h_morder=8,h_arranhar=8")
+  fimse
+
+
+classe s_floresta011
+herda b_floresta
+const s_titulo = "Um caminho perigoso na floresta"
+const dir_l = $s_floresta003
+const dir_o = $s_floresta012
+
+
+classe s_floresta012
+herda b_floresta
+const s_titulo = "Caminhando pela floresta."
+const dir_s = $s_floresta013
+const dir_l = $s_floresta011
+
+
+classe s_floresta013
+herda b_floresta
+const s_titulo = "Desviando-se de árvores"
+const dir_n = $s_floresta012
+const dir_s = $s_floresta024
+const dir_se = $s_floresta014
+const a_reset = "P 100 floresta004 0 0 6 h_morder=8,h_arranhar=8,z_moedas=500000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_floresta004:objsolto.total < 6
+    criar("p_floresta004", este, 0, "h_morder=8,h_arranhar=8,z_moedas=500000")
+  fimse
+
+
+classe s_floresta014
+herda b_floresta
+const s_titulo = "Um esconderijo na floresta"
+const dir_no = $s_floresta013
+const a_reset = "P 100 floresta005 0 0 6 h_arremessar=8,h_morder=8,z_moedas=200000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_floresta005:objsolto.total < 6
+    criar("p_floresta005", este, 0, "h_arremessar=8,h_morder=8,z_moedas=200000")
+  fimse
+
+const s_reset = "P 100 floresta001 0 0 2"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_floresta001:objsolto.total < 2
+    criar("p_floresta001", este, 0)
+  fimse
+
+
+classe s_floresta015
+herda b_floresta
+const s_titulo = "Uma região aberta"
+const dir_n = $s_floresta016
+const dir_s = $s_floresta007
+
+
+classe s_floresta016
+herda b_floresta
+const s_titulo = "Uma região aberta"
+const dir_n = $s_floresta017
+const dir_s = $s_floresta015
+
+
+classe s_floresta017
+herda b_floresta
+const s_titulo = "Atravessando uma área descampada"
+const dir_n = $s_floresta018
+const dir_s = $s_floresta016
+
+
+classe s_floresta018
+herda b_floresta
+const s_titulo = "Continuando a atravessar a área"
+const dir_n = $s_floresta019
+const dir_s = $s_floresta017
+
+
+classe s_floresta019
+herda b_floresta
+const s_titulo = "As árvores se fecham novamente"
+const dir_s = $s_floresta018
+const dir_no = $s_floresta020
+
+
+classe s_floresta020
+herda b_floresta
+const s_titulo = "Mais uma trilha rodeada por árvores e mato alto"
+const dir_n = $s_floresta021
+const dir_se = $s_floresta019
+
+
+classe s_floresta021
+herda b_floresta
+const s_titulo = "Atravessando a trilha"
+const dir_s = $s_floresta020
+const dir_b = $s_floresta022
+
+
+classe s_floresta022
+herda b_floresta
+const s_titulo = "Uma depressão coberta por mato"
+const dir_n = $s_floresta023
+const dir_c = $s_floresta021
+
+
+classe s_floresta023
+herda b_floresta
+const s_titulo = "Aos pés de uma cova coberta por folhas e muito mato"
+const dir_s = $s_floresta022
+const dir_b = $s_covaleoes001
+
+
+classe s_floresta024
+herda b_floresta
+const s_titulo = "Um caminho entre as árvores da floresta."
+const dir_n = $s_floresta013
+const dir_s = $s_floresta025
+
+
+classe s_floresta025
+herda b_floresta
+const s_titulo = "Um caminho entre as árvores da floresta."
+const dir_n = $s_floresta024
+const dir_s = $s_floresta026
+
+
+classe s_floresta026
+herda b_floresta
+const s_titulo = "Um caminho entre as árvores da floresta."
+const dir_n = $s_floresta025
+const dir_o = $s_floresta027
+
+
+classe s_floresta027
+herda b_floresta
+const s_titulo = "Um caminho entre as árvores da floresta."
+const dir_l = $s_floresta026
+const dir_o = $s_floresta028
+
+
+classe s_floresta028
+herda b_floresta
+const s_titulo = "Um caminho entre as árvores da floresta."
+const dir_l = $s_floresta027
+const dir_o = $s_floresta029
+
+
+classe s_floresta029
+herda b_floresta
+const s_titulo = "Um caminho entre as árvores da floresta."
+const dir_l = $s_floresta028
+const dir_so = $s_floresta030
+
+
+classe s_floresta030
+herda b_floresta
+const s_titulo = "Em uma clareira."
+const dir_ne = $s_floresta029

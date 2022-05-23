@@ -1,0 +1,4178 @@
+classe a_ninja
+herda area
+const a_tempo = 30
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_nome = "Heros, a cidade ninja"
+const a_autor = "Hellmud"
+
+
+classe b_ninja
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_recup = 1
+const s_area = "ninja"
+
+
+classe i_ninja001
+herda comum_itemperso
+const nome = "Chave da prisão"
+const descnome = "A chave da prisão"
+const descpos = "Uma chave enferrujada está jogada no chão."
+const descver = "Nada mais do que uma chave enferrujada da prisão."
+const i_chave = "ninja"
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos em perso: Sim
+const evitem = 1 # Eventos em item: Sim
+const evsala = 1 # Eventos em sala: Sim
+const jogsav = 0
+inttempo tempo
+
+func cmd_mudadono
+  se dono.jog && tempo == 0
+    tempo = 2000
+
+func tempo_exec
+  apagar(este)
+  se dono.jog # Se pertence a personagem, avisa o personagem
+    dono.msg("Sua Chave da prisão some por uma força misteriosa.")
+    $mens.p(dono)
+    $mens.mtodos2("", "A Chave da prisão de $P some por uma força misteriosa.")
+  senao !dono.item # Se não está em outro item (está na sala), avisa a todos
+    $mens.p(este)
+    $mens.mvis1("$P some por uma força misteriosa.")
+
+
+classe i_ninja002
+herda comum_itemperso
+const nome = "chave da grade"
+const descnome = "a chave da grade"
+const descpos = "Uma chave prateada foi esquecida aqui."
+const descver = "Nada mais do que a chave da grade."
+const i_chave = "grade"
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos em perso: Sim
+const evitem = 1 # Eventos em item: Sim
+const evsala = 1 # Eventos em sala: Sim
+const jogsav = 0
+inttempo tempo
+
+func cmd_mudadono
+  se dono.jog && tempo == 0
+    tempo = 2000
+
+func tempo_exec
+  apagar(este)
+  se dono.jog # Se pertence a personagem, avisa o personagem
+    dono.msg(" quando você pisca os olhos, sua chave da grade some misteriosamente, com um toque \
+de mágica!")
+    $mens.p(dono)
+    $mens.mtodos2("", " quando você pisca os olhos, a chave da grade de $P some misteriosamente, \
+com um toque de mágica!")
+  senao !dono.item # Se não está em outro item (está na sala), avisa a todos
+    $mens.p(este)
+    $mens.mvis1(" quando você pisca os olhos, $P some misteriosamente, com um toque de mágica!")
+
+
+classe i_ninja003
+herda comum_itemperso
+const nome = "Fonte prateada"
+const descnome = "Uma fonte prateada"
+const descpos = "Uma bela fonte prateada jorra uma água cristalina, própria para saciar a sede \
+de quem passa por ela."
+const descver = "Essa é uma grande fonte, de cor prateada."
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_sede = 125
+const f_msgperso = "$P toma uma água cristalina de uma fonte prateada."
+const i_pegar = "Ao tentar pegar a fonte, ela se exalta e jorra uma água muito forte em você."
+
+
+classe i_ninja004
+herda comum_itemperso
+const nome = "Uma espada samurai"
+const ident = "espada samurai"
+const descnome = "Uma espada samurai"
+const descpos = "Uma espada samurai jás aqui."
+const descver = "Essa é uma belíssima espada samurai."
+const nivel = 100
+const armamax = 1000
+const armamin = 100
+const armaprecisao = 100
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const pesoobj = 2000
+const tipoitem = 2 # Tipo de produto: 1-Arma
+const valor = 250
+const vestirnao = "ladrão"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 95
+  precisao += 20
+
+
+classe i_ninja005
+herda comum_itemperso
+const nome = "Adaga ninja do fugitivo"
+const ident = "adaga ninja fugitivo"
+const descnome = "Uma adaga ninja do fugitivo"
+const descpos = "Uma adaga ninja do fugitivo está aqui, brilhando com a lâmina para cima."
+const descver = "Nada mais do que uma adaga ninja do fugitivo."
+const nivel = 115
+const armamax = 900
+const armamin = 115
+const armaprecisao = 100
+const armatipo = 3 # Tipo de arma: 3 Lâmina curta
+const pesoobj = 2000
+const tipoitem = 2 # Tipo de produto: 1-Arma
+const valor = 250
+const vestir1 = 16777216 # Aonde vestir: 24-segurando
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmovemax += 300
+  pveloc1 += 20
+  atknorm += 120
+  evasao += 30
+  precisao += 70
+  pesomax += 1000
+
+
+classe i_ninja006
+herda comum_itemperso
+const nome = "lendária espada samurai"
+const descnome = "Uma lendária espada samurai"
+const descpos = "Uma espada lendária, que aparenta ser de um samurai está jogada aqui."
+const descver = "Nada mais do que uma lendária espada samurai."
+const nivel = 180
+const renascer = 0
+const armamax = 1500
+const armamin = 180
+const armaprecisao = 100
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const pesoobj = 2000
+const tipoitem = 2 # Tipo de produto: 1-Arma
+const valor = 450
+const vestir1 = 16777216 # Aonde vestir: 24-segurando
+const vestirnao = "bispo\nclérigo\nfeiticeiro\nladrão\nmago"
+const volobj = 1
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 250
+  pveloc1 += 22
+  atknorm += 165
+  evasao += -40
+  precisao += 50
+
+
+classe i_ninja007
+herda comum_itemperso
+const nome = "fina espada samurai"
+const descnome = "Uma fina espada samurai"
+const descpos = "Uma finíssima espada samurai foi esquecida aqui."
+const descver = "Nada mais do que uma finíssima espada samurai."
+const nivel = 110
+const armamax = 1100
+const armamin = 110
+const armaprecisao = 100
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const pesoobj = 2000
+const tipoitem = 2 # Tipo de produto: 1-Arma
+const valor = 400
+const vestir1 = 16777216 # Aonde vestir: 24-segurando
+const vestirnao = "clérigo\nladrão\nmago"
+const volobj = 1
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += -600
+  pmovemax += 100
+  atknorm += 110
+  evasao += -30
+  precisao += 100
+
+
+classe i_ninja008
+herda comum_itemperso
+const nome = "ombreiras de ouro"
+const descnome = "As ombreiras de ouro do imperador"
+const descpos = "Um par de ombreiras de ouro estão jogadas no canto."
+const descver = "É um par de ombreiras, completamente feitas de ouro."
+const nivel = 118
+const pesoobj = 1300
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 200
+const vestir1 = 1048576 # Aonde vestir: 20-Nos ombros
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 150
+  pmanamax += 150
+  atknorm += 50
+  defnorm += 50
+  atkesp += 50
+  defesp += 50
+  evasao += 50
+  precisao += 50
+  pesomax += -10000
+
+
+classe i_ninja009
+herda comum_itemperso
+const nome = "Uma maciça chave prateada"
+const descnome = "Uma maciça chave prateada"
+const descpos = "Uma maciça chave prateada foi deixada aqui, emanando um brilho espectral."
+const descver = "Você não vê nada de especial."
+const i_chave = "ninja123456"
+const pesoobj = 5
+const volobj = 5
+const eveste = 1 # Eventos item: Sim
+const evitem = 1 # Eventos em item: Sim
+
+
+classe i_ninja010
+herda comum_itemperso
+const nome = "Uma reluzente chave de ouro"
+const descnome = "Uma reluzente chave de ouro"
+const descpos = "Uma reluzente chave de ouro foi deixada aqui no chão."
+const i_chave = "ninja1234567"
+const pesoobj = 5
+const jogsav = 0
+inttempo tempo
+
+func cmd_mudadono
+  se dono.jog && tempo == 0
+    tempo = 2000
+
+func tempo_exec
+  apagar(este)
+  se dono.jog
+    dono.msg(" quando você pisca os olhos, sua reluzente chave de ouro some misteriosamente, com \
+um toque de mágica!")
+    $mens.p(dono)
+    $mens.mtodos2("", " quando você pisca os olhos, a chave reluzente de ouro de $P some \
+misteriosamente, com um toque de mágica!")
+  senao !dono.item
+    $mens.p(este)
+    $mens.mvis1(" quando você pisca os olhos, $P some misteriosamente, com um toque de mágica!")
+
+
+classe i_ninja011
+herda comum_item
+const nome = "uma katana de treinamento"
+const descpos = "uma imponente katana foi esquecida aqui."
+const descver = "esta bela katana parece ter pertencido a algum samurai."
+const nivel = 100
+const armamax = 800
+const armamin = 40
+const armaprecisao = 100
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const pesoobj = 2000
+const tipoitem = 2 # Tipo de produto: 1-Arma
+const valor = 500
+const vestirnao = "clerigo\nmago"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100
+  atknorm += 95
+  defnorm += 20
+  precisao += 50
+
+
+classe i_ninja012
+herda comum_item
+const nome = "uma katana prateada"
+const descpos = "uma katana foi esquecida aqui."
+const descver = "uma bela katana que brilha erradiadamente um prateado intenso."
+const nivel = 120
+const armamax = 1000
+const armamin = 100
+const armaprecisao = 100
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const pesoobj = 3000
+const tipoitem = 2 # Tipo de produto: 1-Arma
+const valor = 600
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 300
+  pmovemax += 100
+  atknorm += 112
+  defnorm += -40
+  precisao += 55
+
+
+classe i_ninja013
+herda comum_item
+const nome = "uma katana dourada"
+const descpos = "uma bela katana que brilha intensamente foi deixada aqui."
+const descver = "esta arma brilha radiantemente um dourado que ofusca sua visão, mas nada\n\
+disto é igualável ao poder que este tal artefato emana."
+const nivel = 135
+const armamax = 1200
+const armamin = 120
+const armaprecisao = 100
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const pesoobj = 5000
+const tipoitem = 2 # Tipo de produto: 1-Arma
+const valor = 1000
+const vestirnao = "clerigo\nelfo\nladrão\nmago"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 600
+  pveloc1 += 25
+  atknorm += 130
+  evasao += 30
+  precisao += 30
+  pesomax += 10000
+
+
+classe i_ninja014
+herda comum_item
+const nome = "Sákura kyotni, a lendária adaga ninja."
+const ident = "Sakura ninja lendária adaga"
+const descnome = "Sákura Kyotni, a lendária adaga ninja"
+const descpos = "Uma fina adaga foi deixada no canto desta sala. Ela é tão afiada que você sente \
+medo de tocá-la"
+const descver = "Esta adaga tem o cabo de ouro, com algumas marcas que você não reconhece.\n\
+Sua lâmina é estremamente afiada, e olhando atentamente você percebe que\n\
+ainda dá para ver o sangue de algumas vítimas banhando esta lâmina."
+const nivel = 140
+const armamax = 1300
+const armamin = 150
+const armaprecisao = 100
+const armatipo = 3 # Tipo de arma: 3 Lâmina curta
+const tipoitem = 2 # Tipo de produto: 1-Arma
+const valor = 2000
+const vestir1 = 16777216 # Aonde vestir: 24-segurando
+const volobj = 5
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 150
+  pmanamax += -150
+  pmovemax += 150
+  pveloc1 += 30
+  atknorm += 140
+  atkesp += -50
+  evasao += 10
+  precisao += 70
+  pesomax += 5000
+
+
+classe i_ninja015
+herda comum_item
+const nome = "A lendária máscara de Sankey go"
+const ident = "Mascara Lendária Sankey go"
+const descnome = "A lendária Máscara de Sankey go"
+const descpos = "Uma máscara extremamente linda foi deixada aqui, refletindo a luz do luar."
+const descver = "Esta máscara cobre totalmente seu rosto. Ela é totalmente dourada, e apenas\n\
+seus olhos ficam de fora se vestí-la. Há algumas marcas incrustadas nela,\n\
+porém você não sabe o que as mesmas significam."
+const nivel = 120
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 500
+const vestir1 = 4 # Aonde vestir: 2-No rosto
+const vestirnao = "bispo\nclérigo\nelfo\nmago"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmanamax += -83
+  atknorm += 35
+  evasao += 30
+  precisao += 30
+
+
+classe i_ninja016
+herda comum_item
+const nome = "O brinco de Kzoh Mahara"
+const ident = "Brinco Kzoh Mahara"
+const descnome = "O Brinco de Kzoh Mahara"
+const descpos = "Um pequenino brinco foi negligentemente deixado aqui."
+const descver = "Este pequeno brinco é muito valiozo. Com uma pequena pedra de diamante em\n\
+sua ponta, ele emana uma vibração kaótica e divina ao mesmo tempo. Sua\n\
+beleza o deixa perpléxo, e você não consegue parar de olhá-lo."
+const nivel = 100
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 900
+const vestir1 = 16 # Aonde vestir: 4-Nas orelhas
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 50
+  defnorm += 50
+  atkesp += 50
+  defesp += 50
+  evasao += 20
+  precisao += 20
+  pesomax += 20000
+
+
+classe i_ninja017
+herda comum_item
+const nome = "O elmo mágico de saiury, a sacerdotisa"
+const ident = "Elmo mágico"
+const descnome = "O elmo mágico de Saiury, a sacerdotisa"
+const descpos = "Um belo elmo está vibrando intensamente aqui."
+const descver = "Este brilhante elmo é feito de ouro, porém é um ouro diferente. Brilhando\n\
+mais do que o normal, este elmo emana magia de toda a sua estenção. Você\n\
+percebe, que em bora pareça frágio, ele é mais resistente do que qualquer\n\
+matereal que você já tenha visto. Seu intenso brilho lhe dá calafrios, e ao\n\
+olhar mais atentamente, você percebe que este é o lendário elmo de Saiury, a\n\
+sacerdotisa ninja."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 135
+const pesoobj = 1400
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 1000
+const vestir1 = 2 # Aonde vestir: 1-Na cabeça
+const vestirnao = "guerreiro\nladrão\norc"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += -100
+  pmanamax += 200
+  pmovemax += -120
+  pveloc1 += 20
+  atknorm += -40
+  defnorm += 40
+  atkesp += 50
+  defesp += 50
+  evasao += 25
+  precisao += 30
+
+
+classe i_ninja018
+herda comum_itemperso
+const nome = "Uma chave metálica"
+const descnome = "Uma chave metálica"
+const descpos = "Uma chave metálica foi deixada aqui, emanando um brilho cegante."
+const i_chave = "palácio"
+
+
+classe i_ninja019
+herda comum_itemperso
+const nome = "Uma chave dourada"
+const descnome = "Uma chave dourada"
+const descpos = "Você se espanta ao ver uma chave emanando um brilho dourado."
+const i_chave = "imperador"
+
+
+classe i_ninja091
+herda comum_item
+const nome = "O RELUSENTE CINTURÃO DE YNOMAWAH SAKURA."
+const ident = "relusente cinturão de ynomawa sakura."
+const descnome = "O RELUSENTE CINTURÃO DE YNOMAWAH SAKURA"
+const descpos = "Um magnífico cinturão incrustado com joias preciosas encontra-se aqui, ofuscando\
+ sua visão com seu brilho!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 120
+const armatipo = 0 # Tipo de arma: 0 Não é arma
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 900
+const tipoitem = 136 # Tipo de produto: 3-Vestimenta, 7-Tesouro
+const valor = 2000
+const vestir1 = 65536 # Aonde vestir: 16-Na cintura
+const vestirnao = "anão\nguerreiro\nhumano\norc"
+const vestirsim = 0 # Podem vestir: 0 Todos
+const volmax = 1000000
+const volobj = 1
+const manterperso = 0 # Mantém em jogador: Não
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 350
+  pmovemax += -200
+  pveloc1 += 20
+  atknorm += -40
+  atkesp += 40
+  evasao += 35
+  bitver |= 256
+  atktipo.0 *= 1.25 # Tipos Normais
+  atktipo.1 *= 1.25 # Tipos Especiais
+
+
+classe p_ninja001
+herda comum_persobat
+const nome = "guardião do bosque"
+const ident = "fred guardião bosque"
+const descnome = "Fred, o guardião do bosque"
+const descpadr = "Fred, o guardião do bosque guarda o caminho a diante."
+const descver = "Da medo só de olhar para ele."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 90
+const tipo1 = "pnj"
+const tipo2 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 10000
+const p_morreu1 = "$P cai sem vida."
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_ninja002
+herda comum_persobat
+const nome = "coelho"
+const ident = "coelho branco"
+const descnome = "Um coelho branco"
+const descpadr = "Um coelho branco corre de um lado para outro."
+const descver = "Um pequeno coelho branco."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 3
+const p_corpo = 1 # Corpo: 1 Deixa corpo vazio
+const p_exp = 50
+const p_morreu1 = "$P cai sem vida."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 480
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_ninja003
+herda p_ehrin001, p_venore021
+const nome = "garçonete"
+const descnome = "Uma garçonete"
+const descpadr = "Uma jovem garçonete vem até você, trazendo um cardápio suculento em uma das \
+mãos."
+const descver = "Essa jovem garçonete é de beleza sem igual.\n\
+Cabelos loiros até a cintura, olhos azúis, e um corpo escultural."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const lojaitem = "ehrin001 0\n\
+ehrin002 0\n\
+ehrin003 0\n\
+ehrin005 0\n\
+ehrin006 0\n\
+ehrin007 0\n\
+ehrin008 0\n\
+ehrin009 0\n\
+ehrin010 0\n\
+zurs004 0\n\
+zurs002 0\n\
+começo011 0"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_ninja004
+herda comum_perso
+const nome = "pequeno mago"
+const descnome = "Um pequeno mago"
+const descpadr = "Um pequeno mago está aqui, esperando a quem atender."
+const descver = "Esse mago é bem novo, porém não se engane por isso, ele pode ser mais perigoso \
+do que você imagina."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const lojaitem = "itens001 0\n\
+elfos001 0\n\
+venore025 0\n\
+venore023 0\n\
+venore022 0\n\
+venore021 0\n\
+ehrin028 0\n\
+ehrin013 0"
+const tipoitem = 1088 # Compra produtos: 6-Pergaminho, 10-Poção
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_ninja005
+herda comum_perso
+const nome = "Tochyro, o dono da peixaria"
+const descnome = "Tochyro, o dono da peixaria"
+const descpadr = "tochyro, o dono da peixaria está limpando alguns peixes, aguardando o seu \
+pedido."
+const descver = "Ele parece bastante cansado, e com um cheiro orrível de peixe."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_ninja006
+herda comum_perso
+const nome = "Ysco"
+const descnome = "Ysco, o padeiro"
+const descpadr = "Ysco, o padeiro está pronto para lhe atender, limpando o avental com uma das \
+mãos."
+const descver = "Esse homem é muito alegre, sempre preparado para atender bem a qualquer \
+um."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const lojaitem = "terra001 0\nterra002 0\ncomeço011 0"
+const taxavenda = 100
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_ninja007
+herda comum_persobat
+const nome = "guarda da prisão"
+const ident = "guarda prisão kyóshe"
+const descnome = "Kyóshe, o guarda da prisão"
+const descpadr = "Kyóshe, o guarda da prisão fica atento ao movimento externo."
+const descver = "Esse homem parece não ter felicidade, com o olhar sombrio em seu rosto você \
+pode perceber que não está aqui em brincadeiras."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 110
+const tipo1 = "pnj"
+const tipo2 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 10000
+const p_morreu1 = "$P cai sem vida."
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_ninja008
+herda comum_perso
+const nome = "O armeiro"
+const ident = "klaustron armeiro"
+const descnome = "Klaustron, o armeiro"
+const descpadr = "Klaustron, o armeiro está polindo suas armas."
+const descver = "este homem está desatento, no processo de polimento de suas armas."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_ninja009
+herda comum_persobat
+const nome = "cidadão de héros"
+const descnome = "Um cidadão de Héros"
+const descpadr = "Um cidadão de Héros anda calmamente por aqui."
+const descver = "Este cidadão parece muito calmo, isso está estampado em seu caminhar.\n\
+Aparentemente ele está indo para o trabalho."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 95
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 7000
+const p_morreu1 = "$P cai sem vida."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=42"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 20 * pnivel + 800
+  pveloc1 += 2 * pnivel + 400
+  atknorm += 10
+  defnorm += 430
+  deftipo.2 *= 0.5 # Contusão
+  deftipo.4 *= 0.5 # Cortante
+  deftipo.5 *= 0.5 # Perfurante
+
+
+classe p_ninja010
+herda comum_persobat
+const nome = "soldado samurai"
+const descnome = "Um soldado samurai"
+const descpadr = "Um soldado samurai está vigiando a cidade."
+const descver = "Este homem é forte, alto, e possui uma postura vigiante a sua volta."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 110
+const tipo1 = "pnj"
+const tipo2 = "normal"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 8000
+const p_morreu1 = "$P cai sem vida."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,h_lamina_longa=8,z_moedas=50"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_ninja011
+herda comum_persobat
+const nome = "guarda do palácio"
+const ident = "guarda palácio"
+const descnome = "um guarda do palácio"
+const descpadr = "Um guarda do palácio está aqui, atento aos seus movimentos."
+const descver = "Esse homem é muito sério em seu posto.\n\
+Com um olhar sombrio estampado em sua cara, ele vira para você e retorna ao posto original."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 120
+const tipo1 = "pnj"
+const tipo2 = "normal"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 10000
+const p_morreu1 = "$P cai sem vida."
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_ninja012
+herda comum_persobat
+const nome = "guarda do palácio"
+const ident = "guarda palácio"
+const descnome = "Um guarda do palácio"
+const descpadr = "Um guarda do palácio está aqui, atento aos seus movimentos."
+const descver = "Esse homem é muito sério em seu posto.\n\
+Com um olhar sombrio estampado em sua cara, ele vira para você e retorna ao posto original."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 130
+const tipo1 = "pnj"
+const tipo2 = "normal"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 10000
+const p_morreu1 = "$P cai sem vida."
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_ninja013
+herda comum_persobat
+const nome = "Imperador de Héros"
+const ident = "imperador"
+const descnome = "O imperador de Héros"
+const descpadr = "O imperador de Héros está aqui, administrando o seu império."
+const descver = "Este homem é bastante descontraído, porém muito determinado, sério na hora de \
+tomar suas decisões.\n\
+Por tal motivo, é o imperador desse glorioso império."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 140
+const tipo1 = "pnj"
+const tipo2 = "luz"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 20000
+const p_imortal = 0 # Imortal: Não
+const p_morreu1 = "$P cai sem vida."
+const inivar = "e_sanc=0"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100000
+  atknorm += 50
+  defesp += 50
+  atktipo.2 *= 3 # Contusão
+
+
+classe p_ninja014
+herda comum_persobat
+const nome = "mestre samurai"
+const ident = "mestre samurai"
+const descnome = "O mestre samurai"
+const descpadr = "O mestre samurai de Héros está aqui, praticando suas técnicas com espada."
+const descver = "Este forte homem é portador de um poder incrível, dono de habilidades incomparáv\
+eis."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const objmax = 1000
+const nivel = 180
+const tipo1 = "npc"
+const tipo2 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 35000
+const p_morreu1 = "$P cai sem vida."
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "e_sanc=0"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morrer
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$w... Ess$w nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão frac$t como você, \
+$R.\n\
+$A grita: arrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!\n\
+$A grita: Que o Deus Ekord te acompanhe, $R.\n\
+$A grita: Que o Deus Surt te acompanhe, $R.\n\
+$A grita: Que a Deusa Liza te acompanhe, $R.\n\
+$A grita: Que o Deus Seiya te acompanhe, $R.\n\
+$A grita: Que o Deus Herackles te acompanhe, $R.\n\
+$A grita: Me agradeçam! Pois matei $R, o ser mais feio deste mundo! Mhuahaaua"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100000
+
+
+classe p_ninja015
+herda comum_persobat
+const nome = "Ninja fugitivo"
+const ident = "ninja fugitivo"
+const descnome = "Um ninja fugitivo"
+const descpadr = "Um ninja fugitivo está aqui, sentado em um canto escuro da cela."
+const descver = "Esse homem tem uma tatuagem no rosto, com uma simbologia em japonez."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 130
+const tipo1 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 11000
+const p_morreu1 = "$P cai sem vida."
+const p_recebe = 1 # Recebe itens: Sim
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_ninja016
+herda comum_persobat
+const nome = "Um guardião samurai"
+const ident = "guardião samurai homem"
+const descnome = "Um guardião samurai"
+const descpadr = "Um imponente homem está parado aqui, guardando a entrada."
+const descver = "Este homem tem aproximadamente 2 metros de altura. Com seu corpo totalmente\n\
+musculoso, ele ergue-se imponente em sua frente, impedindo sua passagem.\n\
+Seus gélidos olhos azuis lhe perfuram como afiadas adagas, lhe fazendo dá\n\
+alguns paços para trás."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 145
+const tipo1 = "normal"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 10000
+const p_soltar = 2 # Dar e soltar: 2 Não se pode dar nem soltar
+const inivar = "h_segundo_ataque=8,h_lamina_longa=8,z_moedas=75"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 60000
+  atknorm += 145
+  defnorm += 145
+  precisao += 100
+
+
+classe p_ninja017
+herda comum_persobat
+const nome = "Um discípulo samurai"
+const ident = "Discípulo samurai"
+const descnome = "Um discípulo samurai"
+const descver = "Este discípulo samurai está em ótima forma. Com seus músculos começando \
+a\n\
+aparecer, ele demonstra muita coragem e fúria em seu olhar, o encarando sem\n\
+desviar os olhos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 145
+const tipo1 = "pnj"
+const tipo2 = "perfurante"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 100000
+const inivar = "h_segundo_ataque=8,z_moedas=70"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_ninja018
+herda comum_persobat
+const nome = "Um treinador samurai"
+const ident = "Treinador samurai"
+const descnome = "um treinador samurai"
+const descpadr = "um treinador samurai está dando ordens a seus discípulos aqui."
+const descver = "Este homem é alto é bem musculoso. Com uma katana em suas mãos, ele ensina\n\
+diversas técnicas de luta para seus discípulos, em quanto lhe observa de\n\
+soslaio."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 150
+const tipo1 = "pnj"
+const tipo2 = "normal"
+const tipo3 = "perfurante"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 199000
+const inivar = "h_segundo_ataque=8,z_moedas=75"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_ninja019
+herda comum_persobat
+const nome = "Sankey it, o primeiro mestre samurai."
+const ident = "Sankey mestre samurai"
+const descnome = "Sankey it, o primeiro mestre samurai"
+const descver = "Este homem é estremamente magro, porém contem músculos que chegam a dar\n\
+medo. Com seus braços fortes, ele empunha uma gigantesca catana prateada em\n\
+quanto olha para você."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 160
+const tipo1 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 199000
+const inivar = "h_segundo_ataque=8,h_lamina_longa=8,z_moedas=80"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 117000
+  atknorm += 140
+  precisao += 100
+
+
+classe p_ninja020
+herda comum_persobat
+const nome = "Sankey ni, o segundo mestre samurai"
+const ident = "Sankey mestre samurai"
+const descver = "Este homem é estremamente magro, porém contem músculos que chegam a dar\n\
+medo. Com seus braços fortes, ele empunha uma gigantesca catana prateada em\n\
+quanto olha para você."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 165
+const tipo1 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 199000
+const inivar = "h_segundo_ataque=8,h_lamina_longa=8,z_moedas=82"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 130000
+  atknorm += 150
+  precisao += 100
+
+
+classe p_ninja021
+herda comum_persobat
+const nome = "Sankey san, o terceiro mestre samurai"
+const ident = "Sankey mestre samurai"
+const descnome = "Sankey san, o mestre samurai"
+const descver = "Este homem é estremamente magro, porém contem músculos que chegam a dar\n\
+medo. Com seus braços fortes, ele empunha uma gigantesca catana prateada em\n\
+quanto olha para você."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 170
+const tipo1 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 199000
+const inivar = "h_segundo_ataque=8,h_lamina_longa=8,z_moedas=85"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 135000
+  atknorm += 155
+
+
+classe p_ninja022
+herda comum_persobat
+const nome = "Sankey shi, o quarto mestre samurai"
+const ident = "Sankey mestre samurai"
+const descnome = "Sankey shi, o quarto mestre samurai"
+const descver = "Este homem é estremamente magro, porém contem músculos que chegam a dar\n\
+medo. Com seus braços fortes, ele empunha uma gigantesca catana prateada em\n\
+quanto olha para você."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 172
+const tipo1 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 199000
+const inivar = "h_segundo_ataque=8,h_lamina_longa=8,z_moedas=86"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 150000
+  atknorm += 160
+
+
+classe p_ninja023
+herda comum_persobat
+const nome = "Sankey go, o quinto mestre samurai"
+const ident = "Sankey mestre samurai"
+const descnome = "Sankey go, o quinto mestre samurai"
+const descver = "Este homem é estremamente magro, porém contem músculos que chegam a dar\n\
+medo. Com seus braços fortes, ele empunha uma gigantesca catana prateada em\n\
+quanto olha para você."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 175
+const tipo1 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 199000
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,h_lamina_longa=8,z_moedas=88"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 160000
+  atknorm += 165
+
+
+classe p_ninja024
+herda comum_persobat
+const nome = "Kzoh Mahara, o lendário"
+const ident = "Kzoh Mahara Lendário"
+const descnome = "Kzoh Mahara, o lendário"
+const descver = "Este é Kzoh Mahara, o lendário mestre samurai. Dizem que durante as guerras\n\
+imperiais este homem foi o único que sobrou do seu clã, tendo lutado contra\n\
+900 soldados samurais, e sobrevivido. Ele o observa com cautela, em quanto\n\
+você se aproxima cada vez mais. A prezença que emana dele é tranquilisante e\n\
+ao mesmo tempo caótica, e você não sabe o que pode acontecer cazo você\n\
+chegue mais perto dele."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 185
+const tipo1 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 199000
+const inivar = "e_sanc=0,h_segundo_ataque=8,h_terceiro_ataque=8,h_quarto_ataque=8,h_defender=8,h_\
+lamina_longa=8,z_moedas=92"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos em sala: Sim
+const evest = 1
+
+func cmd_mover
+  se arg2 == "b"
+    $mens.p(arg0)
+    $mens.mvis1("Kzoh Mahara, o lendário empede $P de passar.")
+    ret 1
+
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200000
+  atknorm += 280
+  precisao += 230
+
+
+classe p_ninja025
+herda comum_persobat
+const nome = "Um ninja aprendiz"
+const ident = "Ninja aprendiz"
+const descnome = "Um ninja aprendiz"
+const descver = "Este ninja mesmo ainda sendo novo, demonstra muita coragem e habilidade.\n\
+Seu olhar percorre todo o seu corpo em quanto ele fica em pozição defenciva,\n\
+esperando seu ataque."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 165
+const tipo1 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 199000
+const inivar = "h_desvia=8,h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=70"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_ninja026
+herda comum_persobat
+const nome = "Um ninja treinador"
+const ident = "Ninja treinador"
+const descnome = "Um ninja treinador"
+const descver = "Este ninja tem os olhos totalmente focalisados em você. Com o cemblante\n\
+extremamente sério, ele o encara em quanto faz alguns jestos para seus\nalunos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 180
+const tipo1 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 199000
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,h_desvia=8,h_rasteira=8,z_moedas=90"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_ninja027
+herda comum_persobat
+const nome = "Ynomawah Sakura, a mestra dos ninjas"
+const ident = "Mulher ninja"
+const descnome = "Ynomawah Sakura"
+const descpadr = "Uma linda mulher está aqui, sentada em uma majestosa cadeira em quanto olha \
+fixamente para você."
+const descver = "Você está olhando para a garota mais linda que você algum dia sonhou em\n\
+seus devaneios mais profundos. Com olhos azuis como um lago sem fundo, levam\n\
+sua alma à uma meditação intensa, se não valeria a pena morrer afogado por\n\
+este feitiço de beleza. Sua pele branca, como a neve alva que banha os mais\n\
+longínquos polos de nosso planeta, lhe fazem ter impulsos irrefreáveis de\n\
+tocá-la. Cabelos  negros caem por seus ombros, dando-lhe uma postura robusta\n\
+de rainha. Seios fartos ressaltam ainda mais a curva de sua cintura, que\n\
+mesmo cingida por um cinto prateado levam sua imaginação a se perder em\n\
+tanto fulgor. Um vestido branco de linho, desce de seus ombros até a altura\n\
+dos seus joelhos, mas ainda assim não é grosso o bastante para esconder a\n\
+beleza  deslumbrante desta mulher. As cochas torneadas e que brilham ao\n\
+serem tocadas pela luz, só servem para levar ainda mais seu olhar para o\n\
+corpo divino que está em sua frente. O sorriso que desponta em seus lábios,\n\
+é lindo e misterioso."
+const nivel = 220
+const pospadr = 8 # Posição padrão: 8 Em pé
+const tipo1 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 199000
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,h_lamina_curta=8,h_desvia=8,h_defender=8,h\
+_apunhalar=8,z_moedas=100"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200000
+  atknorm += 100
+  defnorm += 100
+  defesp += -50
+  evasao += 80
+  precisao += 220
+  bitver |= 2048
+  atktipo.5 *= 0.3 # Perfurante
+
+
+classe p_ninja028
+herda comum_persobat
+const nome = "Saiury, a sacerdotisa ninja"
+const ident = "mulher"
+const descnome = "Saiury, a sacerdotisa ninja"
+const descpadr = "Uma bela mulher, com vestimentas brancas dorme aqui."
+const descver = "Esta jovem menina parece uma princesa. Com seus olhos castanhos e seu\n\
+cabelo loiro, ela o deixa enfeitissado na hora. Sua pele branca contrásta\n\
+com a luminozidade do ambiente, e você se imagina tendo-a em seus braços. Em\n\
+sua cabeça ela veste um elmo, e seu corpo é coberto apenas por finícimos\n\
+véis brancos, fazendo com que você veja todas as belas e delicadas curvas de\n\
+seu corpo escutural"
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const nivel = 185
+const pospadr = 4 # Posição padrão: 4 Dormindo
+const tipo1 = "npc"
+const tipo2 = "pnj"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 200000
+const inivar = "e_escudo_ar=0,e_sanc=0,e_barreira_areia=0,e_barreira_fogo=0,h_segundo_ataque=8,h_\
+terceiro_ataque=8,h_quarto_ataque=8,m_drenar_vida=8,m_sono_profundo=8 ,z_moedas=70"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 150000
+  pveloc1 += -100
+  precisao += 200
+
+
+classe s_ninja001
+herda b_ninja
+const s_titulo = "Uma estrada de pedra"
+const s_desc = "Você está passando por uma estrada repleta de pedras brancas, que brilham de uma \
+forma extraordinária.\n\
+Uma leve brisa cai sobre o solo, juntamente com um leve som dos pássaros, que toma conta do seu \
+ser."
+const dir_n = $s_ninja002
+const dir_o = $s_mar044
+
+
+classe s_ninja002
+herda b_ninja
+const s_titulo = "Uma estrada de pedra"
+const s_desc = "Você está passando por uma estrada repleta de pedras brancas, que brilham de uma \
+forma extraordinária.\n\
+Uma leve brisa cai sobre o solo, juntamente com um leve som dos pássaros, que toma conta do seu \
+ser."
+const dir_n = $s_ninja003
+const dir_s = $s_ninja001
+
+
+classe s_ninja003
+herda b_ninja
+const s_titulo = "Uma estrada de pedra"
+const s_desc = "Você está passando por uma estrada repleta de pedras brancas, que brilham de uma \
+forma extraordinária.\n\
+Uma leve brisa cai sobre o solo, juntamente com um leve som dos pássaros, que toma conta do seu \
+ser."
+const s_pnj = 1
+const dir_n = $s_ninja004
+const portaini_n = 3 # Estado inicial: 3 Porta trancada
+const portanome_n = "a grade"
+const portaartigo_n = 0 # Artigo porta: 0 a (porta)
+const fechadura_n = "grade"
+const comechave_n = 1 # Come chave: Sim
+const fecha_n = 1 # Fecha ao passar: Sim
+const tranc_n = 1 # Trancar: 1 Pode ser trancado
+const dir_s = $s_ninja002
+const a_reset = "P 100 ninja001 0 0 1 h_segundo_ataque=8,h_terceiro_ataque=8,h_lâmina_longa=8,z_m\
+oedas=45\n\
+I 100 ninja002 1\n\
+D 100 n 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  se p_ninja001:objsolto.total < 1
+    p = u = criar("p_ninja001", este, 0, "h_segundo_ataque=8,h_terceiro_ataque=8,h_lâmina_longa=8\
+,z_moedas=45")
+  fimse
+  u && criar("i_ninja002", u, 1)
+  mudaporta("n", 3)
+
+
+classe s_ninja004
+herda b_ninja
+const s_titulo = "Um pequeno bosque"
+const s_desc = "Você está em um pequeno bosque.\n\
+Um belo gramado acompanhado de árvores deixam o lugar mais agradável, trazendo até você uma \
+sensação de paz.\n\
+Pássaros cantam em uma perfeita harmonia, trazendo semelhanças de uma orquestra musical."
+const dir_n = $s_ninja007
+const dir_s = $s_ninja003
+const portaini_s = 3 # Estado inicial: 3 Porta trancada
+const portanome_s = "a grade"
+const fechadura_s = "grade"
+const fecha_s = 1 # Fecha ao passar: Sim
+const tranc_s = 1 # Trancar: 1 Pode ser trancado
+const dir_l = $s_ninja005
+const dir_o = $s_ninja006
+
+
+classe s_ninja005
+herda b_ninja
+const s_titulo = "Um pequeno bosque"
+const s_desc = "Você está em um pequeno bosque.\n\
+Um belo gramado acompanhado de árvores deixam o lugar mais agradável, trazendo até você uma \
+sensação de paz.\n\
+Pássaros cantam em uma perfeita harmonia, trazendo semelhanças de uma orquestra musical."
+const dir_n = $s_ninja008
+const dir_o = $s_ninja004
+
+
+classe s_ninja006
+herda b_ninja
+const s_titulo = "Um pequeno bosque"
+const s_desc = "Você está em um pequeno bosque.\n\
+Um belo gramado acompanhado de árvores deixam o lugar mais agradável, trazendo até você uma \
+sensação de paz.\n\
+Pássaros cantam em uma perfeita harmonia, trazendo semelhanças de uma orquestra musical."
+const dir_n = $s_ninja009
+const dir_l = $s_ninja004
+
+
+classe s_ninja007
+herda b_ninja
+const s_titulo = "Um pequeno bosque"
+const s_desc = "Você está em um pequeno bosque.\n\
+Um belo gramado acompanhado de árvores deixam o lugar mais agradável, trazendo até você uma \
+sensação de paz.\n\
+Pássaros cantam em uma perfeita harmonia, trazendo semelhanças de uma orquestra musical."
+const dir_n = $s_ninja010
+const dir_s = $s_ninja004
+const dir_l = $s_ninja008
+const dir_o = $s_ninja009
+const a_reset = "P 100 ninja002 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_ninja002:objsolto.total < 10
+    criar("p_ninja002", este, 0)
+  fimse
+
+
+classe s_ninja008
+herda b_ninja
+const s_titulo = "Um pequeno bosque"
+const s_desc = "Você está em um pequeno bosque.\n\
+Um belo gramado acompanhado de árvores deixam o lugar mais agradável, trazendo até você uma \
+sensação de paz.\n\
+Pássaros cantam em uma perfeita harmonia, trazendo semelhanças de uma orquestra musical."
+const dir_n = $s_ninja011
+const dir_s = $s_ninja005
+const dir_o = $s_ninja007
+
+
+classe s_ninja009
+herda b_ninja
+const s_titulo = "Um pequeno bosque"
+const s_desc = "Você está em um pequeno bosque.\n\
+Um belo gramado acompanhado de árvores deixam o lugar mais agradável, trazendo até você uma \
+sensação de paz.\n\
+Pássaros cantam em uma perfeita harmonia, trazendo semelhanças de uma orquestra musical."
+const dir_n = $s_ninja012
+const dir_s = $s_ninja006
+const dir_l = $s_ninja007
+
+
+classe s_ninja010
+herda b_ninja
+const s_titulo = "Um pequeno bosque"
+const s_desc = "Você está em um pequeno bosque.\n\
+Um belo gramado acompanhado de árvores deixam o lugar mais agradável, trazendo até você uma \
+sensação de paz.\n\
+Pássaros cantam em uma perfeita harmonia, trazendo semelhanças de uma orquestra musical."
+const dir_n = $s_ninja013
+const dir_s = $s_ninja007
+const dir_l = $s_ninja011
+const dir_o = $s_ninja012
+
+
+classe s_ninja011
+herda b_ninja
+const s_titulo = "Um pequeno bosque"
+const s_desc = "Você está em um pequeno bosque.\n\
+Um belo gramado acompanhado de árvores deixam o lugar mais agradável, trazendo até você uma \
+sensação de paz.\n\
+Pássaros cantam em uma perfeita harmonia, trazendo semelhanças de uma orquestra musical."
+const dir_s = $s_ninja008
+const dir_o = $s_ninja010
+
+
+classe s_ninja012
+herda b_ninja
+const s_titulo = "Um pequeno bosque"
+const s_desc = "Você está em um pequeno bosque.\n\
+Um belo gramado acompanhado de árvores deixam o lugar mais agradável, trazendo até você uma \
+sensação de paz.\n\
+Pássaros cantam em uma perfeita harmonia, trazendo semelhanças de uma orquestra musical."
+const dir_s = $s_ninja009
+const dir_l = $s_ninja010
+
+
+classe s_ninja013
+herda b_ninja
+const s_titulo = "Uma trilha estreita"
+const s_desc = "Você está passando por uma trilha estreita.\n\
+Um mato bastante alto estende-se por toda a trilha, possibilitando assim, a existência de \
+insetos e alguns outros animais.\n\
+Você pisa em um lugar muitas vezes úmido, porém o seu andar é seguro, já que o solo é coberto \
+por grama, e em algumas vezes, você pode observar pequenos vestígios de terra."
+const s_pnj = 0
+const dir_n = $s_ninja014
+const dir_s = $s_ninja010
+
+
+classe s_ninja014
+herda b_ninja
+const s_titulo = "Uma trilha estreita"
+const s_desc = "Você está passando por uma trilha estreita.\n\
+Um mato bastante alto estende-se por toda a trilha, possibilitando assim, a existência de \
+insetos e alguns outros animais.\n\
+Você pisa em um lugar muitas vezes úmido, porém o seu andar é seguro, já que o solo é coberto \
+por grama, e em algumas vezes, você pode observar pequenos vestígios de terra."
+const dir_n = $s_ninja015
+const dir_s = $s_ninja013
+
+
+classe s_ninja015
+herda b_ninja
+const s_titulo = "Uma trilha estreita"
+const s_desc = "Você está passando por uma trilha estreita.\n\
+Um mato bastante alto estende-se por toda a trilha, possibilitando assim, a existência de \
+insetos e alguns outros animais.\n\
+Você pisa em um lugar muitas vezes úmido, porém o seu andar é seguro, já que o solo é coberto \
+por grama, e em algumas vezes, você pode observar pequenos vestígios de terra."
+const dir_s = $s_ninja014
+const dir_l = $s_ninja016
+
+
+classe s_ninja016
+herda b_ninja
+const s_titulo = "Uma trilha estreita"
+const s_desc = "Você está passando por uma trilha estreita.\n\
+Um mato bastante alto estende-se por toda a trilha, possibilitando assim, a existência de \
+insetos e alguns outros animais.\n\
+Você pisa em um lugar muitas vezes úmido, porém o seu andar é seguro, já que o solo é coberto \
+por grama, e em algumas vezes, você pode observar pequenos vestígios de terra."
+const dir_l = $s_ninja017
+const dir_o = $s_ninja015
+
+
+classe s_ninja017
+herda b_ninja
+const s_titulo = "Uma trilha estreita"
+const s_desc = "Você está passando por uma trilha estreita.\n\
+Um mato bastante alto estende-se por toda a trilha, possibilitando assim, a existência de \
+insetos e alguns outros animais.\n\
+Você pisa em um lugar muitas vezes úmido, porém o seu andar é seguro, já que o solo é coberto \
+por grama, e em algumas vezes, você pode observar pequenos vestígios de terra."
+const dir_n = $s_ninja018
+const dir_o = $s_ninja016
+
+
+classe s_ninja018
+herda b_ninja
+const s_titulo = "Um pequeno morro"
+const s_desc = "Você está em um pequeno morro.\n\
+Esse morro é praticamente tomado por terra, porém em algumas pequenas partes é possível avistar \
+um gramado mínimo."
+const dir_s = $s_ninja017
+const dir_c = $s_ninja019
+
+
+classe s_ninja019
+herda b_ninja
+const s_titulo = "No alto do morro"
+const s_desc = "Você está no alto do morro.\n\
+Daqui a vista é maravilhosa, possibilitando a você, ver todos os lugares por onde passou.\n\
+Ao norte segue a trilha."
+const dir_n = $s_ninja020
+const dir_b = $s_ninja018
+
+
+classe s_ninja020
+herda b_ninja
+const s_titulo = "Uma trilha estreita"
+const s_desc = "Você está passando por uma trilha estreita.\n\
+Um mato bastante alto estende-se por toda a trilha, possibilitando assim, a existência de \
+insetos e alguns outros animais.\n\
+Você pisa em um lugar muitas vezes úmido, porém o seu andar é seguro, já que o solo é coberto \
+por grama, e em algumas vezes, você pode observar pequenos vestígios de terra."
+const dir_s = $s_ninja019
+const dir_l = $s_ninja021
+
+
+classe s_ninja021
+herda b_ninja
+const s_titulo = "Uma trilha estreita"
+const s_desc = "Você está passando por uma trilha estreita.\n\
+Um mato bastante alto estende-se por toda a trilha, possibilitando assim, a existência de \
+insetos e alguns outros animais.\n\
+Você pisa em um lugar muitas vezes úmido, porém o seu andar é seguro, já que o solo é coberto \
+por grama, e em algumas vezes, você pode observar pequenos vestígios de terra."
+const dir_n = $s_ninja022
+const dir_o = $s_ninja020
+
+
+classe s_ninja022
+herda b_ninja
+const s_titulo = "Uma trilha estreita"
+const s_desc = "Você está passando por uma trilha estreita.\n\
+Um mato bastante alto estende-se por toda a trilha, possibilitando assim, a existência de \
+insetos e alguns outros animais.\n\
+Você pisa em um lugar muitas vezes úmido, porém o seu andar é seguro, já que o solo é coberto \
+por grama, e em algumas vezes, você pode observar pequenos vestígios de terra."
+const dir_n = $s_ninja023
+const dir_s = $s_ninja021
+
+
+classe s_ninja023
+herda b_ninja
+const s_titulo = "O final de uma trilha estreita"
+const s_desc = "Após muito andar, finalmente você chega ao final da trilha.\n\
+Um mato bastante alto estende-se por toda a trilha, possibilitando assim, a existência de \
+insetos e alguns outros animais.\n\
+Você pisa em um lugar muitas vezes úmido, porém o seu andar é seguro, já que o solo é coberto \
+por grama, e em algumas vezes, você pode observar pequenos vestígios de terra."
+const s_pnj = 0
+const dir_s = $s_ninja022
+const dir_c = $s_ninja024
+
+
+classe s_ninja024
+herda b_ninja
+const s_titulo = "Os portões de Héros"
+const s_desc = "Você está diante dos grandes portões de Héros.\n\
+Os portões são feitos de um material desconhecido, porém muito parecido com titãnio.\n\
+Muitas pessoas perambulam de um lado para outro a todo instante."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_ninja025
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "Os portões de Héros"
+const portaartigo_n = 3 # Artigo porta: 3 os (portões)
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_b = $s_ninja023
+
+
+classe s_ninja025
+herda b_ninja
+const s_titulo = "A avenida da lua cheia"
+const s_desc = "Você está passando pela avenida da lua cheia.\n\
+Nossa, avenidas iguais a essa é difícil de se ver hoje em dia. Uma pavimentação espetacular, com \
+sinalizações precisas.\n\
+O movimento de pessoas por aqui é enorme.\n\
+Agora você se pergunta: - Por que avenida da lua cheia?\n\
+As lâmpadas nos postes são de um formato esférico, semelhante a uma lua cheia."
+const dir_n = $s_ninja026
+const dir_s = $s_ninja024
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "Os portões de Héros"
+const portaartigo_s = 3 # Artigo porta: 3 os (portões)
+const fecha_s = 1 # Fecha ao passar: Sim
+
+
+classe s_ninja026
+herda b_ninja
+const s_titulo = "A avenida da lua cheia"
+const s_desc = "Você está passando pela avenida da lua cheia.\n\
+Nossa, avenidas iguais a essa é difícil de se ver hoje em dia. Uma pavimentação espetacular, com \
+sinalizações precisas.\n\
+O movimento de pessoas por aqui é enorme.\n\
+Agora você se pergunta: - Por que avenida da lua cheia?\n\
+As lâmpadas nos postes são de um formato esférico, semelhante a uma lua cheia."
+const dir_n = $s_ninja027
+const dir_s = $s_ninja025
+const dir_l = $s_ninja043
+const dir_o = $s_ninja044
+const a_reset = "P 100 ninja009 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_ninja009:objsolto.total < 10
+    criar("p_ninja009", este, 0)
+  fimse
+
+
+classe s_ninja027
+herda b_ninja
+const s_titulo = "A avenida da lua cheia"
+const s_desc = "Você está passando pela avenida da lua cheia.\n\
+Nossa, avenidas iguais a essa é difícil de se ver hoje em dia. Uma pavimentação espetacular, com \
+sinalizações precisas.\n\
+O movimento de pessoas por aqui é enorme.\n\
+Agora você se pergunta: - Por que avenida da lua cheia?\n\
+As lâmpadas nos postes são de um formato esférico, semelhante a uma lua cheia."
+const dir_n = $s_ninja028
+const dir_s = $s_ninja026
+
+
+classe s_ninja028
+herda b_ninja
+const s_titulo = "O centro de Héros"
+const s_desc = "Você está no centro de Héros, ou cruzamento das avenidas lua cheia e por do \
+sol.\n\
+Uma enorme quantia de pessoas transitam por esse lugar, perambulando de um lado para outro.\n\
+Uma grandiosa estátua do imperador de Héros foi construída no meio do local."
+const s_recup = 230
+const dir_n = $s_ninja029
+const dir_s = $s_ninja027
+const dir_l = $s_ninja033
+const dir_o = $s_ninja036
+const s_reset = "S 100 ninja003 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_ninja003") && criar("i_ninja003", este, 1)
+
+const a_reset = "P 100 ninja010 0 0 10\nE 100 ninja004 1 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja010:objsolto.total < 10
+    p = u = criar("p_ninja010", este, 0)
+  fimse
+  se u
+    r = criar("i_ninja004", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_ninja029
+herda b_ninja
+const s_titulo = "A avenida da lua cheia"
+const s_desc = "Você está passando pela avenida da lua cheia.\n\
+Nossa, avenidas iguais a essa é difícil de se ver hoje em dia. Uma pavimentação espetacular, com \
+sinalizações precisas.\n\
+O movimento de pessoas por aqui é enorme.\n\
+Agora você se pergunta: - Por que avenida da lua cheia?\n\
+As lâmpadas nos postes são de um formato esférico, semelhante a uma lua cheia."
+const dir_n = $s_ninja030
+const dir_s = $s_ninja028
+
+
+classe s_ninja030
+herda b_ninja
+const s_titulo = "A avenida da lua cheia"
+const s_desc = "Você está passando pela avenida da lua cheia.\n\
+Nossa, avenidas iguais a essa é difícil de se ver hoje em dia. Uma pavimentação espetacular, com \
+sinalizações precisas.\n\
+O movimento de pessoas por aqui é enorme.\n\
+Agora você se pergunta: - Por que avenida da lua cheia?\n\
+As lâmpadas nos postes são de um formato esférico, semelhante a uma lua cheia."
+const dir_n = $s_ninja031
+const dir_s = $s_ninja029
+const dir_l = $s_ninja040
+const dir_o = $s_ninja042
+
+
+classe s_ninja031
+herda b_ninja
+const s_titulo = "A avenida da lua cheia"
+const s_desc = "Você está passando pela avenida da lua cheia.\n\
+Nossa, avenidas iguais a essa é difícil de se ver hoje em dia. Uma pavimentação espetacular, com \
+sinalizações precisas.\n\
+O movimento de pessoas por aqui é enorme.\n\
+Agora você se pergunta: - Por que avenida da lua cheia?\n\
+As lâmpadas nos postes são de um formato esférico, semelhante a uma lua cheia."
+const dir_n = $s_ninja032
+const dir_s = $s_ninja030
+const a_reset = "P 100 ninja009 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_ninja009:objsolto.total < 10
+    criar("p_ninja009", este, 0)
+  fimse
+
+
+classe s_ninja032
+herda b_ninja
+const s_titulo = "Diante do Palácio"
+const s_desc = "Você está diante do palácio de Héros.\n\
+Um grande portão tranca a sua passagem, impossibilitando a sua entrada no palácio.\n\
+O palácio é de uma beleza sem igual."
+const s_pnj = 0
+const dir_n = $s_ninja039
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "O portão do palácio"
+const portaartigo_n = 2 # Artigo porta: 2 o (portão)
+const dir_s = $s_ninja031
+
+
+classe s_ninja033
+herda b_ninja
+const s_titulo = "A avenida do por do sol"
+const s_desc = "Você está na avenida do por do sol.\n\
+O movimento de aventureiros por aqui é grande, juntamente com os demais habitantes da cidade.\n\
+A avenida ganhou esse nome pelo fato de que no chão existe pinturas alaranjadas, lembrando muito \
+o por do sol."
+const dir_l = $s_ninja034
+const dir_o = $s_ninja028
+
+
+classe s_ninja034
+herda b_ninja
+const s_titulo = "A avenida do por do sol"
+const s_desc = "Você está na avenida do por do sol.\n\
+O movimento de aventureiros por aqui é grande, juntamente com os demais habitantes da cidade.\n\
+A avenida ganhou esse nome pelo fato de que no chão existe pinturas alaranjadas, lembrando muito \
+o por do sol."
+const dir_n = $s_ninja045
+const dir_s = $s_ninja046
+const dir_l = $s_ninja035
+const dir_o = $s_ninja033
+
+
+classe s_ninja035
+herda b_ninja
+const s_titulo = "A avenida do por do sol"
+const s_desc = "Você está na avenida do por do sol.\n\
+O movimento de aventureiros por aqui é grande, juntamente com os demais habitantes da cidade.\n\
+A avenida ganhou esse nome pelo fato de que no chão existe pinturas alaranjadas, lembrando muito \
+o por do sol."
+const dir_o = $s_ninja034
+const a_reset = "P 100 ninja010 0 0 10\nE 100 ninja004 1 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja010:objsolto.total < 10
+    p = u = criar("p_ninja010", este, 0)
+  fimse
+  se u
+    r = criar("i_ninja004", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_ninja036
+herda b_ninja
+const s_titulo = "A avenida do por do sol"
+const s_desc = "Você está na avenida do por do sol.\n\
+O movimento de aventureiros por aqui é grande, juntamente com os demais habitantes da cidade.\n\
+A avenida ganhou esse nome pelo fato de que no chão existe pinturas alaranjadas, lembrando muito \
+o por do sol."
+const dir_l = $s_ninja028
+const dir_o = $s_ninja037
+const a_reset = "P 100 ninja009 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_ninja009:objsolto.total < 10
+    criar("p_ninja009", este, 0)
+  fimse
+
+
+classe s_ninja037
+herda b_ninja
+const s_titulo = "A avenida do por do sol"
+const s_desc = "Você está na avenida do por do sol.\n\
+O movimento de aventureiros por aqui é grande, juntamente com os demais habitantes da cidade.\n\
+A avenida ganhou esse nome pelo fato de que no chão existe pinturas alaranjadas, lembrando muito \
+o por do sol."
+const dir_n = $s_ninja047
+const dir_s = $s_ninja048
+const dir_l = $s_ninja036
+const dir_o = $s_ninja038
+
+
+classe s_ninja038
+herda b_ninja
+const s_titulo = "A avenida do por do sol"
+const s_desc = "Você está na avenida do por do sol.\n\
+O movimento de aventureiros por aqui é grande, juntamente com os demais habitantes da cidade.\n\
+A avenida ganhou esse nome pelo fato de que no chão existe pinturas alaranjadas, lembrando muito \
+o por do sol."
+const dir_l = $s_ninja037
+const a_reset = "P 100 ninja010 0 0 10\nE 100 ninja004 1 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja010:objsolto.total < 10
+    p = u = criar("p_ninja010", este, 0)
+  fimse
+  se u
+    r = criar("i_ninja004", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_ninja039
+herda b_ninja
+const s_titulo = "A entrada do Palácio"
+const s_desc = "Você está na entrada do palácio de Héros.\n\
+Várias tochas embelezam o lugar, dando um brilho especial à noite.\n\
+Alguns guardas ficam na vigia do portão principal do palácio."
+const s_semmagia = 1 # Sem magia: Sim
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_ninja050
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "O portão principal do palácio"
+const portaartigo_n = 2 # Artigo porta: 2 o (portão)
+const fechadura_n = "palácio"
+const comechave_n = 1 # Come chave: Sim
+const fugir_n = 1 # Sem fuga: Sim
+const fecha_n = 1 # Fecha ao passar: Sim
+const tranc_n = 1 # Trancar: 1 Pode ser trancado
+const dir_s = $s_ninja032
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "O portão do palácio"
+const portaartigo_s = 2 # Artigo porta: 2 o (portão)
+const a_reset = "P 100 ninja011 0 0 5 h_segundo_ataque=8,h_terceiro_ataque=8,h_lamina_longa=8,z_m\
+oedas=53\n\
+D 100 n 3\n\
+E 100 ninja007 0 0\n\
+I 100 ninja018 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja011:objsolto.total < 5
+    p = u = criar("p_ninja011", este, 0, "h_segundo_ataque=8,h_terceiro_ataque=8,h_lamina_longa=8\
+,z_moedas=53")
+  fimse
+  mudaporta("n", 3)
+  se u
+    r = criar("i_ninja007", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  u && criar("i_ninja018", u, 1)
+
+
+classe s_ninja040
+herda b_ninja
+const s_titulo = "A entrada para o dojo"
+const s_desc = "Essa é uma sala bem pequena, porèm repleta de artigos exóticos.\n\
+Algumas estátuas de Ninjas e Samurais embelezam o lugar, juntamente com vários quadros afixados \
+nas paredes."
+const s_pnj = 0
+const dir_l = $s_ninja041
+const dir_o = $s_ninja030
+
+
+classe s_ninja041
+herda b_ninja
+const s_titulo = "A sala de treinamento do dojo"
+const s_desc = "Essa é uma sala um pouco maior do que a anterior. Vários objetos de luta\n\
+estão guardados em pequenas prateleiras. Um homem empunhando uma bela espada\n\
+se ergue imponente em sua frente, em quanto fixa o olhar no orisonte. \n\
+Alguns ruídos podem ser ouvidos a cima, porém são muito baixos para serem\n\
+destinguidos. O que será isto?"
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const eveste = 1 # Eventos sala: Sim
+const dir_o = $s_ninja040
+const dir_c = $s_ninja052
+const inv_c = 1 # Invisível: Sim
+const a_reset = "P 100 ninja014 0 0 1 h_segundo_ataque=8,h_terceiro_ataque=8,h_lamina_longa=8,z_m\
+oedas=90\n\
+E 100 ninja006 1 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja014:objsolto.total < 1
+    p = u = criar("p_ninja014", este, 0, "h_segundo_ataque=8,h_terceiro_ataque=8,h_lamina_longa=8\
+,z_moedas=90")
+  fimse
+  se u
+    r = criar("i_ninja006", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+
+func cmd_morreu
+  ret !jog, nulo
+  criar("I_dragunia018", dono)
+
+func cmd_mover
+  se arg2 == "c" && arg0.prenascer < 11
+    arg0.msg(config:msgnaoseguir)
+    ret 1
+  fimse
+
+
+classe s_ninja042
+herda b_ninja
+const s_titulo = "A loja de armas de Héros"
+const s_desc = "Você está na loja de armas de Héros\n\
+Muitas armas estão a mostra nas paredes.\n\
+O movimento de pessoas por aqui é extremamente alto."
+const s_luta = 0 # Batalha: 0 Pacífico
+const dir_l = $s_ninja030
+const a_reset = "P 100 ninja008 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_ninja008:objsolto.total < 1
+    criar("p_ninja008", este, 0)
+  fimse
+
+
+classe s_ninja043
+herda b_ninja
+const s_titulo = "O restaurante de Héros"
+const s_desc = "Você está no restaurante de Héros.\n\
+Um delicioso aroma entra por suas narinas, causando-lhe uma fome incontrolável.\n\
+Esse restaurante é muito famoso por suas comidas exóticas, e por atender toda a região."
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_pnj = 0
+const dir_o = $s_ninja026
+const s_reset = "P 100 ninja003 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_ninja003:objsolto.total < 1
+    criar("p_ninja003", este, 0)
+  fimse
+
+
+classe s_ninja044
+herda b_ninja
+const s_titulo = "Uma loja destruída"
+const s_desc = "Você está em uma loja completamente destruída.\n\
+Ao chegar aqui, a única coisa que você consegue observar com maior nitidez é a sujeira.\n\
+Partes de paredes quebradas, tijolos jogados ao chão, Bem... Apenas entulhos e mais entulhos."
+const dir_l = $s_ninja026
+
+
+classe s_ninja045
+herda b_ninja
+const s_titulo = "A loja de magias"
+const s_desc = "Você está na loja de magias de Héros.\n\
+Poções, pergaminhos, bastões, etc... Tudo isso é o que compõe essa tão famosa loja de artigos \
+mágicos."
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_pnj = 0
+const dir_s = $s_ninja034
+const a_reset = "P 100 ninja004 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_ninja004:objsolto.total < 1
+    criar("p_ninja004", este, 0)
+  fimse
+
+
+classe s_ninja046
+herda b_ninja
+const s_titulo = "A peixaria"
+const s_desc = "Você está na peixaria de Héros.\n\
+Um grande aquário está no canto esquerdo da loja, e um enorme tanque com água guarda várias \
+espécies diferentes de peixes."
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_pnj = 0
+const dir_n = $s_ninja034
+const a_reset = "P 100 ninja005 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_ninja005:objsolto.total < 1
+    criar("p_ninja005", este, 0)
+  fimse
+
+
+classe s_ninja047
+herda b_ninja
+const s_titulo = "Padaria sorriso do sol"
+const s_desc = "Você está na padaria sorriso do sol.\n\
+Uma grande variedade de doces é possível de se ver neste local. Mas não são apenas doces, são \
+considerados por muitos o melhor doce do mundo.\n\
+Uma placa com um desenho do sol, com um belo sorriso, está afixada na parede da direita, \
+chamando a atenção de todos."
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_pnj = 0
+const dir_s = $s_ninja037
+const a_reset = "P 100 ninja006 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_ninja006:objsolto.total < 1
+    criar("p_ninja006", este, 0)
+  fimse
+
+
+classe s_ninja048
+herda b_ninja
+const s_titulo = "A prisão"
+const s_desc = "Você está em uma pequena prisão.\n\
+O lugar é muito pequeno, porém bem preparado para o que vier.\n\
+Não é a toa que um dos mais perigosos bandidos está aqui, sofrendo as consequências."
+const dir_n = $s_ninja037
+const dir_l = $s_ninja049
+const portaini_l = 3 # Estado inicial: 3 Porta trancada
+const portanome_l = "a grade da cela"
+const fechadura_l = "ninja"
+const comechave_l = 1 # Come chave: Sim
+const fecha_l = 1 # Fecha ao passar: Sim
+const tranc_l = 1 # Trancar: 1 Pode ser trancado
+const a_reset = "P 100 ninja007 0 0 1 h_segundo_ataque=8,h_terceiro_ataque=8,h_lâmina_longa=8,z_m\
+oedas=46\n\
+I 100 ninja001 1\n\
+D 100 l 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  se p_ninja007:objsolto.total < 1
+    p = u = criar("p_ninja007", este, 0, "h_segundo_ataque=8,h_terceiro_ataque=8,h_lâmina_longa=8\
+,z_moedas=46")
+  fimse
+  u && criar("i_ninja001", u, 1)
+  mudaporta("l", 3)
+
+
+classe s_ninja049
+herda b_ninja
+const s_titulo = "Uma cela"
+const s_desc = "Você está em uma cela escura.\n\
+As únicas luzes provenientes no local são dos postes de luz da rua.\n\
+O local é pequeno, porém capaz de receber qualquer um que ouse infligir as regras humanas \
+perante a lei."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_o = $s_ninja048
+const portaini_o = 3 # Estado inicial: 3 Porta trancada
+const portanome_o = "A grade da cela"
+const fechadura_o = "ninja"
+const fecha_o = 1 # Fecha ao passar: Sim
+const tranc_o = 1 # Trancar: 1 Pode ser trancado
+const a_reset = "P 100 ninja015 0 0 1 h_segundo_ataque=8,h_terceiro_ataque=8,h_lamina_curta=8,z_m\
+oedas=1\n\
+E 100 ninja005 1 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja015:objsolto.total < 1
+    p = u = criar("p_ninja015", este, 0, "h_segundo_ataque=8,h_terceiro_ataque=8,h_lamina_curta=8\
+,z_moedas=1")
+  fimse
+  se u
+    r = criar("i_ninja005", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_ninja050
+herda b_ninja
+const s_titulo = "Um corredor no palácio"
+const s_desc = "Você está passando por um corredor no palácio.\n\
+Vários quadros deixam visível quais eram os antigos imperadores, e o que fizeram em prol da \
+população.\n\
+O corredor é belamente decorado com pedras de diamante."
+const s_semmagia = 1 # Sem magia: Sim
+const dir_n = $s_ninja051
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "os portões de ferro do trono"
+const portaartigo_n = 3 # Artigo porta: 3 os (portões)
+const fechadura_n = "imperador"
+const comechave_n = 1 # Come chave: Sim
+const fugir_n = 1 # Sem fuga: Sim
+const fecha_n = 1 # Fecha ao passar: Sim
+const tranc_n = 1 # Trancar: 1 Pode ser trancado
+const dir_s = $s_ninja039
+const portaini_s = 3 # Estado inicial: 3 Porta trancada
+const portanome_s = "o portão principal do palácio"
+const portaartigo_s = 2 # Artigo porta: 2 o (portão)
+const fecha_s = 1 # Fecha ao passar: Sim
+const tranc_s = 1 # Trancar: 1 Pode ser trancado
+const a_reset = "P 100 ninja012 0 0 5 h_segundo_ataque=8,h_terceiro_ataque=8,h_lamina_longa=8,z_m\
+oedas=55\n\
+D 100 n 3\n\
+E 100 ninja007 0 0\n\
+I 100 ninja019 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja012:objsolto.total < 5
+    p = u = criar("p_ninja012", este, 0, "h_segundo_ataque=8,h_terceiro_ataque=8,h_lamina_longa=8\
+,z_moedas=55")
+  fimse
+  mudaporta("n", 3)
+  se u
+    r = criar("i_ninja007", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  u && criar("i_ninja019", u, 1)
+
+
+classe s_ninja051
+herda b_ninja
+const s_titulo = "O trono do imperador"
+const s_desc = "O trono de ouro do imperador de Héros.\n\
+O trono é muito bem construído, com sua estrutura completamente dourada, com pequenos detalhes \
+em prata.\n\
+Lendas contam que os restos mortais do autor desta obra foram enterrados logo a baixo do \
+trono."
+const s_semmagia = 1 # Sem magia: Sim
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const dir_s = $s_ninja050
+const portaini_s = 3 # Estado inicial: 3 Porta trancada
+const portanome_s = "os portões de ferro do trono"
+const portaartigo_s = 3 # Artigo porta: 3 os (portões)
+const fecha_s = 1 # Fecha ao passar: Sim
+const tranc_s = 1 # Trancar: 1 Pode ser trancado
+const a_reset = "P 100 ninja013 0 0 1 h_segundo_ataque=8,h_terceiro_ataque=8,lamina_longa=8,z_moe\
+das=60\n\
+E 100 ninja008 0 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja013:objsolto.total < 1
+    p = u = criar("p_ninja013", este, 0, "h_segundo_ataque=8,h_terceiro_ataque=8,lamina_longa=8,z\
+_moedas=60")
+  fimse
+  se u
+    r = criar("i_ninja008", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_ninja052
+herda b_ninja
+const s_titulo = "Uma escadaria"
+const s_desc = " Você se encontra em uma pequena escadaria.  Com as paredes totalmente\n\
+brancas, Esta escada se estende até uma porta, guardada por muitos guardas\n\
+que podem ser vistos em posição."
+const dir_c = $s_ninja053
+const dir_b = $s_ninja041
+
+
+classe s_ninja053
+herda b_ninja
+const s_titulo = "Uma escadaria"
+const s_desc = " Você se encontra em uma pequena escadaria.  Com as paredes totalmente\n\
+brancas, Esta escada se estende até uma porta, guardada por muitos guardas\n\
+que podem ser vistos em posição."
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const eveste = 1 # Eventos sala: Sim
+const dir_c = $s_ninja054
+const portaini_c = 2 # Estado inicial: 2 Porta fechada
+const portanome_c = "Uma pesada porta de prata"
+const fechadura_c = "ninja123456"
+const comechave_c = 1 # Come chave: Sim
+const fecha_c = 1 # Fecha ao passar: Sim
+const tranc_c = 0 # Trancar: 0 Não pode ser trancado
+const dir_b = $s_ninja052
+const a_reset = "P 100 ninja016 0 0 1\n\
+I 100 ninja009 1\n\
+E 100 ninja011 0 0\n\
+D 100 c 3\n\
+D 100 c 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja016:objsolto.total < 1
+    p = u = criar("p_ninja016", este, 0)
+  fimse
+  u && criar("i_ninja009", u, 1)
+  se u
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  mudaporta("c", 3)
+  mudaporta("c", 3)
+
+
+classe s_ninja054
+herda b_ninja
+const s_titulo = "O segundo andar"
+const s_desc = " Este é o segundo andar do dojo.  Você consegue ouvir barúlhos de espadas\n\
+em norte e sul, em quanto do leste e oeste você observa um longo corredor \n\
+que se estende ao longe.  O chão é coberto por um espeço carpete branco, e \n\
+as paredes por uma longa e grossa cortina de peles."
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_ninja056
+const dir_s = $s_ninja055
+const dir_l = $s_ninja057
+const dir_o = $s_ninja058
+const dir_b = $s_ninja053
+const portaini_b = 2 # Estado inicial: 2 Porta fechada
+const portanome_b = "Uma pesada porta de prata"
+const fechadura_b = "ninja123456"
+const comechave_b = 1 # Come chave: Sim
+const tranc_b = 2 # Trancar: 2 Tranca ao fechar
+
+
+classe s_ninja055
+herda b_ninja
+const s_titulo = "Uma sala de treinamento"
+const s_desc = "  Esta é a sala de treinamento dos samurais.  Diversas espadas e pedaços \
+de\n\
+ferros estão empilhados em um canto da sala, dando a ela um aspecto estranho\n\
+e ao mesmo tempo tenebroso.  Cortinas brancas cobrem toda a parede, e\n\
+balançam sem parar com o vento.  Um pequeno sino está preso no teto, em\n\
+quanto vários outros estão na parede, circundando toda a sala."
+const dir_n = $s_ninja054
+const ver_cino = "Um pesado cino de ouro.\n\
+Algumas inscrições em japonês podem ser vistas, porém você não sabe o idioma.\n\
+Parecendo sentir o seu olhar sobre ele, o cino balança várias vezes em quanto libera seus \
+tilintares agudos e estridentes."
+const a_reset = "P 100 ninja017 0 0 48\n\
+E 50 ninja011 0 0\n\
+P 100 ninja018 0 0 16\n\
+E 65 ninja011 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja017:objsolto.total < 48
+    p = u = criar("p_ninja017", este, 0)
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  p = u = nulo
+  se p_ninja018:objsolto.total < 16
+    p = u = criar("p_ninja018", este, 0)
+  fimse
+  se u && rand(100) < 65
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_ninja056
+herda b_ninja
+const s_titulo = "Uma sala de treinamento"
+const s_desc = "  Esta é a sala de treinamento dos samurais.  Diversas espadas e pedaços \
+de\n\
+ferros estão empilhados em um canto da sala, dando a ela um aspecto estranho\n\
+e ao mesmo tempo tenebroso.  Cortinas brancas cobrem toda a parede, e\n\
+balançam sem parar com o vento.  Um pequeno sino está preso no teto, em\n\
+quanto vários outros estão na parede, circundando toda a sala."
+const dir_s = $s_ninja054
+const ver_cino = "Um pesado cino de ouro.\n\
+Algumas inscrições em japonês podem ser vistas, porém você não sabe o idioma.\n\
+Parecendo sentir o seu olhar sobre ele, o cino balança várias vezes em quanto libera seus \
+tilintares agudos e estridentes."
+const a_reset = "P 100 ninja017 0 0 48\n\
+E 50 ninja011 0 0\n\
+P 100 ninja018 0 0 16\n\
+E 65 ninja011 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja017:objsolto.total < 48
+    p = u = criar("p_ninja017", este, 0)
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  p = u = nulo
+  se p_ninja018:objsolto.total < 16
+    p = u = criar("p_ninja018", este, 0)
+  fimse
+  se u && rand(100) < 65
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_ninja057
+herda b_ninja
+const s_titulo = "Um corredor"
+const s_desc = " Este é o segundo andar do dojo.  Você consegue ouvir barúlhos de espadas\n\
+em norte e sul, em quanto do leste e oeste você observa um longo corredor \n\
+que se estende ao longe.  O chão é coberto por um espeço carpete branco, e \n\
+as paredes por uma longa e grossa cortina de peles."
+const dir_n = $s_ninja076
+const dir_s = $s_ninja077
+const dir_l = $s_ninja067
+const dir_o = $s_ninja054
+
+
+classe s_ninja058
+herda b_ninja
+const s_titulo = "Um corredor"
+const s_desc = ""
+const dir_n = $s_ninja065
+const dir_s = $s_ninja066
+const dir_l = $s_ninja054
+const dir_o = $s_ninja059
+
+
+classe s_ninja059
+herda b_ninja
+const s_titulo = "Um corredor"
+const s_desc = ""
+const dir_n = $s_ninja063
+const dir_s = $s_ninja064
+const dir_l = $s_ninja058
+const dir_o = $s_ninja060
+
+
+classe s_ninja060
+herda b_ninja
+const s_titulo = "O final do corredor"
+const s_desc = " Este é o final leste do corredor.  Barúlho de espadas podem ser ouvidos em\n\
+ norte e sul, em quanto do leste você observa um longo corredor  que se \n\
+estende ao longe.  O chão é coberto por um espeço carpete branco, e  as \n\
+paredes por uma longa e grossa cortina de peles."
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_ninja062
+const dir_s = $s_ninja061
+const dir_l = $s_ninja059
+const dir_b = $s_ninja084
+const inv_b = 1 # Invisível: Sim
+
+func cmd_salaperso
+  misc:tempo("entrou", arg0)
+
+func entrou1
+  arg0.msg("Você sente algo escondido por aqui!")
+  ret 1
+
+
+classe s_ninja061
+herda b_ninja
+const s_titulo = "Uma sala de treinamento"
+const s_desc = "  Esta é a sala de treinamento dos samurais.  Diversas espadas e pedaços \
+de\n\
+ferros estão empilhados em um canto da sala, dando a ela um aspecto estranho\n\
+e ao mesmo tempo tenebroso.  Cortinas brancas cobrem toda a parede, e\n\
+balançam sem parar com o vento.  Um pequeno sino está preso no teto, em\n\
+quanto vários outros estão na parede, circundando toda a sala."
+const dir_n = $s_ninja060
+const ver_cino = "Um pesado cino de ouro.\n\
+Algumas inscrições em japonês podem ser vistas, porém você não sabe o idioma.\n\
+Parecendo sentir o seu olhar sobre ele, o cino balança várias vezes em quanto libera seus \
+tilintares agudos e estridentes."
+const a_reset = "P 100 ninja017 0 0 48\n\
+E 50 ninja011 0 0\n\
+P 100 ninja018 0 0 16\n\
+E 65 ninja011 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja017:objsolto.total < 48
+    p = u = criar("p_ninja017", este, 0)
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  p = u = nulo
+  se p_ninja018:objsolto.total < 16
+    p = u = criar("p_ninja018", este, 0)
+  fimse
+  se u && rand(100) < 65
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_ninja062
+herda b_ninja
+const s_titulo = "Uma sala de treinamento"
+const s_desc = "  Esta é a sala de treinamento dos samurais.  Diversas espadas e pedaços \
+de\n\
+ferros estão empilhados em um canto da sala, dando a ela um aspecto estranho\n\
+e ao mesmo tempo tenebroso.  Cortinas brancas cobrem toda a parede, e\n\
+balançam sem parar com o vento.  Um pequeno sino está preso no teto, em\n\
+quanto vários outros estão na parede, circundando toda a sala."
+const dir_s = $s_ninja060
+const ver_cino = "Um pesado cino de ouro.\n\
+Algumas inscrições em japonês podem ser vistas, porém você não sabe o idioma.\n\
+Parecendo sentir o seu olhar sobre ele, o cino balança várias vezes em quanto libera seus \
+tilintares agudos e estridentes."
+const a_reset = "P 100 ninja017 0 0 48\n\
+E 50 ninja011 0 0\n\
+P 100 ninja018 0 0 16\n\
+E 65 ninja011 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja017:objsolto.total < 48
+    p = u = criar("p_ninja017", este, 0)
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  p = u = nulo
+  se p_ninja018:objsolto.total < 16
+    p = u = criar("p_ninja018", este, 0)
+  fimse
+  se u && rand(100) < 65
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_ninja063
+herda b_ninja
+const s_titulo = "Uma sala de treinamento"
+const s_desc = "  Esta é a sala de treinamento dos samurais.  Diversas espadas e pedaços \
+de\n\
+ferros estão empilhados em um canto da sala, dando a ela um aspecto estranho\n\
+e ao mesmo tempo tenebroso.  Cortinas brancas cobrem toda a parede, e\n\
+balançam sem parar com o vento.  Um pequeno sino está preso no teto, em\n\
+quanto vários outros estão na parede, circundando toda a sala."
+const dir_s = $s_ninja059
+const ver_cino = "Um pesado cino de ouro.\n\
+Algumas inscrições em japonês podem ser vistas, porém você não sabe o idioma.\n\
+Parecendo sentir o seu olhar sobre ele, o cino balança várias vezes em quanto libera seus \
+tilintares agudos e estridentes."
+const a_reset = "P 100 ninja017 0 0 48\n\
+E 50 ninja011 0 0\n\
+P 100 ninja018 0 0 16\n\
+E 65 ninja011 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja017:objsolto.total < 48
+    p = u = criar("p_ninja017", este, 0)
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  p = u = nulo
+  se p_ninja018:objsolto.total < 16
+    p = u = criar("p_ninja018", este, 0)
+  fimse
+  se u && rand(100) < 65
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_ninja064
+herda b_ninja
+const s_titulo = "Uma sala de treinamento"
+const s_desc = "  Esta é a sala de treinamento dos samurais.  Diversas espadas e pedaços \
+de\n\
+ferros estão empilhados em um canto da sala, dando a ela um aspecto estranho\n\
+e ao mesmo tempo tenebroso.  Cortinas brancas cobrem toda a parede, e\n\
+balançam sem parar com o vento.  Um pequeno sino está preso no teto, em\n\
+quanto vários outros estão na parede, circundando toda a sala."
+const dir_n = $s_ninja059
+const ver_cino = "Um pesado cino de ouro.\n\
+Algumas inscrições em japonês podem ser vistas, porém você não sabe o idioma.\n\
+Parecendo sentir o seu olhar sobre ele, o cino balança várias vezes em quanto libera seus \
+tilintares agudos e estridentes."
+const a_reset = "P 100 ninja017 0 0 48\n\
+E 50 ninja011 0 0\n\
+P 100 ninja018 0 0 16\n\
+E 65 ninja011 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja017:objsolto.total < 48
+    p = u = criar("p_ninja017", este, 0)
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  p = u = nulo
+  se p_ninja018:objsolto.total < 16
+    p = u = criar("p_ninja018", este, 0)
+  fimse
+  se u && rand(100) < 65
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_ninja065
+herda b_ninja
+const s_titulo = "Uma sala de treinamento"
+const s_desc = "  Esta é a sala de treinamento dos samurais.  Diversas espadas e pedaços \
+de\n\
+ferros estão empilhados em um canto da sala, dando a ela um aspecto estranho\n\
+e ao mesmo tempo tenebroso.  Cortinas brancas cobrem toda a parede, e\n\
+balançam sem parar com o vento.  Um pequeno sino está preso no teto, em\n\
+quanto vários outros estão na parede, circundando toda a sala."
+const dir_s = $s_ninja058
+const ver_cino = "Um pesado cino de ouro.\n\
+Algumas inscrições em japonês podem ser vistas, porém você não sabe o idioma.\n\
+Parecendo sentir o seu olhar sobre ele, o cino balança várias vezes em quanto libera seus \
+tilintares agudos e estridentes.\n\
+Um pesado cino de ouro.\n\
+Algumas inscrições em japonês podem ser vistas, porém você não sabe o idioma.\n\
+Parecendo sentir o seu olhar sobre ele, o cino balança várias vezes em quanto libera seus \
+tilintares agudos e estridentes."
+const a_reset = "P 100 ninja017 0 0 48\n\
+E 50 ninja011 0 0\n\
+P 100 ninja018 0 0 16\n\
+E 65 ninja011 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja017:objsolto.total < 48
+    p = u = criar("p_ninja017", este, 0)
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  p = u = nulo
+  se p_ninja018:objsolto.total < 16
+    p = u = criar("p_ninja018", este, 0)
+  fimse
+  se u && rand(100) < 65
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_ninja066
+herda b_ninja
+const s_titulo = "Uma sala de treinamento"
+const s_desc = "  Esta é a sala de treinamento dos samurais.  Diversas espadas e pedaços \
+de\n\
+ferros estão empilhados em um canto da sala, dando a ela um aspecto estranho\n\
+e ao mesmo tempo tenebroso.  Cortinas brancas cobrem toda a parede, e\n\
+balançam sem parar com o vento.  Um pequeno sino está preso no teto, em\n\
+quanto vários outros estão na parede, circundando toda a sala."
+const dir_n = $s_ninja058
+const ver_cino = "Um pesado cino de ouro.\n\
+Algumas inscrições em japonês podem ser vistas, porém você não sabe o idioma.\n\
+Parecendo sentir o seu olhar sobre ele, o cino balança várias vezes em quanto libera seus \
+tilintares agudos e estridentes.\n\
+Um pesado cino de ouro.\n\
+Algumas inscrições em japonês podem ser vistas, porém você não sabe o idioma.\n\
+Parecendo sentir o seu olhar sobre ele, o cino balança várias vezes em quanto libera seus \
+tilintares agudos e estridentes."
+const a_reset = "P 100 ninja017 0 0 48\n\
+E 50 ninja011 0 0\n\
+P 100 ninja018 0 0 16\n\
+E 65 ninja011 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja017:objsolto.total < 48
+    p = u = criar("p_ninja017", este, 0)
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  p = u = nulo
+  se p_ninja018:objsolto.total < 16
+    p = u = criar("p_ninja018", este, 0)
+  fimse
+  se u && rand(100) < 65
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_ninja067
+herda b_ninja
+const s_titulo = "Um corredor"
+const s_desc = " Este é o segundo andar do dojo.  Você consegue ouvir barúlhos de espadas\n\
+em norte e sul, em quanto do leste e oeste você observa um longo corredor \n\
+que se estende ao longe.  O chão é coberto por um espeço carpete branco, e \n\
+as paredes por uma longa e grossa cortina de peles."
+const dir_n = $s_ninja074
+const dir_s = $s_ninja075
+const dir_l = $s_ninja068
+const dir_o = $s_ninja057
+
+
+classe s_ninja068
+herda b_ninja
+const s_titulo = "Um corredor"
+const s_desc = " Este é o segundo andar do dojo.  Você consegue ouvir barúlhos de espadas\n\
+em norte e sul, em quanto do leste e oeste você observa um longo corredor \n\
+que se estende ao longe.  O chão é coberto por um espeço carpete branco, e \n\
+as paredes por uma longa e grossa cortina de peles."
+const dir_n = $s_ninja072
+const dir_s = $s_ninja073
+const dir_l = $s_ninja069
+const dir_o = $s_ninja067
+
+
+classe s_ninja069
+herda b_ninja
+const s_titulo = "O final do corredor"
+const s_desc = " Este é o final leste do corredor.  Barúlho de espadas podem ser ouvidos \
+em\n\
+norte e sul, em quanto do oeste você observa um longo corredor  que se\n\
+estende ao longe.  O chão é coberto por um espeço carpete branco, e  as\n\
+paredes por uma longa e grossa cortina de peles."
+const dir_n = $s_ninja070
+const dir_s = $s_ninja071
+const dir_o = $s_ninja068
+const dir_c = $s_ninja078
+
+
+classe s_ninja070
+herda b_ninja
+const s_titulo = "Uma sala de treinamento"
+const s_desc = "  Esta é a sala de treinamento dos samurais.  Diversas espadas e pedaços \
+de\n\
+ferros estão empilhados em um canto da sala, dando a ela um aspecto estranho\n\
+e ao mesmo tempo tenebroso.  Cortinas brancas cobrem toda a parede, e\n\
+balançam sem parar com o vento.  Um pequeno sino está preso no teto, em\n\
+quanto vários outros estão na parede, circundando toda a sala."
+const dir_s = $s_ninja069
+const ver_cino = "Um pesado cino de ouro.\n\
+Algumas inscrições em japonês podem ser vistas, porém você não sabe o idioma.\n\
+Parecendo sentir o seu olhar sobre ele, o cino balança várias vezes em quanto libera seus \
+tilintares agudos e estridentes."
+const a_reset = "P 100 ninja017 0 0 48\n\
+E 50 ninja011 0 0\n\
+P 100 ninja018 0 0 16\n\
+E 65 ninja011 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja017:objsolto.total < 48
+    p = u = criar("p_ninja017", este, 0)
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  p = u = nulo
+  se p_ninja018:objsolto.total < 16
+    p = u = criar("p_ninja018", este, 0)
+  fimse
+  se u && rand(100) < 65
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_ninja071
+herda b_ninja
+const s_titulo = "Uma sala de treinamento"
+const s_desc = "  Esta é a sala de treinamento dos samurais.  Diversas espadas e pedaços \
+de\n\
+ferros estão empilhados em um canto da sala, dando a ela um aspecto estranho\n\
+e ao mesmo tempo tenebroso.  Cortinas brancas cobrem toda a parede, e\n\
+balançam sem parar com o vento.  Um pequeno sino está preso no teto, em\n\
+quanto vários outros estão na parede, circundando toda a sala."
+const dir_n = $s_ninja069
+const ver_cino = "Um pesado cino de ouro.\n\
+Algumas inscrições em japonês podem ser vistas, porém você não sabe o idioma.\n\
+Parecendo sentir o seu olhar sobre ele, o cino balança várias vezes em quanto libera seus \
+tilintares agudos e estridentes."
+const a_reset = "P 100 ninja017 0 0 48\n\
+E 50 ninja011 0 0\n\
+P 100 ninja018 0 0 16\n\
+E 65 ninja011 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja017:objsolto.total < 48
+    p = u = criar("p_ninja017", este, 0)
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  p = u = nulo
+  se p_ninja018:objsolto.total < 16
+    p = u = criar("p_ninja018", este, 0)
+  fimse
+  se u && rand(100) < 65
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_ninja072
+herda b_ninja
+const s_titulo = "Uma sala de treinamento"
+const s_desc = "  Esta é a sala de treinamento dos samurais.  Diversas espadas e pedaços \
+de\n\
+ferros estão empilhados em um canto da sala, dando a ela um aspecto estranho\n\
+e ao mesmo tempo tenebroso.  Cortinas brancas cobrem toda a parede, e\n\
+balançam sem parar com o vento.  Um pequeno sino está preso no teto, em\n\
+quanto vários outros estão na parede, circundando toda a sala."
+const dir_s = $s_ninja068
+const ver_cino = "Um pesado cino de ouro.\n\
+Algumas inscrições em japonês podem ser vistas, porém você não sabe o idioma.\n\
+Parecendo sentir o seu olhar sobre ele, o cino balança várias vezes em quanto libera seus \
+tilintares agudos e estridentes."
+const a_reset = "P 100 ninja017 0 0 48\n\
+E 50 ninja011 0 0\n\
+P 100 ninja018 0 0 16\n\
+E 65 ninja011 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja017:objsolto.total < 48
+    p = u = criar("p_ninja017", este, 0)
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  p = u = nulo
+  se p_ninja018:objsolto.total < 16
+    p = u = criar("p_ninja018", este, 0)
+  fimse
+  se u && rand(100) < 65
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_ninja073
+herda b_ninja
+const s_titulo = "Uma sala de treinamento"
+const s_desc = "  Esta é a sala de treinamento dos samurais.  Diversas espadas e pedaços \
+de\n\
+ferros estão empilhados em um canto da sala, dando a ela um aspecto estranho\n\
+e ao mesmo tempo tenebroso.  Cortinas brancas cobrem toda a parede, e\n\
+balançam sem parar com o vento.  Um pequeno sino está preso no teto, em\n\
+quanto vários outros estão na parede, circundando toda a sala."
+const dir_n = $s_ninja068
+const ver_cino = "Um pesado cino de ouro.\n\
+Algumas inscrições em japonês podem ser vistas, porém você não sabe o idioma.\n\
+Parecendo sentir o seu olhar sobre ele, o cino balança várias vezes em quanto libera seus \
+tilintares agudos e estridentes."
+const a_reset = "P 100 ninja017 0 0 48\n\
+E 50 ninja011 0 0\n\
+P 100 ninja018 0 0 16\n\
+E 65 ninja011 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja017:objsolto.total < 48
+    p = u = criar("p_ninja017", este, 0)
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  p = u = nulo
+  se p_ninja018:objsolto.total < 16
+    p = u = criar("p_ninja018", este, 0)
+  fimse
+  se u && rand(100) < 65
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_ninja074
+herda b_ninja
+const s_titulo = "Uma sala de treinamento"
+const s_desc = "  Esta é a sala de treinamento dos samurais.  Diversas espadas e pedaços \
+de\n\
+ferros estão empilhados em um canto da sala, dando a ela um aspecto estranho\n\
+e ao mesmo tempo tenebroso.  Cortinas brancas cobrem toda a parede, e\n\
+balançam sem parar com o vento.  Um pequeno sino está preso no teto, em\n\
+quanto vários outros estão na parede, circundando toda a sala."
+const dir_s = $s_ninja067
+const ver_cino = "Um pesado cino de ouro.\n\
+Algumas inscrições em japonês podem ser vistas, porém você não sabe o idioma.\n\
+Parecendo sentir o seu olhar sobre ele, o cino balança várias vezes em quanto libera seus \
+tilintares agudos e estridentes."
+const a_reset = "P 100 ninja017 0 0 48\n\
+E 50 ninja011 0 0\n\
+P 100 ninja018 0 0 16\n\
+E 65 ninja011 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja017:objsolto.total < 48
+    p = u = criar("p_ninja017", este, 0)
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  p = u = nulo
+  se p_ninja018:objsolto.total < 16
+    p = u = criar("p_ninja018", este, 0)
+  fimse
+  se u && rand(100) < 65
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_ninja075
+herda b_ninja
+const s_titulo = "Uma sala de treinamento"
+const s_desc = "  Esta é a sala de treinamento dos samurais.  Diversas espadas e pedaços \
+de\n\
+ferros estão empilhados em um canto da sala, dando a ela um aspecto estranho\n\
+e ao mesmo tempo tenebroso.  Cortinas brancas cobrem toda a parede, e\n\
+balançam sem parar com o vento.  Um pequeno sino está preso no teto, em\n\
+quanto vários outros estão na parede, circundando toda a sala."
+const dir_n = $s_ninja067
+const ver_cino = "Um pesado cino de ouro.\n\
+Algumas inscrições em japonês podem ser vistas, porém você não sabe o idioma.\n\
+Parecendo sentir o seu olhar sobre ele, o cino balança várias vezes em quanto libera seus \
+tilintares agudos e estridentes."
+const a_reset = "P 100 ninja017 0 0 48\n\
+E 50 ninja011 0 0\n\
+P 100 ninja018 0 0 16\n\
+E 65 ninja011 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja017:objsolto.total < 48
+    p = u = criar("p_ninja017", este, 0)
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  p = u = nulo
+  se p_ninja018:objsolto.total < 16
+    p = u = criar("p_ninja018", este, 0)
+  fimse
+  se u && rand(100) < 65
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_ninja076
+herda b_ninja
+const s_titulo = "Uma sala de treinamento"
+const s_desc = "  Esta é a sala de treinamento dos samurais.  Diversas espadas e pedaços \
+de\n\
+ferros estão empilhados em um canto da sala, dando a ela um aspecto estranho\n\
+e ao mesmo tempo tenebroso.  Cortinas brancas cobrem toda a parede, e\n\
+balançam sem parar com o vento.  Um pequeno sino está preso no teto, em\n\
+quanto vários outros estão na parede, circundando toda a sala."
+const dir_s = $s_ninja057
+const ver_cino = "Um pesado cino de ouro.\n\
+Algumas inscrições em japonês podem ser vistas, porém você não sabe o idioma.\n\
+Parecendo sentir o seu olhar sobre ele, o cino balança várias vezes em quanto libera seus \
+tilintares agudos e estridentes."
+const a_reset = "P 100 ninja017 0 0 48\n\
+E 50 ninja011 0 0\n\
+P 100 ninja018 0 0 16\n\
+E 65 ninja011 0 0\n\
+P 100 ninja017 0 0 3\n\
+P 100 ninja017 0 0 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja017:objsolto.total < 48
+    p = u = criar("p_ninja017", este, 0)
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  p = u = nulo
+  se p_ninja018:objsolto.total < 16
+    p = u = criar("p_ninja018", este, 0)
+  fimse
+  se u && rand(100) < 65
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  se p_ninja017:objsolto.total < 3
+    criar("p_ninja017", este, 0)
+  fimse
+  se p_ninja017:objsolto.total < 3
+    criar("p_ninja017", este, 0)
+  fimse
+
+
+classe s_ninja077
+herda b_ninja
+const s_titulo = "Uma sala de treinamento"
+const s_desc = "  Esta é a sala de treinamento dos samurais.  Diversas espadas e pedaços \
+de\n\
+ferros estão empilhados em um canto da sala, dando a ela um aspecto estranho\n\
+e ao mesmo tempo tenebroso.  Cortinas brancas cobrem toda a parede, e\n\
+balançam sem parar com o vento.  Um pequeno sino está preso no teto, em\n\
+quanto vários outros estão na parede, circundando toda a sala."
+const dir_n = $s_ninja057
+const ver_cino = "Um pesado cino de ouro.\n\
+Algumas inscrições em japonês podem ser vistas, porém você não sabe o idioma.\n\
+Parecendo sentir o seu olhar sobre ele, o cino balança várias vezes em quanto libera seus \
+tilintares agudos e estridentes."
+const a_reset = "P 100 ninja017 0 0 48\n\
+E 50 ninja011 0 0\n\
+P 100 ninja018 0 0 16\n\
+E 65 ninja011 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja017:objsolto.total < 48
+    p = u = criar("p_ninja017", este, 0)
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  p = u = nulo
+  se p_ninja018:objsolto.total < 16
+    p = u = criar("p_ninja018", este, 0)
+  fimse
+  se u && rand(100) < 65
+    r = criar("i_ninja011", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_ninja078
+herda b_ninja
+const s_titulo = "O Primeiro templo samurai."
+const s_desc = " Este lugar é extremamente grotesco para um templo samurai.  Com paredes e \
+\n\
+chão totalmente cobertos por véis brancos, este templo lhe dá um sentimento \n\
+ao mesmo tempo de paz e alerta.  Você sente que há algo que lhe incomoda, \n\
+porém não sabe o que é.  Olhando para cima, você avista várias lanças \n\
+dependuradas nas paredes, com várias cabeças humanas espetadas nelas.  Ao \n\
+olhar para o lado, você percebe um homem de vestes brancas o observando com \n\
+um olhar tranquilo em seu rosto.  Com o susto você dá um paço para trás, e \n\
+percebe que você não tem como escapar dele, cazo ele queira lhe atacar."
+const s_pnj = 0
+const eveste = 1 # Eventos sala: Sim
+const dir_c = $s_ninja079
+const portaini_c = 3 # Estado inicial: 3 Porta trancada
+const portanome_c = "Uma pesada porta de prata"
+const fechadura_c = "ninja123456"
+const comechave_c = 1 # Come chave: Sim
+const tranc_c = 2 # Trancar: 2 Tranca ao fechar
+const dir_b = $s_ninja069
+const fugir_b = 1 # Sem fuga: Sim
+const evest = 1
+
+func cmd_mover
+  se arg2 == "b"
+    $mens.p(arg0)
+    $mens.mvis1("Uma força misteriosa impede $P de descer.")
+    ret 1
+
+const a_reset = "P 100 ninja019 0 0 1\nI 100 ninja009 1\nE 100 ninja012 0 0\nD 100 c 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja019:objsolto.total < 1
+    p = u = criar("p_ninja019", este, 0)
+  fimse
+  u && criar("i_ninja009", u, 1)
+  se u
+    r = criar("i_ninja012", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  mudaporta("c", 3)
+
+
+classe s_ninja079
+herda b_ninja
+const s_titulo = "O Segundo templo samurai."
+const s_desc = " Este lugar é extremamente grotesco para um templo samurai.  Com paredes e \
+\n\
+chão totalmente cobertos por véis brancos, este templo lhe dá um sentimento \n\
+ao mesmo tempo de paz e alerta.  Você sente que há algo que lhe incomoda, \n\
+porém não sabe o que é.  Olhando para cima, você avista várias lanças \n\
+dependuradas nas paredes, com várias cabeças humanas espetadas nelas.  Ao \n\
+olhar para o lado, você percebe um homem de vestes brancas o observando com \n\
+um olhar tranquilo em seu rosto.  Com o susto você dá um paço para trás, e \n\
+percebe que você não tem como escapar dele, cazo ele queira lhe atacar."
+const eveste = 1 # Eventos sala: Sim
+const dir_c = $s_ninja080
+const portaini_c = 3 # Estado inicial: 3 Porta trancada
+const portanome_c = "Uma pesada porta de prata"
+const fechadura_c = "ninja123456"
+const comechave_c = 1 # Come chave: Sim
+const tranc_c = 2 # Trancar: 2 Tranca ao fechar
+const dir_b = $s_ninja078
+const fugir_b = 1 # Sem fuga: Sim
+const evest = 1
+const evsala = 1
+
+func cmd_mover
+  se arg2 == "b"
+    $mens.p(arg0)
+    $mens.mvis1("Uma força misteriosa impede $P de descer.")
+    ret 1
+
+const a_reset = "P 100 ninja020 0 0 1\nI 100 ninja009 1\nE 100 ninja012 0 0\nD 100 c 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja020:objsolto.total < 1
+    p = u = criar("p_ninja020", este, 0)
+  fimse
+  u && criar("i_ninja009", u, 1)
+  se u
+    r = criar("i_ninja012", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  mudaporta("c", 3)
+
+
+classe s_ninja080
+herda b_ninja
+const s_titulo = "O Terceiro templo samurai."
+const s_desc = " Este lugar é extremamente grotesco para um templo samurai.  Com paredes e \
+\n\
+chão totalmente cobertos por véis brancos, este templo lhe dá um sentimento \n\
+ao mesmo tempo de paz e alerta.  Você sente que há algo que lhe incomoda, \n\
+porém não sabe o que é.  Olhando para cima, você avista várias lanças \n\
+dependuradas nas paredes, com várias cabeças humanas espetadas nelas.  Ao \n\
+olhar para o lado, você percebe um homem de vestes brancas o observando com \n\
+um olhar tranquilo em seu rosto.  Com o susto você dá um paço para trás, e \n\
+percebe que você não tem como escapar dele, cazo ele queira lhe atacar. \n\
+Este lugar é extremamente grotesco para um templo samurai.  Com paredes e\n\
+chão totalmente cobertos por véis brancos, este templo lhe dá um sentimento\n\
+ao mesmo tempo de paz e alerta.  Você sente que há algo que lhe incomoda,\n\
+porém não sabe o que é.  Olhando para cima, você avista várias lanças\n\
+dependuradas nas paredes, com várias cabeças humanas espetadas nelas.  Ao\n\
+olhar para o lado, você percebe um homem de vestes brancas o observando com\n\
+um olhar tranquilo em seu rosto.  Com o susto você dá um paço para trás, e\n\
+persebe que você não tem como escapar dele, cazo ele queira lhe atacar."
+const eveste = 1 # Eventos sala: Sim
+const dir_c = $s_ninja081
+const portaini_c = 3 # Estado inicial: 3 Porta trancada
+const portanome_c = "Uma pesada porta de prata"
+const fechadura_c = "ninja123456"
+const comechave_c = 1 # Come chave: Sim
+const tranc_c = 2 # Trancar: 2 Tranca ao fechar
+const dir_b = $s_ninja079
+const fugir_b = 1 # Sem fuga: Sim
+const evest = 1
+const evsala = 1
+
+func cmd_mover
+  se arg2 == "b"
+    $mens.p(arg0)
+    $mens.mvis1("Uma força misteriosa impede $P de descer.")
+    ret 1
+
+const a_reset = "P 100 ninja021 0 0 1\nI 100 ninja009 1\nE 100 ninja012 0 0\nD 100 c 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja021:objsolto.total < 1
+    p = u = criar("p_ninja021", este, 0)
+  fimse
+  u && criar("i_ninja009", u, 1)
+  se u
+    r = criar("i_ninja012", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  mudaporta("c", 3)
+
+
+classe s_ninja081
+herda b_ninja
+const s_titulo = "O Quarto templo samurai."
+const s_desc = " Este lugar é extremamente grotesco para um templo samurai.  Com paredes e \
+\n\
+chão totalmente cobertos por véis brancos, este templo lhe dá um sentimento \n\
+ao mesmo tempo de paz e alerta.  Você sente que há algo que lhe incomoda, \n\
+porém não sabe o que é.  Olhando para cima, você avista várias lanças \n\
+dependuradas nas paredes, com várias cabeças humanas espetadas nelas.  Ao \n\
+olhar para o lado, você percebe um homem de vestes brancas o observando com \n\
+um olhar tranquilo em seu rosto.  Com o susto você dá um paço para trás, e \n\
+percebe que você não tem como escapar dele, cazo ele queira lhe atacar."
+const eveste = 1 # Eventos sala: Sim
+const dir_c = $s_ninja082
+const portaini_c = 3 # Estado inicial: 3 Porta trancada
+const portanome_c = "Uma pesada porta de prata"
+const fechadura_c = "ninja123456"
+const comechave_c = 1 # Come chave: Sim
+const tranc_c = 2 # Trancar: 2 Tranca ao fechar
+const dir_b = $s_ninja080
+const fugir_b = 1 # Sem fuga: Sim
+const evest = 1
+const evsala = 1
+
+func cmd_mover
+  se arg2 == "b"
+    $mens.p(arg0)
+    $mens.mvis1("Uma força misteriosa impede $P de descer.")
+    ret 1
+
+const a_reset = "P 100 ninja022 0 0 1\nI 100 ninja009 1\nE 100 ninja012 0 0\nD 100 c 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja022:objsolto.total < 1
+    p = u = criar("p_ninja022", este, 0)
+  fimse
+  u && criar("i_ninja009", u, 1)
+  se u
+    r = criar("i_ninja012", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  mudaporta("c", 3)
+
+
+classe s_ninja082
+herda b_ninja
+const s_titulo = "O Quinto templo samurai."
+const s_desc = " Este lugar é extremamente grotesco para um templo samurai.  Com paredes e \
+\n\
+chão totalmente cobertos por véis brancos, este templo lhe dá um sentimento \n\
+ao mesmo tempo de paz e alerta.  Você sente que há algo que lhe incomoda, \n\
+porém não sabe o que é.  Olhando para cima, você avista várias lanças \n\
+dependuradas nas paredes, com várias cabeças humanas espetadas nelas.  Ao \n\
+olhar para o lado, você percebe um homem de vestes brancas o observando com \n\
+um olhar tranquilo em seu rosto.  Com o susto você dá um paço para trás, e \n\
+percebe que você não tem como escapar dele, cazo ele queira lhe atacar."
+const eveste = 1 # Eventos sala: Sim
+const dir_c = $s_ninja083
+const portaini_c = 3 # Estado inicial: 3 Porta trancada
+const portanome_c = "Uma pesada porta de prata"
+const fechadura_c = "ninja123456"
+const comechave_c = 1 # Come chave: Sim
+const tranc_c = 2 # Trancar: 2 Tranca ao fechar
+const dir_b = $s_ninja081
+const fugir_b = 1 # Sem fuga: Sim
+const evest = 1
+const evsala = 1
+
+func cmd_mover
+  se arg2 == "b"
+    $mens.p(arg0)
+    $mens.mvis1("Uma força misteriosa impede $P de descer.")
+    ret 1
+
+const a_reset = "P 100 ninja023 0 0 1\n\
+I 100 ninja009 1 0\n\
+E 100 ninja012 0 0\n\
+E 55 ninja015 0 3\n\
+D 100 c 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja023:objsolto.total < 1
+    p = u = criar("p_ninja023", este, 0)
+  fimse
+  u && criar("i_ninja009", u, 1, "0")
+  se u
+    r = criar("i_ninja012", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  se u && rand(100) < 55
+    r = criar("i_ninja015", u, 0), r.vestir(3), u.recalc = 1
+  fimse
+  mudaporta("c", 3)
+
+
+classe s_ninja083
+herda b_ninja
+const s_titulo = "O Templo da justiça."
+const s_desc = " Este lugar é extremamente grotesco para um templo samurai.  Com paredes e \
+\n\
+chão totalmente cobertos por véis brancos, este templo lhe dá um sentimento \n\
+ao mesmo tempo de paz e alerta.  Você sente que há algo que lhe incomoda, \n\
+porém não sabe o que é.  Olhando para cima, você avista várias lanças \n\
+dependuradas nas paredes, com várias cabeças humanas espetadas nelas.  Ao \n\
+olhar para o lado, você percebe um homem de vestes brancas o observando com \n\
+um olhar tranquilo em seu rosto.  Com o susto você dá um paço para trás, e \n\
+percebe que você não tem como escapar dele, cazo ele queira lhe atacar."
+const eveste = 1 # Eventos sala: Sim
+const dir_b = $s_ninja069
+const fugir_b = 1 # Sem fuga: Sim
+const a_reset = "P 100 ninja024 0 0 1\nE 100 ninja013 0 0\nE 5 ninja016 0 5"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja024:objsolto.total < 1
+    p = u = criar("p_ninja024", este, 0)
+  fimse
+  se u
+    r = criar("i_ninja013", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+  se u && rand(100) < 5
+    r = criar("i_ninja016", u, 0), r.vestir(5), u.recalc = 1
+  fimse
+
+
+classe s_ninja084
+herda b_ninja
+const s_titulo = "Uma escada de cordas."
+const s_desc = " Esta escada é feita de cordas entrelaçadas.  Os aspectos da escada denotam\n\
+que ela é extremamente antiga e gasta.  Será que é seguro você continuar?"
+const dir_c = $s_ninja060
+const dir_b = $s_ninja085
+
+
+classe s_ninja085
+herda b_ninja
+const s_titulo = "Uma escada de cordas."
+const s_desc = " Esta escada é feita de cordas entrelaçadas.  Os aspectos da escada denotam\n\
+que ela é extremamente antiga e gasta.  Será que é seguro você continuar?"
+const eveste = 1 # Eventos sala: Sim
+const dir_c = $s_ninja084
+const dir_b = $s_ninja086
+const voar_b = 1 # Voar: Sim
+
+func cmd_mover # Quando o jogador ir para alguma direção
+  se arg2 == "b"
+
+
+classe s_ninja086
+herda b_ninja
+const s_titulo = "Um corredor escuro."
+const s_desc = " Você encontra-se em um longo corredor escuro.  As paredes aqui são feitas\n\
+de pedra, e o ar é ransozo e pesado.  Você consegue ouvir alguns ruídos ao\n\
+longe, e um calafrio sobe por sua espinha."
+const s_pnj = 0
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_ninja091
+const portaini_n = 3 # Estado inicial: 3 Porta trancada
+const portanome_n = "Uma imponente porta de ouro maciço."
+const fechadura_n = "ninja1234567"
+const tranc_n = 1 # Trancar: 1 Pode ser trancado
+const dir_o = $s_ninja087
+const dir_c = $s_ninja085
+const a_reset = "D 100 n 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("n", 3)
+
+
+classe s_ninja087
+herda b_ninja
+const s_titulo = "Um corredor escuro."
+const s_desc = " Você encontra-se em um longo corredor escuro.  As paredes aqui são feitas\n\
+de pedra, e o ar é ransozo e pesado.  Você consegue ouvir alguns ruídos ao\n\
+longe, e um calafrio sobe por sua espinha."
+const dir_s = $s_ninja090
+const dir_l = $s_ninja086
+const dir_o = $s_ninja088
+
+
+classe s_ninja088
+herda b_ninja
+const s_titulo = "Um corredor escuro."
+const s_desc = " Você encontra-se em um longo corredor escuro.  As paredes aqui são feitas\n\
+de pedra, e o ar é ransozo e pesado.  Você consegue ouvir alguns ruídos ao\n\
+longe, e um calafrio sobe por sua espinha."
+const dir_s = $s_ninja089
+const dir_l = $s_ninja087
+
+
+classe s_ninja089
+herda b_ninja
+const s_titulo = "Uma galeria escura."
+const s_desc = " Ao adentrar esta sala, um barúlho insurdecedor invade seus ouvidos.  Nesta\n\
+sala você vê vários tipos de objetos jogados ao chão, como cordas, lâminas e\n\
+vários pedaços de ferro.  Um homem encapuzado observa várias pessoas que\n\
+estão em sua frente, fazendo diversos exercícios e gritando coisas\n\
+ininteligíveis para você.  Ao se aproximar, o homem levanta 3 dedos e todos\n\
+os habitantes da sala param e olham para você desafiadoramente."
+const dir_n = $s_ninja088
+const a_reset = "P 100 ninja025 0 0 10\nP 100 ninja026 0 0 1\nI 100 ninja010 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  se p_ninja025:objsolto.total < 10
+    criar("p_ninja025", este, 0)
+  fimse
+  se p_ninja026:objsolto.total < 1
+    p = u = criar("p_ninja026", este, 0)
+  fimse
+  u && criar("i_ninja010", u, 1)
+
+
+classe s_ninja090
+herda b_ninja
+const s_titulo = "Um pequeno quarto."
+const s_desc = " Você está em um pequeno quarto.  Você pode ver ao chão uma cama\n\
+improvisada feita de palha.  Ao se aproximar mais, você percebe que há uma\n\
+menina deitada sobre a cama.  Será que é sensato você acordá-la?"
+const s_recup = 0
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_ninja087
+const a_reset = "P 100 ninja028 0 0 1\nE 100 ninja017 0 2\nE 5 deuses006 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja028:objsolto.total < 1
+    p = u = criar("p_ninja028", este, 0)
+  fimse
+  se u
+    r = criar("i_ninja017", u, 0), r.vestir(2), u.recalc = 1
+  fimse
+  se u && rand(100) < 5
+    r = criar("i_deuses006", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_ninja091
+herda b_ninja
+const s_titulo = "O templo de Ynomawah Sakura, a mestra dos ninjas."
+const s_desc = " Você está no majestoso templo de Ynomawa Sakura.  Com o chão totalmente\n\
+coberto por  um carpete negro, esta sala tem um aspecto totalmente sombrio. \n\
+Cortinas  grossas e espessas cobrem toda a parede, e uma mulher extremamente\n\
+linda  está sentada em uma grande cadeira de ouro, brincando com uma adaga\n\
+em suas  mãos."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_recup = 0
+const dir_s = $s_ninja086
+const portaini_s = 3 # Estado inicial: 3 Porta trancada
+const fechadura_s = "ninja1234567"
+const fugir_s = 1 # Sem fuga: Sim
+const tranc_s = 1 # Trancar: 1 Pode ser trancado
+const a_reset = "P 100 ninja027 0 0 1 e_sanc=0\nE 20 ninja091 0 17\nE 100 ninja014 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_ninja027:objsolto.total < 1
+    p = u = criar("p_ninja027", este, 0, "e_sanc=0")
+  fimse
+  se u && rand(100) < 20
+    r = criar("i_ninja091", u, 0), r.vestir(17), u.recalc = 1
+  fimse
+  se u
+    r = criar("i_ninja014", u, 0), r.vestir(50), u.recalc = 1
+  fimse

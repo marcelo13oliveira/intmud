@@ -1,0 +1,1085 @@
+classe a_plantas
+herda area
+const a_tempo = 60
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_plantas
+herda sala
+const s_area = "plantas"
+
+
+classe i_plantas001
+herda comum_item
+const nome = "semente"
+const descnome = "uma semente"
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "plantar semente"
+    $mens.p(arg0, "", este)
+    $mens.mtodos1("$P planta $o no chão.")
+    apagar(este)
+    criar("i_plantas002", arg0.dono)
+    ret 1
+  casofim
+
+
+classe i_plantas002
+herda comum_item
+const nome = "semente"
+const descnome = "uma semente germinando"
+const descpos = "Uma semente foi enterrada no chão, e está germinando."
+const i_pegar = "não dá, está enterrada no chão."
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+inttempo semente
+#
+
+func cmd_ini
+  semente = 300
+#
+
+func semente_exec
+  refvar m = criar("i_plantas003", dono)
+  $mens.p(m)
+  $mens.mtodos1("$P surge no chão, pronto para crescer e dar origem a uma bela árvore!")
+  apagar(este)
+
+
+classe i_plantas003
+herda comum_item
+const nome = "broto"
+const descnome = "um broto de árvore"
+const descpos = "Um pequeno brotinho foi plantado no chão."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "Não dá, está enterrado no chão."
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+inttempo brotar
+#
+
+func cmd_ini
+  brotar = 400
+#
+
+func brotar_exec
+  refvar a = criar("i_plantas004", dono)
+  $mens.p(a)
+  $mens.mtodos1("$P surge na sala, cheia de frutos maduros para serem colhidos!")
+  apagar(este)
+
+
+classe i_plantas004
+herda comum_itemgrupo
+const nome = "árvore"
+const ident = "bela árvore"
+const descnome = "uma bela árvore"
+const i_pegar = "As raízes estão bem fixas ao solo."
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+
+
+classe i_plantas005
+herda comum_item
+const nome = "canteiro de flores"
+const ident = "canteiro flor"
+const descnome = "um canteiro de flores"
+const descpos = "Um lindo canteiro de flores traz cor e perfuma o ambiente."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_pegarobj
+  se arg2 == este
+    refvar f = criar("i_plantas006", arg0)
+    $mens.p(arg0, nulo, f)
+    $mens.mvis1("$P se abaixa e colhe $o do canteiro de flores.")
+    ret 1
+  fimse
+
+
+classe i_plantas006
+herda comum_itemgrupo
+const nome = var.z_nome ? txt2(var.z_nome) : "flor"
+const descnome = var.z_nome ? var.z_nome : "uma flor"
+const vestir1 = 1048580 # Aonde vestir: 2-Na cabeça, 20-segurando
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const flores = "um lírio\n\
+uma orquídia\n\
+uma tulipa\n\
+uma margarida\n\
+uma rosa vermelha\n\
+um lírio branco\n\
+um lírio roxo\n\
+uma rosa branca\n\
+um cravo\n\
+uma flor de jasmin\n\
+uma flor de-lotos\n\
+uma assuncena roxa\n\
+uma assuncena vermelha\n\
+uma dália vermelha\n\
+uma dália branca\n\
+uma vitória régia\n\
+uma degônia\n\
+uma ortência\n\
+uma dália\n\
+Uma flor de-lis\n\
+um crisântemo\n\
+uma flor de cerejeira\n\
+um girassol"
+#
+
+func cmd_ini
+  var.z_nome = txtsublin(flores, rand(intsublin(flores)), 1)
+#
+
+func cmd_escr
+  se arg1 == "juntar flores"
+    ret 1
+  fimse
+
+
+classe i_plantas007
+herda comum_item
+const nome = "semente de laranja"
+const ident = "semente laranja"
+const descnome = "uma semente de laranja"
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 600
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+inttempo broto
+#
+
+func descpos
+  se var.z_plantada_
+    ret "uma semente foi enterrado no chão, e cresce espontaneamente."
+  senao
+    ret "há uma semente de laranja no chão."
+  fimse
+#
+
+func cmd_escr
+  se arg1 == "plantar laranja"
+    var.z_plantada_ = 1
+    este.mdono(arg0.dono)
+    $mens.p(arg0, "", este)
+    $mens.mtodos1("$P planta $o no chão.")
+    broto = 400
+    ret 1
+  fimse
+#
+#
+
+func broto_exec
+  refvar m = criar("i_plantas021", dono, 1)
+  $mens.p(m)
+  $mens.mtodos1("$p surge no chão, pronto para se transformar em breve uma nova árvore!")
+  apagar(este)
+
+
+classe i_plantas008
+herda comum_item
+const nome = "semente de banana"
+const ident = "banana bananeira"
+const descnome = "uma semente de bananeira"
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 600
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+inttempo broto
+#
+
+func descpos
+  se var.z_plantada_
+    ret "Uma semente foi enterrada no chão, e cresce espontaneamente."
+  senao
+    ret "há uma semente de banana no chão."
+  fimse
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "plantar banana"
+    var.z_plantada_ = 1
+    este.mdono(arg0.dono)
+    $mens.p(arg0, "", este)
+    $mens.mtodos1("$P planta $o no chão.")
+    broto = 400
+    ret 1
+  fimse
+#
+#
+
+func broto_exec
+  refvar m = criar("i_plantas009", dono, 1)
+  $mens.p(m)
+  $mens.mtodos1("$p surge no chão, pronto para se transformar em breve uma nova árvore!")
+  apagar(este)
+
+
+classe i_plantas009
+herda comum_item
+const nome = "brotinho de banana"
+const descnome = "um brotinho de bananeira"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+inttempo planta
+#
+
+func cmd_ini
+  planta = 300
+#
+
+func planta_exec
+  refvar r = criar("i_plantas010", dono, 1)
+  $mens.p(r)
+  $mens.mvis1("$P surge na sala, carregada de cachos de bananas para serem colhidas e comidas!")
+  apagar(este)
+
+
+classe i_plantas010
+herda comum_item
+const nome = "bananeira"
+const ident = "bananeira banana"
+const descnome = "uma bananeira"
+const descpos = "Uma vigorosa bananeira pende ao peso de vários cachos de bananas."
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_pegarobj
+  se arg2 == este
+    refvar b = criar("i_frutas001", arg0, 1)
+    $mens.p(arg0, nulo, b)
+    $mens.mvis1("$P colhe $o da bananeira.")
+    ret 1
+  fimse
+
+
+classe i_plantas011
+herda comum_item
+const nome = "semente de mamoeiro"
+const descnome = "uma semente de mamoeiro"
+const valor = 700
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+inttempo broto
+#
+
+func descpos
+  se var.z_plantada_
+    ret "Uma semente de mamoeiro foi enterrada no chão, e cresce espontaneamente."
+  senao
+    ret "há uma semente de mamoeiro no chão."
+  fimse
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "plantar mamão" || arg1 == "plantar mamoeiro"
+    var.z_plantada_ = 1
+    este.mdono(arg0.dono)
+    $mens.p(arg0, "", este)
+    $mens.mtodos1("$P planta $o no chão.")
+    broto = 400
+    ret 1
+  fimse
+#
+#
+
+func broto_exec
+  refvar m = criar("i_plantas013", dono, 1)
+  $mens.p(m)
+  $mens.mtodos1("$p surge no chão, pronto para se transformar em breve uma nova árvore!")
+  apagar(este)
+
+
+classe i_plantas012
+herda comum_item
+const nome = "mamoeiro"
+const ident = "mamoeiro mamão"
+const descnome = "um mamoeiro"
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_pegarobj
+  se arg2 == este
+    refvar f = criar("i_frutas005", arg0, 1)
+    $mens.p(arg0, nulo, f)
+    $mens.mvis1("$P colhe $o de " + descnome + ".")
+    ret 1
+  fimse
+
+
+classe i_plantas013
+herda comum_item
+const nome = "mamoeiro em crescimento"
+const descnome = "um mamoeiro em crescimento"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "Não pegue, está em crescimento."
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+inttempo planta
+#
+
+func cmd_ini
+  planta = 300
+#
+
+func planta_exec
+  refvar r = criar("i_plantas012", dono, 1)
+  $mens.p(r)
+  $mens.mvis1("$P surge na sala, carregado de mamãos para serem colhidos e comidos!")
+  apagar(este)
+
+
+classe i_plantas014
+herda comum_item
+const nome = "semente de uva"
+const ident = "uva videira"
+const descnome = "uma semente de videira"
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 600
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+inttempo broto
+#
+
+func descpos
+  se var.z_plantada_
+    ret "Uma semente foi enterrada no chão, e cresce espontaneamente."
+  senao
+    ret "há uma semente de uva no chão."
+  fimse
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "plantar uva"
+    var.z_plantada_ = 1
+    este.mdono(arg0.dono)
+    $mens.p(arg0, "", este)
+    $mens.mtodos1("$P planta $o no chão.")
+    broto = 400
+    ret 1
+  fimse
+#
+#
+
+func broto_exec
+  refvar m = criar("i_plantas015", dono, 1)
+  $mens.p(m)
+  $mens.mtodos1("$p surge no chão, pronto para se transformar em breve uma nova árvore!")
+  apagar(este)
+
+
+classe i_plantas015
+herda comum_item
+const nome = "brotinho de uva"
+const descnome = "um brotinho de videira"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+inttempo planta
+#
+
+func cmd_ini
+  planta = 300
+#
+
+func planta_exec
+  refvar r = criar("i_plantas016", dono, 1)
+  criar("s_plantas001", r)
+  criar("s_plantas003", r)
+  $mens.p(r)
+  $mens.mvis1("$P surge na sala, carregada de cachos de uvas para serem colhidas e comidas!")
+  apagar(este)
+
+
+classe i_plantas016
+herda comum_item
+const nome = "videira"
+const ident = "videira uva"
+const descnome = "uma videira"
+const descpos = "Uma videira repleta de cachos de uvas maduras está a sua direita."
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "pegar uva"
+  casose "pegar uv"
+  casose "pega uva"
+  casose "pega uv"
+  casose "peg uva"
+  casose "peg uv"
+  casose "pe uva"
+  casose "pe uv"
+    refvar b = criar("i_frutas008", arg0, 1)
+    $mens.p(arg0, nulo, b)
+    $mens.mvis1("$P colhe $o da videira.")
+    ret 1
+  casose "escalar videira"
+  casose "trepar videira"
+  casose "subir videira"
+  casose "subir vid"
+  casose "sub vid"
+  casose "sub vi"
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos2("", "$P escalou a videira.")
+    arg0.mudadono(dentro2.objini("s_plantas001"))
+    $mens.p(arg0)
+    $mens.mtodos2("", "$P subiu aqui.")
+    ret 1
+  casofim
+#
+
+
+classe i_plantas017
+herda comum_item
+const nome = "coqueiro"
+const descnome = "um grande coqueiro"
+const descpos = "Um enorme coqueiro se estende para o alto, para longe do seu ponto de vista."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "As raízes estão fortemente presas ao solo e você precisaria de um machado ou \
+algo afiado para cortá-lo."
+const mantersala = 1 # Mantém na sala: Sim
+const volobj = 100
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_ini
+  se arg0.s_sala
+    criar("s_plantas008", este)
+    criar("s_plantas007", este)
+    criar("s_plantas006", este)
+    criar("s_plantas005", este)
+    criar("s_plantas004", este)
+    listaobj l
+    epara l.addfim(arg0.dentro2), l, l.ini.remove
+      se l.objini.jog
+        misc:evento(l.objini)
+      fimse
+    efim
+  fimse
+#
+
+func cmd_chegou
+# misc:evento(arg0)
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "subir coqueiro"
+  casose "subi coqueiro"
+  casose "subir coqueir"
+  casose "subi coqueir"
+  casose "sub coqueir"
+  casose "subir coquei"
+  casose "subi coquei"
+  casose "sub coquei"
+  casose "subir coque"
+  casose "subi coque"
+  casose "sub coque"
+  casose "subir coqqu"
+  casose "subi coqu"
+  casose "sub coqu"
+  casose "subir coq"
+  casose "subi coq"
+  casose "sub coq"
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos1("$P sobe $e $o.")
+    arg0.mudadono(dentro2.objini("s_plantas007"))
+    ret 1
+  casofim
+
+
+classe i_plantas018
+herda comum_item
+const nome = "brotinho de abacateiro"
+const descnome = "um brotinho de abacateiro"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+inttempo planta
+#
+
+func cmd_ini
+  planta = 300
+#
+
+func planta_exec
+  refvar r = criar("i_plantas019", dono, 1)
+  $mens.p(r)
+  $mens.mvis1("$P surge na sala, carregado de abacates para serem colhidos e comidos!")
+  apagar(este)
+
+
+classe i_plantas019
+herda comum_item
+const nome = "abacateiro"
+const ident = "abacateiro abacate"
+const descnome = "uma abacateiro"
+const descpos = "Uma abacateiro repleto de abacates maduros está a sua esquerda."
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_pegarobj
+  se arg2 == este
+    refvar b = criar("i_frutas010", arg0, 1)
+    $mens.p(arg0, nulo, b)
+    $mens.mvis1("$P colhe $o do abacateiro.")
+    ret 1
+  fimse
+#
+
+
+classe i_plantas020
+herda comum_item
+const nome = "caroço de abacate"
+const ident = "caroço abacate"
+const descnome = "um caroço de abacate"
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 600
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+inttempo broto
+#
+
+func descpos
+  se var.z_plantada_
+    ret "um caroço foi enterrado no chão, e cresce espontaneamente."
+  senao
+    ret "há um caroço de abacate no chão."
+  fimse
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "plantar abacate"
+    var.z_plantada_ = 1
+    este.mdono(arg0.dono)
+    $mens.p(arg0, "", este)
+    $mens.mtodos1("$P planta $o no chão.")
+    broto = 400
+    ret 1
+  fimse
+#
+#
+
+func broto_exec
+  refvar m = criar("i_plantas018", dono, 1)
+  $mens.p(m)
+  $mens.mtodos1("$p surge no chão, pronto para se transformar em breve um nova árvore!")
+  apagar(este)
+
+
+classe i_plantas021
+herda comum_item
+const nome = "brotinho de laranjeira"
+const descnome = "um brotinho de laranjeira"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+inttempo planta
+#
+
+func cmd_ini
+  planta = 300
+#
+
+func planta_exec
+  refvar r = criar("i_templo069", dono, 1)
+  $mens.p(r)
+  $mens.mvis1("$P surge na sala, carregada de laranjas para serem colhidas e comidas!")
+  apagar(este)
+
+
+classe i_plantas022
+herda comum_item
+const nome = "muda"
+const ident = "muda cocqueiro"
+const descnome = "uma muda de coqueiro"
+const pesoobj = 200
+const valor = 1200
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+inttempo germinar
+#
+
+func descpos
+  se var.z_plantada_
+    ret "uma muda de coqueiro foi plantada no chão e cresce espontaneamente."
+  senao
+    ret "uma muda de coqueiro foi solta aqui no chão, pronta para ser plantada."
+  fimse
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "plantar muda"
+  casose "plant muda"
+  casose "planta muda"
+  casose "plantar mud"
+  casose "planta mud"
+  casose "plant mud"
+  casose "plan muda"
+  casose "plan mud"
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos1("$P planta $o no chão.")
+    var.z_plantada_ = 1
+    mudadono(dono.dono)
+    germinar = 3000
+    ret 1
+  casofim
+#
+
+func germinar_exec
+  refvar c = criar("i_plantas017", dono, 1)
+  $mens.p(c)
+  $mens.p(c)
+  $mens.mvis1("$P surge do chão, estendendo-se para o alto, pronto para dar origem a vários \
+cocos!")
+  apagar(este)
+
+
+classe i_plantas023
+herda comum_item
+const nome = "caroço de manga"
+const ident = "caroço manga"
+const descnome = "um caroço de manga"
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 600
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+inttempo broto
+#
+
+func descpos
+  se var.z_plantada_
+    ret "um caroço foi enterrado no chão, e cresce espontaneamente."
+  senao
+    ret "há um caroço de manga no chão."
+  fimse
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "plantar manga"
+    var.z_plantada_ = 1
+    este.mdono(arg0.dono)
+    $mens.p(arg0, "", este)
+    $mens.mtodos1("$P planta $o no chão.")
+    broto = 400
+    ret 1
+  fimse
+#
+#
+
+func broto_exec
+  refvar m = criar("i_plantas024", dono, 1)
+  $mens.p(m)
+  $mens.mtodos1("$p surge no chão, pronto para se transformar em breve um nova árvore!")
+  apagar(este)
+
+
+classe i_plantas024
+herda comum_item
+const nome = "brotinho de manga"
+const descnome = "um brotinho de mangueira"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+inttempo planta
+#
+
+func cmd_ini
+  planta = 300
+#
+
+func planta_exec
+  refvar r = criar("i_plantas025", dono, 1)
+  $mens.p(r)
+  $mens.mvis1("$P surge na sala, carregada de mangas para serem colhidas e comidas!")
+  apagar(este)
+
+
+classe i_plantas025
+herda comum_itemperso
+const nome = "mangueira"
+const ident = "mangueira manga"
+const descnome = "uma mangueira"
+const descpos = "Uma mangueira repleta de mangas maduras está a sua esquerda."
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_pegarobj
+  se arg2 == este
+    refvar b = criar("i_fierce035", arg0, 1)
+    $mens.p(arg0, nulo, b)
+    $mens.mvis1("$P derruba $o do pé de manga e a pega do chão.")
+    ret 1
+  fimse
+#
+
+
+classe i_plantas026
+herda comum_item
+const nome = "semente de morango"
+const ident = "caroço morango"
+const descnome = "uma semente de morango"
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 600
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+inttempo broto
+#
+
+func descpos
+  se var.z_plantada_
+    ret "uma semente foi enterrado no chão, e cresce espontaneamente."
+  senao
+    ret "há uma semente de morango no chão."
+  fimse
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "plantar morango"
+    var.z_plantada_ = 1
+    este.mdono(arg0.dono)
+    $mens.p(arg0, "", este)
+    $mens.mtodos1("$P planta $o no chão.")
+    broto = 400
+    ret 1
+  fimse
+#
+#
+
+func broto_exec
+  refvar m = criar("i_plantas027", dono, 1)
+  $mens.p(m)
+  $mens.mtodos1("$p surge no chão, pronto para se transformar em breve uma nova árvore!")
+  apagar(este)
+
+
+classe i_plantas027
+herda comum_item
+const nome = "brotinho de morangueira"
+const descnome = "um brotinho de morango"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+inttempo planta
+#
+
+func cmd_ini
+  planta = 300
+#
+
+func planta_exec
+  refvar r = criar("i_plantas028", dono, 1)
+  $mens.p(r)
+  $mens.mvis1("$P surge na sala, carregado de morangos para serem colhidos e comidos!")
+  apagar(este)
+
+
+classe i_plantas028
+herda comum_itemperso
+const nome = "pé de morango"
+const ident = "pé de morango morango"
+const descnome = "um pé de morango"
+const descpos = "um pé de morango, repleto de morangos maduros está a sua esquerda."
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_pegarobj
+  se arg2 == este
+    refvar b = criar("i_fierce011", arg0, 1)
+    $mens.p(arg0, este, b)
+    $mens.mtodos1("$P colhe $o $d $a.")
+    ret 1
+  fimse
+#
+
+
+classe i_plantas029
+herda comum_item
+const nome = "semente de goiaba"
+const ident = "semente goiaba"
+const descnome = "uma semente de goiaba"
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 600
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+inttempo broto
+#
+
+func descpos
+  se var.z_plantada_
+    ret "uma semente foi enterrado no chão, e cresce espontaneamente."
+  senao
+    ret "há uma semente de goiaba no chão."
+  fimse
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "plantar goiaba"
+    var.z_plantada_ = 1
+    este.mdono(arg0.dono)
+    $mens.p(arg0, "", este)
+    $mens.mtodos1("$P planta $o no chão.")
+    broto = 400
+    ret 1
+  fimse
+#
+#
+
+func broto_exec
+  refvar m = criar("i_plantas030", dono, 1)
+  $mens.p(m)
+  $mens.mtodos1("$p surge no chão, pronto para se transformar em breve uma nova árvore!")
+  apagar(este)
+
+
+classe i_plantas030
+herda comum_item
+const nome = "brotinho de goiabeira"
+const descnome = "um brotinho de goiaba"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+inttempo planta
+#
+
+func cmd_ini
+  planta = 300
+#
+
+func planta_exec
+  refvar r = criar("i_plantas031", dono, 1)
+  $mens.p(r)
+  $mens.mvis1("$P surge na sala, carregado de goiabas para serem colhidas e comidas!")
+  apagar(este)
+
+
+classe i_plantas031
+herda comum_itemperso
+const nome = "pé de goiaba"
+const ident = "pé de goiaba goiaba"
+const descnome = "um pé de goiaba"
+const descpos = "um pé de goiaba, repleto de goiabas maduras está a sua esquerda."
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_pegarobj
+  se arg2 == este
+    refvar b = criar("i_fierce004", arg0, 1)
+    $mens.p(arg0, este, b)
+    $mens.mtodos1("$P colhe $o $d $a.")
+    ret 1
+  fimse
+#
+
+
+classe i_plantas032
+herda comum_itemgrupo
+const nome = "algumas toras de madeira"
+const descnome = "algumas toras de madeira"
+const descpos = "Algumas toras de madeira estão jogadas aqui no chão"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+
+classe i_plantas033
+herda comum_itemgrupo
+const nome = "algumas toras de madeira em chamas"
+const descpos = "algumas toras de madeira foram deixadas aqui."
+const eveste = 1 # Eventos item: Sim
+const evitem = 1 # Eventos dono item: Sim
+sav inttempo queimar
+#
+
+func cmd_ini
+  queimar = 300
+#
+
+func cmd_pegarobj
+  $mens.p(arg0)
+  $mens.mvis1("$P tenta pegar algumas toras de madeira de uma lareira acesa, mas acaba por \
+queimar as próprias mãos.")
+  ret 1
+#
+  se dono.item
+    $mens.p(dono, nulo, este)
+    $mens.mvis1("As toras de madeira acabam de queimar completamente, restando apenas cinzas \
+dentro $d $p.")
+  senao
+    $mens.p(este)
+    $mens.mvis1("As toras de madeira acabam de queimar completamente, restando apenas cinzas no \
+chão.")
+  senao dono.jog
+    $mens.p(dono, nulo, este)
+    $mens.mvis1("As toras de madeira nas mãos $d $p acabam de queimar completamente, deixando-as \
+sujas de cinzas.")
+  fimse
+  criar("i_cinzas", dono, 1)
+  apagar(este)
+
+
+classe s_plantas001
+herda b_plantas
+const s_titulo = "nos autos galhos da videira"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+const dir_b = $s_plantas003
+const a_reset = "S 100 casas022 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_adcasas022") && criar("i_adcasas022", este, 1)
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+
+func cmd_escr
+#
+  se arg1 == "b" || arg1 == "d" || arg1 == "descer"
+    $mens.p(arg0)
+    $mens.mvis2("", "$P desceu.")
+    arg0.mudadono(dono.dono)
+    $mens.p(arg0)
+    $mens.mtodos2("", "$P desceu de cima da videira.")
+    ret 1
+  fimse
+#
+
+
+classe s_plantas002
+herda b_plantas
+
+
+classe s_plantas003
+herda b_plantas
+const s_titulo = dono ? dono.dono.s_titulo : "em baixo da videira"
+const dir_c = $s_plantas001
+
+
+classe s_plantas004
+herda b_plantas
+const s_titulo = "No alto do coqueiro."
+const eveste = 1 # Eventos sala: Sim
+const dir_b = $s_plantas005
+const a_reset = "S 70 frutas011 5 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_frutas011") && rand(100) < 70 && criar("i_frutas011", este, 5)
+#
+
+func cmd_soltarobj
+  se arg1 == este
+    $mens.p(arg0, nulo, arg2)
+    $mens.mtodos2("$P solta $o, que começa a cair rapidamente, até atingir o solo.")
+    refvar item = arg2.mudadono(dono.dono, arg3)
+    $mens.p(item)
+    $mens.mtodos1("$P cai em sua cabeça, fazendo-lhe desequilibrar, -10")
+    ret 1
+  fimse
+
+
+classe s_plantas005
+herda b_plantas
+const s_titulo = "Subindo pelo tronco do coqueiro."
+const dir_c = $s_plantas004
+const dir_b = $s_plantas006
+
+
+classe s_plantas006
+herda b_plantas
+const s_titulo = "Subindo pelo tronco do coqueiro."
+const dir_c = $s_plantas005
+const dir_b = $s_plantas007
+
+
+classe s_plantas007
+herda b_plantas
+const s_titulo = "Subindo pelo tronco do coqueiro."
+const eveste = 1 # Eventos sala: Sim
+const dir_c = $s_plantas006
+const dir_b = $s_plantas008
+#
+
+func cmd_mover
+  se arg2 == "b"
+    arg0.mudadono(dono.dono)
+    $mens.p(arg0, nulo, dono)
+    $mens.mtodos2("", "$P desceu $d $o.")
+    ret 1
+  fimse
+
+
+classe s_plantas008
+herda b_plantas
+const s_titulo = dono.dono.var.z_titulo ? dono.dono.var.z_titulo : dono.dono.s_titulo
+const dir_c = $s_plantas007

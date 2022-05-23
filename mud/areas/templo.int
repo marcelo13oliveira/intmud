@@ -1,0 +1,73 @@
+classe i_templo002
+herda comum_itemperso
+const nome = "asa"
+const descnome = ".Asas de um arcanjo"
+const descpos = ".No chão se encontra um par de asas que emana uma devastadora energia"
+const descver = "As asas de um arcanjo morto na batalha pelo céu"
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const vestir1 = 192 # Aonde vestir: 6-sobre o corpo, 7-costas
+const m_atribs2 = "Você vest o par de asas de um arcanjo"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100 * pnivel + 200
+  pmanamax += 100 * pnivel + 200
+  pmovemax += 100 * pnivel + 200
+  pveloc1 += 100 * pnivel + 200
+  atknorm += 100 * pnivel + 200
+  defnorm += 100 * pnivel + 200
+  atkesp += 100 * pnivel + 200
+  defesp += 100 * pnivel + 200
+  evasao += 100 * pnivel + 200
+  precisao += 100 * pnivel + 200
+  pesomax += 100 * pnivel + 200
+  bitver |= 6206
+  bitinv |= 32
+  atktipo.3 *= 10 # Luta
+  deftipo.3 *= 10 # Luta
+
+const manterperso = 1 # Mantém em jogador: Sim
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 6190
+  bitinv |= 32
+
+
+classe p_templo001
+herda comum_persobat
+const nome = "Guardião"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 130
+const objmax = 10
+const nivel = 100
+const tipo1 = "Minotauro"
+const tipo2 = "Guerreiro"
+const equip2 = 524287 # Equip adicionar: 0-cabeça, 1-rosto, 2-olhos, 3-orelhas, 4-pescoço, \
+5-corpo, 6-sobre o corpo, 7-costas, 8-braços, 9-mã
+const p_atk_anda = 1 # Anda ataque: Sim
+const p_atktipo = "Soca"
+const p_exp = 1000
+const p_lembra = 20
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+const p_naoseguir = 0 # Não podem seguir: Não
+const p_persegue = 1 # Persegue jogadores: 1 Se atacarem
+const p_recebe = 1 # Recebe itens: Sim
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100 * pnivel + 100000
+  pveloc1 += 100 * pnivel + 2000
+  atknorm += 100 * pnivel + 3000
+  defnorm += 100 * pnivel + 3000
+  atkesp += 200 * pnivel + 5000
+  precisao += 200 * pnivel + 1000
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100000
+  atknorm += 5000
+  atkesp += 10000
+  atktipo.3 *= 10 # Luta
+  deftipo.3 *= 10 # Luta

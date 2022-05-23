@@ -1,0 +1,898 @@
+classe a_labirinto
+herda area
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_tempo = 6000000
+const a_nome = "O labirinto"
+const a_autor = "hellmud"
+
+
+classe b_labirinto
+herda sala
+const s_doarsalas = "venore004"
+const s_item = 3000000
+const s_recup = 9
+const s_voltar = $s_venore001
+const eveste = 1 # Receber eventos do próprio objeto
+const s_area = "labirinto"
+
+func cmd_salaperso # Personagem chegou
+  ret !arg0.jog, nulo # Retorna se não for jogador
+  misc:evento(arg0) # Receber eventos do jogador
+
+func cmd_mover
+  ret este == $s_labirinto001, 0
+  se rand(1, 100) > 50
+    arg0.msg("Ao tentar se movimentar pelo labirinto, sua cabeça se vê embaralhada por tantas \
+salas iguais e você se perde.")
+    ret 1
+  fimse
+
+
+classe i_labirinto001
+herda comum_itemgrupo
+const nome = "Elmo de Titânio"
+const ident = "Elmo de Titânio"
+const descnome = "Um Elmo de Titânio"
+const descpos = "Um Elmo de Titânio foi cuidadosamente colocado aqui."
+const descver = "Nada mais do que um Elmo de Titânio."
+const descident = "Modifica: Max mana por 50.\nModifica: Max vida por 100."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 38
+const pesoobj = 1027
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 0
+const vestir1 = "2" # Aonde vestir: 1-Na cabeça
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 300
+  pmanamax += 200
+  pmovemax += 200
+  pveloc1 += 50
+  atknorm += 50
+  defnorm += 50
+  atkesp += 40
+  defesp += 40
+  evasao += 50
+  precisao += 50
+
+
+classe i_labirinto002
+herda comum_itemgrupo
+const nome = "Armadura de Titânio"
+const ident = "Armadura de Titânio"
+const descnome = "Uma Armadura de Titânio"
+const descpos = "Uma armadura de Titânio foi cuidadosamente colocada aqui."
+const descver = "Nada mais do que uma Armadura de Titânio."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 55
+const pesoobj = 1029
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 0
+const vestir1 = "40" # Aonde vestir: 6-No corpo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 450
+  pmanamax += 200
+  pmovemax += 200
+  pveloc1 += 60
+  atknorm += 70
+  defnorm += 70
+  atkesp += 70
+  defesp += 70
+  evasao += 60
+  precisao += 50
+  pesomax += 21000
+
+
+classe i_labirinto003
+herda comum_itemperso
+const nome = "Baú"
+const descnome = "Um Baú"
+const descpos = "Um magestoso baú encontra-se na sua frente."
+const descident = "Esse item é bem foda."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_chave = "baú"
+const i_pegar = "Você não pode pegar um baú!"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const i_tranc = 1 # Trancar: 1 Pode ser trancado
+const i_fechadura = "baú"
+
+
+classe i_labirinto004
+herda comum_itemgrupo
+const nome = "Escudo de Titânio"
+const ident = "Escudo de Titânio"
+const descnome = "Um Escudo de Titânio"
+const descpos = "Um Escudo de Titânio foi cuidadosamente colocado aqui."
+const descver = "Nada mais do que um Escudo de Titânio."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 70
+const pesoobj = 1031
+const valor = 0
+const vestir1 = "8000" # Aonde vestir: 15-Como escudo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 700
+  pmanamax += 200
+  pmovemax += 200
+  pveloc1 += 50
+  atknorm += 50
+  defnorm += 70
+  atkesp += 60
+  defesp += 50
+  evasao += 80
+  precisao += 20
+  pesomax += 40000
+
+
+classe s_labirinto001
+herda b_labirinto
+const s_titulo = "O início do labirinto"
+const s_desc = "Você está diante de um imenso labirinto.\n\
+Apenas os aventureiros mais renomados conseguem chegar ao final desta\n\
+jornada.\n\
+Se você se sente capaz de enfrentar estas dificuldades, entre e comece sua busca pelo inacreditáv\
+el.\n\
+Boa aventura!"
+const dir_s = $s_labirinto002
+const dir_b = $s_midgaard122
+
+
+classe s_labirinto002
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const s_voltar = $s_venore001
+const dir_n = $s_labirinto002
+const dir_s = $s_labirinto002
+const dir_l = $s_labirinto002
+const dir_o = $s_labirinto002
+const dir_c = $s_labirinto002
+const dir_b = $s_labirinto003
+
+
+classe s_labirinto003
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto002
+const dir_s = $s_labirinto002
+const dir_l = $s_labirinto002
+const dir_o = $s_labirinto004
+const dir_c = $s_labirinto002
+const dir_b = $s_labirinto003
+
+
+classe s_labirinto004
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto003
+const dir_s = $s_labirinto004
+const dir_l = $s_labirinto004
+const dir_o = $s_labirinto002
+const dir_c = $s_labirinto003
+const dir_b = $s_labirinto005
+
+
+classe s_labirinto005
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto004
+const dir_s = $s_labirinto003
+const dir_l = $s_labirinto002
+const dir_o = $s_labirinto006
+const dir_c = $s_labirinto002
+const dir_b = $s_labirinto002
+
+
+classe s_labirinto006
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto005
+const dir_s = $s_labirinto007
+const dir_l = $s_labirinto003
+const dir_o = $s_labirinto002
+const dir_c = $s_labirinto005
+const dir_b = $s_labirinto005
+
+
+classe s_labirinto007
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto002
+const dir_s = $s_labirinto002
+const dir_l = $s_labirinto002
+const dir_o = $s_labirinto003
+const dir_c = $s_labirinto008
+const dir_b = $s_labirinto006
+
+
+classe s_labirinto008
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto004
+const dir_s = $s_labirinto007
+const dir_l = $s_labirinto003
+const dir_o = $s_labirinto009
+const dir_c = $s_labirinto002
+const dir_b = $s_labirinto008
+
+
+classe s_labirinto009
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto004
+const dir_s = $s_labirinto002
+const dir_l = $s_labirinto010
+const dir_o = $s_labirinto002
+const dir_c = $s_labirinto002
+const dir_b = $s_labirinto009
+
+
+classe s_labirinto010
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto011
+const dir_s = $s_labirinto008
+const dir_l = $s_labirinto009
+const dir_o = $s_labirinto007
+const dir_c = $s_labirinto010
+const dir_b = $s_labirinto011
+
+
+classe s_labirinto011
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto012
+const dir_s = $s_labirinto010
+const dir_l = $s_labirinto011
+const dir_o = $s_labirinto011
+const dir_c = $s_labirinto012
+const dir_b = $s_labirinto009
+
+
+classe s_labirinto012
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto013
+const dir_s = $s_labirinto012
+const dir_l = $s_labirinto011
+const dir_o = $s_labirinto012
+const dir_c = $s_labirinto002
+const dir_b = $s_labirinto012
+
+
+classe s_labirinto013
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto013
+const dir_s = $s_labirinto012
+const dir_l = $s_labirinto014
+const dir_o = $s_labirinto012
+const dir_c = $s_labirinto005
+const dir_b = $s_labirinto003
+
+
+classe s_labirinto014
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto009
+const dir_s = $s_labirinto010
+const dir_l = $s_labirinto013
+const dir_o = $s_labirinto002
+const dir_c = $s_labirinto015
+const dir_b = $s_labirinto006
+
+
+classe s_labirinto015
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto002
+const dir_s = $s_labirinto002
+const dir_l = $s_labirinto014
+const dir_o = $s_labirinto016
+const dir_c = $s_labirinto006
+const dir_b = $s_labirinto016
+
+
+classe s_labirinto016
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto017
+const dir_s = $s_labirinto003
+const dir_l = $s_labirinto012
+const dir_o = $s_labirinto002
+const dir_c = $s_labirinto015
+const dir_b = $s_labirinto016
+
+
+classe s_labirinto017
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto002
+const dir_s = $s_labirinto002
+const dir_l = $s_labirinto003
+const dir_o = $s_labirinto002
+const dir_c = $s_labirinto005
+const dir_b = $s_labirinto018
+
+
+classe s_labirinto018
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto009
+const dir_s = $s_labirinto019
+const dir_l = $s_labirinto003
+const dir_o = $s_labirinto010
+const dir_c = $s_labirinto002
+const dir_b = $s_labirinto002
+
+
+classe s_labirinto019
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto017
+const dir_s = $s_labirinto017
+const dir_l = $s_labirinto015
+const dir_o = $s_labirinto002
+const dir_c = $s_labirinto010
+const dir_b = $s_labirinto020
+
+
+classe s_labirinto020
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto003
+const dir_s = $s_labirinto002
+const dir_l = $s_labirinto006
+const dir_o = $s_labirinto021
+const dir_c = $s_labirinto002
+const dir_b = $s_labirinto003
+
+
+classe s_labirinto021
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto002
+const dir_s = $s_labirinto002
+const dir_l = $s_labirinto003
+const dir_o = $s_labirinto005
+const dir_c = $s_labirinto021
+const dir_b = $s_labirinto022
+
+
+classe s_labirinto022
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto002
+const dir_s = $s_labirinto002
+const dir_l = $s_labirinto002
+const dir_o = $s_labirinto002
+const dir_c = $s_labirinto023
+const dir_b = $s_labirinto013
+
+
+classe s_labirinto023
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto024
+const dir_s = $s_labirinto002
+const dir_l = $s_labirinto022
+const dir_o = $s_labirinto010
+const dir_c = $s_labirinto021
+const dir_b = $s_labirinto021
+
+
+classe s_labirinto024
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto025
+const dir_s = $s_labirinto023
+const dir_l = $s_labirinto009
+const dir_o = $s_labirinto003
+const dir_c = $s_labirinto014
+const dir_b = $s_labirinto015
+
+
+classe s_labirinto025
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto022
+const dir_s = $s_labirinto025
+const dir_l = $s_labirinto023
+const dir_o = $s_labirinto025
+const dir_c = $s_labirinto026
+const dir_b = $s_labirinto023
+
+
+classe s_labirinto026
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto002
+const dir_s = $s_labirinto032
+const dir_l = $s_labirinto033
+const dir_o = $s_labirinto008
+const dir_c = $s_labirinto036
+const dir_b = $s_labirinto027
+
+
+classe s_labirinto027
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto014
+const dir_s = $s_labirinto028
+const dir_l = $s_labirinto022
+const dir_o = $s_labirinto023
+const dir_c = $s_labirinto026
+const dir_b = $s_labirinto019
+
+
+classe s_labirinto028
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto038
+const dir_s = $s_labirinto040
+const dir_l = $s_labirinto032
+const dir_o = $s_labirinto041
+const dir_c = $s_labirinto028
+const dir_b = $s_labirinto029
+
+
+classe s_labirinto029
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto033
+const dir_s = $s_labirinto002
+const dir_l = $s_labirinto028
+const dir_o = $s_labirinto051
+const dir_c = $s_labirinto030
+const dir_b = $s_labirinto002
+
+
+classe s_labirinto030
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto031
+const dir_s = $s_labirinto044
+const dir_l = $s_labirinto029
+const dir_o = $s_labirinto002
+const dir_c = $s_labirinto029
+const dir_b = $s_labirinto030
+
+
+classe s_labirinto031
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto003
+const dir_s = $s_labirinto002
+const dir_l = $s_labirinto031
+const dir_o = $s_labirinto030
+const dir_c = $s_labirinto009
+const dir_b = $s_labirinto032
+
+
+classe s_labirinto032
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto030
+const dir_s = $s_labirinto031
+const dir_l = $s_labirinto031
+const dir_o = $s_labirinto033
+const dir_c = $s_labirinto031
+const dir_b = $s_labirinto004
+
+
+classe s_labirinto033
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim.\n\
+Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto045
+const dir_s = $s_labirinto004
+const dir_l = $s_labirinto002
+const dir_o = $s_labirinto051
+const dir_c = $s_labirinto034
+const dir_b = $s_labirinto033
+
+
+classe s_labirinto034
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto032
+const dir_s = $s_labirinto010
+const dir_l = $s_labirinto035
+const dir_o = $s_labirinto030
+const dir_c = $s_labirinto033
+const dir_b = $s_labirinto033
+
+
+classe s_labirinto035
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto031
+const dir_s = $s_labirinto032
+const dir_l = $s_labirinto033
+const dir_o = $s_labirinto034
+const dir_c = $s_labirinto030
+const dir_b = $s_labirinto036
+
+
+classe s_labirinto036
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto036
+const dir_s = $s_labirinto037
+const dir_l = $s_labirinto033
+const dir_o = $s_labirinto029
+const dir_c = $s_labirinto009
+const dir_b = $s_labirinto035
+
+
+classe s_labirinto037
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto036
+const dir_s = $s_labirinto033
+const dir_l = $s_labirinto035
+const dir_o = $s_labirinto034
+const dir_c = $s_labirinto002
+const dir_b = $s_labirinto038
+
+
+classe s_labirinto038
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto037
+const dir_s = $s_labirinto038
+const dir_l = $s_labirinto038
+const dir_o = $s_labirinto033
+const dir_c = $s_labirinto038
+const dir_b = $s_labirinto039
+
+
+classe s_labirinto039
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto039
+const dir_s = $s_labirinto038
+const dir_l = $s_labirinto041
+const dir_o = $s_labirinto004
+const dir_c = $s_labirinto033
+const dir_b = $s_labirinto040
+
+
+classe s_labirinto040
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto041
+const dir_s = $s_labirinto043
+const dir_l = $s_labirinto039
+const dir_o = $s_labirinto033
+const dir_c = $s_labirinto041
+const dir_b = $s_labirinto040
+
+
+classe s_labirinto041
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_s = $s_labirinto040
+const dir_l = $s_labirinto042
+const dir_o = $s_labirinto040
+const dir_c = $s_labirinto043
+const dir_b = $s_labirinto040
+
+
+classe s_labirinto042
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto006
+const dir_s = $s_labirinto002
+const dir_l = $s_labirinto041
+const dir_o = $s_labirinto042
+const dir_c = $s_labirinto043
+const dir_b = $s_labirinto041
+
+
+classe s_labirinto043
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto002
+const dir_s = $s_labirinto051
+const dir_l = $s_labirinto042
+const dir_o = $s_labirinto039
+const dir_c = $s_labirinto044
+const dir_b = $s_labirinto043
+
+
+classe s_labirinto044
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto002
+const dir_s = $s_labirinto004
+const dir_l = $s_labirinto043
+const dir_o = $s_labirinto003
+const dir_c = $s_labirinto045
+const dir_b = $s_labirinto033
+
+
+classe s_labirinto045
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto039
+const dir_s = $s_labirinto002
+const dir_l = $s_labirinto013
+const dir_o = $s_labirinto022
+const dir_c = $s_labirinto045
+const dir_b = $s_labirinto046
+
+
+classe s_labirinto046
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto017
+const dir_s = $s_labirinto015
+const dir_l = $s_labirinto033
+const dir_o = $s_labirinto022
+const dir_c = $s_labirinto047
+const dir_b = $s_labirinto046
+
+
+classe s_labirinto047
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto002
+const dir_s = $s_labirinto003
+const dir_l = $s_labirinto039
+const dir_o = $s_labirinto009
+const dir_c = $s_labirinto048
+const dir_b = $s_labirinto030
+
+
+classe s_labirinto048
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto046
+const dir_s = $s_labirinto002
+const dir_l = $s_labirinto002
+const dir_o = $s_labirinto002
+const dir_c = $s_labirinto049
+const dir_b = $s_labirinto048
+
+
+classe s_labirinto049
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto033
+const dir_s = $s_labirinto002
+const dir_l = $s_labirinto002
+const dir_o = $s_labirinto002
+const dir_c = $s_labirinto049
+const dir_b = $s_labirinto050
+
+
+classe s_labirinto050
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto002
+const dir_s = $s_labirinto051
+const dir_l = $s_labirinto002
+const dir_o = $s_labirinto002
+const dir_c = $s_labirinto002
+const dir_b = $s_labirinto003
+
+
+classe s_labirinto051
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto002
+const dir_s = $s_labirinto002
+const dir_l = $s_labirinto002
+const dir_o = $s_labirinto052
+const dir_c = $s_labirinto002
+const dir_b = $s_labirinto002
+
+
+classe s_labirinto052
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto003
+const dir_s = $s_labirinto002
+const dir_l = $s_labirinto002
+const dir_o = $s_labirinto002
+const dir_c = $s_labirinto051
+const dir_b = $s_labirinto053
+
+
+classe s_labirinto053
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto002
+const dir_s = $s_labirinto002
+const dir_l = $s_labirinto003
+const dir_o = $s_labirinto002
+const dir_c = $s_labirinto054
+const dir_b = $s_labirinto002
+
+
+classe s_labirinto054
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto002
+const dir_s = $s_labirinto002
+const dir_l = $s_labirinto002
+const dir_o = $s_labirinto002
+const dir_c = $s_labirinto002
+const dir_b = $s_labirinto055
+
+
+classe s_labirinto055
+herda b_labirinto
+const s_titulo = "O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto002
+const dir_s = $s_labirinto002
+const dir_l = $s_labirinto051
+const dir_o = $s_labirinto044
+const dir_c = $s_labirinto014
+const dir_b = $s_labirinto056
+
+
+classe s_labirinto056
+herda b_labirinto
+const s_titulo = "- O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto005
+const dir_s = $s_labirinto003
+const dir_l = $s_labirinto002
+const dir_o = $s_labirinto030
+const dir_c = $s_labirinto057
+const dir_b = $s_labirinto055
+
+
+classe s_labirinto057
+herda b_labirinto
+const s_titulo = "- O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto009
+const dir_s = $s_labirinto040
+const dir_l = $s_labirinto010
+const dir_o = $s_labirinto002
+const dir_c = $s_labirinto056
+const dir_b = $s_labirinto058
+
+
+classe s_labirinto058
+herda b_labirinto
+const s_titulo = "- O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto002
+const dir_s = $s_labirinto057
+const dir_l = $s_labirinto056
+const dir_o = $s_labirinto056
+const dir_c = $s_labirinto059
+const dir_b = $s_labirinto003
+
+
+classe s_labirinto059
+herda b_labirinto
+const s_titulo = "- O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto002
+const dir_s = $s_labirinto002
+const dir_l = $s_labirinto002
+const dir_o = $s_labirinto002
+const dir_c = $s_labirinto060
+const dir_b = $s_labirinto058
+
+
+classe s_labirinto060
+herda b_labirinto
+const s_titulo = "- O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto061
+const dir_s = $s_labirinto003
+const dir_l = $s_labirinto002
+const dir_o = $s_labirinto059
+const dir_c = $s_labirinto005
+const dir_b = $s_labirinto004
+
+
+classe s_labirinto061
+herda b_labirinto
+const s_titulo = "- O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto015
+const dir_s = $s_labirinto060
+const dir_l = $s_labirinto062
+const dir_o = $s_labirinto051
+const dir_c = $s_labirinto002
+const dir_b = $s_labirinto010
+
+
+classe s_labirinto062
+herda b_labirinto
+const s_titulo = "- O labirinto"
+const s_desc = "Você está em um grande labirinto que parece não haver fim."
+const dir_n = $s_labirinto062
+const dir_s = $s_labirinto062
+const dir_l = $s_labirinto002
+const dir_o = $s_labirinto062
+const dir_c = $s_labirinto061
+const dir_b = $s_labirinto101
+
+
+classe s_labirinto101
+herda b_labirinto
+const s_titulo = "O fim do labirinto"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+const dir_b = $s_midgaard001
+const a_reset = "S 100 labirinto003 0 S\n\
+S 100 labirinto001 1 labirinto003\n\
+S 100 labirinto002 1 labirinto003\n\
+S 100 labirinto004 1 labirinto003"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_labirinto003") && criar("i_labirinto003", este, 0)
+  $i_labirinto003 && !$i_labirinto003.dentro1.objini("i_labirinto001") && criar("i_labirinto001",\
+ $i_labirinto003, 1)
+  $i_labirinto003 && !$i_labirinto003.dentro1.objini("i_labirinto002") && criar("i_labirinto002",\
+ $i_labirinto003, 1)
+  $i_labirinto003 && !$i_labirinto003.dentro1.objini("i_labirinto004") && criar("i_labirinto004",\
+ $i_labirinto003, 1)
+
+const ver_baixo_descer = "Você vê o templo de Venore."

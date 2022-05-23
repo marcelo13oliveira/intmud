@@ -1,0 +1,557 @@
+classe a_perso
+herda area
+
+
+classe b_perso
+herda sala
+const s_area = "perso"
+
+
+classe p_mamofantorrofo
+herda comum_persobat
+const nome = "Mamofantorrofo"
+const descnome = "um mamofantorrofo"
+const descpadr = "um pequeno mamofantorrofo está aqui, com sua habitual voz rouca falando. \
+Mamofantorrofo! Mamofantorrofo!"
+const descver = "êis que de repente você pensa. será um sonho?\n\
+não, é a pura realidade!\n\
+você está olhando para um...\n\
+mamofantorrofo!\n\
+ele é um pequeno ser, com pelos meio longos, da cor azul, possui um focinho meio engraçado, pois \
+é em formato de meio círculo.\n\
+suas orelhas são parecidas com as de uma pessoa, porém são meio que viradas pra trás.\n\
+seus pequenos olhos verdes te olham com curiozidade.\n\
+então você pergunta. por quê, o nome mamofantorrofo?\n\
+pois é, ninguém do mundo fantastic sabe, a não ser sua criadora, ou melhor, a criadora desse tão \
+falado nome. e sua dona é.\nKary!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 500
+const p_atk_anda = 1 # Anda ataque: Sim
+const p_imortal = 1 # Imortal: Sim
+const p_lembra = 5
+const p_persegue = 1 # Persegue jogadores: 1 Se atacarem
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500 * pnivel
+  atknorm += 50 * pnivel
+  defnorm += 20 * pnivel
+  atkesp += 20 * pnivel
+  defesp += 20 * pnivel
+  evasao += 10 * pnivel
+  precisao += 10 * pnivel
+
+
+classe p_perso001
+herda comum_persobat
+const nome = "um gigante da montanha"
+const ident = "gigante montanha"
+const descnome = "Um gigante"
+const descpadr = "um gigante das montanhas está paceando aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 50
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_morreu1 = "$p fica tonto, e cai sem vida no chão $p está morto"
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const inivar = "z_moedas=30000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1932
+  precisao += 102
+
+
+classe p_perso002
+herda comum_persobat
+const nome = "cavalo magro"
+const ident = "cavalo"
+const descnome = "Um cavalo"
+const descpadr = "Um cavalo muito magro está aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 76
+const p_agressivo = 1 # Agressivo: 1 se atacarem
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 500
+const inivar = "z_moedas=200"
+#
+
+func cmd_mudadono
+  se dono.s_sala
+    listaobj l
+    epara l.addfim(dono.dentro2), l, l.ini.remove
+      se l.objini.jog
+        misc:evento(l.objini)
+      fimse
+    efim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+#
+
+func cmd_escr
+  se txt1(arg1) == "entregue"
+    misc:separa(txt2(arg1))
+    refvar perso = misc:sep2
+    refvar item = misc:sep1
+    refvar i = misc:itemdentro(este, item)
+    ret !i, arg0.msg(descnome + " diz: Antes, me dê o item.")
+    ref p
+    refvar nomesav = txts(txtnome(perso))
+    indiceitem item
+    item.ini("pn " + nomesav)
+    p = item.obj
+    ret !p, arg0.msg(descnome + " diz: " + perso + " não está no jogo.")
+    ret p.s_area == "templo", arg0.msg(descnome + " diz: Não posso entregar o item.")
+    se dono != p.dono
+      $mens.p(este)
+      $mens.mtodos1("$P levanta vôo, levando consigo mais uma carta.")
+      mudadono(p.dono)
+      $mens.p(este, p)
+      $mens.mtodos1("$P pousou na sala.")
+    fimse
+    teclou("dar " + item + " " + perso)
+    se dono != arg0.dono
+      $mens.p(este)
+      $mens.p("$P abre novamente suas asas e levanta vôo, desaparecendo no céu.")
+      mudadono(arg0.dono)
+      $mens.p(este, arg0)
+      $mens.mtodos1("$P diz a $A: Entrega realizada com sucesso.")
+    fimse
+    ret 1
+  fimse
+
+
+classe p_perso003
+herda comum_perso
+const nome = "Ronald"
+const ident = "ronald pizzaiolo"
+const descnome = "Ronald"
+const descpadr = "Um senhor está aqui, cuidando das pizzas e dos demais alimentos"
+const nivel = 8
+const lojaitem = "aditem044 0\n\
+aditem042 0\n\
+aditem045 0\n\
+aditem046 0\n\
+aditem056 0\n\
+aditem057 0\n\
+aditem058 0\n\
+aditem062 0\n\
+aditem068 0\n\
+midgaard021 0\n\
+midgaard039 0"
+const p_recebe = 1 # Recebe itens: Sim
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos em perso: Sim
+const evsala = 1 # Eventos em sala: Sim
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:tempo("entrou", arg0)
+
+func entrou20
+  arg0.msg("Ronald lhe da as boas vindas!")
+
+func entrou600
+  arg0.msg("Ronald abastesce as prateleiras com novas latinhas de cerveja.")
+
+func entrou1200
+  arg0.msg("Ronald começa a cantarolar!")
+
+func entrou1800
+  arg0.msg("Ronald olha para os lados como se estivesce procurando algo...")
+
+func entrou2010
+  arg0.msg("Ronald diz: 'jajá sai mais uma mine pizza de brigadeiro!")
+
+
+classe p_perso004
+herda comum_persobat
+const nome = "assaltante"
+const ident = "assaltante asaltante assautante"
+const descnome = "um dos assaltantes"
+const descpadr = "Um homem invocado está aqui, procurando pessoas para roubar! pessoas assim \
+como você!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 40
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 1 # Movimentar: 1 Somente na área
+const inivar = "h_chutar=8,h_socar=8,z_moedas=32459"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 130 * pnivel + 6000
+  precisao += 104
+  bitver |= 28
+
+
+classe p_perso005
+herda comum_persobat
+const nome = "padre"
+const ident = "padre"
+const descnome = "Um padre"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_imortal = 1 # Imortal: Sim
+const eveste = 0 # Eventos perso: Não
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 0 # Eventos dono sala: Não
+
+func cmd_chegou
+  misc:evento(arg0)
+
+func cmd_escr
+  se arg1 == "casar"
+    se !txt2(arg1)
+      arg0.msg("Digite o nome da pessoa que você deseja casar.")
+      ret 1
+    senao
+      refvar r = misc:objpersosala(arg0, arg1)
+      ret !r, arg0.msg("Não há ninguém chamado " + arg1 + " aqui.")
+    senao
+      arg0.msg("" + arg0.nome + ", deseja se casar com " + r.nome + "?")
+    fimse
+    ret 1
+
+
+classe p_perso006
+herda comum_persobat
+const nome = "Estilista"
+const descnome = "Um estilista"
+const descpadr = "Um estilista está aqui para avaliar a todos os participantes"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 400
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+
+
+classe p_perso007
+herda comum_perso
+const nome = "Caio"
+const ident = "caio vendedor"
+const descnome = "caio, o vendedor de cachorro quente"
+const lojaitem = "aditem046 0\n\
+aditem042 0\n\
+aditem066 0\n\
+aditem067 0\n\
+aditem069 0\n\
+aditem070 0\n\
+aditem071 0\n\
+aditem072 0"
+
+
+classe p_perso008
+herda comum_persobat
+const nome = "Coelho"
+const ident = "Coelho páscoa"
+const descnome = "Um coelho"
+const descpadr = "Um coelho corre por aqui, tentando não ser notado"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 2000
+const equip1 = "100000"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 350
+const p_morreu1 = "$P abatido, cai de ante de seu golpe, tornando-se agora parte do solo onde \
+está."
+const p_mover = 2 # Movimentar: 2 Qualquer lugar
+const p_movervel = 180
+const p_naoseguir = 1 # Não podem seguir: Sim
+const inivar = "e_cp=8,e_apagar=300"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 3 * pnivel + 10000
+  precisao += 99
+  bitver |= 14
+
+
+classe p_perso009
+herda comum_persobat
+const nome = "carteiro"
+const ident = "carteiro"
+const descnome = "um carteiro"
+const descpadr = "Um carteiro está aqui, Aguardando algo"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const objmax = 40
+const nivel = 4000
+const p_recebe = 1 # Recebe itens: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  misc:tempo("entrou", arg0)
+
+func entrou16
+  arg0.msg("Um carteiro diz: 'Olá " + arg0.nome + ". Sou novo por aqui, e tenho algumas cartas \
+do dia dos pais para levar para outro lugar. Não sei andar por aqui. Você poderia encontrar as \
+cartas e trazer para mim? O dia está acabando e preciso correr. Se achar essas cartas e me \
+trazer, garanto que gostará da recompença. Boa sorte!")
+  ret 1
+
+func cmd_darobj
+  se arg2.nome != "carta"
+    arg0.msg("Um carteiro diz: 'Não estou enteressado neste item.'")
+    ret 1
+  fimse
+
+func cmd_deuobj
+  apagar(arg2)
+  misc:tempo("carta", arg0)
+
+func carta15
+  arg0.msg("Um carteiro diz: 'Perfeito! Uma carta! Traga-me quantas for possível!")
+
+func carta30
+  refvar pai = rand(1, 360000)
+  arg0.ganhaexp(pai)
+  ret 1
+
+
+classe p_perso010
+herda comum_persobat
+const nome = "Um entregador de folhetos"
+const ident = "entregador folhetos"
+const descnome = "Um entregador de folhetos"
+const descpadr = "Um homem está andando por aqui, entregando folhetos para todos que o encontram.\
+"
+const descver = "Este homem parece ser uma pessoa simples, que da duro para sustentar sua \
+família.\n\
+Com vestes simples, você nota que ele não é do tipo de pessoa capaz de machucar alguém. A única \
+coisa que ele quer, é entregar seus folhetos."
+const nivel = 550
+const p_mover = 2 # Movimentar: 2 Qualquer lugar
+const p_movervel = 14
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_chegou
+  misc:tempo("folheto", arg0)
+
+func folheto2
+  ret arg0.var.z_flh > 1, arg0.msg("" + descnome + " olha para você, e te reconhescendo, não lhe \
+entrega nada.")
+  criar("i_folheto", arg0)
+  arg0.var.z_flh@ = 6000
+  $mens.p(arg0)
+  $mens.mtodos2("$P entrega um folheto para você.", "$P olha para $a e lhe entrega um pequeno \
+folheto.")
+  ret 1
+
+
+classe p_perso011
+herda comum_perso
+const nome = "afrodite"
+const ident = "afrodite Deusa amor"
+const descpadr = "uma linda deusa está aqui, ela parece preocupada com algo"
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const objmax = 300000
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "e_change=8"
+const evsala = 1 # Eventos dono sala: Sim
+const m_atribs1 = "Com vários coraçõezinhos flutuando ao seu redor"
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  misc:tempo("ch", arg0)
+
+func ch3
+  se arg0.nome == "jonny"
+    teclou("f saia daqui jonny!")
+    arg0.mudadono($s_[arg0.z_salafim])
+    ret 1
+
+func cmd_darobj
+  se arg0.var.z_af_ == 1
+    se arg2.nome != "coração"
+      arg0.msg("" + descnome + " diz: 'Isto não é um coração, não quero.'")
+      ret 1
+    fimse
+  fimse
+
+func cmd_deuobj
+  se arg0.var.z_af_ == 1
+    apagar(arg2)
+    misc:tempo("c", arg0)
+
+func c15
+  teclou("sorr")
+
+func c30
+  teclou("em olha para um coração.")
+
+func c40
+  arg0.var.z_pc_ += 1
+  arg0.msg("" + descnome + " exclama: 'Perfeito! Obrigada!'")
+  refvar qst = rand(1, 7)
+  refvar xp = rand(1, 400000)
+  arg0.ganhaexp(xp)
+  arg0.var.z_quest_ += qst
+  arg0.var.z_af_ = ""
+  arg0.msg("você recebeu " + qst + " pontos de aventura.")
+  ret 1
+
+func cmd_olhar
+  arg0.msg("" + descnome + ":")
+  arg0.msg("Ela possui uma face bela e jovem, que reflete muita serenidade.\nCom bochechas \
+levemente coradas, e lábios vermelhos e sedutores.\nSeus hipnotizantes olhos azuis mar, com \
+longos cílios negros, se prendem\nao seu olhar, e imediatamente você sente uma grande melancolia.\
+\nSeus negros cabelos caem em delicados cachos, por suas costas e ombros.\nE em seu corpo \
+curvilíneo e escultural, um fino vestido cintila e muda de cor constantemente, conforme ela se \
+move com passos graciosos.")
+  ret 1
+
+func cmd_atacar
+  se arg0.tipoatk == 6
+    teclou("f ok, " + arg0.nome + ", não me ataque mais!")
+    arg0.morreu
+    ret 1
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv &= ~2
+  bitver |= 6206
+
+
+classe p_perso012
+herda comum_perso
+const nome = "pombo correio"
+const descnome = "o pombo correio"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const objmax = 5
+const p_recebe = 1 # Recebe itens: Sim
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_mudadono
+  se dono.s_sala
+    listaobj l
+    epara l.addfim(dono.dentro2), l, l.ini.remove
+      se l.objini.jog
+        misc:evento(l.objini)
+      fimse
+    efim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+#
+
+func cmd_escr
+  se txt1(arg1) == "entregue"
+    ref p
+    misc:separa(txt2(arg1))
+    refvar perso = misc:sep2
+    refvar objentr = misc:sep1
+    refvar i = misc:itemdentro(este, objentr)
+    ret !i, arg0.msg(descnome + " diz: Antes, me dê o item.")
+    refvar nomesav = txts(txtnome(perso))
+    indiceitem item
+    item.ini("pn " + nomesav)
+    p = item.obj
+    ret !p, arg0.msg(descnome + " diz: " + perso + " não está no jogo.")
+    ret p.s_area == "templo", arg0.msg(descnome + " diz: Não posso entregar o item.")
+    se dono != p.dono
+      $mens.p(este)
+      $mens.mtodos1("$P levanta vôo, levando consigo mais uma encomenda.")
+      mudadono(p.dono)
+      $mens.p(este, p)
+      $mens.mtodos1("$P pousou na sala.")
+    fimse
+    teclou("dar " + objentr + " " + perso)
+    se dono != arg0.dono
+      $mens.p(este)
+      $mens.p("$P abre novamente suas asas e levanta vôo, desaparecendo no céu.")
+      mudadono(arg0.dono)
+      $mens.p(este, arg0)
+      $mens.mtodos1("$P diz a $A: Entrega realizada com sucesso.")
+    fimse
+    ret 1
+  fimse
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv &= ~2
+  bitver &= ~16
+  bitver |= 6206
+  bitinv |= 16
+
+
+classe p_perso013
+herda comum_persobat
+const nome = "o médico"
+const descnome = "o médico"
+
+
+classe p_perso014
+herda comum_perso
+const nome = "Cínthia"
+const descnome = "Cínthia, a designer de itens"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  casovar txtmin(txt1(arg1))
+  casose "comprar"
+  casose "compra"
+  casose "compr"
+  casose "comp"
+    refvar t = txtsub(arg1, 1, 1)
+    se t == "1"
+      refvar item = "i_equips050"
+      refvar valor = [item]:valor
+      ret arg0.var.z_moedas_ < valor, arg0.msg(descnome + " diz: Você não tem " + valor + " \
+moedas.")
+      arg0.var.z_moedas_ -= valor
+      refvar i = criar(item, arg0, 1)
+      i.var.z_nome = txtsub(arg1, 2)
+      $mens.p(arg0, este, i)
+      $mens.mens = valor
+      $mens.mtodos2("Você compra $o $d $A por $m moedas.", "$P compra $o $d $A.")
+      ret 1
+    senao t == "2"
+      refvar item = "i_equips051"
+      refvar valor = [item]:valor
+      ret arg0.var.z_moedas_ < valor, arg0.msg(descnome + " diz: Você não tem " + valor + " \
+moedas.")
+      arg0.var.z_moedas_ -= valor
+      refvar i = criar(item, arg0, 1)
+      i.var.z_nome = txtsub(arg1, 2)
+      $mens.p(arg0, este, i)
+      $mens.mens = valor
+      $mens.mtodos2("Você compra $o $d $A por $m moedas.", "$P compra $o $d $A.")
+      ret 1
+    senao t == "3"
+      refvar item = "i_equips052"
+      refvar valor = [item]:valor
+      ret arg0.var.z_moedas_ < valor, arg0.msg(descnome + " diz: Você não tem " + valor + " \
+moedas.")
+      arg0.var.z_moedas_ -= valor
+      refvar i = criar(item, arg0, 1)
+      i.var.z_nome = txtsub(arg1, 2)
+      $mens.p(arg0, este, i)
+      $mens.mens = valor
+      $mens.mtodos2("Você compra $o $d $A por $m moedas.", "$P compra $o $d $A.")
+      ret 1
+    fimse
+  casofim
+
+const lojaitem = "equips050 50\nequips051 50\nequips052 50\nequips053 50\nequips054 50"

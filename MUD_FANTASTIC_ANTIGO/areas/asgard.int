@@ -1,0 +1,263 @@
+classe a_asgard
+herda area
+const a_nome = "Asgard"
+const a_autor = "deck"
+const a_tempo = 60
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_asgard
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_recup = 0
+const s_area = "asgard"
+
+
+classe i_asgard001
+herda comum_item
+const nome = "Uma chave revestida em ouro e prata"
+const descpos = "uma grande chave reluz em um canto do ambiente"
+const i_chave = "asgard001"
+
+
+classe i_asgard002
+herda comum_item
+const nome = "Um enorme machado"
+const descpos = "Um poderoso machado foi deixado aqui"
+const armamax = 1200
+const armamin = 1000
+const armatipo = 11 # Tipo de arma: 11 machado
+
+
+classe i_asgard003
+herda comum_item
+const nome = "Uma fonte de cristal"
+const descpos = "Uma bela fonte de cristal foi sobreposta aqui, retratando em seu centro a \
+imagem de dois beija flores jorrando água de seus bicos."
+const descver = "a fonte foi revestida em cristal afim de sobressaltar qualquer iluminação posta \
+sobre ela.\n\
+em seu centro, a imagem de dois beija flores é refletida na água límpida que acumula jorrada de \
+seus bicos."
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_sede = 120
+const f_msgperso = "$P bebe água límpida de uma fonte de cristal."
+const i_pegar = "está presa ao solo."
+const mantersala = 1 # Mantém na sala: Sim
+const f_liquido = "água cristalina"
+
+
+classe p_asgard001
+herda comum_persobat
+const nome = "o guardião viking"
+const descpadr = "Um enorme viking com um machado nas mãos, protege a entrada de forasteiros \
+intrusos"
+const descver = "Após sua vida de guerra atráz de guerra, este orgulhoso guerreiro viking foi \
+recrutado por Odin para guardar os portões de Valaskjálf.\n\
+ele segura em suas mãos um enorme machado, que apenas o mais forte dos homens é capaz de \
+empunhá-lo.\n\
+ao se aproximar, ele lhe salda com um sorriso desafiador, esperando que você faça algo idiota o \
+suficiente para um confronto.\n\
+aparentemente, ele não liga para quem você seja, só espera um motivo para arrancar sua cabeça, \
+aliás, você fica surpreso por que ele ainda não o fez, sabendo da sede de batalha que os vikings \
+possuem."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+
+
+classe s_asgard001
+herda b_asgard
+const s_titulo = "Os portões do palácio de Valaskjálf."
+const s_desc = "Você está diante de dois enormes portões revestido em ouro e prata. A luz\n\
+do sol ao ser refletida contra a base do metal, retrata uma paisagem\n\
+iluminada, fazendo com que o local fique cláro diante dos seus olhos.\n\
+através de uma fresta, você pode ver o interior do palácio, onde se\n\
+contrasta um belíssimo jardim, recoberto por flores, árvores frutíferas e\n\
+pequenos insetos inofensívos. logo após, você nota uma imponente estrutura\n\
+se elevando até onde os olhos podem enchergar. Sua boca sussurra o nome\n\
+deste lugar, onde a certeza está diante dos seus olhos. o Palácio de\n\
+Valaskjálf, o palácio de Odim, o pai de todos!"
+const s_noite = "Você está diante de dois enormes portões revestido em ouro e prata.\n\
+O brilho da lua ao ser refletida contra a base do metal, retrata uma paisagem iluminada, fazendo \
+com que o local fique cláro diante dos seus olhos.\n\
+através de uma fresta, você pode ver o interior do palácio, onde se contrasta um belíssimo \
+jardim, recoberto por flores, árvores frutíferas e pequenos insetos inofensívos.\n\
+logo após, você nota uma imponente estrutura se elevando até onde os olhos podem enchergar.\n\
+Sua boca sussurra o nome deste lugar, onde a certeza está diante dos seus olhos.\n\
+o Palácio de Valaskjálf, o palácio de Odim, o pai de todos!"
+const dir_s = $s_asgard002
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "Os portões do palácio de Valaskjálf"
+const portaartigo_s = 3 # Artigo porta: 3 os (portões)
+const fechadura_s = "asgard001"
+const fecha_s = 1 # Fecha ao passar: Sim
+const tranc_s = 2 # Trancar: 2 Tranca ao fechar
+const a_reset = "P 100 asgard001 0 0 1\nE 100 asgard001 1 21\nE 100 asgard002 1 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_asgard001:objsolto.total < 1
+    p = u = criar("p_asgard001", este, 0)
+  fimse
+  se u
+    r = criar("i_asgard001", u, 1), r.vestir(21), u.recalc = 1
+  fimse
+  se u
+    r = criar("i_asgard002", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_asgard002
+herda b_asgard
+const s_titulo = "Um explêndido jardim"
+const s_desc = "Ao atravessar os portões, você se depara com uma imagem de arrancar o\n\
+fôlego. Você para em meio a um grande jardim o qual, nas manhãs da\n\
+primavera, fica coberto de flores. A grama é macia, de tal forma que você\n\
+poderia fazer dela um colchão e se deitar sem ser perturbado. Borboletas,\n\
+mariposas e abelhas voam de um lado a outro, dando um contraste a paisagem\n\
+verdejant. Você sente uma enorme vontade de se sentar neste local e admirar\n\
+por horas e horas essa belíssima visão enquanto a leve brisa acaricia seu\n\
+corpo trazendo-lhe uma sensação de paz e tranquilidade."
+const dir_n = $s_asgard001
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "Os portões do palácio de Valaskjálf"
+const portaartigo_n = 3 # Artigo porta: 3 os (portões)
+const fechadura_n = "asgard001"
+const fecha_n = 1 # Fecha ao passar: Sim
+const tranc_n = 2 # Trancar: 2 Tranca ao fechar
+const dir_s = $s_asgard003
+
+
+classe s_asgard003
+herda b_asgard
+const s_titulo = "O centro do jardim"
+const dir_n = $s_asgard002
+const dir_s = $s_asgard006
+const dir_l = $s_asgard004
+const dir_o = $s_asgard005
+const a_reset = "S 100 asgard003 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_asgard003") && criar("i_asgard003", este, 1)
+
+
+classe s_asgard004
+herda b_asgard
+const s_titulo = "Um explêndido jardim"
+const dir_o = $s_asgard003
+
+
+classe s_asgard005
+herda b_asgard
+const s_titulo = "Um explêndido jardim"
+const dir_l = $s_asgard003
+
+
+classe s_asgard006
+herda b_asgard
+const s_titulo = "A entrada grandiosa"
+const dir_n = $s_asgard003
+const dir_s = $s_asgard007
+
+
+classe s_asgard007
+herda b_asgard
+const s_titulo = "o hall de entrada"
+const dir_n = $s_asgard006
+const dir_c = $s_asgard008
+
+
+classe s_asgard008
+herda b_asgard
+const s_titulo = "o grande salão"
+const dir_s = $s_asgard009
+const dir_l = $s_asgard011
+const dir_o = $s_asgard012
+const dir_b = $s_asgard007
+
+
+classe s_asgard009
+herda b_asgard
+const s_titulo = "o grande salão"
+const dir_n = $s_asgard008
+const dir_s = $s_asgard010
+const dir_l = $s_asgard013
+const dir_o = $s_asgard014
+
+
+classe s_asgard010
+herda b_asgard
+const s_titulo = "o grande salão"
+const dir_n = $s_asgard009
+const dir_s = $s_asgard017
+const dir_l = $s_asgard015
+const dir_o = $s_asgard016
+
+
+classe s_asgard011
+herda b_asgard
+const s_titulo = "o grande salão"
+const dir_o = $s_asgard008
+const dir_s = $s_asgard013
+
+
+classe s_asgard012
+herda b_asgard
+const s_titulo = "o grande salão"
+const dir_l = $s_asgard008
+const dir_s = $s_asgard014
+
+
+classe s_asgard013
+herda b_asgard
+const s_titulo = "o grande salão"
+const dir_n = $s_asgard011
+const dir_o = $s_asgard009
+const dir_s = $s_asgard015
+
+
+classe s_asgard014
+herda b_asgard
+const s_titulo = "o grande salão"
+const dir_n = $s_asgard012
+const dir_l = $s_asgard009
+const dir_s = $s_asgard016
+
+
+classe s_asgard015
+herda b_asgard
+const s_titulo = "o grande salão"
+const dir_n = $s_asgard013
+const dir_o = $s_asgard010
+
+
+classe s_asgard016
+herda b_asgard
+const s_titulo = "o grande salão"
+const dir_n = $s_asgard014
+const dir_l = $s_asgard010
+
+
+classe s_asgard017
+herda b_asgard
+const s_titulo = "ao pé de uma escadaria"
+const dir_n = $s_asgard010
+const dir_c = $s_asgard018
+
+
+classe s_asgard018
+herda b_asgard
+const s_titulo = "uma escadaria"
+const dir_c = $s_asgard019
+const dir_b = $s_asgard017
+
+
+classe s_asgard019
+herda b_asgard
+const s_titulo = "o segundo andar"
+const dir_b = $s_asgard018

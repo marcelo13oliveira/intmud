@@ -1,0 +1,23 @@
+classe cmd_patrono
+herda comando_comum
+const posic = 8
+const txtajuda = "\b\c3patrono <nome do patrono>\n\
+  Define o nome do seu patrono, se possuir a magia expecto patronum."
+#
+
+func escr
+  arqsav sav1
+  se !arg1
+    arg0.msg("Digite o nome do patrono após o comando.")
+  senao arg1
+    ret !arg0.var.m_expecto_patronum, arg0.msg("Você não possui a magia expecto patronum!")
+    arqsav sav1
+    txt20 nomef.2
+    nomef.0 = txtmaimin(arg1)
+    nomef.1 = txts(txtnome(nomef.0))
+    ret sav1.existe("sav1/" + nomef.1 + ".sav"), arg0.msg("Nome inválido para o patrono. O nome \
+já pertence a um jogador.")
+    arg0.msg("Nome do seu patrono é:" + arg1 + ".")
+    arg0.var.z_patrono = arg1
+    ret 1
+  fimse

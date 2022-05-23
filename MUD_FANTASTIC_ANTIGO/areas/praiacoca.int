@@ -1,0 +1,2609 @@
+classe a_praiacoca
+herda area
+const a_nome = "Praia da Coca Cola!"
+const a_autor = "tadeu Júnior e Cris"
+const a_tempo = 10
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_txtreset = "Você ouve o barulho suave das ondas vindo de longe."
+
+
+classe b_praiacoca
+herda sala
+const s_fome = 0 # Fome e sede: 0 Presente
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_luz = 0 # Luz: 0 Claro com eventos de tempo
+const s_pnj = 100
+const s_recup = 0
+const s_reserva = 1 # Comando reserva: Sim
+const s_retornar = 0 # Comando retornar: 0 Permitido
+const s_soltar = 0 # Soltar itens: 0 Permitido
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const s_som = "praia"
+const s_area = "praiacoca"
+
+
+classe i_praiacoca001
+herda comum_itemgrupo
+const nome = "concha"
+const ident = "pequena conchinha"
+const descnome = "uma pequena concha"
+const descpos = "uma pequenina concha está parcialmente enterrada aqui"
+const tipoitem = 128 # Tipo de produto: 7-Tesouro
+const valor = 50000
+
+
+classe i_praiacoca002
+herda comum_itemgrupo
+const nome = "concha"
+const ident = "média concha"
+const descnome = "uma concha de tamanho médio"
+const descpos = "você vê uma concha de tamanho médio enterrada aqui"
+const tipoitem = 128 # Tipo de produto: 7-Tesouro
+const valor = 200000
+
+
+classe i_praiacoca003
+herda comum_itemperso
+const nome = "chuveiro"
+const ident = "chuveiro"
+const descnome = "um chuveiro"
+const descpos = "um chuveiro está ao alto de uma das paredes"
+const i_pegar = "você não pode desmontar o chuveiro."
+
+
+classe i_praiacoca004
+herda comum_itemgrupo
+const nome = "concha"
+const ident = "grande concha"
+const descnome = "uma grande concha"
+const descpos = "você vê uma grande concha enterrada aqui"
+const tipoitem = 128 # Tipo de produto: 7-Tesouro
+const valor = 600000
+
+
+classe i_praiacoca005
+herda comum_itemgrupo
+const nome = "um brinco de ouro"
+const ident = "brinco ouro lindo"
+const descnome = "um lindo brinco de ouro"
+const descpos = "você nota um lindíssimo brinco de ouro esquecido aqui. parece valioso!"
+const nivel = 400
+const vestir1 = 384 # Aonde vestir: 7-na orelha direita, 8-na orelha esquerda
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv &= ~2
+  bitver |= 4098
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 40 * pnivel
+  pmanamax += 10 * pnivel
+  pmovemax += 10 * pnivel
+  pveloc1 += 10 * pnivel
+  pesomax += 10 * pnivel
+
+
+classe i_praiacoca006
+herda comum_item
+const nome = "boné"
+const ident = "boné"
+const descnome = "um boné"
+const descpos = "um boné está aqui, vale a pena pegar!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 410
+const vestir1 = 4 # Aonde vestir: 2-Na cabeça
+const m_atribs2 = "* El$v está protegid$s do sol"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 3000
+  atknorm += 400
+  defnorm += 200
+  bitver |= 48
+
+
+classe i_praiacoca007
+herda comum_item
+const nome = "pastel"
+const ident = "pastel queijo"
+const descnome = "um pastel de queijo e presunto"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 50
+const f_diges = 30
+const f_msgperso = "$p come um pastel, e deixa um filete de presunto escorrer pelo queixo, \
+lambendo logo em seguida!"
+const valor = 800
+const vestir1 = 0 # Aonde vestir:
+
+
+classe i_praiacoca008
+herda comum_item
+const nome = "pastel de carne"
+const ident = "pastel carne"
+const descnome = "um delicioso pastel de carne"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 50
+const f_diges = 40
+const f_msgperso = "$p come um pastel de carne, pedaço por pedaço, matando a fome."
+const valor = 1000
+
+
+classe i_praiacoca009
+herda comum_item
+const nome = "copo de caldo de cana"
+const ident = "copo caldo cana"
+const descnome = "um copão de caldo de cana"
+const descpos = "um copo ainda fechado está aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_fome = 50
+const f_sede = 150
+const f_diges = 100
+const f_msgperso = "$p bebe em váriios goles, um delicioso caldo de cana, fazendo barulhinho com \
+o canudo no copo!"
+const valor = 2000
+
+
+classe i_praiacoca010
+herda comum_itemperso
+const nome = "toalha"
+const ident = "toalha banho"
+const descnome = "uma toalha de banho"
+const descpos = "Uma toalha de banho está estendida aqui no chão."
+const nivel = 200
+const i_movel = 3 # Mobília: 3 Sentar confortavelmente
+const vestir1 = 8192 # Aonde vestir: 13-sobre o corpo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmanamax += 50 * pnivel
+  atktipo.0 *= 1.4 # Tipos Normais
+  atktipo.1 *= 1.4 # Tipos Especiais
+  deftipo.6 *= 0.3 # Fogo
+
+
+classe i_praiacoca011
+herda comum_item
+const nome = "copo de suco de caju"
+const ident = "copo suco caju"
+const descnome = "um copo de suco de caju"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_fome = 50
+const f_sede = 50
+const f_diges = 50
+const f_msgperso = "$p bebe um suco de caju em grandes goladas. que delícia!"
+const valor = 300
+
+
+classe i_praiacoca012
+herda comum_item
+const nome = "copão de suco de maracujá"
+const ident = "copo suco maracujá"
+const descnome = "um copão de suco de maracujá"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_fome = 50
+const f_sede = 60
+const f_diges = 80
+const f_msgperso = "$p bebe todo o suco, deliciando-se!"
+const valor = 500
+
+
+classe i_praiacoca013
+herda comum_item
+const nome = "copo gigante de suco de pêssego"
+const ident = "suco copo pêssego"
+const descnome = "um copo gigante de suco de pêssego"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_fome = 50
+const f_sede = 120
+const f_diges = 80
+const f_msgperso = "$p bebe o suco que está bem geladinho em várias goladas"
+const valor = 400
+
+
+classe i_praiacoca014
+herda comum_item
+const nome = "garrafa de água"
+const ident = "garrafa água"
+const descnome = "uma garrafa de água"
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_fome = 50
+const f_sede = 80
+const f_diges = 50
+const valor = 650
+
+func cmd_ini
+  agua = 80
+
+func f_msgperso
+  ret agua < 1, "$P bebe o último gole de água da garrafa"
+  ret "$P bebe água da garrafa"
+
+func cmd_bebeu
+  se !agua
+    apagar(este)
+  senao
+    agua -= 1
+  fimse
+  ret 1
+
+
+classe i_praiacoca015
+herda comum_item
+const nome = "coxinha"
+const ident = "coxinha frango"
+const descnome = "uma coxinha"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 50
+const f_diges = 50
+const f_msgperso = "$p come uma deliciosa coxinha, saboreando-a"
+const valor = 300
+
+
+classe i_praiacoca016
+herda comum_item
+const nome = "picolé"
+const ident = "picolé chocolate"
+const descnome = "um picolé de chocolate"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_bebida = 0
+const f_fome = 50
+const f_sede = 2
+const f_diges = 20
+const valor = 40
+
+
+classe i_praiacoca017
+herda comum_item
+const nome = "picolé de morango"
+const ident = "picolé morango"
+const descnome = "um picolé de morango"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 50
+const f_sede = 2
+const f_diges = 30
+const f_msgperso = "$p retira o picolé do pacotinho, e o devora rapidamente!"
+const valor = 50
+
+
+classe i_praiacoca018
+herda comum_item
+const nome = "picolé de flocos"
+const ident = "picolé flocos"
+const descnome = "um picolé de flocos"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 50
+const f_sede = 2
+const f_diges = 30
+const f_msgperso = "$p retira o picolé do pacotinho, deliciando-se e querendo mais!"
+const f_msgoutros = ""
+const valor = 45
+
+
+classe i_praiacoca019
+herda comum_item
+const nome = "picolé de abacaxi"
+const ident = "picolé abacaxi"
+const descnome = "um picolé de abacaxi"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 50
+const f_sede = 2
+const f_diges = 50
+const valor = 65
+
+
+classe i_praiacoca020
+herda comum_item
+const nome = "picolé de frutas vermelhas"
+const ident = "picolé frutas vermelhas"
+const descnome = "um picolé de frutas vermelhas"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 50
+const f_sede = 2
+const f_diges = 60
+const valor = 80
+
+
+classe i_praiacoca021
+herda comum_item
+const nome = "copo de suco de manga"
+const ident = "copo suco manga"
+const descnome = "um copo de suco de manga"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_fome = 50
+const f_sede = 70
+const f_diges = 50
+const f_msgperso = "$p bebe o suco em pequenos goles"
+const valor = 600
+
+
+classe i_praiacoca022
+herda comum_item
+const nome = "porção de peixe frito"
+const ident = "porção peixe frito"
+const descnome = "uma porção de peixe frito"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 50
+const f_diges = 50
+const f_msgperso = "$p saboreia uma deliciosa porção de peixe frito"
+const valor = 500
+
+
+classe i_praiacoca023
+herda comum_itemperso
+const nome = "mesa"
+const ident = "mesa"
+const descnome = "uma das várias mesas do quiosque"
+const descpos = "Algumas mesas estão aqui."
+const i_pegar = "Não dá, está presa ao chão"
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const objmax = 10000
+
+
+classe i_praiacoca024
+herda comum_itemperso
+const nome = "cadeira"
+const ident = "cadeiras várias"
+const descnome = "uma de várias cadeiras"
+const descpos = "Algumas cadeiras estão aqui."
+const i_pegar = "Você apenas arrasta um pouco, para se sentar melhor."
+const i_movel = 1 # Mobília: 1 Sentar
+
+
+classe i_praiacoca025
+herda comum_item
+const nome = "prato de batatas fritas"
+const ident = "prato batatas fritas"
+const descnome = "um prato gigante de batatas fritas"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 50
+const f_diges = 25
+const f_msgperso = "$p pega uma a uma das batatinhas do prato e as saboreia"
+const valor = 350
+
+
+classe i_praiacoca026
+herda comum_item
+const nome = "copo de água de coco"
+const ident = "copo água coco"
+const descnome = "um copo grande de água de coco"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_fome = 50
+const f_sede = 100
+const f_diges = 80
+const f_msgperso = "$p bebe tudo fazendo barulho com o canudinho!"
+const valor = 550
+
+
+classe i_praiacoca027
+herda comum_item
+const nome = "lagosta"
+const ident = "lagosta frita"
+const descnome = "uma porção de lagosta frita"
+const descpos = "um prato com uma deliciosa porção de lagosta frita encontra-se aqui."
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 50
+const f_diges = 70
+const f_msgperso = "$p passa a saborear uma porção de lagosta frita com uma cara como que quer \
+dizer. está maravilhosa!"
+const valor = 1000
+
+
+classe i_praiacoca028
+herda comum_item
+const nome = "óculos"
+const ident = "óculos mergulho"
+const descnome = "um óculos de mergulho"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 3000
+const vestir1 = 64 # Aonde vestir: 6-sobre os olhos
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 62
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 62
+
+
+classe i_praiacoca029
+herda comum_itemgrupo
+const nome = "pão de queijo"
+const ident = "grande pão de queijo"
+const descnome = "um grande pão de queijo"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 100
+const f_diges = 50
+const f_msgperso = "$p come um pão de queijo quentinho, em grandes bocadas"
+const f_msgoutros = "$p come um pão de queijo quentinho, em grandes bocadas"
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 262144 # Tipo de produto: 18-Comida
+const valor = 1000
+
+
+classe i_praiacoca030
+herda comum_item
+const nome = "colete"
+const ident = "salva vidas colete"
+const descnome = "um colete salva-vidas"
+const descpos = "um colete salva-vidas está aqui, num canto"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 450
+const mantersala = 1 # Mantém na sala: Sim
+const vestir1 = 4096 # Aonde vestir: 12-no corpo
+const vestirsim = 1 # Podem vestir: 1 Jogadores e PNJs
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 3000
+  pmovemax += 1000
+  pveloc1 += 500
+  pesomax += 300
+  bitinv &= ~2
+  deftipo.7 *= 6 # Água
+  deftipo.12 *= 5 # Luz
+
+
+classe i_praiacoca031
+herda comum_item
+const nome = "prancha de surf"
+const ident = "prancha surf"
+const descnome = "uma prancha de surf"
+const descpos = "algum surfista abandonou sua prancha aqui."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const nivel = 450
+const vestir1 = 1207959552 # Aonde vestir: 27-nos pés, 30-nos pés
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmovemax += 10 * pnivel
+  pveloc1 += 10 * pnivel
+
+const m_atribs2 = "* el$v está surfando!"
+
+
+classe i_praiacoca032
+herda comum_item
+const nome = "árvore"
+const ident = "grande árvore"
+const descnome = "uma grande árvore"
+const descpos = "uma grande árvore está aqui, fornecendo sombra a todos que passam"
+const i_pegar = "você pensa. uma árvore seria pesada de mais pra eu pegar..."
+
+
+classe i_praiacoca033
+herda comum_itemperso
+const nome = "banco de madeira"
+const ident = "grande banco de madeira"
+const descnome = "um grande banco de madeira"
+const descpos = "um grande banco de madeira está aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "é pesado demais"
+const i_movel = 1 # Mobília: 1 Sentar
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_praiacoca034
+herda comum_item
+const nome = "copo grande de suco de abacaxi com hortelã"
+const ident = "copo grande suco abacaxi hortelã"
+const descnome = "um copo grande de suco de abacaxi com hortelã"
+const descpos = ""
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_fome = 50
+const f_sede = 120
+const f_diges = 80
+const f_msgperso = "$p bebe em grandes goles um refrescante suco de abacaxi com hortelã"
+const f_msgoutros = "$p bebe em grandes goladas um refrescante suco de abacaxi com hortelã"
+const valor = 800
+
+
+classe i_praiacoca035
+herda comum_itemperso
+const nome = "garrafa de guaraná"
+const ident = "garrafa guaraná"
+const descnome = "uma garrafa de guaraná"
+const descpos = "uma garrafa de guaraná foi deixada aqui"
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_sede = 12
+const valor = 6000
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+sav uint32 refri
+
+func cmd_ini
+  refri = 80
+
+func f_msgperso
+  ret refri > 1, "$P bebe guaraná da garrafa"
+  ret "$P bebe o resto de guaraná da garrafa"
+
+func cmd_bebeu
+  se !refri
+    apagar(este)
+  senao
+    refri -= 1
+  fimse
+  ret 1
+
+
+classe i_praiacoca036
+herda comum_item
+const nome = "suco de melancia"
+const ident = "suco melancia copo"
+const descnome = "um copo médio de suco de melancia"
+const descpos = "um copo de suco parecendo estar geladinho foi deixado aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_fome = 60
+const f_sede = 150
+const f_diges = 60
+const f_msgperso = "$p bebe em grandes goles um delicioso suco de melancia. mas que sede!"
+const valor = 400
+
+
+classe i_praiacoca037
+herda comum_item
+const nome = "suco de laranja com acerola"
+const ident = "suco acerola laranja"
+const descnome = "um copo de suco de laranja com acerola"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_fome = 60
+const f_sede = 60
+const f_diges = 70
+const f_msgperso = "$p bebe um refrescante suco de laranja com acerola"
+const valor = 260
+
+
+classe i_praiacoca038
+herda comum_item
+const nome = "porção de camarão"
+const ident = "porção camarão"
+const descnome = "uma porção grande de camarão"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 50
+const f_diges = 50
+const f_msgperso = "$p pega um a um dos camarões, degustando prazerosamente"
+const valor = 7000
+
+
+classe i_praiacoca040
+herda comum_item
+const nome = "um espetinho de camarões assados"
+const ident = "espetinho"
+const descnome = "um espetinho de camarões assados"
+const descpos = "um espetinho de camarões está aqui e você sente água na boca só de sentir o seu \
+cheiro"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_bebida = 0
+const f_fome = 50
+const f_msgperso = "$p come um espetinho de camarões assados, se deliciando e querendo mais!"
+const f_msgoutros = "$p come um espetinho de camarões assados, se deliciando e querendo mais!"
+const valor = 50
+
+
+classe i_praiacoca041
+herda comum_item
+const nome = "uma porção de queijo assado"
+const ident = "porção queijo assado"
+const descnome = "uma porção de queijo assado"
+const descpos = "uma porção de queijo está aqui, cheirando muito e te dando água na boca"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 80
+const f_msgperso = "$p come uma porção de queijo assado, lentamente"
+const f_msgoutros = "$p come uma porção de queijo, deliciãndo-se"
+const pesoobj = 30
+const valor = 10
+
+
+classe i_praiacoca042
+herda comum_item
+const nome = "um copo de energético"
+const ident = "copo energético"
+const descnome = "um copo de energético"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_sede = 5
+const f_msgperso = "$p bebe o energético em alguns goles"
+const f_msgoutros = "$p bebe o energético em alguns goles e faz cara de quero mais!"
+const valor = 9
+const inivar = "m_curar=8"
+
+
+classe i_praiacoca043
+herda comum_item
+const nome = "um bebedouro"
+const ident = "bebedouro"
+const descnome = "um bebedouro"
+const descpos = "um bebedouro está aqui"
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_fome = 0
+const f_sede = 50
+const f_msgperso = "$p bebe água de um bebedouro"
+const f_msgoutros = "$p bebe a água refrescante de um bebedouro"
+const i_pegar = "ei! você não pode pegar isso!"
+
+
+classe i_praiacoca092
+herda comum_item
+
+
+classe p_praiacoca001
+herda comum_persobat
+const nome = "Uma criançinha"
+const ident = "criança fofa linda"
+const descnome = "uma criançinha"
+const descpadr = "uma criançinha está aqui, correndo e brincando"
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 500
+const equip3 = "0"
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 500
+const p_naoseguir = 0 # Não podem seguir: Não
+const p_recebe = 0 # Recebe itens: Não
+const inivar = "z_moedas=5000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30000 * pnivel
+  atknorm += 35000 * pnivel
+  defnorm += 30000 * pnivel
+  atkesp += 35000 * pnivel
+  defesp += 30000 * pnivel
+
+
+classe p_praiacoca002
+herda comum_persobat
+const nome = "uma jovem"
+const ident = "jovem menina mulher"
+const descnome = "uma linda jovem"
+const descpadr = "Uma bela jovem está por aqui, procurando um lugar para ficar."
+const descver = "essa linda jovem morena, passa por você com um sorriso de quem está sempre de \
+bem com a vida.\n\
+seus belos olhos azuis te olham com uma vivacidade que te faz lembrar as ondas desse lindo mar a \
+sua frente.\n\
+quando ela anda, seus cumpridos cabelos castanhos balançam com o vento, e seu jeito de andar, \
+demonstram confiança."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const nivel = 550
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const equip1 = "8c0"
+const equip2 = "c0"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const p_imortal = 0 # Imortal: Não
+const p_morreu1 = "ela da um grito de dor, cai no chão, e antes de morrer, diz. ainda existem \
+pessoas más, matando inocentes... puft, os olhos dela fecham, pra sempre"
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 500
+const p_naoseguir = 0 # Não podem seguir: Não
+const p_recebe = 0 # Recebe itens: Não
+const inivar = "z_moedas=50000000"
+const m_atribs1 = "* Ela lhe lança um sorriso, lhe cumprimenta, e volta ao que estava fazendo."
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30000 * pnivel
+  atknorm += 35000 * pnivel
+  defnorm += 30000 * pnivel
+  atkesp += 35000 * pnivel
+  defesp += 30000 * pnivel
+
+
+classe p_praiacoca003
+herda comum_perso
+const nome = "vendedor"
+const ident = "vendedor fred"
+const descnome = "Fred, o vendedor"
+const descpadr = "Fred, o vendedor está aqui, esperando o seu pedido pacientemente"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const lojaini = 7
+const lojafim = 19
+const lojaitem = "praiacoca007 0\n\
+praiacoca008 0\n\
+praiacoca015 0\n\
+praiacoca022 0\n\
+praiacoca025 0\n\
+praiacoca027 0\n\
+praiacoca038 0"
+const p_movervel = 500
+
+
+classe p_praiacoca004
+herda comum_perso
+const nome = "vendedor"
+const ident = "ted vendedor"
+const descnome = "ted, o vendedor"
+const descpadr = "Ted, o vendedor, está aqui sorrindo pronto para atender seu pedido"
+const descver = "ted possui 1.80 de altura, seus olhos são verdes, e ao te olhar, você vê neles \
+uma mistura de paz e algo mais que você não consegue identificar.\n\
+um lindo sorriso está estampado em seu rosto, e seus lindos cabelos loiros estão caídos de \
+lado."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 500
+const lojaitem = "praiacoca011 0\n\
+praiacoca012 0\n\
+praiacoca013 0\n\
+praiacoca014 0\n\
+praiacoca021 0\n\
+item042 0\n\
+praiacoca026 0\n\
+praiacoca009 0\n\
+praiacoca034 0\n\
+praiacoca035 0\n\
+praiacoca036 0\n\
+praiacoca037 0"
+const p_movervel = 500
+
+
+classe p_praiacoca005
+herda comum_persobat
+const nome = "vendedor"
+const ident = "picolé vendedor homem"
+const descnome = "um vendedor de picolé"
+const descpadr = "um vendedor de picolé está aqui gritando: olha o picolé!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 550
+const lojaitem = "praiacoca016 0\n\
+praiacoca017 0\n\
+praiacoca018 0\n\
+praiacoca019 0\n\
+praiacoca020 0"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 2000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 500
+const p_soltar = 2 # Dar e soltar: 2 Não se pode dar nem soltar
+const inivar = "z_moedas=40000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30000 * pnivel
+  atknorm += 35000 * pnivel
+  defnorm += 30000 * pnivel
+  atkesp += 35000 * pnivel
+  defesp += 30000 * pnivel
+
+
+classe p_praiacoca006
+herda comum_persobat
+const nome = "Caranguejo"
+const ident = "caranguejo pequeno"
+const descnome = "um pequeno caranguejo"
+const descpadr = "um pequeno caranguejo está aqui"
+const nivel = 500
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const p_fugir = 50
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 500
+const p_soltar = 2 # Dar e soltar: 2 Não se pode dar nem soltar
+const inivar = "z_moedas=10000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30000 * pnivel
+  atknorm += 35000 * pnivel
+  defnorm += 30000 * pnivel
+  atkesp += 35000 * pnivel
+  defesp += 30000 * pnivel
+
+
+classe p_praiacoca007
+herda comum_persobat
+const nome = "cavalo marinho"
+const ident = "um cavalo marinho"
+const descnome = "um cavalo marinho"
+const descpadr = "um cavalo marinho está aqui te observando"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 500
+const p_atktipo = "chutar"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const p_fugir = 60
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 500
+const p_soltar = 2 # Dar e soltar: 2 Não se pode dar nem soltar
+const inivar = "h_chutar=4,z_moedas=40000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30000 * pnivel
+  atknorm += 35000 * pnivel
+  defnorm += 30000 * pnivel
+  atkesp += 35000 * pnivel
+  defesp += 30000 * pnivel
+
+
+classe p_praiacoca008
+herda comum_persobat
+const nome = "baleia"
+const ident = "baleia enorme"
+const descnome = "uma enorme baleia"
+const descpadr = "uma enorme baleia está aqui procurando alguns peixinhos para comer"
+const nivel = 500
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 2000
+const p_fugir = 50
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 500
+const p_soltar = 2 # Dar e soltar: 2 Não se pode dar nem soltar
+const inivar = "z_moedas=80000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30000 * pnivel
+  atknorm += 35000 * pnivel
+  defnorm += 30000 * pnivel
+  atkesp += 35000 * pnivel
+  defesp += 30000 * pnivel
+
+
+classe p_praiacoca009
+herda comum_persobat
+const nome = "peixinho"
+const ident = "peixinho lindo colorido"
+const descnome = "um lindo peixinho colorido"
+const descpadr = "um lindo peixinho colorido nada próximo a seus pés, fazendo cócegas"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 500
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const p_fugir = 60
+const p_morreu1 = "um pequeno peixe começa a afundar, afundar, afundar... um peixinho morreu."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 500
+const p_soltar = 2 # Dar e soltar: 2 Não se pode dar nem soltar
+const inivar = "z_moedas=20000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30000 * pnivel
+  atknorm += 35000 * pnivel
+  defnorm += 30000 * pnivel
+  atkesp += 35000 * pnivel
+  defesp += 30000 * pnivel
+
+
+classe p_praiacoca010
+herda comum_persobat
+const nome = "jovem"
+const ident = "jovem rapaz"
+const descnome = "um lindo e sorridente rapaz"
+const descpadr = "um lindo e sorridente rapaz passeia aqui."
+const descver = "ao olhá-lo, você percebe logo seu olhar hipnotizante, como quem consegue \
+desvendar todos os seus mistérios e segredos mais obscuros.\n\
+seus lindos olhos azuis celeste, te fitam de forma tão intensa, que te fazem querer se aproximar \
+mais.\n\
+com 1.90 de altura, corpo bem definido e um sorriso tão grande que você consegue ver covinhas, \
+ele arranca suspiros por onde passa."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 500
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 500
+const p_soltar = 2 # Dar e soltar: 2 Não se pode dar nem soltar
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=20000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30000 * pnivel
+  atknorm += 35000 * pnivel
+  defnorm += 30000 * pnivel
+  atkesp += 35000 * pnivel
+  defesp += 30000 * pnivel
+
+
+classe p_praiacoca011
+herda comum_persobat
+const nome = "tubarão"
+const ident = "tubarão perigoso"
+const descnome = "um perigoso tubarão"
+const descpadr = "um perigoso tubarão está nadando aqui, faminto"
+const descver = "ele possui 20 metros de cumprimento, barbatanas enormes e uma boca com dentes \
+bem afiados.\n\
+ele está faminto e pode te atacar a qualquer momento."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 500
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 500
+const p_soltar = 2 # Dar e soltar: 2 Não se pode dar nem soltar
+const inivar = "h_segundo_ataque=8,h_terceiro_ataque=8,z_moedas=100000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30000 * pnivel
+  atknorm += 35000 * pnivel
+  defnorm += 30000 * pnivel
+  atkesp += 35000 * pnivel
+  defesp += 30000 * pnivel
+  bitinv &= ~2
+  bitver |= 4158
+
+
+classe p_praiacoca012
+herda comum_persobat
+const nome = "tartaruga"
+const ident = "tartaruga"
+const descnome = "uma tartaruga"
+const descpadr = "uma tartaruga nada tranquilamente aqui"
+const nivel = 500
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 500
+const p_soltar = 2 # Dar e soltar: 2 Não se pode dar nem soltar
+const inivar = "z_moedas=30000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30000 * pnivel
+  atknorm += 35000 * pnivel
+  defnorm += 30000 * pnivel
+  atkesp += 35000 * pnivel
+  defesp += 30000 * pnivel
+
+
+classe p_praiacoca013
+herda comum_persobat
+const nome = "salva-vidas"
+const ident = "salva vidas rapaz leo"
+const descnome = "o salva-vidas"
+const descpadr = "Leo, o salva-vidas está aqui olhando para o mar, a procura de alguém que \
+esteja em perigo"
+const descver = "este jovem rapaz de olhos cor de mel e sorriso tranquilo,\n\
+de rosto sereno e cabelos castanhos, te parece ao mesmo tempo cheio de personalidade e confiança \
+pelos seus 1.95 de altura,\n\
+mas ao mesmo tempo, amável, pela forma calma  como ele olha o mar.\n\
+quando você passa, ele te lança um sorriso e te alerta sobre os perigos existentes nesse imenso \
+mar."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 500
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const equip1 = "1008"
+const equip2 = "8"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 30000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 500
+const p_naoresg = 0 # Sem resgate: Não
+const p_soltar = 2 # Dar e soltar: 2 Não se pode dar nem soltar
+const inivar = "z_moedas=100000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30000 * pnivel
+  atknorm += 35000 * pnivel
+  defnorm += 30000 * pnivel
+  atkesp += 35000 * pnivel
+  defesp += 30000 * pnivel
+
+
+classe p_praiacoca014
+herda comum_persobat
+const nome = "golfinho"
+const ident = "golfinho fofo"
+const descnome = "um fofo golfinho"
+const descpadr = "um fofo golfinho está aqui brincando"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 520
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 500
+const p_soltar = 2 # Dar e soltar: 2 Não se pode dar nem soltar
+const inivar = "z_moedas=40000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30000 * pnivel
+  atknorm += 35000 * pnivel
+  defnorm += 30000 * pnivel
+  atkesp += 35000 * pnivel
+  defesp += 30000 * pnivel
+
+
+classe p_praiacoca015
+herda comum_persobat
+const nome = "água viva"
+const ident = "água viva grande assustadora"
+const descnome = "uma grande e assustadora água viva"
+const descpadr = "uma grande e assustadora água viva está aqui pronta para atacar alguém com \
+seus perigosos tentáculos"
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const nivel = 550
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_atktipo = "atacar"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 500
+const p_soltar = 2 # Dar e soltar: 2 Não se pode dar nem soltar
+const inivar = "h_queimar=8 z_moedas=1800000"
+const evsala = 1 # Eventos dono sala: Sim
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30000 * pnivel
+  atknorm += 35000 * pnivel
+  defnorm += 30000 * pnivel
+  atkesp += 35000 * pnivel
+  defesp += 30000 * pnivel
+
+
+classe p_praiacoca016
+herda comum_persobat
+const nome = "polvo"
+const ident = "polvo grande"
+const descnome = "um grande polvo"
+const descpadr = "um grande polvo está aqui, a procura de alimentos"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 500
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 500
+const p_soltar = 2 # Dar e soltar: 2 Não se pode dar nem soltar
+const inivar = "z_moedas=100000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30000 * pnivel
+  atknorm += 35000 * pnivel
+  defnorm += 30000 * pnivel
+  atkesp += 35000 * pnivel
+  defesp += 30000 * pnivel
+
+
+classe p_praiacoca017
+herda comum_persobat
+const nome = "peixe"
+const ident = "elétrico peixe"
+const descnome = "Um peixe elétrico"
+const descpadr = "Um grande peixe está aqui, e parece perigoso."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 2468
+const volobj = 13
+const nivel = 550
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_atk_anda = 1 # Anda ataque: Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 50000
+const p_lembra = 5
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 500
+const p_persegue = 1 # Persegue jogadores: 1 Mesma área se atacarem
+const p_perseguevel = 10
+const inivar = "z_moedas=15000000, m_descarga_eletrica=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30000 * pnivel
+  atknorm += 35000 * pnivel
+  defnorm += 30000 * pnivel
+  atkesp += 35000 * pnivel
+  defesp += 30000 * pnivel
+
+const m_atribs1 = "* Ele está rodeado por correntes elétricas."
+
+
+classe p_praiacoca018
+herda comum_persobat
+const nome = "surfista"
+const ident = "surfista homem"
+const descnome = "um surfista"
+const descpadr = "um surfista está aqui, aproveitando as gigantescas ondas para fazer autas \
+manobras!"
+const descver = "esse surfista alto e loiro, te fascina com a agilidade e confiança dos movimento\
+s e manobras incríveis que ele faz com sua prancha nesse mar enorme.\n\
+possui lindos olhos azuis prateados que fitam tudo ao seu redor, com uma mistura de alegria, \
+charme e uma calma sem igual.\n\
+o largo sorriso doce e encantador em seu rosto bronzeado, demonstram que ali, no meio das ondas \
+é onde ele gosta de ficar.\n\
+sua vontade é se aproximar desse belo rapaz alegre e determinado\n\
+mas talvez ele não seja tão perfeito assim como parece..."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 600
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const equip1 = "30000000"
+const p_atktipo = "socar"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 50000
+const p_morreu1 = "$p se desequilibra, caindo da prancha, para o fundo do oceano... $p morreu!"
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 500
+const p_naoseguir = 0 # Não podem seguir: Não
+const p_recebe = 0 # Recebe itens: Não
+const inivar = "h_socar=8,z_moedas=30000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30000 * pnivel
+  atknorm += 35000 * pnivel
+  defnorm += 30000 * pnivel
+  atkesp += 35000 * pnivel
+  defesp += 30000 * pnivel
+
+
+classe s_praiacoca001
+herda b_praiacoca
+const s_titulo = "O início do calçadão da praia"
+const s_desc = "Você está agora no calçadão da Praia da Coca-cola!\n\
+Aqui pode-se ver ao norte, o início dessa belíssima praia, a oeste uma continuação do calsadão, \
+e a leste, mais uma continuação.\n\
+Nota-se que o lugar é bem preservado, com uma lixeira um pouco atrás e a direita de você, e uma \
+placa logo acima, dizendo:\n\
+Por favor, para manter essa praia limpa, joguem lixo no lixo!"
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_n = $s_praiacoca002
+const dir_s = $s_praiacoca089
+const dir_l = $s_praiacoca008
+const dir_o = $s_praiacoca007
+const a_reset = "P 100 praiacoca005 0 0 1\nS 100 praiacoca033 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_praiacoca005:objsolto.total < 1
+    criar("p_praiacoca005", este, 0)
+  fimse
+  !dentro1.objini("i_praiacoca033") && criar("i_praiacoca033", este, 1)
+
+
+classe s_praiacoca002
+herda b_praiacoca
+const s_titulo = "Continuando no calçadão."
+const s_desc = "Você agora encontra-se numa continuação do calçadão da praia.\n\
+a leste e a oeste, você nota uma área contendo alguns chuveiros.\n\
+ao norte, o início da praia pode ser visto, com algo que te deixa totalmente curios$s"
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_n = $s_praiacoca009
+const dir_s = $s_praiacoca001
+const dir_l = $s_praiacoca005
+const dir_o = $s_praiacoca003
+
+
+classe s_praiacoca003
+herda b_praiacoca
+const s_titulo = "área dos chuveiros masculinos"
+const s_desc = "você está na área dos chuveiros masculinos.\n\
+aqui existem vários chuveiros de água morna, e ao oeste, pode-se ver mais alguns.\n\
+só que, nesses chuveiros, há algo em especial!"
+const s_pnj = 0
+const s_recup = 5000000
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_l = $s_praiacoca002
+const dir_o = $s_praiacoca004
+const a_reset = "S 100 praiacoca003 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_praiacoca003") && criar("i_praiacoca003", este, 1)
+
+
+classe s_praiacoca004
+herda b_praiacoca
+const s_titulo = "continuando na área dos chuveiros masculinos"
+const s_desc = ""
+const s_fome = 0 # Fome e sede: 0 Presente
+const s_pnj = 0
+const s_recup = 5000000
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_l = $s_praiacoca003
+const a_reset = "S 100 praiacoca003 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_praiacoca003") && criar("i_praiacoca003", este, 1)
+
+
+classe s_praiacoca005
+herda b_praiacoca
+const s_titulo = "área dos chuveiros femininos"
+const s_desc = "você está na área dos chuveiros femininos.\n\
+aqui é onde as mulheres vem se banhar, antes de voltar para suas casas.\n\
+pode-se ver vários chuveiros, e ao leste, vê-se mais alguns.\n\
+mas esses chuveiros também há algo de especial!"
+const s_pnj = 0
+const s_recup = 5000000
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_l = $s_praiacoca006
+const dir_o = $s_praiacoca002
+const a_reset = "S 100 praiacoca003 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_praiacoca003") && criar("i_praiacoca003", este, 1)
+
+
+classe s_praiacoca006
+herda b_praiacoca
+const s_titulo = "a continuação dos chuveiros"
+const s_desc = ""
+const s_pnj = 0
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_o = $s_praiacoca005
+const a_reset = "S 100 praiacoca003 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_praiacoca003") && criar("i_praiacoca003", este, 1)
+
+
+classe s_praiacoca007
+herda b_praiacoca
+const s_titulo = "O lado oeste do calçadão"
+const s_desc = ""
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_n = $s_praiacoca010
+const dir_s = $s_praiacoca011
+const dir_l = $s_praiacoca001
+
+
+classe s_praiacoca008
+herda b_praiacoca
+const s_titulo = "O lado leste do calçadão"
+const s_desc = ""
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_n = $s_praiacoca012
+const dir_s = $s_praiacoca013
+const dir_o = $s_praiacoca001
+
+
+classe s_praiacoca009
+herda b_praiacoca
+const s_titulo = "O Final do calçadão."
+const s_desc = "Você está agora, no inícil dessa belíssima praia!\n\
+A praia se extende ao norte, leste e oeste.\n\
+Em todas as direções, você nota várias crianças brincando com baldinhos de plástico, castelinhos \
+de areia, dentre outras coisas.\n\
+Um pouco distante, você nota os familiares das crianças, uns em mesas conversando, outros \
+deitados em esteiras tomando um sol."
+const s_noite = "você agora está no início da praia da Coca-Cola.\n\
+você nota que está de noite, e resolve olhar nas direções, vendo apenas umas poucas pessoas, \
+umas sós, outras com seus respectivos pares...\n\
+quando você olha para o norte, na direção do mar, pode-se notar uma beleza inigualável, com o \
+reflexo de muitas estrelas nas claras águas., impulcionando-$s a dar mais alguns passos, para \
+ver o fenômeno natural mais de perto."
+const s_pnj = 0
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_s = $s_praiacoca002
+const dir_b = $s_praiacoca014
+
+
+classe s_praiacoca010
+herda b_praiacoca
+const s_titulo = "Um quiosque"
+const s_desc = ""
+const s_pnj = 1
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_s = $s_praiacoca007
+const a_reset = "P 100 praiacoca003 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_praiacoca003:objsolto.total < 1
+    criar("p_praiacoca003", este, 0)
+  fimse
+
+
+classe s_praiacoca011
+herda b_praiacoca
+const s_titulo = "Um quiosque"
+const s_desc = ""
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_n = $s_praiacoca007
+const a_reset = "P 100 praiacoca004 500 500 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_praiacoca004:objsolto.total < 1
+    criar("p_praiacoca004", este, 500)
+  fimse
+
+
+classe s_praiacoca012
+herda b_praiacoca
+const s_titulo = "Um quiosque"
+const s_desc = ""
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_s = $s_praiacoca008
+const a_reset = "S 100 praiacoca024 1 S\n\
+P 100 praiacoca091 0 0 1 100\n\
+S 100 praiacoca023 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_praiacoca024") && criar("i_praiacoca024", este, 1)
+  se p_praiacoca091:objsolto.total < 1
+    criar("p_praiacoca091", este, 0, "100")
+  fimse
+  !dentro1.objini("i_praiacoca023") && criar("i_praiacoca023", este, 1)
+
+
+classe s_praiacoca013
+herda b_praiacoca
+const s_titulo = "Um quiosque"
+const s_desc = ""
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_n = $s_praiacoca008
+const a_reset = "S 100 praiacoca024 1 S\nS 100 praiacoca023 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_praiacoca024") && criar("i_praiacoca024", este, 1)
+  !dentro1.objini("i_praiacoca023") && criar("i_praiacoca023", este, 1)
+
+
+classe s_praiacoca014
+herda b_praiacoca
+const s_titulo = "Pisando nas brancas areias da praia"
+const s_desc = "Você está pisando em uma bela e fofa areia.\n\
+Você pode observar várias pessoas espalhadas pela praia sentadas em suas cadeiras tomando o seu \
+sol, enquanto que crianças permanecem confortavelmente sentadas na areia distraíndo-se com seus \
+perfeitos castelinhos de areia.\n\
+Daqui você pode observar as ondas do mar, e sentir a sua suave brisa, e pisando na areia, \
+confortando cada vez mais seus pés."
+const s_pnj = 0
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_n = $s_praiacoca019
+const dir_l = $s_praiacoca015
+const dir_o = $s_praiacoca017
+const dir_c = $s_praiacoca009
+const a_reset = "S 10 praiacoca001 3 S\n\
+S 20 praiacoca002 2 S\n\
+S 10 praiacoca004 1 S\n\
+P 100 praiacoca002 550 600 10\n\
+E 100 praiacoca005 1 9\n\
+E 100 praiacoca005 1 8\n\
+E 100 praiacoca010 1 14"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  !dentro1.objini("i_praiacoca001") && rand(100) < 10 && criar("i_praiacoca001", este, 3)
+  !dentro1.objini("i_praiacoca002") && rand(100) < 20 && criar("i_praiacoca002", este, 2)
+  !dentro1.objini("i_praiacoca004") && rand(100) < 10 && criar("i_praiacoca004", este, 1)
+  se p_praiacoca002:objsolto.total < 10
+    p = u = criar("p_praiacoca002", este, rand(550, 600))
+  fimse
+  se u
+    r = criar("i_praiacoca005", u, 1), r.vestir(9), u.recalc = 1
+  fimse
+  se u
+    r = criar("i_praiacoca005", u, 1), r.vestir(8), u.recalc = 1
+  fimse
+  se u
+    r = criar("i_praiacoca010", u, 1), r.vestir(14), u.recalc = 1
+  fimse
+
+
+classe s_praiacoca015
+herda b_praiacoca
+const s_titulo = "Pisando nas brancas areias da praia"
+const s_desc = "Você está pisando em uma bela e fofa areia.\n\
+Você pode observar várias pessoas espalhadas pela praia sentadas em suas cadeiras tomando o seu \
+sol, enquanto que crianças permanecem confortavelmente sentadas na areia distraíndo-se com seus \
+perfeitos castelinhos de areia.\n\
+Daqui você pode observar as ondas do mar, e sentir a sua suave brisa, e pisando na areia, \
+confortando cada vez mais seus pés."
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_n = $s_praiacoca022
+const dir_l = $s_praiacoca016
+const dir_o = $s_praiacoca014
+const dir_c = $s_praiacoca009
+const a_reset = "S 10 praiacoca001 3 S\n\
+S 20 praiacoca002 2 S\n\
+S 10 praiacoca004 1 S\n\
+P 100 praiacoca010 500 700 10\n\
+E 100 praiacoca006 1 3\n\
+E 100 templo029 1 7"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  !dentro1.objini("i_praiacoca001") && rand(100) < 10 && criar("i_praiacoca001", este, 3)
+  !dentro1.objini("i_praiacoca002") && rand(100) < 20 && criar("i_praiacoca002", este, 2)
+  !dentro1.objini("i_praiacoca004") && rand(100) < 10 && criar("i_praiacoca004", este, 1)
+  se p_praiacoca010:objsolto.total < 10
+    p = u = criar("p_praiacoca010", este, rand(500, 700))
+  fimse
+  se u
+    r = criar("i_praiacoca006", u, 1), r.vestir(3), u.recalc = 1
+  fimse
+  se u
+    r = criar("i_templo029", u, 1), r.vestir(7), u.recalc = 1
+  fimse
+
+
+classe s_praiacoca016
+herda b_praiacoca
+const s_titulo = "Pisando nas brancas areias da praia"
+const s_desc = "Você está pisando em uma bela e fofa areia.\n\
+Você pode observar várias pessoas espalhadas pela praia sentadas em suas cadeiras tomando o seu \
+sol, enquanto que crianças permanecem confortavelmente sentadas na areia distraíndo-se com seus \
+perfeitos castelinhos de areia.\n\
+Daqui você pode observar as ondas do mar, e sentir a sua suave brisa, e pisando na areia, \
+confortando cada vez mais seus pés."
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_n = $s_praiacoca023
+const dir_o = $s_praiacoca015
+const dir_c = $s_praiacoca009
+const a_reset = "S 100 praiacoca032 1 S\n\
+S 10 praiacoca001 3 S\n\
+S 20 praiacoca002 2 S\n\
+S 10 praiacoca004 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_praiacoca032") && criar("i_praiacoca032", este, 1)
+  !dentro1.objini("i_praiacoca001") && rand(100) < 10 && criar("i_praiacoca001", este, 3)
+  !dentro1.objini("i_praiacoca002") && rand(100) < 20 && criar("i_praiacoca002", este, 2)
+  !dentro1.objini("i_praiacoca004") && rand(100) < 10 && criar("i_praiacoca004", este, 1)
+
+
+classe s_praiacoca017
+herda b_praiacoca
+const s_titulo = "Pisando nas brancas areias da praia"
+const s_desc = "Você está pisando em uma bela e fofa areia.\n\
+Você pode observar várias pessoas espalhadas pela praia sentadas em suas cadeiras tomando o seu \
+sol, enquanto que crianças permanecem confortavelmente sentadas na areia distraíndo-se com seus \
+perfeitos castelinhos de areia.\n\
+Daqui você pode observar as ondas do mar, e sentir a sua suave brisa, e pisando na areia, \
+confortando cada vez mais seus pés."
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_n = $s_praiacoca020
+const dir_l = $s_praiacoca014
+const dir_o = $s_praiacoca018
+const dir_c = $s_praiacoca009
+const a_reset = "S 10 praiacoca001 3 S\nS 20 praiacoca002 2 S\nS 10 praiacoca004 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_praiacoca001") && rand(100) < 10 && criar("i_praiacoca001", este, 3)
+  !dentro1.objini("i_praiacoca002") && rand(100) < 20 && criar("i_praiacoca002", este, 2)
+  !dentro1.objini("i_praiacoca004") && rand(100) < 10 && criar("i_praiacoca004", este, 1)
+
+
+classe s_praiacoca018
+herda b_praiacoca
+const s_titulo = "Pisando nas brancas areias da praia"
+const s_desc = "Você está pisando em uma bela e fofa areia.\n\
+Você pode observar várias pessoas espalhadas pela praia sentadas em suas cadeiras tomando o seu \
+sol, enquanto que crianças permanecem confortavelmente sentadas na areia distraíndo-se com seus \
+perfeitos castelinhos de areia.\n\
+Daqui você pode observar as ondas do mar, e sentir a sua suave brisa, e pisando na areia, \
+confortando cada vez mais seus pés."
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_n = $s_praiacoca021
+const dir_l = $s_praiacoca017
+const dir_c = $s_praiacoca009
+const a_reset = "S 100 praiacoca032 1 S\n\
+S 10 praiacoca001 3 S\n\
+S 20 praiacoca002 2 S\n\
+S 10 praiacoca004 1 S\n\
+P 50 praiacoca001 500 530 20"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_praiacoca032") && criar("i_praiacoca032", este, 1)
+  !dentro1.objini("i_praiacoca001") && rand(100) < 10 && criar("i_praiacoca001", este, 3)
+  !dentro1.objini("i_praiacoca002") && rand(100) < 20 && criar("i_praiacoca002", este, 2)
+  !dentro1.objini("i_praiacoca004") && rand(100) < 10 && criar("i_praiacoca004", este, 1)
+  se p_praiacoca001:objsolto.total < 20 && rand(100) < 50
+    criar("p_praiacoca001", este, rand(500, 530))
+  fimse
+
+
+classe s_praiacoca019
+herda b_praiacoca
+const s_titulo = "Pisando nas brancas areias da praia"
+const s_desc = "Você está pisando em uma bela e fofa areia.\n\
+Você pode observar várias pessoas espalhadas pela praia sentadas em suas cadeiras tomando o seu \
+sol, enquanto que crianças permanecem confortavelmente sentadas na areia distraíndo-se com seus \
+perfeitos castelinhos de areia.\n\
+Daqui você pode observar as ondas do mar, e sentir a sua suave brisa, e pisando na areia, \
+confortando cada vez mais seus pés."
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_n = $s_praiacoca026
+const dir_s = $s_praiacoca014
+const dir_l = $s_praiacoca022
+const dir_o = $s_praiacoca020
+const a_reset = "S 10 praiacoca001 3 S\nS 20 praiacoca002 2 S\nS 10 praiacoca004 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_praiacoca001") && rand(100) < 10 && criar("i_praiacoca001", este, 3)
+  !dentro1.objini("i_praiacoca002") && rand(100) < 20 && criar("i_praiacoca002", este, 2)
+  !dentro1.objini("i_praiacoca004") && rand(100) < 10 && criar("i_praiacoca004", este, 1)
+
+
+classe s_praiacoca020
+herda b_praiacoca
+const s_titulo = "Pisando nas brancas areias da praia"
+const s_desc = "Você pode observar várias pessoas espalhadas pela praia sentadas em suas \
+cadeiras tomando o seu sol, enquanto que crianças permanecem confortavelmente sentadas na areia \
+distraíndo-se com seus perfeitos castelinhos de areia.\n\
+Você pode observar váreas pessoas espalhadas pela praia sentadas em suas cadeiras tomando o seu \
+sol, em quanto que crianças permanecem confortavelmente sentadas na areia distraíndo-se com seus \
+perfeitos castelinhos de areia.\n\
+Daqui você pode observar as ondas do mar, e sentir a sua suave brisa, e pisando na areia, \
+confortando cada vez mais seus pés."
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_n = $s_praiacoca025
+const dir_s = $s_praiacoca017
+const dir_l = $s_praiacoca019
+const dir_o = $s_praiacoca021
+const a_reset = "S 10 praiacoca001 3 S\nS 20 praiacoca002 2 S\nS 10 praiacoca004 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_praiacoca001") && rand(100) < 10 && criar("i_praiacoca001", este, 3)
+  !dentro1.objini("i_praiacoca002") && rand(100) < 20 && criar("i_praiacoca002", este, 2)
+  !dentro1.objini("i_praiacoca004") && rand(100) < 10 && criar("i_praiacoca004", este, 1)
+
+
+classe s_praiacoca021
+herda b_praiacoca
+const s_titulo = "Pisando nas brancas areias da praia"
+const s_desc = "Você está pisando em uma bela e fofa areia.\n\
+Você pode observar várias pessoas espalhadas pela praia sentadas em suas cadeiras tomando o seu \
+sol, enquanto que crianças permanecem confortavelmente sentadas na areia distraíndo-se com seus \
+perfeitos castelinhos de areia.\n\
+Daqui você pode observar as ondas do mar, e sentir a sua suave brisa, e pisando na areia, \
+confortando cada vez mais seus pés."
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_n = $s_praiacoca024
+const dir_s = $s_praiacoca018
+const dir_l = $s_praiacoca020
+const a_reset = "S 10 praiacoca001 3 S\nS 20 praiacoca002 2 S\nS 10 praiacoca004 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_praiacoca001") && rand(100) < 10 && criar("i_praiacoca001", este, 3)
+  !dentro1.objini("i_praiacoca002") && rand(100) < 20 && criar("i_praiacoca002", este, 2)
+  !dentro1.objini("i_praiacoca004") && rand(100) < 10 && criar("i_praiacoca004", este, 1)
+
+
+classe s_praiacoca022
+herda b_praiacoca
+const s_titulo = "Pisando nas brancas areias da praia"
+const s_desc = "Você está pisando em uma bela e fofa areia.\n\
+Você pode observar várias pessoas espalhadas pela praia sentadas em suas cadeiras tomando o seu \
+sol, enquanto que crianças permanecem confortavelmente sentadas na areia distraíndo-se com seus \
+perfeitos castelinhos de areia.\n\
+Daqui você pode observar as ondas do mar, e sentir a sua suave brisa, e pisando na areia, \
+confortando cada vez mais seus pés."
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_n = $s_praiacoca027
+const dir_s = $s_praiacoca015
+const dir_l = $s_praiacoca023
+const dir_o = $s_praiacoca019
+const a_reset = "S 10 praiacoca001 3 S\nS 20 praiacoca002 2 S\nS 10 praiacoca004 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_praiacoca001") && rand(100) < 10 && criar("i_praiacoca001", este, 3)
+  !dentro1.objini("i_praiacoca002") && rand(100) < 20 && criar("i_praiacoca002", este, 2)
+  !dentro1.objini("i_praiacoca004") && rand(100) < 10 && criar("i_praiacoca004", este, 1)
+
+
+classe s_praiacoca023
+herda b_praiacoca
+const s_titulo = "Pisando nas brancas areias da praia"
+const s_desc = "Você está pisando em uma bela e fofa areia.\n\
+Você pode observar várias pessoas espalhadas pela praia sentadas em suas cadeiras tomando o seu \
+sol, enquanto que crianças permanecem confortavelmente sentadas na areia distraíndo-se com seus \
+perfeitos castelinhos de areia.\n\
+Daqui você pode observar as ondas do mar, e sentir a sua suave brisa, e pisando na areia, \
+confortando cada vez mais seus pés."
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_n = $s_praiacoca028
+const dir_s = $s_praiacoca016
+const dir_o = $s_praiacoca022
+const a_reset = "S 10 praiacoca001 3 S\nS 20 praiacoca002 2 S\nS 10 praiacoca004 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_praiacoca001") && rand(100) < 10 && criar("i_praiacoca001", este, 3)
+  !dentro1.objini("i_praiacoca002") && rand(100) < 20 && criar("i_praiacoca002", este, 2)
+  !dentro1.objini("i_praiacoca004") && rand(100) < 10 && criar("i_praiacoca004", este, 1)
+
+
+classe s_praiacoca024
+herda b_praiacoca
+const s_titulo = "Pisando nas brancas areias da praia"
+const s_desc = "Você está pisando em uma bela e fofa areia.\n\
+Você pode observar várias pessoas espalhadas pela praia sentadas em suas cadeiras tomando o seu \
+sol, enquanto que crianças permanecem confortavelmente sentadas na areia distraíndo-se com seus \
+perfeitos castelinhos de areia.\n\
+Daqui você pode observar as ondas do mar, e sentir a sua suave brisa, e pisando na areia, \
+confortando cada vez mais seus pés."
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_s = $s_praiacoca021
+const dir_l = $s_praiacoca025
+const dir_b = $s_praiacoca065
+const a_reset = "S 100 praiacoca032 1 S\n\
+S 10 praiacoca001 3 S\n\
+S 20 praiacoca002 2 S\n\
+S 10 praiacoca004 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_praiacoca032") && criar("i_praiacoca032", este, 1)
+  !dentro1.objini("i_praiacoca001") && rand(100) < 10 && criar("i_praiacoca001", este, 3)
+  !dentro1.objini("i_praiacoca002") && rand(100) < 20 && criar("i_praiacoca002", este, 2)
+  !dentro1.objini("i_praiacoca004") && rand(100) < 10 && criar("i_praiacoca004", este, 1)
+
+
+classe s_praiacoca025
+herda b_praiacoca
+const s_titulo = "Pisando nas brancas areias da praia"
+const s_desc = "Você está pisando em uma bela e fofa areia.\n\
+Você pode observar várias pessoas espalhadas pela praia sentadas em suas cadeiras tomando o seu \
+sol, enquanto que crianças permanecem confortavelmente sentadas na areia distraíndo-se com seus \
+perfeitos castelinhos de areia.\n\
+Daqui você pode observar as ondas do mar, e sentir a sua suave brisa, e pisando na areia, \
+confortando cada vez mais seus pés."
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_s = $s_praiacoca020
+const dir_l = $s_praiacoca026
+const dir_o = $s_praiacoca024
+const dir_b = $s_praiacoca066
+const a_reset = "S 10 praiacoca001 3 S\nS 20 praiacoca002 2 S\nS 10 praiacoca004 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_praiacoca001") && rand(100) < 10 && criar("i_praiacoca001", este, 3)
+  !dentro1.objini("i_praiacoca002") && rand(100) < 20 && criar("i_praiacoca002", este, 2)
+  !dentro1.objini("i_praiacoca004") && rand(100) < 10 && criar("i_praiacoca004", este, 1)
+
+
+classe s_praiacoca026
+herda b_praiacoca
+const s_titulo = "Pisando nas brancas areias da praia"
+const s_desc = "Você está pisando em uma bela e fofa areia.\n\
+Você pode observar várias pessoas espalhadas pela praia sentadas em suas cadeiras tomando o seu \
+sol, enquanto que crianças permanecem confortavelmente sentadas na areia distraíndo-se com seus \
+perfeitos castelinhos de areia.\n\
+Daqui você pode observar as ondas do mar, e sentir a sua suave brisa, e pisando na areia, \
+confortando cada vez mais seus pés."
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_s = $s_praiacoca019
+const dir_l = $s_praiacoca027
+const dir_o = $s_praiacoca025
+const dir_b = $s_praiacoca029
+const a_reset = "S 10 praiacoca001 3 S\n\
+S 20 praiacoca002 2 S\n\
+S 10 praiacoca004 1 S\n\
+P 100 praiacoca013 500 600 1\n\
+E 100 praiacoca028 1 7\n\
+E 100 praiacoca030 1 13"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  !dentro1.objini("i_praiacoca001") && rand(100) < 10 && criar("i_praiacoca001", este, 3)
+  !dentro1.objini("i_praiacoca002") && rand(100) < 20 && criar("i_praiacoca002", este, 2)
+  !dentro1.objini("i_praiacoca004") && rand(100) < 10 && criar("i_praiacoca004", este, 1)
+  se p_praiacoca013:objsolto.total < 1
+    p = u = criar("p_praiacoca013", este, rand(500, 600))
+  fimse
+  se u
+    r = criar("i_praiacoca028", u, 1), r.vestir(7), u.recalc = 1
+  fimse
+  se u
+    r = criar("i_praiacoca030", u, 1), r.vestir(13), u.recalc = 1
+  fimse
+
+
+classe s_praiacoca027
+herda b_praiacoca
+const s_titulo = "Pisando nas brancas areias da praia"
+const s_desc = "Você está pisando em uma bela e fofa areia.\n\
+Você pode observar várias pessoas espalhadas pela praia sentadas em suas cadeiras tomando o seu \
+sol, enquanto que crianças permanecem confortavelmente sentadas na areia distraíndo-se com seus \
+perfeitos castelinhos de areia.\n\
+Daqui você pode observar as ondas do mar, e sentir a sua suave brisa, e pisando na areia, \
+confortando cada vez mais seus pés."
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_s = $s_praiacoca022
+const dir_l = $s_praiacoca028
+const dir_o = $s_praiacoca026
+const dir_b = $s_praiacoca067
+const a_reset = "S 10 praiacoca001 3 S\nS 20 praiacoca002 2 S\nS 10 praiacoca004 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_praiacoca001") && rand(100) < 10 && criar("i_praiacoca001", este, 3)
+  !dentro1.objini("i_praiacoca002") && rand(100) < 20 && criar("i_praiacoca002", este, 2)
+  !dentro1.objini("i_praiacoca004") && rand(100) < 10 && criar("i_praiacoca004", este, 1)
+
+
+classe s_praiacoca028
+herda b_praiacoca
+const s_titulo = "Pisando nas brancas areias da praia"
+const s_desc = "Você está pisando em uma bela e fofa areia.\n\
+Você pode observar várias pessoas espalhadas pela praia sentadas em suas cadeiras tomando o seu \
+sol, enquanto que crianças permanecem confortavelmente sentadas na areia distraíndo-se com seus \
+perfeitos castelinhos de areia.\n\
+Daqui você pode observar as ondas do mar, e sentir a sua suave brisa, e pisando na areia, \
+confortando cada vez mais seus pés."
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_s = $s_praiacoca023
+const dir_o = $s_praiacoca027
+const dir_b = $s_praiacoca068
+const a_reset = "S 100 praiacoca032 1 S\n\
+S 10 praiacoca001 3 S\n\
+S 20 praiacoca002 2 S\n\
+S 10 praiacoca004 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_praiacoca032") && criar("i_praiacoca032", este, 1)
+  !dentro1.objini("i_praiacoca001") && rand(100) < 10 && criar("i_praiacoca001", este, 3)
+  !dentro1.objini("i_praiacoca002") && rand(100) < 20 && criar("i_praiacoca002", este, 2)
+  !dentro1.objini("i_praiacoca004") && rand(100) < 10 && criar("i_praiacoca004", este, 1)
+
+
+classe s_praiacoca029
+herda b_praiacoca
+const s_titulo = "descendo para a parte rasa"
+const s_pnj = 0
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const dir_l = $s_praiacoca067
+const dir_o = $s_praiacoca066
+const dir_c = $s_praiacoca026
+const dir_b = $s_praiacoca030
+
+
+classe s_praiacoca030
+herda b_praiacoca
+const s_titulo = "parte rasa"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_n = $s_praiacoca037
+const dir_l = $s_praiacoca033
+const dir_o = $s_praiacoca031
+const dir_c = $s_praiacoca029
+const a_reset = "P 100 praiacoca006 500 600 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_praiacoca006:objsolto.total < 10
+    criar("p_praiacoca006", este, rand(500, 600))
+  fimse
+
+
+classe s_praiacoca031
+herda b_praiacoca
+const s_titulo = "parte rasa"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_n = $s_praiacoca036
+const dir_l = $s_praiacoca030
+const dir_o = $s_praiacoca032
+const dir_c = $s_praiacoca066
+
+
+classe s_praiacoca032
+herda b_praiacoca
+const s_titulo = "parte rasa"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_n = $s_praiacoca035
+const dir_l = $s_praiacoca031
+const dir_c = $s_praiacoca065
+
+
+classe s_praiacoca033
+herda b_praiacoca
+const s_titulo = "parte rasa"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_n = $s_praiacoca038
+const dir_l = $s_praiacoca034
+const dir_o = $s_praiacoca030
+const dir_c = $s_praiacoca067
+
+
+classe s_praiacoca034
+herda b_praiacoca
+const s_titulo = "parte rasa"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_n = $s_praiacoca039
+const dir_o = $s_praiacoca033
+const dir_c = $s_praiacoca068
+
+
+classe s_praiacoca035
+herda b_praiacoca
+const s_titulo = "parte rasa"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_n = $s_praiacoca044
+const dir_s = $s_praiacoca032
+const dir_l = $s_praiacoca036
+
+
+classe s_praiacoca036
+herda b_praiacoca
+const s_titulo = "parte rasa"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_n = $s_praiacoca043
+const dir_s = $s_praiacoca031
+const dir_l = $s_praiacoca037
+const dir_o = $s_praiacoca035
+
+
+classe s_praiacoca037
+herda b_praiacoca
+const s_titulo = "parte rasa"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_n = $s_praiacoca042
+const dir_s = $s_praiacoca030
+const dir_l = $s_praiacoca038
+const dir_o = $s_praiacoca036
+const a_reset = "P 100 praiacoca009 500 550 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_praiacoca009:objsolto.total < 10
+    criar("p_praiacoca009", este, rand(500, 550))
+  fimse
+
+
+classe s_praiacoca038
+herda b_praiacoca
+const s_titulo = "parte rasa"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_n = $s_praiacoca041
+const dir_s = $s_praiacoca033
+const dir_l = $s_praiacoca039
+const dir_o = $s_praiacoca037
+const a_reset = "P 100 praiacoca012 500 600 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_praiacoca012:objsolto.total < 10
+    criar("p_praiacoca012", este, rand(500, 600))
+  fimse
+
+
+classe s_praiacoca039
+herda b_praiacoca
+const s_titulo = "parte rasa"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_n = $s_praiacoca040
+const dir_s = $s_praiacoca034
+const dir_o = $s_praiacoca038
+
+
+classe s_praiacoca040
+herda b_praiacoca
+const s_titulo = "parte rasa"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_s = $s_praiacoca039
+const dir_o = $s_praiacoca041
+const dir_b = $s_praiacoca047
+
+
+classe s_praiacoca041
+herda b_praiacoca
+const s_titulo = "parte rasa"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_s = $s_praiacoca038
+const dir_l = $s_praiacoca040
+const dir_o = $s_praiacoca042
+const dir_b = $s_praiacoca046
+
+
+classe s_praiacoca042
+herda b_praiacoca
+const s_titulo = "parte rasa"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_s = $s_praiacoca037
+const dir_l = $s_praiacoca041
+const dir_o = $s_praiacoca043
+const dir_b = $s_praiacoca045
+
+
+classe s_praiacoca043
+herda b_praiacoca
+const s_titulo = "parte rasa"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_s = $s_praiacoca036
+const dir_l = $s_praiacoca042
+const dir_o = $s_praiacoca044
+const dir_b = $s_praiacoca048
+
+
+classe s_praiacoca044
+herda b_praiacoca
+const s_titulo = "parte rasa"
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_s = $s_praiacoca035
+const dir_l = $s_praiacoca043
+const dir_b = $s_praiacoca049
+
+
+classe s_praiacoca045
+herda b_praiacoca
+const s_titulo = "mergulhando em alto mar"
+const s_luz = 0 # Luz: 0 Claro com eventos de tempo
+const s_pnj = 0
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_l = $s_praiacoca046
+const dir_o = $s_praiacoca048
+const dir_c = $s_praiacoca042
+const dir_b = $s_praiacoca052
+
+
+classe s_praiacoca046
+herda b_praiacoca
+const s_titulo = "mergulhando em alto mar"
+const s_luz = 0 # Luz: 0 Claro com eventos de tempo
+const s_pnj = 0
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_l = $s_praiacoca047
+const dir_o = $s_praiacoca045
+const dir_c = $s_praiacoca041
+const dir_b = $s_praiacoca053
+
+
+classe s_praiacoca047
+herda b_praiacoca
+const s_titulo = "mergulhando em alto mar"
+const s_luz = 0 # Luz: 0 Claro com eventos de tempo
+const s_pnj = 0
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_o = $s_praiacoca046
+const dir_c = $s_praiacoca040
+const dir_b = $s_praiacoca054
+
+
+classe s_praiacoca048
+herda b_praiacoca
+const s_titulo = "mergulhando em alto mar"
+const s_pnj = 0
+const dir_l = $s_praiacoca045
+const dir_o = $s_praiacoca049
+const dir_c = $s_praiacoca043
+const dir_b = $s_praiacoca051
+
+
+classe s_praiacoca049
+herda b_praiacoca
+const s_titulo = "mergulhando em alto mar"
+const s_pnj = 0
+const dir_l = $s_praiacoca048
+const dir_c = $s_praiacoca044
+const dir_b = $s_praiacoca050
+
+
+classe s_praiacoca050
+herda b_praiacoca
+const s_titulo = "em alto mar"
+const dir_n = $s_praiacoca055
+const dir_l = $s_praiacoca051
+const dir_c = $s_praiacoca049
+const a_reset = "P 50 praiacoca009 0 0 10\nP 50 praiacoca007 500 550 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_praiacoca009:objsolto.total < 10 && rand(100) < 50
+    criar("p_praiacoca009", este, 0)
+  fimse
+  se p_praiacoca007:objsolto.total < 10 && rand(100) < 50
+    criar("p_praiacoca007", este, rand(500, 550))
+  fimse
+
+
+classe s_praiacoca051
+herda b_praiacoca
+const s_titulo = "em alto mar"
+const dir_n = $s_praiacoca056
+const dir_l = $s_praiacoca052
+const dir_o = $s_praiacoca050
+const dir_c = $s_praiacoca048
+const a_reset = "P 50 praiacoca007 500 550 5"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_praiacoca007:objsolto.total < 5 && rand(100) < 50
+    criar("p_praiacoca007", este, rand(500, 550))
+  fimse
+
+
+classe s_praiacoca052
+herda b_praiacoca
+const s_titulo = "em alto mar"
+const dir_n = $s_praiacoca057
+const dir_l = $s_praiacoca053
+const dir_o = $s_praiacoca051
+const dir_c = $s_praiacoca045
+const a_reset = "P 100 praiacoca018 600 650 6\nE 100 praiacoca031 1 31"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_praiacoca018:objsolto.total < 6
+    p = u = criar("p_praiacoca018", este, rand(600, 650))
+  fimse
+  se u
+    r = criar("i_praiacoca031", u, 1), r.vestir(31), u.recalc = 1
+  fimse
+
+
+classe s_praiacoca053
+herda b_praiacoca
+const s_titulo = "em alto mar"
+const dir_n = $s_praiacoca058
+const dir_l = $s_praiacoca054
+const dir_o = $s_praiacoca052
+const dir_c = $s_praiacoca046
+
+
+classe s_praiacoca054
+herda b_praiacoca
+const s_titulo = "em alto mar"
+const dir_n = $s_praiacoca059
+const dir_o = $s_praiacoca053
+const dir_c = $s_praiacoca047
+const a_reset = "P 80 praiacoca014 520 580 6"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_praiacoca014:objsolto.total < 6 && rand(100) < 80
+    criar("p_praiacoca014", este, rand(520, 580))
+  fimse
+
+
+classe s_praiacoca055
+herda b_praiacoca
+const s_titulo = "em alto mar"
+const dir_n = $s_praiacoca060
+const dir_s = $s_praiacoca050
+const dir_l = $s_praiacoca056
+
+
+classe s_praiacoca056
+herda b_praiacoca
+const s_titulo = "em alto mar"
+const dir_n = $s_praiacoca061
+const dir_s = $s_praiacoca051
+const dir_l = $s_praiacoca057
+const dir_o = $s_praiacoca055
+const a_reset = "P 100 praiacoca015 550 603 10\nP 100 praiacoca015 550 610 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_praiacoca015:objsolto.total < 10
+    criar("p_praiacoca015", este, rand(550, 603))
+  fimse
+  se p_praiacoca015:objsolto.total < 4
+    criar("p_praiacoca015", este, rand(550, 610))
+  fimse
+
+
+classe s_praiacoca057
+herda b_praiacoca
+const s_titulo = "em alto mar"
+const dir_n = $s_praiacoca062
+const dir_s = $s_praiacoca052
+const dir_l = $s_praiacoca058
+const dir_o = $s_praiacoca056
+
+
+classe s_praiacoca058
+herda b_praiacoca
+const s_titulo = "em alto mar"
+const dir_n = $s_praiacoca063
+const dir_s = $s_praiacoca053
+const dir_l = $s_praiacoca059
+const dir_o = $s_praiacoca057
+
+
+classe s_praiacoca059
+herda b_praiacoca
+const s_titulo = "em alto mar"
+const dir_n = $s_praiacoca064
+const dir_s = $s_praiacoca054
+const dir_o = $s_praiacoca058
+
+
+classe s_praiacoca060
+herda b_praiacoca
+const s_titulo = "em alto mar"
+const dir_s = $s_praiacoca055
+const dir_l = $s_praiacoca061
+const dir_b = $s_praiacoca069
+const a_reset = "P 100 praiacoca016 500 600 5"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_praiacoca016:objsolto.total < 5
+    criar("p_praiacoca016", este, rand(500, 600))
+  fimse
+
+
+classe s_praiacoca061
+herda b_praiacoca
+const s_titulo = "em alto mar"
+const dir_s = $s_praiacoca056
+const dir_l = $s_praiacoca062
+const dir_o = $s_praiacoca060
+const dir_b = $s_praiacoca070
+
+
+classe s_praiacoca062
+herda b_praiacoca
+const s_titulo = "em alto mar"
+const dir_s = $s_praiacoca057
+const dir_l = $s_praiacoca063
+const dir_o = $s_praiacoca061
+const dir_b = $s_praiacoca071
+const a_reset = "P 50 praiacoca011 500 550 1\nP 50 praiacoca011 500 550 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_praiacoca011:objsolto.total < 1 && rand(100) < 50
+    criar("p_praiacoca011", este, rand(500, 550))
+  fimse
+  se p_praiacoca011:objsolto.total < 2 && rand(100) < 50
+    criar("p_praiacoca011", este, rand(500, 550))
+  fimse
+
+
+classe s_praiacoca063
+herda b_praiacoca
+const s_titulo = "em alto mar"
+const dir_s = $s_praiacoca058
+const dir_l = $s_praiacoca064
+const dir_o = $s_praiacoca062
+const dir_b = $s_praiacoca072
+
+
+classe s_praiacoca064
+herda b_praiacoca
+const s_titulo = "em alto mar"
+const dir_s = $s_praiacoca059
+const dir_o = $s_praiacoca063
+const dir_b = $s_praiacoca073
+
+
+classe s_praiacoca065
+herda b_praiacoca
+const s_titulo = "descendo para a parte rasa"
+const s_pnj = 0
+const dir_l = $s_praiacoca066
+const dir_c = $s_praiacoca024
+const dir_b = $s_praiacoca032
+
+
+classe s_praiacoca066
+herda b_praiacoca
+const s_titulo = "descendo para a parte rasa"
+const s_pnj = 0
+const dir_l = $s_praiacoca029
+const dir_o = $s_praiacoca065
+const dir_c = $s_praiacoca025
+const dir_b = $s_praiacoca031
+
+
+classe s_praiacoca067
+herda b_praiacoca
+const s_titulo = "descendo para a parte rasa"
+const s_pnj = 0
+const dir_l = $s_praiacoca068
+const dir_o = $s_praiacoca029
+const dir_c = $s_praiacoca027
+const dir_b = $s_praiacoca033
+
+
+classe s_praiacoca068
+herda b_praiacoca
+const s_titulo = "descendo para a parte rasa"
+const s_pnj = 0
+const dir_o = $s_praiacoca067
+const dir_c = $s_praiacoca028
+const dir_b = $s_praiacoca034
+
+
+classe s_praiacoca069
+herda b_praiacoca
+const s_titulo = "indo para as profundezas do oceano"
+const s_luz = 3 # Luz: 3 Escuro
+const s_pnj = 0
+const dir_l = $s_praiacoca070
+const dir_c = $s_praiacoca060
+const dir_b = $s_praiacoca074
+
+
+classe s_praiacoca070
+herda b_praiacoca
+const s_titulo = "indo para as profundezas do oceano"
+const s_luz = 3 # Luz: 3 Escuro
+const s_pnj = 0
+const dir_l = $s_praiacoca071
+const dir_o = $s_praiacoca069
+const dir_c = $s_praiacoca061
+const dir_b = $s_praiacoca075
+
+
+classe s_praiacoca071
+herda b_praiacoca
+const s_titulo = "indo para as profundezas do oceano"
+const s_luz = 3 # Luz: 3 Escuro
+const s_pnj = 0
+const dir_l = $s_praiacoca072
+const dir_o = $s_praiacoca070
+const dir_c = $s_praiacoca062
+const dir_b = $s_praiacoca076
+
+
+classe s_praiacoca072
+herda b_praiacoca
+const s_titulo = "indo para as profundezas do oceano"
+const s_luz = 3 # Luz: 3 Escuro
+const s_pnj = 0
+const dir_l = $s_praiacoca073
+const dir_o = $s_praiacoca071
+const dir_c = $s_praiacoca063
+const dir_b = $s_praiacoca077
+
+
+classe s_praiacoca073
+herda b_praiacoca
+const s_titulo = "indo para as profundezas do oceano"
+const s_luz = 3 # Luz: 3 Escuro
+const s_pnj = 0
+const dir_o = $s_praiacoca072
+const dir_c = $s_praiacoca064
+const dir_b = $s_praiacoca078
+
+
+classe s_praiacoca074
+herda b_praiacoca
+const s_titulo = "nas profundezas do oceano"
+const s_luz = 3 # Luz: 3 Escuro
+const dir_n = $s_praiacoca083
+const dir_l = $s_praiacoca075
+const dir_c = $s_praiacoca069
+const a_reset = "P 100 praiacoca008 500 600 5\n\
+P 100 praiacoca011 500 700 6\n\
+P 100 praiacoca015 600 700 6\n\
+P 100 praiacoca014 520 580 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_praiacoca008:objsolto.total < 5
+    criar("p_praiacoca008", este, rand(500, 600))
+  fimse
+  se p_praiacoca011:objsolto.total < 6
+    criar("p_praiacoca011", este, rand(500, 700))
+  fimse
+  se p_praiacoca015:objsolto.total < 6
+    criar("p_praiacoca015", este, rand(600, 700))
+  fimse
+  se p_praiacoca014:objsolto.total < 4
+    criar("p_praiacoca014", este, rand(520, 580))
+  fimse
+
+
+classe s_praiacoca075
+herda b_praiacoca
+const s_titulo = "nas profundezas do oceano"
+const s_luz = 3 # Luz: 3 Escuro
+const dir_n = $s_praiacoca082
+const dir_l = $s_praiacoca076
+const dir_o = $s_praiacoca074
+const dir_c = $s_praiacoca070
+
+
+classe s_praiacoca076
+herda b_praiacoca
+const s_titulo = "nas profundezas do oceano"
+const s_luz = 3 # Luz: 3 Escuro
+const dir_n = $s_praiacoca081
+const dir_l = $s_praiacoca077
+const dir_o = $s_praiacoca075
+const dir_c = $s_praiacoca071
+
+
+classe s_praiacoca077
+herda b_praiacoca
+const s_titulo = "nas profundezas do oceano"
+const s_luz = 3 # Luz: 3 Escuro
+const dir_n = $s_praiacoca080
+const dir_l = $s_praiacoca078
+const dir_o = $s_praiacoca076
+const dir_c = $s_praiacoca072
+
+
+classe s_praiacoca078
+herda b_praiacoca
+const s_titulo = "nas profundezas do oceano"
+const s_luz = 3 # Luz: 3 Escuro
+const dir_n = $s_praiacoca079
+const dir_o = $s_praiacoca077
+const dir_c = $s_praiacoca073
+
+
+classe s_praiacoca079
+herda b_praiacoca
+const s_titulo = "nas profundezas do oceano"
+const s_luz = 3 # Luz: 3 Escuro
+const dir_n = $s_praiacoca088
+const dir_s = $s_praiacoca078
+const dir_o = $s_praiacoca080
+
+
+classe s_praiacoca080
+herda b_praiacoca
+const s_titulo = "nas profundezas do oceano"
+const s_luz = 3 # Luz: 3 Escuro
+const dir_n = $s_praiacoca087
+const dir_s = $s_praiacoca077
+const dir_l = $s_praiacoca079
+const dir_o = $s_praiacoca081
+
+
+classe s_praiacoca081
+herda b_praiacoca
+const s_titulo = "nas profundezas do oceano"
+const s_luz = 3 # Luz: 3 Escuro
+const dir_n = $s_praiacoca086
+const dir_s = $s_praiacoca076
+const dir_l = $s_praiacoca080
+const dir_o = $s_praiacoca082
+
+
+classe s_praiacoca082
+herda b_praiacoca
+const s_titulo = "nas profundezas do oceano"
+const s_luz = 3 # Luz: 3 Escuro
+const dir_n = $s_praiacoca085
+const dir_s = $s_praiacoca075
+const dir_l = $s_praiacoca081
+const dir_o = $s_praiacoca083
+
+
+classe s_praiacoca083
+herda b_praiacoca
+const s_titulo = "nas profundezas do oceano"
+const s_luz = 3 # Luz: 3 Escuro
+const dir_n = $s_praiacoca084
+const dir_s = $s_praiacoca074
+const dir_l = $s_praiacoca082
+const a_reset = "P 100 praiacoca017 500 650 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_praiacoca017:objsolto.total < 10
+    criar("p_praiacoca017", este, rand(500, 650))
+  fimse
+
+
+classe s_praiacoca084
+herda b_praiacoca
+const s_titulo = "nas profundezas do oceano"
+const s_luz = 3 # Luz: 3 Escuro
+const dir_s = $s_praiacoca083
+const dir_l = $s_praiacoca085
+
+
+classe s_praiacoca085
+herda b_praiacoca
+const s_titulo = "nas profundezas do oceano"
+const s_luz = 3 # Luz: 3 Escuro
+const dir_s = $s_praiacoca082
+const dir_l = $s_praiacoca086
+const dir_o = $s_praiacoca084
+
+
+classe s_praiacoca086
+herda b_praiacoca
+const s_titulo = "nas profundezas do oceano"
+const s_luz = 3 # Luz: 3 Escuro
+const dir_s = $s_praiacoca081
+const dir_l = $s_praiacoca087
+const dir_o = $s_praiacoca085
+
+
+classe s_praiacoca087
+herda b_praiacoca
+const s_titulo = "nas profundezas do oceano"
+const s_luz = 3 # Luz: 3 Escuro
+const dir_s = $s_praiacoca080
+const dir_l = $s_praiacoca088
+const dir_o = $s_praiacoca086
+
+
+classe s_praiacoca088
+herda b_praiacoca
+const s_titulo = "nas profundezas do oceano"
+const s_luz = 3 # Luz: 3 Escuro
+const dir_s = $s_praiacoca079
+const dir_o = $s_praiacoca087
+
+
+classe s_praiacoca089
+herda b_praiacoca
+const s_titulo = "uma pequena estradinha"
+const s_desc = "você chegou ao fim dessa pequena estradinha.\n\
+a norte, está o calçadão da praia, e a sul, você volta a caminhar pela estrada."
+const s_pnj = 0
+const dir_n = $s_praiacoca001
+const dir_s = $s_praiacoca090
+const a_reset = "S 100 praiacoca032 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_praiacoca032") && criar("i_praiacoca032", este, 1)
+
+
+classe s_praiacoca090
+herda b_praiacoca
+const s_titulo = "uma pequena estradinha"
+const s_desc = "você está andando por uma pequena estradinha de terra, rodeada por algumas \
+árvores.\n\
+o vento forte que bate em seu rosto, lhe transmite uma sensação de paz e liberdade.\n\
+você sente o cheiro do mar, e consegue ouvir o barulho suave das ondas que vem de longe."
+const dir_n = $s_praiacoca089
+const dir_l = $s_praiacoca091
+const a_reset = "S 100 praiacoca032 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_praiacoca032") && criar("i_praiacoca032", este, 1)
+
+
+classe s_praiacoca091
+herda b_praiacoca
+const s_titulo = "uma pequena estradinha"
+const s_desc = "você está andando por uma pequena estradinha de terra, rodeada por algumas \
+árvores.\n\
+o vento forte que bate em seu rosto, lhe transmite uma sensação de paz e liberdade.\n\
+você sente o cheiro do mar, e consegue ouvir o barulho suave das ondas que vem de longe."
+const dir_l = $s_praiacoca092
+const dir_o = $s_praiacoca090
+const dir_c = $s_praiacoca098
+const a_reset = "S 100 praiacoca032 1 S\nS 100 praiacoca032 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_praiacoca032") && criar("i_praiacoca032", este, 1)
+  !dentro1.objini("i_praiacoca032") && criar("i_praiacoca032", este, 1)
+
+
+classe s_praiacoca092
+herda b_praiacoca
+const s_titulo = "uma pequena estradinha"
+const s_desc = "você está andando por uma pequena estradinha de terra, rodeada por algumas \
+árvores.\n\
+o vento forte que bate em seu rosto, lhe transmite uma sensação de paz e liberdade.\n\
+você sente o cheiro do mar, e consegue ouvir o barulho suave das ondas que vem de longe."
+const dir_l = $s_praiacoca093
+const dir_o = $s_praiacoca091
+const a_reset = "S 100 praiacoca032 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_praiacoca032") && criar("i_praiacoca032", este, 1)
+
+
+classe s_praiacoca093
+herda b_praiacoca
+const s_titulo = "uma pequena estradinha"
+const s_desc = "você está andando por uma pequena estradinha de terra, rodeada por algumas \
+árvores.\n\
+o vento forte que bate em seu rosto, lhe transmite uma sensação de paz e liberdade.\n\
+você sente o cheiro do mar, e consegue ouvir o barulho suave das ondas que vem de longe."
+const dir_s = $s_praiacoca094
+const dir_o = $s_praiacoca092
+const a_reset = "S 100 praiacoca032 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_praiacoca032") && criar("i_praiacoca032", este, 1)
+
+
+classe s_praiacoca094
+herda b_praiacoca
+const s_titulo = "uma pequena estradinha"
+const s_desc = "você está andando por uma pequena estradinha de terra, rodeada por algumas \
+árvores.\n\
+o vento forte que bate em seu rosto, lhe transmite uma sensação de paz e liberdade.\n\
+você sente o cheiro do mar, e consegue ouvir o barulho suave das ondas que vem de longe."
+const dir_n = $s_praiacoca093
+const dir_s = $s_praiacoca095
+const a_reset = "S 100 praiacoca032 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_praiacoca032") && criar("i_praiacoca032", este, 1)
+
+
+classe s_praiacoca095
+herda b_praiacoca
+const s_titulo = "uma pequena estradinha"
+const s_desc = "você está andando por uma pequena estradinha de terra, rodeada por algumas \
+árvores.\n\
+o vento forte que bate em seu rosto, lhe transmite uma sensação de paz e liberdade.\n\
+você sente o cheiro do mar, e consegue ouvir o barulho suave das ondas que vem de longe."
+const dir_n = $s_praiacoca094
+const dir_o = $s_praiacoca096
+const a_reset = "S 100 praiacoca032 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_praiacoca032") && criar("i_praiacoca032", este, 1)
+
+
+classe s_praiacoca096
+herda b_praiacoca
+const s_titulo = "uma pequena estradinha"
+const s_desc = "você está andando por uma pequena estradinha de terra, rodeada por algumas \
+árvores.\n\
+o vento forte que bate em seu rosto, lhe transmite uma sensação de paz e liberdade.\n\
+você sente o cheiro do mar, e consegue ouvir o barulho suave das ondas que vem de longe."
+const dir_l = $s_praiacoca095
+const dir_o = $s_praiacoca097
+const a_reset = "S 100 praiacoca032 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_praiacoca032") && criar("i_praiacoca032", este, 1)
+
+
+classe s_praiacoca097
+herda b_praiacoca
+const s_titulo = "uma pequena estradinha"
+const s_desc = "você está andando por uma pequena estradinha de terra, rodeada por algumas \
+árvores.\n\
+o vento forte que bate em seu rosto, lhe transmite uma sensação de paz e liberdade.\n\
+você sente o cheiro do mar, e consegue ouvir o barulho suave das ondas que vem de longe."
+const dir_s = $s_torvani100
+const dir_l = $s_praiacoca096
+const a_reset = "S 100 praiacoca032 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_praiacoca032") && criar("i_praiacoca032", este, 1)

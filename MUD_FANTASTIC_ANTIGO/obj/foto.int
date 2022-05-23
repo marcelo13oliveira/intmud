@@ -1,0 +1,54 @@
+classe i_foto
+herda comum_item
+const nome = "foto de " + var.z_foto
+
+func descnome
+  se txt1(var.z_foto) == "o" || txt1(var.z_foto) == "a"
+    ret "uma foto d" + txtmin(var.z_foto)
+  senao
+    ret "uma foto de " + txtmin(var.z_foto) + (var.z_acao ? var.z_acao : "")
+  fimse
+
+func descver
+  ret var.z_descfoto
+#
+
+func descfoto
+  var.z_descfoto = arg0 + "\n"
+  var.z_descfoto += arg1
+  se arg2
+    var.z_descfoto += " em " + arg2
+  fimse
+  se txt1(arg3) == "o" || txt1(arg3) == "a"
+    var.z_descfoto += ", N" + arg3
+  senao txt1(arg3) == "um" || txt1(arg3) == "uma"
+    var.z_descfoto += ", em " + arg3
+  senao txt1(arg3) == "em" || txt1(arg3) == "no" || txt1(arg3) == "na"
+    var.z_descfoto += ", " + arg3
+  senao
+    var.z_descfoto += ", em " + arg3
+  fimse
+  se arg4
+    var.z_acao = arg4
+  fimse
+  se arg5
+    var.z_descfoto += "Está usando: \n" + arg5
+  fimse
+#
+
+func descfoto2
+  se arg2
+    var.z_descfoto = arg2 + "\n"
+  fimse
+  se arg0
+    var.z_descfoto += "Nela você vê:\n"
+    var.z_descfoto += arg0
+  fimse
+  se arg1
+    var.z_descfoto += "\n" + arg1
+  fimse
+#
+
+func descfoto3
+  var.z_descfoto = arg0 + "\n"
+  var.z_descfoto += " está em " + arg1

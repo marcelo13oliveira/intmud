@@ -1,0 +1,84 @@
+classe adm_log
+herda comando_adm, comando_editor
+const objcmd = arg1.c_log ? este
+const txtajuda = "\b\c3Log\b\n\
+Sintaxe: LOG\n\
+         LOG <nome do arquivo>\n\
+Sem argumentos, mostra os arquivos de log existentes (no diretório log).\n\
+Os arquivos modificados mais recentemente aparecem primeiro.\n\
+Com um nome de arquivo, abre o arquivo no editor para visualização."
+
+func escr
+  textovar var
+  arg2 == $perm_admin && (var.adm = 1)
+  refvar perm = arg2.c_log
+  perm & 0x1 && (var._entrou = 1)
+  perm & 0x2 && (var._admlog = 1)
+  perm & 0x4 && (var._cmdlog = 1)
+  perm & 0x8 && (var._jogchat = 1)
+  perm & 0x10 && (var._rezou = 1)
+  perm & 0x20 && (var._mortes = 1)
+  perm & 0x40 && (var._bug = 1)
+  perm & 0x80 && (var._ideia = 1)
+  perm & 0x100 && (var._ac = 1)
+  perm & 0x200 && (var._falar = 1)
+  perm & 0x400 && (var._telepatia = 1)
+  se !arg1
+    arqdir dir
+    txt100 lin
+    lin = dir.abrir("log")
+    ret lin != "", arg0.msg("\bErro: " + lin)
+    debug dbg
+    dbg.exec = 50000
+    textotxt t
+    epara nulo, dir.lin, dir.depois
+      continuar txtfim(dir.texto, 4) != ".log"
+      continuar !var.adm && !var._[txt1(txttroca(dir.texto, "-", " "))]
+      refvar d = dir.mtempo("log/" + dir.texto)
+      lin = txt1(d) + (50 + txtsub(d, 1, 1)) + (50 + txtsub(d, 2, 1))
+      lin += 500000 + 10000 * txtsub(d, 3, 1) + 100 * txtsub(d, 4, 1) + txtsub(d, 5, 1)
+      lin += " " + txttroca(dir.texto + "\b", ".log\b", "")
+      lin += txtesp(33 - inttotal(lin)) + " " + dir.tamanho("log/" + dir.texto)
+      lin += txtesp(42 - inttotal(lin)) + " "
+      lin += txtsub(d, 2, 1) + "/" + txtsub(d, 1, 1)
+      t.addfim(lin + " " + txttroca(txtsub(d, 3, 2), " ", ":"))
+    efim
+    ret !t.linhas, arg0.msg("\bNenhum arquivo de log")
+    t.ordena
+    refvar txtmais = arg0.sock.txtmais
+    txtmais.limpar
+    txtmais.addfim("\b\c6Arquivo de log Tamanho Data:\b")
+    textopos pos
+    epara pos = t.fim, pos.linha, txtmais.addfim(txt2(pos.texto))
+      pos.antes
+    efim
+    arg0.sock.txtmostra
+  senao !var.adm && !var._[txt1(txttroca(arg1 + ".log", "-", " "))]
+    arg0.msg("Arquivo de log não existe: " + arg1)
+  senao !arg0.sock.teditor.ler("log/" + arg1 + ".log")
+    arg0.msg("Arquivo de log não existe: " + arg1)
+  senao
+    arg0.sock.tpasso = arg1
+    passo(arg0.sock, "\b")
+  fimse
+
+func passo
+  casovar txtmin(txt(arg1, 0, 1))
+  casose "\b"
+    arg0.teditor.bytes == 1 && arg0.teditor.limpar
+    arg0.leditor = arg0.teditor.ini
+    arg0.leditor1 = arg0.teditor.ini
+    arg0.leditor2 = arg0.teditor.fim
+    arg0.leditor2.antes
+    arg0.passo = este
+    arg0.msg("Abrindo no editor " + arg0.tpasso + ", O opções, X salvar, Z sair")
+    ret 1
+  casose "z" # Sair do editor
+    arg0.msg("Fechando editor")
+    arg0.passo = ""
+    ret 1
+  casose "x" # Salvar o texto
+    arg0.msg("Não é possível salvar arquivos de log")
+    ret 1
+  casofim
+  ret passoeditor(arg0, arg1, arg0.teditor.bytes, "Arquivo de log " + arg0.tpasso)

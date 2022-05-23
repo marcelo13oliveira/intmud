@@ -1,0 +1,531 @@
+classe a_casarao
+herda area
+const a_nome = "Casarão"
+
+
+classe b_casarao
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_recup = 10
+const s_area = "casarao"
+
+
+classe i_casarao001
+herda comum_itemperso
+const nome = "cama box"
+const descnome = "uma confortável cama de casal"
+const i_movel = 2 # Mobília: 2 Sentar e dormir
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe p_casarao001
+herda comum_persobat
+const nome = "fazendeiro"
+const descnome = "o fazendeiro"
+const descpadr = "O fazendeiro está sentado aqui, cuidando de sua esposa."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 60
+const evsala = 1 # Eventos dono sala: Sim
+
+
+classe p_casarao002
+herda comum_persobat
+const nome = "esposa do fazendeiro"
+const ident = "mulher esposa"
+const descnome = "a esposa do fazendeiro"
+const descpadr = "A esposa do fazendeiro está deitada em uma cama, aparentemente bastante \
+doente."
+const nivel = 50
+const pospadr = 5 # Posição padrão: 5 Descansando
+
+
+classe p_casarao003
+herda comum_persobat
+const nome = "cozinheira"
+const ident = "mulhr senhora cozinheira"
+const descnome = "a cozinheira do casarão"
+const descpadr = "Uma senhora está próxima ao fogão, preparando a refeição com um olhar preocupad\
+o."
+const nivel = 24
+const p_recebe = 1 # Recebe itens: Sim
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "conversar cozinheira"
+    ret arg0.var.z_cozinheira, arg0.msg("A cozinheira diz: Obrigada " + arg0.descnome + ", mas \
+não precisamos de sua ajuda por enquanto!")
+    ret arg0.var.j_fazendeiro, arg0.msg("A cozinheira diz: Já te disse o que preciso, " + \
+arg0.descnome + "!")
+    misc:tempo("entrou", arg0)
+    ret 1
+  fimse
+#
+#
+
+func entrou30
+  arg0.var.j_fazendeiro_ = 1
+  $mens.p(este, arg0)
+  $mens.mvis1("$P corre desesperada até $A!")
+#
+
+func entrou60
+  $mens.p(este, arg0)
+  $mens.mvis1("$P diz: Oi $C! Que bom que você apareceu aqui!")
+  $mens.p(este, arg0)
+  $mens.mvis1("$P diz: Vou lhe contar a nossa situação, escute com atenção e tente nos ajudar:")
+#
+
+func entrou90
+  $mens.p(este, arg0)
+  $mens.mvis1("$P diz: A esposa do fazendeiro está muito doente, e eu preciso fazer uma canja \
+para ela, porém, todos os ajudantes estão de folga!")
+  $mens.p(este, arg0)
+  $mens.mvis1("$P diz: Contamos com a sua ajuda. Traga-me uma carne de galinha e o fazendeiro \
+lhe dará uma boa recompensa por isso!")
+  ret 1
+#
+
+func cmd_darobj
+  se arg1 == este
+    ret arg0.var.z_cozinheira, arg0.msg("Obrigada " + arg0.descnome + ", mas não precisamos \
+disso no momento.")
+    se arg2.nome != "carne de galinha"
+      ret !arg0.var.j_fazendeiro, arg0.msg("A cozinheira diz: Não lhe pedi nada, " + arg0.descnom\
+e + ".")
+      arg0.msg("A cozinheira diz: Não, isso não é uma carne de galinha!")
+      ret 1
+    fimse
+  fimse
+#
+
+func cmd_deuobj
+  ret arg3 != arg0, nulo
+  apagar(arg2)
+  $mens.p(este, arg0)
+  $mens.mvis1("$P diz: Muito obrigada, $C! Ficamos muito gratos por sua ajuda!")
+  $mens.p(este, arg0)
+  $mens.mvis1("Como prometido, aqui está sua recompensa:")
+  arg0.var.j_fazendeiro_ = 0
+  arg0.var.z_quest_ += 3
+  arg0.msg("Você recebe 3 pontos de aventura!")
+  arg0.ganhaexp(rand(200, 2000))
+  arg0.var.z_cozinheira@ = 54000
+  ret 1
+
+
+classe p_casarao004
+herda comum_persobat
+const nome = "criança"
+const ident = "criança travessa"
+const descnome = "uma criança travessa"
+const descpadr = "Uma criança está fazendo travessuras por aqui."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const nivel = 10
+const p_atktipo = "socar"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+
+
+classe p_casarao005
+herda comum_persobat
+const nome = "faxineira"
+const ident = "mulher senhora faxineira"
+const descnome = "uma faxineira"
+const descpadr = "uma senhora faz a faxina do casarão, tentando manter tudo limpo."
+const nivel = 20
+const p_atktipo = "socar"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 2 # Movimentar: 2 Qualquer lugar
+const p_movervel = 300
+
+
+classe p_casarao006
+herda comum_perso
+const nome = "cozinheira"
+const ident = "mulher senhora cozinheira"
+const descnome = "a cozinheira do casarão"
+const descpadr = "Uma senhora está a frente do fogão, preparando a refeição com um olhar \
+preocupado."
+const objmax = 1
+const p_recebe = 1 # Recebe itens: Sim
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "conversar cozinheira"
+    se arg0.var.z_cozinheira
+      arg0.msg("A cozinheira do casarão diz: Já falei o que preciso, " + arg0.descnome + ". \
+Agora vá!")
+    senao arg0.var.z_coz
+      arg0.msg("A cozinheira do casarão diz: Fico agradecida, " + arg0.descnome + ", mas não \
+precisamos de sua ajuda agora.")
+    senao
+      arg0.var.z_cozinheira = 1
+      misc:tempo("cozinheira", arg0)
+    fimse
+    ret 1
+  casofim
+#
+
+func cozinheira30
+  arg0.msg("A cozinheira corre até você!")
+#
+
+func cozinheira60
+  arg0.msg("A cozinheira diz: Olá " + arg0.descnome + ". Que bom que você apareceu para nos \
+ajudar!")
+
+func cozinheira90
+  arg0.msg("A cozinheira diz: Vou lhe contar o que está acontecendo:")
+#
+
+func cozinheira120
+  arg0.msg("A cozinheira diz: A mulher do fazendeiro está muito doente. Preciso de uma carne de \
+galinha ")
+  arg0.msg("Para fazer uma canja para ela, porém, todos os empregados estão de folga no momento."\
+)
+  arg0.msg("A cozinheira diz: Traga-me uma carne de galinha, e saberemos como recompensá-lo.")
+#
+
+func cmd_darobj
+  se arg1 == este
+    se arg2.nome != "carne de galinha"
+      arg0.msg("A cozinheira olha para " + arg2.descnome + " e diz: ")
+      teclou("f isso não é uma carne de galinha, " + arg0.descnome + "!")
+      ret 1
+    senao arg3 > 1
+      ret arg0.msg("A cozinheira olha para você e diz: Não preciso de tanta carne, " + arg0.descn\
+ome + ". Uma só basta.")
+    senao !arg0.var.z_cozinheira
+      ret arg0.msg("Não preciso disso no momento, muito obrigada.")
+    fimse
+  fimse
+#
+
+func cmd_deuobj
+  se arg1 == este
+    apagar(arg2)
+    ret arg4 != arg0, nulo
+    misc:tempo("deucarne", arg0)
+  fimse
+#
+
+func deucarne30
+  arg0.msg("A cozinheira olha para a carne de galinha em suas mãos e diz:")
+  arg0.msg("Obrigada, " + arg0.descnome + "! Era isso mesmo!")
+#
+
+func deucarne60
+  arg0.msg("Agora vamos a sua recompensa:")
+#
+
+func deucarne90
+  arg0.msg("Você recebe 5 pontos de aventura!")
+  arg0.var.z_cozinheira_ = 0
+  arg0.var.z_coz@ = 48000
+  arg0.ganhaexp(500, 2000)
+  arg0.var.z_quest_ += 5
+
+
+classe s_casarao001
+herda b_casarao
+const s_titulo = "Um grande jardim"
+const dir_s = $s_campo033
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "o portão"
+const portaartigo_s = 2 # Artigo porta: 2 o (portão)
+const fecha_s = 1 # Fecha ao passar: Sim
+const dir_l = $s_casarao006
+const dir_o = $s_casarao002
+const dir_c = $s_casarao010
+
+
+classe s_casarao002
+herda b_casarao
+const s_titulo = "caminhando sobre o jardim do casarão"
+const dir_l = $s_casarao001
+const dir_o = $s_casarao003
+
+
+classe s_casarao003
+herda b_casarao
+const s_titulo = "Caminhando sobre o jardim do casarão"
+const dir_l = $s_casarao002
+const dir_o = $s_casarao004
+
+
+classe s_casarao004
+herda b_casarao
+const s_titulo = "Caminhando sobre o jardim do casarão"
+const dir_n = $s_casarao005
+const dir_l = $s_casarao003
+
+
+classe s_casarao005
+herda b_casarao
+const s_titulo = "Ao redor do casarão"
+const dir_s = $s_casarao004
+
+
+classe s_casarao006
+herda b_casarao
+const s_titulo = "caminhando sobre o jardim do casarão"
+const dir_l = $s_casarao007
+const dir_o = $s_casarao001
+
+
+classe s_casarao007
+herda b_casarao
+const s_titulo = "Caminhando sobre o jardim do casarão"
+const dir_l = $s_casarao008
+const dir_o = $s_casarao006
+
+
+classe s_casarao008
+herda b_casarao
+const s_titulo = "Caminhando sobre o jardim do casarão"
+const dir_n = $s_casarao009
+const dir_o = $s_casarao007
+
+
+classe s_casarao009
+herda b_casarao
+const s_titulo = "Ao redor do casarão"
+const dir_s = $s_casarao008
+
+
+classe s_casarao010
+herda b_casarao
+const s_titulo = "Subindo Alguns Degraus"
+const dir_c = $s_casarao011
+const dir_b = $s_casarao001
+
+
+classe s_casarao011
+herda b_casarao
+const s_titulo = "Uma varanda"
+const dir_n = $s_casarao016
+const dir_l = $s_casarao012
+const dir_o = $s_casarao014
+const dir_b = $s_casarao010
+
+
+classe s_casarao012
+herda b_casarao
+const s_titulo = "Uma varanda"
+const dir_l = $s_casarao013
+const dir_o = $s_casarao011
+
+
+classe s_casarao013
+herda b_casarao
+const s_titulo = "Uma varanda"
+const dir_o = $s_casarao012
+
+
+classe s_casarao014
+herda b_casarao
+const s_titulo = "uma varanda"
+const dir_l = $s_casarao011
+const dir_o = $s_casarao015
+
+
+classe s_casarao015
+herda b_casarao
+const s_titulo = "Uma varanda"
+const dir_l = $s_casarao014
+
+
+classe s_casarao016
+herda b_casarao
+const s_titulo = "Sala de estar"
+const dir_n = $s_casarao017
+const dir_s = $s_casarao011
+const dir_l = $s_casarao034
+
+
+classe s_casarao017
+herda b_casarao
+const s_titulo = "um hall espaçoso"
+const dir_s = $s_casarao016
+const dir_c = $s_casarao019
+
+
+classe s_casarao018
+herda b_casarao
+const s_titulo = "Dentro do elevador"
+const s_entrada = "entrada do elevador"
+
+
+classe s_casarao019
+herda b_casarao
+const s_titulo = "escadas"
+const dir_c = $s_casarao020
+const dir_b = $s_casarao017
+
+
+classe s_casarao020
+herda b_casarao
+const s_titulo = "no meio das escadas"
+const dir_c = $s_casarao021
+const dir_b = $s_casarao019
+
+
+classe s_casarao021
+herda b_casarao
+const s_titulo = "No topo das escadas"
+const dir_s = $s_casarao022
+const dir_b = $s_casarao020
+
+
+classe s_casarao022
+herda b_casarao
+const s_titulo = "Primeiro andar"
+const dir_n = $s_casarao021
+const dir_s = $s_casarao023
+const a_reset = "P 100 casarao005 20 24 8 h_socar=3,h_chutar=3,z_moedas=10000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_casarao005:objsolto.total < 8
+    criar("p_casarao005", este, rand(20, 24), "h_socar=3,h_chutar=3,z_moedas=10000")
+  fimse
+
+
+classe s_casarao023
+herda b_casarao
+const s_titulo = "um corredor"
+const dir_n = $s_casarao022
+const dir_s = $s_casarao024
+const dir_o = $s_casarao027
+
+
+classe s_casarao024
+herda b_casarao
+const s_titulo = "Um corredor"
+const dir_n = $s_casarao023
+const dir_s = $s_casarao026
+const dir_l = $s_casarao025
+const dir_o = $s_casarao028
+
+
+classe s_casarao025
+herda b_casarao
+const s_titulo = "Um quarto de hóspedes"
+const dir_o = $s_casarao024
+
+
+classe s_casarao026
+herda b_casarao
+const s_titulo = "um corredor"
+const dir_n = $s_casarao024
+const dir_s = $s_casarao029
+
+
+classe s_casarao027
+herda b_casarao
+const s_titulo = "Quarto das crianças"
+const dir_l = $s_casarao023
+const a_reset = "P 100 casarao004 10 12 4 h_socar=3,z_moedas=2000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_casarao004:objsolto.total < 4
+    criar("p_casarao004", este, rand(10, 12), "h_socar=3,z_moedas=2000")
+  fimse
+
+
+classe s_casarao028
+herda b_casarao
+const s_titulo = "Quarto da empregada"
+const dir_l = $s_casarao024
+
+
+classe s_casarao029
+herda b_casarao
+const s_titulo = "No fim do corredor"
+const dir_n = $s_casarao026
+const dir_s = $s_casarao030
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "a porta do quarto principal"
+const fecha_s = 1 # Fecha ao passar: Sim
+
+
+classe s_casarao030
+herda b_casarao
+const s_titulo = "Os aposentos do fazendeiro"
+const dir_n = $s_casarao029
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "a porta do quarto"
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_s = $s_casarao031
+
+
+classe s_casarao031
+herda b_casarao
+const s_titulo = "Um corredor"
+const dir_n = $s_casarao030
+const dir_l = $s_casarao033
+const dir_o = $s_casarao032
+
+
+classe s_casarao032
+herda b_casarao
+const s_titulo = "O banheiro da suite"
+const dir_l = $s_casarao031
+
+
+classe s_casarao033
+herda b_casarao
+const s_titulo = "Dormitório"
+const dir_o = $s_casarao031
+const s_reset = "P 100 casarao001 0 0 1 h_socar=3,h_chutar=3,z_moedas=500000\n\
+P 100 casarao002 0 0 1 h_socar==2,h_chutar=2,z_moedas=500000"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_casarao001:objsolto.total < 1
+    criar("p_casarao001", este, 0, "h_socar=3,h_chutar=3,z_moedas=500000")
+  fimse
+  se p_casarao002:objsolto.total < 1
+    criar("p_casarao002", este, 0, "h_socar==2,h_chutar=2,z_moedas=500000")
+  fimse
+
+
+classe s_casarao034
+herda b_casarao
+const s_titulo = "um corredor"
+const dir_l = $s_casarao035
+const dir_o = $s_casarao016
+
+
+classe s_casarao035
+herda b_casarao
+const s_titulo = "Sala de Jantar"
+const dir_n = $s_casarao036
+const dir_o = $s_casarao034
+
+
+classe s_casarao036
+herda b_casarao
+const s_titulo = "Uma enorme cozinha"
+const dir_s = $s_casarao035
+const s_reset = "P 100 casarao006 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_casarao006:objsolto.total < 1
+    criar("p_casarao006", este, 0)
+  fimse

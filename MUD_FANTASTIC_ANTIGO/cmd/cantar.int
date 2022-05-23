@@ -1,0 +1,33 @@
+classe cmd_cantar
+herda comando_comum
+#
+const posic = 5
+#
+
+func escr
+  $mens.p(arg0)
+  $mens.mens = arg1
+  se arg2.c_cantar
+    $mensjog.msg(arg2.c_cantar, arg0)
+  senao arg0.pnivel < config:cantarnivel
+    arg0.msg("Para escrever no canal cantar você precisa estar no nível " + config:cantarnivel + \
+".")
+  senao !arg0.jogconfig.23
+    arg0.msg("Canal cantar está desabilitado; para habilitar tecle CONFIG +cantar")
+  senao !arg1
+    arg0.msg("Tecle a mensagem após cantar.")
+  senao config:cantartipo == 2 # Escrever para todos
+    $misclog.jogchat("cantou " + arg0.nome + ": " + arg1)
+    indiceitem item
+    epara item.ini("un "), txt1(item.txt) == "un", item.depois
+      continuar !item.obj.jogconfig.23 || item.obj.perso.var.u_[arg0.nome]
+      $mens.msg(config:cantarmsg, item.obj.perso)
+    efim
+  senao # Escrever para quem estiver na mesma sala
+    $misclog.jogchat("cantou " + arg0.nome + ": " + arg1)
+    listaobj l
+    epara arg0.sock.salaobj(l), l, l.ini.remove
+      continuar !l.objini.jogconfig.23 || l.objini.perso.var.u_[arg0.nome]
+      $mens.msg(config:cantarmsg, l.objini.perso)
+    efim
+  fimse

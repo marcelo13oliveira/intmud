@@ -1,0 +1,219 @@
+classe a_bairro
+herda area
+const a_tempo = 5
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_nome = "Bairro"
+const a_autor = "Xica"
+
+
+classe b_bairro
+herda sala
+const s_terreno = 1 # Terreno: 1 Rua de uma cidade - 2mv
+const s_area = "bairro"
+
+
+classe i_bairro001
+herda comum_itemperso
+const nome = "Sofá"
+const descnome = "Um luxuoso sofá de couro"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "Este sofá não é seu."
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_lugar = 3
+const tipoitem = 512 # Tipo de item: 9-Mobília
+const valor = 20000
+
+
+classe i_bairro002
+herda comum_livro
+const nome = "Caderno"
+const descnome = "Um caderno"
+
+
+classe i_bairro003
+herda comum_itemperso
+const nome = "Balcão"
+const descnome = "Um balcão"
+const descpos = "Um balcão está aqui em frente"
+const i_pegar = "Um balcão é pesado demais pra voce pegar"
+const i_salaver = $s_bairro018
+const i_movel = 2 # Mobília: 2 Sentar e dormir
+const i_lugar = 20
+const i_abertoini = 5 # Container: 5 Indefinido; não checa se está aberto, fechado ou trancado
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 850
+const volexp = 1 # Expande: Sim
+const manterperso = 0 # Mantém em jogador: Não
+
+
+classe i_bairro004
+herda comum_itemperso
+const nome = "Cama da Maria Joaquina"
+const descnome = "A cama da Maria Joaquina"
+const nivel = 100
+const i_pegar = "Essa cama não é sua."
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_lugar = 1
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 500000
+const tipoitem = 512 # Tipo de item: 9-Mobília
+
+
+classe p_bairro001
+herda comum_perso
+const nome = "Bibi"
+const descpadr = "Bibi, a menina norte-americana está brincando aqui."
+const descver = "Ela tem oito anos e seus cabelos são laranjados. Ela nasceu nos Estados\n\
+Unidos. Ela prefere Parmilion do que a Cidade do Rio, mas gosta de ir lá\ntambém."
+const volobj = 1250
+const nivel = 18
+const pospadr = 6 # Posição padrão: 6 Sentado
+const tipo1 = "Normal"
+const tipo2 = "Humana"
+const tipo3 = "Maga"
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "e_batom"
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+
+classe p_bairro002
+herda comum_perso
+
+
+classe p_bairro003
+herda comum_perso
+
+
+classe p_bairro004
+herda comum_perso
+
+
+classe p_bairro005
+herda comum_perso
+const nome = "Firmino"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 10
+const p_recebe = 1 # Recebe itens: Sim
+
+
+classe p_bairro006
+herda comum_persobat
+const nome = "Graça"
+const descnome = "A Gracinha"
+const descpadr = "A maluca da \"Gracinha Graciosa\" está aqui."
+const nivel = 30
+const tipo1 = "Normal"
+const tipo2 = "Humana"
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_atk_anda = 1 # Anda ataque: Sim
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_corpo = 0 # Corpo: 0 Não deixa corpo
+const p_fugir = 10
+const p_lembra = 15
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_persegue = 1 # Persegue jogadores: 1 Mesma área se atacarem
+const p_perseguevel = 5
+const p_recebe = 1 # Recebe itens: Sim
+const p_soltar = 2 # Dar e soltar: 2 Não se pode dar nem soltar
+const inivar = "e_dançando"
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv &= ~2
+  bitver |= 818
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 38
+  pmanamax += 700 * pnivel + 5
+  pmovemax += 110
+  pveloc1 += 200
+
+const m_atribs1 = "como prata,"
+
+
+classe p_bairro007
+herda comum_perso
+const nome = "Joana"
+const descnome = "Joana, a empregada"
+
+
+classe p_bairro008
+herda comum_persobat
+const nome = "Koki"
+const ident = "koki|kokimoto|japona|japonês|japonesinho|ruivo|ruivinho|samurai|carateca"
+const descnome = "Kokimotoz"
+
+
+classe p_bairro009
+herda comum_persobat
+const nome = "Monstro"
+const ident = ""
+const descnome = "Um monstro"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 1
+const volobj = 8
+const nivel = 71
+const tipo1 = "monstro"
+const tipo2 = "monstro"
+const tipo3 = "monstro"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_atk_anda = 1 # Anda ataque: Sim
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 200002
+const p_fugir = 0
+const p_naoresg = 1 # Sem resgate: Sim
+const p_persegue = 2 # Persegue jogadores: 2 Qualquer lugar se atacarem
+const p_perseguevel = 5
+const p_soltar = 2 # Dar e soltar: 2 Não se pode dar nem soltar
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv &= ~2
+  bitver |= 4158
+  atktipo.0 *= 2.03 # Tipos Normais
+  atktipo.1 *= 2.03 # Tipos Especiais
+  atktipo.2 *= 2.03 # Contusão
+  atktipo.3 *= 2.03 # luta
+  atktipo.4 *= 2.03 # Cortante
+  atktipo.5 *= 2.03 # Perfurante
+  atktipo.6 *= 2.03 # Fogo
+  atktipo.7 *= 2.03 # Água
+  atktipo.8 *= 2.03 # Gelo
+  atktipo.9 *= 2.03 # Terra
+  atktipo.10 *= 2.03 # Pedra
+  atktipo.13 *= 0.01 # Trevas
+  atktipo.14 *= 2.03 # Elétrico
+  atktipo.15 *= 2.03 # Vegetal
+  atktipo.16 *= 2.03 # Psíquico
+  atktipo.17 *= 2.03 # Veneno
+  atktipo.18 *= 2.03 # Fantasma
+  atktipo.19 *= 2.03 # Dragão
+  deftipo.0 *= 2.03 # Tipos Normais
+  deftipo.1 *= 2.03 # Tipos Especiais
+  deftipo.2 *= 2.03 # Contusão
+  deftipo.3 *= 2.03 # luta
+  deftipo.4 *= 2.03 # Cortante
+  deftipo.5 *= 2.04 # Perfurante
+  deftipo.6 *= 2.03 # Fogo
+  deftipo.7 *= 2.03 # Água
+  deftipo.8 *= 70.09 # Gelo
+  deftipo.9 *= 2.03 # Terra
+  deftipo.10 *= 2.03 # Pedra
+  deftipo.12 *= 0.06 # Luz
+  deftipo.13 *= 90.1 # Trevas
+  deftipo.14 *= 0.07 # Elétrico
+  deftipo.15 *= 0.03 # Vegetal
+  deftipo.17 *= 20.02 # Veneno
+  deftipo.18 *= 70.14 # Fantasma
+  deftipo.19 *= 6600.07 # Dragão

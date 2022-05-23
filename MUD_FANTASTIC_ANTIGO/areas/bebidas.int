@@ -1,0 +1,509 @@
+classe a_bebidas
+herda area
+
+
+classe b_bebidas
+herda sala
+const s_area = "bebidas"
+
+
+classe i_bebidas001
+herda comum_item
+const nome = "chá"
+const ident = "xícara chá"
+const descnome = "uma xícara de chá de erva doce"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_sede = 40
+const f_msgperso = "$P vira uma xícara de chá de erva doce em sua boca."
+
+
+classe i_bebidas002
+herda comum_item
+const nome = "garrafa de café"
+const descnome = "uma garrafa de café"
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const valor = 1000
+const evperso = 1 # Eventos dono perso: Sim
+sav uint8 encher
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "encher xícara"
+    ret !arg0.dentro1.objini("i_bebidas003"), arg0.msg("Você não tem uma xícara para encher com \
+café.")
+    encher += 1
+    $mens.p(arg0, "", este)
+    $mens.mvis1("$P enche uma xícara de café com uma garrafa de café.")
+    criar("i_bebidas004", arg0, 1)
+    apagar(arg0.dentro1.objini("i_bebidas003"))
+    encher >= 10 && apagar(este)
+    ret 1
+  fimse
+
+const f_liquido = "café"
+
+
+classe i_bebidas003
+herda comum_item
+const nome = "xícara"
+const descnome = "uma xícara"
+const f_tipo = 5 # Tipo: 5 Container, beber
+const f_bebida = -60
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 200
+const f_totalml = 300
+
+
+classe i_bebidas004
+herda comum_item
+const nome = "xícara de café"
+const descnome = "uma xícara de café"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_bebida = -120
+const f_sede = 60
+const f_diges = 120
+const f_msgperso = "$P toma todo o café da xícara, apreciando seu sabor inigualável."
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 65
+#
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_bebeu
+  se arg1 == este
+    apagar(este)
+    criar("i_bebidas003", arg0, 1)
+  fimse
+
+
+classe i_bebidas005
+herda comum_item
+const nome = "fonte de vinho"
+const descnome = "uma fonte de vinho"
+const descpos = "Uma fonte está no chão, jorrando vinho da melhor qualidade."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_bebida = 60
+const f_fome = 30
+const f_sede = 30
+const f_diges = 120
+const f_msgperso = "$P se abaixa e bebe vinho direto da fonte."
+const i_pegar = "Não consegue pegar a fonte, pois ela faz parte dele."
+const mantersala = 1 # Mantém na sala: Sim
+const f_liquido = "vinho"
+
+
+classe i_bebidas006
+herda comum_item
+const nome = "Taça de vinho"
+const descnome = "uma taça de vinho"
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_bebida = 30
+const f_sede = 30
+const f_msgoutros = f_msgperso
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+sav uint8 bebeu
+#
+#
+
+func f_msgperso
+  ret bebeu < 5, "$P bebe um gole de vinho da taça, apreciando seu sabor inigualável!"
+  ret "$P bebe o último gole de vinho da taça."
+#
+#
+
+func cmd_bebeu
+  bebeu += 1
+  se bebeu >= 6
+    apagar(este)
+    criar("i_templo054", arg0, 1)
+  fimse
+
+
+classe i_bebidas007
+herda comum_item
+const nome = "Poção de ver invisível"
+const descnome = "uma poção para ver invisível"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_magia1 = "ver invisivel"
+const valor = 500
+
+
+classe i_bebidas008
+herda comum_item
+const nome = "frasco de remédio"
+const descnome = "um frasco de remédio"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_msgperso = "$P bebe todo o líquido de um frasco de remédio."
+const f_msgoutros = "$P bebe todo o líquido de um frasco de remédio."
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_bebeu
+  se arg1 == este
+    arg0.msg("Você se sente melhor.")
+    arg0.msg("O sangramento para repentinamente.")
+  fimse
+
+
+classe i_bebidas009
+herda comum_item
+
+
+classe i_bebidas010
+herda comum_item
+const nome = "chocolate quente"
+const descnome = "um delicioso chocolate quente"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_fome = 30
+const f_sede = 10
+const f_diges = 120
+const f_msgperso = "$P toma um delicioso chocolate bem quentinho, lambendo os lábios em seguida!"
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_bebidas011
+herda comum_itemperso
+const nome = "fonte de " + var.z_refri
+const descnome = "uma fonte de " + var.z_refri
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_fome = 5
+const f_sede = 80
+const f_diges = 120
+const f_msgoutros = f_msgperso
+const i_pegar = "Não pode pegar a fonte, ela faz parte do chão."
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const mantersala = 1 # Mantém na sala: Sim
+const evhora = 1 # Eventos hora: Sim
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const descnpos = "Uma fonte está no chão, jorrando " + var.z_refri + "."
+const refri = "coca cola\n\
+fanta laranja\n\
+fanta uva\n\
+caldo de cana\n\
+guaraná\n\
+cajuína\n\
+limonada\nsprite"
+#
+#
+
+func f_msgperso
+  ret "$P bebe " + var.z_refri + " direto da fonte!"
+
+func cmd_ini
+  var.z_refri = txtsublin(refri, rand(intsublin(refri)), 1)
+
+func cmd_hora
+  var.z_refri = txtsublin(refri, rand(intsublin(refri)), 1)
+  dono.msg(var.z_refri + " começa a jorrar da fonte!")
+
+
+classe i_bebidas012
+herda comum_itemperso
+const nome = "fonte de " + var.z_bebida
+const descnome = "uma fonte de " + var.z_bebida
+const descpos = "Uma fonte está no chão, jorrando " + var.z_bebida + "."
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_bebida = 180
+const f_fome = 80
+const f_sede = 30
+const f_diges = 120
+const f_msgoutros = f_msgperso
+const i_pegar = "Não dá, ela faz parte do chão."
+const mantersala = 1 # Mantém na sala: Sim
+const evhora = 1 # Eventos hora: Sim
+const bebidas = "whisky\ncerveja\ncachaça\nvodka\nchampagne\nvinho\nskol bit\npinga"
+#
+
+func cmd_ini
+  var.z_bebida = txtsublin(bebidas, rand(intsublin(bebidas)), 1)
+
+func f_msgperso
+  ret "$P se abaixa e bebe " + var.z_bebida + " direto da fonte!"
+#
+#
+
+func cmd_hora
+  var.z_bebida = txtsublin(bebidas, rand(intsublin(bebidas)), 1)
+  dono.msg(var.z_bebida + " começa a jorrar da fonte!")
+
+const f_liquido = "skol bit"
+const f_totalml = 100000
+
+
+classe i_bebidas013
+herda comum_itemgrupo
+const nome = "bandeja"
+const ident = "bandeja danone"
+const descnome = "uma bandeja de danones"
+const valor = 2400
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "destacar danone"
+    criar("i_bebidas014", arg0, 6)
+    $mens.p(arg0)
+    $mens.mtodos1("$P destaca os danones da bandeja, separando-os de dois em dois.")
+    apagar(este)
+    ret 1
+  fimse
+
+
+classe i_bebidas014
+herda comum_itemgrupo
+const nome = "danone"
+const descnome = "um danone"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_fome = 30
+const f_sede = 30
+const f_msgperso = "$P toma um delicioso danone, lambendo os lábios de satisfação."
+const valor = 400
+
+
+classe i_bebidas015
+herda comum_item
+const nome = "poção ver oculto"
+const descnome = "uma poção para ver oculto"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_magia1 = "ver oculto"
+const valor = 300
+
+
+classe i_bebidas016
+herda comum_itemgrupo
+const nome = "vitamina de banana"
+const descnome = "uma vitamina de banana"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_fome = 48
+const f_sede = 30
+const f_diges = 240
+const f_msgperso = "$P vira o copo de bananada na boca e o bebe em várias goladas, deliciando-se!\
+"
+const eveste = 1 # Eventos item: Sim
+
+
+classe i_bebidas017
+herda comum_itemgrupo
+const nome = "vitamina de banana com maçã"
+const descnome = "uma vitamina de banana com maçã"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_fome = 60
+const f_sede = 30
+const f_diges = 180
+const f_msgperso = "$P vira um copo de vitamina de banana com maçã em sua boca, tomando-a em \
+várias goladas e dando um doce sorriso de satisfação."
+const valor = 1200
+
+
+classe i_bebidas018
+herda comum_itemgrupo
+const nome = "vitamina de mamão"
+const ident = "vitamina mamão mamoada"
+const descnome = "uma vitamina de mamão"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_fome = 60
+const f_sede = 30
+const f_diges = 120
+const f_msgperso = "$P vira o copo de mamoada na boca e a toma em várias goladas."
+const valor = 1200
+
+
+classe i_bebidas019
+herda comum_itemgrupo
+const nome = "copo"
+const descnome = "um delicioso copo de batida de leite condençado"
+const descpos = "um delicioso copo de batida de leite condençado chama sua atenção"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_bebida = 95
+const f_fome = 90
+const f_sede = 70
+const f_diges = 0
+const f_msgperso = "$p bebe em uma golada só uma deliciosa batida de leite condençado"
+const tipoitem = 1024 # Tipo de item: 10-Poção
+
+
+classe i_bebidas020
+herda comum_itemgrupo
+const nome = var.z_bebida
+const descnome = var.z_bebida
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_bebida = 60
+const f_sede = 30
+const f_diges = 200
+const f_msgoutros = f_msgperso
+const tipoitem = 32768 # Tipo de item: 15-bebida
+const valor = 800
+const eveste = 1 # Eventos item: Sim
+const f_conteudo = var.z_conteudo
+const bebidas = "uma latinha de cerveja\n\
+uma garrafa de cachaça\n\
+uma garrafa de conhaque\n\
+uma garrafa de drai martine\n\
+uma garrafa de licor de limão\n\
+uma garrafa de licor de morango\n\
+uma garrafa de licor de uva\n\
+um litro de whisky\n\
+uma garrafa de vodka\n\
+uma garrafa de champagne\n\
+uma garrafa de vinho tinto\n\
+uma garrafa de vinho branco\n\
+uma garrafa de vinho rosê"
+const liquidos = "cerveja\n\
+cachaça\n\
+whisky\n\
+vodka\n\
+champagne\n\
+vinho tinto\n\
+vinho branco\n\
+vinho rosê"
+sav uint16 bebeu
+sav uint16 encheu
+#
+
+func msexo
+  ret txt1(descnome) == "um", 1
+  ret 0
+
+func cmd_ini
+  refvar b = txtsublin(bebidas, rand(intsublin(bebidas)), 1)
+  var.z_bebida = var.z_conteudo = b
+#
+#
+#
+#
+
+func cmd_ini
+  bebeu = 0
+
+func f_msgperso
+  ret !bebeu, "\d=abrlata $P abre " + descnome + " e " + (msexo ? "o" : "a") + " leva aos \
+lábios, dando um grande gole!"
+  ret bebeu >= 3, "$P leva " + descnome + " aos lábios, dando um último gole e jogando o \
+recipiente no lixo."
+  ret "$P leva " + descnome + " aos lábios, dando um grande gole!"
+#
+
+func cmd_bebeu
+  se arg1 == este
+    bebeu += 1
+    encheu += 1
+    bebeu == 4 && apagar(este)
+  fimse
+
+
+classe i_bebidas021
+herda comum_item
+const nome = "copo mágico"
+const descnome = "um copo mágico"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const renascer = 1
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_msgperso = "$P leva $o a boca e bebe um grande gole $d $m."
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 200
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_olhar
+  se arg1 == este
+    prog p
+    se p.iniclasse("liq_" + arg1)
+      textotxt t
+      enquanto p.lin && t.linhas < 500
+        t.addfim(txtcopiamai(txt2(txte(p.texto)), "A"))
+        p.depois
+      efim
+      ret txtsublin(t, rand(intsublin(t)), 1)
+    fimse
+  fimse
+
+
+classe i_bebidas022
+herda comum_item
+const nome = var.z_nome ? var.z_nome : "fonte"
+const descnome = var.z_nome ? var.z_nome : "uma fonte"
+const descpos = var.z_descpos ? var.z_descpos : descnome + " está no centro do local, jorrando \
+água cristalina."
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_msgperso = "$P se abaixa e bebe $m direto $d $o."
+const f_msgoutros = ""
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 1234000
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const f_liquido = "água"
+#
+
+func cmd_beber
+  se arg1 == este && !dono.s_sala
+    ret arg0.msg("A fonte precisa estar no chão para beber dela.")
+  fimse
+#
+
+func cmd_soltarobj
+  se arg2 == este
+    ret arg1.item, arg0.msg("Você não pode soltar " + descnome + " em " + arg1.descnome + \
+".")
+    ret !arg0.dentrocasa, arg0.msg("Você não está dentro da sua casa.")
+  fimse
+#
+
+
+classe i_bebidas023
+herda comum_item
+const nome = "copo de vidro"
+const descnome = "Um copo de  vidro"
+const descpos = "Um copo de vidro está aqui no chão. Cuidado para não quebrar"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 5 # Tipo: 5 Container, beber
+const f_msgperso = "$p Leva o copo aos lábios, e toma grandes goles de $m"
+const pesoobj = 4
+const tipoitem = 4096 # Tipo de item: 12-Vasilhame
+const valor = 40
+const volobj = 30
+const f_totalml = 400
+
+
+classe i_bebidas024
+herda comum_item
+const nome = "Um vidrinho transparente"
+const ident = "frasco vidrinho veneno"
+const descnome = "Um vidrinho transparente"
+const descpos = "Um vidrinho transparente está largado aqui"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_magia1 = "veneno_mortal"
+const f_magia2 = "aborto"
+const f_msgperso = "$p destampa o vidrinho, toma corágem e toma todo o conteudo em uma só \
+golada"
+const f_liquido = "Um líquido vermelho"
+const f_totalml = 100
+const tipoitem = 32768 # Tipo de item: 15-bebida (10-Poção)
+
+
+classe i_bebidas025
+herda comum_item
+const nome = "Vidrinho brilhante"
+const descnome = "Um vidrinho brilhante"
+const descpos = "Um vidrinho brilhante está aqui"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_magia1 = "engravidar"
+const f_msgperso = "$p abre com cuidado o vidrinho, e comessa a beber lentamente todo o conteudo.\
+"
+
+
+classe i_bebidas035
+herda comum_itemgrupo

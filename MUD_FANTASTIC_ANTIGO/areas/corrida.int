@@ -1,0 +1,332 @@
+classe a_corrida
+herda area
+const eveste = 1 # Eventos sala: Sim
+
+func cmd_chegou
+  arg0.p_bebida = 250
+
+
+classe b_corrida
+herda sala
+const s_area = "corrida"
+
+
+classe s_corrida001
+herda b_corrida
+const s_titulo = "a largada"
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_corrida002
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "a pista para corrida"
+const tranc_n = 0 # Trancar: 0 Não pode ser trancado
+
+func cmd_chegou
+  ret arg0.j_imortal == 1, nulo
+  misc:tempo("entrou", arg0)
+
+func entrou10
+  arg0.msg("Ao entrar nessa sala, alguém lhe oferece uma bebida.")
+  arg0.msg("Você bebe tudo em grandes goles, sentindo o álcool subir a cabeça...")
+  arg0.p_bebida = 250
+
+
+classe s_corrida002
+herda b_corrida
+const s_titulo = "a pista de corrida"
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_corrida003
+const dir_s = $s_corrida001
+const dir_l = $s_corrida012
+const dir_o = $s_corrida014
+const dir_c = $s_corrida037
+const dir_b = $s_corrida038
+
+func cmd_chegou
+  ret arg0.j_imortal == 1, nulo
+  arg0.p_bebida = 250
+
+
+classe s_corrida003
+herda b_corrida
+const s_titulo = "a pista de corrida"
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_corrida004
+const dir_s = $s_corrida002
+const dir_l = $s_corrida026
+const dir_o = $s_corrida027
+
+func cmd_chegou
+  arg0.p_bebida = 250
+
+
+classe s_corrida004
+herda b_corrida
+const s_titulo = "a pista de corrida"
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_corrida005
+const dir_s = $s_corrida003
+const dir_l = $s_corrida013
+
+func cmd_chegou
+  ret arg0.j_imortal == 1, nulo
+  arg0.p_bebida = 250
+
+
+classe s_corrida005
+herda b_corrida
+const s_titulo = "a pista de corrida"
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_corrida006
+const dir_s = $s_corrida004
+const dir_o = $s_corrida018
+
+func cmd_chegou
+  ret arg0.j_imortal == 1, nulo
+  arg0.p_bebida = 250
+
+
+classe s_corrida006
+herda b_corrida
+const s_titulo = "no meio da pista de corrida"
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_corrida007
+const dir_s = $s_corrida005
+const dir_l = $s_corrida021
+const dir_o = $s_corrida022
+const dir_b = $s_corrida020
+
+func cmd_chegou
+  ret arg0.j_imortal == 1, nulo
+  arg0.p_bebida = 250
+
+
+classe s_corrida007
+herda b_corrida
+const s_titulo = "a pista de corrida"
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_corrida008
+const dir_s = $s_corrida006
+const dir_l = $s_corrida029
+const dir_o = $s_corrida028
+
+
+classe s_corrida008
+herda b_corrida
+const s_titulo = "a pista de corrida"
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_corrida009
+const dir_s = $s_corrida007
+const dir_l = $s_corrida023
+
+func cmd_chegou
+  ret arg0.j_imortal == 1, nulo
+  arg0.p_bebida = 250
+
+
+classe s_corrida009
+herda b_corrida
+const s_titulo = "a pista de corrida"
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_corrida010
+const dir_s = $s_corrida008
+const dir_o = $s_corrida030
+const dir_b = $s_corrida031
+
+func cmd_chegou
+  ret arg0.j_imortal == 1, nulo
+  arg0.p_bebida = 250
+
+
+classe s_corrida010
+herda b_corrida
+const s_titulo = "a pista de corrida"
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_corrida011
+const dir_s = $s_corrida009
+const dir_l = $s_corrida032
+const dir_o = $s_corrida033
+
+func cmd_chegou
+  ret arg0.j_imortal == 1, nulo
+  arg0.p_bebida = 250
+
+
+classe s_corrida011
+herda b_corrida
+const s_titulo = "a chegada"
+const eveste = 1 # Eventos sala: Sim
+const dir_s = $s_corrida010
+
+func cmd_chegou
+  arg0.p_bebida = -250
+
+
+classe s_corrida012
+herda b_corrida
+const s_titulo = "volte, o caminho não é por aí"
+const dir_l = $s_corrida034
+const dir_o = $s_corrida002
+
+
+classe s_corrida013
+herda b_corrida
+const s_titulo = "tudo está girando, girando... girando."
+const dir_o = $s_corrida004
+
+
+classe s_corrida014
+herda b_corrida
+const s_titulo = "um campo gramado"
+const dir_n = $s_corrida016
+const dir_s = $s_corrida015
+const dir_l = $s_corrida002
+const dir_o = $s_corrida017
+
+
+classe s_corrida015
+herda b_corrida
+const s_titulo = "um campo gramado"
+const dir_n = $s_corrida014
+
+
+classe s_corrida016
+herda b_corrida
+const s_titulo = "um campo gramado"
+const dir_s = $s_corrida014
+
+
+classe s_corrida017
+herda b_corrida
+const s_titulo = "um campo gramado"
+const dir_l = $s_corrida014
+
+
+classe s_corrida018
+herda b_corrida
+const s_titulo = "a entrada de um bar"
+const dir_l = $s_corrida005
+const dir_o = $s_corrida019
+
+
+classe s_corrida019
+herda b_corrida
+const s_titulo = "bar chega de beber, já está cambaleando.."
+const dir_l = $s_corrida018
+
+
+classe s_corrida020
+herda b_corrida
+const s_titulo = "um buraco no meio da pista"
+const dir_c = $s_corrida006
+
+
+classe s_corrida021
+herda b_corrida
+const s_titulo = "como estamos perdidos hoje"
+const dir_o = $s_corrida006
+
+
+classe s_corrida022
+herda b_corrida
+const s_titulo = "como estamos perdidos hoje"
+const dir_l = $s_corrida006
+
+
+classe s_corrida023
+herda b_corrida
+const s_titulo = "um pequeno beco"
+const dir_l = $s_corrida024
+const dir_o = $s_corrida008
+
+
+classe s_corrida024
+herda b_corrida
+const s_titulo = "um pequeno beco"
+const dir_l = $s_corrida025
+const dir_o = $s_corrida023
+
+
+classe s_corrida025
+herda b_corrida
+const s_titulo = "um pequeno beco"
+const dir_o = $s_corrida024
+
+
+classe s_corrida026
+herda b_corrida
+const s_titulo = "está perdido?"
+const dir_o = $s_corrida003
+
+
+classe s_corrida027
+herda b_corrida
+const s_titulo = "está perdido?"
+const dir_l = $s_corrida003
+
+
+classe s_corrida028
+herda b_corrida
+const s_titulo = "como estamos cambaleantes hoje"
+const dir_l = $s_corrida007
+
+
+classe s_corrida029
+herda b_corrida
+const s_titulo = "como estamos cambaleantes hoje"
+const dir_o = $s_corrida007
+
+
+classe s_corrida030
+herda b_corrida
+const s_titulo = "não desista, está quase lá"
+const dir_l = $s_corrida009
+
+
+classe s_corrida031
+herda b_corrida
+const s_titulo = "um buraco no meio da pista"
+const dir_c = $s_corrida009
+
+
+classe s_corrida032
+herda b_corrida
+const s_titulo = "não, aqui não é a chegada"
+const dir_o = $s_corrida010
+
+
+classe s_corrida033
+herda b_corrida
+const s_titulo = "não, aqui não é a chegada."
+const dir_l = $s_corrida010
+
+
+classe s_corrida034
+herda b_corrida
+const s_titulo = "o começo é sempre difícil"
+const dir_n = $s_corrida035
+const dir_s = $s_corrida036
+const dir_o = $s_corrida012
+
+
+classe s_corrida035
+herda b_corrida
+const s_titulo = "o começo é sempre difícil"
+const dir_s = $s_corrida034
+
+
+classe s_corrida036
+herda b_corrida
+const s_titulo = "o começo é sempre difícil"
+const dir_n = $s_corrida034
+
+
+classe s_corrida037
+herda b_corrida
+const s_titulo = "subindo, subindo e subindo...."
+const dir_b = $s_corrida002
+
+
+classe s_corrida038
+herda b_corrida
+const s_titulo = "um buraco no meio da pista"
+const dir_c = $s_corrida002

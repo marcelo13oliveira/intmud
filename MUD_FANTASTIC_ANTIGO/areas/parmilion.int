@@ -1,0 +1,2607 @@
+classe a_parmilion
+herda area
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_tempo = 15
+const a_nome = "Cidade de Parmilion"
+
+
+classe b_parmilion
+herda sala
+const s_doarsalas = "rio023"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_som = "cidade2"
+const s_area = "parmilion"
+
+
+classe i_parmilion001
+herda comum_item
+const nome = "vitrine"
+const descnome = "uma vitrine de brinquedos"
+const descpos = "Aqui há várias vitrines repletas de brinquedos dentro."
+const descver = "A vitrine está cheia dos mais variados tipos de brinquedos. Você pode ver\n\
+carrinhos,, bolas, bonecas, vídeo games, e muito mais."
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_parmilion002
+herda comum_itemperso
+const nome = "um belo tapete persa"
+const ident = "tapete persa"
+const descnome = "um belo tapete persa"
+const descpos = "um confortável tapete persa foi estendido aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_movel = 2 # Mobília: 2 Sentar e dormir
+const i_lugar = 10
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const tipoitem = 2560 # Tipo de item: 9-Mobília, 11-Container
+const valor = 80000
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_olhar
+  se arg1 == este
+    $mens.p(arg0, este)
+    $mens.mvis2("$A", "$P olha para $A.")
+    textotxt t
+    listaitem item
+    refvar r = este
+    ret !r, nulo
+    epara item = r.dentro1.fim, item, item.antes
+      refvar i = item.obj
+      continuar !i.visivel(arg0)
+      refvar nn = txtsublin(i.atribs.ini.textolin(2), 1)
+      t.addfim(txt(i.objtot) + i.atribs.ini.texto + txtcopiamai(i.descnome, "A") + nn)
+    efim
+    t.juntalin("(", "x)")
+    se t
+      arg0.msg2("\b\c6sobre ele você vê:\b\n" + txttroca(t.remove(1000), "\d+", "\n"))
+    senao
+      arg0.msg("\b está vazio.")
+    fimse
+    ret 1
+  fimse
+
+
+classe i_parmilion003
+herda comum_itemperso
+const nome = "poste de luz"
+const descnome = "um poste de iluminação"
+const descpos = "Um poste está na calçada, iluminando toda a rua com uma cintilante luz prata."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "Não seja ridículo!"
+const luzitem = 1 # Tipo de luz: 1 Lanterna (acende/apaga, sem fogo)
+const luzini = 1000000
+const luztxt = "A luz de $o pisca algumas vezes e se apaga."
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_parmilion004
+herda comum_itemgrupo
+const nome = "Bolo"
+const descnome = "um delicioso bolo de chocolate"
+const descpos = "pucha, um bolo delicioso, ao que parece ser de chocolate está aqui..."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 50
+const f_diges = 100
+const f_msgperso = "$P come vagarosamente $o"
+const pesoobj = 10
+const tipoitem = 8192 # Tipo de item: 13-Comida
+const valor = 200
+
+
+classe i_parmilion005
+herda i_parmilion004
+const descnome = "Um saboroso bolo de laranja"
+
+
+classe i_parmilion006
+herda i_parmilion004
+const descnome = "Um delicioso bolo de cenoura com calda de chocolate"
+
+
+classe i_parmilion007
+herda i_parmilion004
+const descnome = "um bolo de aimpim"
+
+
+classe i_parmilion008
+herda i_parmilion004
+const descnome = "Um bolo de baumília com noses"
+
+
+classe i_parmilion009
+herda i_parmilion004
+const descnome = "Um bolo de limão"
+
+
+classe i_parmilion010
+herda i_parmilion004
+const descnome = "Um bolo de abacaxi"
+
+
+classe i_parmilion011
+herda i_parmilion004
+const descnome = "Um delicioso bolo de banana"
+
+
+classe i_parmilion012
+herda i_parmilion004
+const descnome = "Um bolo delicioso de morango, com moranguinhos em cima"
+
+
+classe p_parmilion001
+herda comum_persobat
+const nome = "guarda de parmilion"
+const descnome = "um guarda de Parmilion"
+const descpadr = "Um guarda de Parmilion tenta manter a paz e a ordem na cidade."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 110
+const p_atktipo = "socar"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 200
+const inivar = "h_socar=8,h_chutar=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50 * pnivel
+  atknorm += 20 * pnivel
+  defnorm += 20 * pnivel
+  atkesp += 15 * pnivel
+  defesp += 15 * pnivel
+
+
+classe p_parmilion002
+herda comum_persobat
+const nome = "mulher"
+const ident = "mulher elegante"
+const descnome = "uma mulher elegante"
+const descpadr = "Uma elegante mulher caminha pelo shopping fazendo compras."
+const nivel = 120
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_atktipo = "socar"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 1000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 230
+const inivar = "h_socar=4,h_chutar=4,z_moedas=200000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50 * pnivel + 50000
+  pveloc1 += 25 * pnivel
+  atknorm += 5000
+  defnorm += 12000
+  defesp += 12000
+  evasao += 5000
+  precisao += 3000
+
+
+classe p_parmilion003
+herda comum_persobat
+const nome = "garçonete"
+const ident = "jovem moça mulher bela garçonete"
+const descnome = "uma garçonete"
+const descpadr = "Uma bela e jovem garçonete está aqui, atendendo os pedidos dos clientes do \
+restaurante."
+const nivel = 130
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const lojaitem = "comidas001 0\ncomidas003 0\ncomidas002 0"
+
+
+classe p_parmilion004
+herda comum_perso
+const nome = "Liane"
+const ident = "liane mulher vendedora"
+const descnome = "Liane, a vendedora de calçados"
+const descpadr = "Liane, a vendedora de calçados está aqui, arrumando algumas pilhas de calçados \
+nas vitrines de sua loja."
+const nivel = 100
+const lojaitem = "produtos001 0\n\
+produtos007 0\n\
+produtos002 0\n\
+produtos004 0\n\
+produtos005 0\n\
+produtos006 0"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 44
+
+
+classe p_parmilion005
+herda comum_perso
+const nome = "rebeca"
+const ident = "rebeca mulher vendedora"
+const descnome = "Rebeca, a vendedora"
+const descpadr = "Rebeca, a vendedora está aqui, arrumando as peças de roupa da sua loja."
+const nivel = 100
+const lojaitem = "roupas019 0\n\
+produtos003 0\n\
+praia003 0\n\
+roupas020 0\n\
+roupas022 0\n\
+roupas023 0\n\
+roupas024 0\n\
+roupas025 0"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 44
+
+
+classe p_parmilion006
+herda comum_perso
+const nome = "Luisa"
+const ident = "Luisa"
+const descnome = "Luisa"
+const descpadr = "Luisa está aqui, mostrando os celulares à venda para algumas pessoas."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const lojaitem = "celular001 0\ncelular002 0\ncelular003 0\ncelular004 0"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 44
+
+
+classe p_parmilion007
+herda comum_persobat
+const nome = "garotinha"
+const ident = "garotinha criança menina"
+const descnome = "uma garotinha"
+const descpadr = "Uma garotinha olha para as vitrines, admirada com a variedade de bonecas da \
+loja."
+const nivel = 100
+const p_atktipo = "socar"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+
+
+classe p_parmilion008
+herda comum_persobat
+const nome = "garotinho"
+const ident = "garotinho garoto menino criança"
+const descnome = "um garotinho"
+const descpadr = "Um garotinho olha encantado para as vitrines, desejando todos os brinquedos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 95
+const p_atktipo = "socar"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+
+
+classe p_parmilion009
+herda comum_persobat
+const nome = "vigilante"
+const ident = "vigilante segurança homem"
+const descnome = "um dos seguranças do shopping"
+const descpadr = "Um forte homem posta-se na entrada do shopping, fazendo a segurança do \
+local."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 130
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+
+
+classe p_parmilion010
+herda comum_persobat
+const nome = "preso"
+const ident = "preso condenado homem"
+const descnome = "Um dos condenados da prisão"
+const descpadr = "Um homem condenado a passar o resto de sua vida na cadeia está aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 140
+const p_atktipo = "voadora"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 250
+const inivar = "h_socar=8,h_chutar=8,z_moedas=150000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 40 * pnivel
+  atknorm += 10 * pnivel
+  defnorm += 20 * pnivel
+  atkesp += 10 * pnivel
+  defesp += 15 * pnivel
+
+
+classe p_parmilion011
+herda comum_persobat
+const nome = "cacereiro"
+const ident = "cacereiro homem agente"
+const descnome = "o cacereiro"
+const descpadr = "Um cacereiro vigia as selas, para que nenhum dos presos fujam."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 150
+const p_atktipo = "socar"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 200
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 250
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50 * pnivel
+  atknorm += 10 * pnivel
+  defnorm += 10 * pnivel
+
+
+classe p_parmilion012
+herda comum_perso
+const nome = "Raquel"
+const descnome = "Raquel, a vendedora"
+const descpadr = "Com um doce sorriso, uma bela jovem está aqui, pronta para atender seus \
+clientes"
+const nivel = 150
+const pospadr = 8 # Posição padrão: 8 Em pé
+const lojaitem = "itens034 0\n\
+itens035 0\n\
+itens040 0\n\
+itens054 0\n\
+itens055 0\n\
+comidas030 0\n\
+comidas031 0"
+
+
+classe p_parmilion013
+herda comum_perso
+const nome = "Margarida"
+const ident = "margarida mulher vendedora"
+const descnome = "Margarida, a vendedora"
+const descpadr = "Margarida reorganiza os itens de sua loja, enquanto aguarda a chegada de novos \
+clientes."
+const equip3 = 64 # Equip remover: 6-sobre os olhos
+const lojaitem = "moveis030 0\n\
+moveis044 0\n\
+moveis026 0\n\
+moveis043 0\n\
+moveis041 0\n\
+drácula009 0\n\
+suldan028 0\n\
+moveis028 0\n\
+moveis025 0\n\
+junior020 0\n\
+moveis024 0\n\
+moveis020 1\n\
+moveis019 0\n\
+moveis013 0\n\
+moveis012 0\n\
+moveis011 0\n\
+moveis010 0\n\
+moveis009 0\n\
+moveis008 0\n\
+moveis007 0\n\
+moveis006 0\n\
+moveis005 0\n\
+moveis003 0\n\
+moveis001 0\n\
+moveis002 0\n\
+moveis031 0\n\
+moveis029 0\n\
+moveis038 0\n\
+moveis039 0\n\
+moveis040 0\n\
+parmilion002 0\n\
+adcasas027 0\n\
+adcasas028 0\n\
+moveis079 0\n\
+moveis080 0\n\
+itens062 0"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 44
+
+
+classe p_parmilion014
+herda comum_persobat
+const nome = "jovem estudante"
+const ident = "rapaz jovem estudante"
+const descnome = "um jovem estudante"
+const descpadr = "Um jovem rapaz vestindo um uniforme escolar passa apressado por você."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 140
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 200
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 400
+const inivar = "h_socar=8,h_chutar=8,z_moedas=100000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30000
+  atknorm += 2500
+  defnorm += 10000
+  defesp += 10000
+
+
+classe p_parmilion015
+herda comum_persobat
+const nome = "senhora elegante"
+const ident = "senhora elegante rica"
+const descnome = "uma senhora elegante"
+const descpadr = "Uma senhora muito elegante caminha pela cidade exibindo suas joias muito \
+valiosas."
+const nivel = 130
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 300
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 400
+
+
+classe p_parmilion016
+herda comum_perso
+const nome = "Roberval"
+const ident = "roberval homem roupeiro vendedor"
+const descnome = "Roberval, o roupeiro"
+const descpadr = "Roberval reorganiza as roupas de sua loja, enquanto aguarda por novos clientes.\
+"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 100
+const lojaitem = "roupas021 0\nroupas026 0"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 44
+
+
+classe p_parmilion017
+herda comum_perso
+const nome = "Maxwell"
+const ident = "maxwell armeiro vendedor homem"
+const descnome = "Maxwell, o armeiro"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const lojaitem = "dracula007 0\n\
+armaduras004 0\n\
+armaduras007 0\n\
+armaduras006 0\n\
+itens053 0\n\
+armaduras005 0\n\
+armaduras003 0\n\
+armaduras002 0\n\
+armaduras009 0\n\
+armaduras010 0\n\
+armaduras001 0"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 44
+
+
+classe p_parmilion018
+herda comum_perso
+const nome = "Muriel"
+const descnome = "Muriel, a joalheira"
+const lojaitem = "joias016 0\njoias006 0\njoias007 0\njoias017 0"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 44
+
+
+classe p_parmilion019
+herda comum_perso
+const nome = "Andreia"
+const ident = "andreia balconista mulher"
+const descnome = "Andreia, a balconista do supermercado"
+const descpadr = "Uma mulher está sentada elegantemente atrás do balcão, dispachando as compras \
+dos fregueses."
+const pospadr = 6 # Posição padrão: 6 Sentado
+const lojaitem = "comidas013 0\n\
+comidas011 0\n\
+comidas043 0\n\
+comidas017 0\n\
+comidas027 0\n\
+frutas001 0\n\
+comidas028 0\n\
+bebidas013 0\n\
+comidas015 0\n\
+comidas034 0\n\
+comidas036 0\n\
+comidas035 0"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 4158
+
+
+classe p_parmilion020
+herda comum_persobat
+const nome = "jovem estudante"
+const ident = "jovem estudante garota moça"
+const descnome = "uma jovem estudante"
+const descpadr = "Uma jovem moça quase esbarra em você, de tão apressada."
+const descver = "Ao olhar para ela, a moça lhe retribui o olhar e disfarça rapidamente para\n\
+que você não perceba. Aparentemente, é uma jovem de aproximadamente 16 anos,\n\
+com cabelos ruivos que lhe caem sobre os ombros e de olhos de uma cor azul\n\
+celestial. Ela demonstra estar apressada, pois caminha muito rapidamente e\n\
+quase tropeçando e esbarrando nas pessoas à sua frente."
+const nivel = 160
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 3000
+const p_imortal = 0 # Imortal: Não
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 240
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30000
+  atknorm += 2800
+  defnorm += 12000
+  defesp += 12000
+
+
+classe p_parmilion021
+herda comum_perso
+const nome = "Brígida"
+const ident = "brígida mulher vendedora"
+const descnome = "Brígida, a vendedora de brinquedos"
+const descpadr = "Brígida reorganiza cada brinquedo em seu devido lugar, enquanto aguarda a \
+chegada de novos clientes."
+const lojaitem = "itens050 0\nbrinquedos001 0\nrock031 0\nitens072 0\nevento021 0"
+
+
+classe p_parmilion022
+herda comum_perso
+const nome = "Onir"
+const ident = "onir homem vendedor"
+const descnome = "Onir, o vendedor"
+const descpadr = "Onir está em pé atrás de um balcão de vidro, mostrando os itens que são \
+lançados frequentemente em sua loja."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const lojaitem = "itens059 0"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 44
+
+
+classe p_parmilion023
+herda comum_persobat
+const nome = "homem elegante"
+const descnome = "um homem elegante"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 130
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 1000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 300
+const inivar = "h_socar=4,h_chutar=4,z_moedas=100000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50 * pnivel + 70000
+  atknorm += 5000
+  defnorm += 15000
+  defesp += 15000
+  evasao += 5000
+  precisao += 3000
+
+
+classe p_parmilion024
+herda comum_persobat
+const nome = "cidadão de parmilion"
+const descnome = "um cidadão de Parmilion"
+const descpadr = "Um cidadão de Parmilion distrai-se, ao assistir um programa na tv."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 200
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 5000
+const inivar = "h_socar=5,h_chutar=5,var.z_moedas=400000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 75 * pnivel + 50000
+  pveloc1 += 10 * pnivel + 100
+  atknorm += 10 * pnivel + 12000
+  defnorm += 20 * pnivel + 20000
+  defesp += 20 * pnivel + 20000
+  evasao += 10 * pnivel + 100
+  precisao += 10 * pnivel + 100
+
+
+classe p_parmilion025
+herda comum_persobat
+const nome = "cidadã de Parmilion"
+const descnome = "uma cidadã de Parmilion"
+const descpadr = "Uma cidadã de parmilion ocupa-se à frente de um fogão, enquanto prepara a \
+refeição de sua família."
+const nivel = 200
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 4000
+const inivar = "h_socar=5,h_arranhar=5,z_moedas=50000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 60 * pnivel + 50000
+  pveloc1 += 10 * pnivel + 100
+  atknorm += 11 * pnivel + 11000
+  defnorm += 20 * pnivel
+  defesp += 20 * pnivel + 20000
+  evasao += 10 * pnivel + 100
+  precisao += 10 * pnivel + 100
+
+
+classe p_parmilion026
+herda comum_persobat
+const nome = "um senhor aposentado"
+const descpadr = "Um senhor aposentado passa seus últimos dias de vida ao lado de sua velha \
+esposa."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 160
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 4000
+const inivar = "h_socar=4,z_moedas=200000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 40 * pnivel + 40000
+  pveloc1 += 20 * pnivel + 70
+  atknorm += 10 * pnivel + 10000
+  defnorm += 20 * pnivel + 18000
+  defesp += 20 * pnivel + 18000
+  evasao += 14 * pnivel + 90
+  precisao += 14 * pnivel + 90
+
+
+classe p_parmilion027
+herda comum_persobat
+const nome = "senhora aposentada"
+const descnome = "uma senhora aposentada"
+const descpadr = "Uma senhora aposentada passa os últimos dias de sua vida ao lado de seu velho \
+esposo."
+const nivel = 150
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 4000
+const inivar = "h_socar=4,z_moedas=50000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 60 * pnivel + 40000
+  pveloc1 += 11 * pnivel + 90
+  atknorm += 14 * pnivel + 9000
+  defnorm += 16 * pnivel + 18000
+  defesp += 18 * pnivel + 18000
+  evasao += 14 * pnivel + 90
+  precisao += 14 * pnivel + 110
+
+
+classe p_parmilion028
+herda comum_persobat
+const nome = "gato preto"
+const descnome = "um gato preto"
+const descpadr = "Um gato preto está por aqui, observando tudo com seus olhos atentos e brilhante\
+s."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 140
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 4000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 300
+const inivar = "h_arranhar=5"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 40 * pnivel + 40000
+  pveloc1 += 10 * pnivel + 150
+  atknorm += 10 * pnivel + 10000
+  defnorm += 15 * pnivel + 18000
+  defesp += 15 * pnivel + 18000
+  evasao += 12 * pnivel + 150
+  precisao += 15 * pnivel + 150
+
+
+classe p_parmilion029
+herda comum_perso
+const nome = "Madeline"
+const descnome = "Madeline, a estilista e designer de casamentos"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se txt1(arg1) == "comprar" || txt1(arg1) == "comp"
+    se txtsub(arg1, 1, 1) == "1"
+      ret arg0.var.z_moedas_ < 1000000, arg0.msg("Você não tem $1000000000.")
+      refvar nalianca = txtsub(arg1, 2, intsub(arg1))
+      ret !nalianca, arg0.msg("Digite o nome de seu noivo ou noiva após o número do item.")
+      refvar i = criar("i_casais003", arg0, 1)
+      criar("i_templo080", i, 1, "z_noivo=" + arg0.descnome)
+      criar("i_templo080", i, 1, "z_noivo=" + nalianca)
+      $mens.p(arg0, este)
+      $mens.mtodos1("$P compra um par de alianças de noivado $d $A.")
+      ret 1
+    fimse
+  senao arg1 == "lista" || arg1 == "list"
+    arg0.msg(descnome + " informa:")
+    arg0.msg("1. Um par de alianças de noivado: $1000000 Nível 100")
+    ret 1
+  fimse
+
+
+classe p_parmilion030
+herda comum_perso
+const nome = "Tiphanny"
+const ident = "bela jovem moça tiphanny designer vendedora"
+const descnome = "Tiphanny, a designer de tecidos"
+const descpadr = "Tiphanny reorganiza os tecidos espalhados pelo chão e prateleiras de sua loja, \
+enquanto aguarda por novos pedidos."
+
+
+classe p_parmilion031
+herda comum_perso
+const nome = "carrolina"
+const descnome = "carrolina, a vendedora de carrinhos"
+const msexo = 0 # Sexo Msg: 0 Feminino
+const lojaitem = "itens072 0"
+
+
+classe p_parmilion032
+herda comum_perso
+const nome = "Heloise"
+const ident = "heloise moça mulher vendedora"
+const descnome = "Heloise, a designer de tecidos"
+const descpadr = "Uma jovem moça reorganiza diversos tipos de tecidos nas estantes de sua loja, \
+enquanto aguarda por novas encomendas."
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_mudadono
+  listaobj l
+  epara l.addfim(dono.dentro2), l, l.ini.remove
+    l.objini.perso && misc:evento(l.objini)
+  efim
+#
+
+func cmd_escr
+  se txt1(arg1) == "comp" || txt1(arg1) == "compr" || txt1(arg1) == "compra" || txt1(arg1) == \
+"comprar"
+    ret !txt2(arg1), arg0.msg(descnome + " pergunta: Comprar o quê?")
+    ret arg0.var.z_moedas_ < 10000, arg0.msg(descnome + " diz: Você não possui $10000")
+    arg0.var.z_moedas_ -= 10000
+    refvar i = criar("i_roupas027", arg0, 1)
+    i.var.z_nome = txt2(arg1)
+    txt1(i.var.z_nome) == "1" && i.var.z_nome = txtsub(arg1, 1)
+    $mens.p(arg0, este, i)
+    $mens.mtodos1("$A vai até uma estante, pega $o de uma prateleira e entrega a $P.")
+    ret 1
+  senao arg1 == "lis" || arg1 == "list" || arg1 == "lista"
+    arg0.msg(descnome + " diz: Digite comprar, seguido do nome do item personalizado.")
+    ret 1
+  fimse
+
+
+classe p_parmilion033
+herda comum_persobat
+const nome = "Antônio"
+const descnome = "Antônio o designer de lembranças de casamento"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const tipo1 = "humano"
+const tipo2 = "pnj"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_mudadono
+  listaobj l
+  epara l.addfim(dono.dentro2), l, l.ini.remove
+    se l.perso
+      ret misc:evento(l.objini)
+      misc:evento(l.objini)
+    fimse
+  efim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  nomeobj c
+  c.ini(txt1(arg1))
+  se c.nome("comprar")
+    txt100 nlembr
+  fimse
+
+
+classe p_parmilion034
+herda comum_perso
+const nome = "dora"
+const ident = "dora mulher doceira vendedora"
+const descnome = "Dora, a doceira"
+const descpadr = "Dora, a doceira está sentada atrás do balcão de sua doceria, atendendo os \
+fregueses."
+const lojaitem = "doces002 0\n\
+aditem084 0\n\
+aditem118 0\n\
+doces004 0\n\
+doces005 0\n\
+doces006 0"
+
+
+classe p_parmilion035
+herda comum_perso
+const nome = "Salomão"
+const ident = "salomão homem padeiro"
+const descnome = "Salomão, o padeiro"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const lojaitem = "festa021 0\nfesta022 0\nfesta023 0\nfesta024 0\ncomidas039 0"
+
+
+classe p_parmilion036
+herda comum_perso
+const nome = "Hortência"
+const ident = "hortência mulher vendedora"
+const descnome = "Hortência, a designer de móveis"
+const descpadr = "Hortência, a designer de móveis aguarda seu pedido pacientemente."
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_mudadono
+  listaobj l
+  epara l.addfim(dono.dentro2), l, l.ini.remove
+    se l.objini.perso
+      misc:evento(l.objini)
+    fimse
+  efim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  casovar txtmin(txt1(arg1))
+  casose "comprar"
+  casose "compra"
+  casose "compr"
+  casose "comp"
+    ret arg0.var.z_moedas_ < 50000, arg0.msg(descnome + " diz: Você não tem $50000")
+    se txtsub(arg1, 1, 1) == "1"
+      arg0.var.z_moedas_ -= 50000
+      refvar compra = txtsub(arg1, 2)
+      refvar i = criar("i_moveis072", arg0, 1)
+      ret !txtsub(arg1, 2), arg0.msg(descnome + " diz: Digite o nome do item personalizado após \
+o número.")
+      se txtproc(compra, "/") >= 0
+        refvar p = txtproc(compra, "/")
+        i.var.z_nome = txt(compra, 0, p)
+        i.var.z_descpos = txt(compra, p + 1, inttotal(compra))
+      senao
+        i.var.z_nome = txtsub(arg1, 2)
+      fimse
+      $mens.p(arg0, este, i)
+      $mens.mtodos2("$P compra $o $d $a por 50000 moedas.", "$P compra $o $d $a.")
+      ret 1
+    senao txtsub(arg1, 1, 1) == "2"
+      arg0.var.z_moedas_ -= 50000
+      refvar compra = txtsub(arg1, 2)
+      refvar i = criar("i_moveis071", arg0, 1)
+      ret !txtsub(arg1, 2), arg0.msg(descnome + " diz: Digite o nome do item personalizado após \
+o número.")
+      se txtproc(compra, "/") >= 0
+        refvar p = txtproc(compra, "/")
+        i.var.z_nome = txt(compra, 0, p)
+        i.var.z_descpos = txt(compra, p + 1, inttotal(compra))
+      senao
+        i.var.z_nome = txtsub(arg1, 2)
+      fimse
+      $mens.p(arg0, este, i)
+      $mens.mtodos2("$P compra $o $d $a por 50000 moedas.", "$P compra $o $d $a.")
+      ret 1
+    senao txtsub(arg1, 1, 1) == "3"
+      ret arg0.var.z_moedas_ < 1234500, arg0.msg("Você não possui $1234500.")
+      arg0.var.z_moedas_ -= 1234500
+      refvar i = criar("i_bebidas022", arg0, 1)
+      refvar compra = txtsub(arg1, 2)
+      ret !txtsub(arg1, 2), arg0.msg(descnome + " diz: Digite o nome do item personalizado após \
+o número.")
+      se txtproc(compra, "/") >= 0
+        refvar p = txtproc(compra, "/")
+        i.var.z_nome = txt(compra, 0, p)
+        i.var.z_descpos = txt(compra, p + 1, inttotal(compra))
+      senao
+        i.var.z_nome = txtsub(arg1, 2)
+      fimse
+      $mens.p(arg0, este, i)
+      $mens.mtodos2("$P compra $o $d $a por 1234000 moedas.", "$P compra $o $d $a.")
+      ret 1
+    senao txtsub(arg1, 1, 1) == "4"
+      ret arg0.var.z_moedas_ < 50500, arg0.msg("Você não possui $50500.")
+      arg0.var.z_moedas_ -= 50500
+      refvar i = criar("i_moveis081", arg0, 1)
+      ret !txtsub(arg1, 2), arg0.msg(descnome + " diz: Digite o nome do item personalizado após \
+o número.")
+      refvar compra = txtsub(arg1, 2)
+      se txtproc(compra, "/") >= 0
+        refvar p = txtproc(compra, "/")
+        i.var.z_nome = txt(compra, 0, p)
+        i.var.z_descpos = txt(compra, p + 1, inttotal(compra))
+      senao
+        i.var.z_nome = txtsub(arg1, 2)
+      fimse
+      $mens.p(arg0, este, i)
+      $mens.mtodos2("$P compra $o $d $a por 50000 moedas.", "$P compra $o $d $a.")
+      ret 1
+    senao txtsub(arg1, 1, 1) == "5"
+      ret arg0.var.z_moedas_ < 75300, arg0.msg("Você não possui $75300.")
+      arg0.var.z_moedas_ -= 75300
+      refvar i = criar("i_moveis084", arg0, 1)
+      ret !txtsub(arg1, 2), arg0.msg(descnome + " diz: Digite o nome do item personalizado após \
+o número.")
+      refvar compra = txtsub(arg1, 2)
+      se txtproc(compra, "/") >= 0
+        refvar p = txtproc(compra, "/")
+        i.var.z_nome = txt(compra, 0, p)
+        i.var.z_descpos = txt(compra, p + 1, inttotal(compra))
+      senao
+        i.var.z_nome = txtsub(arg1, 2)
+      fimse
+      $mens.p(arg0, este, i)
+      $mens.mtodos2("$P compra $o $d $a por 50000 moedas.", "$P compra $o $d $a.")
+      ret 1
+    senao txtsub(arg1, 1, 1) == "6"
+      ret arg0.var.z_moedas_ < 54000, arg0.msg("Você não possui $54000.")
+      arg0.var.z_moedas_ -= 65000
+      refvar i = criar("i_moveis086", arg0, 1)
+      ret !txtsub(arg1, 2), arg0.msg(descnome + " diz: Digite o nome do item personalizado após \
+o número.")
+      refvar compra = txtsub(arg1, 2)
+      se txtproc(compra, "/") >= 0
+        refvar p = txtproc(compra, "/")
+        i.var.z_nome = txt(compra, 0, p)
+        i.var.z_descpos = txt(compra, p + 1, inttotal(compra))
+      senao
+        i.var.z_nome = txtsub(arg1, 2)
+      fimse
+      $mens.p(arg0, este, i)
+      $mens.mtodos2("$P compra $o $d $a por 50000 moedas.", "$P compra $o $d $a.")
+      ret 1
+    senao
+      ret arg0.msg(descnome + " diz: Digite comprar, espaço, o número do item, espaço e o nome \
+do item que deseja personalizar.")
+    fimse
+  casose "lista"
+  casose "list"
+  casose "lis"
+    arg0.msg(descnome + " informa:\n1. Mesa personalizada$50000\n2. Acento personalizado. \
+50000.\n3. Fonte personalizada. $1234500.\n4. Item para o teto. $50000\n5. Móvel container: \
+$73500.\n6. móvel dormitório $65000")
+    arg0.msg("Hortência diz: Digite comprar, seguido de um número, o nome do item. Caso queira \
+personalizar a descrição do item na sala, adicionar uma barra e a descrição.\nExemplo: comprar 2 \
+uma poltrona reclinável/Uma bela poltrona reclinável lhe convida a um descanso merecido.")
+    ret 1
+  casofim
+
+
+classe p_parmilion037
+herda comum_perso
+const nome = "boleira"
+const ident = "graziele jovem confeiteira boleira"
+const descnome = "Graziele, a confeiteira de bolos"
+const descpadr = "Uma jovem moça com um doce olhar está aqui, confeccionando bolos diversos"
+const nivel = 200
+const lojaitem = "parmilion010 0\n\
+parmilion009 0\n\
+parmilion011 0\n\
+parmilion008 0\n\
+parmilion012 0\n\
+parmilion007 0\n\
+parmilion006 0\n\
+parmilion005 0\n\
+parmilion004 0"
+const p_recebe = 1 # Recebe itens: Sim
+
+
+classe p_parmilion038
+herda comum_perso
+const nome = "Wíllame"
+const descnome = "Wíllame, o vendedor de instrumentos musicais"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const lojaitem = "rock001 30\n\
+itens018 30\n\
+itens030 30\n\
+rock002 30\n\
+itens082 0\n\
+itens079 0\n\
+itens083 0"
+
+
+classe s_parmilion001
+herda b_parmilion
+const s_titulo = "Sobre uma grade"
+const dir_n = $s_parmilion002
+const dir_l = $s_parmilion002
+const dir_b = $s_subterreo011
+const fecha_b = 1 # Fecha ao passar: Sim
+const a_reset = "P 100 parmilion028 100 110 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parmilion028:objsolto.total < 4
+    criar("p_parmilion028", este, rand(100, 110))
+  fimse
+
+
+classe s_parmilion002
+herda b_parmilion
+const s_titulo = "Em uma rua pouco movimentada"
+const dir_n = $s_parmilion003
+const dir_s = $s_parmilion001
+const dir_l = $s_parmilion003
+
+
+classe s_parmilion003
+herda b_parmilion
+const s_titulo = "Em uma rua pouco movimentada"
+const dir_n = $s_parmilion006
+const dir_s = $s_parmilion002
+
+
+classe s_parmilion004
+herda b_parmilion
+const s_titulo = "Na zona sul de Parmilion"
+const dir_n = $s_parmilion009
+const dir_s = $s_parmilion034
+
+
+classe s_parmilion005
+herda b_parmilion
+const s_titulo = "A zona sul de Parmilion"
+const dir_n = $s_parmilion009
+const dir_s = $s_parmilion004
+const dir_l = $s_parmilion008
+
+
+classe s_parmilion006
+herda b_parmilion
+const s_titulo = "Uma praça"
+const dir_n = $s_parmilion096
+const dir_s = $s_parmilion003
+const dir_l = $s_parmilion047
+const dir_o = $s_parmilion059
+const a_reset = "P 100 parmilion028 100 110 4\nP 100 parmilion014 140 148 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parmilion028:objsolto.total < 4
+    criar("p_parmilion028", este, rand(100, 110))
+  fimse
+  se p_parmilion014:objsolto.total < 4
+    criar("p_parmilion014", este, rand(140, 148))
+  fimse
+
+
+classe s_parmilion007
+herda b_parmilion
+const s_titulo = "Um posto de guarda"
+const dir_o = $s_parmilion004
+const a_reset = "P 100 parmilion001 110 120 10 h_socar=8,h_chutar=8,z_moedas=80000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parmilion001:objsolto.total < 10
+    criar("p_parmilion001", este, rand(110, 120), "h_socar=8,h_chutar=8,z_moedas=80000")
+  fimse
+
+
+classe s_parmilion008
+herda b_parmilion
+const s_titulo = "Um posto de guarda."
+const dir_o = $s_parmilion005
+const a_reset = "P 100 parmilion001 110 120 10 h_socar=8,h_chutar=8,z_moedas=80000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parmilion001:objsolto.total < 10
+    criar("p_parmilion001", este, rand(110, 120), "h_socar=8,h_chutar=8,z_moedas=80000")
+  fimse
+
+
+classe s_parmilion009
+herda b_parmilion
+const s_titulo = "O centro da cidade."
+const s_desc = "Você está no centro da grande cidade de Parmilion."
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_parmilion051
+const dir_s = $s_parmilion004
+const dir_l = $s_parmilion010
+const dir_o = $s_parmilion031
+#
+
+
+classe s_parmilion010
+herda b_parmilion
+const s_titulo = "Avenida central"
+const s_desc = "Você Está passando por uma ampla e muito movimentada avenida da grande\n\
+cidade de Parmilion. Há pessoas correndo de um lado para o outro, entrando e\n\
+saindo das lojas, além de carros que transitam apressados. Para sul há uma\n\
+loja de equipamentos e armaduras, enquanto para norte há uma loja de itens\n\
+personalizados. Para leste e oeste você continua pela avenida."
+const dir_n = $s_parmilion135
+const portaini_n = 3 # Estado inicial: 3 Porta trancada
+const dir_s = $s_parmilion070
+const dir_l = $s_parmilion011
+const dir_o = $s_parmilion009
+const a_reset = "P 100 parmilion015 132 139 4\nE 50 joias013 1 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_parmilion015:objsolto.total < 4
+    p = u = criar("p_parmilion015", este, rand(132, 139))
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_joias013", u, 1), r.vestir(4), u.recalc = 1
+  fimse
+
+
+classe s_parmilion011
+herda b_parmilion
+const s_titulo = "Avenida central"
+const dir_n = $s_parmilion137
+const dir_s = $s_parmilion139
+const dir_l = $s_parmilion012
+const dir_o = $s_parmilion010
+
+
+classe s_parmilion012
+herda b_parmilion
+const s_titulo = "Avenida central"
+const dir_n = $s_parmilion013
+const dir_s = $s_parmilion130
+const dir_l = $s_parmilion110
+const dir_o = $s_parmilion011
+
+
+classe s_parmilion013
+herda b_parmilion
+const s_titulo = "A entrada do shopping Center de Parmilion"
+const s_desc = "Um cartaz na parede informa que o shopping está em construção e em breve\n\
+estará aberto ao público."
+const s_pnj = 0
+const dir_n = $s_parmilion015
+const dir_s = $s_parmilion012
+const dir_l = $s_parmilion014
+const a_reset = "P 100 parmilion009 130 140 4 h_socar=4,h_chutar=4,z_moedas=75000\n\
+P 100 parmilion009 130 140 4 h_socar=8,h_chutar=8,z_moedas=75000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parmilion009:objsolto.total < 4
+    criar("p_parmilion009", este, rand(130, 140), "h_socar=4,h_chutar=4,z_moedas=75000")
+  fimse
+  se p_parmilion009:objsolto.total < 4
+    criar("p_parmilion009", este, rand(130, 140), "h_socar=8,h_chutar=8,z_moedas=75000")
+  fimse
+
+
+classe s_parmilion014
+herda b_parmilion
+const s_titulo = "No amplo estacionamento do shopping"
+const dir_o = $s_parmilion013
+
+
+classe s_parmilion015
+herda b_parmilion
+const s_titulo = "Dentro do Shopping"
+const dir_n = $s_parmilion016
+const dir_s = $s_parmilion013
+const a_reset = "P 100 parmilion002 120 130 10 h_socar=8,h_chutar=8,z_moedas=1000000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parmilion002:objsolto.total < 10
+    criar("p_parmilion002", este, rand(120, 130), "h_socar=8,h_chutar=8,z_moedas=1000000")
+  fimse
+
+
+classe s_parmilion016
+herda b_parmilion
+const s_titulo = "Dentro do shopping, entre as lojas:"
+const dir_n = $s_parmilion022
+const dir_s = $s_parmilion015
+const dir_l = $s_parmilion017
+const a_reset = "P 100 parmilion023 130 140 4\n\
+P 100 parmilion023 130 140 4\n\
+P 100 parmilion023 130 140 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parmilion023:objsolto.total < 4
+    criar("p_parmilion023", este, rand(130, 140))
+  fimse
+  se p_parmilion023:objsolto.total < 4
+    criar("p_parmilion023", este, rand(130, 140))
+  fimse
+  se p_parmilion023:objsolto.total < 4
+    criar("p_parmilion023", este, rand(130, 140))
+  fimse
+
+
+classe s_parmilion017
+herda b_parmilion
+const s_titulo = "Em frente a uma escada rolante"
+const eveste = 1 # Eventos sala: Sim
+const dir_o = $s_parmilion016
+const dir_c = $s_parmilion018
+#
+
+func cmd_mover
+  se arg2 == "c"
+    $mens.p(arg0)
+    $mens.mvis1("$P sobe pela escada rolante...")
+    arg0.mudadono(arg0.dono.dir_c)
+    $mens.p(arg0)
+    $mens.mvis2("", "$P chegou de baixo pela escada rolante.")
+    ret 1
+  fimse
+
+
+classe s_parmilion018
+herda b_parmilion
+const s_titulo = "No primeiro andar do shopping"
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_parmilion019
+const dir_l = $s_parmilion109
+const dir_b = $s_parmilion017
+#
+
+func cmd_mover
+  se arg2 == "b"
+    $mens.p(arg0)
+    $mens.mvis1("$P desce pela escada rolante...")
+    arg0.mudadono(arg0.dono.dir_b)
+    $mens.p(arg0)
+    $mens.mvis2("", "$P chegou de cima pela escada rolante.")
+    ret 1
+  fimse
+
+
+classe s_parmilion019
+herda b_parmilion
+const s_titulo = "Praça de alimentação"
+const s_desc = "Você se encontra na ampla praça de alimentação do shopping. Você observa\n\
+várias pessoas sentadas em suas mesas, lanchando e conversando. Você sente\n\
+um cheiro muito gostoso vindo do oeste."
+const dir_s = $s_parmilion018
+const dir_l = $s_parmilion021
+const dir_o = $s_parmilion020
+const dir_n = $s_mec001
+
+
+classe s_parmilion020
+herda b_parmilion
+const s_titulo = "Restaurante bom paladar"
+const s_desc = "Você adentra um luxuoso restaurante. Você vê variados tipos de comidas pela\n\
+vitrine e fica com água na boca só de olhar!"
+const dir_l = $s_parmilion019
+const s_reset = "P 100 parmilion003 130 140 1 h_socar=8,h_chutar=8,z_moedas=750000"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_parmilion003:objsolto.total < 1
+    criar("p_parmilion003", este, rand(130, 140), "h_socar=8,h_chutar=8,z_moedas=750000")
+  fimse
+
+
+classe s_parmilion021
+herda b_parmilion
+const s_titulo = "Sorveteria delícia gelada"
+const dir_o = $s_parmilion019
+const a_reset = "P 100 parmilion012 150 150 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parmilion012:objsolto.total < 1
+    criar("p_parmilion012", este, 150)
+  fimse
+
+
+classe s_parmilion022
+herda b_parmilion
+const s_titulo = "Dentro do shopping, entre as lojas:"
+const dir_n = $s_parmilion023
+const dir_s = $s_parmilion016
+const dir_l = $s_dequest001
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "As portas da dequest center"
+const portaartigo_l = 1 # Artigo porta: 1 as (portas)
+const fechadura_l = "dequest001"
+const fecha_l = 1 # Fecha ao passar: Sim
+const tranc_l = 2 # Trancar: 2 Tranca ao fechar
+
+
+classe s_parmilion023
+herda b_parmilion
+const s_titulo = "no passeio entre as lojas do shopping"
+const dir_n = $s_parmilion026
+const dir_s = $s_parmilion022
+const dir_l = $s_parmilion025
+const dir_o = $s_parmilion024
+
+
+classe s_parmilion024
+herda b_parmilion
+const s_titulo = "Loja de calçados"
+const s_pnj = 0
+const s_som = "loja2"
+const dir_l = $s_parmilion023
+const s_reset = "P 100 parmilion004 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_parmilion004:objsolto.total < 1
+    criar("p_parmilion004", este, 0)
+  fimse
+
+
+classe s_parmilion025
+herda b_parmilion
+const s_titulo = "loja de roupas femininas"
+const s_pnj = 0
+const s_som = "loja2"
+const dir_o = $s_parmilion023
+const s_reset = "P 100 parmilion005 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_parmilion005:objsolto.total < 1
+    criar("p_parmilion005", este, 0)
+  fimse
+
+
+classe s_parmilion026
+herda b_parmilion
+const s_titulo = "No passeio entre as lojas do shopping"
+const dir_n = $s_parmilion029
+const dir_s = $s_parmilion023
+const dir_l = $s_parmilion027
+const dir_o = $s_parmilion028
+
+
+classe s_parmilion027
+herda b_parmilion
+const s_titulo = "loja de brinquedos"
+const s_som = "loja1"
+const dir_o = $s_parmilion026
+const a_reset = "P 100 parmilion007 0 0 3 h_socar=7,h_chutar=7,z_moedas=300000\n\
+P 100 parmilion008 95 100 3 h_socar=6,h_chutar=6,z_moeds=250000"
+const s_reset = "P 100 parmilion021 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parmilion007:objsolto.total < 3
+    criar("p_parmilion007", este, 0, "h_socar=7,h_chutar=7,z_moedas=300000")
+  fimse
+  se p_parmilion008:objsolto.total < 3
+    criar("p_parmilion008", este, rand(95, 100), "h_socar=6,h_chutar=6,z_moeds=250000")
+  fimse
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_parmilion021:objsolto.total < 1
+    criar("p_parmilion021", este, 0)
+  fimse
+
+
+classe s_parmilion028
+herda b_parmilion
+const s_titulo = "Loja de instrumentos musicais"
+const s_pnj = 0
+const s_som = "loja2"
+const dir_l = $s_parmilion026
+const s_reset = "P 100 parmilion038 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_parmilion038:objsolto.total < 1
+    criar("p_parmilion038", este, 0)
+  fimse
+
+
+classe s_parmilion029
+herda b_parmilion
+const s_titulo = "No passeio entre as lojas"
+const dir_s = $s_parmilion026
+const dir_l = $s_parmilion030
+const dir_o = $s_parmilion069
+const dir_n = $s_parmilion087
+
+
+classe s_parmilion030
+herda b_parmilion
+const s_titulo = "Na Loja de Celulares"
+const s_desc = "Você está em uma loja de celulares, dentro do shopping.\n\
+Nas prateleiras, há diversos celulares de diferentes modelos."
+const s_som = "loja2"
+const dir_o = $s_parmilion029
+const a_reset = "P 100 Parmilion006 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_Parmilion006:objsolto.total < 1
+    criar("p_Parmilion006", este, 0)
+  fimse
+
+
+classe s_parmilion031
+herda b_parmilion
+const s_titulo = "Avenida central"
+const dir_n = $s_parmilion072
+const dir_s = $s_parmilion074
+const dir_l = $s_parmilion009
+const dir_o = $s_parmilion032
+
+
+classe s_parmilion032
+herda b_parmilion
+const s_titulo = "Avenida central"
+const dir_n = $s_parmilion086
+const dir_s = $s_parmilion140
+const dir_l = $s_parmilion031
+const dir_o = $s_parmilion033
+
+
+classe s_parmilion033
+herda b_parmilion
+const s_titulo = "Avenida central"
+const dir_n = $s_parmilion058
+const dir_s = $s_parmilion068
+const dir_l = $s_parmilion032
+const dir_o = $s_parmilion050
+
+
+classe s_parmilion034
+herda b_parmilion
+const s_titulo = "Na zona sul de Parmilion"
+const dir_n = $s_parmilion004
+const dir_s = $s_parmilion096
+const dir_o = $s_parmilion035
+
+
+classe s_parmilion035
+herda b_parmilion
+const s_titulo = "A entrada da prisão de Parmilion"
+const s_pnj = 0
+const dir_l = $s_parmilion034
+const dir_o = $s_parmilion036
+
+
+classe s_parmilion036
+herda b_parmilion
+const s_titulo = "Um longo corredor."
+const s_pnj = 0
+const dir_n = $s_parmilion037
+const dir_l = $s_parmilion035
+const dir_o = $s_parmilion038
+
+
+classe s_parmilion037
+herda b_parmilion
+const s_titulo = "Gabinete do delegado"
+const dir_s = $s_parmilion036
+
+
+classe s_parmilion038
+herda b_parmilion
+const s_titulo = "O corredor das celas"
+const dir_n = $s_parmilion039
+const portanome_n = "a grade da sela"
+const dir_s = $s_parmilion040
+const portanome_s = "a grade da sela"
+const dir_l = $s_parmilion036
+const dir_o = $s_parmilion041
+const a_reset = "P 100 parmilion011 0 0 6 h_chutar=8,z_moedas=300000\n\
+P 100 parmilion011 0 0 6 h_chutar=8,z_moedas=300000\n\
+D 100 n 3\n\
+D 100 s 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parmilion011:objsolto.total < 6
+    criar("p_parmilion011", este, 0, "h_chutar=8,z_moedas=300000")
+  fimse
+  se p_parmilion011:objsolto.total < 6
+    criar("p_parmilion011", este, 0, "h_chutar=8,z_moedas=300000")
+  fimse
+  mudaporta("n", 3)
+  mudaporta("s", 3)
+
+
+classe s_parmilion039
+herda b_parmilion
+const s_titulo = "uma cela"
+const dir_s = $s_parmilion038
+const a_reset = "P 100 parmilion010 0 0 12 h_socar=8,h_chutar=8,z_moedas=200000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parmilion010:objsolto.total < 12
+    criar("p_parmilion010", este, 0, "h_socar=8,h_chutar=8,z_moedas=200000")
+  fimse
+
+
+classe s_parmilion040
+herda b_parmilion
+const s_titulo = "Uma cela"
+const dir_n = $s_parmilion038
+const a_reset = "P 100 parmilion010 0 0 12 h_socar=8,h_chutar=8,z_moedas=200000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parmilion010:objsolto.total < 12
+    criar("p_parmilion010", este, 0, "h_socar=8,h_chutar=8,z_moedas=200000")
+  fimse
+
+
+classe s_parmilion041
+herda b_parmilion
+const s_titulo = "Um corredor de selas"
+const dir_n = $s_parmilion043
+const portanome_n = "as grades da sela"
+const portaartigo_n = 1 # Artigo porta: 1 as (portas)
+const dir_s = $s_parmilion044
+const portanome_s = "as grades da sela"
+const portaartigo_s = 1 # Artigo porta: 1 as (portas)
+const dir_l = $s_parmilion038
+const dir_o = $s_parmilion042
+const a_reset = "P 100 parmilion011 0 0 6 h_chutar,z_moedas=300000\n\
+P 100 parmilion011 0 0 6 h_chutar=8,z_moedas=300000\n\
+D 100 n 3\n\
+D 100 s 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parmilion011:objsolto.total < 6
+    criar("p_parmilion011", este, 0, "h_chutar,z_moedas=300000")
+  fimse
+  se p_parmilion011:objsolto.total < 6
+    criar("p_parmilion011", este, 0, "h_chutar=8,z_moedas=300000")
+  fimse
+  mudaporta("n", 3)
+  mudaporta("s", 3)
+
+
+classe s_parmilion042
+herda b_parmilion
+const s_titulo = "Um corredor de selas"
+const dir_n = $s_parmilion045
+const portanome_n = "as grades da sela"
+const portaartigo_n = 1 # Artigo porta: 1 as (portas)
+const dir_s = $s_parmilion046
+const portanome_s = "as grades da sela"
+const portaartigo_s = 1 # Artigo porta: 1 as (portas)
+const dir_l = $s_parmilion041
+const a_reset = "P 100 parmilion011 0 0 6 h_chutar=8,z_moedas=300000\n\
+P 100 parmilion011 0 0 6 h_chutar=8,z_moedas=300000\n\
+D 100 n 3\n\
+D 100 s 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parmilion011:objsolto.total < 6
+    criar("p_parmilion011", este, 0, "h_chutar=8,z_moedas=300000")
+  fimse
+  se p_parmilion011:objsolto.total < 6
+    criar("p_parmilion011", este, 0, "h_chutar=8,z_moedas=300000")
+  fimse
+  mudaporta("n", 3)
+  mudaporta("s", 3)
+
+
+classe s_parmilion043
+herda b_parmilion
+const s_titulo = "Uma sela"
+const dir_s = $s_parmilion041
+const portanome_s = "as grades da sela"
+const portaartigo_s = 1 # Artigo porta: 1 as (portas)
+const a_reset = "P 100 parmilion010 0 0 12 h_chutar=8,h_socar=8,z_moedas=200000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parmilion010:objsolto.total < 12
+    criar("p_parmilion010", este, 0, "h_chutar=8,h_socar=8,z_moedas=200000")
+  fimse
+
+
+classe s_parmilion044
+herda b_parmilion
+const s_titulo = "Uma sela"
+const dir_n = $s_parmilion041
+const portanome_n = "as grades da sela"
+const portaartigo_n = 1 # Artigo porta: 1 as (portas)
+const a_reset = "P 100 parmilion010 0 0 12 h_socar=8,h_chutar=8,z_moedas=200000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parmilion010:objsolto.total < 12
+    criar("p_parmilion010", este, 0, "h_socar=8,h_chutar=8,z_moedas=200000")
+  fimse
+
+
+classe s_parmilion045
+herda b_parmilion
+const s_titulo = "Uma sela"
+const dir_s = $s_parmilion042
+const portanome_s = "as grades da sela"
+const portaartigo_s = 1 # Artigo porta: 1 as (portas)
+const a_reset = "P 100 parmilion010 0 0 12 h_socar=8,h_chutar=8,z_moedas=200000\n\
+P 100 parmilion010 0 0 4 h_socar=8,h_chutar=8,z_moedas=200000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parmilion010:objsolto.total < 12
+    criar("p_parmilion010", este, 0, "h_socar=8,h_chutar=8,z_moedas=200000")
+  fimse
+  se p_parmilion010:objsolto.total < 4
+    criar("p_parmilion010", este, 0, "h_socar=8,h_chutar=8,z_moedas=200000")
+  fimse
+
+
+classe s_parmilion046
+herda b_parmilion
+const s_titulo = "Uma sela"
+const dir_n = $s_parmilion042
+const portanome_n = "as grades da sela"
+const portaartigo_n = 1 # Artigo porta: 1 as (portas)
+const a_reset = "P 100 parmilion010 0 0 4 h_socar=8,h_chutar=8,z_moedas=150000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parmilion010:objsolto.total < 4
+    criar("p_parmilion010", este, 0, "h_socar=8,h_chutar=8,z_moedas=150000")
+  fimse
+
+
+classe s_parmilion047
+herda b_parmilion
+const s_titulo = "Uma rua bem iluminada"
+const dir_l = $s_parmilion048
+const dir_o = $s_parmilion006
+
+
+classe s_parmilion048
+herda b_parmilion
+const s_titulo = "Uma rua bem iluminada"
+const dir_l = $s_parmilion049
+const dir_o = $s_parmilion047
+
+
+classe s_parmilion049
+herda b_parmilion
+const s_titulo = "Uma rua bem iluminada"
+const dir_l = $s_parmilion097
+const dir_o = $s_parmilion048
+
+
+classe s_parmilion050
+herda b_parmilion
+const s_titulo = "Avenida Central"
+const dir_n = $s_parmilion141
+const dir_l = $s_parmilion033
+const dir_o = $s_parmilion055
+
+
+classe s_parmilion051
+herda b_parmilion
+const s_titulo = "Zona norte de Parmilion"
+const dir_n = $s_parmilion052
+const dir_s = $s_parmilion009
+
+
+classe s_parmilion052
+herda b_parmilion
+const s_titulo = "Zona norte de Parmilion"
+const dir_n = $s_parmilion053
+const dir_s = $s_parmilion051
+const dir_l = $s_parmilion143
+
+
+classe s_parmilion053
+herda b_parmilion
+const s_titulo = "Zona norte de Parmilion"
+const dir_n = $s_parmilion054
+const dir_s = $s_parmilion052
+
+
+classe s_parmilion054
+herda b_parmilion
+const s_titulo = "Diante dos portões do condomínio"
+const dir_n = $s_parmicasas001
+const dir_s = $s_parmilion053
+
+
+classe s_parmilion055
+herda b_parmilion
+const s_titulo = "Na entrada da cidade de Parmilion"
+const s_pnj = 0
+const dir_l = $s_parmilion050
+const dir_o = $s_parmilion056
+
+
+classe s_parmilion056
+herda b_parmilion
+const s_titulo = "A avenida de acesso"
+const dir_l = $s_parmilion055
+const dir_o = $s_parmilion057
+
+
+classe s_parmilion057
+herda b_parmilion
+const s_titulo = "A avenida de acesso"
+const dir_s = $s_parmilion067
+const dir_l = $s_parmilion056
+const dir_o = $s_rioleste039
+
+
+classe s_parmilion058
+herda b_parmilion
+const s_titulo = "Loja de móveis e eletrodomésticos: lar doce lar"
+const s_pnj = 0
+const dir_s = $s_parmilion033
+const s_reset = "P 100 parmilion013 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_parmilion013:objsolto.total < 1
+    criar("p_parmilion013", este, 0)
+  fimse
+
+
+classe s_parmilion059
+herda b_parmilion
+const s_titulo = "Uma rua bem iluminada"
+const dir_l = $s_parmilion006
+const dir_o = $s_parmilion060
+
+
+classe s_parmilion060
+herda b_parmilion
+const s_titulo = "Uma rua bem iluminada"
+const dir_l = $s_parmilion059
+const dir_o = $s_parmilion061
+
+
+classe s_parmilion061
+herda b_parmilion
+const s_titulo = "Uma rua bem iluminada"
+const dir_l = $s_parmilion060
+const dir_o = $s_parmilion062
+const dir_s = $s_parmilion065
+
+
+classe s_parmilion062
+herda b_parmilion
+const s_titulo = "No fim da rua"
+const dir_n = $s_parmilion063
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "o portão da casa"
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_l = $s_parmilion061
+
+
+classe s_parmilion063
+herda b_parmilion
+const s_titulo = "Um jardim"
+const s_pnj = 0
+const dir_n = $s_parmilion064
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "a porta da casa"
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_s = $s_parmilion062
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "o portão da casa"
+const portaartigo_s = 2 # Artigo porta: 2 o (portão)
+const fecha_s = 1 # Fecha ao passar: Sim
+
+
+classe s_parmilion064
+herda b_parmilion
+const s_titulo = "Dentro da casa de um casal de cidadãos"
+const dir_n = $s_parmilion098
+const dir_s = $s_parmilion063
+const portanome_s = "a porta da casa"
+const a_reset = "P 100 parmilion024 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parmilion024:objsolto.total < 1
+    criar("p_parmilion024", este, 0)
+  fimse
+
+
+classe s_parmilion065
+herda b_parmilion
+const s_titulo = "Um belo jardim"
+const s_pnj = 0
+const dir_n = $s_parmilion061
+const dir_s = $s_parmilion099
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "a porta da sala"
+const fecha_s = 1 # Fecha ao passar: Sim
+
+
+classe s_parmilion066
+herda b_parmilion
+const s_titulo = "Uma rua de acesso"
+const dir_n = $s_parmilion100
+const dir_s = $s_parmilion006
+
+
+classe s_parmilion067
+herda b_parmilion
+const s_titulo = "No posto de Gasolina"
+const dir_n = $s_parmilion057
+const dir_s = $s_parmilion100
+const portanome_s = "a porta do escritório"
+const fecha_s = 1 # Fecha ao passar: Sim
+const dir_o = $s_parmilion101
+
+
+classe s_parmilion068
+herda b_parmilion
+const s_titulo = "Loja de peças para banheiro"
+const dir_n = $s_parmilion033
+const s_reset = "P 100 vilares003 0 0 2"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_vilares003:objsolto.total < 2
+    criar("p_vilares003", este, 0)
+  fimse
+
+
+classe s_parmilion069
+herda b_parmilion
+const s_titulo = "Loja de roupas masculinas"
+const dir_l = $s_parmilion029
+const s_reset = "P 100 parmilion016 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_parmilion016:objsolto.total < 1
+    criar("p_parmilion016", este, 0)
+  fimse
+
+
+classe s_parmilion070
+herda b_parmilion
+const s_titulo = "Uma loja de equipamentos e armaduras"
+const s_pnj = 0
+const dir_n = $s_parmilion010
+const s_reset = "P 100 parmilion017 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_parmilion017:objsolto.total < 1
+    criar("p_parmilion017", este, 0)
+  fimse
+
+const s_autonao = 1 # Sem entrada de automóveis: Sim
+
+
+classe s_parmilion071
+herda b_parmilion
+const s_titulo = "Reset evento"
+const dir_n = $s_parmilion001
+const dir_s = $s_parmilion009
+const dir_l = $s_parmilion018
+const dir_o = $s_parmilion027
+const dir_b = $s_parmilion010
+const dir_ne = $s_parmilion036
+const dir_no = $s_parmilion015
+const dir_se = $s_parmilion054
+const dir_so = $s_parmilion063
+const dir_entrar = $s_parmilion021
+const dir_sair = $s_parmilion030
+const a_reset = "P 100 evento009 30 200 20\n\
+P 100 evento009 30 200 20\n\
+P 100 evento009 30 200 20\n\
+P 100 evento009 30 200 25\n\
+P 100 evento009 30 200 25"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_evento009:objsolto.total < 20
+    criar("p_evento009", este, rand(30, 200))
+  fimse
+  se p_evento009:objsolto.total < 20
+    criar("p_evento009", este, rand(30, 200))
+  fimse
+  se p_evento009:objsolto.total < 20
+    criar("p_evento009", este, rand(30, 200))
+  fimse
+  se p_evento009:objsolto.total < 25
+    criar("p_evento009", este, rand(30, 200))
+  fimse
+  se p_evento009:objsolto.total < 25
+    criar("p_evento009", este, rand(30, 200))
+  fimse
+
+
+classe s_parmilion072
+herda b_parmilion
+const s_titulo = "Joalheria"
+const s_pnj = 0
+const dir_s = $s_parmilion031
+const s_reset = "P 100 parmilion018 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_parmilion018:objsolto.total < 1
+    criar("p_parmilion018", este, 0)
+  fimse
+
+const s_autonao = 1 # Sem entrada de automóveis: Sim
+
+
+classe s_parmilion073
+herda b_parmilion
+
+
+classe s_parmilion074
+herda b_parmilion
+const s_titulo = "No supermercado"
+const s_pnj = 0
+const dir_n = $s_parmilion031
+const dir_s = $s_parmilion076
+const dir_l = $s_parmilion077
+const dir_o = $s_parmilion075
+const s_autonao = 1 # Sem entrada de automóveis: Sim
+
+
+classe s_parmilion075
+herda b_parmilion
+const s_titulo = "No balcão do super mercado"
+const dir_l = $s_parmilion074
+const s_reset = "P 100 parmilion019 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_parmilion019:objsolto.total < 1
+    criar("p_parmilion019", este, 0)
+  fimse
+
+
+classe s_parmilion076
+herda b_parmilion
+const s_titulo = "um corredor entre prateleiras no supermercado"
+const dir_n = $s_parmilion074
+
+
+classe s_parmilion077
+herda b_parmilion
+const s_titulo = "No supermercado"
+const dir_s = $s_parmilion078
+const dir_o = $s_parmilion074
+
+
+classe s_parmilion078
+herda b_parmilion
+const s_titulo = "Um corredor entre prateleiras no supermercado"
+const dir_n = $s_parmilion077
+
+
+classe s_parmilion079
+herda b_parmilion
+const s_titulo = "A Rua Independência"
+const dir_n = $s_parmilion111
+const dir_s = $s_parmilion080
+
+
+classe s_parmilion080
+herda b_parmilion
+const s_titulo = "A Rua Independência"
+const dir_n = $s_parmilion079
+const dir_s = $s_parmilion081
+
+
+classe s_parmilion081
+herda b_parmilion
+const s_titulo = "A Rua Independência"
+const dir_n = $s_parmilion080
+const dir_o = $s_parmilion082
+const a_reset = "P 100 parmilion020 0 0 6\nP 100 parmilion020 0 0 6"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parmilion020:objsolto.total < 6
+    criar("p_parmilion020", este, 0)
+  fimse
+  se p_parmilion020:objsolto.total < 6
+    criar("p_parmilion020", este, 0)
+  fimse
+
+
+classe s_parmilion082
+herda b_parmilion
+const s_titulo = "Diante dos portões do colégio Golden lions"
+const dir_l = $s_parmilion081
+const dir_entrar = $s_parmilion083
+const portaini_entrar = 2 # Estado inicial: 2 Porta fechada
+const portanome_entrar = "Os portões do colégio"
+const portaartigo_entrar = 3 # Artigo porta: 3 os (portões)
+const fecha_entrar = 1 # Fecha ao passar: Sim
+const a_reset = "P 10 parmilion020 0 0 6\nP 100 parmilion020 0 0 6"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parmilion020:objsolto.total < 6 && rand(100) < 10
+    criar("p_parmilion020", este, 0)
+  fimse
+  se p_parmilion020:objsolto.total < 6
+    criar("p_parmilion020", este, 0)
+  fimse
+
+
+classe s_parmilion083
+herda b_parmilion
+const s_titulo = "No pátio do colégio"
+const dir_s = $s_parmilion084
+const dir_sair = $s_parmilion082
+
+
+classe s_parmilion084
+herda b_parmilion
+const s_titulo = "Em frente às portas da recepção"
+const dir_n = $s_parmilion083
+const dir_entrar = $s_parmilion085
+
+
+classe s_parmilion085
+herda b_parmilion
+const s_titulo = "A recepção do colégio"
+const dir_sair = $s_parmilion084
+
+
+classe s_parmilion086
+herda b_parmilion
+const s_titulo = "A confeitaria"
+const s_pnj = 0
+const dir_s = $s_parmilion032
+const a_reset = "P 100 parmilion037 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parmilion037:objsolto.total < 1
+    criar("p_parmilion037", este, 0)
+  fimse
+
+
+classe s_parmilion087
+herda b_parmilion
+const s_titulo = "Continuando a andar pelo shopping"
+const dir_s = $s_parmilion029
+const dir_l = $s_parmilion088
+const dir_o = $s_parmilion089
+
+
+classe s_parmilion088
+herda b_parmilion
+const s_titulo = "Tecno shop - Loja de equipamentos tecnológicos"
+const dir_o = $s_parmilion087
+const s_reset = "P 100 parmilion022 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_parmilion022:objsolto.total < 1
+    criar("p_parmilion022", este, 0)
+  fimse
+
+
+classe s_parmilion089
+herda b_parmilion
+const s_titulo = "Um amplo corredor iluminado"
+const dir_n = $s_parmilion090
+const dir_l = $s_parmilion087
+
+
+classe s_parmilion090
+herda b_parmilion
+const s_titulo = "Na entrada do cinema"
+const dir_n = $s_parmilion091
+const dir_s = $s_parmilion089
+const dir_l = $s_parmilion092
+const dir_o = $s_parmilion093
+
+
+classe s_parmilion091
+herda b_parmilion
+const s_titulo = "A bilheteria do cinema"
+const dir_s = $s_parmilion090
+
+
+classe s_parmilion092
+herda b_parmilion
+const s_titulo = "A barraca do pipoqueiro"
+const dir_o = $s_parmilion090
+
+
+classe s_parmilion093
+herda b_parmilion
+const s_titulo = "Um corredor mal iluminado"
+const dir_n = $s_parmilion094
+const dir_l = $s_parmilion090
+
+
+classe s_parmilion094
+herda b_parmilion
+const s_titulo = "Em frente à uma porta"
+const dir_s = $s_parmilion093
+const dir_entrar = $s_parmilion095
+const portaini_entrar = 3 # Estado inicial: 3 Porta trancada
+const portanome_entrar = "a porta do cinema"
+const fechadura_entrar = "cinema001"
+const fecha_entrar = 1 # Fecha ao passar: Sim
+const tranc_entrar = 1 # Trancar: 1 Pode ser trancado
+
+
+classe s_parmilion095
+herda b_parmilion
+const s_titulo = "No alto das poltronas"
+const dir_sair = $s_parmilion094
+const portaini_sair = 3 # Estado inicial: 3 Porta trancada
+const portanome_sair = "a porta do cinema"
+const fechadura_sair = "cinema001"
+const fecha_sair = 1 # Fecha ao passar: Sim
+const tranc_sair = 2 # Trancar: 2 Tranca ao fechar
+
+
+classe s_parmilion096
+herda b_parmilion
+const s_titulo = "Na zona sul de Parmilion"
+const dir_n = $s_parmilion034
+const dir_s = $s_parmilion006
+
+
+classe s_parmilion097
+herda b_parmilion
+const s_titulo = "Na esquina da rua"
+const dir_s = $s_parmilion102
+const dir_o = $s_parmilion049
+const a_reset = "P 100 parmilion028 0 0 4"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parmilion028:objsolto.total < 4
+    criar("p_parmilion028", este, 0)
+  fimse
+
+
+classe s_parmilion098
+herda b_parmilion
+const s_titulo = "Uma pequena e organizada cozinha"
+const dir_s = $s_parmilion064
+const a_reset = "P 100 parmilion025 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parmilion025:objsolto.total < 1
+    criar("p_parmilion025", este, 0)
+  fimse
+
+
+classe s_parmilion099
+herda b_parmilion
+const s_titulo = "Dentro da casa de um casal de senhores"
+const dir_n = $s_parmilion065
+const portanome_n = "a porta da sala"
+const fecha_n = 1 # Fecha ao passar: Sim
+const a_reset = "P 100 parmilion026 160 164 1\nP 100 parmilion027 150 156 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parmilion026:objsolto.total < 1
+    criar("p_parmilion026", este, rand(160, 164))
+  fimse
+  se p_parmilion027:objsolto.total < 1
+    criar("p_parmilion027", este, rand(150, 156))
+  fimse
+
+
+classe s_parmilion100
+herda b_parmilion
+const s_titulo = "Um Escritório"
+const dir_n = $s_parmilion067
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "a porta do escritório"
+const fecha_n = 1 # Fecha ao passar: Sim
+
+
+classe s_parmilion101
+herda b_parmilion
+const s_titulo = "Um posto de Gasolina"
+const dir_n = $s_rioleste039
+const dir_l = $s_parmilion067
+
+
+classe s_parmilion102
+herda b_parmilion
+const s_titulo = "A Rua Bem me quer"
+const dir_n = $s_parmilion097
+const dir_s = $s_parmilion103
+
+
+classe s_parmilion103
+herda b_parmilion
+const s_titulo = "A rua bem me quer"
+const dir_n = $s_parmilion102
+const dir_s = $s_parmilion104
+
+
+classe s_parmilion104
+herda b_parmilion
+const s_titulo = "A rua bem me quer"
+const dir_n = $s_parmilion103
+const dir_l = $s_parmilion105
+
+
+classe s_parmilion105
+herda b_parmilion
+const s_titulo = "A rua das Paixões"
+const dir_l = $s_parmilion106
+const dir_o = $s_parmilion104
+
+
+classe s_parmilion106
+herda b_parmilion
+const s_titulo = "A rua das paixões"
+const dir_l = $s_parmilion107
+const dir_o = $s_parmilion105
+
+
+classe s_parmilion107
+herda b_parmilion
+const s_titulo = "A rua das paixões"
+const dir_n = $s_parmilion108
+const dir_o = $s_parmilion106
+
+
+classe s_parmilion108
+herda b_parmilion
+const s_titulo = "Em frente ao hotel"
+const dir_n = $s_vilahotel001
+const dir_s = $s_parmilion107
+
+
+classe s_parmilion109
+herda b_parmilion
+const s_titulo = "loja de artigos para casamentos"
+const s_desc = "Ao chegar aqui você si impressiona. Olhando para as vitrines, você\n\
+contempla vários ternos, e vestidos de noiva, com um designe incomparável.\n\
+Tudo a sua volta chama a sua atenção."
+const s_pnj = 0
+const dir_o = $s_parmilion018
+const a_reset = "P 100 parmilion029 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_parmilion029:objsolto.total < 1
+    criar("p_parmilion029", este, 0)
+  fimse
+
+const s_reset = "P 100 parmilion029 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_parmilion029:objsolto.total < 1
+    criar("p_parmilion029", este, 0)
+  fimse
+
+
+classe s_parmilion110
+herda b_parmilion
+const s_titulo = "Avenida Central"
+const dir_l = $s_parmilion111
+const dir_o = $s_parmilion012
+
+
+classe s_parmilion111
+herda b_parmilion
+const s_titulo = "Avenida Central"
+const dir_s = $s_parmilion079
+const dir_o = $s_parmilion110
+
+
+classe s_parmilion112
+herda b_parmilion
+const s_titulo = "Um Vasto Jardim"
+const dir_n = $s_parmilion130
+const dir_l = $s_parmilion126
+const dir_o = $s_parmilion127
+const dir_entrar = $s_parmilion113
+
+
+classe s_parmilion113
+herda b_parmilion
+const s_titulo = "O Restaurante Predileto"
+const s_pnj = 0
+const dir_s = $s_parmilion114
+const dir_l = $s_parmilion124
+const dir_o = $s_parmilion125
+const dir_sair = $s_parmilion112
+
+
+classe s_parmilion114
+herda b_parmilion
+const s_titulo = "Caminhando Por Entre Mesas"
+const dir_n = $s_parmilion113
+const dir_s = $s_parmilion117
+const dir_l = $s_parmilion115
+const dir_o = $s_parmilion116
+
+
+classe s_parmilion115
+herda b_parmilion
+const s_titulo = "Diante de uma mesa"
+const dir_l = $s_parmilion133
+const dir_o = $s_parmilion114
+
+
+classe s_parmilion116
+herda b_parmilion
+const s_titulo = "Diante de uma mesa"
+const dir_l = $s_parmilion114
+
+
+classe s_parmilion117
+herda b_parmilion
+const s_titulo = "Caminhando por entre mesas"
+const dir_n = $s_parmilion114
+const dir_s = $s_parmilion120
+const dir_l = $s_parmilion118
+const dir_o = $s_parmilion119
+
+
+classe s_parmilion118
+herda b_parmilion
+const s_titulo = "Diante de uma mesa"
+const dir_l = $s_parmilion132
+const dir_o = $s_parmilion117
+
+
+classe s_parmilion119
+herda b_parmilion
+const s_titulo = "Diante de uma mesa"
+const dir_l = $s_parmilion117
+
+
+classe s_parmilion120
+herda b_parmilion
+const s_titulo = "Caminhando Por Entre mesas"
+const dir_n = $s_parmilion117
+const dir_l = $s_parmilion121
+const dir_o = $s_parmilion122
+
+
+classe s_parmilion121
+herda b_parmilion
+const s_titulo = "Diante de Uma Mesa"
+const dir_l = $s_parmilion123
+const dir_o = $s_parmilion120
+
+
+classe s_parmilion122
+herda b_parmilion
+const s_titulo = "Diante de uma Mesa"
+const dir_l = $s_parmilion120
+
+
+classe s_parmilion123
+herda b_parmilion
+const s_titulo = "Caminhando Por Entre Mesas"
+const dir_n = $s_parmilion132
+const dir_l = $s_parmilion131
+const dir_o = $s_parmilion121
+
+
+classe s_parmilion124
+herda b_parmilion
+const s_titulo = "Dentro do restaurante"
+const dir_o = $s_parmilion113
+const dir_sair = $s_parmilion126
+
+
+classe s_parmilion125
+herda b_parmilion
+const s_titulo = "Dentro do restaurante"
+const dir_l = $s_parmilion113
+const dir_sair = $s_parmilion127
+
+
+classe s_parmilion126
+herda b_parmilion
+const s_titulo = "Um Vasto Jardim"
+const dir_n = $s_parmilion128
+const dir_o = $s_parmilion112
+const dir_entrar = $s_parmilion124
+const dir_ = $s_parmilion136
+
+
+classe s_parmilion127
+herda b_parmilion
+const s_titulo = "Um vasto jardim"
+const dir_n = $s_parmilion129
+const dir_l = $s_parmilion112
+const dir_entrar = $s_parmilion125
+
+
+classe s_parmilion128
+herda b_parmilion
+const s_titulo = "Um Vasto Jardim"
+const dir_s = $s_parmilion126
+const dir_o = $s_parmilion130
+
+
+classe s_parmilion129
+herda b_parmilion
+const s_titulo = "Um Vasto Jardim"
+const dir_s = $s_parmilion127
+const dir_l = $s_parmilion130
+
+
+classe s_parmilion130
+herda b_parmilion
+const s_titulo = "Na Praça do Restaurante"
+const dir_n = $s_parmilion012
+const dir_s = $s_parmilion112
+const dir_l = $s_parmilion128
+const dir_o = $s_parmilion129
+
+
+classe s_parmilion131
+herda b_parmilion
+const s_titulo = "Diante de Uma Mesa"
+const dir_o = $s_parmilion123
+
+
+classe s_parmilion132
+herda b_parmilion
+const s_titulo = "Caminhando Por Entre Mesas"
+const dir_n = $s_parmilion133
+const dir_s = $s_parmilion123
+const dir_l = $s_parmilion134
+const dir_o = $s_parmilion118
+
+
+classe s_parmilion133
+herda b_parmilion
+const s_titulo = "Caminhando Por Entre Mesas"
+const dir_s = $s_parmilion132
+const dir_l = $s_parmilion142
+const dir_o = $s_parmilion115
+
+
+classe s_parmilion134
+herda b_parmilion
+const s_titulo = "Diante de Uma Mesa"
+const dir_o = $s_parmilion132
+
+
+classe s_parmilion135
+herda b_parmilion
+const s_titulo = "Loja de tecidos personalizados"
+const s_pnj = 0
+const dir_s = $s_parmilion010
+const portaini_s = 3 # Estado inicial: 3 Porta trancada
+const fechadura_s = "rock001"
+const fecha_s = 1 # Fecha ao passar: Sim
+const tranc_s = 2 # Trancar: 2 Tranca ao fechar
+const s_autonao = 1 # Sem entrada de automóveis: Sim
+const s_reset = "P 100 parmilion032 1 1 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_parmilion032:objsolto.total < 1
+    criar("p_parmilion032", este, 1)
+  fimse
+
+
+classe s_parmilion136
+herda b_parmilion
+const dir_ = $s_parmilion126
+
+
+classe s_parmilion137
+herda b_parmilion
+const s_titulo = "A gráfica"
+const s_pnj = 0
+const dir_s = $s_parmilion011
+const dir_l = $s_parmilion138
+
+
+classe s_parmilion138
+herda b_parmilion
+const s_titulo = "Na parte de confecção de lembrancinhas"
+const dir_o = $s_parmilion137
+const s_reset = "P 100 parmilion033 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_parmilion033:objsolto.total < 1
+    criar("p_parmilion033", este, 0)
+  fimse
+
+
+classe s_parmilion139
+herda b_parmilion
+const s_titulo = "Uma doceria"
+const s_pnj = 0
+const dir_n = $s_parmilion011
+const s_reset = "P 100 parmilion034 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_parmilion034:objsolto.total < 1
+    criar("p_parmilion034", este, 0)
+  fimse
+
+
+classe s_parmilion140
+herda b_parmilion
+const s_titulo = "Padaria pães e salgados"
+const s_pnj = 0
+const s_som = "padaria"
+const dir_n = $s_parmilion032
+const s_reset = "P 100 parmilion035 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_parmilion035:objsolto.total < 1
+    criar("p_parmilion035", este, 0)
+  fimse
+
+
+classe s_parmilion141
+herda b_parmilion
+const s_titulo = "Loja de móveis e itens personalizados para o lar."
+const s_pnj = 0
+const dir_s = $s_parmilion050
+const fechadura_s = "parm001"
+const s_reset = "P 100 parmilion036 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_parmilion036:objsolto.total < 1
+    criar("p_parmilion036", este, 0)
+  fimse
+
+
+classe s_parmilion142
+herda b_parmilion
+const s_titulo = "Diante de uma mesa."
+const dir_o = $s_parmilion133
+
+
+classe s_parmilion143
+herda b_parmilion
+const s_titulo = "Na entrada do shopping Très Chic"
+const s_pnj = 0
+const dir_o = $s_parmilion052
+const dir_entrar = $s_carmichael001
+const portaini_entrar = 3 # Estado inicial: 3 Porta trancada
+const portanome_entrar = "Os portões dourados"
+const portaartigo_entrar = 3 # Artigo porta: 3 os (portões)
+const fechadura_entrar = "trèschic"
+const comechave_entrar = 0 # Come chave: Não
+const fecha_entrar = 1 # Fecha ao passar: Sim
+const tranc_entrar = 1 # Trancar: 1 Pode ser trancado
+const s_autonao = 0 # Sem entrada de automóveis: Não

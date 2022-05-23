@@ -1,0 +1,142 @@
+classe a_darkleste
+herda area
+const a_tempo = 10
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_autor = "Ulrich"
+const a_nome = "A estrada leste"
+
+
+classe b_darkleste
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_pnj = 6
+const s_recup = 2
+const s_reserva = 1 # Comando reserva: Sim
+const s_area = "darkleste"
+
+
+classe p_darkleste001
+herda comum_persobat
+const nome = "viajante"
+const ident = "Viajante homem apreçado"
+const descnome = "Um apreçado viajante"
+const descpadr = "Um apreçado viajante passa por você sem nem se quer notar sua presença."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 700
+const tipo1 = "humano"
+const tipo2 = "Guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 45000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 200
+const p_persegue = 2 # Persegue jogadores: 2 Qualquer lugar se atacarem
+const p_perseguevel = 10
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30 * pnivel + 2000000
+  atknorm += 1900 * pnivel + 1900
+  defnorm += 3500 * pnivel + 3500
+  atkesp += 1900 * pnivel + 1900
+  defesp += 3500 * pnivel + 3500
+  precisao += 300 * pnivel + 300
+
+
+classe s_darkleste001
+herda b_darkleste
+const s_titulo = "No início de uma estrada."
+const s_desc = ""
+const dir_l = $s_darkleste002
+const dir_o = $s_dark023
+const a_reset = "P 100 darkleste001 690 700 50"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_darkleste001:objsolto.total < 50
+    criar("p_darkleste001", este, rand(690, 700))
+  fimse
+
+
+classe s_darkleste002
+herda b_darkleste
+const s_titulo = "Uma estrada deserta"
+const s_desc = ""
+const dir_l = $s_darkleste003
+const dir_o = $s_darkleste001
+
+
+classe s_darkleste003
+herda b_darkleste
+const s_titulo = "Continuando pela estrada"
+const s_desc = ""
+const dir_l = $s_darkleste004
+const dir_o = $s_darkleste002
+
+
+classe s_darkleste004
+herda b_darkleste
+const s_titulo = "Uma interceção na estrada."
+const s_desc = ""
+const dir_n = $s_darkleste005
+const dir_l = $s_darkleste010
+const dir_o = $s_darkleste003
+
+
+classe s_darkleste005
+herda b_darkleste
+const s_titulo = "Um estranho caminho de terra"
+const s_desc = ""
+const s_luz = 3 # Luz: 3 Escuro
+const dir_n = $s_darkleste006
+const dir_s = $s_darkleste004
+
+
+classe s_darkleste006
+herda b_darkleste
+const s_titulo = "Ainda no estranho caminho"
+const s_desc = ""
+const s_luz = 3 # Luz: 3 Escuro
+const dir_s = $s_darkleste005
+const dir_l = $s_darkleste007
+
+
+classe s_darkleste007
+herda b_darkleste
+const s_titulo = "Andando Por uma estreita trilha."
+const s_desc = ""
+const s_luz = 3 # Luz: 3 Escuro
+const dir_l = $s_darkleste008
+const dir_o = $s_darkleste006
+
+
+classe s_darkleste008
+herda b_darkleste
+const s_titulo = "Reencontrando a estrada."
+const s_desc = ""
+const s_luz = 3 # Luz: 3 Escuro
+const dir_l = $s_darkleste009
+const dir_o = $s_darkleste007
+
+
+classe s_darkleste009
+herda b_darkleste
+const s_titulo = "A estrada escura"
+const s_desc = ""
+const s_luz = 3 # Luz: 3 Escuro
+const dir_n = $s_inverno001
+const dir_o = $s_darkleste008
+
+
+classe s_darkleste010
+herda b_darkleste
+const s_titulo = "Seguindo Pela estrada Deserta."
+const dir_l = $s_darkleste011
+const dir_o = $s_darkleste004
+
+
+classe s_darkleste011
+herda b_darkleste
+const s_titulo = "Seguindo Pela Estrada Deserta."
+const dir_l = $s_riow006
+const dir_o = $s_darkleste010

@@ -1,0 +1,77 @@
+classe cmd_jogs
+herda comando_comum
+#
+const posic = 5
+const txtajuda = "\b\c3Jogs\b\n\
+Sintaxe: Jogs\n\
+Mostra a lista de jogadores na mesma sala (Semelhante ao comando ver/olhar)."
+#
+
+func escr
+  textotxt t
+  listaitem item
+  epara item = arg0.dono.dentro2.fim, item, item.antes
+    refvar i = item.obj
+    continuar !i.visivel(arg0)
+    se i.jog
+      t.addfim(i.descnome + ".")
+    fimse
+  efim
+  se t
+    arg0.msg2("\b\c6Jogadores na sala: " + arg0.dono.dentro2.total("jogador") + "\b\n" + \
+txttroca(t.remove(1000), "\d+", "\n"))
+  fimse
+
+
+classe cmd_itens
+herda comando_comum
+#
+const posic = 5
+const txtajuda = "\b\c3Itens\b\nSintaxe: itens\nLista os itens que estão na sala."
+#
+
+func escr
+  ref item
+  item = misc:itemtudo(arg0, arg1)
+  !item && (item = arg0.dono)
+  textotxt t
+  listaobj l
+  refvar r = item
+  epara l.addfim(r.dentro1), l, l.ini.remove
+    refvar i = l.objini
+    continuar !i.visivel(arg0)
+    t.addfim(txtcopiamai(i.descnome, "A"))
+  efim
+  se t
+    arg0.msg2("\b\c6Itens " + (item.item ? "no container" : "na sala") + ": " + r.dentro1.total \
++ "\b\n" + txttroca(t.remove(1000), "\d+", "\n"))
+  senao
+    arg0.msg("\bNão há itens na sala.")
+  fimse
+
+
+classe cmd_personagens
+herda comando_comum
+#
+const posic = 5
+const txtajuda = "\b\c3Personagens\b\n\
+Sintaxe: Personagens\n\
+Mostra os personagens não jogadores na sala."
+#
+
+func escr
+  textotxt t
+  listaitem item
+  epara item = arg0.dono.dentro2.fim, item, item.antes
+    refvar i = item.obj
+    continuar !i.visivel(arg0)
+    se i.perso && !i.jog
+      t.addfim(i.descnome)
+    fimse
+  efim
+  se t
+    arg0.msg2("\b\c6personagens na sala: " + t.linhas + "\b\n" + txttroca(t.remove(1000), "\d+", \
+"\n"))
+  senao
+    arg0.msg("Não há personagens não jogadores na sala.")
+  fimse

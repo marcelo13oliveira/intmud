@@ -1,0 +1,225 @@
+classe jogobot
+telatxt tela
+socket conec # Conexão com o bate-papo
+inttempo conectando
+inttempo tempo # Para enviar pelo menos uma mensagem de tempos em tempos
+listaobj salas # Objetos jogobot_sala
+indiceobj conexao1 # Identificação: "cn " + endereço
+txt100 conexao2 # Texto comando COM: "bot " + endereço + " " + porta + " " + sala
+txt100 conexao3 # sala + " " + senha
+txt100 indbs # "bs " + endereço + " " (é o índice para salas)
+txt100 indbu # "bu " + endereço + " " (é o índice para usuários)
+int8 msgini # Para mostrar as primeiras mensagens do chat ao conectar
+const proto1 = "bot "
+const proto2 = "#bot "
+
+func ini
+# arg0 contém 4 textos separados por espaço: endereço, porta, sala, senha
+  conectando = 100
+  conexao1 = "cn " + txt1(arg0)
+  conexao2 = proto1 + txtsub(arg0, 0, 3)
+  conexao3 = txtsub(arg0, 2)
+  indbs = "bs " + txt1(arg0) + " "
+  indbu = "bu " + txt1(arg0) + " "
+  se conec.ipvalido(txt1(arg0))
+    ini_conec(txt1(arg0), txtsub(arg0, 1, 1))
+  senao !conec.eventoip(txt1(arg0))
+    apagar(este), conexao2 = ""
+    msg("Endereço inválido")
+  fimse
+
+func conec_eventoip # Resolveu endereço a conectar
+  se arg2
+    ini_conec(arg2, txtsub(conexao2, 2, 1))
+  senao
+    apagar(este), conexao2 = ""
+    msg("Endereço inválido")
+  fimse
+
+func ini_conec # Inicia conexão
+# arg0 = endereço IP
+# arg1 = porta
+  se !conec.abrir(arg0, arg1)
+    apagar(este), conexao2 = ""
+    msg("Endereço inválido")
+  senao
+    msg("Conectando em " + arg0)
+  fimse
+
+func fim
+  conexao2 && msg("Conexão encerrada")
+
+func msg
+  se !config:modolocal
+    telatxt tela
+    tela.msg("Bot " + txt2(conexao1) + ": " + arg0 + "\n")
+  fimse
+  $misclog.cmdlog("bot " + txt2(conexao1) + ": " + arg0)
+  indiceitem item
+  refvar m = "\b\d1(com) bot " + txt2(conexao1) + ": " + arg0 + "\b"
+  epara item.ini("un "), txt1(item.txt) == "un", item.depois
+    item.obj.jogconfig.21 && item.obj.msg(m)
+  efim
+
+func conectando_exec # 10 segundos tentando conectar
+  apagar(este), conexao2 = ""
+  se conec.proto < 2
+    msg("Tempo demais esperando resposta OK")
+  senao
+    msg("Tempo demais esperando conectar")
+  fimse
+
+func tempo_exec
+  tempo = 3600
+  conec.msg("\n")
+
+func conec_err # Não conseguiu conectar
+  apagar(este), conexao2 = ""
+  msg("Erro ao conectar: " + arg0)
+
+func conec_con # Conectou
+  conec.proto = 2
+  tempo = 3600
+  msgini = 4
+  msg("Conectado")
+
+func conec_fechou
+  apagar(este)
+
+func conec_msg # Recebeu mensagem
+  indiceitem ind
+# telatxt tela
+# tela.msg("<< " + arg0 + "\n")
+  se conectando
+    se txt(arg0, 0, 1) == "+"
+      conectando = 0
+      conec.msg(proto2 + conexao3 + "\n")
+    senao
+      msg("Erro " + arg0)
+      apagar(este)
+    fimse
+    ret
+  fimse
+  casovar txtmai(txt(arg0, 0, 2))
+  casose "S+" # Nova sala
+    msgini = 0
+    salas.addfim(criar("jogobot_sala", indbs + txt(arg0, 2), este))
+    sair
+  casose "S-" # Sala fechou
+    apagar(ind.obj(indbs + txt(arg0, 2)))
+    sair
+  casose "S=" # Fim da lista de usuários da sala
+    ind.obj(indbs + txt(arg0, 2)).listafim
+    sair
+  casose "U+" # Usuário entrou
+    refvar obj = ind.obj(indbs + txt(txt1(arg0), 2))
+    obj && criar("jogobot_usr", indbu + txt2(arg0), obj)
+    sair
+  casose "U-" # Usuário saiu
+    apagar(ind.obj(indbu + txt2(arg0)))
+    sair
+  casose "UM" # Usuário escreveu mensagem
+    refvar obj = ind.obj(indbu + txtsub(arg0, 1, 1))
+    obj.recebe(txtsub(arg0, 2))
+    sair
+  casose "UA" # Usuário mudou de apelido
+    refvar obj = ind.obj(indbu + txtsub(arg0, 1, 1))
+    obj.novonome(indbu + txtsub(arg0, 2, 1))
+    sair
+  casose
+    se msgini
+      msgini--
+      msg("msg " + arg0)
+    fimse
+  casose ""
+  casofim
+
+
+classe jogobot_sala
+indiceobj nome
+listaobj usr
+int1 aberto
+ref jogobot
+
+func ini # Nova sala
+  nome = arg0
+  jogobot = arg1
+  ret config:modolocal, nulo
+  telatxt tela
+  tela.msg("S+  " + txt2(arg0) + "\n")
+
+func fim # Sala fechada
+  usr.apagar
+  ret config:modolocal, nulo
+  telatxt tela
+  tela.msg("S-  " + txt2(nome) + "\n")
+
+func msg
+  textotxt t1
+  t1.addfim(arg0)
+  enquanto t1.linhas
+    jogobot.conec.msg(txtsub(nome, 2) + " " + t1.remove + "\n")
+  efim
+
+func listafim # Recebeu toda a lista de usuários da sala
+  aberto = 1
+# msg(config:boasvindas)
+
+
+classe jogobot_usr
+herda jogsock
+indiceobj j_nome
+listaitem j_sala
+txt30 j_ip
+ref j_jogobot
+const info = "b " + j_ip + txt2(j_nome)
+const salaobj = arg0.addfim(j_sala.objlista.usr)
+
+func ini # Entrou na sala
+  j_nome = txtsub(arg0, 0, 3)
+  j_sala = arg1.usr.addfim(este) # Adiciona na sala
+  j_jogobot = arg1.jogobot
+  j_ip = txtsub(arg0, 3) ? txtsub(arg0, 3) + " " : "- "
+  se !config:modolocal
+    telatxt tela
+    tela.msg("U+  " + txt2(j_sala.objlista.nome) + " " + txtsub(j_nome, 2) + "\n")
+  fimse
+  jogsock:ini
+
+func fim # Saiu da sala
+  se !config:modolocal
+    telatxt tela
+    tela.msg("U-  " + txt2(j_nome) + "\n")
+  fimse
+  jogsock:fim
+
+func novonome # Mudou de apelido
+  se !config:modolocal
+    telatxt tela
+    tela.msg("Ua  " + txt2(j_nome) + " para " + txt2(arg0) + "\n")
+  fimse
+  j_nome = arg0
+
+func msgsock # Envia mensagem para o usuário
+  j_jogobot.tempo = 3600
+  textotxt t1
+  t1.addfim(arg0)
+  enquanto t1.linhas
+    refvar m = t1.remove
+    j_jogobot.conec.msg(txtsub(j_nome, 2) + " " + m + "\n")
+  efim
+
+func msgsala # Envia mensagem para todos da sala
+  j_sala.objlista.msg(arg0)
+
+func msgtodos # Envia mensagem para todos os jogadores
+  ref r
+  epara r = $jogobot_sala, r, r = objdepois(r)
+    r.msg(arg0)
+  efim
+
+
+classe jogobot2
+herda jogobot
+const proto1 = "bot2 "
+const proto2 = "#bot2 "

@@ -1,0 +1,16 @@
+classe cmd_mapear2
+herda comando_comum
+#
+const posic = 5
+#
+
+func escr
+  se !arg1
+    arg0.msg("Digite o nome da sala a mapear após mapear2.")
+  senao
+    refvar mapa = arg0.rastrearsala($s_[arg1])
+    textotxt t
+    epara t = mapa, t, t = txtsublin(t, 1, intsublin(t))
+      arg0.msg(txtsublin(t, 0, 1))
+    efim
+  fimse

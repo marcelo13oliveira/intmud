@@ -1,0 +1,1123 @@
+classe a_galbinia
+herda area
+const a_nome = "O reino de galbínia"
+const a_tempo = 10
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_galbinia
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_recup = 1
+const s_som = "reino"
+const s_area = "galbinia"
+
+
+classe i_galbinia001
+herda comum_itemgrupo
+const nome = "videira"
+const ident = "uva videira parreira"
+const descnome = "uma videira"
+const descpos = "aqui há algumas videiras, repletas de cachos de uvas."
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_pegarobj
+  se arg2 == este
+    refvar r = criar("i_galbinia002", arg0, 1)
+    $mens.p(arg0, este, r)
+    $mens.mvis1("$P pega $o $d $A.")
+    ret 1
+  fimse
+
+
+classe i_galbinia002
+herda comum_itemgrupo
+const nome = "uva"
+const descnome = "uma uva"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 30
+const f_sede = 10
+const f_diges = 60
+const f_msgperso = "$P saboreia uma deliciosa uva dos campos de galbínia!"
+
+
+classe i_galbinia003
+herda comum_itemperso
+const nome = "espada"
+const ident = "espada lâmina dupla"
+const descnome = "uma espada de lâmina dupla"
+const nivel = 310
+const armamax = 190
+const armamin = 140
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const valor = 1000000
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 40 * pnivel + 500
+  pmovemax += 10 * pnivel + 100
+  pveloc1 += 14 * pnivel + 100
+  atknorm += 15 * pnivel + 350
+  defnorm += 500
+  atkesp += 15 * pnivel + 200
+  precisao += 20 * pnivel + 200
+  atktipo.0 *= 1.4 # Tipos Normais
+  atktipo.1 *= 1.4 # Tipos Especiais
+  atktipo.3 *= 1.4 # luta
+  atktipo.4 *= 2.5 # Cortante
+
+
+classe i_galbinia004
+herda comum_itemgrupo
+const nome = "armadura"
+const descnome = "a armadura do soldado de galbínia"
+const nivel = 130
+const valor = 300000
+const vestir1 = 4096 # Aonde vestir: 12-no corpo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  defnorm += 200
+  deftipo.0 *= 1.05 # Tipos Normais
+  deftipo.2 *= 1.05 # Contusão
+  deftipo.3 *= 1.05 # luta
+  deftipo.4 *= 1.05 # Cortante
+  deftipo.5 *= 1.05 # Perfurante
+
+
+classe i_galbinia005
+herda comum_item
+const nome = "carruagem real"
+const descnome = "A carruagem real"
+const i_salas = "galbinia100"
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_galbinia006
+herda comum_itemperso
+const nome = "uma espada de cavaleiro"
+const descnome = "uma espada branca de lâminas douradas"
+const descpos = "com lâminas afiadas, e um intenço brilho, uma belíssima espada branca de \
+cavaleiro está pendurada em uma das paredes da sala."
+const renascer = 5
+const armamanual = 0 # Só ataca manual: Não
+const armamax = 1000
+const armamin = 500
+const armafalha = 0
+const armaaddprecisao = 500
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const valor = 300000000
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const quest = 5000
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1000 * pnivel + 100000
+  pmovemax += 500 * pnivel + 2500
+  pveloc1 += 500 * pnivel + 2500
+  atknorm += 800 * pnivel + 10000
+  defnorm += 1000 * pnivel + 10000
+  atkesp += 800 * pnivel + 10000
+  defesp += 1000 * pnivel + 10000
+  precisao += 400 * pnivel + 650
+  atktipo.0 *= 1.5 # Tipos Normais
+  atktipo.1 *= 1.5 # Tipos Especiais
+  atktipo.2 *= 1.1 # Contusão
+  atktipo.3 *= 1.1 # luta
+  atktipo.4 *= 2 # Cortante
+
+const manterperso = 1 # Mantém em jogador: Sim
+const i_som_emp1 = "desembanha"
+const m_atribs2 = "( Protegid$s por lâminas douradas,"
+#
+
+func cmd_pegarobj
+  se arg2 == este && !arg0.j_imortal
+    $mens.p(arg0, nulo, este)
+    $mens.mtodos1("ao tentar pegar uma espada de lâminas douradas, $P sente as lâminas perfurando\
+ todo seu corpo,lhe tirando sua vitalidade.")
+    arg0.morreu
+    ret 1
+  fimse
+
+
+classe i_galbinia007
+herda comum_item
+const nome = "chave"
+const ident = "chave enferrujada"
+const descnome = "uma chave de metal enferrujada"
+const i_chave = "galb001"
+
+
+classe i_galbinia008
+herda comum_item
+const nome = "chave"
+const ident = "chave enferrujada"
+const descnome = "uma chave de metal enferrujada"
+const i_chave = "galb002"
+
+
+classe i_galbinia009
+herda comum_item
+const nome = "chave enferrujada"
+const descnome = "uma chave de metal enferrujada"
+const i_chave = "galb003"
+
+
+classe i_galbinia010
+herda comum_item
+
+
+classe i_galbinia011
+herda comum_itemperso
+const nome = "um peitoral de bronze"
+const descnome = "um peitoral de bronze"
+const descpos = "um peitoral de bronze está jogado aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 50
+const pesoobj = 1
+const valor = 75000
+const vestir1 = 268435456 # Aonde vestir: 28-No busto
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5 * pnivel + 200
+  pmovemax += 200
+  pveloc1 += 50
+
+
+classe p_galbinia001
+herda comum_persobat
+const nome = "soldado de galbínia"
+const ident = "soldado"
+const descnome = "um soldado de galbínia"
+const descpadr = "Um soldado de Galbínia está aqui, tentando manter a paz no reino."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 311
+const tipo1 = "humano"
+const tipo2 = "soldado"
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_atktipo = "bater"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 6000
+const p_morreu1 = "\d=homemmorto Triste por não ter cumprido seu papel, $P abandona este \
+mundo."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 200
+const inivar = "h_lâmina_longa=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200 * pnivel + 5000
+  pmanamax += 500 * pnivel + 4000
+  atknorm += 2 * pnivel + 300
+  defnorm += 1 * pnivel + 200
+
+
+classe p_galbinia002
+herda comum_persobat
+const nome = "camponês"
+const ident = "homem camponês"
+const descnome = "um camponês"
+const descpadr = "Um camponês caminha pelo campo, observando as plantações."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 308
+const p_atk_anda = 1 # Anda ataque: Sim
+const p_atk_desvia = 0 # Desvia ataque: Não
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 8000
+const p_fugir = 300
+const p_morreu1 = "\d=homemmorto $P é golpeado pela morte e cai ao gramado já sem vida."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 200
+const inivar = "h_massacrar=8,z_moedas=375000"
+
+
+classe p_galbinia003
+herda comum_persobat
+const nome = "Uma camponesa"
+const descnome = "Uma camponesa"
+const descpadr = "Uma camponesa caminha por aqui, admirando as flores do campo."
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const nivel = 270
+const tipo1 = "normal"
+const tipo2 = "elfo"
+const tipo3 = "guerreiro"
+const p_exp = 9000
+const p_lembra = 3
+const p_morreu1 = "\d=mulhermorta $P solta um grito aterrorizante e cai em meio ao gramado."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 150
+const p_naoresg = 1 # Sem resgate: Sim
+const p_persegue = 2 # Persegue jogadores: 2 Qualquer lugar se atacarem
+const inivar = "var.z_moedas=700000,h_chutar=8,h_voadora=8"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+
+classe p_galbinia004
+herda comum_persobat
+const nome = "Mônica"
+const ident = "jovem mulher mônica bibliotecária"
+const descnome = "Mônica, a bibliotecária"
+const descpadr = "Uma jovem mulher está atrás de uma escrivaninha, observando o movimento na \
+biblioteca."
+const nivel = 350
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 10000
+const inivar = "h_socar=8,h_chutar=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 40 * pnivel + 40000
+  atknorm += 20 * pnivel + 2000
+  defnorm += 25 * pnivel + 5000
+
+
+classe p_galbinia005
+herda comum_persobat
+const nome = "cavalheiro"
+const ident = "jovem cavalheiro homem"
+const descnome = "um jovem cavalheiro"
+const descpadr = "Um jovem cavalheiro caminha pelo castelo."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 380
+const pospadr = 8 # Posição padrão: 8 Em pé
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 10000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 400
+const inivar = "h_socar=8,h_chutar=8,h_gancho=5,z_moedas=5000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 40 * pnivel + 3000
+  atknorm += 30 * pnivel + 3000
+  defnorm += 40 * pnivel + 4000
+
+
+classe p_galbinia006
+herda comum_persobat
+
+
+classe p_galbinia007
+herda comum_persobat
+const nome = "bandido mascarado"
+const descnome = "um bandido mascarado"
+const descpadr = "Um bandido mascarado esconde-se por trás das sombras e do mato alto."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 380
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas, somem com o corpo
+const p_exp = 5000
+const inivar = "h_voadora=6,h_rasteira=6,z_moedas=100000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 400 * pnivel + 100000
+  pveloc1 += 500
+  atknorm += 10 * pnivel + 20000
+  defnorm += 25 * pnivel + 50000
+  defesp += 20 * pnivel + 550000
+  evasao += 5 * pnivel + 500
+  precisao += 5 * pnivel + 500
+
+
+classe p_galbinia036
+herda comum_persobat
+
+
+classe p_galbinia052
+herda comum_persobat
+const nome = "a governanta do castelo"
+const descnome = "a governanta"
+const descpadr = "a governanta do castelo está aqui, organizando algumas coisas para o rei."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const pesoobj = 700
+const nivel = 360
+const tipo1 = "humana"
+const tipo2 = "guerreira"
+const p_corpo = 0 # Corpo: 0 Não deixa corpo
+const p_exp = 9000
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 40 * pnivel + 4500
+  atknorm += 45 * pnivel + 4000
+  defnorm += 50 * pnivel + 4400
+  bitver |= 6172
+
+
+classe p_galbinia053
+herda comum_persobat
+const nome = "um criado do reino"
+const descnome = "um criado do reino"
+const descpadr = "um criado do reino caminha apreçadamente pelo castelo."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 500
+const nivel = 370
+const tipo1 = "humano"
+const tipo2 = "criança"
+const p_corpo = 0 # Corpo: 0 Não deixa corpo
+const p_exp = 8500
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 48 * pnivel + 4200
+  atknorm += 45 * pnivel + 4500
+  defnorm += 50 * pnivel + 4100
+  bitver |= 6172
+
+
+classe p_galbinia054
+herda comum_persobat
+const nome = "o rei galbinio"
+const descnome = "o rei galbinio"
+const descpadr = "o rei galbinio está aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 700
+const nivel = 400
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 1 # Corpo: 1 Deixa corpo vazio
+const p_exp = 10000
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50 * pnivel + 5000
+  atknorm += 40 * pnivel + 400
+  defnorm += 55 * pnivel + 4500
+  bitver |= 6172
+
+
+classe p_galbinia055
+herda comum_persobat
+const nome = "o príncipe gálbio"
+const descnome = "o príncipe gálbio"
+const descpadr = "o príncipe gálbio paceia por aqui, contemplando a beleza de seu reino."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 700
+const nivel = 400
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 0 # Corpo: 0 Não deixa corpo
+const p_exp = 9500
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 55 * pnivel + 5000
+  atknorm += 53 * pnivel + 5000
+  defnorm += 50 * pnivel + 4500
+  bitver |= 6172
+
+
+classe s_galbinia001
+herda b_galbinia
+const s_titulo = "Dentro dos portões do reino."
+const s_desc = "emitindo um forte brilho, uma placa de prata está aqui com alguns dizeres \
+escrito a ouro."
+const dir_l = $s_galbinia002
+const dir_o = $s_cemiterio032
+const ver_placa = "Bem-vindo ao reino de galbinia!"
+
+
+classe s_galbinia002
+herda b_galbinia
+const s_titulo = "Nos limites do reino de Galbínia"
+const dir_l = $s_galbinia003
+const dir_o = $s_galbinia001
+
+
+classe s_galbinia003
+herda b_galbinia
+const s_titulo = "uma estrada de pedra"
+const dir_l = $s_galbinia004
+const dir_o = $s_galbinia002
+
+
+classe s_galbinia004
+herda b_galbinia
+const s_titulo = "Uma estrada de pedra"
+const dir_l = $s_galbinia005
+const dir_o = $s_galbinia003
+const a_reset = "P 100 galbinia001 0 0 8 h_gancho=8,h_lâmina_curta=8,z_moedas=500000\n\
+E 75 galbinia003 1 0\n\
+E 100 galbinia004 1 13"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_galbinia001:objsolto.total < 8
+    p = u = criar("p_galbinia001", este, 0, "h_gancho=8,h_lâmina_curta=8,z_moedas=500000")
+  fimse
+  se u && rand(100) < 75
+    r = criar("i_galbinia003", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+  se u
+    r = criar("i_galbinia004", u, 1), r.vestir(13), u.recalc = 1
+  fimse
+
+
+classe s_galbinia005
+herda b_galbinia
+const s_titulo = "Uma estrada de pedra"
+const dir_n = $s_galbinia006
+const dir_l = $s_galbinia016
+const dir_o = $s_galbinia004
+
+
+classe s_galbinia006
+herda b_galbinia
+const s_titulo = "Uma ponte"
+const s_pnj = 0
+const dir_n = $s_galbinia007
+const dir_s = $s_galbinia005
+
+
+classe s_galbinia007
+herda b_galbinia
+const s_titulo = "Uma ponte"
+const dir_n = $s_galbinia008
+const dir_s = $s_galbinia006
+
+
+classe s_galbinia008
+herda b_galbinia
+const s_titulo = "No meio da ponte"
+const dir_n = $s_galbinia009
+const dir_s = $s_galbinia007
+
+
+classe s_galbinia009
+herda b_galbinia
+const s_titulo = "Uma ponte"
+const dir_n = $s_galbinia010
+const dir_s = $s_galbinia008
+
+
+classe s_galbinia010
+herda b_galbinia
+const s_titulo = "No fim da ponte."
+const dir_s = $s_galbinia009
+const dir_b = $s_galbinia011
+
+
+classe s_galbinia011
+herda b_galbinia
+const s_titulo = "Do outro lado da ponte"
+const dir_n = $s_galbinia014
+const dir_c = $s_galbinia010
+
+
+classe s_galbinia012
+herda b_galbinia
+const s_titulo = "Diante dos enormes portões de madeira do castelo."
+const s_pnj = 0
+const dir_s = $s_galbinia040
+const dir_b = $s_galbinia015
+const dir_entrar = $s_galbinia013
+const portanome_entrar = "Os enormes portões de madeira do castelo"
+const portaartigo_entrar = 3 # Artigo porta: 3 os (portões)
+const fecha_entrar = 1 # Fecha ao passar: Sim
+const s_reset = "P 100 galbinia001 0 0 3"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_galbinia001:objsolto.total < 3
+    criar("p_galbinia001", este, 0)
+  fimse
+
+
+classe s_galbinia013
+herda b_galbinia
+const s_titulo = "O hall de entrada do castelo."
+const dir_n = $s_galbinia026
+const dir_s = $s_galbinia033
+const dir_sair = $s_galbinia012
+const portanome_sair = "os portões do castelo"
+const portaartigo_sair = 3 # Artigo porta: 3 os (portões)
+
+
+classe s_galbinia014
+herda b_galbinia
+const s_titulo = "Na base de uma bela escadaria de mármore"
+const dir_s = $s_galbinia011
+const dir_c = $s_galbinia015
+
+
+classe s_galbinia015
+herda b_galbinia
+const s_titulo = "Na escadaria do castelo"
+const dir_c = $s_galbinia012
+const dir_b = $s_galbinia014
+
+
+classe s_galbinia016
+herda b_galbinia
+const s_titulo = "Continuação da estrada"
+const dir_l = $s_galbinia017
+const dir_o = $s_galbinia005
+
+
+classe s_galbinia017
+herda b_galbinia
+const s_titulo = "O fim da estrada de pedra"
+const dir_s = $s_galbinia019
+const dir_o = $s_galbinia016
+
+
+classe s_galbinia018
+herda b_galbinia
+const s_titulo = ""
+const dir_o = $s_galbinia017
+
+
+classe s_galbinia019
+herda b_galbinia
+const s_titulo = "O campo de galbínia"
+const s_pnj = 0
+const dir_n = $s_galbinia017
+const dir_s = $s_galbinia020
+const a_reset = "P 100 galbinia003 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_galbinia003:objsolto.total < 10
+    criar("p_galbinia003", este, 0)
+  fimse
+
+
+classe s_galbinia020
+herda b_galbinia
+const s_titulo = "O campo de Galbínia."
+const dir_n = $s_galbinia019
+const dir_s = $s_galbinia021
+const dir_o = $s_galbinia025
+const a_reset = "P 100 galbinia002 305 309 8 h_socar=8,h_chutar=8,h_massacrar=6,z_moedas=375000\n\
+P 100 galbinia003 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_galbinia002:objsolto.total < 8
+    criar("p_galbinia002", este, rand(305, 309), "h_socar=8,h_chutar=8,h_massacrar=6,z_moedas=375\
+000")
+  fimse
+  se p_galbinia003:objsolto.total < 10
+    criar("p_galbinia003", este, 0)
+  fimse
+
+
+classe s_galbinia021
+herda b_galbinia
+const s_titulo = "O campo de galbínia"
+const dir_n = $s_galbinia020
+const dir_s = $s_galbinia022
+const dir_o = $s_galbinia024
+const a_reset = "P 100 galbinia003 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_galbinia003:objsolto.total < 10
+    criar("p_galbinia003", este, 0)
+  fimse
+
+
+classe s_galbinia022
+herda b_galbinia
+const s_titulo = "O campo de galbínia"
+const dir_n = $s_galbinia021
+const dir_l = $s_galbinia039
+const dir_o = $s_galbinia023
+const a_reset = "P 100 galbinia003 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_galbinia003:objsolto.total < 10
+    criar("p_galbinia003", este, 0)
+  fimse
+
+
+classe s_galbinia023
+herda b_galbinia
+const s_titulo = "Em meio a uma plantação de uvas"
+const dir_n = $s_galbinia024
+const dir_l = $s_galbinia022
+const a_reset = "S 100 galbinia001 1 S\nP 100 galbinia003 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_galbinia001") && criar("i_galbinia001", este, 1)
+  se p_galbinia003:objsolto.total < 10
+    criar("p_galbinia003", este, 0)
+  fimse
+
+
+classe s_galbinia024
+herda b_galbinia
+const s_titulo = "Em meio a uma plantação de uvas"
+const dir_n = $s_galbinia025
+const dir_s = $s_galbinia023
+const dir_l = $s_galbinia021
+const a_reset = "S 100 galbinia001 1 S\nP 100 galbinia003 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_galbinia001") && criar("i_galbinia001", este, 1)
+  se p_galbinia003:objsolto.total < 10
+    criar("p_galbinia003", este, 0)
+  fimse
+
+
+classe s_galbinia025
+herda b_galbinia
+const s_titulo = "Em meio a uma plantação de uvas"
+const dir_s = $s_galbinia024
+const dir_l = $s_galbinia020
+const a_reset = "S 100 galbinia001 1 S\nP 100 galbinia003 0 0 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_galbinia001") && criar("i_galbinia001", este, 1)
+  se p_galbinia003:objsolto.total < 10
+    criar("p_galbinia003", este, 0)
+  fimse
+
+
+classe s_galbinia026
+herda b_galbinia
+const s_titulo = "O grande salão principal"
+const dir_s = $s_galbinia013
+const a_reset = "P 100 galbinia005 0 0 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_galbinia005:objsolto.total < 3
+    criar("p_galbinia005", este, 0)
+  fimse
+
+
+classe s_galbinia027
+herda b_galbinia
+const s_titulo = "Um corredor iluminado"
+const dir_l = $s_galbinia028
+const dir_o = $s_galbinia035
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "a porta da biblioteca"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_galbinia028
+herda b_galbinia
+const s_titulo = "Um corredor iluminado"
+const dir_l = $s_galbinia029
+const dir_o = $s_galbinia027
+
+
+classe s_galbinia029
+herda b_galbinia
+const s_titulo = "A biblioteca do castelo"
+const s_pnj = 0
+const dir_l = $s_galbinia030
+const dir_o = $s_galbinia028
+
+
+classe s_galbinia030
+herda b_galbinia
+const s_titulo = "Caminhando entre estantes de livros"
+const dir_l = $s_galbinia031
+const dir_o = $s_galbinia029
+
+
+classe s_galbinia031
+herda b_galbinia
+const s_titulo = "Caminhando entre estantes de livros"
+const dir_l = $s_galbinia032
+const dir_o = $s_galbinia030
+
+
+classe s_galbinia032
+herda b_galbinia
+const s_titulo = "Em frente a uma escrivaninha"
+const dir_o = $s_galbinia031
+const a_reset = "P 100 galbinia004 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_galbinia004:objsolto.total < 1
+    criar("p_galbinia004", este, 0)
+  fimse
+
+
+classe s_galbinia033
+herda b_galbinia
+const s_titulo = "No início de um longo corredor"
+const s_pnj = 0
+const dir_n = $s_galbinia013
+const dir_s = $s_galbinia034
+
+
+classe s_galbinia034
+herda b_galbinia
+const s_titulo = "No meio do corredor"
+const dir_n = $s_galbinia033
+const dir_s = $s_galbinia046
+
+
+classe s_galbinia035
+herda b_galbinia
+const s_titulo = "No centro do castelo"
+const dir_n = $s_galbinia046
+const dir_l = $s_galbinia027
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "a porta da biblioteca"
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_galbinia036
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "a porta da moradia real"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_galbinia036
+herda b_galbinia
+const s_titulo = "a enorme sala do castelo"
+const dir_n = $s_galbinia038
+const dir_s = $s_galbinia037
+const dir_l = $s_galbinia035
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "a porta da sala"
+const dir_o = $s_galbinia048
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_galbinia037
+herda b_galbinia
+const s_titulo = "banheiro principal"
+const dir_n = $s_galbinia036
+
+
+classe s_galbinia038
+herda b_galbinia
+const s_titulo = "Próximo aos aposentos reais"
+const dir_n = $s_galbinia069
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "a porta da sacada"
+const dir_s = $s_galbinia036
+const dir_l = $s_galbinia055
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "a porta do quarto"
+const dir_o = $s_galbinia054
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "uma pesada porta com maçaneta dourada"
+
+
+classe s_galbinia039
+herda b_galbinia
+const s_titulo = "Distanciando-se do campo"
+const s_pnj = 0
+const dir_l = $s_galbinia042
+const dir_o = $s_galbinia022
+
+
+classe s_galbinia040
+herda b_galbinia
+const s_titulo = "no pátio do castelo"
+const dir_n = $s_galbinia012
+const dir_s = $s_galbinia041
+
+
+classe s_galbinia041
+herda b_galbinia
+const s_titulo = "no fim do pátio"
+const dir_n = $s_galbinia040
+
+
+classe s_galbinia042
+herda b_galbinia
+const s_titulo = "No início de uma estrada deserta"
+const dir_l = $s_galbinia043
+const dir_o = $s_galbinia039
+
+
+classe s_galbinia043
+herda b_galbinia
+const s_titulo = "A estrada deserta"
+const dir_l = $s_galbinia044
+const dir_o = $s_galbinia042
+
+
+classe s_galbinia044
+herda b_galbinia
+const s_titulo = "A continuação da estrada"
+const dir_l = $s_galbinia045
+const dir_o = $s_galbinia043
+
+
+classe s_galbinia045
+herda b_galbinia
+const s_titulo = "Um desvio na estrada"
+const dir_s = $s_galbinia047
+const dir_o = $s_galbinia044
+
+
+classe s_galbinia046
+herda b_galbinia
+const s_titulo = "no fim de um longo corredor."
+const dir_n = $s_galbinia034
+const dir_s = $s_galbinia035
+
+
+classe s_galbinia047
+herda b_galbinia
+const s_titulo = "uma trilha escura na estrada"
+const s_luz = 3 # Luz: 3 Escuro
+const dir_n = $s_galbinia045
+const dir_s = $s_galbinia057
+
+
+classe s_galbinia048
+herda b_galbinia
+const s_titulo = "em um pequeno corredor"
+const dir_n = $s_galbinia049
+const dir_l = $s_galbinia036
+
+
+classe s_galbinia049
+herda b_galbinia
+const s_titulo = "no meio do pequeno corredor."
+const dir_n = $s_galbinia050
+const dir_s = $s_galbinia048
+const dir_l = $s_galbinia053
+const dir_o = $s_galbinia052
+const portaini_o = 0 # Estado inicial: 0 Sem porta
+
+
+classe s_galbinia050
+herda b_galbinia
+const s_titulo = "no fim do pequeno corredor"
+const dir_s = $s_galbinia049
+const dir_o = $s_galbinia051
+
+
+classe s_galbinia051
+herda b_galbinia
+const s_titulo = "a ampla cozinha do castelo"
+const dir_l = $s_galbinia050
+const dir_o = $s_galbinia056
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "a porta da dispença"
+
+
+classe s_galbinia052
+herda b_galbinia
+const s_titulo = "o pequeno quarto da governanta do castelo."
+const dir_l = $s_galbinia049
+const a_reset = "P 100 galbinia052 360 365 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_galbinia052:objsolto.total < 2
+    criar("p_galbinia052", este, rand(360, 365))
+  fimse
+
+
+classe s_galbinia053
+herda b_galbinia
+const s_titulo = "no quarto dos criados"
+const dir_o = $s_galbinia049
+const a_reset = "P 100 galbinia053 370 380 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_galbinia053:objsolto.total < 3
+    criar("p_galbinia053", este, rand(370, 380))
+  fimse
+
+
+classe s_galbinia054
+herda b_galbinia
+const s_titulo = "os aposentos do rei!"
+const dir_l = $s_galbinia038
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "a porta dos aposentos do rei"
+const a_reset = "P 100 galbinia054 400 400 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_galbinia054:objsolto.total < 1
+    criar("p_galbinia054", este, 400)
+  fimse
+
+
+classe s_galbinia055
+herda b_galbinia
+const s_titulo = "nos aposentos do príncipe"
+const dir_o = $s_galbinia038
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "a porta do quarto"
+const a_reset = "P 100 galbinia055 400 400 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_galbinia055:objsolto.total < 1
+    criar("p_galbinia055", este, 400)
+  fimse
+
+
+classe s_galbinia056
+herda b_galbinia
+const s_titulo = "a dispença do castelo."
+const dir_l = $s_galbinia051
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "a porta da dispença"
+
+
+classe s_galbinia057
+herda b_galbinia
+const s_titulo = "Na escuridão da estrada"
+const s_luz = 3 # Luz: 3 Escuro
+const dir_n = $s_galbinia047
+const dir_entrar = $s_galbinia058
+const portaini_entrar = 2 # Estado inicial: 2 Porta fechada
+const portanome_entrar = "uma porta coberta de cupins"
+
+
+classe s_galbinia058
+herda b_galbinia
+const s_titulo = "Uma cabana abandonada na estrada"
+const dir_s = $s_galbinia059
+const dir_sair = $s_galbinia057
+const portaini_sair = 2 # Estado inicial: 2 Porta fechada
+const portanome_sair = "uma porta coberta de cupins"
+const fecha_sair = 1 # Fecha ao passar: Sim
+
+
+classe s_galbinia059
+herda b_galbinia
+const s_titulo = "Nos fundos da cabana"
+const dir_n = $s_galbinia058
+const dir_s = $s_galbinia061
+const dir_l = $s_galbinia062
+const dir_o = $s_galbinia060
+
+
+classe s_galbinia060
+herda b_galbinia
+const s_titulo = "Um matagal"
+const dir_l = $s_galbinia059
+const dir_b = $s_galbinia063
+const portaini_b = 3 # Estado inicial: 3 Porta trancada
+const portanome_b = "uma passagem coberta por mato"
+const fechadura_b = "galb002"
+const fecha_b = 1 # Fecha ao passar: Sim
+const tranc_b = 2 # Trancar: 2 Tranca ao fechar
+const a_reset = "P 100 galbinia007 380 420 3\nI 100 galbinia008 1\nD 100 b 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  se p_galbinia007:objsolto.total < 3
+    p = u = criar("p_galbinia007", este, rand(380, 420))
+  fimse
+  u && criar("i_galbinia008", u, 1)
+  mudaporta("b", 3)
+
+
+classe s_galbinia061
+herda b_galbinia
+const s_titulo = "Um matagal"
+const dir_n = $s_galbinia059
+const dir_b = $s_galbinia065
+const portaini_b = 3 # Estado inicial: 3 Porta trancada
+const portanome_b = "Uma passagem coberta por mato"
+const fechadura_b = "galb003"
+const fecha_b = 1 # Fecha ao passar: Sim
+const tranc_b = 2 # Trancar: 2 Tranca ao fechar
+const a_reset = "P 100 galbinia007 380 420 3 i2\nI 100 galbinia009 1\nD 100 b 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  se p_galbinia007:objsolto.total < 3
+    p = u = criar("p_galbinia007", este, rand(380, 420), "i2")
+  fimse
+  u && criar("i_galbinia009", u, 1)
+  mudaporta("b", 3)
+
+
+classe s_galbinia062
+herda b_galbinia
+const s_titulo = "Um matagal"
+const dir_o = $s_galbinia059
+const dir_b = $s_galbinia064
+const portaini_b = 3 # Estado inicial: 3 Porta trancada
+const portanome_b = "uma passagem coberta por mato"
+const fechadura_b = "galb001"
+const fecha_b = 1 # Fecha ao passar: Sim
+const a_reset = "P 100 galbinia007 380 420 3\nI 100 galbinia007 1\nD 100 b 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  se p_galbinia007:objsolto.total < 3
+    p = u = criar("p_galbinia007", este, rand(380, 420))
+  fimse
+  u && criar("i_galbinia007", u, 1)
+  mudaporta("b", 3)
+
+
+classe s_galbinia063
+herda b_galbinia
+const s_titulo = "Um cativeiro"
+const dir_c = $s_galbinia060
+
+
+classe s_galbinia064
+herda b_galbinia
+const s_titulo = "um cativeiro"
+const dir_c = $s_galbinia062
+
+
+classe s_galbinia065
+herda b_galbinia
+const s_titulo = "Um  cativeiro"
+const dir_c = $s_galbinia061
+
+
+classe s_galbinia069
+herda b_galbinia
+const s_titulo = "na sacada do castelo."
+const s_desc = "você está em uma bela sacada. as grades que faz a segurança do local é feita a \
+ouro e prata. olhando para baixo, você tem uma visão deslumbrante e privilegiada do reino de \
+galbinia."
+const dir_s = $s_galbinia038
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "a porta da sacada"
+const ver_baixo = "ao olhar para baixo, você si maravilha ao ver tanta beleza em um só lugar. \
+daqui você tem a bela visão de todo o reino de galbinia. você consegue ver as flores do campo,as \
+videiras, os camponeses, e todos os súditos do reino."
+
+
+classe s_galbinia100
+herda b_galbinia
+const s_titulo = "Dentro da carruagem real"
+const s_entrada = "A entrada da carruagem"

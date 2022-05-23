@@ -1,0 +1,62 @@
+classe cmd_bug
+herda comando_comum
+const objcmd = config:bugtipo ? este
+const objnivel = 4
+const txtajuda = config:bugtipo ? txtajuda1
+const txtajuda1 = "\b\c3Bug\b\n\
+Sintaxe: BUG <mensagem>\n\
+Envia mensagem para os administradores para relatar bugs (erros no jogo,\n\
+geralmente erros de programação)"
+const posic = 0
+
+func escr
+  refvar perm_msg = $perm_[arg0.jogperm].c_bug
+  se perm_msg
+    $mensjog.msg(perm_msg, arg0)
+  senao arg0.pnivel < config:bugnivel
+    arg0.msg("Para usar o comando BUG você precisa estar no nível " + config:bugnivel + ".")
+  senao !arg1
+    arg0.msg("Tecle a mensagem após BUG.")
+  senao
+    $misclog.bug("bug " + arg0.nome + ": " + arg1)
+    $mens.p(arg0)
+    $mens.mens = arg1
+    $mens.msg(config:bug2msg, arg0)
+    indiceitem item
+    epara item.ini("un "), txt1(item.txt) == "un", item.depois
+      continuar !$perm_[item.obj.jogperm].c_rezou || item.obj.perso.var.u_[arg0.nome]
+      $mens.msg(config:bug1msg, item.obj.perso)
+    efim
+  fimse
+
+
+classe cmd_ideia
+herda comando_comum
+const objcmd = config:ideiatipo ? este
+const objnivel = 4
+const txtajuda = config:ideiatipo ? txtajuda1
+const txtajuda1 = "\b\c3Ideia\b\n\
+Sintaxe: IDEIA <mensagem>\n\
+Envia mensagem para os administradores sobre ideias para o jogo."
+const posic = 0
+
+func escr
+  refvar perm_msg = $perm_[arg0.jogperm].c_ideia
+  se perm_msg
+    $mensjog.msg(perm_msg, arg0)
+  senao arg0.pnivel < config:ideianivel
+    arg0.msg("Para usar o comando IDEIA você precisa estar no nível " + config:ideianivel + \
+".")
+  senao !arg1
+    arg0.msg("Tecle a mensagem após IDEIA.")
+  senao
+    $misclog.ideia("ideia " + arg0.nome + ": " + arg1)
+    $mens.p(arg0)
+    $mens.mens = arg1
+    $mens.msg(config:ideia2msg, arg0)
+    indiceitem item
+    epara item.ini("un "), txt1(item.txt) == "un", item.depois
+      continuar !$perm_[item.obj.jogperm].c_rezou || item.obj.perso.var.u_[arg0.nome]
+      $mens.msg(config:ideia1msg, item.obj.perso)
+    efim
+  fimse

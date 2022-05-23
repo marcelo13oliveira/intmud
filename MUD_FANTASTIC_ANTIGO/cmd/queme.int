@@ -1,0 +1,34 @@
+classe cmd_queme
+herda comando_comum
+const posic = 0
+const txtajuda = "\b\c3Queme sintaxe: mostra informações sobre um jogador existente em nosso \
+mundo."
+sav txt20 nome # Nome do personagem
+txt100 cnome # Para obter o nome codificado
+sav int1 psexo
+sav uint16 pnivel
+sav uint16 prenascer
+sav txt32 tipo1
+sav txt32 tipo2
+sav txt32 tipo3
+sav int32 tempojogo1
+sav uint16 tempojogo2
+
+func escr
+  ret !arg1, arg0.msg("Qual o nome do jogador a investigar?")
+# Obtém: p = objeto do personagem
+  ref p # Objeto do personagem
+  refvar nomesav = txts(txtnome(arg1))
+  p = indice.obj("pn " + nomesav)
+  ret intnome(arg1), arg0.msg("Nome inválido para jogador: " + arg1)
+  arqsav sav1
+  listaobj l1
+  p = este, l1.addfim(p)
+  p.cnome = "x " + nomesav
+  ret arg0.msg("Jogador ainda não existe.")
+  enquanto1
+  textotxt
+  txt100 lin
+  lin = p.psexo ? "Jogador " : "Jogadora"
+  t.addfim(lin + p.nome + (p.var.z_titulo ? ", " + p.var.z_titulo) + "\b")
+  t.addfim("Nível: " + (p.prenascer ? "R" + p.prenascer + " ") + p.pnivel)

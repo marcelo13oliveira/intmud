@@ -1,0 +1,164 @@
+classe cmd_dar
+herda comando_comum
+const txtajuda = config:animal1 ? ta2 : ta1
+const ta1 = "\b\c3Dar\b\n\
+Sintaxe: DAR <objeto> <personagem>\n\
+Dá um objeto para outro personagem."
+const ta2 = "\b\c3Dar\b\n\
+Sintaxe: DAR <objeto> <personagem>\n\
+         DAR <número do animal> <personagem>\n\
+Dá um objeto ou animal para outro personagem."
+const posic = 5
+#
+ref sala # Para quem dar os itens
+uint32 total # Quantidade de itens do mesmo tipo
+int8 achou # Quantos itens achou
+txt100 erro # Mensagem de erro
+
+func escr
+  refvar perm_msg = $perm_[arg0.jogperm].item
+  ret perm_msg, $mensjog.msg(perm_msg, arg0)
+  listaobj l
+  epara l.addfim(arg0.evento), l, l.ini.remove
+    ret l.objini.cmd_dar(arg0, arg1), nulo
+  efim
+# Dar animal a outro personagem
+  se txt1(arg1) == intpos(arg1) && int(arg1) && intsub(arg1) <= 2 && config:animal1 >= arg1
+    refvar r = arg0.animalnum(arg1)
+    ret !r, arg0.msg("Você não possui " + arg1 + ".")
+    ret r.p_soltar, arg0.msg("Não é possível dar esse animal.")
+    ret !txt2(arg1), arg0.msg("Dar " + arg1 + " para quem?")
+    listaobj l
+    nomeobj n
+    n.ini(txt2(arg1), 1)
+    epara l.addfim(arg0.dono.dentro2), l, l.ini.remove
+      continuar !l.objini.visivel(arg0) || !n.nome(l.objini.ident)
+      ret daranimal(arg0, l.objini, r)
+    efim
+    ret arg0.msg("Você não vê " + txt2(arg1) + ".")
+  fimse
+# Obtém para quem dar
+  misc:separa(arg1) # Separa nome do objeto do nome do alvo
+  ret !misc:sep2, arg0.msg("Dar itens para quem?")
+  sala = misc:persodono(arg0, misc:sep2) # Procura o alvo para o personagem arg0
+  se !sala
+    ret arg0.msg("Você não vê " + misc:sep2 + ".")
+  senao !sala.p_recebe(arg0)
+    ret arg0.msg("Não é possível dar nada para " + sala.descnome + ".")
+  senao sala == arg0
+    ret arg0.msg("Dar para você mesm" + (arg0.msexo ? "o?" : "a?"))
+  fimse
+  nomeobj n # Para reconhecer os itens
+  n.ini(misc:sep1, misc:objmax, misc:tudo)
+# Dá os itens
+  achou = 0, erro = "Você não vê isso."
+  epara l.addfim(arg0.dentro1), l, l.ini.remove
+    continuar !l.objini.visivel(arg0) || !n.nome(l.objini.ident, l.objini.objtot)
+    total = n # Quantidade de itens
+    darobj(arg0, sala, l.objini)
+    sair achou >= 10
+  efim
+  ret achou, nulo
+# Dá moedas
+  se arg0.var.z_moedas_ && n.nome("moedas", arg0.var.z_moedas_)
+    total = n
+    ret darmoedas(arg0, sala)
+  fimse
+# Não encontrou o item
+  arg0.msg(erro)
+
+func daranimal
+# arg0=quem está dando, arg1=destino, arg2=animal
+  se arg1 == arg0
+    ret arg0.msg("Dar para você mesm" + (arg0.msexo ? "o?" : "a?"))
+  senao !arg1.jog
+    ret arg0.msg(txtcopiamai(arg1.descnome, "A") + " não é jogador.")
+  senao !arg1.animalmais
+    ret arg0.msg(txtcopiamai(arg1.descnome, "A") + " não tem espaço para receber animal.")
+  fimse
+  listaobj e
+  epara e.addfim(arg0.evento), e, e.ini.remove
+    ret e.objini.cmd_daranim(arg0, arg1, arg2, arg0), nulo
+  efim
+  epara e.addfim(arg1.evento), e, e.ini.remove
+    ret e.objini.cmd_daranim(arg0, arg1, arg2, arg1), nulo
+  efim
+  epara e.addfim(arg2.evento), e, e.ini.remove
+    ret e.objini.cmd_daranim(arg0, arg1, arg2, arg2), nulo
+  efim
+  ret arg2.dono != arg0, nulo # Retorna se não possui mais o animal
+  ret !arg1.animalmais, nulo
+  arg0.recalc = 1, arg1.recalc = 1 # Acerta personagens
+  arg2.mdono(arg1) # Muda de dono
+  arg0.persobat == arg2 && (arg0.persobat = arg0)
+  arg0.persoesc == arg2 && (arg0.persoesc = arg0)
+  arg0.escolhebat # Escolhe um animal em condições de batalhar
+  $mens.p(arg0, arg1)
+  $mens.mvis1("$P dá " + arg2.descnome + " para $a.")
+  epara e.addfim(arg0.evento), e, e.ini.remove
+    e.objini.cmd_deunim(arg0, arg1, arg2, arg0)
+  efim
+  epara e.addfim(arg1.evento), e, e.ini.remove
+    e.objini.cmd_deunim(arg0, arg1, arg2, arg1)
+  efim
+  epara e.addfim(arg2.evento), e, e.ini.remove
+    e.objini.cmd_deunim(arg0, arg1, arg2, arg2)
+  efim
+
+func darobj
+# arg0=personagem, arg1=para quem dar, arg2=item que quer dar, total=quantidade de itens
+# Faz achou+=1 se soltou o item
+# Coloca mensagem de erro na variável erro se não conseguiu pegar
+  se arg2.cabedentro(arg1) < total
+    erro = txtcopiamai(arg1.descnome, "A") + " não consegue carregar tanta coisa."
+    ret
+  senao arg1.pesoden - arg1.pesoveste + arg2.pesotot * total / arg2.objtot > arg1.pesomax
+    erro = "É pesado demais para " + txtcopiamai(arg1.descnome, "A") + "."
+    ret
+  fimse
+  achou++
+  listaobj e
+  epara e.addfim(arg0.evento), e, e.ini.remove
+    ret e.objini.cmd_darobj(arg0, arg1, arg2, total, arg0), nulo
+  efim
+  epara e.addfim(arg1.evento), e, e.ini.remove
+    ret e.objini.cmd_darobj(arg0, arg1, arg2, total, arg1), nulo
+  efim
+  epara e.addfim(arg2.evento), e, e.ini.remove
+    ret e.objini.cmd_darobj(arg0, arg1, arg2, total, arg2), nulo
+  efim
+  $mens.p(arg0, arg1, arg2)
+  se total <= 1
+    $mens.mvis1("$P dá $o para $a.")
+  senao
+    $mens.mvis1("$P dá " + total + "x $o para $a.")
+  fimse
+  refvar r = arg2.mudadono(arg1, total)
+  epara e.addfim(arg0.evento), e, e.ini.remove
+    e.objini.cmd_deuobj(arg0, arg1, r, total, arg0)
+  efim
+  epara e.addfim(arg1.evento), e, e.ini.remove
+    e.objini.cmd_deuobj(arg0, arg1, r, total, arg1)
+  efim
+  epara e.addfim(r.evento), e, e.ini.remove
+    e.objini.cmd_deuobj(arg0, arg1, r, total, r)
+  efim
+
+func darmoedas
+# arg0=persoangem, arg1=para quem dar, total=quantidade de moedas
+  listaobj e
+  epara e.addfim(arg0.evento, arg1.evento), e, e.ini.remove
+    ret e.objini.cmd_darmoedas(arg0, arg1, total), nulo
+  efim
+  ret !total, nulo
+  arg1.var.z_moedas_ += total
+  arg0.var.z_moedas_ -= total
+  arg0.var.z_moedas_ < 0 && arg0.var.z_moedas = ""
+  $mens.p(arg0, arg1)
+  se total == 1
+    $mens.mvis1("$P dá uma moeda para $a.")
+  senao total == 2
+    $mens.mvis1("$P dá duas moedas para $a.")
+  senao
+    $mens.mvis1("$P dá " + total + " moedas para $a.")
+  fimse

@@ -1,0 +1,909 @@
+classe i_junior003
+herda comum_itemperso
+const nome = "armário"
+const ident = "armário Júnior"
+const descnome = "O armário de Júnior"
+const descpos = "Um belíssimo armário que pertence a Júnior ocupa uma das paredes do templo"
+const descver = "você pode notar que as portas são de madeira, um modelo bem antigo, porém, \
+resistente.\n\
+você pode notar que uma das portas é toda espelhada."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 4 # Container: 4 Inicialmente trancado
+const i_tranc = 1 # Trancar: 1 Pode ser trancado
+const i_fechadura = "tadeu"
+const i_comechave = 0 # Come chave: Não
+const mantersala = 1 # Mantém na sala: Sim
+const objmax = 2000000000
+const volexp = 0 # Expande: Não
+const volmax = 1
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 0 # Eventos dono item: Não
+const evsala = 1 # Eventos dono sala: Sim
+const manterperso = 1 # Mantém em jogador: Sim
+
+func cmd_pegarobj
+  se arg2 == este
+    se arg0.nome == "Júnior"
+      ref r
+      r = arg0.dono.dentro1.objini("i_item088")
+      arg0.dono.dentro1.objini("i_item088").mudadono(arg0)
+      $mens.p(arg0), $mens.mtodos2("$P pega o armário", "$P aponta para o armário que fica do \
+tamanho de uma caixa de sapatos e o pega.")
+      ret 1
+    senao
+      arg0.msg("Isso concerteza não irá passar pela porta! primeiro desmonte-o!")
+      ret 1
+    fimse
+
+
+classe i_junior005
+herda comum_itemperso
+const nome = "chave do armário"
+const ident = "chave"
+const descnome = "a chave das propriedades de júnior"
+const i_chave = "júnior"
+const vestir1 = 1048576 # Aonde vestir: 20-Segurando
+
+
+classe i_junior010
+herda comum_itemperso
+const nome = "anel de compromiço"
+const ident = "anel aliança"
+const descnome = "Uma linda aliança banhada a ouro"
+const descpos = "um lindíssimo anel brilhante com pequenas pérolas em volta encontra-se escondida\
+ aqui"
+const descver = " esta é uma linda aliança de compromiço com pérolas preciosas.\n\
+ e em volta dela você nota a seguinte frase: \"meu amor, te amarei para sempre, e estarei \
+contigo, em todos os momentos de sua vida!\n\
+te amo,\nMisty!"
+const nivel = 0
+const mantersala = 0 # Mantém na sala: Não
+const pesoobj = 10
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 19000000
+const vestir1 = 8388608 # Aonde vestir: 23-No dedo esquerdo
+const vestirsim = 1 # Podem vestir: 1 Jogadores e PNJs
+const manterperso = 1 # Mantém em jogador: Sim
+const m_atribs2 = "* El$v está iluminad$s por raios de amor."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5000
+  pmanamax += 8000
+  pesomax += 200 * pnivel + 10000
+  bitinv &= ~2
+  bitver |= 4110
+  deftipo.12 *= 0.55 # Luz
+  deftipo.13 *= 0.5 # Trevas
+
+const m_atribs1 = "brilhando,"
+
+
+classe i_junior011
+herda comum_item
+const nome = "uma estátua de Adrielly"
+const descpos = "Uma estátua de Adrielly está aqui"
+const descver = "  A estátua mostra com perfeição a jovem Adrielly.\n\
+ Em pé numa pose autiva, como de uma rainha.\n\
+ Seu longo e belo cabelo escuro,  desce graciosamente por suas costas\n\
+e ondula levemente até sua cintura, onde um maravilhoso cinto cravejado por\n\
+diamantes repousa sobre seu vestido verde jade.\n\
+Seus belos olhos azuis tempestade são inteligentes, e desafiadores, enquanto\n\
+seus lábios vermelhos em formato de botão de rosa, se curvam em um sorriso\n\
+que lhe encanta, completamente."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const i_pegar = "A estátua possue uma poderosa magia que o impede de pegá-la"
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_junior012
+herda comum_item
+const nome = "uma pintura de Adrielly"
+const descpos = "A pintura de uma bela moça está em uma das paredes"
+const descver = "  Com uma pose graciosa, Adrielly está retratada usando um longo vestido \
+branco, com belas pérolas adornando o corpete, que afina sua cintura.\n\
+ Seus longos cabelos castanhos escuro, esvoaçam suavemente, como se estivessem\n\
+sendo acariciados por uma leve briza de primavera.\n\
+ Seus misteriosos e encantadores olhos azuis, fitam o horizonte, assistindo ao\n\
+maravilhoso por do sol, enquanto seus provocantes lábios em formato de botão de rosa, se curvam \
+em um sedutor sorriso.\n\
+ Como se ela estivesse pensando em algo, ou alguém especial."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const i_pegar = "Este presente foi dado exclusivamente para Tadeu, você não consegue pegá-lo"
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_presentes009
+herda comum_item
+const nome = "quadrinho"
+const ident = "quadrinho estrela"
+const descnome = "um quadrinho em forma de estrela"
+const descpos = "um quadrinho no formato de estrela foi pendurado em uma das paredes, e sua \
+beleza chama muito a atenção de quem o vê."
+const descver = "é um quadro de madeira, na cor natural dela, e todo vernizado.\n\
+no meio dele há um vidro transparente, e dentro há um retrato com o desenho de duas rosas, e \
+escrito a seguinte frase: \"As mais lindas coisas da vida não podem ser vistas nem tocadas, mas \
+sim, sentidas.\""
+const msexo = 1 # Sexo Msg: 1 Masculino
+
+
+classe i_reyna013
+herda comum_itemperso
+const nome = "um primoroso tapete de penas brancas"
+const descpos = "Um primoroso tapete de penas brancas cobre quase todo o chão do quarto"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "Você não consegue pegá-lo"
+const i_movel = 3 # Mobília: 3 Sentar confortavelmente
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe a_junior
+herda area
+const a_nome = "O magnífico templo de Júnior."
+const a_autor = "Júnior"
+const a_tempo = 1
+const a_reset = 0 # Modo de reset: 0 Nunca
+const a_txtreset = ""
+
+
+classe b_junior
+herda sala
+const s_doarsalas = "torvani101"
+const s_fome = 1 # Fome e sede: 1 Ausente
+const s_item = 0
+const s_som = "hogwarts2"
+const s_area = "junior"
+const s_gritar = "Suas palavras se perdem no ar."
+
+
+classe i_jujuba
+herda comum_item
+const nome = "jujuba"
+const descnome = "Uma jujubinha do dia das crianças!"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_msgperso = "$P come uma jujubinha do dia das crianças!"
+const f_msgoutros = ""
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+
+func cmd_pegarobj
+  se arg2 == este
+    se arg0.dentro1.objini("i_jujuba")
+      arg0.msg("Você já tem " + descnome + ".")
+      ret 1
+    senao
+      $mens.p(arg0)
+      $mens.mens = arg1
+      $mens.mtodos1("$P pega uma jujubinha.")
+      criar("i_jujuba", arg0)
+      este.apagar
+      ret 1
+    fimse
+
+func cmd_comeu
+  se arg2 == este
+    $mens.p(arg0)
+    $mens.mens = arg1
+    refvar s = txtsublin(r, rand(intsublin(r)), 1)
+    refvar crianca = rand(1, 500000)
+    arg0.ganhaexp(crianca)
+    apagar(este)
+    ret 1
+  fimse
+
+const r = "A equipe Adventure lhes ddeseja um Feliz dia das crianças!"
+
+
+classe i_junior006
+herda comum_itemperso
+const nome = "um grande aquário"
+const ident = "aquário"
+const descnome = "um grande aquário"
+const descpos = "Um grande aquário encontra-se aqui, com muitos peixinhos coloridos nadando \
+alegremente"
+const descver = "  Ao olhar para o aquário você se encanta com a beleza do objeto.\n\
+ No fundo há areia, pedrinhas, plantas aquáticas, e algumas\n\
+miniaturas de submarinos.\n\
+ E deixando tudo ainda mais encantador, há vários peixes,\n\
+de várias espécies, cores e tamanhos, nadando alegremente de um lado a outro, pela água cristalin\
+a."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "O aquário é muito grande e está cheio de água, você não consegue pegá-lo"
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_junior007
+herda comum_item
+const nome = "vários peixinhos coloridos"
+const descpos = "Vários peixinhos coloridos nadam alegremente em um grande aquário"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_junior013
+herda comum_item
+const nome = "espada"
+const descnome = "a espada do espírito"
+const descver = "essa espada foi feita com base em Efésios 6, verso 17, que diz:\n\
+Tomai também o capacete da salvação, e a espada do Espírito, que é a palavra de Deus."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const nivel = 300
+const renascer = 4
+const armamanual = 0 # Só ataca manual: Não
+const armamax = 2500
+const armamin = 300
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 2 # Tipo de produto: 1-Arma
+const manterperso = 1 # Mantém em jogador: Sim
+const m_atribs1 = "Baseado em Efésios 6/17,"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 60 * pnivel
+  atkesp += 100 * pnivel
+  defesp += 20 * pnivel
+  evasao += 10 * pnivel
+  precisao += 10 * pnivel
+
+
+classe i_junior014
+herda comum_item
+const nome = "capacete"
+const descnome = "o capacete da salvação"
+const descver = "esse capacete também foi feito, baseado em Efésios 6, verso 17, que diz.\n\
+parte a:\n\
+Tomai também o capacete da salvação"
+const msexo = 0 # Sexo Msg: 0 Feminino
+const nivel = 300
+const renascer = 4
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const vestir1 = 2 # Aonde vestir: 1-Na cabeça
+const manterperso = 1 # Mantém em jogador: Sim
+const m_atribs1 = "também baseado em Efésios 6,"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 250 * pnivel
+  pmanamax += 500 * pnivel
+  pmovemax += 500 * pnivel
+  pveloc1 += 500 * pnivel
+  atknorm += 50 * pnivel
+  defnorm += 20 * pnivel
+  atkesp += 20 * pnivel
+  defesp += 20 * pnivel
+  evasao += 10 * pnivel
+  precisao += 10 * pnivel
+  bitinv &= ~2
+  bitver |= 6188
+
+
+classe i_junior015
+herda comum_item
+const nome = "sapato"
+const descnome = "um par de sapatos representando a preparação do evangelho da paz"
+const descver = "esse sapato, foi baseado em Efésios 6, verso 15, que diz.\n\
+e calçando os pés com a preparação do evangelho da paz."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 300
+const renascer = 4
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const vestir1 = 536870912 # Aonde vestir: 29-nos pés
+const manterperso = 1 # Mantém em jogador: Sim
+const m_atribs1 = "Baseado em efésios6/15,"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmovemax += 500 * pnivel
+  pveloc1 += 500 * pnivel
+  atknorm += 50 * pnivel
+  atkesp += 50 * pnivel
+
+
+classe i_junior016
+herda comum_item
+const nome = "couraça"
+const descnome = "a couraça da justiça"
+const descver = "item também criado com base em efésios 6, verso 14, que diz.\n\
+parte b do verso.\n\
+e vestida a couraça da justiça"
+const nivel = 300
+const renascer = 4
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const vestir1 = 2048 # Aonde vestir: 11-Sobre o corpo
+const manterperso = 1 # Mantém em jogador: Sim
+const m_atribs1 = "baseado em efésios6/14/b,"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500 * pnivel
+  pmanamax += 500 * pnivel
+  pmovemax += 500 * pnivel
+  pveloc1 += 500 * pnivel
+  defnorm += 50 * pnivel
+  defesp += 50 * pnivel
+
+
+classe i_junior017
+herda comum_item
+const nome = "escudo"
+const descnome = "o escudo da fé"
+const descver = "com base em Efésios 6, verso 16, esse escudo foi criado, para quando usarmos, \
+conseguiremos apagar todo dardo inflamado do malígno!\n\
+tomando, sobretudo, o escudo da fé, com o qual podereis apagar todos os dardos inflamados do \
+Maligno."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 300
+const renascer = 4
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const vestir1 = 2097152 # Aonde vestir: 21-como escudo
+const manterperso = 1 # Mantém em jogador: Sim
+const m_atribs1 = "baseado em efésios6/16,"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2500 * pnivel
+  defnorm += 100 * pnivel
+  defesp += 100 * pnivel
+  precisao += 100 * pnivel
+  bitinv &= ~2
+  bitver |= 34
+
+const m_atribs2 = "* el$v está protegido pelas armaduras celestiais!"
+
+
+classe i_junior018
+herda comum_itemperso
+const nome = "cama"
+const descnome = "Uma cama espaçosa"
+const descpos = "uma confortável cama está aqui, esperando alguém para descançar nela"
+const descver = "você pode notar que essa cama é uma cama box, bem espaçosa.\n\
+nota-se um colchão bastante auto.\n\
+próximo a cabeçeira, há um grande e confortável traveceiro, no formato do Nemo, o peixinho.\n\
+na cabeçeira, há um porta-fotos, com uma linda foto. para vê-la, digite olhar cabeçeira.\n\
+e para combinar com o aquário, nela há um lençol, com o desenho de diversos peixinhos, golfinhos,\
+ baleias, tubarões, dentre outras espécies marinhas."
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_lugar = 3
+
+
+classe i_junior019
+herda comum_itemperso
+const nome = "traveceiro"
+const ident = "travesseiro grande"
+const descnome = "um grande traveceiro"
+const descpos = "um confortável traveceiro está em cima da cama."
+const descver = "você agora olha para um fofo grande e confortável traveceiro.\n\
+você nota que ele é da cor, e da forma do nemo, o peixinho do filme.\n\
+ao deitar-se nele, você percebe que é muito fofinho, ótimo para tirar uma boa noite de sono!"
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+
+
+classe i_junior020
+herda comum_itemperso
+const nome = "banheira"
+const descnome = "uma banheira de hidromassagem"
+const descver = "uma espaçosa banheira de hidromassagem. primeiramente, você nota que em um dos \
+lados da banheira, tem um grande janelão de vidro que dá para o mais lindo céu.\n\
+você também nota que em baixo do janelão há uma plataforma onde se colocam vários tipos de \
+sabonetes, shampoos, cremes, e sais para banho.\n\
+na frente você nota alguns botões, para ativá-la.\n\
+e nas laterais, duas barras de ferro, para poder se apoiar."
+const i_pegar = "Não dá, está fixada ao chão."
+const i_salaver = $s_junior010
+const i_salas = "junior010"
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_lugar = 2
+const luzitem = 0 # Tipo de luz: 0 Não aceita acender/apagar, sem fogo
+const luzini = 0
+const luzliga = "$P acendeu a luz de $o"
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 20000000
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const manterperso = 1 # Mantém em jogador: Sim
+sav uint32 pessoa
+
+func cmd_chegou
+  misc:evento(arg0)
+
+func cmd_mover
+  se arg2 == "s" || arg2 == "n" || arg2 == "l" || arg2 == "o" || arg2 == "ne" || arg2 == "no" || \
+arg2 == "so" || arg2 == "se" || arg2 == "c" || arg2 == "b" || arg2 == "sair" || arg2 == "entrar"
+    refvar msg = txtsublin(fr, rand(intsublin(fr)), 1)
+    se arg0.var.z_ban_ == 1
+      $mens.p(arg0)
+      $mens.mtodos1("" + msg + ".")
+      ret 1
+    senao
+    fimse
+
+func cmd_escr
+  se arg1 == "dentro"
+    ret arg0.var.z_ban_ == 1, arg0.msg("Mas voce já está na banheira.")
+    ret pessoa == 2, arg0.msg("Você não pode entrar, já tem duas pessoas ali.")
+    $mens.p(arg0)
+    $mens.mtodos1("$P entra na banheira.")
+    pessoa += 1
+    arg0.var.z_ban_ = 1
+    ret 1
+  fimse
+  se arg1 == "fora"
+    ret arg0.var.z_ban_ == "", arg0.msg("Mas você já está fora da banheira.")
+    $mens.p(arg0)
+    $mens.mtodos1("$P sai da banheira.")
+    pessoa -= 1
+    arg0.var.z_ban_ = ""
+    ret 1
+  fimse
+
+func descpos
+  ret pessoa == 1, "Uma banheira está no box do banheiro com uma pessoa dentro"
+  ret pessoa == 2, "Uma banheira está no box do banheiro, com duas pessoas dentro"
+  ret "Uma banheira está no box do banheiro"
+
+const fr = "$P se meche na banheira, alegre\n\
+$P coça a cabeça, despreocupad$s\n\
+$P agradece a Deus, que banho maravilhoso"
+
+
+classe i_junior021
+herda comum_item
+const nome = "espada"
+const descnome = "a magnífica espada de Júnior"
+const descpos = "a magnífica espada de Júnior está aqui no chão, não a pegue!"
+const descver = "  Essa letal espada é formada por uma lâmina de sessenta centímetros,\n\
+com gumes dos dois lados, e uma ponta triangular muito afiada.\n\
+  Forjada em aço, essa lâmina foi fixada à um cabo, com o punho\n\
+revestido de couro.\n\
+  Completamente balanciada, ela se encaixa perfeitamente\n\
+em sua mão. Com um manuseio tão fácil e natural\n\
+que parece fazer parte de seu braço."
+const armamanual = 0 # Só ataca manual: Não
+const armamax = 10000
+const armamin = 100
+const armaaddprecisao = 1000
+const armamove = 300
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const vestir1 = 17825792 # Aonde vestir: 20-Segurando, 24-Na cintura
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10000 * pnivel
+  pmanamax += 10000 * pnivel
+  pmovemax += 10000 * pnivel
+  pveloc1 += 10000 * pnivel
+  atknorm += 5000 * pnivel
+  defnorm += 2000 * pnivel
+  atkesp += 2000 * pnivel
+  defesp += 2000 * pnivel
+  evasao += 500 * pnivel
+  precisao += 2000 * pnivel
+  pesomax += 20000 * pnivel
+  bitinv &= ~2
+  bitver |= 4158
+
+const armaatk = "espadas"
+const m_atribs2 = "Rodead$s por lâminas afiadas,"
+
+
+classe i_junior022
+herda comum_itemperso
+
+
+classe i_junior023
+herda comum_item
+const nome = "ursinho"
+const ident = "ursinho gugu pelúcia"
+const descnome = "Ablablul, o ursinho de Julie"
+const descpos = "um ursinho de pelúcia está aqui. Ele pertence a Julie."
+const descver = "esse ursinho foi feito especialmente para Julie.\n\
+barriguinha fofinha, patinhas azuis, narizinho rocho e pelos branquinhos e fofinhos são qualidade\
+s que o torna muito mais fofinho.\n\
+em uma de suas orelhas branquinhas, há um pequeno dizer.\n\
+Julie, você é a melhor amiga que alguém pode ter!\n\
+assinado,\nJúnior!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 15
+const vestir1 = 1048576 # Aonde vestir: 20-Segurando
+const manterperso = 1 # Mantém em jogador: Sim
+
+
+classe i_junior024
+herda comum_item
+const nome = "goiaba"
+const ident = "goiaba"
+const descnome = "um saboroso pedaço de kai sabor goiaba"
+const descpos = "nhamnm nhamnm nhamnm, um pedaço de kai, sabor goiaba! parece uma bela comida \
+para quem o ama! que tal pegar e degustar?"
+const descver = "inacreditávelmente você se depara com um pedaço... ou melhor. isso é uma \
+miniversão do kai, porém comestível, e com sabor de goiaba!\n\
+no kai, você percebe toda a escultura dele desenhada, membro por membro, te dando mais água na \
+boca! que tal degustar agora?"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_msgperso = "$P passa a degustar, membro por membro dessa delícia que é comer um kai \
+inteiramente, e com um sabor goiaba!"
+
+
+classe i_junior025
+herda comum_itemperso
+const nome = "pá"
+const descnome = "uma pá de lixo"
+const descver = "com um cabo pra cima, perfeito para se encaichar no olhinho trazeiro de \
+ryu!\n\
+com um cabo pra cima, perfeito para se encaichar no olhinho trazeiro de ryu!"
+const i_movel = 1 # Mobília: 1 Sentar
+
+
+classe i_pirulito
+herda comum_item
+const nome = "pirulito"
+const descnome = "um pirulito"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_msgperso = "$P come um pirulito, e"
+const f_msgoutros = ""
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+
+func cmd_comeu
+  se arg2 == este
+    $mens.p(arg0)
+    $mens.mens = arg1
+    refvar qst = rand(1, 60)
+    $mens.p(arg0)
+    $mens.mtodos1("$P ganha " + qst + " pontos de aventura!")
+    arg0.var.z_quest_ += qst
+    apagar(este)
+    ret 1
+  fimse
+
+func cmd_pegarobj
+  se arg2 == este
+    se arg0.dentro1.objini("i_pirulito")
+      arg0.msg("Você já tem um pirulito. abra-o primeiro.")
+      este.apagar
+      ret 1
+    senao
+      $mens.p(arg0)
+      $mens.mens = arg1
+      $mens.mmudtodos1("$P acabou de pegar um pirulito surpresa!")
+      criar("i_pirulito", arg0)
+      este.apagar
+    fimse
+    ret 1
+
+func cmd_soltarobj
+  se arg2 == este
+    arg0.msg("Você não pode soltar " + descnome + ".")
+    ret 1
+
+func cmd_guardarobj
+  se arg2 == "este"
+    arg0.msg("Você não pode guardar " + descnome + ".")
+    ret 1
+
+func cmd_darobj
+  se arg2 == este
+    arg0.msg("Você não pode dar " + descnome + " a ninguém.")
+    ret 1
+
+
+classe p_junior002
+herda comum_perso
+const nome = "A linda Adrielly"
+const ident = "Adrielly"
+const descnome = "Adrielly"
+const descpadr = "A linda Adrielly está aqui, pensando e refletindo."
+const descver = "Com uma pose graciosa, Adrielly está usando um longo vestido branco, com belas \
+pérolas adornando o corpete, que afina sua cintura.\n\
+ Seu longo e belo cabelo escuro,  desce graciosamente por suas costas\n\
+e ondula levemente até sua cintura, onde um maravilhoso cinto cravejado por\n\
+diamantes repousa sobre seu vestido verde jade.\n\
+Seus belos olhos azuis tempestade são inteligentes, e desafiadores, enquanto\n\
+seus lábios vermelhos em formato de botão de rosa, se curvam em um sorriso\n\
+que lhe encanta, completamente.\n\
+Seu rosto rasoavelmente fino, Parecendo ser feito da mais linda porcelana.\n\
+Adrielly mostra ser uma jovem amiga, bem atenciosa, carinhosa e cimpática. porém nunca trame \
+nada contra ela."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const pesoobj = 42
+const nivel = 400
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 200
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv &= ~2
+  bitver |= 4158
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500 * pnivel
+  atknorm += 50 * pnivel
+  defnorm += 20 * pnivel
+  atkesp += 20 * pnivel
+  defesp += 20 * pnivel
+  evasao += 10 * pnivel
+  precisao += 20 * pnivel
+
+func cmd_chegou
+  misc:evento(arg0)
+  se arg1 == "falar oi adrielly!"
+    arg0.teclou("falar oie, tudo bem?")
+  fimse
+  ret 1
+
+
+classe i_junior001
+herda comum_itemperso
+const nome = "a capa"
+const ident = "capa"
+const descnome = "a capa do teclado de Tadeu"
+const descpos = "a capa de um teclado está dobrada em um cantinho"
+const descver = "você está vendo uma linda capa de couro.\n\
+pode notar um ziper do lado de fora, provavelmente uma partição menor, para se colocar a \
+fonte.\n\
+também há outro ziper, que é a partição maior, para guardar o teclado.\n\
+a capa possui duas alças reguláveis, resistentes."
+const i_pegar = "Não é sua, então não mexa nisso, por favor."
+const i_abertoini = 5 # Container: 5 Indefinido; não checa se está aberto, fechado ou trancado
+
+
+classe i_junior002
+herda comum_item
+const nome = "teclado"
+const ident = "teclado Yamaha moderno"
+const descnome = "um teclado"
+const descpos = "O teclado de Júnior está montado aqui, em frente a uma das paredes"
+const descver = "você agora olha para o mais incrível teclado.\n\
+logo de cara, acima da tela, você nota uma coisa escrita.\n\
+Modelo. Yamaha Tyrus4.\n\
+você percebe que além de ter vários botões, e algumas chavinhas giratórias para diversos \
+efeitos, ao lado esquerdo, perto da primeira tecla, existem 3 rodas.\n\
+pitch/band, distortion e chorus.\n\
+o mais incrível é quando você resolve apertar uma tecla, e percebe que é tecla pesada de \
+piano!\n\
+atrás do teclado existem saídas e entradas para diversos tipos de cabo, e uma entrada para \
+pendrive, e acima, uma gavetinha, onde fica o Disco Rígido, de 1 TeraBit, onde são armazenadas \
+as gravações, rítmos, instrumentos, dentre outras coisas fundamentais para que o teclado \
+funcione com perfeição, e proficionalmente!"
+const i_pegar = "Não dá, ele está montado e ligado. e fora que nem é seu pra sair pegando, não \
+é?"
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_chegou
+  misc:evento(arg0)
+
+func cmd_escr
+  se arg1 == "tocar teclado"
+    arg0.teclou("emot se senta, junta o teclado para perto de si, e começa a tocar uma melodia, \
+para todos ouvirem.")
+    ret 1
+  fimse
+
+
+classe i_junior008
+herda comum_itemperso
+const nome = "quadro"
+const ident = "quadro lindo"
+const descnome = "um lindo quadro"
+const descpos = "um grande quadro está aqui, cobrindo a metade de uma das paredes"
+const descver = ".\n\
+você olha para esse lindo quadro, e sua mente automaticamente sai de si, indo de encontro a essa \
+imagem.\n\
+a imagem retrata um maravilhoso lugar.\n\
+ao olhar mais de perto, você pode notar que é um campo, um campo totalmente verde.\n\
+mas, o que se destaca mais nessa imagem é\n\
+Júnior, que está com um sorriso no rosto, e o braço esquerdo, envolvendo a cintura de Uma \
+menina.\n\
+enquanto sua mão direita, repousa nos sedosos e longos cabelos dessa linda jovem.\n\
+que por sua vez, está também, com um lindo e radiante sorriso estampado no rosto, e seu braço \
+direito, repousa sobre o ombro direito de Júnior.\n\
+em todos os lados, você percebe que há muitas flores, de vários tipos.\n\
+rosas, de vários tamanhos...\n\
+árvores diversas...\n\
+e no lado direito do quadro,  sua mente pula do campo para a imagem, que é uma lindíssima \
+cachoeira, com as cristalinas águas que saltam das pedras, formando assim, uma bela dança da \
+natureza.\n\
+você percebe Júnior e essa bela jovem, de mãos dadas, e os rostos juntos, sentados em uma das \
+grandes pedras, sentindo as cristalinas águas caindo sobre as costas.\n\
+em todas as direções, as águas caem de formas diferentes, fazendo a imagem ter um toque de \
+mágica."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const valor = 500000000
+
+
+classe i_junior009
+herda comum_itemperso
+const nome = "ursinho"
+const ident = "ursinho gatinho pelúcia"
+const descnome = "um fofo gatinho de pelúcia"
+const descpos = "Um fofo gatinho de pelúcia foi posto cuidadosamente sobre a cabeceira da cama \
+de Reyna, ao lado de muitos outros"
+const descver = "um pequeno, e fofo gatinho de pelúcia.\n\
+ao segurá-lo, você percebe que é pequenininho, gordinho, e fofinho, dando vontade de apertá-lo...\
+\n\
+ele tem o pelo rosa, e macio, e as orelhinhas são lilás.\n\
+você pode notar que junto dele, há um pequeno papel decorado com a seguinte frase.\n\
+você, sempre será especial pra mim, Gatinha!"
+const valor = 1000000000
+const vestir1 = 1048576 # Aonde vestir: 20-Segurando
+const manterperso = 1 # Mantém em jogador: Sim
+
+
+classe p_junior001
+herda comum_persobat
+const nome = "elefante"
+const ident = "stark elefante grande"
+const descnome = "Stark, o Grande Elefante"
+const descpadr = "Stark, o elefante de Júnior está aqui, aguardando os comandos de seu dono."
+const descver = "Incrível é pouco para descrever esse grande elefante.\n\
+Com 5 metros de altura, e quase 2 metros de comprimento, ele atrái sua atenção muito rapidamente.\
+\n\
+Ele é de uma cor cinza azulada, e possue uma pesada corrente de ouro no pescoço, onde está \
+escrito as seguintes palavras:\n\
+Pertenso a Júnior.\n\
+Com sua longa tromba, Stark gosta de brincar, ou de fazer travessuras com alguém desavisado, por \
+isso, não se aproxime dele esperando que ele não vai aprontar nada pra você."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 10000
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 1 # Corpo: 1 Deixa corpo vazio
+const p_exp = 200000
+const p_imortal = 0 # Imortal: Não
+const p_recebe = 1 # Recebe itens: Sim
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5000000 * pnivel
+  atknorm += 5000000 * pnivel
+  defnorm += 2000000 * pnivel
+  atkesp += 2000000 * pnivel
+  defesp += 2000000 * pnivel
+  evasao += 1000000 * pnivel
+  precisao += 1000000 * pnivel
+  bitinv &= ~2
+  bitver |= 6206
+
+
+classe s_junior001
+herda b_junior
+const s_titulo = "O magestoso templo de Júnior."
+const s_desc = "  Este é um incrível e bem decorado templo.\n\
+ O teto é sustentado por altas colunas de mármore, entalhadas com um\n\
+padrão intrincado de linhas e símbolos com significado\n\
+oculto.\n\
+  O piso de mosaico é coberto por letras estranhas, que constantemente se movem pelo chão, \
+formando palavras e frases de poder,\n\
+que você não consegue entender, muito menos decifrar.\n\
+  As paredes brancas são cobertas por quadros. Artes que você\n\
+nunca pensou que teria a chance de admirar, de tão bem retratadas.\n\
+ Na parede norte encontra-se um par de portas de vidro, que levam\n\
+para uma linda praia. Mas já daqui você pode\n\
+ver o imenso mar azul, e escutar o som suave das ondas."
+const s_fome = 1 # Fome e sede: 1 Ausente
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_recup = 1000000000
+const fecha_n = 1 # Fecha ao passar: Sim
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_junior002
+const portaini_o = 3 # Estado inicial: 3 Porta trancada
+const portanome_o = "As duplas portas sanfonadas de madeira"
+const portaartigo_o = 1 # Artigo porta: 1 as (portas)
+const fechadura_o = "junior"
+const fecha_o = 1 # Fecha ao passar: Sim
+const tranc_o = 1 # Trancar: 1 Pode ser trancado
+const som_abrir_o = "aporta4"
+const som_fechar_o = "fporta4"
+const dir_se = $s_rio001
+
+func cmd_salaperso
+  misc:evento(arg0)
+  ret arg0.nome == "isabelle", nulo
+  ret arg0.nome == "fabi", nulo
+  ret arg0.nome == "violeta", nulo
+  ret arg0.nome == "kai", nulo
+  ret arg0.nome == "julie", nulo
+  ret arg0.nome == "junior", nulo
+  arg0.msg("Uma força sobrenatural te joga pra longe daqui!")
+  arg0.j_imortal = 0
+  arg0.morreu
+  ret 1
+
+
+classe i_junior004
+herda comum_item
+const nome = "chão"
+const descnome = "o fundo da banheira"
+const descpos = "você nota que o fundo da banheira é todo branco."
+const i_pegar = "bem, acho que tentar pegar uma parte da banheira é meio impossível, não \
+acha?"
+
+
+classe i_junior026
+herda comum_item
+const nome = "barras"
+const descnome = "as barras de apoio"
+const descpos = "nas laterais da banheira, você nota duas barras de ferro, servindo de apoio \
+para sair."
+const i_pegar = "para isso, deveria desmontar a banheira antes"
+
+
+classe i_junior027
+herda comum_item
+const nome = "ralo"
+const descnome = "o ralinho de escoação da banheira"
+const descpos = "num cantinho, ao fundo da banheira, você nota o ralo de escoação."
+const i_pegar = "Você apenas o levanta, fazendo a água escoar. Não é possível arrancá-lo."
+
+
+classe i_junior028
+herda comum_item
+const nome = "janela"
+const ident = "janela janelão vidro"
+const descnome = "um janelão de vidro"
+const descpos = "bem a sua frente, você nota um janelão de vidro, que cobre toda a parede."
+const i_pegar = "impossível pegar o janelão."
+const i_salaver = $s_rio001
+const i_salaentrar = $s_rio001
+
+
+classe i_junior029
+herda comum_itemperso
+const nome = "água"
+const descnome = "a água da banheira"
+const descpos = "A banheira está quase toda preenchida com água morna."
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_bebida = 20
+const f_sede = 20
+const f_msgperso = "$P bebe água com espuma da banheira!"
+const i_pegar = "Você não é galão ou sisterna pra suportar tanta água assim!"
+
+
+classe s_junior010
+herda b_junior
+const s_titulo = "dentro da banheira de hidromassagem"
+const s_entrada = "banheira"
+const eveste = 1 # Eventos sala: Sim
+const a_reset = "S 100 junior027 1 S\n\
+S 100 junior004 1 S\n\
+S 100 junior026 1 S\n\
+S 100 junior028 1 S\n\
+S 100 junior029 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_junior027") && criar("i_junior027", este, 1)
+  !dentro1.objini("i_junior004") && criar("i_junior004", este, 1)
+  !dentro1.objini("i_junior026") && criar("i_junior026", este, 1)
+  !dentro1.objini("i_junior028") && criar("i_junior028", este, 1)
+  !dentro1.objini("i_junior029") && criar("i_junior029", este, 1)
+#
+
+func cmd_mover
+  ret arg2 == "sair", nulo
+  ret arg0.msg("Você se sacode, jogando espuma para o alto!")
+  ret 1

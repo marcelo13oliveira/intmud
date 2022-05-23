@@ -1,0 +1,16 @@
+classe cmd_desmag
+herda comando_comum
+#
+const posic = 0
+#
+
+func escr
+  se !arg1
+    ret arg0.msg("Digite o nome da magia que deseja descartar, após deshab.")
+  senao
+    se !arg0.var.m_[txts(arg1)]
+      ret arg0.msg("Você não possui a magia " + arg1 + ".")
+    fimse
+    arg0.var.m_[txts(arg1)] = ""
+    arg0.msg("Você descarta a magia " + arg1 + ".")
+  fimse

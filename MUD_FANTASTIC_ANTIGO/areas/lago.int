@@ -1,0 +1,215 @@
+classe a_lago
+herda area
+const a_nome = "Lago"
+const a_autor = "drácula"
+const a_tempo = 60
+const a_reset = 0 # Modo de reset: 0 Nunca
+
+
+classe b_lago
+herda sala
+const s_area = "lago"
+const s_autonao = 1 # Sem entrada de automóveis: Sim
+
+
+classe i_lago001
+herda comum_itemperso
+const nome = "Um aquário de vidro em formato de submarino"
+const ident = "Um aquário de vidro"
+const descnome = "Um aquário de vidro em formato de submarino"
+const descpos = "Um aquário de vidro em formato de submarino está aqui, cheio de areia colorida \
+em seu interior."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_salaver = $s_lago001
+const i_salas = ""
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+
+
+classe p_lago001
+herda comum_perso
+const nome = "Um peixinho colorido"
+const descnome = "Um peixinho colorido"
+const descpadr = "Um peixinho colorido move suas nadadeiras levemente em meio as águas claras."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+
+classe p_lago002
+herda comum_perso
+const nome = "Um peixinho dourado"
+const descnome = "Um peixinho dourado"
+const descpadr = "Um peixinho dourado flutua sobre a água, com suas nadadeiras brilhando."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+
+classe p_lago003
+herda comum_perso
+const nome = "Um peixe vel de noiva"
+const descnome = "Um peixe vel de noiva"
+const descpadr = "Um peixe vel de noiva encanta a todos com sua beleza natural."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+
+classe p_lago004
+herda comum_perso
+const nome = "Um peixinho prata"
+const descnome = "Um peixinho prateado"
+const descpadr = "Um peixinho prateado nada lentamente nas profundesas do lago."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+
+classe p_lago005
+herda comum_perso
+const nome = "Um peixe palhaço"
+const ident = "Um peixe palhaço"
+const descnome = "Um peixe palhaço"
+const descpadr = "Um peixe palhaço nada tranquilamente pelo o aquário."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+
+classe p_lago006
+herda comum_perso
+const nome = "Um peixe beta"
+const descnome = "Um peixe beta"
+const descpadr = "Com 2 olhos soltando para fora, um filhote de peixe beta mergulha em meio as \
+águas."
+const msexo = 1 # Sexo Msg: 1 Masculino
+
+
+classe s_lago001
+herda b_lago
+const s_titulo = "Dentro do aquário:"
+const s_entrada = "a entrada do lago"
+const dir_n = $s_lago004
+const dir_s = $s_lago005
+const dir_l = $s_lago002
+const dir_o = $s_lago003
+const dir_ne = $s_lago007
+const dir_no = $s_lago008
+const dir_se = $s_lago006
+const dir_so = $s_lago009
+const a_reset = "P 100 lago001 0 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_lago001:objsolto.total < 2
+    criar("p_lago001", este, 0)
+  fimse
+
+
+classe s_lago002
+herda b_lago
+const s_titulo = "Dentro do aquário:"
+const dir_n = $s_lago007
+const dir_s = $s_lago006
+const dir_o = $s_lago001
+
+
+classe s_lago003
+herda b_lago
+const s_titulo = "Dentro do aquário:"
+const dir_n = $s_lago008
+const dir_s = $s_lago009
+const dir_l = $s_lago001
+
+
+classe s_lago004
+herda b_lago
+const s_titulo = "Dentro do aquário:"
+const dir_s = $s_lago001
+const dir_l = $s_lago007
+const dir_o = $s_lago008
+
+
+classe s_lago005
+herda b_lago
+const s_titulo = "Dentro do aquário:"
+const dir_n = $s_lago001
+const dir_l = $s_lago006
+const dir_o = $s_lago009
+
+
+classe s_lago006
+herda b_lago
+const s_titulo = "Dentro do aquário:"
+const dir_n = $s_lago002
+const dir_o = $s_lago005
+const dir_no = $s_lago001
+const a_reset = "P 100 lago006 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_lago006:objsolto.total < 1
+    criar("p_lago006", este, 0)
+  fimse
+
+
+classe s_lago007
+herda b_lago
+const s_titulo = "Dentro do aquário:"
+const dir_s = $s_lago002
+const dir_o = $s_lago004
+const dir_so = $s_lago001
+const a_reset = "P 100 lago003 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_lago003:objsolto.total < 1
+    criar("p_lago003", este, 0)
+  fimse
+
+
+classe s_lago008
+herda b_lago
+const s_titulo = "Dentro do aquário:"
+const dir_n = $s_lago010
+const dir_s = $s_lago003
+const dir_l = $s_lago004
+const dir_se = $s_lago001
+const a_reset = "P 100 lago005 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_lago005:objsolto.total < 1
+    criar("p_lago005", este, 0)
+  fimse
+
+
+classe s_lago009
+herda b_lago
+const s_titulo = "Dentro do aquário:"
+const dir_n = $s_lago003
+const dir_l = $s_lago005
+const dir_ne = $s_lago001
+const a_reset = "P 100 lago002 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_lago002:objsolto.total < 1
+    criar("p_lago002", este, 0)
+  fimse
+
+
+classe s_lago010
+herda b_lago
+const s_titulo = "Dentro do aquário:"
+const dir_s = $s_lago008
+const a_reset = "P 100 lago004 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_lago004:objsolto.total < 1
+    criar("p_lago004", este, 0)
+  fimse
+
+
+classe s_lago011
+herda b_lago
+const s_titulo = "No centro do jardim, na beira do lago:"
+const s_pnj = 0
+const dir_c = $s_vilares256
+const dir_b = $s_lago001

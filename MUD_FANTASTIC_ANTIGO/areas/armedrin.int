@@ -1,0 +1,2959 @@
+classe a_armedrin
+herda area
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_tempo = 30
+const a_nome = "a  A Floresta Armedrin"
+const a_autor = "hellmud"
+const a_txtreset = "A chuva cai, e os seres vivos deste lugar parecem acordar."
+
+
+classe b_armedrin
+herda sala
+const s_doarsalas = "venore004"
+const s_item = 0
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_recup = 5
+const s_area = "armedrin"
+
+
+classe i_armedrin001
+herda comum_itemperso
+const nome = "o ferrão da formiga rainha"
+const ident = "o ferrão da formiga rainha"
+const descnome = "o ferrão da formiga rainha"
+const descpos = "um ferrão foi deixado aqui."
+const descver = "um grande ferrão venenoso, que serveria muito bem como uma arma letal."
+const nivel = 40
+const armamax = 200
+const armamin = 20
+const armatipo = 3 # Tipo de arma: 3 Lâmina curta
+const pesoobj = 150
+const tipoitem = 2 # Tipo de produto: 1-Arma
+const valor = 100
+const vestirnao = "clérigo\nguerreiro\nmago"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pveloc1 += 8
+  atknorm += 35
+  defnorm += -10
+  evasao += 10
+  precisao += 25
+
+
+classe i_armedrin002
+herda comum_item
+const nome = "Um colar de dentes"
+const descnome = "Um colar de dentes"
+const descpos = "Um colar com dentes ponteagudos está aqui."
+const descver = "Este colar além de ser muito bonito, deve lhe proporcionar uma boa\n\
+proteção. Ele é feito por caninos interligados, com um fio de pelo azul."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 35
+const pesoobj = 100
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 100
+const vestir1 = "20" # Aonde vestir: 5-No pescoço
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += -30
+  pveloc1 += 9
+  defnorm += 20
+  defesp += 20
+  evasao += 10
+  precisao += 10
+
+
+classe i_armedrin003
+herda comum_item
+const nome = "Uma capa de peles"
+const descnome = "Uma capa de peles"
+const descpos = "Uma capa feita totalmente de pele está aqui."
+const descver = "Esta capa é bordada a mão. Vários pedaços de peles, estão interligados por\n\
+linha. Toda a capa é pintada de vermelho."
+const nivel = 40
+const pesoobj = 250
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 100
+const vestir1 = "100" # Aonde vestir: 8-Nas costas
+const vestirnao = "clerigo\nmago"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += -100
+  pveloc1 += 8
+  defnorm += 20
+  evasao += 20
+  precisao += 20
+
+
+classe i_armedrin004
+herda comum_itemperso
+const nome = "um brinco de pena verde"
+const ident = "um brinco de pena verde"
+const descnome = "um brinco de pena verde"
+const descpos = "uma pena verde foi esquecida aqui."
+const descver = "um brinco muito bonito, feita a partir de uma pena verde, arrancada de\n\
+alguma ave da região."
+const nivel = 30
+const pesoobj = 50
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 100
+const vestir1 = "10" # Aonde vestir: 4-Nas orelhas
+const vestirnao = "guerreiro\nladrão"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pveloc1 += 5
+  atknorm += -10
+  defnorm += 15
+  atkesp += 15
+  defesp += 15
+  evasao += 5
+  precisao += 10
+
+
+classe i_armedrin005
+herda comum_item
+const nome = "Um par de botas de couro de cobra"
+const descnome = "Um par de botas de couro de cobra"
+const descpos = "Um par de botas feita de couro reptiliano foi deixada aqui."
+const descver = "Esta bota foi feita apartir da pele de répteis da região. São perfeitas\n\
+para qualquer aventura."
+const nivel = 35
+const pesoobj = 200
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 100
+const vestir1 = "80000" # Aonde vestir: 19-Nos pés
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmovemax += 100
+  pveloc1 += 5
+  atknorm += 15
+  atkesp += 15
+  evasao += 17
+
+
+classe i_armedrin006
+herda comum_item
+const nome = "Uma fruta dourada"
+const descnome = "Uma fruta dourada"
+const descpos = "Uma fruta está aqui, esperando para ser colhida"
+const descver = "Esta fruta é o único fruto que a árvore produz. Sua cor é um dourado forte\n\
+e seu cheiro é maravilhoso"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 3
+const f_sede = 3
+const f_diges = 3
+const f_msgperso = "Você come a fruta dourada, se lambuzando com seu néctar."
+const f_msgoutros = "$p come a fruta dourada, se lambuzando."
+const tipoitem = 8192 # Tipo de produto: 13-Comida
+
+
+classe i_armedrin007
+herda comum_item
+const nome = "Um cinto de armas"
+const descnome = "Um cinto de armas"
+const descpos = "Um cinto cheio de armas feitas de madeira está aqui."
+const descver = "Este cinto é feito de pele. Cheio de pequenos compartimentos, cada um\n\
+contendo uma arma de madeira."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 40
+const pesoobj = 200
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 100
+const vestir1 = "10000" # Aonde vestir: 16-Na cintura
+const vestirnao = "clerigo\nmago"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 130
+  pveloc1 += 7
+  atknorm += 15
+  evasao += -5
+  precisao += 15
+
+
+classe i_armedrin008
+herda comum_item
+const nome = "Um anel de serpente"
+const descnome = "Um anel de serpente"
+const descpos = "Uma pequena serpente se contorce aqui no chão."
+const descver = "Esta minúscula serpente teve sua cabeça presa ao rabo por uma linha. Ela \
+se\n\
+contorce mais não consegue se soltar. Você tem coragem de usá-la no dedo?"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 30
+const pesoobj = 50
+const tipoitem = 4 # Tipo de produto: 2-Armadura
+const valor = 100
+const vestir1 = "6000" # Aonde vestir: 13-No dedo direito, 14-No dedo esquerdo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 70
+  pveloc1 += 5
+  atknorm += 10
+  defnorm += 10
+  defesp += -10
+  evasao += 13
+  precisao += 13
+
+
+classe p_armedrin001
+herda comum_persobat
+const nome = "O tigre azul"
+const descnome = "O tigre azul"
+const descpadr = "Um tigre azul e enorme está aqui, olhando para você com ódio no olhar."
+const descver = "Nossa! que animal grande! Seu pelo é completamente azul e seus olhos de um\n\
+tom vermelho fogo. Suas garras parecem feitas de aço, seus dentes engastados\n\
+de uma forma que reluzem ao sol. A última visão de suas vítimas até que não\n\
+é feia. Patas fortes e um corpo com aproximadamente 2 metros de autura, este\n\
+tigre está vindo em sua direção..."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 50
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_atktipo = "morder"
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 100
+const p_imortal = 0 # Imortal: Não
+const p_morreu1 = "$p solta um urro que estremece o chão da floresta e cai morto."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_armedrin002
+herda comum_persobat
+const nome = "Patrique o caçador"
+const ident = "Patrique patrique o caçador"
+const descnome = "patrique o caçador"
+const descpadr = "um rapaz está aqui caçando animais selvagens"
+const descver = "este rapaz de olhar frio, e expressão séria, parece ter passado todo o dia\n\
+caçando, e não está nenhum pouco afim de conversar."
+const nivel = 40
+const lojanao = "bispo\nclérigo\nelfo\nfeiticeiro\nmago"
+const lojaaula = "h_velocidade 8"
+const taxaaula = 100
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 100
+const p_fugir = 200
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_armedrin003
+herda comum_persobat
+const nome = "Um coelho"
+const descnome = "Um coelho"
+const descpadr = "Existe um pequeno coelho aqui, correndo de arbusto em arbusto."
+const descver = ".  este pequeno animal nem parece notar sua presença, com o corpo coberto\n\
+por uma pelugem branca, e suas orelhas pontudas, o mesmo corre de um lado\n\
+para o outro em busca de comida."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 10
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 100
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_armedrin004
+herda comum_persobat
+const nome = "Um esquilo"
+const descnome = "Um esquilo"
+const descpadr = "Um pequeno esquilo está aqui com medo de você."
+const descver = "esse gracioso animal esbanja uma habilidade imensa, indo de uma árvore para\n\
+outra em busca de nozes. Sua pele é marrom, sua cauda de um tom preto, e\n\
+seus dois grandes dentes parecem ser perfeitos para quebrar qualquer tipo de\n\
+casca dura."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 10
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 100
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$t é tão frac$t!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_armedrin005
+herda comum_persobat
+const nome = "Um passarinho verde"
+const descnome = "Um passarinho verde"
+const descpadr = "Um passarinho verde está aqui, cantando alegremente."
+const descver = "esta ave exibe uma beleza nunca antes vista pela humanidade, seu bico\n\
+afiado, e suas penas verdes, juntamente com sua extrema capacidade de voar,\n\
+este gracioso pássaro é procurado por todos, para ser temas de quadros\n\
+valiosos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 10
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 100
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv |= 16
+
+
+classe p_armedrin006
+herda comum_persobat
+const nome = "Uma raposa"
+const descnome = "Uma raposa"
+const descpadr = "Uma raposa está aqui, caçando coelhos."
+const descver = "uma máquina na caça, esta raposa de um tom preto, e suas patas marrons e \
+\n\
+detentora de afiadas garras, e presas  enormes, este animal parece ser\n\
+extremamente perigoso. E não está nem um pouco interessada no que passa, se\n\
+para ela for uma refeição, fará de tudo para conseguir."
+const nivel = 15
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 100
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_armedrin007
+herda comum_persobat
+const nome = "Uma serpente"
+const descnome = "Uma serpente"
+const descpadr = "Uma serpente se arrasta por aqui tranquilamente."
+const descver = "uma serpente um tanto quanto estranha, se esgueira entre todo o ambiente,\n\
+enrolando-se em galhos, ou mergulhando nos rios, este estranho réptil,\n\
+parece se adaptar muito bem a qualquer clima ou região."
+const nivel = 10
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_armedrin008
+herda comum_persobat
+const nome = "Uma capivara"
+const descnome = "Uma capivara"
+const descpadr = "Uma capivara está aqui, relaxando à luz do sol."
+const descver = "este é o maior roedor de todo o planeta, com dentes gigantes, e patas\n\
+curvadas, este animal não dispensa nenhum resto de comida."
+const nivel = 15
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_armedrin009
+herda comum_persobat
+const nome = "Um peixe dourado"
+const descnome = "Um peixe dourado"
+const descpadr = "Existe um peixe aqui, nadando alegremente."
+const descver = "com barbatanas prateadas, e escamas douradas, este gracioso peixe é\n\
+extremamente habilidoso em rios, nadando em velocidades absurdas, não é nada\n\
+fácil pegá-lo como refeição."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 10
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_armedrin010
+herda comum_persobat
+const nome = "Um escorpião"
+const descnome = "Um escorpião"
+const descpadr = "Um inseto está aqui, parecendo mortal."
+const descver = "um ser extremamente perigoso, não por causa de seu tamanho, mas por seu\n\
+veneno mortífero, capaz de matar um elefante. este pequeno ser de tom preto,\n\
+e possuidor de um ferrão em sua extremidade, bota medo em qualquer um que\n\
+por ele passa."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 15
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_armedrin011
+herda comum_persobat
+const nome = "Uma criança selvagem"
+const descnome = "Uma criança selvagem"
+const descpadr = "Uma criancinha está aqui, brincando com uma serpente entre os dedos."
+const descver = "Esta criança parece não ter medo de nada, seus olhos são inteligentes e \
+a\n\
+forma que ela brinca com a serpente entre os dedos. Não lhe deixa dúvidas\n\
+que ela pode ser perigosa quando quer."
+const nivel = 30
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_armedrin012
+herda comum_persobat
+const nome = "Uma mulher selvagem"
+const descnome = "Uma mulher selvagem"
+const descpadr = "Uma mulher está aqui, preparando a refeição do dia."
+const descver = "Ela tem uma expressão de pura concentração naquilo que faz. Suas mãos ágeis\n\
+cortam a carne com maestria. E seu corpo também não deixa dúvidas que ela\n\
+pode ser perigosa quando quiser."
+const nivel = 37
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_armedrin013
+herda comum_persobat
+const nome = "Um homem selvagem"
+const descnome = "Um homem selvagem"
+const descpadr = "Um homem selvagem está aqui, pulindo suas armas."
+const descver = "Este homem anda com uma roupa totalmente de pele, suas mãos estão\n\
+caleijadas de manejar as armas. Sua expressão diz para você que ele não está\n\
+feliz em ver você aqui. Em seu cinto muitos tipos de armas feitas de\n\
+madeiram se sobresaem."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 40
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_armedrin014
+herda comum_persobat
+const nome = "Um homem a beira da morte"
+const descnome = "Um homem a beira da morte"
+const descpadr = "Um moribundo está aqui, gemendo de dor."
+const descver = "este pobre homem parece ter sido atacado por algo ou alguém, mas só por\n\
+suas várias cicatrizes, você não consegue definir. Marcas estão espalhadas\n\
+por todo seu corpo, misturadas a feridas abertas e infectadas pelo tempo. A\n\
+medida que você vai examinando este ser, a única certeza que você tem, é que\n\
+ele tem sofrido por bastante tempo, e não se sabe se ele sobreviverá."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 35
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_armedrin015
+herda comum_persobat
+const nome = "Um veado branco"
+const descnome = "Um veado branco"
+const descpadr = "Um veado albino está aqui, com medo de você."
+const descver = "com uma pelugem branca, este gracioso animal anda a passos sincronizados,\n\
+de maneira que seus olhos não conseguem acompanhá-lo."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 10
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_armedrin016
+herda comum_persobat
+const nome = "Um urso marrom"
+const descnome = "Um urso marrom"
+const descpadr = "Um urso está descansando aqui."
+const descver = "um grande carnívoro temido por tudo e todos, com seus dentes afiados e\n\
+presas poderosas, este ser não teme a nada, e faz de tudo para obter sua\n\
+refeição, que não é nada mais do que carne. e não seria nada legal\n\
+confundi-lo com um ursinho de pelúcia marrom, pois você pode muito bem\n\
+servir de refeição a este ser."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 25
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_armedrin017
+herda comum_persobat
+const nome = "Uma formiga operária"
+const descnome = "Uma formiga operária"
+const descpadr = "Uma formiga enorme está aqui, andando para lá e para cá com seu ferrão \
+pronto."
+const descver = "uma estranha formiga, não só por seu aspecto esverdeado, mas também por \
+seu\n\
+tamanho, nada comum para sua espécie, medindo cerca de um metro, esta\n\
+gigantesca formiga parece ser de outro mundo, será que o exagerado\n\
+crescimento foi devido a este lugar? ou simplesmente uma mutação de sua\n\
+raça? Não se sabe ao certo, apenas que ela está sedenta por comida, e para\n\
+ela você é uma bela refeição."
+const nivel = 20
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_armedrin018
+herda comum_persobat
+const nome = "A formiga rainha"
+const descnome = "A formiga rainha"
+const descpadr = "Uma formiga senta-se imponentimente em um trono ao canto da sala."
+const descver = "Com seu tamanho parecido com o de um pastor alemão, sua carapaça\n\
+impenetrável e dourada, antenas que lembram adagas e seu ferrão do tamanho\n\
+de uma espada. Esta formiga coordena este formigueiro com maestria, e não\n\
+parece estar feliz com sua presença. Ela se levanta de seu trono, e ordena\n\
+sua morte."
+const nivel = 34
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_armedrin019
+herda comum_persobat
+const nome = "Um macaco"
+const descnome = "Um macaco"
+const descpadr = "Um macaquinho está aqui, se balançando animadamente."
+const descver = "um pequeno macaco nativo de Armedrin, com pelos marrons, e a cauda preta,\n\
+este engraçado ser, demonstra toda sua agilidade pulando de galho em galho."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 18
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+
+classe p_armedrin020
+herda comum_persobat
+const nome = "Um gavião gigante"
+const descnome = "Um gavião gigante"
+const descpadr = "Existe uma ave enorme aqui observando você."
+const descver = "Este gigantesco gavião, é um predador nato, com penas pretas, bico afiado \
+e\n\
+garras poderosas, nada seria pário para este ágil ser, que realiza voos\n\
+rasantes para conseguir sua alimentação, seja animais, seja humanos! "
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 25
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_morreu
+  ret !arg0.jog, nulo
+  $mens.p(arg0, arg1)
+  $mens.mmudtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "$A grita: Que alguém muito bom te salve da próxima Vez, $R.\n\
+$A grita: se eu pudesse ajudar alguém, eu ajudaria $R, porque el$w é tão frac!\n\
+$A grita: Hauheuhae, queria rir em vez de gritar por causa de $R, morreu com uma facilidade e \
+tanto pra mim...\n\
+$A grita: Nossa, matar mosquito é mais difícil que matar você, $R.\n\
+$A grita: era uma vez, $R. Até mais!\n\
+$A grita: Nossa, os Demônios devem estar alegres demais hoje, $R é um dos que acabou de ir pra \
+morte agorinha...\n\
+$A grita: $R, você é muito frac$t. Vá treinar!\n\
+$A grita: Te aconselho a ir matar moscas, $R.\n\
+$A grita: $R bate igual uma menininha, qualquer um mata el$t... Ess$t nem deu gosto de matar.\n\
+$A grita: nunca matei uma pessoa tão fraca igual você, $R.\n\
+$A grita: que da próxima vez, $R, alguém cure você.\n\
+$A grita: se Azazel pudesse agradecer alguém, ele me agradeceria, por matar você, $R.\n\
+$A grita: se for vim aqui de novo, aconselho você ficar brincando de bonequinhas, $R.\n\
+$A grita: o seu lugar é na academia! não me atrapalhe novamente $R, vai treinar mais!\n\
+$A grita: Seu horrível ser! Não volte mais aqui para me atacar, ou vai fazer uma visitinha para \
+Azazel novamente, $R.\n\
+$A grita: Não sei se eu choro de rir ou de tristeza, por matar alguém tão fraco como você, \
+$R.\n\
+$A grita: Rarrarrá-rarrarrá... $R morreu, e nem pra mim brincar deu. Hauhauhauhauh!\n\
+$A chora de rir: $R, você bate igual uma baratinha!\n\
+$A grita: $R, da próxima, venha mais forte... Agora: Boa morte!\n\
+$A grita: $R, da próxima vez venha com mais gente!\n\
+$A grita: $R, peça ajuda a algum Deus para me matar por você, porque nunca conseguirá!\n\
+$A grita: Poxa $R, não venha tomar meu tempo de novo, pois nem graça matar você tem!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv |= 16
+
+
+classe s_armedrin001
+herda b_armedrin
+const s_titulo = "Um Caminho Com Uma Vegetação Rasteira"
+const s_desc = "Você está em um caminho em meio arbustos, que são pequenos e fazem cocegas\n\
+quando você passa por eles. O caminho continua a oeste. E logo depois você\n\
+vê uma floresta."
+const dir_l = $s_midleste019
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "O portão de zurs"
+const portaartigo_l = 2 # Artigo porta: 2 o (portão)
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_armedrin002
+
+
+classe s_armedrin002
+herda b_armedrin
+const s_titulo = "Um Caminho Com Uma Vegetação Rasteira"
+const s_desc = "Você está em um caminho em meio arbustos, que são pequenos e fazem cocegas\n\
+quando você passa por eles. O caminho continua a oeste. E logo depois você\n\
+vê uma floresta."
+const dir_l = $s_armedrin001
+const dir_o = $s_armedrin003
+
+
+classe s_armedrin003
+herda b_armedrin
+const s_titulo = "O final do caminho."
+const s_desc = "Você está no final do caminho. a oeste começa uma floresta dença. Aqui a\n\
+vegetação começa a ser subistituida por árvores autas e grossas. Em um\n\
+tronco está uma placa que se lê: \"Cuidado animais selvagens vivem aqui."
+const s_pnj = 0
+const dir_l = $s_armedrin002
+const dir_o = $s_armedrin004
+
+
+classe s_armedrin004
+herda b_armedrin
+const s_titulo = "A entrada da floresta Armedrin"
+const s_desc = "Você adentra uma floresta vasta e silenciosa. Pássaros cantam de cima das\n\
+árvores e coelhos correm de arbusto em arbusto. Uma trilha leva para oeste,\n\
+para dentro da floresta e para leste, de volta ao caminho de vegetação."
+const dir_n = $s_armedrin072
+const dir_l = $s_armedrin003
+const dir_o = $s_armedrin005
+
+
+classe s_armedrin005
+herda b_armedrin
+const s_titulo = "Em um caminho aberto na floresta."
+const s_desc = "Ainda na floresta, você se encanta com a variedade de cores e sons que\n\
+encontra por aqui. Os animais não parecem ter medo de você, andam de lá para\n\
+cá sem vergonha de passar próximo de seus pés. As árvores são espaçadas\n\
+aqui, e proporcionam belas sombras para se descansar. Você pode continuar\n\
+para oeste, ou voltar para leste. seguindo a trilha que é margeada por\n\
+plantas coloridas."
+const dir_l = $s_armedrin004
+const dir_o = $s_armedrin006
+const a_reset = "P 100 armedrin005 0 0 4 z_moedas=2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_armedrin005:objsolto.total < 4
+    criar("p_armedrin005", este, 0, "z_moedas=2")
+  fimse
+
+
+classe s_armedrin006
+herda b_armedrin
+const s_titulo = "Ainda no caminho aberto."
+const s_desc = "Ainda na floresta, você se encanta com a variedade de cores e sons que\n\
+encontra por aqui. Os animais não parecem ter medo de você, andam de lá para\n\
+cá sem vergonha de passar próximo de seus pés. As árvores são espaçadas\n\
+aqui, e proporcionam belas sombras para se descansar. Você pode continuar\n\
+para oeste, ou voltar para leste. seguindo a trilha que é margeada por\n\
+plantas coloridas. Você também vê um caminho ao sul, parcialmente escondido."
+const dir_s = $s_armedrin007
+const dir_l = $s_armedrin005
+const dir_o = $s_armedrin008
+
+
+classe s_armedrin007
+herda b_armedrin
+const s_titulo = "Um caminho entre as árvores."
+const s_desc = "Você encontra um pequeno corredor desenhado pela própria natureza. As\n\
+árvores estão juntas, mas não dificultam sua passagem. Para sul o caminho\n\
+continua enquanto para norte você volta para a trilha prinsipal."
+const dir_n = $s_armedrin006
+const dir_s = $s_armedrin012
+
+
+classe s_armedrin008
+herda b_armedrin
+const s_titulo = "Entrando em uma trilha fechada."
+const s_desc = "Aqui a floresta começa a ficar mais densa. As árvores se fecham e a trilha\n\
+fica mais estreita. Os animais ficam mais escondidos e os barulhos crescem\n\
+medonhamente. Ao norte você vê um caminho escondido, ao oeste a trilha\n\
+continua e ao leste você volta de onde veio."
+const dir_n = $s_armedrin009
+const dir_l = $s_armedrin006
+const dir_o = $s_armedrin010
+
+
+classe s_armedrin009
+herda b_armedrin
+const s_titulo = "Um caminho escondido na floresta."
+const s_desc = "Este caminho se parece com algo feito as pressas. As árvores estão tão\n\
+juntas que quase foi impossível entrar aqui. O chão está coberto de raíses e\n\
+a luz solar não entra aqui. Este caminho se parece com algo feito as\n\
+pressas. As árvores estão tão juntas que quase foi impossível entrar aqui. O\n\
+chão está coberto de raíses e a luz solar não entraneste lugar. O caminho\n\
+continua a norte. Quem será que fez isso?"
+const dir_n = $s_armedrin027
+const dir_s = $s_armedrin008
+const a_reset = "P 100 armedrin007 0 0 4 z_moedas=2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_armedrin007:objsolto.total < 4
+    criar("p_armedrin007", este, 0, "z_moedas=2")
+  fimse
+
+
+classe s_armedrin010
+herda b_armedrin
+const s_titulo = "Em uma trilha fechada."
+const s_desc = "Agora você está rodeado por árvores autas e cobertas de folhas. As raíses\n\
+tornam difícil caminhar e você tem que andar com cautela para não pisar em\n\
+nem um animal. Você sente um calafrio em pensar o que pode encontrar se \n\
+andar mais para o fundo desta floresta. Também imagina que aventuras poderão\n\
+de proporcionar os animais que vivem aqui. Ao oeste as árvores se fecham\n\
+definitivamente e ao sul a trilha continua fechada."
+const dir_s = $s_armedrin011
+const dir_l = $s_armedrin008
+const dir_o = $s_armedrin013
+
+
+classe s_armedrin011
+herda b_armedrin
+const s_titulo = "Mais ao fundo da floresta."
+const s_desc = "Você é engolfado por árvores gigantescas. Aqui a luz não entra, embora ao\n\
+sul você veja uma luz forte, neste lugar nem um raio de sol toca o solo. O\n\
+chão é húmido, e você toma cuidado para não pisar em nem um animal. Ao norte\n\
+você volta a trilha principal da floresta."
+const dir_n = $s_armedrin010
+const dir_s = $s_armedrin022
+const a_reset = "P 100 armedrin006 0 0 4 z_moedas=2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_armedrin006:objsolto.total < 4
+    criar("p_armedrin006", este, 0, "z_moedas=2")
+  fimse
+
+
+classe s_armedrin012
+herda b_armedrin
+const s_titulo = "Uma clareira em T."
+const s_desc = "Você encontra uma clareira formada pelo encontro de duas trilhas. Uma que\n\
+vem de leste para oeste e outra que vem do norte, finalizando-se aqui. Ao\n\
+sul as árvores se fecham não permitindo que você proxima, para o leste você\n\
+enxerga uma pequena cabana, enquanto que para oeste uma grande árvore\n\
+obstrói toda a visão que você tem do céu."
+const dir_n = $s_armedrin007
+const dir_l = $s_armedrin024
+const dir_o = $s_armedrin023
+
+
+classe s_armedrin013
+herda b_armedrin
+const s_titulo = "No meio das árvores."
+const s_desc = "Você chega em uma área onde as árvores fecham a trilha com seus galhos,\n\
+impocibilitando andar tranquilamente. Você precisa abrir caminho a força\n\
+para continuar. Os barulhos de animais cada vez mais aumentam, seus olhos só\n\
+podem ver galhos e grama. As copas das árvores cobrem toda a luz do local."
+const dir_l = $s_armedrin010
+const dir_o = $s_armedrin014
+const a_reset = "P 100 armedrin006 0 0 4 z_moedas=3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_armedrin006:objsolto.total < 4
+    criar("p_armedrin006", este, 0, "z_moedas=3")
+  fimse
+
+
+classe s_armedrin014
+herda b_armedrin
+const s_titulo = "Em um corredor de árvores autas."
+const s_desc = "Depois de ser sufocado pelas árvores, este local é um alívio. As árvores\n\
+não estão juntas, mas deixam um caminho largo para passagem. Seus galhos\n\
+continuam tapando a visão, toda via não estão bloqueando a passsagem. No\n\
+entanto os sons continuam autos, o que será que vive por esta floresta?"
+const dir_l = $s_armedrin013
+const dir_o = $s_armedrin015
+
+
+classe s_armedrin015
+herda b_armedrin
+const s_titulo = "diante de um carvalho imenço"
+const s_desc = "O corredor termina em duas aberturas. Uma ao norte e outra ao sul. Um\n\
+carvalho gigante impede a passagem ao oeste, forçando você escolher uma das\n\
+duas saídas. A visibilidade ainda é baixa, mas a floresta parece ficar mais\n\
+silenciosa. Será que isto é bom ou ruin?"
+const dir_n = $s_armedrin016
+const dir_s = $s_armedrin017
+const dir_l = $s_armedrin014
+
+
+classe s_armedrin016
+herda b_armedrin
+const s_titulo = "Um beco sem saída."
+const s_desc = "Você adentra uma clareira, onde as árvores se abrem em um beco sem saída.\n\
+Sua unica opção é voltar para sul"
+const dir_s = $s_armedrin015
+const a_reset = "P 100 armedrin007 0 0 4 z_moedas=2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_armedrin007:objsolto.total < 4
+    criar("p_armedrin007", este, 0, "z_moedas=2")
+  fimse
+
+
+classe s_armedrin017
+herda b_armedrin
+const s_titulo = "Em um corredor de árvores negras."
+const s_desc = "Este corredor de árvores é diferente do que você ja vio neste lugar. As\n\
+árvores são mais grossas e muito mais medonhas. Seus troncos são negros e\n\
+seus galhos são repletos de espinhos. Você precisa tomar cuidado para não\n\
+pisar em nem um destes que caem dos galhos. Não é difícil andar por aqui.\n\
+mas tome cuidado... As aparências ENGANAM."
+const dir_n = $s_armedrin015
+const dir_o = $s_armedrin018
+
+
+classe s_armedrin018
+herda b_armedrin
+const s_titulo = "Em um corredor de árvores negras."
+const s_desc = "Este corredor de árvores é diferente do que você ja vio neste lugar. As\n\
+árvores são mais grossas e muito mais medonhas. Seus troncos são negros e\n\
+seus galhos são repletos de espinhos. Você precisa tomar cuidado para não\n\
+pisar em nem um destes que caem dos galhos. Não é difícil andar por aqui.\n\
+mas tome cuidado... As aparências ENGANAM. Ao sul você vê pequenos raios de\nsol."
+const dir_s = $s_armedrin019
+const dir_l = $s_armedrin017
+const dir_o = $s_armedrin020
+
+
+classe s_armedrin019
+herda b_armedrin
+const s_titulo = "Em uma clareira."
+const s_desc = "Você adentra uma clareira vasta. As árvores se abrem para dar lugar a 4\n\
+saídas. Uma ao sudeste, que olhando mais atentamente se parece com a entrada\n\
+de uma caverna, outra ao sudoeste mais larga que provavelmente leva a outra\n\
+abertura na floresta e outra ao sul, levando a um lugar mais claro do que\n\
+aqui. Este lugar parece também ser um local de descanço. Animais deitam para\n\
+se deliciar com o sol e outros aproveitam para tirar uma soneca. E claro,\n\
+você sempre poderá voltar para norte."
+const dir_n = $s_armedrin018
+const dir_s = $s_armedrin030
+const dir_se = $s_armedrin029
+const dir_so = $s_armedrin028
+
+
+classe s_armedrin020
+herda b_armedrin
+const s_titulo = "Em um corredor de árvores negras."
+const s_desc = "Este corredor de árvores é diferente do que você ja vio neste lugar. As\n\
+árvores são mais grossas e muito mais medonhas. Seus troncos são negros e\n\
+seus galhos são repletos de espinhos. Você precisa tomar cuidado para não\n\
+pisar em nem um destes que caem dos galhos. Não é difícil andar por aqui.\n\
+mas tome cuidado... As aparências ENGANAM. Um som estranho vem do oeste,\n\
+cuidado! pode ser algo perigoso."
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_armedrin018
+const dir_o = $s_armedrin021
+const a_reset = "P 100 armedrin015 0 0 6 z_moedas=2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_armedrin015:objsolto.total < 6
+    criar("p_armedrin015", este, 0, "z_moedas=2")
+  fimse
+
+func cmd_salaperso
+  ret !arg0.jog, nulo # Retorna se não for jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou4
+  arg0.msg("Você sente que há algo perigoso por perto!")
+  ret 1
+
+
+classe s_armedrin021
+herda b_armedrin
+const s_titulo = "Em um poço de ácido."
+const s_desc = "Você se aproxima da borda de um poço. Quando se abaixa para olhar seu\n\
+conteúdo, uma força anormal puxa você para baixo. Você é jogado em um\n\
+líquido venenoso e corrosivo. Seu corpo entra em uma agonia fatal e o que\n\
+você pode pensar antes de morrer é: \"Não posso...\""
+const s_item = 1
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+const s_pnj = 0
+
+
+classe s_armedrin022
+herda b_armedrin
+const s_titulo = "Uma junção de árvores."
+const s_desc = "Esta junção de árvores é estranha e ao mesmo tempo linda. Árvores de várias\n\
+cores se encontram formando um arco-íris vibrante. Quando sol toca as\n\
+folhas, transforma o efeito muito mais lindo.  Ao leste uma árvore se eleva\n\
+imponentemente obstruindo sua visão do horizonte. Ao oeste uma trilha de\n\
+pedra se estende para o centro da floresta."
+const dir_n = $s_armedrin011
+const dir_l = $s_armedrin023
+const dir_o = $s_armedrin043
+
+
+classe s_armedrin023
+herda b_armedrin
+const s_titulo = "Embaixo de uma árvore"
+const s_desc = "Você chega na base de um tronco enorme. Sua espessura se iguala a de 5\n\
+troncos juntos, seus galhos são muito juntos permitindo assim que você o\n\
+suba. Em sua base um buraco do tamanho certo para que você passe deitado\n\
+leva para baixo. Ao oeste você vê mais árvores."
+const dir_l = $s_armedrin012
+const dir_o = $s_armedrin022
+const dir_c = $s_armedrin032
+const dir_b = $s_armedrin042
+
+
+classe s_armedrin024
+herda b_armedrin
+const s_titulo = "Diante de uma cabana."
+const s_desc = "Aqui as árvores se abrem, para admitir uma cabana colocada por mão humana,\n\
+neste ambiente natural. Uma porta de madeira bloqueia a entrada ao norte,\n\
+enquanto que para o sul você pode ouvir som de água. Um homem está sentado\n\
+aqui perto de uma fogueira."
+const dir_n = $s_armedrin026
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "A porta da cabana"
+const portaartigo_n = 0 # Artigo porta: 0 a (porta)
+const fecha_n = 1 # Fecha ao passar: Sim
+const tranc_n = 0 # Trancar: 0 Não pode ser trancado
+const dir_s = $s_armedrin025
+const dir_o = $s_armedrin012
+const a_reset = "P 100 armedrin002 0 0 1 z_moedas=15,h_segundo_ataque=8\n\
+E 60 armedrin005 0 20"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_armedrin002:objsolto.total < 1
+    p = u = criar("p_armedrin002", este, 0, "z_moedas=15,h_segundo_ataque=8")
+  fimse
+  se u && rand(100) < 60
+    r = criar("i_armedrin005", u, 0), r.vestir(20), u.recalc = 1
+  fimse
+
+
+classe s_armedrin025
+herda b_armedrin
+const s_titulo = "Se aproximando de um rio."
+const s_desc = "Aqui as árvores se tornam mais húmidas e seus ramos mais floridos. Frutos\n\
+estão pelo chão e a vegetação parece mais verde neste local. Capivaras andam\n\
+por perto, assim como veados e até alguns coelhos. Ao sul o son de água\n\
+aumenta, será um rio?"
+const dir_n = $s_armedrin024
+const dir_s = $s_armedrin041
+const dir_o = $s_armedrin068
+const a_reset = "P 100 armedrin008 0 0 4 z_moedas=3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_armedrin008:objsolto.total < 4
+    criar("p_armedrin008", este, 0, "z_moedas=3")
+  fimse
+
+
+classe s_armedrin026
+herda b_armedrin
+const s_titulo = "Uma cabana"
+const s_desc = "Esta cabana simples, parece-se mais com um depósito do que com uma casa.\n\
+Prateleiras na parede do fundo conteem, pele, armas, roupas e outros\n\
+artefatos que certamente pertencem a um caçador. Na parede oeste um baú se\n\
+encontra fechado, o que será que tem nele? Na parede leste uma cama feita de\n\
+madeira e peles, está escondida da luz apoiada em uma mesinha, que vem de\n\
+uma pequena lamparina no centro da sala. Ao sul você retorna para frente da\ncabana."
+const dir_s = $s_armedrin024
+const portanome_s = "A porta da cabana"
+const fecha_s = 1 # Fecha ao passar: Sim
+
+
+classe s_armedrin027
+herda b_armedrin
+const s_titulo = "Ainda andando no caminho escondido."
+const s_desc = "Com muita dificuldade você continua no caminho. A caminhada continua\n\
+difícil, mas você repara sangue seco nas folhas dos galhos mais baixos.\n\
+Parece que alguém machucado passou por aqui."
+const dir_n = $s_armedrin066
+const dir_s = $s_armedrin009
+
+
+classe s_armedrin028
+herda b_armedrin
+const s_titulo = "Uma biurcação em X."
+const s_desc = "Este lugar é onde duas trilhas se encontram. Uma do sudoeste para o\n\
+nordeste, outra do dudeste para o noroeste. As árvores apenas margeiam as\n\
+trilhas, proporcionando sombras refrescantes. Ao sudoeste as árvores\n\
+terminam em um buraco coberto por folhas, o que será isso? Enquanto ao\n\
+noroeste um campo gramado pode ser visto. Para o sudeste uma rocha eleva-se\n\
+grandemente sobre as árvores. Ao nordeste você vê a clareira de onde veio."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_ne = $s_armedrin019
+const dir_no = $s_armedrin031
+const dir_se = $s_armedrin034
+const dir_so = $s_armedrin033
+
+
+classe s_armedrin029
+herda b_armedrin
+const s_titulo = "Em uma caverna."
+const s_desc = "Esta caverna está repleta de folhas, nos cantos vários ossos se amontoam em\n\
+uma montanha ordenada. No centro deste lugar encontra-se uma concentração de\n\
+ursos enorme. Acho que é melhor você sair daqui correndo."
+const dir_no = $s_armedrin019
+const a_reset = "P 100 armedrin016 0 0 6 z_moedas=7\nP 100 armedrin016 0 0 6 z_moedas=7"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_armedrin016:objsolto.total < 6
+    criar("p_armedrin016", este, 0, "z_moedas=7")
+  fimse
+  se p_armedrin016:objsolto.total < 6
+    criar("p_armedrin016", este, 0, "z_moedas=7")
+  fimse
+
+
+classe s_armedrin030
+herda b_armedrin
+const s_titulo = "Em um caminho aberto na floresta."
+const s_desc = "Este caminho está livre de árvores e vegetação. você só vê grama sob seus\n\
+pés, árvores aos seus lados e um céu ensolarado em cima de você. Ao sul você\n\
+vislumbra uma enorme rocha elevando-se sobre as árvores."
+const dir_n = $s_armedrin019
+const dir_s = $s_armedrin034
+const dir_o = $s_armedrin110
+const a_reset = "P 100 armedrin006 0 0 4 z_moedas=2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_armedrin006:objsolto.total < 4
+    criar("p_armedrin006", este, 0, "z_moedas=2")
+  fimse
+
+
+classe s_armedrin031
+herda b_armedrin
+const s_titulo = "Um gramado em meio a floresta"
+const s_desc = "Este gramado parece ter sido feito por mãos humanas, a grama aqui é baixa e\n\
+as árvores só delimitam os espaços dele. Animais correm soltos por aqui, mas\n\
+também você vê ao oeste algo se elevando sobre as árvores. Mesmo assim o\n\
+lugar é tranquilo, os animais também parecem gostar daqui. Andam de lá para\n\
+cá brincando ou até caçando. Alguns parecem estar receosos, será que é por\n\
+você , ou por algo maior?"
+const s_pnj = 0
+const dir_s = $s_armedrin048
+const dir_o = $s_armedrin047
+const dir_se = $s_armedrin028
+
+
+classe s_armedrin032
+herda b_armedrin
+const s_titulo = "Subindo na árvore"
+const s_desc = "Apoz subir pelos galhos, você encontra uma curva no tronco, que permite que\n\
+você fique estabilizado. Ao seu lado encontra-se uma abertura no tronco, os\n\
+galhos continuam juntos permitindo sua subida. Mais a cima você vê um ninho\n\
+gigante. Você também pode voltar para baixo, usando os galhos."
+const dir_n = $s_armedrin035
+const dir_c = $s_armedrin036
+const dir_b = $s_armedrin023
+
+
+classe s_armedrin033
+herda b_armedrin
+const s_titulo = "A toca do tigre."
+const s_desc = "Que bagunça. Você entra claramente na toca de algum animal, ossos de vários\n\
+tamanhos estão jogados para todo lado, pele cobre um canto junto a parede,\n\
+será que é a cama? Se for, você não deseja conhecer o animal que vive aqui.\n\
+Pelos estão espalhados por toda parte e um cheiro de carne enche suas\n\
+narinas. Em um canto está um tufo grande o bastante para você ver que os\n\
+pelos são de um azul muito forte. Quando você menos espera, um animal\n\
+gigantesco sai de traz de uma parede falsa e vem em sua direção..."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_ne = $s_armedrin028
+const a_reset = "P 100 armedrin001 0 0 1 z_moedas=20"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_armedrin001:objsolto.total < 1
+    criar("p_armedrin001", este, 0, "z_moedas=20")
+  fimse
+
+
+classe s_armedrin034
+herda b_armedrin
+const s_titulo = "Diante de uma rocha."
+const s_desc = "Você se encontra em uma depreção onde as árvores param de crescer, devido a\n\
+uma grande rocha que está impedindo o avanço de suas raíses. Esta rocha é\n\
+enorme e além de ser extremamente auta, serve também como ponto de\n\
+referência para quem se perder nesta floresta. Ao leste você vê um caminho\n\
+pedregoso, enquanto para o noroeste uma trilha leva para uma bifurcação. Ao\n\
+norte você volta ao caminho aberto."
+const dir_n = $s_armedrin030
+const dir_l = $s_armedrin046
+const dir_no = $s_armedrin028
+
+
+classe s_armedrin035
+herda b_armedrin
+const s_titulo = "Dentro do tronco."
+const s_desc = "Este local é um abrigo ótimo, não é húmido pois o tronco absorve toda a\n\
+água, também não é quente por que os galhos proporcionam proteção do sol. O\n\
+tronco é largo Para sul você volta para os galhos e a cima você vê uma\n\
+abertura, mas que está muito auta para ser alcansada."
+const dir_s = $s_armedrin032
+
+
+classe s_armedrin036
+herda b_armedrin
+const s_titulo = "NO centro da árvore."
+const s_desc = "Finalmente você depois de muita luta, chega ao centro da copa da árvore,\n\
+daqui para cima são apenas galhos. Seus pés estão apoiados no topo do\n\
+tronco. Olhando para os lados você vê a vastidão desta floresta. Ela se\n\
+estende por todos os lados. Daqui você vê a copa de todas as árvores e uma\n\
+pedra ao longe. Ao norte o ninho que você vio lá de baixo está silencioso,\n\
+enquanto que para sul um galho com aparência de firme se estende\n\
+desafiadoramente sobre as outras árvores, para leste uma estranha brisa\n\
+sopra seus cabelos. Também é possível seguir para cima usando os galhos como\napoio."
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_armedrin038
+const dir_s = $s_armedrin039
+const dir_l = $s_armedrin037
+const dir_c = $s_armedrin040
+const dir_b = $s_armedrin032
+
+func cmd_salaperso
+  ret !arg0.jog, nulo # Retorna se não for jogador
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou4
+  arg0.msg("Você sente que há algo perigoso por perto!")
+  ret 1
+
+
+classe s_armedrin037
+herda b_armedrin
+const s_titulo = "Escorregando dos galhos."
+const s_desc = "Você se aproxima da borda do tronco. Seus pés começam a deslizar na casca\n\
+da árvore e você despenca sendo atingido pelos galhos que lhe foram úteis no\n\
+passado. Você atinge o chão e seu corpo se despedaça..\n\
+Sinto muito..."
+const s_morre = 2 # Morre ao entrar: 2 Sim e perde itens e dinheiro
+const s_pnj = 0
+
+
+classe s_armedrin038
+herda b_armedrin
+const s_titulo = "em um ninho."
+const s_desc = "Este ninho é gigantesco. Galhos, grama e casca de frutas, juntamente com\n\
+terra, formam o ninho maior que você ja vio. Suas dimensões são enormes.\n\
+Nixos se alinham na parede, parecendo com entradas para quartos, para todo\n\
+lado que você olha ovos enormes também se aconchegam em montes de penas. No\n\
+chão existe um buraco que leva para dentro do tronco da árvore. Em cima de\n\
+sua cabeça, várias aves diferentes observam você."
+const dir_s = $s_armedrin036
+const dir_b = $s_armedrin035
+const a_reset = "P 100 armedrin020 0 0 3 z_moedas=5\n\
+P 100 armedrin020 0 0 3 z_moedas=5\n\
+P 100 armedrin020 0 0 3 z_moedas=5"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_armedrin020:objsolto.total < 3
+    criar("p_armedrin020", este, 0, "z_moedas=5")
+  fimse
+  se p_armedrin020:objsolto.total < 3
+    criar("p_armedrin020", este, 0, "z_moedas=5")
+  fimse
+  se p_armedrin020:objsolto.total < 3
+    criar("p_armedrin020", este, 0, "z_moedas=5")
+  fimse
+
+
+classe s_armedrin039
+herda b_armedrin
+const s_titulo = "Em um galho forte."
+const s_desc = "Este galho é único, sua estrutura é tão grossa quanto a de um tronco de\n\
+árvore normal. Seu comprimento é aproximadamente de 3 metros e sua ponta é\n\
+enfeitada apenas com um fruto."
+const dir_n = $s_armedrin036
+const a_reset = "P 100 armedrin019 0 0 1 z_moedas=2\nS 100 armedrin006 0 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_armedrin019:objsolto.total < 1
+    criar("p_armedrin019", este, 0, "z_moedas=2")
+  fimse
+  !dentro1.objini("i_armedrin006") && criar("i_armedrin006", este, 0)
+
+
+classe s_armedrin040
+herda b_armedrin
+const s_titulo = "No topo da árvore"
+const s_desc = "O topo desta árvore é diferente de todos. Seus galhos se juntam em uma\n\
+estrutura plana e confurtável para se deitar e observar o céu. Daqui a visão\n\
+é maravilhosa, as folhas que nascem aqui são verdes e amarelas trazendo um\n\
+efeito maravilhoso ao seus olhos. Pássaros cantam e borboletas voam em\n\
+armonia, sua vontade é de nunca sair daqui."
+const dir_b = $s_armedrin036
+const a_reset = "P 100 armedrin005 0 0 4 z_moedas=2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_armedrin005:objsolto.total < 4
+    criar("p_armedrin005", este, 0, "z_moedas=2")
+  fimse
+
+
+classe s_armedrin041
+herda b_armedrin
+const s_titulo = "Na margem do rio."
+const s_desc = "Você está diante de um rio não tão fundo, suas águas são límpidas e você\n\
+consegue ver peixes nadando de lá para cá. Aqui o chão vai se enclinando\n\
+para baixo, fazendo uma rampa até dentro do rio. Algumas árvores pequenas\n\
+nascem aqui, e você vê também frutas em algumas."
+const s_pnj = 0
+const dir_n = $s_armedrin025
+const dir_s = $s_armedrin062
+const dir_o = $s_armedrin069
+
+
+classe s_armedrin042
+herda b_armedrin
+const s_titulo = "Um formigueiro gigante."
+const s_desc = "Este formigueiro é diferente de todos os formigueiros que você ja vio. É\n\
+constituído por apenas uma sala, no entanto esta sala é enorme. Ovos de\n\
+formiga se alojam em um canto, enquanto formigas do tamanho de Poodles andam\n\
+para lá e para cá com seus ferrões de forma ameaçadora. Encostado em uma\n\
+parede se encontra uma estrutura parecida com um trono, sobre ele se\n\
+encontra a formiga mais gigante que você ja vio. ela olha para você e ordena\n\
+sua servas te atacarem."
+const dir_c = $s_armedrin023
+const a_reset = "P 100 armedrin017 0 0 6 z_moedas=4\n\
+P 100 armedrin017 0 0 6 z_moedas=4\n\
+P 100 armedrin017 0 0 6 z_moedas=4\n\
+P 100 armedrin018 0 0 1 z_moedas=10,h_segundo_ataque=8\n\
+E 30 armedrin001 1 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_armedrin017:objsolto.total < 6
+    criar("p_armedrin017", este, 0, "z_moedas=4")
+  fimse
+  se p_armedrin017:objsolto.total < 6
+    criar("p_armedrin017", este, 0, "z_moedas=4")
+  fimse
+  se p_armedrin017:objsolto.total < 6
+    criar("p_armedrin017", este, 0, "z_moedas=4")
+  fimse
+  se p_armedrin018:objsolto.total < 1
+    p = u = criar("p_armedrin018", este, 0, "z_moedas=10,h_segundo_ataque=8")
+  fimse
+  se u && rand(100) < 30
+    r = criar("i_armedrin001", u, 1), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_armedrin043
+herda b_armedrin
+const s_titulo = "Um caminho rodeado por pedras."
+const s_desc = "Este caminho em meio as árvores está moldado por pedras. Pequenas muretas\n\
+limitam o crescimento das árvores no caminho, permitindo-o a continuar ao\noeste."
+const dir_l = $s_armedrin022
+const dir_o = $s_armedrin044
+
+
+classe s_armedrin044
+herda b_armedrin
+const s_titulo = "Ainda no caminho rodeado por pedras."
+const s_desc = "Este caminho em meio as árvores está moldado por pedras. Pequenas muretas\n\
+limitam o crescimento das árvores no caminho, permitindo-o a continuar ao\noeste."
+const dir_l = $s_armedrin043
+const dir_o = $s_armedrin045
+const a_reset = "P 100 armedrin015 0 0 6 z_moedas=2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_armedrin015:objsolto.total < 6
+    criar("p_armedrin015", este, 0, "z_moedas=2")
+  fimse
+
+
+classe s_armedrin045
+herda b_armedrin
+const s_titulo = "Se aproximando de uma grande rocha."
+const s_desc = "Aqui o caminho está totalmente rodeado por paredes autas de pedra, o único\n\
+sinal das árvores são suas copas que sobresaem por cima delas. O caminho\n\
+continua para sul, se aproximando de uma grande rocha que mesmo de longe.\n\
+parece ser enorme."
+const dir_s = $s_armedrin046
+const dir_l = $s_armedrin044
+
+
+classe s_armedrin046
+herda b_armedrin
+const s_titulo = "Se aproximando de uma grande rocha."
+const s_desc = "Aqui as pedras se abrem para dar lugar a uma passagem ao oeste. Se torna\n\
+impossível seguir para sul, pois uma enorme rocha toma toda sua visão. Suas\n\
+escolhas são. Ir para oeste, para a base da rocha. ou voltar de onde você\n\
+veio, para norte."
+const dir_n = $s_armedrin045
+const dir_o = $s_armedrin034
+
+
+classe s_armedrin047
+herda b_armedrin
+const s_titulo = "Andando pelo gramado."
+const s_desc = "Neste lado do gramado, as árvores fecham os lados, permitindo que você\n\
+Escolha entre, ir para sul ou para leste. Pegadas de animais, mas também\n\
+outras que parecem ser de algo grande estão por toda parte. O gramado no\n\
+entanto continua sendo agradável e muito relaxante."
+const dir_s = $s_armedrin049
+const dir_l = $s_armedrin031
+const a_reset = "P 100 armedrin004 0 0 4 z_moedas=2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_armedrin004:objsolto.total < 4
+    criar("p_armedrin004", este, 0, "z_moedas=2")
+  fimse
+
+
+classe s_armedrin048
+herda b_armedrin
+const s_titulo = "Andando pelo gramado."
+const s_desc = "Neste lado do gramado, as árvores fecham os lados, permitindo que você\n\
+Escolha entre, ir para norte ou para oeste. Pegadas de animais, mas também\n\
+outras que outras que parecem ser de algo grande estão por toda parte. O\n\
+gramado no entanto continua sendo agradável e muito relaxante."
+const dir_n = $s_armedrin031
+const dir_o = $s_armedrin049
+const a_reset = "P 100 armedrin005 0 0 4 z_moedas=2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_armedrin005:objsolto.total < 4
+    criar("p_armedrin005", este, 0, "z_moedas=2")
+  fimse
+
+
+classe s_armedrin049
+herda b_armedrin
+const s_titulo = "Andando pelo gramado."
+const s_desc = "Nesta parte do gramado as árvores são subistituídas por arbustos. Eles\n\
+cobrem a saída a oeste, tornando assim impossível proceguir. Para sul uma\n\
+trilha se abre entre estes arbustos, enquanto que para norte você continua\n\
+no gramado. Para leste o gramado também continua. Aqui também é um lugar\n\
+tranquilo e ensolarado, embora os animais aqui na maior parte são cobras e\n\
+coelhos, existem alguns outros, como raposas e esquilos."
+const dir_n = $s_armedrin047
+const dir_s = $s_armedrin050
+const dir_l = $s_armedrin048
+const a_reset = "P 100 armedrin003 0 0 3 z_moedas=2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_armedrin003:objsolto.total < 3
+    criar("p_armedrin003", este, 0, "z_moedas=2")
+  fimse
+
+
+classe s_armedrin050
+herda b_armedrin
+const s_titulo = "Uma trilha de arbustos"
+const s_desc = "Aqui você encontra apenas uma trilha, feita claramente por mãos humanas. \
+A\n\
+trilha é estreita, mas permite que você caminhetranquilamente por meio dos\n\
+arbustos. Em sua vez estes são completamente feitos de espinhos. Então\n\
+cuidado para não se desequilibrar, cair sobre eles não deve ser agradável. A\n\
+trilha continua a oeste, enquanto que para norte você volta para o gramado."
+const dir_n = $s_armedrin049
+const dir_o = $s_armedrin051
+
+
+classe s_armedrin051
+herda b_armedrin
+const s_titulo = "Na trilha de arbustos."
+const s_desc = "Você continua nesta trilha, os arbustos tornam-se maiores, e mais\n\
+espinhosos. Chegam a autura de sua cintura, e aqui não é tão fácil caminhar.\n\
+Qualquer animal pode se esconder por aqui, cuidado. Ao norte os arbustos\n\
+estão muito juntos, não seria uma boa idéia ir para lá. Para leste você\n\
+volta para o início da trilha."
+const dir_n = $s_armedrin052
+const dir_l = $s_armedrin050
+
+
+classe s_armedrin052
+herda b_armedrin
+const s_titulo = "Entre os arbustos."
+const s_desc = "Ops... parece que você caiu em meio os arbustos. Aqui os arbustos se\n\
+fecharam totalmente em torno de você. A única coisa que você consegue ver é\n\
+uma saída para oeste. Para sul os arbustos parecem fechados de mais para\n\
+voltar, será que você conseguiria passar por eles? Também tome mais cuidado,\n\
+o perigo dobrou com este aumento de raíses e espinhos. Um animal venenoso\n\
+pode te picar."
+const dir_s = $s_armedrin051
+const inv_s = 1 # Invisível: Sim
+const voar_s = 0 # Voar: Não
+const dir_o = $s_armedrin053
+const a_reset = "P 100 armedrin010 0 0 3 z_moedas=2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_armedrin010:objsolto.total < 3
+    criar("p_armedrin010", este, 0, "z_moedas=2")
+  fimse
+
+
+classe s_armedrin053
+herda b_armedrin
+const s_titulo = "Se aproximando de uma construção grande."
+const s_desc = "Ufa! Os arbustos se abrem aqui dando lugar a uma área plana e limpa. O\n\
+espaço apenas está delimitado a oeste e a norte, por mais deles. Ao sul a\n\
+área continua. E daqui é possível ver algo grande se elevando para o\n\
+sudoeste. É possível voltar para o meio dos arbustos a leste."
+const dir_s = $s_armedrin054
+const dir_l = $s_armedrin052
+
+
+classe s_armedrin054
+herda b_armedrin
+const s_titulo = "Próximo da construção."
+const s_desc = "Esta área limpa, agora você começa a reparar, mais se parece com um quintal\n\
+do que qualquer coisa. A terra aqui é lavrada e a grama parece ser aparada\n\
+regularmente. Ao oeste, você vê uma construção, do que será feita? Parece\n\
+troncos, será possível? No meio do terreno também se encontra um balanço.\n\
+Será que crianças se aventuram por estes lados?"
+const dir_n = $s_armedrin053
+const dir_o = $s_armedrin055
+const a_reset = "P 100 armedrin011 0 0 1 z_moedas=10,h_segundo_ataque=8\n\
+E 70 armedrin004 1 5\n\
+E 70 armedrin008 0 14"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_armedrin011:objsolto.total < 1
+    p = u = criar("p_armedrin011", este, 0, "z_moedas=10,h_segundo_ataque=8")
+  fimse
+  se u && rand(100) < 70
+    r = criar("i_armedrin004", u, 1), r.vestir(5), u.recalc = 1
+  fimse
+  se u && rand(100) < 70
+    r = criar("i_armedrin008", u, 0), r.vestir(14), u.recalc = 1
+  fimse
+
+
+classe s_armedrin055
+herda b_armedrin
+const s_titulo = "Na entrada de uma construção de troncos."
+const s_desc = "Suas especulações estavam certas. Esta construção é totalmente feita de\n\
+troncos, moldados e encaixados juntos. A entrada encontra-se a oeste. Do\n\
+lado da porta existe uma pilha de equipamentos de jardineiro, enquanto que\n\
+em cima uma cabeça de animal sorri para você. Será um tigre? Ao norte você\n\
+vê uma trilha, que parece ir para ao lado da construção."
+const dir_n = $s_armedrin056
+const dir_l = $s_armedrin054
+const dir_o = $s_armedrin057
+
+
+classe s_armedrin056
+herda b_armedrin
+const s_titulo = "No começo da trilha."
+const s_desc = "Você está em uma pequena trilha, feita ao lado da construção de troncos.\n\
+Ela segue para oeste, para traz da construção. O que será que existe ali."
+const dir_s = $s_armedrin055
+const dir_o = $s_armedrin058
+
+
+classe s_armedrin057
+herda b_armedrin
+const s_titulo = "Dentro da construção."
+const s_desc = "Esta construção é totalmente feita de troncos. A sala está repleta de\n\
+armas, ossos e roupas feitas de peles. Em um canto existe uma estrutura que\n\
+se parece muito com uma fogueira, Em frente dela uma mulher, prepara o que\n\
+parece ser carne de tigre. Ao sul, parece que os troncos se abrem em algum\n\
+tipo de despensa. E para cima uma escada leva para algo muito parecido com\n\
+um quarto."
+const dir_s = $s_armedrin071
+const dir_l = $s_armedrin055
+const dir_c = $s_armedrin070
+const a_reset = "P 100 armedrin012 0 0 1 z_moedas=10,h_segundo_ataque=8\n\
+E 60 armedrin002 0 6"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_armedrin012:objsolto.total < 1
+    p = u = criar("p_armedrin012", este, 0, "z_moedas=10,h_segundo_ataque=8")
+  fimse
+  se u && rand(100) < 60
+    r = criar("i_armedrin002", u, 0), r.vestir(6), u.recalc = 1
+  fimse
+
+
+classe s_armedrin058
+herda b_armedrin
+const s_titulo = "Na trilha ao lado da construção."
+const s_desc = "Você está em uma pequena trilha, feita ao lado da construção de troncos.\n\
+Ela segue para oeste, para traz da construção. O que será que existe ali."
+const dir_l = $s_armedrin056
+const dir_o = $s_armedrin059
+
+
+classe s_armedrin059
+herda b_armedrin
+const s_titulo = "Ainda na trilha."
+const s_desc = "Aqui a trilha continua, mesmo a construção tendo ficado para traz. Ao sul\n\
+você vê a espécie de um quartinho, enquanto que para oeste a trilhaparece\n\
+terminar."
+const eveste = 0 # Eventos sala: Não
+const dir_n = $s_micmac001
+const dir_s = $s_armedrin060
+const dir_l = $s_armedrin058
+const dir_o = $s_armedrin061
+
+func cmd_mover
+  se arg2 == "n" && arg0.prenascer < 11
+    arg0.msg(config:msgnaoseguir)
+    ret 1
+  fimse
+
+
+classe s_armedrin060
+herda b_armedrin
+const s_titulo = "Atraz da construção."
+const s_desc = "Aqui parece ser um depósito de armas. Em cima de você existe um telhado\n\
+feito de folhas, grandes e largas. Nas paredes, existem nixos cheios de\n\
+espadas, lanças, arcos e muitas mais armas feitas de madeira. Os donos desta\n\
+construção parecem se virarem muito bem neste lugar."
+const dir_n = $s_armedrin059
+const a_reset = "P 100 armedrin013 0 0 1 z_moedas=15,h_segundo_ataque=8\n\
+E 50 armedrin003 0 8\n\
+E 65 armedrin007 0 17"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_armedrin013:objsolto.total < 1
+    p = u = criar("p_armedrin013", este, 0, "z_moedas=15,h_segundo_ataque=8")
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_armedrin003", u, 0), r.vestir(8), u.recalc = 1
+  fimse
+  se u && rand(100) < 65
+    r = criar("i_armedrin007", u, 0), r.vestir(17), u.recalc = 1
+  fimse
+
+
+classe s_armedrin061
+herda b_armedrin
+const s_titulo = "O final da trilha."
+const s_desc = "Finalmente você chega no final desta trilha. Aqui as árvores acabam\n\
+repentinamente, os arbustos tornam-se pequenos e floridos, ao oeste você vê\n\
+o horizonte."
+const dir_l = $s_armedrin059
+const dir_o = $s_terra013
+const a_reset = "P 100 armedrin007 0 0 4 z_moedas=2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_armedrin007:objsolto.total < 4
+    criar("p_armedrin007", este, 0, "z_moedas=2")
+  fimse
+
+
+classe s_armedrin062
+herda b_armedrin
+const s_titulo = "No rio."
+const s_desc = "Este rio é maravilhosamente lindo. Peixes nadam de lá para cá, encantando\n\
+sua visão. No fundo encontram-se pedras coloridas, as águas são frescas e\n\
+límpidas. O rio segue para oeste, sua correntesa não é tão calma, mas lhe\n\
+permite ficar estável."
+const eveste = 0 # Eventos sala: Não
+const dir_n = $s_armedrin041
+const dir_o = $s_armedrin063
+const a_reset = "P 100 armedrin009 0 0 4 z_moedas=2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_armedrin009:objsolto.total < 4
+    criar("p_armedrin009", este, 0, "z_moedas=2")
+  fimse
+
+func cmd_mover
+  se arg2 == "l" && arg0.prenascer < 1
+    arg0.msg("Você não renasceu a quantidade de vezes o suficiente para explorar este local!")
+    ret 1
+  fimse
+
+
+classe s_armedrin063
+herda b_armedrin
+const s_titulo = "No rio."
+const s_desc = "Este rio é maravilhosamente lindo. Peixes nadam de lá para cá, encantando\n\
+sua visão. No fundo encontram-se pedras coloridas, as águas são frescas e\n\
+límpidas. O rio segue para oeste, sua correntesa não é tão calma, mas lhe\n\
+permite ficar estável."
+const dir_n = $s_armedrin069
+const dir_l = $s_armedrin062
+const dir_o = $s_armedrin064
+
+
+classe s_armedrin064
+herda b_armedrin
+const s_titulo = "Sendo levado pela correntesa."
+const s_desc = "Aqui o rio começa a ficar revolto, suas águas quase levam você por sua\n\
+força. A sul você vê uma abertura onde o rio desemboca em uma cachoeira.\n\
+Ainda assim o rio continua lindo, o som da cachoeira lhe traz uma paz imença."
+const dir_s = $s_armedrin065
+const dir_l = $s_armedrin063
+
+
+classe s_armedrin065
+herda b_armedrin
+const s_titulo = "Em uma abertura no rio."
+const s_desc = "Aqui o rio chega a uma cachoeira. As águas caem para sul em um efeito de\n\
+arco-íris. Sua visão se vislumbra com tanta beleza. A correntesa diminui,\n\
+permitindo que você se segure em uma pedra para poder observar toda esta\n\
+maravilha."
+const eveste = 0 # Eventos sala: Não
+const dir_n = $s_armedrin064
+const dir_o = $s_elfos001
+const a_reset = "P 100 armedrin009 0 0 4 z_moedas=2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_armedrin009:objsolto.total < 4
+    criar("p_armedrin009", este, 0, "z_moedas=2")
+  fimse
+
+func cmd_mover
+  se arg2 == "o" && arg0.prenascer < 1
+    arg0.msg("Você não renasceu a quantidade de vezes o suficiente para explorar este local!")
+    ret 1
+  fimse
+
+
+classe s_armedrin066
+herda b_armedrin
+const s_titulo = "No fim do caminho escondido."
+const s_desc = "Você chega no fim deste caminho tortuoso. As árvores continuam juntas de\n\
+mais. Mas você percebe algo para oeste. Será que alguem cortou aqueles\n\
+galhos? Parece-lhe que estão colocados de maneira nigligente. Seria bom dar\n\
+uma olhada."
+const dir_s = $s_armedrin027
+const dir_o = $s_armedrin067
+const inv_o = 1 # Invisível: Sim
+
+
+classe s_armedrin067
+herda b_armedrin
+const s_titulo = "Em um esconderijo."
+const s_desc = "Depois de passar pelos galhos, Você encontra um esconderijo em meio os\n\
+troncos. O lugar está com um cheiro de podridão e pedaços de armadura se\n\
+encontram encostados aqui perto. Deitado no chão está um homem ferido e\n\
+moribundo. Ele parece a beira da morte."
+const dir_s = $s_gnomos001
+const dir_l = $s_armedrin066
+const a_reset = "P 100 armedrin014 0 0 1 z_moedas=10,h_segundo_ataque=8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_armedrin014:objsolto.total < 1
+    criar("p_armedrin014", este, 0, "z_moedas=10,h_segundo_ataque=8")
+  fimse
+
+func cmd_mover
+  se arg2 == "s" && arg0.prenascer < 16
+    arg0.msg("Área não disponível para seu remorte.")
+    ret 1
+  fimse
+
+
+classe s_armedrin068
+herda b_armedrin
+const s_titulo = "Um campo a beira do rio."
+const s_desc = "Este campo é lindo. A grama aqui é baixa, arbustos delimitam o espaço,\n\
+algumas árvores proporcionam sombras relaxantes e o sol completa este local\n\
+lindo. Animais estão aqui relaxando a luz do sol, enquanto você ouve o canto\n\
+dos passarinhos misturados com o som do rio correndo ao sul. Você encontrou\n\
+um santuário no meio da selva. Você pensa em ficar aqui ao invés de voltar\n\
+para sua vida sangrenta."
+const dir_s = $s_armedrin069
+const dir_l = $s_armedrin025
+const a_reset = "P 100 armedrin004 0 0 4 z_moedas=2\n\
+P 100 armedrin003 0 0 4 z_moedas=2\n\
+P 100 armedrin008 0 0 4 z_moedas=3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_armedrin004:objsolto.total < 4
+    criar("p_armedrin004", este, 0, "z_moedas=2")
+  fimse
+  se p_armedrin003:objsolto.total < 4
+    criar("p_armedrin003", este, 0, "z_moedas=2")
+  fimse
+  se p_armedrin008:objsolto.total < 4
+    criar("p_armedrin008", este, 0, "z_moedas=3")
+  fimse
+
+
+classe s_armedrin069
+herda b_armedrin
+const s_titulo = "Na margem do rio."
+const s_desc = "Você está diante de um rio não tão fundo, suas águas são límpidas e você\n\
+consegue ver peixes nadando de lá para cá. Aqui o chão vai se enclinando\n\
+para baixo, fazendo uma rampa até dentro do rio. Algumas árvores pequenas\n\
+nascem aqui, e você vê também frutas em algumas."
+const s_pnj = 0
+const dir_n = $s_armedrin068
+const dir_s = $s_armedrin063
+const dir_l = $s_armedrin041
+
+
+classe s_armedrin070
+herda b_armedrin
+const s_titulo = "Um quarto confortável."
+const s_desc = "O quarto é pequeno. Uma cama de casal toma a maior parte do quarto. Em um\n\
+canto uma pequena cama quase some nas sombras. Peles cobrem as paredes,\n\
+provavelmente para mantê-lo aquecido. Não existem nem um tipo de iluminação\n\
+no quarto. Este lugar deve ser utilizado especificamente para dormir."
+const dir_b = $s_armedrin057
+
+
+classe s_armedrin071
+herda b_armedrin
+const s_titulo = "Uma despensa"
+const s_desc = "Neste cômodo da construção, todo o alimento da família é armazenado em\n\
+prateleiras de madeira. Em um canto você também vê, peles e ossos separados."
+const dir_n = $s_armedrin057
+
+
+classe s_armedrin072
+herda b_armedrin
+const s_titulo = "Na Margem do Lago"
+const s_desc = "A densa floresta converge aqui, na margem de um belo lago de água cristalina,\n\
+formando um pequeno reservatório de água. Em razão do lago, aqui a luz entra em abundância, \
+permitindo que cresca uma bela diversidade de plantas, e assim, que\n\
+apareça um também vasta variedade de insetos e pequenos animais. Ao norte se encontra o lago, e \
+ao sul, se encontra a floresta."
+const dir_n = $s_armedrin073
+const dir_s = $s_armedrin004
+
+
+classe s_armedrin073
+herda b_armedrin
+const s_titulo = "No Lago"
+const s_desc = "Você avança no lago, que parece ter as águas em pequeno movimento.      Talvez \
+seja gerado por algum ser vivo, ou talvez haja uma pequena\n\
+correnteza, em razão da embocadura com algum rio. Ao leste e oeste o       lago continua, \
+enquanto ao sul você avista a margem."
+const dir_s = $s_armedrin072
+const dir_l = $s_armedrin074
+const dir_o = $s_armedrin075
+
+
+classe s_armedrin074
+herda b_armedrin
+const s_titulo = "No Lago"
+const s_desc = "Você continua no lago, onde reina uma calma e paz sem igual, quebrada apenas \
+pelo coaxar de alguns sapos e pela zumbido de alguns mosquitos.\n\
+Ao oeste o lago continua."
+const dir_o = $s_armedrin073
+
+
+classe s_armedrin075
+herda b_armedrin
+const s_titulo = "No Lago"
+const s_desc = "Aqui as águas possuem mais movimento, vindas de um rio, vindo de baixo. Como as \
+águas SOBEM para cá é uma boa pergunta. Provavelmente é resultado de alguma poderosa magia. Ao \
+leste o lago continua."
+const dir_l = $s_armedrin073
+const dir_b = $s_armedrin076
+
+
+classe s_armedrin076
+herda b_armedrin
+const s_titulo = "Descendo Contra a Corrente (!)"
+const s_desc = "Bizarro. Você se vê descendo o curso d'água que ruma em direção ao lago (a \
+leste); entretanto, você segue contra a corrente, já que\n\
+a água deveria DESCER, e não SUBIR! Sem dúvida, isso não é natural. É possível voltar acima pelo \
+lago, ou continuar enfrentando a força da água a oeste."
+const dir_o = $s_armedrin077
+const dir_c = $s_armedrin075
+
+
+classe s_armedrin077
+herda b_armedrin
+const s_titulo = "Próximo ao Redemoinho"
+const s_desc = "Você continua seguindo contrariamente ao fluxo do rio, em direção ao que parece \
+ser um grande redemoinho, a oeste. Sua prudência recomenda voltar a leste, mas é sempre possível \
+contrariá-la, claro."
+const dir_l = $s_armedrin076
+const dir_o = $s_armedrin078
+
+
+classe s_armedrin078
+herda b_armedrin
+const s_titulo = "Um Estranho Redemoinho"
+const s_desc = "Água por todos os lados, num movimento circular que parece não ter fim.\n\
+Eis um grande redemoinho, cujo fluxo não parece rodar para nenhum lado específico. Apesar de o \
+curso do rio até então ter se dado para fora\n\
+deste fenômeno, agora já preso a seu movimento você não consegue se       desvencilhar em \
+direção ao lado. Parece inevitável que seu destino se       encontre nas profundezas dessa \
+água."
+const dir_l = $s_armedrin077
+const dir_b = $s_armedrin079
+
+
+classe s_armedrin079
+herda b_armedrin
+const s_titulo = "Bolhas e Mais Bolhas!"
+const s_desc = "Engolido pelo redemoinho, você se vê submerso no que parece ser uma\n\
+infinidade de bolhas ao seu redor. Elas se movimentam para todos os lados, como se um turbilhão \
+partisse de seu corpo. É melhor nadar para a superfície,    se conseguir!"
+const dir_c = $s_armedrin080
+
+
+classe s_armedrin080
+herda b_armedrin
+const s_titulo = "O Calmo Curso de um Riacho"
+const s_desc = "Ufa, ar! Após um longo respiro, saído da enorme tensão submersa, você\n\
+percebe emergir em um tranqüilo riacho, que corre sereno por aqui.        Curiosamente, este \
+curso d'água, que vem do oeste e segue até o leste, se      encontra cercado por árvores, como \
+uma espécie de filtro, o que impede sua\n\
+passagem para qualquer uma dessas direções. É possível, porém, sair da água a sul, rumo à \
+margem."
+const dir_s = $s_armedrin081
+
+
+classe s_armedrin081
+herda b_armedrin
+const s_titulo = "O Caminho de Seixos"
+const s_desc = "Você sobe a margem sul do rio, deixando-o para trás. Agora você\n\
+não mais o vê, mas pode ouvir o barulho de suas águas logo a norte.       Continuando o caminho, \
+você chega numa estrada repleta de seixos e\n\
+pedrinhas, que parecem cascalho ou brita.  É até um pouco difícil         andar aqui, já que as \
+pedras são soltas. Ao longo da estrada você\n\
+pode visualizar algumas cabanas de camponeses, plantações de legumes      e arroz, além de \
+vários viajantes. Entre eles alguns rounins\n\
+(samurais sem mestres para servir), pajens, garotos de recados,      bandidos, condutores de \
+cavalos e pessoas comuns passando ao acaso\n\
+pelo local. O caminho é longo, e mais ao sudeste você pode vislumbrar      uma construção \
+bastante grande, cercada de bambus. O caminho de\n\
+seixos continua na direção sul, enquanto você pode voltar a norte para o rio."
+const dir_n = $s_armedrin080
+const dir_s = $s_armedrin082
+
+
+classe s_armedrin082
+herda b_armedrin
+const s_titulo = "O Caminho de Seixos"
+const s_desc = "Continuando o caminho, você chega numa estrada repleta de seixos e      pedrinhas\
+ que parecem cascalho ou brita. É até um pouco difícil andar aqui,\n\
+já que as pedras estão soltas. O caminho de seixos continua na direção sul, e para o norte fica \
+o início do caminho."
+const dir_n = $s_armedrin081
+const dir_s = $s_armedrin083
+
+
+classe s_armedrin083
+herda b_armedrin
+const s_titulo = "O Caminho de Seixos"
+const s_desc = "Continuando o caminho, você chega numa estrada repleta de seixos e pedrinhas que \
+parecem cascalho ou brita. O caminho de seixos continua nas      direções sul e norte."
+const dir_n = $s_armedrin082
+const dir_s = $s_armedrin084
+
+
+classe s_armedrin084
+herda b_armedrin
+const s_titulo = "Ainda no Caminho de Seixos"
+const s_desc = "Continuando o caminho, você chega numa estrada repleta de seixos e\n\
+pedrinhas que parecem cascalho ou brita. Entretanto, a estrada aqui parece      um pouco mais \
+movimentada, e há também muitos monges peregrinos por aqui.      O caminho de seixos continua \
+para o leste e para o norte."
+const dir_n = $s_armedrin083
+const dir_l = $s_armedrin085
+
+
+classe s_armedrin085
+herda b_armedrin
+const s_titulo = "Ainda no Caminho de Seixos"
+const s_desc = "Continuando o caminho, você chega numa estrada repleta de seixos e\n\
+pedrinhas que parecem cascalho ou brita. Folhas de bambu foram sopradas de      algum lugar para \
+cá. O caminho de seixos continua para o leste e para o oeste."
+const dir_l = $s_armedrin086
+const dir_o = $s_armedrin084
+
+
+classe s_armedrin086
+herda b_armedrin
+const s_titulo = "Ainda no Caminho de Seixos"
+const s_desc = "Continuando o caminho, você chega numa estrada repleta de seixos e\n\
+pedrinhas que parecem cascalho ou brita. Folhas de bambu foram sopradas de      algum lugar para \
+cá. O caminho de seixos continua para o leste e para o oeste."
+const dir_l = $s_armedrin087
+const dir_o = $s_armedrin085
+
+
+classe s_armedrin087
+herda b_armedrin
+const s_titulo = "Ainda no Caminho de Seixos"
+const s_desc = "Continuando o caminho, você chega numa estrada repleta de seixos e\n\
+pedrinhas que parecem cascalho ou brita. O caminho é longo e um pouco      ao sul há uma \
+passagem cercada por bambus. O caminho de seixos continua      para o sul e para o oeste."
+const dir_s = $s_armedrin088
+const dir_o = $s_armedrin086
+
+
+classe s_armedrin088
+herda b_armedrin
+const s_titulo = "O Caminho de Seixos"
+const s_desc = "Continuando o caminho, você chega numa estrada repleta de seixos e\n\
+pedrinhas que parecem cascalho ou brita. Porém, o caminho fica mais       claro agora, em função \
+de construções e casas que iluminam o caminho.       O caminho de seixos continua para o norte e \
+para o sul."
+const dir_n = $s_armedrin087
+const dir_s = $s_armedrin089
+
+
+classe s_armedrin089
+herda b_armedrin
+const s_titulo = "O Caminho de Seixos"
+const s_desc = "Continuando o caminho, você chega numa estrada repleta de seixos e\n\
+pedrinhas que parecem cascalho ou brita. Porém, o caminho fica mais       claro agora, em função \
+de construções e casas que iluminam o caminho.       O caminho de seixos continua para o norte e \
+para o sul."
+const dir_n = $s_armedrin088
+const dir_s = $s_armedrin090
+
+
+classe s_armedrin090
+herda b_armedrin
+const s_titulo = "O Caminho de Seixos"
+const s_desc = "Continuando o caminho, você chega numa estrada repleta de seixos e\n\
+pedrinhas que parecem cascalho ou brita. O ar aqui fica mais impuro, com muita poeira suspensa \
+no ar. Você tem até vontade de tossir! O caminho         de seixos continua para o norte e para \
+o oeste."
+const dir_n = $s_armedrin089
+const dir_o = $s_armedrin091
+
+
+classe s_armedrin091
+herda b_armedrin
+const s_titulo = "O Caminho de Seixos"
+const s_desc = "Continuando o caminho, você chega numa estrada repleta de seixos e\n\
+pedrinhas que parecem cascalho ou brita. O caminho de seixos continua      para o oeste e para o \
+leste."
+const dir_l = $s_armedrin090
+const dir_o = $s_armedrin092
+
+
+classe s_armedrin092
+herda b_armedrin
+const s_titulo = "O Caminho de Seixos"
+const s_desc = "Continuando o caminho, você chega numa estrada repleta de seixos e\n\
+pedrinhas que parecem cascalho ou brita. O caminho de seixos continua      para o oeste e para o \
+leste."
+const dir_l = $s_armedrin091
+const dir_o = $s_armedrin093
+
+
+classe s_armedrin093
+herda b_armedrin
+const s_titulo = "O Final do Caminho de Seixos"
+const s_desc = "Continuando o caminho, você chega numa estrada repleta de seixos e\n\
+pedrinhas que parecem cascalho ou brita. O caminho de seixos continua      para o leste."
+const dir_s = $s_armedrin094
+const dir_l = $s_armedrin092
+const dir_o = $s_armedrin094
+
+
+classe s_armedrin094
+herda b_armedrin
+const s_titulo = "A Estrada Pavimentada Norte"
+const s_desc = "Você entra em uma larga e agitada estrada, pavimentada com gigantescos\n\
+pisos de pedras lisas, bem fixas no chão, para facilitar o trânsito de          carroças entre \
+as cidades. Belas árvores de cereja carregadas de pequenas\n\
+flores rosas acompanham sua viagem, tornando-a menos tediosa. Algumas      pousadas e casas de \
+chá estão abertas para servir os viajantes e peregrinos\n\
+famintos. Pajens e garotos de recados viajam em nome de seus mestres para marcar lutas e enviar \
+mensagens escritas entre províncias."
+const dir_n = $s_armedrin093
+const dir_s = $s_armedrin095
+
+
+classe s_armedrin095
+herda b_armedrin
+const s_titulo = "A Estrada Pavimentada Norte"
+const s_desc = "A larga e bela estrada pavimentada continua para o norte e para o sul,        \
+com seus barulhentos transeuntes, crianças choronas, bandidos e samurais\n\
+andando de um lado para o outro. Ao leste você pode ver um estábulo,      enquanto a estrada \
+continua para o norte e para o sul."
+const dir_n = $s_armedrin094
+const dir_s = $s_armedrin097
+const dir_l = $s_armedrin096
+
+
+classe s_armedrin096
+herda b_armedrin
+const s_titulo = "Estábulo"
+const s_desc = "Você deixa a Estrada Pavimentada Norte e entra num curto caminho que dá       \
+diretamente neste estábulo. Vários cavalos estão amarrados aqui, e muitos deles\n\
+parecem cansados e famintos. O cheiro deste lugar não é muito agradável, e      parece que \
+ninguém se importa em limpar o estábulo. Vários condutores oferecem   seus serviços, mas não \
+parece uma boa idéia confiar muito neles."
+const dir_o = $s_armedrin095
+
+
+classe s_armedrin097
+herda b_armedrin
+const s_titulo = "A Estrada Pavimentada Norte"
+const s_desc = "Aqui, a estrada pavimentada adquire um cheiro forte de arroz e de álcool.  \
+Parece que as fazendas da redondeza fabricam o famoso saquê,\n\
+bebida alcoólica feita de arroz. Ao norte você pode voltar para a estrada pavimentada, enquanto \
+ao sul você vê a continuação da estrada."
+const dir_n = $s_armedrin095
+const dir_s = $s_armedrin098
+
+
+classe s_armedrin098
+herda b_armedrin
+const s_titulo = "A Estrada Pavimentada Sul"
+const s_desc = "você  entra numa larga e agitada estrada pavimentada com gigantescas pedras \
+lisas, bem fixas ao chão, para facilitar o trânsito de carroças entre as cidades.       Belas \
+árvores de cerejas carregadas com pequenas flores rosas\n\
+acompanham sua viagem, tornando-a menos tediosa. Algumas pousadas         e casas de chá estão \
+abertas para servir os viajantes e peregrinos famintos.\n\
+A Estrada continua ao oeste."
+const dir_n = $s_armedrin097
+const dir_o = $s_armedrin101
+
+
+classe s_armedrin099
+herda b_armedrin
+const s_titulo = "A Barreira de Inspeção de Edo"
+const s_desc = "Aqui há uma barreira de inspeção do governo Tokugawa, que cerca toda a\n\
+Estrada Pavimentada Sul. Vários guardas, samurais, generais        e daimyos\n\
+(que são uma espécie de governador de diferentes províncias\n\
+e regiões) seguem por aqui. Vários guardas passam por você e o revistam, para ter certeza de que \
+você não é um espião de Osaka.\n\
+O Xogum Tokugawa Ieyasu não quer que nada atrapalhe seu governo; por isso é tão cuidadoso assim. \
+A barreira de inspeção acaba ao sul,\n\
+onde a estrada pavimentada continua rumo à nova cidade de Edo. Há um grande aviso na parede!"
+const dir_n = $s_armedrin098
+const dir_s = $s_armedrin100
+
+
+classe s_armedrin100
+herda b_armedrin
+const dir_n = $s_armedrin099
+
+
+classe s_armedrin101
+herda b_armedrin
+const s_titulo = "A Estrada Pavimentada Oeste"
+const s_desc = "você deixa a barulhenta junção de estradas ao leste e entra numa larga e      \
+agitada estrada pavimentada. Você tinha esperanças de seguir por um caminho um\n\
+pouco menos agitado, mas parece que esta parte da estrada é tão agitada quanto   as demais. Há \
+muitas e muitas carroças de mantimentos indo para o oeste. Você\n\
+presume que talvez a cidade de Osaka seja um bom local para fazer algumas compras. Ao oeste você \
+pode ver uma barreira de inspeção, que serve para\n\
+controlar o trânsito na grande e famosa cidade de Osaka, enquanto a leste fica A estrada."
+const dir_l = $s_armedrin098
+const dir_o = $s_armedrin102
+
+
+classe s_armedrin102
+herda b_armedrin
+const s_titulo = "A Barreira de Inspeção da Cidade de Osaka"
+const s_desc = "Toyotomi Hideyori, o filho do lendário Toyotomi Hideyoshi, quer ter certeza   de \
+que Tokugawa não fará um ataque para derrubar a cidade de Osaka, antiga\n\
+capital do Japão. Para se assegurar de que isso não aconteça, Toyotomi Hideyori instalou na \
+estrada que leva a sua cidade uma grande e segura barreira de\n\
+inspeção, para barrar todos os simpatizantes do Xogum Tokugawa.      Vários inspetores e guardas \
+desconfiados fazem perguntas a você e te revistam,\n\
+buscando provas que possam te incriminar. Para oeste, a Estrada Pavimentada      Oeste leva à \
+bela cidade de Osaka, a antiga capital."
+const dir_l = $s_armedrin101
+const dir_o = $s_armedrin103
+
+
+classe s_armedrin103
+herda b_armedrin
+const s_titulo = "O Pinheiro Solitário de Ichijoji"
+const s_desc = "Aqui a larga e agitada estrada faz uma curva para contornar uma árvore.       \
+Isto mesmo! Para contornar um pinheiro! Você se pergunta por quê não\n\
+pouparam tempo e dinheiro derrubando esta árvore e apenas continuando o         caminho em linha \
+reta. Há uma larga pedra apoiada no chão; e aparentemente\n\
+há algo escrito nela. A estrada oeste continua em frente, até a cidade de Osaka, ou para leste, \
+em direção à Estrada."
+const dir_l = $s_armedrin102
+const dir_o = $s_armedrin104
+
+
+classe s_armedrin104
+herda b_armedrin
+const s_titulo = "Antes da Entrada de Osaka"
+const s_desc = "A Estrada Pavimentada ainda não acabou, mas você já se sente na grande        \
+cidade de Osaka. Mesmo para fora da muralha da cidade há muitas casas, lojas,\n\
+comércios e muitas pessoas correndo, gritando e conversando, assim como         crianças \
+brincando ou chorando, cavalos andando, cães latindo e todo o tipo\n\
+de coisa que se pode ver numa grande cidade, apesar de não se encontrar         dentro da cidade \
+de Osaka propriamente dita. A oeste, a cidade de Osaka, com\n\
+suas ruas largas e iluminadas, e o grandioso palácio de Osaka. Ao leste, você    volta para a \
+estrada pavimentada."
+const dir_l = $s_armedrin103
+const dir_o = $s_armedrin105
+
+
+classe s_armedrin105
+herda b_armedrin
+const s_titulo = "Embaixo do Torii"
+const s_desc = "Esplendor. Essa é a primeira palavra que vem à sua mente assim que você\n\
+passa por debaixo do Torii, que fica logo na entrada da cidade. Daqui      você já consegue \
+perceber toda a vitalidade e agitação de Osaka, mesmo nos\n\
+horários tardios e nas noites frias. A cidade é bastante plana, o que      permite uma boa visão \
+geral da cidade deste ponto: o norte da cidade parece\n\
+ser uma área mais nobre, com várias casas de chá, estalagens e casas bem        decoradas. O sul \
+da cidade parece ser a área popular, com lojas de ferragens,\n\
+de utilidades e mercearias. Algumas casas simples podem ser vistas em quase      todas as ruas \
+da cidade. Ao longe você pode ver o Grande Templo de Osaka, que\n\
+fica na parte norte da cidade, e um grande e importante dojo ao sul, na mesma    distância. Você \
+pode ver um grande e imponente castelo a uma grande\n\
+distância para o oeste; o Osaka Tenshukaku - o Grande Castelo de Osaka. Algumas placas e sutras \
+gravadas no pórtico dão boas-vindas aos viajantes."
+const dir_l = $s_armedrin104
+const dir_o = $s_osaka001
+
+
+classe s_armedrin106
+herda b_armedrin
+const s_titulo = "Estrada de térra"
+const s_desc = "Você está numa estrada Norte-Sul coberta de poeira.\n\
+Ocasionalmente um caçador ou aventureiro pode ser visto, se dirigindo para dentro ou fora da \
+floresta. Para\n\
+Norte está a cidade entre muralhas, Osaka, e para Sul a estrada continua\n\
+em direção a uma grande floresta."
+const dir_n = $s_armedrin900
+const dir_s = $s_armedrin107
+
+
+classe s_armedrin107
+herda b_armedrin
+const s_titulo = "Estrada de térra"
+const s_desc = "Você está numa estrada Norte-Sul coberta de poeira.\n\
+Ocasionalmente um caçador ou aventureiro pode ser visto, se dirigindo para dentro ou fora da \
+floresta. Para\n\
+Norte está a cidade entre muralhas, Osaka, e para Sul a estrada continua\n\
+em direção a uma grande floresta."
+const dir_n = $s_armedrin106
+const dir_s = $s_armedrin108
+
+
+classe s_armedrin108
+herda b_armedrin
+const s_titulo = "Estrada de térra"
+const s_desc = "Você está numa estrada Norte-Sul coberta de poeira.\n\
+Ocasionalmente um caçador ou aventureiro pode ser visto, se dirigindo para dentro ou fora da \
+floresta. Para\n\
+Norte está a cidade entre muralhas, Osaka, e para Sul a estrada continua\n\
+em direção a uma grande floresta."
+const dir_n = $s_armedrin107
+const dir_s = $s_armedrin109
+
+
+classe s_armedrin109
+herda b_armedrin
+const s_titulo = "Estrada de térra"
+const s_desc = "Você está numa estrada Norte-Sul coberta de poeira.\n\
+Ocasionalmente um caçador ou aventureiro pode ser visto, se dirigindo para dentro ou fora da \
+floresta. Para\n\
+Norte está a cidade entre muralhas, Osaka, e para Sul a estrada continua\n\
+em direção a uma grande floresta."
+const dir_n = $s_armedrin108
+const dir_s = $s_armedrin010
+
+
+classe s_armedrin110
+herda b_armedrin
+const s_titulo = "Estrada de térra"
+const s_desc = "Você está numa estrada Leste-Oeste coberta de poeira.\n\
+Ocasionalmente um caçador ou aventureiro pode ser visto, se dirigindo para dentro ou fora da \
+floresta. Para\n\
+Oeste está a cidade  Torvani, e para Leste você ver a floresta armedrin."
+const dir_l = $s_armedrin030
+const dir_o = $s_armedrin111
+
+
+classe s_armedrin111
+herda b_armedrin
+const s_titulo = "Estrada de térra"
+const s_desc = "Você está numa estrada Leste-Oeste coberta de poeira.\n\
+Ocasionalmente um caçador ou aventureiro pode ser visto, se dirigindo para dentro ou fora da \
+floresta. Para\n\
+Oeste está a cidade  Torvani, e para Leste a estrada continua."
+const dir_l = $s_armedrin110
+const dir_o = $s_armedrin112
+
+
+classe s_armedrin112
+herda b_armedrin
+const s_titulo = "Estrada de térra"
+const s_desc = "Você está numa estrada Leste-Oeste coberta de poeira.\n\
+Ocasionalmente um caçador ou aventureiro pode ser visto, se dirigindo para dentro ou fora da \
+floresta. Para\n\
+Oeste está a cidade  Torvani, e para Leste a estrada continua."
+const dir_l = $s_armedrin111
+const dir_o = $s_armedrin113
+
+
+classe s_armedrin113
+herda b_armedrin
+const s_titulo = "Estrada de Térra"
+const s_desc = "Você está numa estrada Leste-Oeste coberta de poeira.\n\
+Ocasionalmente um caçador ou aventureiro pode ser visto, se dirigindo para dentro ou fora da \
+floresta. Para\n\
+Oeste está a cidade  Torvani, e para Leste a estrada continua."
+const dir_l = $s_armedrin112
+const dir_o = $s_armedrin114
+
+
+classe s_armedrin114
+herda b_armedrin
+const s_titulo = "Estrada de Térra"
+const s_desc = "Você está numa estrada Leste-Oeste coberta de poeira.\n\
+Ocasionalmente um caçador ou aventureiro pode ser visto, se dirigindo para dentro ou fora da \
+floresta. Para\n\
+Oeste está a cidade  Torvani, e para Leste a estrada continua."
+const dir_l = $s_armedrin113
+const dir_o = $s_armedrin115
+
+
+classe s_armedrin115
+herda b_armedrin
+const s_titulo = "Estrada de Térra"
+const s_desc = "Você está numa estrada Leste-Oeste coberta de poeira.\n\
+Ocasionalmente um caçador ou aventureiro pode ser visto, se dirigindo para dentro ou fora da \
+floresta. Para\n\
+Oeste está a cidade  Torvani, e para Leste a estrada continua."
+const dir_l = $s_armedrin114
+const dir_o = $s_armedrin116
+
+
+classe s_armedrin116
+herda b_armedrin
+const s_titulo = "Estrada de Térra"
+const s_desc = "Você está numa estrada Leste-Oeste coberta de poeira.\n\
+Ocasionalmente um caçador ou aventureiro pode ser visto, se dirigindo para dentro ou fora da \
+floresta. Para\n\
+Oeste está a cidade  Torvani, e para Leste a estrada continua."
+const dir_l = $s_armedrin115
+const dir_o = $s_armedrin117
+
+
+classe s_armedrin117
+herda b_armedrin
+const s_titulo = "Estrada de térra"
+const s_desc = "Você está numa estrada Leste-Oeste coberta de poeira.\n\
+Ocasionalmente um caçador ou aventureiro pode ser visto, se dirigindo para dentro ou fora da \
+floresta. Para\n\
+Oeste está a cidade  Torvani, e para Leste a estrada continua."
+const dir_l = $s_armedrin116
+const dir_o = $s_armedrin118
+
+
+classe s_armedrin118
+herda b_armedrin
+const s_titulo = "Estrada de Térra"
+const s_desc = "Você está numa estrada Leste-Oeste coberta de poeira.\n\
+Ocasionalmente um caçador ou aventureiro pode ser visto, se dirigindo para dentro ou fora da \
+floresta. Para\n\
+Oeste está a cidade  Torvani, e para Leste a estrada continua."
+const dir_l = $s_armedrin117
+const dir_o = $s_armedrin119
+
+
+classe s_armedrin119
+herda b_armedrin
+const s_titulo = "Estrada de térra"
+const s_desc = "Você está numa estrada Leste-Oeste coberta de poeira.\n\
+Ocasionalmente um caçador ou aventureiro pode ser visto, se dirigindo para dentro ou fora da \
+floresta. Para\n\
+Oeste está a cidade  Torvani, e para Leste a estrada continua."
+const dir_l = $s_armedrin118
+const dir_o = $s_armedrin120
+
+
+classe s_armedrin120
+herda b_armedrin
+const s_titulo = "Estrada de Térra"
+const s_desc = "Você está numa estrada Leste-Oeste coberta de poeira.\n\
+Ocasionalmente um caçador ou aventureiro pode ser visto, se dirigindo para dentro ou fora da \
+floresta. Para\n\
+Oeste está a cidade  Torvani, e para Leste a estrada continua."
+const dir_l = $s_armedrin119
+const dir_o = $s_torvani018
+
+
+classe s_armedrin900
+herda b_armedrin
+const s_titulo = "Estrada de térra"
+const s_desc = "Você está numa estrada Norte-Sul coberta de poeira.\n\
+Ocasionalmente um caçador ou aventureiro pode ser visto, se dirigindo para dentro ou fora da \
+floresta. Para\n\
+Norte está a cidade entre muralhas, Osaka, e para Sul a estrada continua\n\
+em direção a uma grande floresta."
+const dir_n = $s_floresta002
+const dir_s = $s_armedrin106

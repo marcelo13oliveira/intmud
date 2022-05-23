@@ -1,0 +1,516 @@
+classe comum_perso
+herda comum_persoitem
+# Personagem sem estrutura de batalha
+const nome = "sem nome"
+const ident = nome
+const descnome = nome
+const sexoini = msexo # Sexo inicial: 0=feminino, 1=masculino, 2=aleatório
+const volmax = config:p_volmax
+const volexp = 1 # Volume expande se tiver itens dentro
+const objmax = config:p_objmax
+const pospadr = 8 # Posição padrão do personagem
+const lojafechada = "$P: Volte outra hora"
+const p_corpo = config:p_corpo
+const p_morreu1 = config:p_morreu1
+const p_morreu2 = config:p_morreu2
+const p_movervel = config:p_movervel
+const perso = 1 # Para identificar que é personagem
+comum listaobj objsolto # Lista de personagens soltos (não pertencem a outros)
+const jogperm = sock.jogperm # Permissões do personagem
+const jogarea = sock.jogarea # Área aonde tem permissão
+int1 jogconfig.32 # Configurações do personagem, mesmo que sock.jogconfig
+sav int1 psexo # Sexo do personagem: 0=feminino, 1=masculino
+const objlimite = config:p_objlimite
+const pesomax = 1000000 # Para poder receber itens
+const persobat = este # Personagem usado na batalha; alguns comandos usam
+const persoesc = este # Personagem escolhido; alguns comandos usam
+const pvidaok = 1 # Para não dizer que o alvo está desmaiado
+const pvida = 1000 # Para não dizer que o alvo está desmaiado
+const msg = sock.msg(arg0) # Mensagem pequena para o jogador
+const msg2 = sock.msg2(arg0) # Mensagem grande para o jogador
+const msgsom = sock.msgsom(arg0) # Mensagem de som
+ref sock # Objeto do jogador, se nulo não é contolado pelo jogador
+const objsav = 2 # Se deve salvar o personagem ao salvar personagem do jogador
+const luztipo = 1 # 1=não é fonte de luz, mas repassa a luz
+sav uint16 pnivel # Nível atual (apenas para mostrar ao jogador)
+sav uint32 mortes # Quantas vezes morreu (chamou a função morreu)
+inttempo p_espera # Tempo de espera para o próximo comando
+sav uint8 posicao # Posição do personagem
+listaitem poslugar # Em qual móvel está sentado ou deitado
+sav listaitem iempu # Arma que que está empunhando
+inttempo p_proc # Para processar comportamento do personagem
+const p_fome = 100 # Não está com fome
+const p_sede = 100 # Não está com sede
+intdec p_tmove # Quanto tempo para se mover novamente
+#
+# Ordem que deve organizar as constantes:
+const admordem = "nome\n\
+ident\n\
+descnome\n\
+descpadr\n\
+descver\n\
+descident\n\
+msexo\n\
+sexoini\n\
+m_atrib1 m_atrib2\n\
+pesoobj\n\
+volobj volmax volexp\n\
+objmax\n\
+nivel\n\
+pospadr\n\
+tipo1 tipo2 tipo3\n\
+equip1 equip2 equip3\n\
+lojaini lojafim lojasim lojanao\n\
+lojaaula lojaitem lojainv\n\
+lojasala lojacasa lojachave lojafechada\n\
+taxaaula\n\
+taxacasa\n\
+taxacompra\n\
+taxavenda\n\
+tipoitem\n\
+p_agressivo\n\
+p_atk_ajuda\n\
+p_atk_anda\n\
+p_atk_desvia\n\
+p_atktipo\n\
+p_captura\n\
+p_comecorpo\n\
+p_corpo\n\
+p_exp\n\
+p_fugir\n\
+p_imortal\n\
+p_lembra\n\
+p_morreu1\n\
+p_morreu2\n\
+p_mover\n\
+p_movervel\n\
+p_naoresg\n\
+p_naoseguir\n\
+p_persegue\n\
+p_perseguevel\n\
+p_recebe\n\
+p_soltar\n\
+p_valorcopia\n\
+p_copista\n\
+p_som_entra p_som_voaentra p_som_sai p_som_voasai\n\
+inivar evhora eveste evperso evitem evsala"
+
+func ini # Coloca o objeto dentro de outro
+  posicao = pospadr, p_proc = 1, p_tmove = 80, pnivel = arg1 ? arg1 : nivel
+  psexo = sexoini == 2 ? rand(2) : sexoini
+  se arg2 || inivar
+    textotxt t
+    epara t.addfim(txttroca(txt(arg2) + "\n" + inivar, ",", "\n")), t.linhas, var.mudar(t.remove)
+    efim
+  fimse
+  comum_obj:ini, cmd_ini(arg0, arg1, arg2, arg3, arg4)
+  arg0 && mudadono(arg0)
+  dono && !dono.perso && objsolto.addfim(este)
+  epara nulo, var.ini("e_"), var.mudar(var.ini("e_"))
+    criar(var.ini("e_"), este, var.valor(var.ini("e_")))
+  efim
+  se dono.perso && !var.z_dono
+    var.z_dono = dono.nome
+    var.z_pnivel = pnivel
+  fimse
+  recalc_exec
+
+func fim # Objeto foi apagado
+  se !sock
+  senao jog # Jogador controlando o próprio personagem
+    casovar txt1(sock.info)
+    casose "t" # Conectado via Papovox
+    casose "p" # Conectado via Telnet
+    casose "h" # Conectado via navegador
+      apagar(sock)
+      sair
+    casose "l" # Jogando localmente
+      $miscsav.salvartudo
+      terminar
+    casose "b" # Como bot
+      sock.reinicia
+    casofim
+  senao # Jogador controlando outro personagem
+    indiceitem ind
+    refvar obj = ind.obj("pn " + txt2(sock.cnome))
+    obj ? sock.mudaperso(obj) : sock.reinicia
+  fimse
+  batalhafim, comum_obj:fim
+
+func mudadono # Coloca personagem em outra sala
+# arg0 = nova sala
+# arg1 = quantidade (é ignorado por essa função)
+  listaobj l
+# Muda de sala
+  atkrec.limpar, poslugar.remove, mdono(arg0), cmd_mudadono
+# Eventos cmd_saiu e variável donoantes.s_item
+  se donoantes && !donoantes.perso
+    refvar salasaiu = ref(donoantes)
+    epara l.addfim(evento), l, l.ini.remove
+      l.objini.cmd_saiu(este, salasaiu, este)
+    efim
+    epara l.addfim(salasaiu.evento), l, l.ini.remove
+      l.objini.cmd_saiu(este, salasaiu, salasaiu)
+    efim
+    se !sock
+    senao donoantes.dentro1.total && !donoantes.socktot
+      donoantes.t_item = donoantes.s_item * 600
+    senao
+      donoantes.t_item = 0
+    fimse
+  fimse
+# Checa se novo dono é personagem
+  se dono.perso
+    p_proc = 1
+    ret este
+  senao !dono
+    ret este
+  fimse
+# Eventos cmd_chegou
+  (sock || jog) && dono.s_reset1, dono.cmd_salaperso(este)
+  refvar salachegou = ref(dono)
+  epara l.addfim(evento), l, l.ini.remove
+    l.objini.cmd_chegou(este, salachegou, este)
+  efim
+  epara l.addfim(salachegou.evento), l, l.ini.remove
+    l.objini.cmd_chegou(este, salachegou, salachegou)
+  efim
+# Se for jogador, checa se tem personagens agressivos na sala
+  se jog
+    casovar int(dono.s_retornar(este))
+    casose "3" # Muda o ponto de retorno se não possuir
+      sair var.z_salafim
+    casose "2" # Muda o ponto de retorno
+      var.z_salafim = dono
+    casofim
+    listaobj l
+    epara l.addfim(dono.dentro2), l, l.ini.remove
+      (l.objini.p_agressivo(este) == 2 || l.objini.var.r_[nome]_) && (l.objini.p_proc = 1)
+    efim
+# Se vai ser animal de um personagem, acerta quem é o primeiro dono
+  senao dono.perso && !var.z_dono
+    var.z_dono = dono.nome
+    var.z_pnivel = pnivel
+  fimse
+# Mostra descrição (jogador) ou processamento do personagem (não jogador)
+  se !sock
+    p_proc = 1
+  senao dono.s_ocultar(este)
+    dono.t_item = 0
+  senao posicao <= 4
+    dono.t_item = 0
+    msg("Você vê estranhas imagens em seus sonhos...")
+  senao
+    dono.t_item = 0
+    msgsom(dono.s_som)
+    refvar cfg = (jogconfig.bits & 3 | (dono.s_morre ? 5 : 4)) | (jogconfig.16 ? 8)
+    msg2(dono.descsala(este, cfg))
+  fimse
+  ret este
+
+func cabedentro # Retorna 1 se personagem cabe em uma sala ou 0 se não cabe
+# arg0 = sala
+  ret !arg0.s_sala || arg0.volden + voltot > arg0.volmax, 0
+  ret jog, int(arg0.dentro2.total("jogador") < arg0.s_jog)
+  ret int(sock || arg0.dentro2.total - arg0.dentro2.total("jogador") < arg0.s_pnj)
+
+func recalc_exec # Ajusta variáveis
+# Acerta atributos básicos
+  bitver = 17, bitinv = 3
+# Acerta atributos conforme o tipo de personagem
+  config:atribcfg, recalc1_auto
+  t_[tipo1]:recalc_auto, t_[tipo2]:recalc_auto, t_[tipo3]:recalc_auto
+  t_[tipo1]:recalc, t_[tipo2]:recalc, t_[tipo3]:recalc
+  cmd_recalc1(este)
+# Modificadores
+  txt512 lin
+  epara lin = var.ini("f_"), lin, lin = var.depois(lin, "f_")
+    [lin]:recalc2_auto, $[lin].cmd_recalc2(este)
+  efim
+# Efeitos conforme o que está vestindo
+  listaitem i
+  epara i = dentro2.ini, i, i.depois
+    [i.obj]:recalc2_auto, i.obj.cmd_recalc2(este)
+  efim
+  epara i = evento.ini, i, i.depois
+    i.obj.cmd_recalc3(este)
+  efim
+# Acerta atributo dormindo de bitver
+  bitver & 2048 && (bitver = bitver & ~1024)
+  bitver & 1024 && posicao > 4 && (posicao = 4)
+  atribs_exec
+  recalc = 0
+
+func teclou # Processa comando
+# arg0=comando
+  teclouperm(arg0, $perm_[jogperm])
+
+func teclouperm # Processa comando com permissões específicas
+# arg0 = comando
+# arg1 = objeto perm que contém as permissões
+  ref obj # Objeto que vai processar o comando
+  prog p # Para procurar o objeto
+  ret !arg0, nulo
+# Obtém o comando
+  enquanto 1
+    se arg0 == intpos(arg0) && config:animal1 >= arg0 && config:animal1
+      obj = $comando_escolhe_animal
+      obj.num = arg0
+      sair
+    fimse
+    sair obj = $cmd_[txt1(arg0)].objcmd(este, arg1) # Checa comando exato
+    sair obj = $soc_[txt1(arg0)].objcmd(este, arg1) # Checa social exato
+    uint8 nivel1 = 255
+    ref obj1
+    nomeobj n
+    n.ini("1000 cmd_" + txt1(arg0), 1000)
+    epara p.iniclasse("cmd_" + txt1(txte(arg0))), p.lin, p.depois
+      continuar !(obj1 = $[p.texto].objcmd(este, arg1)) || !n.nome(obj1)
+      continuar nivel1 <= obj1.objnivel(este, arg1)
+      obj = obj1, nivel1 = obj1.objnivel(este, arg1)
+      sair !nivel1
+    efim
+    sair !nivel1
+    n.ini("1000 soc_" + txt1(arg0), 1000)
+    epara p.iniclasse("soc_" + txt1(txte(arg0))), p.lin, p.depois
+      continuar !(obj1 = $[p.texto].objcmd(este, arg1)) || !n.nome(obj1)
+      continuar nivel1 <= obj1.objnivel(este, arg1)
+      obj = obj1, nivel1 = obj1.objnivel(este, arg1)
+      sair !nivel1
+    efim
+    sair
+  efim
+# Checa se é magia
+  se obj.lancamagia
+    txt200 lin
+    lin = txtremove(txt2(arg0), "EMDSA")
+    obj = ref($magia_[txt1(lin)].objcmd(este))
+    se !obj && lin
+      uint8 nivel1 = 255
+      ref obj1
+      nomeobj n
+      n.ini("1000 magia_" + txt1(lin), 1000)
+      epara p.iniclasse("magia_" + txt1(txte(lin))), p.lin, p.depois
+        continuar !(obj1 = $[p.texto].objcmd(este, arg1)) || !n.nome(obj1)
+        continuar nivel1 <= obj1.objnivel(este, arg1)
+        obj = obj1, nivel1 = obj1.objnivel(este, arg1)
+        sair !nivel1
+      efim
+    fimse
+# Magia: Gera eventos
+    listaobj l
+    epara l.addfim(este.evento), l, l.ini.remove
+      ret l.objini.cmd_escr(este, arg0, obj), nulo
+    efim
+# Magia: Executa comando
+    se !lin
+      msg("Lançar que magia?")
+    senao !obj
+      msg("Você não possui a magia " + lin)
+    senao posicao < obj.posic
+      msg(erropos)
+    senao
+      obj.escr(este, txt2(lin), arg1)
+    fimse
+    ret
+  fimse
+# Gera eventos
+  listaobj l
+  epara l.addfim(este.evento), l, l.ini.remove
+    ret l.objini.cmd_escr(este, arg0, obj), nulo
+  efim
+# Executa comando
+  ret !obj, msg("O quê?")
+  ret posicao < obj.posic, msg(erropos)
+  ret obj.escr(este, txt2(arg0), arg1)
+
+func p_espera_exec # Pega o próximo comando
+  sock ? sock.espera_exec : p_proc_exec
+
+func erropos # Retorna uma mensagem conforme a posição
+  casovar posicao
+  casose "0"
+    ret "\c9Você está mort" + (msexo ? "o" : "a") + "!!!\b"
+  casose "1" # Mortalmente ferido
+  casose "2" # Incapacitado
+    ret "\c9Você está muito mal, incapaz de fazer qualquer coisa.\b"
+  casose "3" # Fraco
+    ret "\c9A única coisa que você pode fazer agora é pensar nas estrelas.\b"
+  casose "4" # Dormindo
+    ret "\c9Nos seus sonhos...\b"
+  casose "5" # Descansando
+    ret "\c9Você se sente relaxad" + (msexo ? "o" : "a") + " demais para fazer isso.\b"
+  casose "6" # Sentado
+    ret "\c9Talvez você deva ficar em pé primeiro.\b"
+  casose "7" # Lutando
+    ret "\c9Sem chance! Você está lutando pela sua vida.\b"
+  casose
+    ret "\c9Você tenta, mas não consegue.\b"
+  casofim
+
+func descpos
+  se posicao == pospadr
+    refvar m = txt(descpadr(arg0))
+    ret m, m
+  fimse
+  refvar i = j_imortal ? " diante de você." : "."
+  casovar posicao
+  casose "0"
+    ret txtcopiamai(descnome, "A") + " jaz aqui" + i
+  casose "1"
+    ret txtcopiamai(descnome, "A") + " está aqui mortalmente ferid" + (msexo ? "o" : "a") + \
+i
+  casose "2"
+    ret txtcopiamai(descnome, "A") + " está aqui incapacitad" + (msexo ? "o." : "a") + i
+  casose "3"
+    ret txtcopiamai(descnome, "A") + " está aqui, muito frac" + (msexo ? "o." : "a") + i
+  casose "4"
+    ret !poslugar, txtcopiamai(nome + (var.z_titulo ? ", " + var.z_titulo : ""), "A") + " dorme \
+aqui" + i
+    refvar mens = poslugar.objlista.descnome
+    casovar txt1(mens)
+    casose "a"
+    casose "A"
+      ret txtcopiamai(descnome + (var.z_titulo ? ", " + var.z_titulo : ""), "A") + " dorme na " \
++ txt2(mens) + i
+    casose "o"
+    casose "O"
+      ret txtcopiamai(descnome + (var.z_titulo ? ", " + var.z_titulo : ""), "A") + " dorme no " \
++ txt2(mens) + i
+    casofim
+    ret txtcopiamai(descnome + (var.z_titulo ? ", " + var.z_titulo : ""), "A") + " dorme em " + \
+mens + i
+  casose "5"
+    ret !poslugar, txtcopiamai(descnome + (var.z_titulo ? ", " + var.z_titulo : ""), "A") + " \
+descansa aqui" + i
+    refvar mens = poslugar.objlista.descnome
+    casovar txt1(mens)
+    casose "a"
+    casose "A"
+      ret txtcopiamai(descnome, "A") + " descansa na " + txt2(mens) + i
+    casose "o"
+    casose "O"
+      ret txtcopiamai(descnome + (var.z_titulo ? ", " + var.z_titulo : ""), "A") + " descansa no \
+" + txt2(mens) + i
+    casofim
+    ret txtcopiamai(descnome + (var.z_titulo ? ", " + var.z_titulo : ""), "A") + " descansa em " \
++ mens + i
+  casose "6"
+    refvar lin = txtcopiamai(descnome + (var.z_titulo ? ", " + var.z_titulo : ""), "A") + " está \
+sentad" + (msexo ? "o" : "a")
+    ret !poslugar, lin + " aqui" + i
+    refvar mens = poslugar.objlista.descnome
+    casovar txt1(mens)
+    casose "a"
+    casose "A"
+      ret lin + " na " + txt2(mens) + i
+    casose "o"
+    casose "O"
+      ret lin + " no " + txt2(mens) + i
+    casofim
+    ret lin + " em " + mens + i
+  casose "7"
+    refvar alvo = atkenv.objlista
+    se !alvo
+      ret txtcopiamai(descnome, "A") + " está lutando" + i
+    senao alvo == arg0
+      ret txtcopiamai(descnome, "A") + " está lutando com você!"
+    senao alvo.visivel(arg0)
+      ret txtcopiamai(descnome, "A") + " está lutando com " + alvo.descnome + i
+    senao
+      ret txtcopiamai(descnome, "A") + " está lutando com alguém" + i
+    fimse
+  casose "8"
+    ret txtcopiamai(descnome + (var.z_titulo ? ", " + var.z_titulo : ""), "A") + " está em pé \
+aqui" + i
+  casofim
+  ret txtcopiamai(descnome, "A") + " está aqui" + i
+
+func equippos # Retorna as posições aonde pode usar equipamentos
+  txt100 lin
+  int32 pos
+  lin = "t_" + tipo1
+  pos = (([lin]:equip1 ? [lin]:equip1 : -1) | [lin]:equip2) & ~[lin]:equip3
+  lin = "t_" + tipo2
+  pos = (([lin]:equip1 ? [lin]:equip1 : pos) | [lin]:equip2) & ~[lin]:equip3
+  lin = "t_" + tipo3
+  pos = (([lin]:equip1 ? [lin]:equip1 : pos) | [lin]:equip2) & ~[lin]:equip3
+  ret ((equip1 ? equip1 : pos) | equip2) & ~equip3
+
+func msgvis # Mensagem se o jogador estiver vendo o alvo
+  ret $mens.msgvis(arg0, este)
+
+func msginv # Mensagem mesmo se o alvo estiver invisível
+  ret $mens.msginv(arg0, este)
+
+func morreu # Procedimentos quando morre
+# arg0 = quem atacou o personagem; pode ser nulo
+# Checa se pode morrer
+  ret p_imortal, nulo
+  listaobj l
+  epara l.addfim(evento), l, l.ini.remove
+    ret l.objini.cmd_morrer(este, arg0, este), nulo
+  efim
+  epara l.addfim(arg0.evento), l, l.ini.remove
+    ret l.objini.cmd_morrer(este, arg0, arg0), nulo
+  efim
+# Morreu
+  mortes++
+  p_morreu1 && $mens.p(este) + $mens.mtodos1(p_morreu1)
+  apagar(este)
+  p_corpo && criar("comum_corpo", este, p_corpo)
+# Apaga efeitos
+  listaitem i
+  epara i = dentro2.ini, i, i.depois
+    i.obj.e_condicao && apagar(i.obj)
+  efim
+# Gera eventos
+  epara l.addfim(evento), l, l.ini.remove
+    l.objini.cmd_morreu(este, arg0, este)
+  efim
+  epara l.addfim(arg0.evento), l, l.ini.remove
+    l.objini.cmd_morreu(este, arg0, arg0)
+  efim
+
+func p_proc_exec # Processar comportamento do personagem
+  ret este != contr, nulo # Retorna se pertence a outro personagem
+  ret sock, nulo # Retorna se está sendo controlado por jogador
+  ret p_espera, p_proc = p_espera + 1 # Checa tempo para agir
+# Evento do personagem
+  ret cmd_pnj_proc, nulo
+# Ações do personagem
+  ret p_tmove, p_proc = p_tmove + 1 # Retorna se não é hora de se movimentar
+  ret p_comecorpo && posicao >= 5 && p_proc_comecorpo, nulo
+  ret p_mover && posicao == 8 && p_proc_mover, nulo
+  p_mover && (p_proc = 50)
+
+func p_proc_comecorpo # Personagem tenta comer corpos
+# Retorna: 1=conseguiu comer, 0=não conseguiu
+  ref r
+  ret !(r = dono.dentro1.objini("comum_corpo")), 0
+  ret !$comando_comebebe.comer(este, r), 0
+  p_tmove = rand(70, 130) * p_movervel / 100, p_proc = p_tmove + 1
+  ret 1
+
+func p_proc_mover # Personagem tenta se movimentar em uma direção aleatória
+# Retorna: 1=conseguiu se movimentar, 0=não conseguiu
+  textotxt t
+  prog p
+  ref r = dono
+  epara p.inifunctudo(r, "dir_"), p.lin, p.depois
+    t.addfim(p.texto)
+  efim
+  epara t.rand, t.linhas, t.remove
+    ref sala = r.[t.ini.texto](este)
+    continuar !sala || !cabedentro(sala) || p_mover == 1 && sala.s_area != r.s_area
+    $cmd_[txt(t.ini.texto, 4)].escr(este)
+    p_tmove = rand(70, 130) * p_movervel / 100, p_proc = p_tmove + 1
+    ret r != dono
+  efim
+
+func p_proc_dir # Personagem tenta se movimentar em uma direção específica
+# arg0 = direção
+# Retorna: 1=conseguiu se movimentar, 0=não conseguiu
+  ref r = dono
+  $cmd_[arg0].escr(este)
+  ret r != dono

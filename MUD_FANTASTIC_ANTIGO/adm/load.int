@@ -1,0 +1,130 @@
+classe adm_eload
+herda comando_adm
+const posic = 0
+
+func escr
+  prog p
+  ret !txt1(arg1), arg0.msg("What afect do you wish in your char?")
+  refvar el = txtmin(txtremove(arg1, emdc7))
+  se !p.existe("e_" + el)
+    arg0.msg("afect not found:\n" + txt1(arg1))
+    ret 1
+  senao
+    criar("e_" + el + "", arg0)
+    arg0.msg("done.")
+  fimse
+  ret 1
+
+
+classe adm_mload
+herda comando_adm
+const posic = 0
+const txtajuda = "mload\n\
+Command:\n\
+mload number.\n\
+create coins on current room woh you are."
+
+func escr
+  uint32 num
+  ret !arg1, arg0.msg("Type the number of coins woh you want create in this room.")
+  num += arg1
+  se num == 0
+    arg0.msg("invalid amount.")
+    ret 1
+  fimse
+  arg0.dono.var.z_moedas_ += num
+  arg0.msg("done.")
+  admlog(arg0, " criou " + num + " moedas na sala onde está.")
+
+
+classe adm_isload
+herda comando_adm
+const txtajuda = "Isload\n\
+Command:\n\
+isload item name.\n\
+Does a item spawn on current room where you are."
+const posic = 0
+
+func escr
+  prog p
+  ret !arg1, arg0.msg("What item do you wich load in this room?")
+  refvar ir = txtmin(txtremove(arg1, emdc7))
+  se !p.existe("i_" + ir)
+    arg0.msg("Item not found: " + arg1)
+  senao
+    criar("i_" + ir + "", arg0.dono)
+    arg0.msg("done.")
+    admlog(arg0, " criou o item " + ir + " na sala onde está.")
+  fimse
+  ret 1
+
+
+classe adm_iload
+herda comando_adm, comando_comum
+const posic = 0
+const txtajuda = "iload\n\
+command: iload item name:\n\
+This does a item  spawn on your character."
+sav textovar var
+sav txt20 descnome
+
+func escr
+  prog p
+  refvar nitem = txtmin(txt1(arg1))
+  se !arg1
+    arg0.msg("load what in your inventore?")
+  senao !p.existe("i_" + nitem)
+    arg0.msg("Item not found: " + nitem)
+    ret 1
+  senao
+    uint8 tot
+    tot = txtsub(arg1, 1, 1)
+    se tot && txt(intpos(tot)) == tot && i_[nitem]:item == 2
+      criar("i_" + nitem + "", arg0, tot)
+      arg0.msg("" + tot + " " + nitem.descnome + "")
+      arg0.msg("done.")
+      admlog(arg0, "criou " + tot + " itens " + nitem + " em seu inventário.")
+    senao
+      criar("i_" + nitem + "", arg0)
+      arg0.msg("" + nitem.descnome + "")
+      arg0.msg("done.")
+      admlog(arg0, "criou o item " + nitem + " em seu inventário.")
+    fimse
+  fimse
+
+
+classe adm_pload
+herda comando_adm
+const txtajuda = "Pload:\nPload name of a pnj.\nIt does a pnj spawn in your inventore."
+
+func escr
+  prog p
+  refvar nperso = txtmin(txtremove(arg1, "EMDCT7"))
+  ret !arg1, arg0.msg("What pnj do you wish to load?")
+  ret !p.existe("p_" + nperso), arg0.msg("pnj not found: " + nperso)
+  criar("p_" + nperso + "", arg0)
+  arg0.msg("done.")
+  admlog(arg0, "criou o pnj " + nperso + " para ser seu animal.")
+
+
+classe adm_psload
+herda comando_adm
+const txtajuda = "psload:\n\
+Command:\n\
+Psload pnj name.\n\
+Does a pnj spawn on current room where you are."
+const posic = 0
+
+func escr
+  prog p
+  ret !arg1, arg0.msg("What pnj do you wich load in this room?")
+  refvar ps = txtmin(txtremove(arg1, emdc7))
+  se !p.existe("p_" + arg1)
+    arg0.msg("personagem não existe " + ps)
+  senao
+    refvar r = "" + ps + ""
+    criar("p_" + ps + "", arg0.dono)
+    arg0.msg("done.")
+    admlog(arg0, " criou o pnj " + ps + " na sala onde está.")
+    ret 1
+  fimse

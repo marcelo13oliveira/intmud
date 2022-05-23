@@ -1,0 +1,1145 @@
+classe a_deserto
+herda area
+const a_nome = "deserto"
+const a_tempo = 5
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_deserto
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_terreno = 11 # Terreno: 11 Deserto, 3x mais sede, 6mv
+const s_som = "deserto"
+const s_area = "deserto"
+
+
+classe p_deserto001
+herda comum_persobat
+const nome = "Um gigantesco cacto carnívoro"
+const ident = "Gigantesco cacto carnívoro"
+const descnome = "Um gigantesco cacto carnívoro"
+const descpadr = "Faminto por novas vítimas, um cacto carnívoro vaga por aqui, sacudindo suas \
+presas e espinhos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 300
+const tipo1 = "Cacto"
+const tipo2 = "druida"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_atk_anda = 0 # Anda ataque: Não
+const p_atk_desvia = 0 # Desvia ataque: Não
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 6500
+const p_morreu1 = "Após Soltar Um Horrível Grito, $p Muxa, Morrendo A Seguir"
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 360
+const p_persegue = 0 # Persegue jogadores: 0 Não
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 210 * pnivel + 6000
+  pmanamax += 100 * pnivel + 4500
+  pmovemax += 3 * pnivel + 10000
+  atknorm += 3 * pnivel + 320
+  defnorm += 5 * pnivel + 350
+  defesp += 2 * pnivel + 50
+
+
+classe p_deserto002
+herda comum_persobat
+const nome = "Um Enorme Camelo Faminto"
+const ident = "camelo faminto"
+const descnome = "Um Enorme Camelo Faminto"
+const descpadr = "Mastigando Pedras, Um Enorme Camelo, Faminto E Cansado Anda Por Aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 330
+const tipo1 = "normal"
+const tipo2 = "druida"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 9000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 350
+const p_soltar = 2 # Dar e soltar: 2 Não se pode dar nem soltar
+const inivar = "z_moedas=50000000,h_morder=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 300 * pnivel + 6000
+  pmovemax += 10000
+  atknorm += 20 * pnivel + 500
+  defnorm += 25 * pnivel + 550
+  defesp += 3 * pnivel + 60
+
+
+classe p_deserto003
+herda comum_persobat
+const nome = "Um enorme escorpião negro"
+const ident = "Enorme escorpião negro"
+const descnome = "Um enorme escorpião negro"
+const descpadr = "Caçando presas pelo deserto, um enorme escorpião negro estáaqui."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const nivel = 310
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_atk_desvia = 0 # Desvia ataque: Não
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 8700
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 350
+const p_persegue = 1 # Persegue jogadores: 1 Mesma área se atacarem
+const p_perseguevel = 5
+const inivar = "z_moedas=60000000,h_morder=8,m_ataque_fantasma=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200000
+  pmanamax += 10000
+  pmovemax += 10000
+
+
+classe p_deserto004
+herda comum_persobat
+const nome = "Viajante"
+const ident = "Viajante"
+const descnome = "Um viajante exausto"
+const descpadr = "Um pobre viajante exausto caminha pelo deserto, à procura de um bom lugar para \
+descansar."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 350
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_atk_desvia = 1 # Desvia ataque: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 9500
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 300 * pnivel + 7000
+  atknorm += 10 * pnivel + 350
+  defnorm += 12 * pnivel + 400
+  defesp += 2 * pnivel + 100
+
+
+classe p_deserto005
+herda comum_persobat
+const nome = "Um poderoso escorpião amarelado"
+const ident = "Poderoso escorpião amarelado"
+const descnome = "Um poderoso escorpião amarelado"
+const descpadr = "Tocando o terror em todos os seres deste deserto, um poderoso escorpião \
+amarelo vaga por aqui, fazendo movimentos com seu letal ferrão."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 360
+const p_atk_desvia = 0 # Desvia ataque: Não
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 11000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 350
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 400 * pnivel + 7000
+  pmanamax += 2 * pnivel + 300
+  atknorm += 15 * pnivel + 420
+  defnorm += 25 * pnivel + 480
+  atkesp += 2 * pnivel + 100
+  defesp += 2 * pnivel + 200
+
+
+classe p_deserto006
+herda comum_persobat
+const nome = "Uma enorme Piton"
+const ident = "Enorme piton"
+const descnome = "Uma enorme cobra Piton"
+const descpadr = "Tremendo tudo por onde passa, uma enorme cobra Piton vaga por este deserto."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const nivel = 350
+const p_atk_anda = 1 # Anda ataque: Sim
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 12000
+const p_lembra = 1747
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 350
+const p_persegue = 1 # Persegue jogadores: 1 Mesma área se atacarem
+const p_perseguevel = 5
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 320 * pnivel + 9000
+  pmanamax += 50 * pnivel + 4200
+  atknorm += 50 * pnivel + 500
+  defnorm += 55 * pnivel + 600
+  defesp += 10 * pnivel + 300
+
+
+classe p_deserto007
+herda comum_persobat
+const nome = "Uma enorme aranha marrom"
+const ident = "Aranha marrom"
+const descnome = "Uma enorme aranha marrom"
+const descpadr = "Armando arapucas com suas teias, uma enorme aranha marrom está aqui."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const nivel = 360
+const tipo1 = "aranha"
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 12000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 350
+const inivar = "h_arranhar=8,m_prisão_de_teia=8,z_moedas=50000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200 * pnivel + 7500
+  pmanamax += 20 * pnivel + 100
+  atknorm += 20 * pnivel + 400
+  defnorm += 30 * pnivel + 480
+  defesp += 10 * pnivel + 120
+
+
+classe p_deserto008
+herda comum_persobat
+const nome = "Uma gigante viuva-negra"
+const ident = "Gigante viuva-negra"
+const descnome = "Uma gigante aranha viuva-negra"
+const descpadr = "Acabando de devorar um camelo, uma gigante aranha viuva-negra está aqui, \
+desejando mais comida."
+const nivel = 350
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 13000
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 350
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200 * pnivel + 8000
+  atknorm += 50 * pnivel + 420
+  defnorm += 50 * pnivel + 480
+  defesp += 3 * pnivel + 40
+
+
+classe p_deserto009
+herda comum_persobat
+const nome = "Uma perigosa cobra Naja"
+const ident = "Perigosa cobra naja"
+const descnome = "Uma perigosa cobra naja"
+const descpadr = "Calma e paciente, uma perigosa cobra naja dorme aqui."
+const nivel = 350
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 14500
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 350
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200 * pnivel + 10000
+  pmanamax += 30 * pnivel + 5000
+  atknorm += 350 * pnivel + 520
+  defnorm += 360 * pnivel + 600
+  atkesp += 40 * pnivel + 300
+  defesp += 80 * pnivel + 450
+
+
+classe s_deserto001
+herda b_deserto
+const s_titulo = "O início do deserto sombrio"
+const dir_s = $s_montanha015
+const dir_l = $s_deserto002
+const a_reset = "P 100 deserto004 0 0 8 z_mmoedas=2000000,h_chutar_=8,h_socar_=8,h_voadora_=8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_deserto004:objsolto.total < 8
+    criar("p_deserto004", este, 0, "z_mmoedas=2000000,h_chutar_=8,h_socar_=8,h_voadora_=8")
+  fimse
+
+
+classe s_deserto002
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_n = $s_deserto003
+const dir_s = $s_deserto004
+const dir_l = $s_deserto005
+const dir_o = $s_deserto001
+
+
+classe s_deserto003
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_n = $s_deserto014
+const dir_s = $s_deserto002
+const dir_l = $s_deserto006
+
+
+classe s_deserto004
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_n = $s_deserto002
+const dir_s = $s_deserto009
+
+
+classe s_deserto005
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_n = $s_deserto006
+const dir_s = $s_deserto007
+const dir_l = $s_deserto022
+const dir_o = $s_deserto002
+const a_reset = "P 100 deserto002 0 0 15 z_moedas=1000000,h_chutar_=8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_deserto002:objsolto.total < 15
+    criar("p_deserto002", este, 0, "z_moedas=1000000,h_chutar_=8")
+  fimse
+
+
+classe s_deserto006
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_n = $s_deserto015
+const dir_s = $s_deserto005
+const dir_o = $s_deserto003
+
+
+classe s_deserto007
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_n = $s_deserto005
+const dir_s = $s_deserto008
+const dir_o = $s_deserto004
+
+
+classe s_deserto008
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_n = $s_deserto007
+const dir_s = $s_deserto010
+const dir_o = $s_deserto009
+
+
+classe s_deserto009
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_n = $s_deserto004
+const dir_s = $s_deserto011
+const dir_l = $s_deserto008
+
+
+classe s_deserto010
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_n = $s_deserto008
+const dir_s = $s_deserto013
+const dir_o = $s_deserto011
+
+
+classe s_deserto011
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_n = $s_deserto009
+const dir_s = $s_deserto012
+const dir_l = $s_deserto010
+
+
+classe s_deserto012
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_n = $s_deserto011
+const dir_l = $s_deserto013
+
+
+classe s_deserto013
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_n = $s_deserto010
+const dir_o = $s_deserto012
+
+
+classe s_deserto014
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_n = $s_deserto017
+const dir_s = $s_deserto003
+const dir_l = $s_deserto015
+
+
+classe s_deserto015
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_n = $s_deserto016
+const dir_s = $s_deserto006
+const dir_o = $s_deserto014
+
+
+classe s_deserto016
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_n = $s_deserto019
+const dir_s = $s_deserto015
+const dir_o = $s_deserto017
+
+
+classe s_deserto017
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_n = $s_deserto018
+const dir_s = $s_deserto014
+const dir_l = $s_deserto016
+
+
+classe s_deserto018
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_n = $s_deserto020
+const dir_s = $s_deserto017
+const dir_l = $s_deserto019
+
+
+classe s_deserto019
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá"
+const dir_n = $s_deserto021
+const dir_s = $s_deserto016
+const dir_o = $s_deserto018
+
+
+classe s_deserto020
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_s = $s_deserto018
+const dir_l = $s_deserto021
+
+
+classe s_deserto021
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_s = $s_deserto019
+const dir_o = $s_deserto020
+
+
+classe s_deserto022
+herda b_deserto
+const s_titulo = "Um Caminho Entre Cactos"
+const s_desc = "Os Cactos, Nessa Parte Do Deserto Descreve Um Local Mais Sombrio.\n\
+Deixando O Local Totalmente Escuro; Após O Bater Dos Ventos Nos Cactos, Eles Começam A Estremecer\
+.\n\
+Como Se Um Horripilante Monstro Fosse Sair De Traz Deles E Lhi Atacar.\n\
+Os Cactos, Avançam De Certa Forma Contra Seu Corpo, Como Se Eles Próprios Falassem: \"Volte Para \
+Traz, Jovem Bobo\""
+const dir_l = $s_deserto023
+const dir_o = $s_deserto005
+
+
+classe s_deserto023
+herda b_deserto
+const s_titulo = "Um Caminho Entre Cactos"
+const s_desc = "Os Cactos, Nessa Parte Do Deserto Descreve Um Local Mais Sombrio.\n\
+Deixando O Local Totalmente Escuro; Após O Bater Dos Ventos Nos Cactos, Eles Começam A Estremecer\
+.\n\
+Como Se Um Horripilante Monstro Fosse Sair De Traz Deles E Lhi Atacar.\n\
+Os Cactos, Avançam De Certa Forma Contra Seu Corpo, Como Se Eles Próprios Falassem: \"Volte Para \
+Traz, Jovem Bobo\""
+const dir_l = $s_deserto024
+const dir_o = $s_deserto022
+const a_reset = "P 100 deserto001 0 0 10 z_moedas=600000,h_morder_=8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_deserto001:objsolto.total < 10
+    criar("p_deserto001", este, 0, "z_moedas=600000,h_morder_=8")
+  fimse
+
+
+classe s_deserto024
+herda b_deserto
+const s_titulo = "Um Caminho Entre Cactos"
+const s_desc = "Os Cactos, Nessa Parte Do Deserto Descreve Um Local Mais Sombrio.\n\
+Deixando O Local Totalmente Escuro; Após O Bater Dos Ventos Nos Cactos, Eles Começam A Estremecer\
+.\n\
+Como Se Um Horripilante Monstro Fosse Sair De Traz Deles E Lhi Atacar.\n\
+Os Cactos, Avançam De Certa Forma Contra Seu Corpo, Como Se Eles Próprios Falassem: \"Volte Para \
+Traz, Jovem Bobo\""
+const dir_n = $s_deserto025
+const dir_s = $s_deserto028
+const dir_l = $s_deserto033
+const dir_o = $s_deserto023
+const a_reset = "P 100 deserto006 0 0 12 z_moedas=600000000,h_morder_=8,m_envenenar_=5\n\
+P 100 deserto009 0 0 10 z_moedas=500000000,h_morder_=8,m_envenenar_=8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_deserto006:objsolto.total < 12
+    criar("p_deserto006", este, 0, "z_moedas=600000000,h_morder_=8,m_envenenar_=5")
+  fimse
+  se p_deserto009:objsolto.total < 10
+    criar("p_deserto009", este, 0, "z_moedas=500000000,h_morder_=8,m_envenenar_=8")
+  fimse
+
+
+classe s_deserto025
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const dir_n = $s_deserto026
+const dir_s = $s_deserto024
+const a_reset = "P 100 deserto005 0 0 8 z_moedas=500000000,m_envenenar_=2,h_morder_=8\n\
+P 100 deserto007 0 0 10 z_moedas=800000000,h_morder_=6,m_envenenar_=3\n\
+P 100 deserto007 0 0 10 z_moedas=6000000,m_envenenar_=8,h_morder_=8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_deserto005:objsolto.total < 8
+    criar("p_deserto005", este, 0, "z_moedas=500000000,m_envenenar_=2,h_morder_=8")
+  fimse
+  se p_deserto007:objsolto.total < 10
+    criar("p_deserto007", este, 0, "z_moedas=800000000,h_morder_=6,m_envenenar_=3")
+  fimse
+  se p_deserto007:objsolto.total < 10
+    criar("p_deserto007", este, 0, "z_moedas=6000000,m_envenenar_=8,h_morder_=8")
+  fimse
+
+
+classe s_deserto026
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const dir_n = $s_deserto027
+const dir_s = $s_deserto025
+const a_reset = "P 100 deserto008 0 0 8 z_moedas=8,h_morder_=8,m_envenenar_=8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_deserto008:objsolto.total < 8
+    criar("p_deserto008", este, 0, "z_moedas=8,h_morder_=8,m_envenenar_=8")
+  fimse
+
+
+classe s_deserto027
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const dir_s = $s_deserto026
+const dir_no = $s_deserto031
+
+
+classe s_deserto028
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const dir_n = $s_deserto024
+const dir_s = $s_deserto029
+
+
+classe s_deserto029
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const dir_n = $s_deserto028
+const dir_s = $s_deserto030
+
+
+classe s_deserto030
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const dir_n = $s_deserto029
+const dir_se = $s_deserto032
+
+
+classe s_deserto031
+herda b_deserto
+const s_titulo = "Uma Cabana Abandonada"
+const dir_se = $s_deserto027
+
+
+classe s_deserto032
+herda b_deserto
+const s_titulo = "Uma Cabana Abandonada"
+const dir_no = $s_deserto030
+
+
+classe s_deserto033
+herda b_deserto
+const s_titulo = "Um Caminho Entre Cactos"
+const s_desc = "Os Cactos, Nessa Parte Do Deserto Descreve Um Local Mais Sombrio.\n\
+Deixando O Local Totalmente Escuro; Após O Bater Dos Ventos Nos Cactos, Eles Começam A Estremecer\
+.\n\
+Como Se Um Horripilante Monstro Fosse Sair De Traz Deles E Lhi Atacar.\n\
+Os Cactos, Avançam De Certa Forma Contra Seu Corpo, Como Se Eles Próprios Falassem: \"Volte Para \
+Traz, Jovem Bobo\""
+const dir_l = $s_deserto034
+const dir_o = $s_deserto024
+
+
+classe s_deserto034
+herda b_deserto
+const s_titulo = "Um Caminho Entre Cactos"
+const s_desc = "Os Cactos, Nessa Parte Do Deserto Descreve Um Local Mais Sombrio.\n\
+Deixando O Local Totalmente Escuro; Após O Bater Dos Ventos Nos Cactos, Eles Começam A Estremecer\
+.\n\
+Como Se Um Horripilante Monstro Fosse Sair De Traz Deles E Lhi Atacar.\n\
+Os Cactos, Avançam De Certa Forma Contra Seu Corpo, Como Se Eles Próprios Falassem: \"Volte Para \
+Traz, Jovem Bobo\""
+const dir_l = $s_deserto035
+const dir_o = $s_deserto033
+
+
+classe s_deserto035
+herda b_deserto
+const s_titulo = "Um Caminho Entre Cactos"
+const s_desc = "Os Cactos, Nessa Parte Do Deserto Descreve Um Local Mais Sombrio.\n\
+Deixando O Local Totalmente Escuro; Após O Bater Dos Ventos Nos Cactos, Eles Começam A Estremecer\
+.\n\
+Como Se Um Horripilante Monstro Fosse Sair De Traz Deles E Lhi Atacar.\n\
+Os Cactos, Avançam De Certa Forma Contra Seu Corpo, Como Se Eles Próprios Falassem: \"Volte Para \
+Traz, Jovem Bobo\""
+const dir_n = $s_deserto037
+const dir_s = $s_deserto036
+const dir_l = $s_deserto044
+const dir_o = $s_deserto034
+
+
+classe s_deserto036
+herda b_deserto
+const s_titulo = "Nas Quentes areias do deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_n = $s_deserto035
+const dir_s = $s_deserto041
+
+
+classe s_deserto037
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_n = $s_deserto038
+const dir_s = $s_deserto035
+
+
+classe s_deserto038
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_n = $s_deserto039
+const dir_s = $s_deserto037
+
+
+classe s_deserto039
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_s = $s_deserto038
+const dir_no = $s_deserto040
+
+
+classe s_deserto040
+herda b_deserto
+const s_titulo = "Uma Cabana Abandonada"
+const dir_se = $s_deserto039
+
+
+classe s_deserto041
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_n = $s_deserto036
+const dir_s = $s_deserto042
+
+
+classe s_deserto042
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_n = $s_deserto041
+const dir_se = $s_deserto043
+
+
+classe s_deserto043
+herda b_deserto
+const s_titulo = "Uma Cabana Abandonada"
+const dir_no = $s_deserto042
+
+
+classe s_deserto044
+herda b_deserto
+const s_titulo = "Um Caminho Entre Cactos"
+const s_desc = "Os Cactos, Nessa Parte Do Deserto Descreve Um Local Mais Sombrio.\n\
+Deixando O Local Totalmente Escuro; Após O Bater Dos Ventos Nos Cactos, Eles Começam A Estremecer\
+.\n\
+Como Se Um Horripilante Monstro Fosse Sair De Traz Deles E Lhi Atacar.\n\
+Os Cactos, Avançam De Certa Forma Contra Seu Corpo, Como Se Eles Próprios Falassem: \"Volte Para \
+Traz, Jovem Bobo\""
+const dir_l = $s_deserto045
+const dir_o = $s_deserto035
+
+
+classe s_deserto045
+herda b_deserto
+const s_titulo = "Um Caminho Entre Cactos"
+const s_desc = "Os Cactos, Nessa Parte Do Deserto Descreve Um Local Mais Sombrio.\n\
+Deixando O Local Totalmente Escuro; Após O Bater Dos Ventos Nos Cactos, Eles Começam A Estremecer\
+.\n\
+Como Se Um Horripilante Monstro Fosse Sair De Traz Deles E Lhi Atacar.\n\
+Os Cactos, Avançam De Certa Forma Contra Seu Corpo, Como Se Eles Próprios Falassem: \"Volte Para \
+Traz, Jovem Bobo\""
+const dir_l = $s_deserto046
+const dir_o = $s_deserto044
+
+
+classe s_deserto046
+herda b_deserto
+const s_titulo = "Um Caminho Entre Cactos"
+const s_desc = "Os Cactos, Nessa Parte Do Deserto Descreve Um Local Mais Sombrio.\n\
+Deixando O Local Totalmente Escuro; Após O Bater Dos Ventos Nos Cactos, Eles Começam A Estremecer\
+.\n\
+Como Se Um Horripilante Monstro Fosse Sair De Traz Deles E Lhi Atacar.\n\
+Os Cactos, Avançam De Certa Forma Contra Seu Corpo, Como Se Eles Próprios Falassem: \"Volte Para \
+Traz, Jovem Bobo\""
+const dir_l = $s_deserto072
+const dir_o = $s_deserto045
+const dir_no = $s_deserto051
+const dir_se = $s_deserto047
+
+
+classe s_deserto047
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_no = $s_deserto046
+const dir_se = $s_deserto048
+
+
+classe s_deserto048
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_no = $s_deserto047
+const dir_se = $s_deserto049
+
+
+classe s_deserto049
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_no = $s_deserto048
+const dir_se = $s_deserto050
+
+
+classe s_deserto050
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_s = $s_deserto062
+const dir_no = $s_deserto049
+
+
+classe s_deserto051
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_no = $s_deserto052
+const dir_se = $s_deserto046
+
+
+classe s_deserto052
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_no = $s_deserto053
+const dir_se = $s_deserto051
+
+
+classe s_deserto053
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_no = $s_deserto054
+const dir_se = $s_deserto052
+
+
+classe s_deserto054
+herda b_deserto
+const s_titulo = "Nas Quentes Areias Do Deserto"
+const s_desc = "Você Encontra-se Vagando Em Um Longo E Cansativo Deserto.\n\
+Para Todos Os Lados Que Você Olha, Observa Areia E Mais Areia.\n\
+Além Óbviamente Do Sol, Que Faz Juntamente Com O Calor, Suor Escorrer\n\
+Por Seu Rosto Enteiro, Provocando Um Certo Incômodo, Principalmente\n\
+Para Se Locomover; À Noite, Quando Os Ventos Rugem Monstruosamente Em Seus Ouvidos.\n\
+Causa-lhi Uma Sensação De Insegurança, Por Não Saber O Que Irá\n\
+Encontrar Após A Linha Do Horizonte."
+const dir_n = $s_deserto061
+const dir_se = $s_deserto053
+
+
+classe s_deserto055
+herda b_deserto
+const s_titulo = "A Pirâmide Do Faraó ROACH"
+const dir_n = $s_deserto060
+const dir_s = $s_deserto057
+const dir_l = $s_deserto056
+const dir_sair = $s_deserto046
+
+
+classe s_deserto056
+herda b_deserto
+const s_titulo = "O Centro Da Pirâmide Do Faraó ROACH"
+const dir_n = $s_deserto059
+const dir_s = $s_deserto058
+const dir_l = $s_deserto063
+const dir_o = $s_deserto055
+const dir_b = $s_deserto066
+
+
+classe s_deserto057
+herda b_deserto
+const s_titulo = "A Pirâmide do faraó ROACH"
+const dir_n = $s_deserto055
+const dir_l = $s_deserto058
+
+
+classe s_deserto058
+herda b_deserto
+const s_titulo = "O Lado Leste Da Pirâmide"
+const dir_n = $s_deserto056
+const dir_l = $s_deserto065
+const dir_o = $s_deserto057
+
+
+classe s_deserto059
+herda b_deserto
+const s_titulo = "O Lado Oeste Da Pirâmide"
+const dir_s = $s_deserto056
+const dir_l = $s_deserto064
+const dir_o = $s_deserto060
+
+
+classe s_deserto060
+herda b_deserto
+const s_titulo = "A Pirâmide Do Faraó ROACH"
+const dir_s = $s_deserto055
+const dir_l = $s_deserto059
+
+
+classe s_deserto061
+herda b_deserto
+const s_titulo = "Uma Rustica Cabana Gigante"
+const dir_s = $s_deserto054
+
+
+classe s_deserto062
+herda b_deserto
+const s_titulo = "Em uma rústica gigantesca cabana."
+const dir_n = $s_deserto050
+
+
+classe s_deserto063
+herda b_deserto
+const s_titulo = "A Pirâmide Do Faraó ROACH"
+const dir_n = $s_deserto064
+const dir_s = $s_deserto065
+const dir_o = $s_deserto056
+
+
+classe s_deserto064
+herda b_deserto
+const s_titulo = "O Final Oeste Da Pirâmide"
+const dir_s = $s_deserto063
+const dir_o = $s_deserto059
+
+
+classe s_deserto065
+herda b_deserto
+const s_titulo = "O Final Leste Da Pirâmide"
+const dir_n = $s_deserto063
+const dir_o = $s_deserto058
+
+
+classe s_deserto066
+herda b_deserto
+const s_titulo = "Passando Por Velhos Degraus Amarelos"
+const dir_l = $s_deserto067
+const dir_c = $s_deserto056
+
+
+classe s_deserto067
+herda b_deserto
+const s_titulo = "Passando Por Velhos Degraus Vermelhos"
+const dir_o = $s_deserto066
+const dir_b = $s_deserto068
+
+
+classe s_deserto068
+herda b_deserto
+const s_titulo = "Passando Por Velhos Degraus Verdes"
+const dir_l = $s_deserto069
+const dir_c = $s_deserto067
+
+
+classe s_deserto069
+herda b_deserto
+const s_titulo = "Passando Por Velhos Degraus Roxos"
+const dir_o = $s_deserto068
+const dir_b = $s_deserto070
+
+
+classe s_deserto070
+herda b_deserto
+const s_titulo = "O Final Dos Velhos Degraus Coloridos"
+const dir_c = $s_deserto069
+const dir_entrar = $s_deserto071
+
+
+classe s_deserto071
+herda b_deserto
+const s_titulo = "O TÚMULO DO FARAÓ ROACH"
+const dir_sair = $s_deserto070
+
+
+classe s_deserto072
+herda b_deserto
+const s_titulo = "Uma estrada no imenso deserto"
+const s_pnj = 0
+const dir_l = $s_deserto073
+const dir_o = $s_deserto046
+
+
+classe s_deserto073
+herda b_deserto
+const s_titulo = "Uma estrada no imenso deserto"
+const dir_l = $s_deserto074
+const dir_o = $s_deserto072
+
+
+classe s_deserto074
+herda b_deserto
+const s_titulo = "Uma estrada no imenso deserto"
+const dir_n = $s_deserto075
+const dir_o = $s_deserto073
+
+
+classe s_deserto075
+herda b_deserto
+const s_titulo = "Diante da pirâmide lendária"
+const dir_n = $s_piramide001
+const dir_s = $s_deserto074

@@ -1,0 +1,146 @@
+classe cmd_vender
+herda cmd_avaliar, comum_negociar
+const txtajuda = "\b\c3Vender\b\n\
+Sintaxe: VENDER <nome do objeto>\n\
+         VENDER <quantidade> <nome do objeto>\n\
+         VENDER CASA\n\
+Vende objetos que você está carregando para um vendedor.\n\
+Somente em alguns casos é possível vender mais de um objeto de uma vez.\n\
+Vende também uma casa que você possui."
+const vender = 1
+
+
+classe cmd_avaliar
+herda comando_comum
+const txtajuda = "\b\c3Avaliar\b\n\
+Sintaxe: AVALIAR <nome do objeto>\n\
+         AVALIAR CASA\n\
+Pergunta a um vendedor quanto ele paga por um item que você está carregando\n\
+ou por uma casa que você possui."
+const vender = 0
+
+func escr
+  ret !arg1, arg0.msg(vender ? "Vender o que?" : "Avaliar o que?")
+  negociar_ini(arg0)
+  txt200 lin
+  listaobj l
+# Avaliar/vender casas
+  se arg1 == "casa"
+    l.addfim(arg0.dono.dentro2)
+    epara l.remove(arg0), l, l.ini.remove
+      refvar p = ref(l.objini) # Personagem que está sendo verificado
+      continuar !$a_[p.lojacasa]
+      lin = negociar_msg(arg0, p)
+      continuar lin == "\b"
+      ret lin, arg0.msg(lin)
+      continuar evento(arg0, p)
+      indiceitem item
+      refvar r = item.obj("cj " + txt2(arg0.sock.cnome) + " " + p.lojacasa)
+      refvar valor = intpos(r.valor * (100 - p.taxacompra) / 100)
+      se !r
+        arg0.msg("Você não tem uma casa aqui.")
+        continuar
+      senao vender
+        arg0.var.z_moedas_ += valor
+        r.nomejog = ""
+        r.mudachave # Já faz r.objmudou=1
+        arg0.salvar, r.salvar # Salva personagem do jogador e casa
+        $mens.p(arg0, p)
+        $mens.mens = r.nome ? r.nome : "uma casa"
+        lin = "$P vende $m para $a"
+        se valor == 1
+          $mens.mvis2(lin + " por uma moeda.", lin + ".")
+        senao valor == 2
+          $mens.mvis2(lin + " por duas moedas.", lin + ".")
+        senao
+          $mens.mvis2(lin + " por " + valor + " moedas.", lin + ".")
+        fimse
+        ret
+      senao
+        se valor == 0
+          lin = "Não pagaria nenhuma moeda pela sua casa."
+        senao valor == 1
+          lin = "Eu pagaria uma única moeda pela sua casa."
+        senao
+          lin = "Eu pagaria " + valor + " moedas pela sua casa."
+        fimse
+        ret arg0.msg(txtcopiamai(p.descnome, "A") + ": " + lin)
+      fimse
+    efim
+    ret arg0.msg("Ninguém quer comprar casa.")
+  fimse
+# Avaliar/vender itens
+  nomeobj n # Para reconhecer os itens
+  n.ini(arg1, 1000000)
+  epara l.addfim(arg0.dentro1), l, l.ini.remove
+    continuar !l.objini.visivel(arg0) || !n.nome(l.objini.ident, l.objini.objtot)
+    ret exec(arg0, l.objini, int(n))
+  efim
+# Não encontrou o item
+  arg0.msg("Você não vê isso.")
+
+func exec # Avalia ou vende um item
+# arg0 = personagem
+# arg1 = item
+# arg2 = quantidade de itens
+  int1 mudou # Para saber se já enviou uma mensagem
+  txt200 lin
+  listaobj l
+  l.addfim(arg0.dono.dentro2)
+  epara l.remove(arg0), l, l.ini.remove
+    refvar p = ref(l.objini) # Personagem que está sendo verificado
+    continuar !(arg1.tipoitem2 & p.tipoitem) # Checa se tem interesse
+    lin = negociar_msg(arg0, p)
+    continuar lin == "\b"
+    ret lin, arg0.msg(lin)
+    se lin = evento(arg0, p) # Nota: atribui mensagem a lin e checa se lin!=""
+      arg0.msg(txtcopiamai(p.descnome, "A") + ": " + lin)
+      continuar
+    fimse
+    int32 quest # Quantidade de pontos de aventura necessários para adquirir o item.
+    int32 valor # Valor do item
+    valor = intpos(arg1.valor * (100 - p.taxacompra) / 100)
+    quest = intpos(arg1.quest)
+    se vender
+      valor *= arg2
+      arg1.apagar(arg2)
+      arg0.var.z_moedas_ += valor
+      quest && (arg0.var.z_quest_ += quest)
+      $mens.p(arg0, p, arg1)
+      se arg2 == 1
+        lin = "$P vende $o para $a"
+      senao
+        lin = "$P vende " + arg2 + "x $o para $a"
+      fimse
+      se valor == 1
+        $mens.mvis2(lin + " por uma moeda.", lin + ".")
+      senao valor == 2
+        $mens.mvis2(lin + " por duas moedas.", lin + ".")
+      senao
+        $mens.mvis2(lin + " por " + valor + " moedas.", lin + ".")
+      fimse
+      ret
+    senao
+      se valor == 0
+        lin = "Não pagaria nenhuma moeda por isso."
+      senao valor == 1
+        lin = "Eu pagaria uma única moeda por isso."
+      senao
+        lin = "Eu pagaria " + valor + " moedas por isso."
+      fimse
+      arg0.msg(txtcopiamai(p.descnome, "A") + ": " + lin)
+      mudou = 1
+    fimse
+  efim
+# Ninguém quer comprar
+  !mudou && arg0.msg("Ninguém quer comprar " + arg1.descnome + ".")
+
+func evento # Gera evento para arg0 e arg1
+  listaobj l
+  txt100 t
+  epara l.addfim(arg0.evento), l, l.ini.remove
+    ret t = l.objini.cmd_vender(arg0, arg1, arg0), t
+  efim
+  epara l.addfim(arg1.evento), l, l.ini.remove
+    ret t = l.objini.cmd_vender(arg0, arg1, arg1), t
+  efim

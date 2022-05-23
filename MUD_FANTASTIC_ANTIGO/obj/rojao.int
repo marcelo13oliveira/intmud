@@ -1,0 +1,46 @@
+classe i_rojão
+herda comum_itemperso
+const nome = "rojão"
+const ident = "rojão"
+const descnome = "Um rojão"
+const descpos = "Um rojão está aqui."
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 2000000
+const inivar = "e_apagar=2"
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+
+func cmd_pegarobj
+  se arg2 == este
+    se arg0.dentro1.objini("i_rojao")
+      arg0.msg("Você já tem " + descnome + ".")
+      ret 1
+    senao
+      $mens.p(arg0)
+      $mens.mens = arg1
+      $mens.mtodos1("$P pega um rojão.")
+      criar("i_rojão", arg0)
+      este.apagar
+      ret 1
+    fimse
+
+func cmd_soltarobj
+  se arg2 == este
+    $mens.p(arg0)
+    $mens.mens = arg1
+    refvar s = txtsublin(r, rand(intsublin(r)), 1)
+    $mens.mtodos1("$P solta um rojão!")
+    refvar brasil = rand(1, 200000)
+    arg0.ganhaexp(brasil)
+    apagar(este)
+    ret 1
+  fimse
+
+const r = "Uma luz colorida pode ser vista no céu.\n\
+O desenho da bandeira do Brasil forma-se no ar\n\
+Palavras são escritas nos céus: viva o Brasil!\n\
+Brava gente brasileira! Longe vá, temor servil \n\
+Já raiou a liberdade no orizonte do brasil.\n\
+ou ficar a pátria livre, ou morrer, pelo Brasil.\n\
+Vossos peitos, vossos braços, são as muralhas do brasil.\n\
+Do universo entre as nações, resplandece a do Brasil."

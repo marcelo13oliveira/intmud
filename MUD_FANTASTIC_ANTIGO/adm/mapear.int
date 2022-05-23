@@ -1,0 +1,28 @@
+classe cmd_mapear
+herda comando_comum
+#
+const posic = 0
+#
+
+func escr
+  se !arg1
+    arg0.msg2("Digite o nome do jogador o qual deseja obter o mapa.")
+  senao
+    ref p
+    refvar nomesav = txts(txtnome(arg1))
+    indiceitem item
+    item.ini("pn " + nomesav)
+    p = item.obj
+    textotxt t
+    txt80 dir
+    refvar listadir = txtvis(arg0.rastrearsala(p.dono, "", 1000))
+    txt100 direcoes
+    direcoes = txtmin(listadir)
+    refvar listadir2 = txttroca(direcoes, "\\n", " ")
+    epara dir = listadir2, dir, dir = txt2(dir)
+      refvar dirp = txt1(dir)
+      sair !arg0.dono.dir_[dirp]
+      t.addfim(dirp)
+    efim
+    arg0.msg2(listadir2)
+  fimse

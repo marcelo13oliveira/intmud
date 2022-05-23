@@ -1,0 +1,103 @@
+classe c_junior001
+herda casa
+const area = "junior"
+const nome = "O templo de Júnior"
+const valor = 2000000000
+const c_salas = "junior001\njunior002\njunior003\njunior010"
+
+func mudou # Se houve alguma mudança
+# Não alterar; função criada automaticamente
+  ret objmudou || $s_junior001.objmudou || $s_junior002.objmudou, 1
+  ret $s_junior003.objmudou || $s_junior010.objmudou
+
+func zerar # Indica que não houve mudança na casa
+# Não alterar; função criada automaticamente
+  objmudou = 0
+  $s_junior001.objmudou = 0, $s_junior002.objmudou = 0, $s_junior003.objmudou = 0
+  $s_junior010.objmudou = 0
+
+func addlista # Adiciona salas da casa em uma listaobj
+# arg0 = listaobj
+# Não alterar; função criada automaticamente
+  arg0.addfim($s_junior001, $s_junior002, $s_junior003, $s_junior010)
+
+
+classe i_junior030
+herda comum_itemperso
+const nome = "morcego"
+const descnome = "um morcego de pelúcia"
+const descpos = "Um fofo morcego de pelúcia está aqui, e pertence a Hermione."
+const descver = "Este morcego fofo está em uma posição de voo, com suas longas e fortes asas \
+abertas.\n\
+Pode-se notar também suas vermelhas glândulas mamárias, próximas as asas, prontas para amamentare\
+m seus filhotes.\n\
+Sua barriguinha é rosa, e completamente fofa. Boa principalmente para servir de descanso.\n\
+Suas patas são rosas também, dando para repousar os pés nelas, podendo relachar completamente.\n\
+E sua cabeça é grande e fofa o suficiente para que caiba uma cabeça humana."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_lugar = 2
+const luzitem = 7 # Tipo de luz: 7 Automático (acende ao vestir, sem fogo)
+const pesoobj = 10
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+const manterperso = 1 # Mantém em jogador: Sim
+
+
+classe i_junior031
+herda comum_itemperso
+const nome = "símbolo"
+const descnome = "O símbolo da união entre os Imortais"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 10
+const vestir1 = 2 # Aonde vestir: 1-como símbolo
+const manterperso = 1 # Mantém em jogador: Sim
+const m_atribs2 = "Rodead$s por uma luz intensa,"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500000 * pnivel + 100000
+  pmanamax += 40000 * pnivel
+  pmovemax += 40000 * pnivel
+  pveloc1 += 40000 * pnivel
+  atknorm += 400000 * pnivel
+  defnorm += 400000 * pnivel
+  atkesp += 400000 * pnivel
+  defesp += 400000 * pnivel
+  evasao += 65035 * pnivel
+  precisao += 65035 * pnivel
+  pesomax += 200000 * pnivel + 1000000000
+  bitinv &= ~2
+  bitver |= 4158
+  atktipo.0 *= 2 # Tipos Normais
+  atktipo.1 *= 2 # Tipos Especiais
+  deftipo.0 *= 0.4 # Tipos Normais
+  deftipo.1 *= 0.4 # Tipos Especiais
+
+
+classe s_junior002
+herda b_junior
+const s_titulo = "Um grande banheiro."
+const dir_n = $s_junior003
+const portaini_n = 1 # Estado inicial: 1 Porta aberta
+const portanome_n = "A porta de vidro do box"
+const fecha_n = 1 # Fecha ao passar: Sim
+const som_abrir_n = "aporta4"
+const som_fechar_n = "fporta4"
+const dir_l = $s_junior001
+const portanome_l = "As duplas portas sanfonadas de madeira"
+const portaartigo_l = 1 # Artigo porta: 1 as (portas)
+const fecha_l = 1 # Fecha ao passar: Sim
+const som_abrir_l = "aporta4"
+const som_fechar_l = "fporta4"
+
+
+classe s_junior003
+herda b_junior
+const s_titulo = "Dentro do box"
+const dir_s = $s_junior002
+const portaini_s = 1 # Estado inicial: 1 Porta aberta
+const portanome_s = "A porta de vidro do box"
+const fecha_s = 1 # Fecha ao passar: Sim
+const som_abrir_s = "aporta4"
+const som_fechar_s = "fporta4"

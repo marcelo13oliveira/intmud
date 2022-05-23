@@ -1,0 +1,3923 @@
+classe a_admansao
+herda area
+const a_nome = "A mansão do parque"
+const a_autor = "animal"
+const a_tempo = 10
+const a_txtreset = "Ruídos provenientes de todos os lados e de lugar algum ecoam em sua cabeça."
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_admansao
+herda sala
+const s_item = 0
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_luz = 0 # Luz: 0 Claro com eventos de tempo
+const s_recup = 2
+const s_reserva = 1 # Comando reserva: Sim
+const s_retornar = 0 # Comando retornar: 0 Permitido
+const s_area = "mansao"
+
+
+classe i_admansao001
+herda comum_itemperso
+const nome = "Um molho de chaves"
+const ident = "molho chaves mansão"
+const descnome = "Um molho de chaves"
+const descpos = "Você acaba de pisar sobre o molho de chaves da mansão do parque!"
+const i_chave = "mansao001"
+
+
+classe i_admansao002
+herda comum_item
+const nome = "Um livro intitulado \"Lago de sangue\""
+const ident = "livro lado sangue história terror"
+const descnome = "Um livro entitulado Lago de sangue"
+const descpos = "Um livro de capa de couro áspera, groça e vermelho sangue foi atirado em um \
+canto, talvez por ser ele um livro de terror."
+const descver = "Esse livro foi escrito por um mendigo louco que matou-se após fazer com que \
+encontrasse seus escritos. Dizem que ele via além do véu que separa o mundo material do \"Mundo \
+etéreo\" ou invisível, o mundo dos mortos.\n\
+A capa é de couro, áspera e completamente pintada de um vermelho sangue muito forte, além de ter \
+impregnado em suas páginas mofadas o odor da morte. Dizem os que conheciam o velho, que o mesmo \
+possuía grudado em suas vestes o mesmo odor sentido no livro.\n\
+O desenho da capa é um lago de sangue, onde os corpos dos condenados pelo demônio da história \
+nadam e se afogam por toda a eternidade. Lá é onde a súplica pela morte espiritual pode ser \
+ouvida e onde os Deuses não ousam chegar, por respeito a liberdade de ir e vir dos próprios \
+condenados.\n\
+O livro emana uma energia estranha.... parece estar convidando o leitor a entregar-se ao \
+verdadeiro terror navegando em suas páginas vermelhas e mofadas. cabe a você abrir a próxima \
+página.\n\
+Existe um texto em letras tremidas e muito pequenas. Na verdade, o texto paresse uma senha que \
+diz: \"morte imortal\""
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos em perso: Sim
+const evitem = 1 # Eventos em item: Sim
+const evsala = 1 # Eventos em sala: Sim
+
+func cmd_pegarobj
+  se arg2 == este
+    arg0.msg("Uma mão sai de dentro do livro e arranca-o de você.")
+    ret 1
+
+
+classe i_admansao003
+herda comum_itemperso
+const nome = "Prateleiras de livros"
+const ident = "prateleira armário estante"
+const descnome = "Uma Prateleira de livros"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const pesoobj = 100000
+const volexp = 1 # Expande: Sim
+
+func cmd_pegarobj
+  se arg2 == este
+    arg0.msg("Isso é muito pesado para você carregar.")
+    ret 1
+
+
+classe i_admansao004
+herda comum_itemperso
+const nome = "Cadeira de balanço"
+const ident = "cadeira balanço"
+const descnome = "uma cadeira de balanço"
+const descpos = "Uma cadeira de balanço foi posta aqui, virada para o jardim."
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_lugar = 1
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 1000
+const tipoitem = 513 # Tipo de produto: 0-Possui metal, 9-Mobília
+
+
+classe i_admansao005
+herda comum_itemperso
+const nome = "um balanço de cordas"
+const ident = "balanço"
+const descnome = "um balanço de cordas"
+const descpos = "Bem adaptado a sombra de uma árvore, Um forte balanço de cordas move-se ao \
+sabor do vento."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_movel = 1 # Mobília: 1 Sentar
+const i_lugar = 2
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 1
+const eveste = 1 # Eventos item: Sim
+
+func cmd_pegarobj
+  se arg2 == este
+    arg0.msg("Isso está bem amarrado a árvore, impocível pegar.")
+    ret 1
+
+
+classe i_admansao006
+herda comum_itemperso
+const nome = "A bola de cristal de Nyña"
+const ident = "bola cristal"
+const descnome = "A bola de cristal de Nyña"
+const descpos = "A bola de cristal de nyña atrai todos os olhares para seu brilho inconfundível."
+const nivel = 20
+const luzfim = 1 # Sem luz item some: Sim
+const luzitem = 1 # Tipo de luz: 1 Lanterna (acende/apaga, sem fogo)
+const luzini = 1000000000
+const luzliga = "A bola de Cristal de Nyña se acende."
+const luztxt = "As forças da bola de cristal de Nyña chegam ao fim."
+const pesoobj = 3
+const tipoitem = 384 # Tipo de produto: 7-Tesouro, 8-Fonte de luz
+const valor = 10000
+const vestir1 = "100000"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5
+  pmanamax += 5
+
+
+classe i_admansao007
+herda comum_item
+const nome = "um anel de safira"
+const ident = "anel safira"
+const descnome = "um anel de safira"
+const descpos = "Você quase pisa sobre um bonito e delicado anel de safira atirado ao chão."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 23
+const objmax = 0
+const pesoobj = 2
+const tipoitem = 128 # Tipo de produto: 7-Tesouro
+const valor = 3000
+const vestir1 = "c00000"
+const volmax = 0
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmovemax += 10
+  atknorm += 1
+  evasao += 1
+  precisao += 2
+
+
+classe i_admansao008
+herda comum_itemperso
+const nome = "Um rolo de macarrão"
+const ident = "rolo macarrão pau"
+const descnome = "Um rolo de macarrão"
+const descpos = "Alguma dona de casa abandonou Um pesado rolo de macarrão aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 10
+const armamax = 120
+const armamin = 80
+const armatipo = 5 # Tipo de arma: 5 Maca e Martelo
+const pesoobj = 4
+const tipoitem = 2 # Tipo de produto: 1-Arma
+const valor = 50
+const volmax = 0
+const armaatk = "bater"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30
+  pmanamax += 30
+  pmovemax += 30
+  atknorm += 5
+  precisao += 12
+
+const armafalha = 50
+
+
+classe i_admansao009
+herda comum_item
+const nome = "As botas do caseiro"
+const ident = "botas"
+const descnome = "As botas do caseiro"
+const descpos = "atiradas de qualquer jeito há um par de botas muito sujas atraindo mosquito e \
+repelindo pessoas ao seu redor."
+const nivel = 18
+const pesoobj = 10
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 3000
+const vestir1 = "20000000"
+const volmax = 0
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmovemax += 5
+  evasao += 5
+
+
+classe i_admansao010
+herda comum_item
+const nome = "Um fino bracelete de prata"
+const ident = "bracelete prata"
+const descnome = "Um fino bracelete de prata"
+const descpos = "Há um bracelete de prata caído bem a sua frente."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 30
+const pesoobj = 2
+const tipoitem = 132 # Tipo de produto: 2-Armadura, 7-Tesouro
+const valor = 6000
+const vestir1 = "30000"
+const volmax = 0
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 4 * pnivel
+  pmanamax += 3 * pnivel
+  defnorm += 3 * pnivel
+  precisao += 2 * pnivel
+
+
+classe i_admansao011
+herda comum_itemperso
+const nome = "Um grande armário espelhado"
+const ident = "armário"
+const descnome = "Um grande armário espelhado"
+const descpos = "Há um armário espelhado cobrindo completamente uma das paredes do quarto."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const volmax = 10000
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos em perso: Sim
+const evitem = 1 # Eventos em item: Sim
+const evsala = 1 # Eventos em sala: Sim
+
+func cmd_pegarobj
+  se arg2 == este
+    arg0.msg("Isso é muito pesado para você carregar.")
+    ret 1
+
+
+classe i_admansao012
+herda comum_item
+const nome = "um cordão com pingente foliado em prata"
+const ident = "pingente cordão prata prateado"
+const descnome = "um cordão com pingente foliado em prata"
+const descpos = "Há uma jóia prateada atirada ao chão."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 20
+const objmax = 0
+const pesoobj = 2
+const tipoitem = 128 # Tipo de produto: 7-Tesouro
+const valor = 10000
+const vestir1 = "300"
+const volexp = 0 # Expande: Não
+const volmax = 0
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 2
+  defnorm += 5
+  precisao += 5
+
+
+classe i_admansao013
+herda comum_itemperso
+const nome = "As vestes de um mago"
+const ident = "roupa vestes mago"
+const descnome = "As vestes de um mago"
+const descpos = "Uma vestimenta de cores místicas está perdida aqui."
+const nivel = 32
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const objmax = 5
+const tipoitem = 12 # Tipo de produto: 2-Armadura, 3-Vestimenta
+const valor = 1000
+const vestir1 = "800"
+const vestirnao = ""
+const volmax = 1000
+const manterperso = 1 # Mantém em jogador: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmanamax += 60
+  defesp += 10
+  precisao += -7
+  bitver |= 2048
+
+
+classe i_admansao014
+herda comum_itemperso
+const nome = "Um resistente elmo de ferro"
+const ident = "elmo ferro"
+const descnome = "Um resistente elmo de ferro"
+const descpos = "A mercê das intempéries do tempo está um resistente elmo de ferro seme-novo."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 40
+const pesoobj = 10
+const tipoitem = 5 # Tipo de produto: 0-Possui metal, 2-Armadura
+const valor = 5500
+const vestir1 = "2"
+const vestirnao = ""
+const volmax = 0
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmovemax += 15
+  defnorm += 10
+  evasao += 5
+  precisao += 5
+
+
+classe i_admansao015
+herda comum_item
+const nome = "Uma estrela de sinco pontas"
+const ident = "estrela pentagrama"
+const descnome = "Uma estrela de sinco pontas"
+const descpos = "Algum mago distraído deixou seu símbolo mágico cair pelo caminho"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 40
+const pesoobj = 2
+const tipoitem = 129 # Tipo de produto: 0-Possui metal, 7-Tesouro
+const valor = 10000
+const vestir1 = "1"
+const vestirnao = ""
+const volmax = 0
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmanamax += 30
+  atkesp += 10
+
+
+classe i_admansao016
+herda comum_item
+const nome = "Uma armadura de bronze"
+const ident = "armadura bronze"
+const descnome = "Uma armadura de bronze"
+const descpos = "A armadura do carrasco está jogada em um canto"
+const nivel = 50
+const pesoobj = 3
+const tipoitem = 5 # Tipo de produto: 0-Possui metal, 2-Armadura
+const valor = 10000
+const vestir1 = "1000"
+const volmax = 0
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  defnorm += 7
+  evasao += 2
+  precisao += 2
+
+
+classe i_admansao017
+herda comum_item
+const nome = "Uma espada longa reluzente"
+const ident = "espada luz reluzente longa"
+const descnome = "Uma espada longa reluzente"
+const descpos = "Uma lâmina no chão parece sugar toda a luz para dentro de si."
+const nivel = 55
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const pesoobj = 150
+const tipoitem = 131 # Tipo de produto: 0-Possui metal, 1-Arma, 7-Tesouro
+const valor = 30000
+const vestirnao = "haufling\nmago"
+const volmax = 0
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 15
+
+
+classe i_admansao067
+herda comum_item
+const nome = "Uma maça leve"
+const ident = "maça leve"
+const descnome = "Uma maça leve"
+const descpos = "A maça suja de sangue do carrasco foi atirada em um canto."
+const nivel = 50
+const armamax = 40
+const armamin = 25
+const armatipo = 5 # Tipo de arma: 5 Maca e Martelo
+const objmax = 0
+const pesoobj = 100
+const tipoitem = 3 # Tipo de produto: 0-Possui metal, 1-Arma
+const valor = 5000
+const vestir1 = "0"
+const volexp = 0 # Expande: Não
+const volmax = 0
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  precisao += 5
+
+const armafalha = 40
+
+
+classe i_admansao068
+herda comum_item
+const nome = "Um pequeno brinco de prata"
+const ident = "brinco pequeno prata"
+const descnome = "Um pequeno brinco de prata"
+const descpos = "Você escapa de pizar em um belíssimo brinquinho de prata por milímetros."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 15
+const pesoobj = 60
+const tipoitem = 128 # Tipo de produto: 7-Tesouro
+const valor = 10000
+const vestir1 = "c0"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 20
+  pmanamax += 20
+  pmovemax += 20
+  pveloc1 += 20
+  defnorm += 10
+  defesp += 5
+
+
+classe i_admansao069
+herda comum_item
+const nome = "Uma armadura de ferro"
+const ident = "armadura ferro"
+const descnome = "Uma armadura de ferro"
+const descpos = "Uma armadura de ferro foi jogada de lado, sendo agora alvo do tempo e dominada \
+por ferrugem."
+const nivel = 18
+const pesoobj = 1000
+const tipoitem = 5 # Tipo de produto: 0-Possui metal, 2-Armadura
+const valor = 3000
+const vestir1 = "1000"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50
+  defnorm += 30
+  deftipo.0 *= 0.95 # Tipos Normais
+  deftipo.2 *= 0.95 # Contusão
+  deftipo.3 *= 0.95 # Luta
+  deftipo.4 *= 0.95 # Cortante
+  deftipo.5 *= 0.95 # Perfurante
+
+
+classe i_admansao070
+herda comum_item
+const nome = "Uma reforçada perneira de couro"
+const ident = "perneira reforçada couro"
+const descnome = "Uma reforçada perneira de couro"
+const descpos = "Um par de perneiras de couro permanecem atirados sem utilidade, quase como se \
+pudesse fazer parte do cômodo onde está."
+const nivel = 23
+const pesoobj = 600
+const tipoitem = 12 # Tipo de produto: 2-Armadura, 3-Vestimenta
+const valor = 4000
+const vestir1 = "2000000"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmanamax += 50
+  pmovemax += 30
+  pveloc1 += 30
+  precisao += 12
+
+
+classe i_admansao071
+herda comum_item
+const nome = "braçadeiras de ferro"
+const ident = "braçadeiras ferro"
+const descnome = "Um par de braçadeiras de ferro"
+const descpos = "Alguém deixou esse par de braçadeiras de ferro jogado por aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 30
+const pesoobj = 700
+const tipoitem = 5 # Tipo de produto: 0-Possui metal, 2-Armadura
+const valor = 5000
+const vestir1 = "4000" # Aonde vestir: 14-Nos braços
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmanamax += 70
+  pmovemax += 26
+  pveloc1 += 20
+  defnorm += 20
+
+
+classe i_admansao072
+herda comum_item
+const nome = "Um par de velhas e grosseiras luvas de jardineiro"
+const ident = "velhas grosseiras luvas jardineiro"
+const descnome = "Um par de velhas e grosseiras luvas de jardineiro"
+const descpos = "Um par de velhas e grosseiras luvas de jardineiro estão jogadas aqui."
+const nivel = 20
+const pesoobj = 200
+const tipoitem = 8 # Tipo de produto: 3-Vestimenta
+const valor = 1000
+const vestir1 = "40000" # Aonde vestir: 18-Nas mãos
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmovemax += 5
+  pveloc1 += 5
+  atknorm += -5
+  defnorm += 5
+  precisao += -10
+
+
+classe i_admansao100
+herda comum_itemperso
+const nome = "Um punhado de ração"
+const ident = "ração comida"
+const descnome = "Um punhado de ração"
+const descpos = "Um potinho com um punhado de ração foi servido no cantinho da sala."
+const armamax = 30
+const armamin = 10
+const armafalha = 30
+const armatipo = 0 # Tipo de arma: 0 Não é arma
+const i_captura = 1
+const tipoitem = 8192 # Tipo de produto: 13-Comida
+
+
+classe i_admansao101
+herda comum_itemperso
+const nome = "Uma alma"
+const ident = "alma"
+const descnome = "Uma alma"
+const descpos = "Uma fraca luz proveniente de uma alma enfraquecida pouco a pouco vai se \
+apagando diante de seus olhos."
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_magia1 = "envenenar"
+const f_msgperso = "você devora uma alma perdida. Seus olhos perdem o foco enquanto você \
+contorse-se de dor no estômago...."
+const f_msgoutros = "$P devora uma alma perdida. Os olhos de $P ficam vermelhos por um instante \
+enquanto $P se contorse de dor!"
+const f_nivel1 = 30
+const luzfim = 1 # Sem luz item some: Sim
+const luzini = 1000000
+const objmax = 0
+const pesoobj = 1
+const volmax = 1
+const volobj = 1
+const manterperso = 1 # Mantém em jogador: Sim
+
+
+classe i_admansao102
+herda comum_itemperso
+const nome = "Uma alma"
+const ident = "alma"
+const descnome = "Uma alma"
+const descpos = "Uma fraca luz proveniente de uma alma enfraquecida pouco a pouco vai se \
+apagando diante de seus olhos."
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_magia1 = "envenenar"
+const f_msgperso = "você devora uma alma perdida. Seus olhos perdem o foco enquanto você \
+contorse-se de dor no estômago...."
+const f_msgoutros = "$P devora uma alma perdida. Os olhos de $P ficam vermelhos por um instante \
+enquanto $P se contorse de dor!"
+const f_nivel1 = 30
+const luzfim = 1 # Sem luz item some: Sim
+const luzini = 1000000
+
+
+classe i_admansao103
+herda comum_itemperso
+const nome = "Uma alma"
+const ident = "alma"
+const descnome = "Uma alma"
+const descpos = "Uma fraca luz proveniente de uma alma enfraquecida pouco a pouco vai se \
+apagando diante de seus olhos."
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_magia1 = "envenenar"
+const f_msgperso = "você devora uma alma perdida. Seus olhos perdem o foco enquanto você \
+contorse-se de dor no estômago...."
+const f_msgoutros = "$P devora uma alma perdida. Os olhos de $P ficam vermelhos por um instante \
+enquanto $P se contorse de dor!"
+const f_nivel1 = 30
+const luzfim = 1 # Sem luz item some: Sim
+const luzini = 1000000
+
+
+classe p_admansao001
+herda comum_persobat
+const nome = "O Guarda"
+const ident = "guarda humano homem vigia porteiro"
+const descnome = "O Guarda"
+const descpadr = "O guarda da mansão do parque posta-se na defenciva diante dos portões bem \
+trancados."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 8000
+const nivel = 30
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 7
+const p_morreu1 = "Já a beira da inconsciência, $P cospe sua última golfada de sangue junto com \
+a frustração de ter falhado em cumprir sua única missão.... $P morreu."
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "z_moedas=1000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+  bitver |= 30
+  atktipo.6 *= 0 # Fogo
+  atktipo.7 *= 0 # Água
+  atktipo.8 *= 0 # Gelo
+  atktipo.9 *= 0 # Terra
+  atktipo.10 *= 0 # Pedra
+  atktipo.11 *= 0 # Aéreo/vento
+  atktipo.12 *= 0 # Luz
+  atktipo.13 *= 0 # Trevas
+  atktipo.14 *= 0 # Elétrico
+  atktipo.15 *= 0 # Vegetal
+  atktipo.16 *= 0 # Psíquico
+  atktipo.17 *= 0 # Veneno
+  atktipo.18 *= 0 # Fantasma
+  atktipo.19 *= 0 # Dragão
+
+
+classe p_admansao002
+herda comum_persobat
+const nome = "O vigia"
+const ident = "vigia folga homem humano"
+const descnome = "O vigia de folga"
+const descpadr = "Babando e roncando alto, esse vigia parece estar em seu quinto sono"
+const descver = "Barbudo, gordo e com um álito desagradável, esse homem dorme como uma pedra. \
+Pela posição do corpo, pelas vestes de trabalho e pela cor de suas mãos, o vigia não costuma ter \
+hábitos saudáveis inclusos no seu cotidiano.\n\
+Enquanto dorme a sono solto ele resmunga algo incompreencível, rola na cama e baba exageradamente\
+, cospindo saliva enquanto, aparentemente briga com alguém de seu passado.\n\
+Suas roupas muito rasgadas, suas mãos sujas e calejadas lhe indicam que a sua frente está um \
+homem pobre e abandonado por si próprio a margem da vida, mas que continua de pé por birra para \
+mostrar ao sol que, ele querendo ou não, terá de sorrir para esse morto vivo errante."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 55000
+const objmax = 5
+const nivel = 20
+const pospadr = 4 # Posição padrão: 4 Dormindo
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 10
+const inivar = "z_moedas=30"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 40
+  pmovemax += 40
+  pveloc1 += 10
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao003
+herda comum_persobat
+const nome = "O Vigia"
+const ident = "vigia humano homem"
+const descnome = "O vigia"
+const descpadr = "Um homem permanece atento a olhar para fora enquanto brinca distraidamente com \
+seu arco."
+const descver = "Pouco se sabe sobre os funcionários da mansão, onde foram treinados, por quem o \
+foram e de onde vieram. Tudo que se ouve falar pelos cantos é que vieram de diversos lugares e, \
+um a um, passaram por duras seções de treinamento com o caseiro, um velho guerreiro sábio e \
+ainda muito capaz.\n\
+Esse rapaz é jovem, parece não haver passado por nada mais que seu treinamento para, apenas e \
+tão somente observar a entrada da mansão e, quando necessário for, atirar em quem ameaçasse a \
+tranquilidade dos moradores do grande casarão.\n\
+o rapaz tem ainda por mestre o pai velho e cansado, que permanece num posto mais baicho apenas \
+por amor ao que faz e para não morrer sobre uma cama,\n\
+aumentando assim as responsabilidades de seu filho único, proteger o velho pai de um perigo até \
+agora não visto.\n\
+Em suas mãos, há apenas um arco com o qual brinca distraidamente, parando o movimento despreocupa\
+do apenas para ajeitar o binóculo e os poucos cabelos que o vento inssiste em atirar em seu \
+rosto."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 70000
+const nivel = 25
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 20
+const p_morreu1 = "Completamente esgotado e sangrando, $P sucumbe ao peso da morte em silêncio e \
+com dignidade. $P morreu."
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 15
+  atknorm += 10
+  precisao += 110
+  bitinv &= ~2
+  bitver |= 2110
+
+
+classe p_admansao004
+herda comum_persobat
+const nome = "A cozinheira"
+const ident = "humana mulher cozinheira empregada"
+const descnome = "A cozinheira"
+const descpadr = "Uma habilidosa cozinheira prepara a refeição da família enquanto cantarola uma \
+canção a muito esquecida."
+const pesoobj = 55000
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao005
+herda comum_persobat
+const nome = "O caseiro"
+const ident = "caseiro guerreiro velho homem humano"
+const descnome = "O caseiro"
+const descpadr = "O caseiro da mansão grita ordens enquanto caminha pela casa com dificuldade."
+const descver = "Medo, é tudo que você sente e é o máximo que ele consegue transmitir enquanto \
+inssiste em manter sua posição na casa da família a qual serve a 50 anos.\n\
+A princípio como guerreiro, como jardineiro, vigia, vigia chefe e por último, caseiro, mantendo-s\
+e no cargo por 12 anos, mesmo com a idade chegando e cobrando seu preço.\n\
+O velho grita ordens, impropérios e maldições pela casa, importunando visitas e criados, toca \
+objetos com suas mãos sujas e, em noites mais longas, grita, geme, ataca e revive passagens de \
+sua longa existência em um quartinho izolado para seus momentos de delírio.\n\
+Por mais que o velho seja um fardo para os patrões, estes sentem-se em dívida com o ancião, \
+mantendo-o em posição de destaque ao lado de um rapaz mais vigoroso e digno de crédito para as \
+funções mais pesadas provenientes da responsabilidade do cargo.\n\
+Roupas rasgadas, barbas por fazer, cheiro nauseabundo, álito e dentes podres e unhas sujas de \
+terra é tudo quanto resta do antigo e dedicado criado. Seja medo ou respeito, seja a certeza de \
+um futuro de dor e velice, todos o respeitam e nutrem por ele grande piedade e repulsa."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 50000
+const nivel = 15
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 10
+const p_morreu1 = "$P cospe na sua cara demonstrando uma ousadia inexistente e deixa-se cair \
+enquanto dá uma última golfada de sangue."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 200
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao006
+herda comum_persobat
+const nome = "Uma serviçal"
+const ident = "jovem garota humana serviçal criada empregada"
+const descnome = "Uma serviçal"
+const descpadr = "Uma jovem serviçal corre de um lado a outro arrumando a bagunça dos patrões."
+const descver = "A criada  é baixa, pele mais bronzeada,\n\
+ cabelos longos e cacheados, seios protuberantes e músculos fortes  devido ao trabalho.\n\
+ela parece ter recebido um pesado treinamento e viver sob um rigoroso código,\n\
+uma conduta de disciplina e submição que a impede de sorrir e ser simpática,  seja com quem quer \
+que for.\n\
+A jovem calça sandálias baixas, simples e confortáveis,\n\
+mantém-se limpa e, a sua maneira, bela, agradável aos olhos.\n\
+Embora seus traços lhe confiram um ar sombrio e envelhecido, a sua frente encontra-se uma \
+adolescente sem expectativas maiores na vida."
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_morreu1 = "O grito desesperado dessa pobre vítima ecoa em sua mente, quem sabe atingindo \
+sua alma assassina... $P morreu."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 200
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao007
+herda comum_persobat
+const nome = "Uma garota estudiosa"
+const ident = "garota estudiosa humana moça menina"
+const descnome = "Uma garota estudiosa"
+const descpadr = "Uma garotinha estudiosa lê seu livro no silêncio de uma vasta biblioteca."
+const pesoobj = 50000
+const nivel = 20
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const inivar = "z_moedas=50000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao008
+herda comum_persobat
+const nome = "Uma boa velhinha"
+const ident = "velha velhinha anciã idosa vovó"
+const descnome = "Uma boa velhinha"
+const descpadr = "Sentada sobre uma cadeira de balanço está uma velhinha entretida com seus \
+retalhos."
+const pesoobj = 50000
+const nivel = 15
+const pospadr = 6 # Posição padrão: 6 Sentado
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_morreu1 = "$P olha para o seu rosto e com os olhos, faz apenas uma pergunta muda: \
+Porque??"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao009
+herda comum_persobat
+const nome = "wylen, a esposa do mago"
+const ident = "Wylen mulher humana"
+const descnome = "Wylen"
+const descpadr = "A curiosa e impactante Wylen caminha despreocupada por aqui."
+const descver = "Lhe falta o ar, lhe falta chão, lhe falta... Voltar a realidade! Wylen é, no \
+mínimo, uma Deusa de grande beleza e elegância.\n\
+Wylen é alta, cabelos cacheados que lhe chegam a cintura fina, veste-se com elegância sem \
+tornar-se com isso uma mulher fútil ou fazer-se passar pelo que não é, apesar de sua vaidade.\n\
+Usa alguns brilhantes menos chamativos, arco delicado nos cabelos e uma pintura leve escondendo \
+a idade que o rosto trataria de mostrar. Com esses cuidados, faz-se passar por uma jovem de 20 \
+anos contando com 37 facilmente, para a surpresa dos que a conhecem de longa data.\n\
+É normal vê-la em eventos, festas e lojas, no entanto pode-se facilmente vê-la a conversar \
+amigavelmente com um de seus criados a orientá-los quanto ao andamento de algumas de suas \
+ordens, principalmente no caso de haver recepção em sua mansão."
+const pesoobj = 70000
+const nivel = 30
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_morreu1 = "não! por.... fa... favor... $P morreu"
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 200
+const inivar = "var.z_moedas=1000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao010
+herda comum_persobat
+const nome = "Um bebê"
+const ident = "bebê criança humano menino"
+const descnome = "Um bebê"
+const descpadr = ". Um pequeno bebesinho sorri ao ver você entrar"
+const descver = "A carinha da mãe, os olhos do pai, esse anjinho indefeso é só sorrisos para \
+você. Ele agita os bracinhos e convida-o a brincar.\n\
+Ele veste roupas leves de dormir e ainda está com os olhinhos entreabertos aparentando ter \
+acabado de acordar, talvez ao pressentir sua chegada.\n\
+Seu corpinho miúdo expreguiça-se na cama e logo está de joelhos, pendurado no berço a espera de \
+alguém para lhe tomar nos braços. Ao seu redor estão seus brinquedos, mas os olhos curiosos não \
+desgrudam de você, seu novo amiguinho!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 2000
+const nivel = 0
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_morreu1 = "Você assiste o bebê tombar no berço e a luz deixar seus olhos... $P morreu."
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao011
+herda comum_persobat
+const nome = "uma menininha levada"
+const ident = "criança menina garotinha levada naelly"
+const descnome = "uma menininha levada"
+const descpadr = "Pulando da cama para o chão, essa garotinha levada diverte-se assustando seu \
+irmão menor no berço."
+const descver = "Esse anjo sempre está sorrindo abertamente, e nem sempre há um motivo belo e \
+válido por trás desse sorriso. Naelly provoca o pequeno bebê, assustando-o com seus saltos e \
+suas artes.\n\
+O bebê, por sua vez, chora por um momento e volta a sorrir, acostumando-se e gostando da \
+companhia da inquieta garotinha, a única que consegue brincar com o pequeno ou que tenha tempo \
+para tal comportamento.\n\
+Ela tem os cabelinhos encaracolados e presos cacheados a mão, formando cachos pesados e perfeitos\
+. Eles chegam até a cima da cintura da pequena, dando-lhe uma doce aparência de bonequinha, \
+reforçada pelas roupas cor de roza e da fitinha florida com o qual prende os cabelos fartos.\n\
+Por onde quer que a vejam, Naelly sempre estará tramando alguma brincadeira, você querendo ou \
+não, mas a maioria das pessoas desistem de tocar-lhe ou de gritar com ela, quando decide jogar \
+os cabelos e lançar a você um pedido de desculpas com os olhos, da forma mais doce, \n\
+ meiga e ingênua que só uma garotinha de sinco anos poderia fazer."
+const pesoobj = 20000
+const nivel = 12
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao012
+herda comum_persobat
+const nome = "Uma mocinha sonhadora"
+const ident = "garota mocinha moça humana sonhadora menina humana"
+const descnome = "Uma mocinha sonhadora"
+const descpadr = "Uma mocinha sonhadora penteia-se frente ao espelho enquanto fantasia momentos \
+inesquecíveis em sua cabeça."
+const pesoobj = 68000
+const nivel = 20
+const tipo1 = "humana"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const inivar = "z_moedas=10000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao013
+herda comum_perso
+const nome = "Velho vigia"
+const ident = "3"
+const descnome = "Velho vigia"
+const descpadr = "Um homem debilitado repousa seu corpo cansado sobre a cama de casal."
+const descver = "Para esse velho, respirar é uma luta, andar um sacrifícil e viver é uma \
+vitória. Sua terra ficou distante, dos amigos nem se lembra mais, lembra-se apenas da família a \
+qual os olhos quase já não os pode ver, mas que o coração pula de alegria ao ouvir a voz de sua \
+senhora e seu único filho, vigia chefe da propriedade.\n\
+Ainda há uma outra alegria dentro desse coração teimoso, uma alegria que não sente mais, no \
+entanto as recordações em sua mente alimentam a esperança de morrer fazendo o que gosta. Seu \
+trabalho de vigia lhe foi tirado aos 85 anos quando, assim sem querer, deixou que uma cobra \
+quase matasse o pequeno filho dos patrões. Desde então não era mais o mesmo, a saúde vinha \
+ficando mais delicada e atualmente aos 97 anos só pode se lamentar e esperar a morte chegar, \
+agarrado ao distintivo que suas mãos fracas i\n\
+O velho usa um uniforme antigo de vigia, nada usa nos pés, tem no pescoço um cordão com o \
+distintivo de vigia onde está seu nome gravado ainda bem marcado, tão marcado quanto a existência\
+ desse ser humano abandonado. Ele é baicho, magro, tem os cabelos um tanto longo por falta de \
+cuidados e a barba por fazer, olhos quase cobertos por uma mancha negra que tirou-lhes até mesmo \
+a cor.\n\
+Apesar de estar condenado a viver dentro de seu barraco, o velho ainda possue seu equipamento de \
+trabalho. Ao contrário dele próprio, o equipamento está em perfeito estado e o permite olhar \
+para fora de seu barraco, contemplar a vida seguindo e se transportar em imaginação para lá, \
+para o posto de vigia onde nunca mais estivera mas que, para seu orgulho é hoje posto de seu tão \
+amado filho."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 47000
+const nivel = 10
+const pospadr = 5 # Posição padrão: 5 Descansando
+const tipo1 = "humano"
+const equip1 = "600"
+
+
+classe p_admansao021
+herda comum_persobat
+const nome = "Um jardineiro"
+const ident = "homem jardineiro empregado"
+const descnome = "Um jardineiro"
+const descpadr = "Um jardineiro ocupado cuida das plantas enquanto assovia uma canção desconhecid\
+a."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 18
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const inivar = "z_moedas=30"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao030
+herda comum_persobat
+const nome = "Um golen de madeira"
+const ident = "golen madeira pau homem humano humanóide criatura"
+const descnome = "Um golen de madeira"
+const descpadr = "Completamente imóvel e inanimado, Um homenzinho de madeira olha para baixo com \
+seus olhinhos perspicases."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 20
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao042
+herda comum_persobat
+const nome = "Um cãozinho"
+const ident = "cachorro cão cãozinho"
+const descnome = "Um cãozinho"
+const descpadr = "Um cãozinho peludo brinca com alguns panos velhos pela sala, correndo em \
+perseguição ao próprio rabo na brincadeira."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 10
+const p_captura = 1 # Capturar: 1 Muito fácil
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const inivar = "h_morder=3"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao044
+herda comum_persobat
+const nome = "uma bondosa senhora"
+const ident = "mulher velha humana senhora vovó bondosa"
+const descnome = "uma bondosa senhora"
+const descpadr = "Uma senhora caminha com certa dificuldade pela casa enquanto cuida de suas \
+atividades rotineiras"
+const pesoobj = 55000
+const nivel = 15
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_fugir = 20
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+const inivar = "z_moedas=100"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao046
+herda comum_persobat
+const nome = "Uma menina levada"
+const ident = "menina criança levada humana"
+const descnome = "Uma menina levada"
+const descpadr = "Uma criança sapeca está pulando e jogando travesseiros para cima, acertando em \
+tudo e em todos que atravessarem seu caminho."
+const pesoobj = 30000
+const nivel = 13
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const inivar = "z_moedas=50"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao047
+herda comum_persobat
+const nome = "Velho Kim"
+const ident = "velho kim homem humano senhor vovô"
+const descnome = "Velho Kim"
+const descpadr = "O famoso velho Kim está aqui, imóvel a olhar para as intermináveis teias de \
+aranhas no teto."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 55000
+const nivel = 15
+const tipo1 = "humano"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const inivar = "z_moedas=100"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao050
+herda comum_persobat
+const nome = "Uma servente"
+const ident = "mulher humana servente"
+const descnome = "Uma servente"
+const descpadr = "Uma servente esforça-se para ensinar ao filho sua nova função dentro da \
+propriedade"
+const pesoobj = 70000
+const nivel = 16
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const inivar = "z_moedas=100"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao051
+herda comum_persobat
+const nome = "A babá"
+const ident = "babá mulher humana"
+const descnome = "A babá"
+const descpadr = "Uma mulher entediada olha para todos os lados a procura de algo para distrair-s\
+e enquanto as crianças brincam soutas por aí."
+const pesoobj = 55000
+const nivel = 15
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_fugir = 10
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 280
+const inivar = "z_moedas=50"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao052
+herda comum_persobat
+const nome = "Um jovem servente"
+const ident = "jovem servente criado garoto humano"
+const descnome = "Um jovem servente"
+const descpadr = "Atento aos movimentos da mãe, um jovem garoto desastrado tenta aprender seu \
+novo ofício."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 40000
+const nivel = 8
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const inivar = "z_moedas=100"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao053
+herda comum_persobat
+const nome = "Senhorita nyña"
+const ident = "senhorita nynha bruxa vidente cigana mulher moça humano garota"
+const descnome = "Senhorita nyña"
+const descpadr = "a cigana confidente da família concentra seus esforços em sua bola de cristal \
+enquanto descansa em sua cama confortável"
+const nivel = 17
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const inivar = "z_moedas=120"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao054
+herda comum_persobat
+const nome = "O pupilo do mago"
+const ident = "pupilo homem jovem humano"
+const descnome = "O pupilo do mago"
+const descpadr = "Um aprendiz da magia oculta lê seu grimório sentado em sua cama."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 87000
+const nivel = 20
+const tipo1 = "humano"
+const tipo2 = "mago"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const inivar = "z_moedas=80"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao055
+herda comum_persobat
+const nome = "Um mensageiro de Midgaard"
+const ident = "mensageiro midgaard homem humano"
+const descnome = "Um mensageiro de Midgaard"
+const descpadr = "O mensageiro desaparecido de midgaard permanece quieto e imóvel sobre a cama, \
+aparentemente dopado."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 15
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const inivar = "z_moedas=1000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao056
+herda comum_persobat
+const nome = "Um pequeno golen de madeira"
+const ident = "golen madeira pau boneco"
+const descnome = "Um pequeno golen de madeira"
+const descpadr = "Há um pequenino boneco de madeira movendo-se vagarosamente aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 25
+const tipo1 = "golen"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_morreu1 = "$P esfacela-se com seu último golpe, toca o solo e simplesmente desaparece no \
+ar!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+  bitver |= 62
+
+
+classe p_admansao057
+herda comum_persobat
+const nome = "Um golen de pedra"
+const ident = "golen pedra"
+const descnome = "um golen de pedra"
+const descpadr = "Um golen de pedra faz um ruído arrastado enquanto esforça-se para se mover \
+pelos cantos do berçário."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 25
+const tipo1 = "golen"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_morreu1 = "$P esfacela-se com seu último golpe, toca o solo e simplesmente desaparece no \
+ar!"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao058
+herda comum_persobat
+const nome = "Um golen de ar"
+const ident = "golen ar"
+const descnome = "Um golen de ar"
+const descpadr = "Um vento forte quase o joga para fora do berçário quando esses golens se \
+agitam freneticamente."
+const nivel = 25
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao059
+herda comum_persobat
+const nome = "Um golen de fogo"
+const ident = "golen fogo"
+const descnome = "Um golen de fogo"
+const descpadr = "Uma pequena coluna de fogo lambe tudo ao seu redor, incansável."
+const nivel = 25
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao060
+herda comum_persobat
+const nome = "Um estudante avançado"
+const ident = "homem jovem humano mago estudante"
+const descnome = "Um estudante avançado"
+const descpadr = "Um jovem estudante faz sua milésima ronda pelos berçários."
+const nivel = 27
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const inivar = "z_moedas=2000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao061
+herda comum_persobat
+const nome = "O mago louco"
+const ident = "mago louco humano homem"
+const descnome = "O mago louco"
+const descpadr = "O famoso mago louco está a sua frente controlando sua magia sobre uma fonte."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 70000
+const nivel = 540
+const tipo1 = "humano"
+const tipo2 = "mago"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 3000000
+const inivar = "var.z_moedas=10000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2 * pnivel + 200000
+  atknorm += 110
+  defnorm += 0.5 * pnivel + 3
+  defesp += 30
+  precisao += 2000
+  bitinv &= ~2
+  bitver |= 2110
+
+
+classe p_admansao062
+herda comum_persobat
+const nome = "Um golen de água"
+const ident = "golen agua água"
+const descnome = "Um golen de água"
+const descpadr = "Um golen de água move-se calmamente como um verdadeiro lago em volta de sua \
+casa."
+const nivel = 35
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao063
+herda comum_persobat
+const nome = "Um golen de ar"
+const ident = "ar golen"
+const descnome = "Um golen de ar"
+const descpadr = "Um golen de vento gira velozmente contido por sua própria energia."
+const nivel = 355
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao064
+herda comum_persobat
+const nome = "Um golen de pedra"
+const ident = "golen pedra"
+const descnome = "Um golen de pedra"
+const descpadr = "Uma grande estátua de pedra permanece imóvel ao centro da sala."
+const nivel = 35
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao065
+herda comum_persobat
+const nome = "Um golen de ferro"
+const ident = "golen ferro"
+const descnome = "Um golen de ferro"
+const descpadr = "Um esqueleto de ferro permanece imóvel no centro da sala"
+const nivel = 35
+const p_captura = 0 # Capturar: 0 Não
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao066
+herda comum_persobat
+const nome = "O mordomo"
+const ident = "mordomo instrutor guerreiro habilidoso homem jovem humano"
+const descnome = "O mordomo"
+const descpadr = "O temível mordomo e instrutor dos criados move-se quase sem ser percebido por \
+entre seus subordinados."
+const descver = "A vida foi dura para esse homem de não mais que 30 anos, por isso lhe é tão \
+fácil ser duro e impor respeito. Guerreiro desde os 14 anos, sua função aqui é impor respeito e \
+distribuir ordens, custe o que custar.\n\
+Desde criadas a vigias, todos passam por suas mãos e o temem, pois a ele é dado o direito de \
+demitir e até mesmo castigar com violência os mais fracos que não rendem para pagar o que comem. \
+\n\
+pela expreção de sua face, esse mordomo nunca foi visto a sorrir, conduta que impõe e ensina a \
+todos os seus trabalhadores.\n\
+Vestido a caráter, não lhe falta nenhum item que compõe a vestimenta de um guerreiro. botas \
+groças, armadura pesada, uma capa jogada nos ombros e uma maça nas mãos, está pronto o carrasco. \
+\n\
+O único momento em que ele ameaça um sorriso reprimido é quando tem um pequeno motivo para \
+despejar sua frustração no couro de um infeliz subordinado. \n\
+Embora seu rosto não se altere, é nesses momentos que seus olhos dizem o que a alma sente, \n\
+lá onde ninguém consegue chegar, no  âmago de seu ser."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 68000
+const volmax = 1000
+const objmax = 3
+const nivel = 45
+const tipo1 = "humano"
+const tipo2 = "guerreiro"
+const p_atktipo = "bater"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 70
+const inivar = "var_moedas=20000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10
+  precisao += 110
+
+
+classe p_admansao100
+herda comum_persobat
+const nome = "Um rato"
+const ident = "rato"
+const descnome = "Um rato"
+const descpadr = "Um mine ratinho de laboratório corre para as sombras assim que cruza com \
+você."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 30
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_captura = 1 # Capturar: 1 Muito fácil
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 2 # Movimentar: 2 Qualquer lugar
+const p_movervel = 70
+const p_naoresg = 1 # Sem resgate: Sim
+const p_soltar = 1 # Dar e soltar: 1 Pode-se apenas soltar
+
+
+classe s_admansao001
+herda b_admansao
+const s_titulo = "A entrada da mansão do parque"
+const s_desc = ""
+const dir_l = $s_admansao002
+const dir_o = $s_midleste010
+const portaini_o = 1 # Estado inicial: 1 Porta aberta
+const portanome_o = "Um grande portão de ferro"
+const portaartigo_o = 2 # Artigo porta: 2 o (portão)
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_admansao002
+herda b_admansao
+const s_titulo = "Estrada de acesso"
+const s_desc = ""
+const dir_l = $s_admansao003
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "Um Portão de Ferro"
+const portaartigo_l = 2 # Artigo porta: 2 o (portão)
+const dir_o = $s_admansao001
+const a_reset = "D 100 l 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("l", 2)
+
+
+classe s_admansao003
+herda b_admansao
+const s_titulo = "Um amplo quintal arborizado"
+const s_desc = ""
+const dir_n = $s_admansao004
+const dir_s = $s_admansao008
+const dir_l = $s_admansao005
+const dir_o = $s_admansao002
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "Um Portão de Ferro"
+const portaartigo_o = 2 # Artigo porta: 2 o (portão)
+const a_reset = "D 100 o 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("o", 2)
+
+
+classe s_admansao004
+herda b_admansao
+const s_titulo = "Sob uma antiga e frondosa árvore"
+const s_desc = ""
+const dir_s = $s_admansao003
+const dir_l = $s_admansao006
+const dir_c = $s_admansao007
+const dir_o = $s_admansao013
+const dir_n = $s_admansao015
+const a_reset = "S 100 mansao005 0 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_admansao005") && criar("i_admansao005", este, 0)
+
+
+classe s_admansao005
+herda b_admansao
+const s_titulo = "Um amplo quintal arborizado"
+const s_desc = ""
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_admansao006
+const dir_s = $s_admansao011
+const dir_l = $s_admansao021
+const dir_o = $s_admansao003
+
+
+classe s_admansao006
+herda b_admansao
+const s_titulo = "Um amplo quintal arborizado"
+const s_desc = ""
+const dir_s = $s_admansao005
+const dir_o = $s_admansao004
+const dir_n = $s_admansao016
+
+
+classe s_admansao007
+herda b_admansao
+const s_titulo = "No topo da árvore"
+const s_desc = ""
+const dir_b = $s_admansao004
+
+
+classe s_admansao008
+herda b_admansao
+const s_titulo = "Sob uma antiga e frondosa árvore"
+const s_desc = ""
+const dir_n = $s_admansao003
+const dir_o = $s_admansao009
+const dir_s = $s_admansao018
+const dir_l = $s_admansao011
+const a_reset = "S 100 mansao005 0 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_admansao005") && criar("i_admansao005", este, 0)
+
+
+classe s_admansao009
+herda b_admansao
+const s_titulo = "Posto de vigia"
+const s_desc = ""
+const dir_l = $s_admansao008
+const dir_c = $s_admansao010
+const a_reset = "P 100 mansao002 20 23 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_admansao002:objsolto.total < 2
+    criar("p_admansao002", este, rand(20, 23))
+  fimse
+
+
+classe s_admansao010
+herda b_admansao
+const s_titulo = "Posto de vigia"
+const s_desc = ""
+const dir_b = $s_admansao009
+const a_reset = "P 100 mansao003 25 32 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_admansao003:objsolto.total < 1
+    criar("p_admansao003", este, rand(25, 32))
+  fimse
+
+
+classe s_admansao011
+herda b_admansao
+const s_titulo = "Um amplo quintal arborizado"
+const s_desc = ""
+const dir_n = $s_admansao005
+const dir_s = $s_admansao020
+const dir_l = $s_admansao141
+const dir_o = $s_admansao008
+
+
+classe s_admansao012
+herda b_admansao
+const s_titulo = "Posto de vigia"
+const s_desc = ""
+const dir_o = $s_admansao008
+const dir_l = $s_admansao004
+const dir_c = $s_admansao014
+
+
+classe s_admansao013
+herda b_admansao
+const s_titulo = "Posto de vigia"
+const s_desc = ""
+const dir_l = $s_admansao004
+const dir_c = $s_admansao014
+
+
+classe s_admansao014
+herda b_admansao
+const s_titulo = "Posto de vigia"
+const s_desc = ""
+const dir_b = $s_admansao013
+
+
+classe s_admansao015
+herda b_admansao
+const s_titulo = "Um amplo quintal arborizado"
+const s_desc = ""
+const dir_s = $s_admansao004
+const dir_l = $s_admansao016
+const dir_o = $s_admansao017
+
+
+classe s_admansao016
+herda b_admansao
+const s_titulo = "Um amplo quintal arborizado"
+const s_desc = ""
+const dir_s = $s_admansao006
+const dir_o = $s_admansao015
+const dir_n = $s_admansao049
+
+
+classe s_admansao017
+herda b_admansao
+const s_titulo = "Um amplo quintal arborizado"
+const s_desc = ""
+const dir_l = $s_admansao015
+
+
+classe s_admansao018
+herda b_admansao
+const s_titulo = "Um amplo quintal arborizado"
+const s_desc = ""
+const dir_n = $s_admansao008
+const dir_o = $s_admansao019
+const dir_l = $s_admansao020
+
+
+classe s_admansao019
+herda b_admansao
+const s_titulo = "Um amplo quintal arborizado"
+const s_desc = ""
+const dir_l = $s_admansao018
+
+
+classe s_admansao020
+herda b_admansao
+const s_titulo = "Um amplo quintal arborizado"
+const s_desc = ""
+const dir_n = $s_admansao011
+const dir_s = $s_admansao042
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const dir_o = $s_admansao018
+const a_reset = "D 100 s 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("s", 2)
+
+
+classe s_admansao021
+herda b_admansao
+const s_titulo = "Descendo por uma bela horta"
+const s_desc = ""
+const dir_o = $s_admansao005
+const dir_b = $s_admansao022
+const a_reset = "P 100 mansao021 17 23 1\nE 100 mansao072 0 20"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao021:objsolto.total < 1
+    p = u = criar("p_admansao021", este, rand(17, 23))
+  fimse
+  se u
+    r = criar("i_admansao072", u, 0), r.vestir(20), u.recalc = 1
+  fimse
+
+
+classe s_admansao022
+herda b_admansao
+const s_titulo = "Descendo por uma bela horta"
+const s_desc = ""
+const dir_c = $s_admansao021
+const dir_l = $s_admansao031
+
+
+classe s_admansao023
+herda b_admansao
+const s_titulo = "Um jardim bem cuidado"
+const s_desc = ""
+const dir_o = $s_admansao031
+const dir_s = $s_admansao024
+const dir_n = $s_admansao025
+const dir_l = $s_admansao033
+
+
+classe s_admansao024
+herda b_admansao
+const s_titulo = "Por entre diversos canteiros de flores"
+const s_desc = ""
+const s_pnj = 0
+const dir_n = $s_admansao023
+const dir_l = $s_admansao034
+const dir_c = $s_admansao029
+
+
+classe s_admansao025
+herda b_admansao
+const s_titulo = "Por entre diversos canteiros de flores"
+const s_desc = ""
+const s_pnj = 0
+const dir_s = $s_admansao023
+const dir_l = $s_admansao035
+const dir_c = $s_admansao026
+
+
+classe s_admansao026
+herda b_admansao
+const s_titulo = "Uma ponte sobre os canteiros"
+const s_desc = ""
+const dir_b = $s_admansao025
+const dir_s = $s_admansao027
+const dir_c = $s_admansao028
+const dir_l = $s_admansao036
+const a_reset = "P 100 mansao030 18 25 5\nE 20 mansao101 0 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao030:objsolto.total < 5
+    p = u = criar("p_admansao030", este, rand(18, 25))
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_admansao027
+herda b_admansao
+const s_titulo = "Uma ponte sobre o jardim"
+const s_desc = ""
+const dir_n = $s_admansao026
+const dir_s = $s_admansao029
+const dir_o = $s_admansao032
+const dir_l = $s_admansao037
+
+
+classe s_admansao028
+herda b_admansao
+const s_titulo = "Uma pequena plataforma"
+const s_desc = ""
+const dir_b = $s_admansao026
+const a_reset = "P 100 mansao030 18 24 5\nE 20 mansao101 0 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao030:objsolto.total < 5
+    p = u = criar("p_admansao030", este, rand(18, 24))
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_admansao029
+herda b_admansao
+const s_titulo = "Uma ponte sobre os canteiros"
+const s_desc = ""
+const dir_n = $s_admansao027
+const dir_c = $s_admansao030
+const dir_b = $s_admansao024
+const dir_l = $s_admansao038
+const a_reset = "P 100 mansao030 18 26 5\nE 20 mansao101 0 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao030:objsolto.total < 5
+    p = u = criar("p_admansao030", este, rand(18, 26))
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_admansao030
+herda b_admansao
+const s_titulo = "Uma pequena plataforma"
+const s_desc = ""
+const dir_b = $s_admansao029
+const a_reset = "P 100 mansao030 18 25 5\nE 20 mansao101 0 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao030:objsolto.total < 5
+    p = u = criar("p_admansao030", este, rand(18, 25))
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_admansao031
+herda b_admansao
+const s_titulo = "Descendo por uma bela horta"
+const s_desc = ""
+const s_pnj = 10
+const dir_l = $s_admansao023
+const dir_o = $s_admansao022
+const dir_c = $s_admansao032
+
+
+classe s_admansao032
+herda b_admansao
+const s_titulo = "Por sobre uma ponte"
+const s_desc = ""
+const s_pnj = 0
+const dir_l = $s_admansao027
+const dir_b = $s_admansao031
+
+
+classe s_admansao033
+herda b_admansao
+const s_titulo = "Um Jardim Bem cuidado"
+const s_desc = ""
+const dir_o = $s_admansao023
+const dir_s = $s_admansao034
+const dir_n = $s_admansao035
+const dir_l = $s_admansao039
+
+
+classe s_admansao034
+herda b_admansao
+const s_titulo = "Por entre diversos canteiros de flores"
+const s_desc = ""
+const s_pnj = 0
+const dir_n = $s_admansao033
+const dir_o = $s_admansao024
+const dir_c = $s_admansao038
+
+
+classe s_admansao035
+herda b_admansao
+const s_titulo = "Por entre diversos canteiros de flores"
+const s_desc = ""
+const s_pnj = 0
+const dir_s = $s_admansao033
+const dir_o = $s_admansao025
+const dir_c = $s_admansao036
+
+
+classe s_admansao036
+herda b_admansao
+const s_titulo = "Uma ponte sobre os canteiros"
+const s_desc = ""
+const dir_o = $s_admansao026
+const dir_s = $s_admansao037
+const dir_b = $s_admansao035
+const a_reset = "P 100 mansao030 18 24 5\nE 20 mansao101 0 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao030:objsolto.total < 5
+    p = u = criar("p_admansao030", este, rand(18, 24))
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_admansao037
+herda b_admansao
+const s_titulo = "Uma ponte sobre o jardim"
+const s_desc = ""
+const dir_o = $s_admansao027
+const dir_n = $s_admansao036
+const dir_s = $s_admansao038
+const dir_l = $s_admansao040
+
+
+classe s_admansao038
+herda b_admansao
+const s_titulo = "Uma Ponte sobre os canteiros"
+const s_desc = ""
+const dir_n = $s_admansao037
+const dir_b = $s_admansao034
+const dir_o = $s_admansao029
+
+
+classe s_admansao039
+herda b_admansao
+const s_titulo = "Estrada de acesso a residência"
+const s_desc = ""
+const dir_o = $s_admansao033
+const dir_c = $s_admansao040
+const dir_l = $s_admansao041
+const a_reset = "P 100 mansao066 45 53 1\nE 35 mansao016 0 13\nE 20 mansao067 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao066:objsolto.total < 1
+    p = u = criar("p_admansao066", este, rand(45, 53))
+  fimse
+  se u && rand(100) < 35
+    r = criar("i_admansao016", u, 0), r.vestir(13), u.recalc = 1
+  fimse
+  se u && rand(100) < 20
+    r = criar("i_admansao067", u, 0), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_admansao040
+herda b_admansao
+const s_titulo = "Por sobre uma ponte"
+const s_desc = ""
+const s_pnj = 0
+const dir_o = $s_admansao037
+const dir_b = $s_admansao039
+
+
+classe s_admansao041
+herda b_admansao
+const s_titulo = "Estrada de acesso a residência"
+const s_desc = ""
+const dir_o = $s_admansao039
+const dir_c = $s_admansao056
+
+
+classe s_admansao042
+herda b_admansao
+const s_titulo = "Uma humilde casa de madeira"
+const s_desc = ""
+const dir_n = $s_admansao020
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const dir_s = $s_admansao046
+const dir_l = $s_admansao043
+const a_reset = "D 100 n 2\nS 100 mansao100 0 S\nP 100 mansao042 8 12 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("n", 2)
+  !dentro1.objini("i_admansao100") && criar("i_admansao100", este, 0)
+  se p_admansao042:objsolto.total < 2
+    criar("p_admansao042", este, rand(8, 12))
+  fimse
+
+
+classe s_admansao043
+herda b_admansao
+const s_titulo = "Um corredor"
+const s_desc = ""
+const dir_o = $s_admansao042
+const dir_l = $s_admansao044
+const dir_n = $s_admansao048
+
+
+classe s_admansao044
+herda b_admansao
+const s_titulo = "Uma cozinha"
+const s_desc = ""
+const dir_o = $s_admansao043
+const a_reset = "P 100 mansao044 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_admansao044:objsolto.total < 1
+    criar("p_admansao044", este, 0)
+  fimse
+
+
+classe s_admansao045
+herda b_admansao
+const s_titulo = "O quarto das crianças"
+const s_desc = ""
+const dir_l = $s_admansao046
+const a_reset = "P 100 mansao046 13 17 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_admansao046:objsolto.total < 1
+    criar("p_admansao046", este, rand(13, 17))
+  fimse
+
+
+classe s_admansao046
+herda b_admansao
+const s_titulo = "Um corredor"
+const s_desc = ""
+const dir_o = $s_admansao045
+const dir_n = $s_admansao042
+const dir_l = $s_admansao047
+
+
+classe s_admansao047
+herda b_admansao
+const s_titulo = "O quarto principal"
+const s_desc = ""
+const dir_o = $s_admansao046
+const a_reset = "P 100 mansao047 15 20 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_admansao047:objsolto.total < 1
+    criar("p_admansao047", este, rand(15, 20))
+  fimse
+
+
+classe s_admansao048
+herda b_admansao
+const s_titulo = "No banheiro da casa"
+const s_desc = ""
+const dir_s = $s_admansao043
+
+
+classe s_admansao049
+herda b_admansao
+const s_titulo = "Uma humilde casa de madeira"
+const s_desc = ""
+const dir_s = $s_admansao016
+const dir_l = $s_admansao050
+const dir_n = $s_admansao053
+const a_reset = "S 100 mansao100 0 S\nP 100 mansao042 8 12 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_admansao100") && criar("i_admansao100", este, 0)
+  se p_admansao042:objsolto.total < 2
+    criar("p_admansao042", este, rand(8, 12))
+  fimse
+
+
+classe s_admansao050
+herda b_admansao
+const s_titulo = "Um corredor"
+const s_desc = ""
+const dir_o = $s_admansao049
+const dir_l = $s_admansao052
+const dir_s = $s_admansao051
+
+
+classe s_admansao051
+herda b_admansao
+const s_titulo = "No banheiro da casa"
+const s_desc = ""
+const dir_n = $s_admansao050
+
+
+classe s_admansao052
+herda b_admansao
+const s_titulo = "Uma cozinha"
+const s_desc = ""
+const dir_o = $s_admansao050
+const a_reset = "P 100 mansao050 14 21 1\nP 100 mansao052 8 13 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_admansao050:objsolto.total < 1
+    criar("p_admansao050", este, rand(14, 21))
+  fimse
+  se p_admansao052:objsolto.total < 1
+    criar("p_admansao052", este, rand(8, 13))
+  fimse
+
+
+classe s_admansao053
+herda b_admansao
+const s_titulo = "Um corredor"
+const s_desc = ""
+const dir_s = $s_admansao049
+const dir_o = $s_admansao054
+const dir_l = $s_admansao055
+
+
+classe s_admansao054
+herda b_admansao
+const s_titulo = "O quarto principal"
+const s_desc = ""
+const dir_l = $s_admansao053
+
+
+classe s_admansao055
+herda b_admansao
+const s_titulo = "O quarto das crianças"
+const s_desc = ""
+const dir_o = $s_admansao053
+
+
+classe s_admansao056
+herda b_admansao
+const s_titulo = "Uma varanda"
+const s_desc = ""
+const s_pnj = 0
+const dir_l = $s_admansao057
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "A porta prinsipal"
+const dir_b = $s_admansao041
+const a_reset = "D 100 l 2\n\
+S 100 mansao004 0 S\n\
+P 100 mansao008 15 19 1\n\
+E 100 mansao068 0 8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  mudaporta("l", 2)
+  !dentro1.objini("i_admansao004") && criar("i_admansao004", este, 0)
+  se p_admansao008:objsolto.total < 1
+    p = u = criar("p_admansao008", este, rand(15, 19))
+  fimse
+  se u
+    r = criar("i_admansao068", u, 0), r.vestir(8), u.recalc = 1
+  fimse
+
+
+classe s_admansao057
+herda b_admansao
+const s_titulo = "Uma ampla sala de visitas"
+const s_desc = ""
+const dir_n = $s_admansao066
+const dir_s = $s_admansao062
+const dir_l = $s_admansao058
+const dir_o = $s_admansao056
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "A porta prinsipal"
+const a_reset = "P 100 mansao051 15 17 2\n\
+D 100 o 2\n\
+P 100 mansao009 30 35 1\n\
+E 100 mansao007 23 23"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao051:objsolto.total < 2
+    criar("p_admansao051", este, rand(15, 17))
+  fimse
+  mudaporta("o", 2)
+  se p_admansao009:objsolto.total < 1
+    p = u = criar("p_admansao009", este, rand(30, 35))
+  fimse
+  se u
+    r = criar("i_admansao007", u, 23), r.vestir(23), u.recalc = 1
+  fimse
+
+
+classe s_admansao058
+herda b_admansao
+const s_titulo = "Um corredor"
+const s_desc = ""
+const dir_o = $s_admansao057
+const dir_l = $s_admansao059
+
+
+classe s_admansao059
+herda b_admansao
+const s_titulo = "Um corredor"
+const s_desc = ""
+const dir_o = $s_admansao058
+const dir_s = $s_admansao060
+
+
+classe s_admansao060
+herda b_admansao
+const s_titulo = "sala de jantar"
+const s_desc = ""
+const dir_n = $s_admansao059
+const dir_s = $s_admansao061
+const a_reset = "P 100 mansao006 15 19 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_admansao006:objsolto.total < 10
+    criar("p_admansao006", este, rand(15, 19))
+  fimse
+
+
+classe s_admansao061
+herda b_admansao
+const s_titulo = "Cozinha"
+const s_desc = ""
+const dir_n = $s_admansao060
+const dir_l = $s_admansao110
+const portaini_l = 1 # Estado inicial: 1 Porta aberta
+const dir_ne = $s_admansao119
+const a_reset = "P 100 mansao004 15 25 1\nE 100 mansao008 10 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao004:objsolto.total < 1
+    p = u = criar("p_admansao004", este, rand(15, 25))
+  fimse
+  se u
+    r = criar("i_admansao008", u, 10), r.vestir(50), u.recalc = 1
+  fimse
+
+
+classe s_admansao062
+herda b_admansao
+const s_titulo = "Um corredor"
+const s_desc = ""
+const dir_n = $s_admansao057
+const dir_s = $s_admansao064
+const dir_l = $s_admansao063
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "A porta do banheiro social"
+const a_reset = "D 100 l 2\nP 100 mansao006 15 19 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("l", 2)
+  se p_admansao006:objsolto.total < 10
+    criar("p_admansao006", este, rand(15, 19))
+  fimse
+
+
+classe s_admansao063
+herda b_admansao
+const s_titulo = "Banheiro social"
+const s_desc = ""
+const dir_o = $s_admansao062
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "A porta do banheiro social"
+const a_reset = "D 100 o 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("o", 2)
+
+
+classe s_admansao064
+herda b_admansao
+const s_titulo = "Um corredor"
+const s_desc = ""
+const dir_n = $s_admansao062
+const dir_s = $s_admansao065
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "A porta da biblioteca"
+const fecha_s = 1 # Fecha ao passar: Sim
+const a_reset = "D 100 s 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("s", 2)
+
+
+classe s_admansao065
+herda b_admansao
+const s_titulo = "biblioteca"
+const s_desc = ""
+const dir_n = $s_admansao064
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "A porta da biblioteca"
+const fecha_n = 1 # Fecha ao passar: Sim
+const a_reset = "P 100 mansao007 20 23 1\nE 100 mansao007 23 23\nD 100 n 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao007:objsolto.total < 1
+    p = u = criar("p_admansao007", este, rand(20, 23))
+  fimse
+  se u
+    r = criar("i_admansao007", u, 23), r.vestir(23), u.recalc = 1
+  fimse
+  mudaporta("n", 2)
+
+
+classe s_admansao066
+herda b_admansao
+const s_titulo = "Escadas para o segundo piso"
+const s_desc = ""
+const dir_s = $s_admansao057
+const dir_c = $s_admansao067
+
+
+classe s_admansao067
+herda b_admansao
+const s_titulo = "Escadas para o segundo piso"
+const s_desc = ""
+const dir_b = $s_admansao066
+const dir_c = $s_admansao068
+
+
+classe s_admansao068
+herda b_admansao
+const s_titulo = "O segundo andar"
+const s_desc = ""
+const dir_b = $s_admansao067
+const dir_s = $s_admansao069
+
+
+classe s_admansao069
+herda b_admansao
+const s_titulo = "O segundo andar"
+const s_desc = ""
+const dir_n = $s_admansao068
+const dir_s = $s_admansao070
+const dir_l = $s_admansao077
+const dir_o = $s_admansao082
+const a_reset = "P 100 mansao006 15 19 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_admansao006:objsolto.total < 10
+    criar("p_admansao006", este, rand(15, 19))
+  fimse
+
+
+classe s_admansao070
+herda b_admansao
+const s_titulo = "Um corredor no segundo piso"
+const s_desc = ""
+const dir_n = $s_admansao069
+const dir_l = $s_admansao071
+const dir_s = $s_admansao073
+
+
+classe s_admansao071
+herda b_admansao
+const s_titulo = "Um quarto de visitas"
+const s_desc = ""
+const dir_o = $s_admansao070
+const a_reset = "P 100 mansao053 17 21 1\nE 100 mansao006 20 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao053:objsolto.total < 1
+    p = u = criar("p_admansao053", este, rand(17, 21))
+  fimse
+  se u
+    r = criar("i_admansao006", u, 20), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_admansao072
+herda b_admansao
+const s_titulo = "Um quarto de visitas"
+const s_desc = ""
+const dir_l = $s_admansao070
+const a_reset = "P 100 mansao054 19 23 1\nE 15 mansao013 0 12"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao054:objsolto.total < 1
+    p = u = criar("p_admansao054", este, rand(19, 23))
+  fimse
+  se u && rand(100) < 15
+    r = criar("i_admansao013", u, 0), r.vestir(12), u.recalc = 1
+  fimse
+
+
+classe s_admansao073
+herda b_admansao
+const s_titulo = "Um corredor no segundo piso"
+const s_desc = ""
+const dir_n = $s_admansao070
+const dir_l = $s_admansao074
+const dir_o = $s_admansao075
+const dir_s = $s_admansao076
+const a_reset = "P 100 mansao006 15 19 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_admansao006:objsolto.total < 10
+    criar("p_admansao006", este, rand(15, 19))
+  fimse
+
+
+classe s_admansao074
+herda b_admansao
+const s_titulo = "Um quarto de visitas"
+const s_desc = ""
+const dir_o = $s_admansao073
+const a_reset = "P 100 mansao055 14 17 1\nE 60 mansao014 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao055:objsolto.total < 1
+    p = u = criar("p_admansao055", este, rand(14, 17))
+  fimse
+  se u && rand(100) < 60
+    r = criar("i_admansao014", u, 0), r.vestir(2), u.recalc = 1
+  fimse
+
+
+classe s_admansao075
+herda b_admansao
+const s_titulo = "Um quarto de visitas"
+const s_desc = ""
+const dir_l = $s_admansao073
+
+
+classe s_admansao076
+herda b_admansao
+const s_titulo = "um Banheiro"
+const s_desc = ""
+const dir_n = $s_admansao073
+
+
+classe s_admansao077
+herda b_admansao
+const s_titulo = "Um corredor no segundo piso"
+const s_desc = ""
+const dir_n = $s_admansao078
+const portaini_n = 0 # Estado inicial: 0 Sem porta
+const portanome_n = "A porta do quarto das crianças"
+const dir_s = $s_admansao079
+const portaini_s = 0 # Estado inicial: 0 Sem porta
+const portanome_s = "A porta do quarto das crianças."
+const dir_l = $s_admansao080
+const dir_o = $s_admansao069
+const a_reset = "P 100 mansao051 14 17 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_admansao051:objsolto.total < 2
+    criar("p_admansao051", este, rand(14, 17))
+  fimse
+
+
+classe s_admansao078
+herda b_admansao
+const s_titulo = "Um quarto infantil"
+const s_desc = ""
+const dir_s = $s_admansao077
+const portaini_s = 0 # Estado inicial: 0 Sem porta
+const portanome_s = "A porta do quarto das crianças"
+const a_reset = "P 100 mansao010 0 0 1\nP 100 mansao011 12 15 1\nE 20 mansao012 20 9"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao010:objsolto.total < 1
+    criar("p_admansao010", este, 0)
+  fimse
+  se p_admansao011:objsolto.total < 1
+    p = u = criar("p_admansao011", este, rand(12, 15))
+  fimse
+  se u && rand(100) < 20
+    r = criar("i_admansao012", u, 20), r.vestir(9), u.recalc = 1
+  fimse
+
+
+classe s_admansao079
+herda b_admansao
+const s_titulo = "Um quarto"
+const s_desc = ""
+const dir_n = $s_admansao077
+const portaini_n = 0 # Estado inicial: 0 Sem porta
+const portanome_n = "A porta do quarto das crianças."
+const a_reset = "P 100 mansao012 20 25 1\nE 100 mansao010 0 17"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao012:objsolto.total < 1
+    p = u = criar("p_admansao012", este, rand(20, 25))
+  fimse
+  se u
+    r = criar("i_admansao010", u, 0), r.vestir(17), u.recalc = 1
+  fimse
+
+
+classe s_admansao080
+herda b_admansao
+const s_titulo = "Um corredor no segundo piso"
+const s_desc = ""
+const dir_l = $s_admansao081
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "A porta da swite"
+const dir_o = $s_admansao077
+const a_reset = "D 100 l 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("l", 2)
+
+
+classe s_admansao081
+herda b_admansao
+const s_titulo = "Uma bela suite"
+const s_desc = ""
+const dir_o = $s_admansao080
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "A porta da swite"
+const a_reset = "D 100 o 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("o", 2)
+
+const dir_l = $s_admansao120
+
+
+classe s_admansao082
+herda b_admansao
+const s_titulo = "Um corredor no segundo piso"
+const s_desc = ""
+const dir_l = $s_admansao069
+const dir_o = $s_admansao083
+
+
+classe s_admansao083
+herda b_admansao
+const s_titulo = "Um Corredor no segundo piso"
+const s_desc = ""
+const dir_l = $s_admansao082
+const dir_o = $s_admansao084
+const a_reset = "D 100 o 2\nP 100 mansao006 15 19 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("o", 2)
+  se p_admansao006:objsolto.total < 10
+    criar("p_admansao006", este, rand(15, 19))
+  fimse
+
+
+classe s_admansao084
+herda b_admansao
+const s_titulo = "Um amplo laboratório"
+const s_desc = ""
+const dir_n = $s_admansao085
+const dir_s = $s_admansao086
+const dir_l = $s_admansao083
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "A porta do laboratório do mago"
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_admansao087
+const a_reset = "P 100 mansao060 28 31 3\nE 12 mansao015 0 1\nD 100 l 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao060:objsolto.total < 3
+    p = u = criar("p_admansao060", este, rand(28, 31))
+  fimse
+  se u && rand(100) < 12
+    r = criar("i_admansao015", u, 0), r.vestir(1), u.recalc = 1
+  fimse
+  mudaporta("l", 2)
+
+
+classe s_admansao085
+herda b_admansao
+const s_titulo = "O Berçário dos Golens"
+const s_desc = ""
+const dir_s = $s_admansao084
+const a_reset = "P 100 mansao056 24 27 5\n\
+E 35 mansao101 0 21\n\
+P 100 mansao056 24 27 5\n\
+E 35 mansao101 0 21\n\
+P 100 mansao056 24 27 5\n\
+E 35 mansao101 0 21\n\
+P 100 mansao056 24 27 5\n\
+E 35 mansao101 0 21\n\
+P 100 mansao056 24 27 5\n\
+E 20 mansao101 0 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao056:objsolto.total < 5
+    p = u = criar("p_admansao056", este, rand(24, 27))
+  fimse
+  se u
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  p = u = nulo
+  se p_admansao056:objsolto.total < 5
+    p = u = criar("p_admansao056", este, rand(24, 27))
+  fimse
+  se u
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  p = u = nulo
+  se p_admansao056:objsolto.total < 5
+    p = u = criar("p_admansao056", este, rand(24, 27))
+  fimse
+  se u
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  p = u = nulo
+  se p_admansao056:objsolto.total < 5
+    p = u = criar("p_admansao056", este, rand(24, 27))
+  fimse
+  se u
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  p = u = nulo
+  se p_admansao056:objsolto.total < 5
+    p = u = criar("p_admansao056", este, rand(24, 27))
+  fimse
+  se u
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_admansao086
+herda b_admansao
+const s_titulo = "O Berçário dos Golens"
+const s_desc = ""
+const dir_n = $s_admansao084
+const a_reset = "P 100 mansao057 24 27 5\n\
+E 35 mansao101 0 21\n\
+P 100 mansao057 24 27 5\n\
+E 35 mansao101 0 21\n\
+P 100 mansao057 24 27 5\n\
+E 35 mansao101 0 21\n\
+P 100 mansao057 24 27 5\n\
+E 35 mansao101 0 21\n\
+P 100 mansao057 24 27 5\n\
+E 20 mansao101 0 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao057:objsolto.total < 5
+    p = u = criar("p_admansao057", este, rand(24, 27))
+  fimse
+  se u
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao057:objsolto.total < 5
+    p = u = criar("p_admansao057", este, rand(24, 27))
+  fimse
+  se u
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao057:objsolto.total < 5
+    p = u = criar("p_admansao057", este, rand(24, 27))
+  fimse
+  se u
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao057:objsolto.total < 5
+    p = u = criar("p_admansao057", este, rand(24, 27))
+  fimse
+  se u
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao057:objsolto.total < 5
+    p = u = criar("p_admansao057", este, rand(24, 27))
+  fimse
+  se u
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_admansao087
+herda b_admansao
+const s_titulo = "Um amplo laboratório"
+const s_desc = ""
+const dir_l = $s_admansao084
+const dir_n = $s_admansao088
+const dir_s = $s_admansao089
+const dir_o = $s_admansao090
+const a_reset = "P 100 mansao060 27 31 3\nE 12 mansao015 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao060:objsolto.total < 3
+    p = u = criar("p_admansao060", este, rand(27, 31))
+  fimse
+  se u && rand(100) < 12
+    r = criar("i_admansao015", u, 0), r.vestir(1), u.recalc = 1
+  fimse
+
+
+classe s_admansao088
+herda b_admansao
+const s_titulo = "O Berçário dos Golens"
+const s_desc = ""
+const dir_s = $s_admansao087
+const a_reset = "P 100 mansao058 24 27 5\n\
+E 35 mansao101 0 21\n\
+P 100 mansao058 24 27 5\n\
+E 35 mansao101 0 21\n\
+P 100 mansao058 24 27 5\n\
+E 35 mansao101 0 21\n\
+P 100 mansao058 24 27 5\n\
+E 35 mansao101 0 21\n\
+P 100 mansao058 24 27 5\n\
+E 20 mansao101 0 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao058:objsolto.total < 5
+    p = u = criar("p_admansao058", este, rand(24, 27))
+  fimse
+  se u
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao058:objsolto.total < 5
+    p = u = criar("p_admansao058", este, rand(24, 27))
+  fimse
+  se u
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao058:objsolto.total < 5
+    p = u = criar("p_admansao058", este, rand(24, 27))
+  fimse
+  se u
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao058:objsolto.total < 5
+    p = u = criar("p_admansao058", este, rand(24, 27))
+  fimse
+  se u
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao058:objsolto.total < 5
+    p = u = criar("p_admansao058", este, rand(24, 27))
+  fimse
+  se u
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_admansao089
+herda b_admansao
+const s_titulo = "O Berçário dos Golens"
+const s_desc = ""
+const dir_n = $s_admansao087
+const a_reset = "P 100 mansao059 24 27 5\n\
+E 35 mansao101 0 21\n\
+P 100 mansao059 24 27 5\n\
+E 35 mansao101 0 21\n\
+P 100 mansao059 24 27 5\n\
+E 35 mansao101 0 21\n\
+P 100 mansao059 24 27 5\n\
+E 35 mansao101 0 21\n\
+P 100 mansao059 24 27 5\n\
+E 20 mansao101 0 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao059:objsolto.total < 5
+    p = u = criar("p_admansao059", este, rand(24, 27))
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao059:objsolto.total < 5
+    p = u = criar("p_admansao059", este, rand(24, 27))
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao059:objsolto.total < 5
+    p = u = criar("p_admansao059", este, rand(24, 27))
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao059:objsolto.total < 5
+    p = u = criar("p_admansao059", este, rand(24, 27))
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao059:objsolto.total < 5
+    p = u = criar("p_admansao059", este, rand(24, 27))
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_admansao090
+herda b_admansao
+const s_titulo = "Nos fundos do laboratório"
+const s_desc = ""
+const dir_l = $s_admansao087
+const dir_entrar = $s_admansao091
+const a_reset = "P 100 mansao060 28 31 3\nE 12 mansao015 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao060:objsolto.total < 3
+    p = u = criar("p_admansao060", este, rand(28, 31))
+  fimse
+  se u && rand(100) < 12
+    r = criar("i_admansao015", u, 0), r.vestir(1), u.recalc = 1
+  fimse
+
+
+classe s_admansao091
+herda b_admansao
+const s_titulo = "Um corredor apertado e escuro"
+const s_desc = ""
+const dir_n = $s_admansao092
+const dir_s = $s_admansao094
+const dir_l = $s_admansao096
+const dir_sair = $s_admansao090
+const dir_o = $s_admansao107
+
+
+classe s_admansao092
+herda b_admansao
+const s_titulo = "Morada dos golens de ferro"
+const s_desc = ""
+const dir_s = $s_admansao091
+const dir_entrar = $s_admansao093
+const inv_entrar = 0 # Invisível: Não
+const a_reset = "P 100 mansao065 30 35 6\nE 35 mansao101 0 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao065:objsolto.total < 6
+    p = u = criar("p_admansao065", este, rand(30, 35))
+  fimse
+  se u && rand(100) < 35
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_admansao093
+herda b_admansao
+const s_titulo = "Morada dos golens de ferro"
+const s_desc = ""
+const dir_sair = $s_admansao092
+const a_reset = "P 100 mansao065 30 35 6\n\
+E 35 mansao101 0 21\n\
+P 100 mansao065 30 35 6\n\
+E 35 mansao101 0 21\n\
+P 100 mansao065 30 35 6\n\
+E 35 mansao101 0 21\n\
+P 100 mansao065 30 35 6\n\
+E 35 mansao101 0 21\n\
+P 100 mansao065 30 35 6\n\
+E 35 mansao101 0 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao065:objsolto.total < 6
+    p = u = criar("p_admansao065", este, rand(30, 35))
+  fimse
+  se u && rand(100) < 35
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_admansao094
+herda b_admansao
+const s_titulo = "Morada dos golens de barro"
+const s_desc = ""
+const dir_n = $s_admansao091
+const dir_entrar = $s_admansao095
+
+
+classe s_admansao095
+herda b_admansao
+const s_titulo = "Morada dos golens de barro"
+const s_desc = ""
+const dir_sair = $s_admansao094
+
+
+classe s_admansao096
+herda b_admansao
+const s_titulo = "Um corredor apertado e escuro"
+const s_desc = ""
+const dir_o = $s_admansao091
+const dir_n = $s_admansao097
+const dir_s = $s_admansao099
+const dir_l = $s_admansao101
+
+
+classe s_admansao097
+herda b_admansao
+const s_titulo = "Morada dos golens de pedra"
+const s_desc = ""
+const dir_s = $s_admansao096
+const dir_entrar = $s_admansao098
+const a_reset = "P 100 mansao064 30 35 6\nE 100 mansao101 0 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao064:objsolto.total < 6
+    p = u = criar("p_admansao064", este, rand(30, 35))
+  fimse
+  se u
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_admansao098
+herda b_admansao
+const s_titulo = "Morada dos golens de pedra"
+const s_desc = ""
+const dir_sair = $s_admansao097
+const a_reset = "P 100 mansao064 30 35 6\n\
+E 35 mansao101 0 21\n\
+P 100 mansao064 30 35 6\n\
+E 35 mansao101 0 21\n\
+P 100 mansao064 30 35 6\n\
+E 35 mansao101 0 21\n\
+P 100 mansao064 30 35 6\n\
+E 35 mansao101 0 21\n\
+P 100 mansao064 30 35 6\n\
+E 20 mansao101 0 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao064:objsolto.total < 6
+    p = u = criar("p_admansao064", este, rand(30, 35))
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao064:objsolto.total < 6
+    p = u = criar("p_admansao064", este, rand(30, 35))
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao064:objsolto.total < 6
+    p = u = criar("p_admansao064", este, rand(30, 35))
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao064:objsolto.total < 6
+    p = u = criar("p_admansao064", este, rand(30, 35))
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao064:objsolto.total < 6
+    p = u = criar("p_admansao064", este, rand(30, 35))
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_admansao099
+herda b_admansao
+const s_titulo = "Morada dos golens de fogo"
+const s_desc = ""
+const dir_n = $s_admansao096
+const dir_entrar = $s_admansao100
+
+
+classe s_admansao100
+herda b_admansao
+const s_titulo = "Morada dos golens de fogo"
+const s_desc = ""
+const dir_sair = $s_admansao099
+
+
+classe s_admansao101
+herda b_admansao
+const s_titulo = "Um corredor apertado e escuro"
+const s_desc = ""
+const dir_n = $s_admansao102
+const dir_s = $s_admansao104
+const dir_l = $s_admansao106
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "A porta do laboratório secreto"
+const inv_l = 1 # Invisível: Sim
+const dir_o = $s_admansao096
+const a_reset = "D 100 l 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("l", 2)
+
+
+classe s_admansao102
+herda b_admansao
+const s_titulo = "Morada dos Golens de água"
+const s_desc = ""
+const dir_s = $s_admansao101
+const dir_entrar = $s_admansao103
+const a_reset = "P 100 mansao062 30 35 6\nE 100 mansao101 0 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao062:objsolto.total < 6
+    p = u = criar("p_admansao062", este, rand(30, 35))
+  fimse
+  se u
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_admansao103
+herda b_admansao
+const s_titulo = "Morada dos Golens de água"
+const s_desc = ""
+const s_luz = 1 # Luz: 1 Claro sem eventos de tempo
+const s_terreno = 9 # Terreno: 9 Em baixo d'água - 10mv
+const dir_sair = $s_admansao102
+const a_reset = "P 100 mansao062 30 35 6\n\
+E 100 mansao101 0 21\n\
+P 100 mansao062 30 35 6\n\
+E 100 mansao101 0 21\n\
+P 100 mansao062 30 35 6\n\
+E 100 mansao101 0 21\n\
+P 100 mansao062 30 35 6\n\
+E 100 mansao101 0 21\n\
+P 100 mansao062 30 35 6\n\
+E 100 mansao101 0 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao062:objsolto.total < 6
+    p = u = criar("p_admansao062", este, rand(30, 35))
+  fimse
+  se u
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao062:objsolto.total < 6
+    p = u = criar("p_admansao062", este, rand(30, 35))
+  fimse
+  se u
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao062:objsolto.total < 6
+    p = u = criar("p_admansao062", este, rand(30, 35))
+  fimse
+  se u
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao062:objsolto.total < 6
+    p = u = criar("p_admansao062", este, rand(30, 35))
+  fimse
+  se u
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao062:objsolto.total < 6
+    p = u = criar("p_admansao062", este, rand(30, 35))
+  fimse
+  se u
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_admansao104
+herda b_admansao
+const s_titulo = "Morada dos golens de ar"
+const s_desc = ""
+const dir_n = $s_admansao101
+const dir_entrar = $s_admansao105
+const a_reset = "P 100 mansao063 30 35 6\nE 20 mansao101 0 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao063:objsolto.total < 6
+    p = u = criar("p_admansao063", este, rand(30, 35))
+  fimse
+  se u && rand(100) < 50
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_admansao105
+herda b_admansao
+const s_titulo = "Morada dos golens de ar"
+const s_desc = ""
+const dir_sair = $s_admansao104
+const a_reset = "P 100 mansao063 30 35 6\n\
+E 100 mansao101 0 21\n\
+P 100 mansao063 30 35 6\n\
+E 100 mansao101 0 21\n\
+P 100 mansao063 30 35 6\n\
+E 100 mansao101 0 21\n\
+P 100 mansao063 30 35 6\n\
+E 100 mansao101 0 21\n\
+P 100 mansao063 30 35 6\n\
+E 100 mansao101 0 21"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao063:objsolto.total < 6
+    p = u = criar("p_admansao063", este, rand(30, 35))
+  fimse
+  se u
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao063:objsolto.total < 6
+    p = u = criar("p_admansao063", este, rand(30, 35))
+  fimse
+  se u
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao063:objsolto.total < 6
+    p = u = criar("p_admansao063", este, rand(30, 35))
+  fimse
+  se u
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao063:objsolto.total < 6
+    p = u = criar("p_admansao063", este, rand(30, 35))
+  fimse
+  se u
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao063:objsolto.total < 6
+    p = u = criar("p_admansao063", este, rand(30, 35))
+  fimse
+  se u
+    r = criar("i_admansao101", u, 0), r.vestir(21), u.recalc = 1
+  fimse
+
+
+classe s_admansao106
+herda b_admansao
+const s_titulo = "O laboratório secreto"
+const s_desc = ""
+const dir_o = $s_admansao101
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "A porta do laboratório secreto"
+const inv_o = 1 # Invisível: Sim
+const a_reset = "D 100 o 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  mudaporta("o", 2)
+
+
+classe s_admansao107
+herda b_admansao
+const s_titulo = "Uma biblioteca secreta"
+const s_desc = ""
+const dir_l = $s_admansao091
+const dir_n = $s_admansao108
+const dir_s = $s_admansao109
+
+
+classe s_admansao108
+herda b_admansao
+const s_titulo = "Por entre duas prateleiras de livros empoeirados"
+const s_desc = ""
+const eveste = 1 # Eventos sala: Sim
+const dir_s = $s_admansao107
+const a_reset = "S 100 mansao002 0 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_admansao002") && criar("i_admansao002", este, 0)
+
+func cmd_pegarobj
+  se arg2 == este
+    arg0.msg("Uma mão sai de dentro do livro e arranca-o de você.")
+    ret 1
+  fimse
+
+func cmd_salaperso # Personagem chegou
+  se arg0.jog
+    misc:evento(arg0) # Receber eventos do jogador
+
+func cmd_escr # Escreveu algo
+  casovar txtmin(arg1)
+  casose "morte imortal"
+    arg0.msg("Não sou louco, eles, os demônios do pesadelo, o livro... não... Eles não podem me  \
+  levar!")
+    arg0.msg("A voz do mendigo se faz ouvir em sua mente. Mas não é só isso....")
+    arg0.msg("você está sendo guiado para um buraco cuja existência lhe era desconhecida.")
+    arg0.msg("Desculpe. a área correspondente a essa quest não está pronta. volte mais tarde.")
+    ret 1
+  casose "ler"
+    arg0.msg("testando!")
+    ret 1
+  casofim
+
+
+classe s_admansao109
+herda b_admansao
+const s_titulo = "Por entre duas prateleiras de livros empoeirados"
+const s_desc = ""
+const dir_n = $s_admansao107
+
+
+classe s_admansao110
+herda b_admansao
+const s_titulo = "Uma área de serviço"
+const s_desc = ""
+const s_pnj = 0
+const dir_o = $s_admansao061
+const portaini_o = 1 # Estado inicial: 1 Porta aberta
+const dir_b = $s_admansao111
+
+
+classe s_admansao111
+herda b_admansao
+const s_titulo = "Um grande quintal"
+const s_desc = ""
+const dir_c = $s_admansao110
+const dir_l = $s_admansao112
+
+
+classe s_admansao112
+herda b_admansao
+const s_titulo = "Um grande quintal"
+const s_desc = ""
+const dir_n = $s_admansao114
+const dir_s = $s_admansao113
+const dir_l = $s_admansao142
+const dir_o = $s_admansao111
+const a_reset = "P 100 mansao005 15 19 1\nE 100 mansao009 0 29"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  ref r # Usado como rascunho
+  se p_admansao005:objsolto.total < 1
+    p = u = criar("p_admansao005", este, rand(15, 19))
+  fimse
+  se u
+    r = criar("i_admansao009", u, 0), r.vestir(29), u.recalc = 1
+  fimse
+
+
+classe s_admansao113
+herda b_admansao
+const s_titulo = "Um quarto de ferramentas"
+const s_desc = ""
+const dir_n = $s_admansao112
+
+
+classe s_admansao114
+herda b_admansao
+const s_titulo = "Uma casinha pobre"
+const s_desc = ""
+const dir_s = $s_admansao112
+const dir_l = $s_admansao115
+const dir_o = $s_admansao116
+const dir_n = $s_admansao117
+const dir_ne = $s_admansao118
+
+
+classe s_admansao115
+herda b_admansao
+const s_titulo = "Dormitório dos empregados"
+const s_desc = ""
+const dir_o = $s_admansao114
+
+
+classe s_admansao116
+herda b_admansao
+const s_titulo = "Dormitório dos empregados"
+const s_desc = ""
+const dir_l = $s_admansao114
+
+
+classe s_admansao117
+herda b_admansao
+const s_titulo = "Dormitório dos empregados"
+const s_desc = ""
+const dir_s = $s_admansao114
+
+
+classe s_admansao118
+herda b_admansao
+const s_titulo = "Um pequeno banheiro"
+const s_desc = ""
+const dir_so = $s_admansao114
+
+
+classe s_admansao119
+herda b_admansao
+const s_titulo = "Uma despensa farta"
+const s_desc = ""
+const dir_so = $s_admansao061
+
+
+classe s_admansao120
+herda b_admansao
+const s_titulo = "Um pequeno corredor"
+const s_desc = ""
+const dir_l = $s_admansao121
+const dir_o = $s_admansao081
+
+
+classe s_admansao121
+herda b_admansao
+const s_titulo = "Um pequeno corredor"
+const s_desc = ""
+const dir_n = $s_admansao124
+const dir_s = $s_admansao122
+const dir_o = $s_admansao120
+
+
+classe s_admansao122
+herda b_admansao
+const s_titulo = "Um banheiro particular"
+const s_desc = ""
+const dir_n = $s_admansao121
+
+
+classe s_admansao123
+herda b_admansao
+const s_titulo = "Sem nome"
+const s_desc = ""
+
+
+classe s_admansao124
+herda b_admansao
+const s_titulo = "Um pequeno corredor"
+const s_desc = ""
+const dir_s = $s_admansao121
+const dir_o = $s_admansao125
+
+
+classe s_admansao125
+herda b_admansao
+const s_titulo = "O quarto do casal"
+const s_desc = ""
+const dir_l = $s_admansao124
+const a_reset = "S 100 mansao011 0 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_admansao011") && criar("i_admansao011", este, 0)
+
+func cmd_pegarobj
+  se arg2 == este
+    arg0.msg("Isso é muito pesado para você carregar.")
+    ret 1
+
+
+classe s_admansao126
+herda b_admansao
+const s_titulo = "Dentro de memórias mórbidas"
+const s_desc = "Você está em uma sala ampla e vazia. Sob seus pés, um mapa estranho se desenha \
+conforme você passa os olhos sobre ele.\n\
+O desenho lhe parece um labirinto que leva a lugar algum até fazê-lo perder-se por entre as \
+curvas dos caminhos. Apenas um x indica a entrada, e misteriosamente o x encontra-se sempre \
+debaixo dos seus pés."
+const eveste = 1 # Eventos sala: Sim
+const dir_entrar = $s_pesadelo001
+const dir_sair = $s_admansao108
+
+func cmd_salaperso # Personagem chegou
+  ret !arg0.jog, nulo # Retorna se não for jogador
+  misc:evento(arg0) # Receber eventos do personagem
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou3
+  arg0.msg("área fora do comum. Aqui estão os inimigos do mendigo, os obstáculos que faziam-no")
+  arg0.msg("recuar. Para encontrar a saída, deve encontrar o próprio mendigo e conversar com \
+ele.")
+  arg0.msg("Também pode digitar acordar em qualquer lugar do labirinto e você voltará para o \
+ponto de partida,")
+  arg0.msg("entre as prateleiras onde está o livro.")
+  arg0.msg("Observações: 1: essa área é para level 50. 2: As criaturas estão deformadas, o \
+cenário por vezes")
+  arg0.msg("estará deformado. Compreendam, vocês estão entrando na mente de um mendigo lunático. \
+O que ele vê não é real, e se vê, sua mente destorce a verdade.")
+
+
+classe s_admansao127
+herda b_admansao
+const s_titulo = "Sem nome"
+const s_desc = ""
+
+
+classe s_admansao128
+herda b_admansao
+const s_titulo = "Sem nome"
+const s_desc = ""
+
+
+classe s_admansao129
+herda b_admansao
+const s_titulo = "Sem nome"
+const s_desc = ""
+
+
+classe s_admansao130
+herda b_admansao
+const s_titulo = "Sem nome"
+const s_desc = ""
+
+
+classe s_admansao131
+herda b_admansao
+const s_titulo = "Sem nome"
+const s_desc = ""
+
+
+classe s_admansao132
+herda b_admansao
+const s_titulo = "Sem nome"
+const s_desc = ""
+
+
+classe s_admansao133
+herda b_admansao
+const s_titulo = "Sem nome"
+const s_desc = ""
+
+
+classe s_admansao134
+herda b_admansao
+const s_titulo = "Sem nome"
+const s_desc = ""
+
+
+classe s_admansao135
+herda b_admansao
+const s_titulo = "Sem nome"
+const s_desc = ""
+
+
+classe s_admansao136
+herda b_admansao
+const s_titulo = "Sem nome"
+const s_desc = ""
+
+
+classe s_admansao137
+herda b_admansao
+const s_titulo = "Sem nome"
+const s_desc = ""
+
+
+classe s_admansao138
+herda b_admansao
+const s_titulo = "Sem nome"
+const s_desc = ""
+
+
+classe s_admansao139
+herda b_admansao
+const s_titulo = "Sem nome"
+const s_desc = ""
+
+
+classe s_admansao140
+herda b_admansao
+const s_titulo = "Sem nome"
+const s_desc = ""
+
+
+classe s_admansao141
+herda b_admansao
+const s_titulo = "Um barracão sem utilidade"
+const s_desc = ""
+const dir_o = $s_admansao011
+
+
+classe s_admansao142
+herda b_admansao
+const s_titulo = "Caminho para o rio"
+const s_desc = ""
+const dir_n = $s_admansao144
+const dir_l = $s_admansao143
+const dir_o = $s_admansao112
+
+
+classe s_admansao143
+herda b_admansao
+const s_titulo = "Caminho para o rio"
+const s_desc = ""
+const dir_n = $s_admansao145
+const dir_o = $s_admansao142
+const dir_b = $s_admansao146
+
+
+classe s_admansao144
+herda b_admansao
+const s_titulo = "Caminho para o rio"
+const s_desc = ""
+const dir_s = $s_admansao142
+const dir_l = $s_admansao145
+
+
+classe s_admansao145
+herda b_admansao
+const s_titulo = "Caminho para o rio"
+const s_desc = ""
+const dir_s = $s_admansao143
+const dir_o = $s_admansao144
+
+
+classe s_admansao146
+herda b_admansao
+const s_titulo = "Um pequeno barranco"
+const s_desc = ""
+const dir_l = $s_admansao147
+const dir_c = $s_admansao143
+
+
+classe s_admansao147
+herda b_admansao
+const s_titulo = "Próximo ao rio"
+const s_desc = ""
+const dir_l = $s_admansao148
+const dir_o = $s_admansao146
+
+
+classe s_admansao148
+herda b_admansao
+const s_titulo = "Próximo ao rio"
+const s_desc = ""
+const s_pnj = 0
+const dir_s = $s_admansao149
+const dir_o = $s_admansao147
+const dir_b = $s_admansao154
+
+
+classe s_admansao149
+herda b_admansao
+const s_titulo = "Um pequeno desvio"
+const s_desc = ""
+const dir_n = $s_admansao148
+const dir_s = $s_admansao150
+
+
+classe s_admansao150
+herda b_admansao
+const s_titulo = "Um pequeno desvio"
+const s_desc = ""
+const dir_n = $s_admansao149
+const dir_s = $s_admansao171
+const dir_l = $s_admansao151
+
+
+classe s_admansao151
+herda b_admansao
+const s_titulo = "Por entre uma vasta plantação"
+const s_desc = ""
+const dir_n = $s_admansao153
+const dir_s = $s_admansao152
+const dir_l = $s_admansao168
+const dir_o = $s_admansao150
+
+
+classe s_admansao152
+herda b_admansao
+const s_titulo = "Um belíssimo pomar"
+const s_desc = ""
+const dir_n = $s_admansao151
+const dir_l = $s_admansao170
+const dir_o = $s_admansao171
+
+
+classe s_admansao153
+herda b_admansao
+const s_titulo = "Por entre uma vasta plantação"
+const s_desc = ""
+const dir_s = $s_admansao151
+const dir_l = $s_admansao169
+
+
+classe s_admansao154
+herda b_admansao
+const s_titulo = "Dentro do rio"
+const s_desc = ""
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_l = $s_admansao155
+const dir_c = $s_admansao148
+
+
+classe s_admansao155
+herda b_admansao
+const s_titulo = "Dentro do rio"
+const s_desc = ""
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_l = $s_admansao156
+const dir_o = $s_admansao154
+
+
+classe s_admansao156
+herda b_admansao
+const s_titulo = "Dentro do rio"
+const s_desc = ""
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_l = $s_admansao157
+const dir_o = $s_admansao155
+
+
+classe s_admansao157
+herda b_admansao
+const s_titulo = "Dentro do rio"
+const s_desc = ""
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_l = $s_admansao158
+const dir_o = $s_admansao156
+
+
+classe s_admansao158
+herda b_admansao
+const s_titulo = "Dentro do rio"
+const s_desc = ""
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_l = $s_admansao159
+const dir_o = $s_admansao157
+
+
+classe s_admansao159
+herda b_admansao
+const s_titulo = "Dentro do rio"
+const s_desc = ""
+const s_terreno = 7 # Terreno: 7 Água, pode nadar - 4mv
+const dir_o = $s_admansao158
+const dir_c = $s_admansao160
+
+
+classe s_admansao160
+herda b_admansao
+const s_titulo = "Próximo ao rio"
+const s_desc = ""
+const dir_l = $s_admansao161
+const dir_b = $s_admansao159
+
+
+classe s_admansao161
+herda b_admansao
+const s_titulo = "Próximo ao rio"
+const s_desc = ""
+const dir_o = $s_admansao160
+const dir_c = $s_admansao162
+
+
+classe s_admansao162
+herda b_admansao
+const s_titulo = "Um pequeno barranco"
+const s_desc = ""
+const dir_l = $s_admansao163
+const dir_b = $s_admansao161
+const a_reset = "P 100 acamp001 130 140 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp001:objsolto.total < 10
+    criar("p_acamp001", este, rand(130, 140))
+  fimse
+
+
+classe s_admansao163
+herda b_admansao
+const s_titulo = "Uma trilha"
+const s_desc = ""
+const dir_l = $s_admansao164
+const dir_o = $s_admansao162
+const a_reset = "P 100 acamp001 130 140 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp001:objsolto.total < 10
+    criar("p_acamp001", este, rand(130, 140))
+  fimse
+
+
+classe s_admansao164
+herda b_admansao
+const s_titulo = "Uma trilha"
+const s_desc = ""
+const dir_l = $s_admansao165
+const dir_o = $s_admansao163
+const a_reset = "P 100 acamp002 135 145 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp002:objsolto.total < 3
+    criar("p_acamp002", este, rand(135, 145))
+  fimse
+
+
+classe s_admansao165
+herda b_admansao
+const s_titulo = "As árvores se fecham"
+const s_desc = ""
+const dir_l = $s_admansao166
+const dir_o = $s_admansao164
+const a_reset = "P 100 acamp001 130 140 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp001:objsolto.total < 10
+    criar("p_acamp001", este, rand(130, 140))
+  fimse
+
+
+classe s_admansao166
+herda b_admansao
+const s_titulo = "Perdido entre árvores e mato alto"
+const s_desc = ""
+const dir_o = $s_admansao165
+const dir_c = $s_admansao167
+const a_reset = "P 100 acamp002 135 145 3"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp002:objsolto.total < 3
+    criar("p_acamp002", este, rand(135, 145))
+  fimse
+
+
+classe s_admansao167
+herda b_admansao
+const s_titulo = "As cegas entre árvores e mato alto"
+const s_desc = ""
+const dir_l = $s_acamp001
+const dir_b = $s_admansao166
+const a_reset = "P 100 acamp001 130 140 10"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_acamp001:objsolto.total < 10
+    criar("p_acamp001", este, rand(130, 140))
+  fimse
+
+
+classe s_admansao168
+herda b_admansao
+const s_titulo = "Por entre uma vasta plantação"
+const s_desc = ""
+const dir_n = $s_admansao169
+const dir_s = $s_admansao170
+const dir_o = $s_admansao151
+
+
+classe s_admansao169
+herda b_admansao
+const s_titulo = "Por entre uma vasta plantação"
+const s_desc = ""
+const dir_s = $s_admansao168
+const dir_o = $s_admansao153
+
+
+classe s_admansao170
+herda b_admansao
+const s_titulo = "Um belíssimo pomar"
+const s_desc = ""
+const dir_n = $s_admansao168
+const dir_o = $s_admansao152
+
+
+classe s_admansao171
+herda b_admansao
+const s_titulo = "Um pequeno desvio"
+const s_desc = ""
+const dir_n = $s_admansao150
+const dir_s = $s_admansao172
+const dir_l = $s_admansao152
+
+
+classe s_admansao172
+herda b_admansao
+const s_titulo = "Rodeando as plantações"
+const s_desc = ""
+const dir_n = $s_admansao171
+const dir_l = $s_admansao173
+
+
+classe s_admansao173
+herda b_admansao
+const s_titulo = "Rodeando as plantações"
+const s_desc = ""
+const dir_s = $s_admansao174
+const dir_o = $s_admansao172
+
+
+classe s_admansao174
+herda b_admansao
+const s_titulo = "Por entre canteiros de rosas"
+const s_desc = ""
+const dir_n = $s_admansao173

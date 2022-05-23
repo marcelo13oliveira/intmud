@@ -1,0 +1,160 @@
+classe adm_tele
+herda comando_adm
+const objcmd = arg1.c_tele ? este
+const txtajuda = "\b\c3Tele\b\n\
+Sintaxe: TELE\n\
+         TELE <sala ou jogador>\n\
+         TELE <jogador> <sala>\n\
+Com um argumento, você se transporta para uma sala ou para aonde o\n\
+jogador está. Com dois argumentos, transporta um jogador para uma sala.\n\
+Sem argumentos, você se transporta para a sala definida no comando EPerm."
+
+func escr # Ir para uma sala específica
+  ref p # Personagem
+  ref s # Sala destino
+  ret arg0.jogperm != "admin" && arg0.posicao == 7, arg0.msg("Você não pode se teletransportar \
+durante uma luta.")
+  indiceitem item
+# Transportar um jogador para uma sala
+  se txt2(arg1)
+    se int(arg2.c_tele) != 3
+      ret arg0.msg("Não é possível transportar outros jogadores")
+    fimse
+    item.ini("pn " + txts(txtnome(txt1(arg1))))
+    p = item.obj, s = $s_[txt2(arg1)]
+    se !p
+      ret arg0.msg("Jogador inexistente ou ausente: " + txt1(arg1))
+    senao !s
+      ret arg0.msg("\bSala não existe: " + txt2(arg1))
+    fimse
+# Transportar-se para uma sala
+  senao arg1
+    p = arg0, s = $s_[arg1]
+    se !p
+      ret arg0.msg("Você deve estar controlando um personagem para isso")
+    senao !s
+      item.ini("pn " + txts(txtnome(arg1)))
+      s = item.obj.dono
+      ret !s, arg0.msg("\bSala ou jogador não existe: " + arg1)
+    fimse
+# Transportar para a sala definida pelo comando EPerm
+  senao
+    p = arg0, s = arg2.c_salatele
+    ret !s, arg0.msg("\bTele sem especificar a sala não está transportando.")
+  fimse
+# Checa permissões para se transportar na área
+  se int(arg2.c_tele) == 1
+    refvar o = arg0.dono
+    se o != arg2.c_salatele && txt(o) != "s_" + arg0.jogarea + txtfim(o, 3)
+      ret arg0.msg("Você não pode se transportar daqui.")
+    senao s != arg2.c_salatele && txt(s) != "s_" + arg0.jogarea + txtfim(s, 3)
+      ret arg0.msg("Você não pode se transportar para " + arg1 + ".")
+    fimse
+  fimse
+# Realiza o teletransporte
+  se p == arg0
+    casovar txtmin(s.s_area)
+    casose "templo"
+    casose "fabi"
+    casose "junior"
+    casose "vilares"
+    casose "parmicasas"
+    casose "viladark"
+      ret arg0.sock.jogperm != "admin" && arg0.sock.jogperm != "mediador", arg0.msg("Não tem \
+permissão para se teletransportar para essa sala.")
+    casofim
+    ret s == p.dono, arg0.msg("Você já está em " + txt(s, 2) + ".")
+    txt200 mens1
+    txt100 som1
+    $mens.p(p, arg0)
+    mens1 = arg0.var.z_telesai
+    som1 = arg0.var.z_telesomsai
+    $mens.mvis2("", (som1 ? som1 + " " : "") + (mens1 ? mens1 : "$P some em um flash de luz!"))
+    p.mudadono(s)
+    mens1 = arg0.var.z_teleentra
+    $mens.mvis2("", (arg0.var.z_telesomentra ? arg0.var.z_telesomentra + " " : "") + (mens1 ? \
+mens1 : "$P aparece em um redemoinho de fumaça."))
+  senao
+    ret s == p.dono, arg0.msg(p.nome + " já está em " + txt(s, 2) + ".")
+    $mens.p(p, arg0)
+    $mens.msginv("\d=portal01 $A teletransporta você.", p)
+    $mens.mvis2("", "$P some em um redemoinho de fumaça.")
+    p.mudadono(s)
+    $mens.mvis2("", "$P aparece de um redemoinho de fumaça.")
+    se p.jogperm == "admin"
+      $misclog.cmdlog("tele " + arg0.nome + ": " + p.nome + " para " + txt(s, 2))
+    fimse
+    $mens.msg("\d=teleporter1 $P transportad$s.", arg0)
+  fimse
+
+
+classe adm_teleentra
+herda comando_adm
+const txtajuda = "\b\c3TeleEntra\b\n\
+Sintaxe: TELEENTRA [texto]\n\
+Define a mensagem quando você se transporta usando o comando Tele.\n\
+Sem argumentos, muda para a mensagem padrão, que é:\n\
+$P aparece de um redemoinho de fumaça.\n\
+Para saber as mensagens que você definiu, use o comando Estat.\n\
+Veja também: TELESAI"
+
+func escr
+  se !arg1
+    arg0.msg("Mensagem teleentra voltou ao padrão.")
+  senao txtproc(arg1, "$P") >= 0
+    arg0.msg("Mensagem teleentra mudou para: " + arg1)
+  senao
+    ret arg0.msg("Mensagem teleentra deve ter obrigatoriamente $P.")
+  fimse
+  arg0.var.z_teleentra = arg1
+
+
+classe adm_telesai
+herda comando_adm
+const txtajuda = "\b\c3TeleSai\b\n\
+Sintaxe: TELESAI [texto]\n\
+Define a mensagem quando você se transporta usando o comando Tele.\n\
+Sem argumentos, muda para a mensagem padrão, que é:\n\
+$P some em um redemoinho de fumaça.\n\
+Para saber as mensagens que você definiu, use o comando Estat.\n\
+Veja também: TELEENTRA"
+
+func escr
+  se !arg1
+    arg0.msg("Mensagem telesai voltou ao padrão.")
+  senao txtproc(arg1, "$P") >= 0
+    arg0.msg("Mensagem telesai mudou para: " + arg1)
+  senao
+    ret arg0.msg("Mensagem telesai deve ter obrigatoriamente $P.")
+  fimse
+  arg0.var.z_telesai = arg1
+
+
+classe adm_telesomentra
+herda comando_adm
+#
+const posic = 0
+#
+
+func escr
+  se !arg1
+    arg0.msg("Som do teleentra voltou ao padrão.")
+  senao
+    arg0.msg("Som do teleentra mudou para: " + arg1)
+    arg0.var.z_telesomentra = "\d=" + arg1
+  fimse
+
+
+classe adm_telesomsai
+herda comando_adm
+#
+const posic = 0
+#
+
+func escr
+  se !arg1
+    arg0.msg("Som do telesai voltou ao padrão.")
+  senao
+    arg0.msg("Som do telesai mudou para: " + arg1)
+    arg0.var.z_telesomsai = "\d=" + arg1
+  fimse

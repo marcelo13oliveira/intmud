@@ -1,0 +1,72 @@
+classe a_fim
+herda area
+const a_nome = "Reino da morte"
+
+
+classe b_fim
+herda sala
+const s_area = "fim"
+const s_terreno = 1
+const s_luta = 1
+const s_item = 1
+
+
+classe s_fim001
+herda b_fim
+const s_ocultar = 1
+# Altera completamente a descrição da sala
+const descsala = arg0.msexo ? "Você está morto." : "Você está morta."
+
+func cmd_salaperso # Personagem chegou
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou50
+  arg0.mudadono($s_fim002)
+
+
+classe s_fim002
+herda b_fim
+const s_titulo = "Salão de espera"
+const s_desc = "O chão está coberto por uma nuvem branca, de modo que você não consegue\n\
+ver onde pisa. Para todos os outros lugares que você olha, só vê o azul\n\
+celeste do céu. Há claridade, mas não é possível saber de onde vem."
+inttempo espera
+
+func cmd_salaperso # Personagem chegou
+  se espera == 0
+    espera = 10
+  fimse
+
+func espera_exec # Restaura a vida do jogador
+  listaitem item
+  ref r
+  epara item = dentro2.ini, item, item.depois
+    r = item.obj
+    se r.pvida < r.pvidamax / 2
+      r.pvida += 2, espera = 10
+    senao
+      r.mudadono($[r.var.z_salafim] ? $[r.var.z_salafim] : $s_casa001)
+    fimse
+  efim
+
+
+classe s_fim003
+herda b_fim
+const s_titulo = "Sem movimentação"
+const s_desc = "Essa sala bloqueia os comandos dos jogadores que estiverem nela,\n\
+exceto comandos de administração."
+
+func cmd_salaperso # Personagem chegou
+  misc:evento(arg0) # Receber eventos do personagem
+
+func cmd_escr
+  casovar arg2
+  casose "cmd_ver"
+  casose "cmd_olhar"
+  casose "cmd_inv"
+  casose "cmd_equip"
+  casose "cmd_quem"
+    ret
+  casofim
+  arg0.msg("Você está sem movimentação!")
+  ret 1

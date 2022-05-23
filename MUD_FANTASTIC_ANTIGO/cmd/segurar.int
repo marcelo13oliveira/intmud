@@ -1,0 +1,25 @@
+classe cmd_segurar
+herda comando_comum
+#
+const posic = 5
+#
+
+func escr
+  se !arg1
+    arg0.msg("Segurar o quê?")
+  senao
+    ref item
+    item = misc:persooutro(arg0, arg1)
+    refvar r = arg0.descnome
+    se r != item.var.z_dono && r != item.var.z_mae && r != item.var.z_pai
+      ret arg0.msg("Você não possui nenhum vínculo com " + arg1)
+    fimse
+    se !item
+      arg0.msg("Você não vê " + arg1 + " por perto.")
+    senao
+      ret !item.segurar && !item.p_pet, arg0.msg("Você não pode segurar " + arg1 + ".")
+      $mens.p(arg0, item)
+      $mens.mvis1("$P pega $A e $t segura no colo.")
+      item.mudadono(arg0)
+    fimse
+  fimse

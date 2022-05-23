@@ -1,0 +1,1429 @@
+classe a_casas
+herda area
+
+
+classe b_casas
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_area = "casas"
+
+
+classe i_casas001
+herda comum_itemperso
+const nome = "uma cama de casal"
+const descnome = "uma cama de casal"
+const descpos = "uma espaçosa cama de casal está acomodada em um canto do quarto."
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 4000
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_olhar
+  se arg1 == este && arg2 == arg0
+    $mens.p(arg0)
+    $mens.mvis1("$P oolha para " + descnome + ".")
+    listaobj l
+    ret !dentro1.objini, arg0.msg("Está vazia.")
+    arg0.msg("em cima você vê:")
+    epara l.addfim(arg1.dentro1), l, l.ini.remove
+      sair !l.objini
+      arg0.msg(l.objini.descnome)
+    efim
+    ret 1
+  fimse
+
+const i_msgdentro = "sobre ela você vê:"
+
+
+classe i_casas002
+herda comum_itemgrupo
+const nome = "chave do palácio"
+const descnome = "as chaves do portão"
+const i_chave = "4321aa"
+
+
+classe i_casas003
+herda comum_itemgrupo
+const nome = "anel"
+const descnome = "um anel com o desenho de um escorpião"
+const vestir1 = 6291456 # Aonde vestir: 21-no dedo direito, 22-no dedo esquerdo
+
+
+classe i_casas004
+herda comum_itemgrupo
+const nome = "anel"
+const descnome = "um anel com um cajado soltando raios de amor"
+const vestir1 = 6291456 # Aonde vestir: 21-no dedo direito, 22-no dedo esquerdo
+
+
+classe i_casas005
+herda comum_item
+const nome = "Janela"
+const descnome = "janela"
+const descpos = "Há uma janela na parede, com vista para o jardim."
+const i_pegar = "Você passa seus dedos pela janela."
+const i_salaver = $s_vilares079
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_olhar
+  se arg1 == este
+    arg0.msg("Você olha através da janela da sala e vê:")
+  fimse
+
+
+classe i_casas006
+herda comum_item
+const nome = "chave de fenda"
+const descnome = "uma chave de fenda"
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+
+
+classe i_casas007
+herda comum_item
+const nome = "interruptor da campainha"
+const ident = "interruptor campainha"
+const descnome = "o interruptor da campainha"
+const descpos = "Ao lado da porta, no alto da parede, há uma campainha."
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 5000000
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const i_campainha = var.z_codigo
+#
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "tocar campainha"
+    $mens.p(arg0)
+    $mens.mtodos1("$P toca a campainha.")
+    ref i
+    epara i = $i_casas008, i, i = objdepois(i)
+      se i_campainha == i.i_campainha && i.dono.s_sala
+        $mens.p(i, arg0)
+        $mens.mvis1som("$A tocou a campainha.", "campainha")
+      fimse
+    efim
+    ret 1
+  fimse
+
+func cmd_pegarobj
+  se arg2 == este && !arg0.dentrocasa
+    ret arg1.item, nulo
+    ret arg0.msg("Você não pode pegar " + arg2.descnome + " daqui.")
+  fimse
+#
+
+func cmd_soltarobj
+  se arg2 == este && !arg0.dentrocasa
+    ret arg0.msg("Você não está dentro da sua casa.")
+  fimse
+
+
+classe i_casas008
+herda comum_itemgrupo
+const nome = "alarme da campainha"
+const descnome = "o alarme da campainha"
+const descpos = ""
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const i_campainha = var.z_codigo
+#
+
+func cmd_pegarobj
+  se arg2 == este && !arg0.dentrocasa
+    ret arg1.item, nulo
+    ret arg0.msg("Você não pode pegar " + descnome + " daqui.")
+  fimse
+#
+
+func cmd_soltarobj
+  se arg2 == este && !arg0.dentrocasa
+    ret arg0.msg("Você não está dentro da sua casa.")
+  fimse
+
+
+classe i_casas009
+herda comum_item
+const nome = "uma câmera"
+const descnome = "sem nome"
+const descpos = ""
+const i_pegar = ""
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const i_codigo = var.z_codigo ? var.z_codigo : "fantastic1234"
+#
+
+func cmd_mudadono
+  se dono.s_sala
+    listaobj l
+    epara l.addfim(dono.dentro2), l, l.ini.remove
+      se l.objini.perso
+        misc:evento(l.objini)
+      fimse
+    efim
+  fimse
+
+func cmd_chegou
+  misc:evento(arg0)
+  ref i
+  epara i = $i_casas010, i, i = objdepois(i)
+    se i_codigo == i.i_codigo
+      i.dono.msg(arg0.descnome + " aparece na tela do monitor.")
+    fimse
+  efim
+#
+
+func cmd_pegouobj
+  se arg4 == arg1
+    ref i
+    epara i = $i_casas010, i, i = objdepois(i)
+      se i_codigo == i.i_codigo
+        se arg1.dono
+          i.dono.msg("(" + dono.s_titulo + ") " + arg0.descnome + " pega " + arg2.descnome + " \
+de " + arg1.descnome + ".")
+        senao
+          i.dono.msg("(" + dono.s_titulo + ") " + arg0.descnome + " pega " + arg2.descnome + \
+".")
+        fimse
+      fimse
+    efim
+  fimse
+#
+
+func cmd_deuobj
+  se arg4 == arg1
+    ref i
+    epara i = $i_casas010, i, i = objdepois(i)
+      se i_codigo == i.i_codigo
+        i.dono.msg("(" + dono.s_titulo + ") " + arg0.descnome + " deu " + arg2.descnome + " para \
+" + arg1.descnome + ".")
+      fimse
+    efim
+  fimse
+#
+
+func cmd_vestiu
+  ref i
+  epara i = $i_casas010, i, i = objdepois(i)
+    se i_codigo == i.i_codigo
+      i.dono.msg(arg0.descnome + " apareceu na tela do monitor, " + (arg2 == 50 ? "empunhando " \
+: "vestindo ") + arg1.descnome + ".")
+    fimse
+  efim
+
+func cmd_social
+  se arg3 == arg1
+    refvar msgsoc1 = txttroca(arg2.perso3, "$P", arg0.descnome)
+    refvar msgsoc2 = txttroca(msgsoc1, "$A", arg1.descnome)
+    refvar msgsoc3 = txttroca(msgsoc2, "$e", "em")
+    refvar msgsoc4 = txttroca(msgsoc3, "$d", "de")
+    refvar msgsoc5 = txttroca(msgsoc4, "$s", arg0.msexo ? "o" : "a")
+    refvar msgsoc6 = txttroca(msgsoc5, "$t", arg1.msexo ? "o" : "a")
+    ref s
+    epara s = $i_casas010, s, s = objdepois(s)
+      se var.z_codigo == s.var.z_codigo
+        s.dono.msg("(" + dono.s_titulo + ") " + msgsoc6)
+      fimse
+    efim
+  fimse
+#
+
+func cmd_falou
+  ref i
+  epara i = $i_casas010, i, i = objdepois(i)
+    se i_codigo == i.i_codigo
+      continuar !i.var.z_audio_
+      i.dono.msg("(" + dono.s_titulo + ") " + arg0.descnome + " disse: " + arg1)
+    fimse
+  efim
+#
+
+func cmd_sussurrou
+  ref i
+  epara i = $i_casas010, i, i = objdepois(i)
+    se i_codigo == i.i_codigo
+      continuar !i.var.z_audio_
+      i.dono.msg("(" + dono.s_titulo + ") " + arg0.descnome + " sussurrou para " + arg2)
+    fimse
+  efim
+#
+
+func cmd_atacou
+  refvar mensluta = arg2.mensgolpe(arg0, arg1)
+  ref i
+  epara i = $i_casas010, i, i = objdepois(i)
+    se i_codigo == i.i_codigo
+      i.dono.msg(mensluta)
+    fimse
+  efim
+#
+
+func cmd_pegarobj
+  se arg1 == este
+    se arg0.descnome != txt(i_codigo, 0, inttotal(arg0.descnome)) && !arg0.dentrocasa
+      ret arg0.msg("Não pode pegar a câmera, porque não é sua e você não está dentro de sua \
+casa.")
+    fimse
+  fimse
+
+
+classe i_casas010
+herda comum_item
+const nome = "monitor"
+const descnome = "um monitor"
+const descpos = "Um monitor está ensima de um suporte, mostrando imagens das câmeras de segurança\
+."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = ""
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 3000
+const valor = 1000000
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const i_codigo = var.z_codigo ? var.z_codigo : "fantastic1234"
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "ativar áudio"
+    ret var.z_audio_, arg0.msg("O áudio já está ativado.")
+    var.z_audio_ = 1
+    $mens.p(arg0)
+    arg0.msg("Você ativa o áudio do monitor.")
+    ret 1
+  senao arg1 == "desativar áudio"
+    ret !var.z_audio_, arg0.msg("O áudio já está desativado.")
+    var.z_audio_ = 0
+    $mens.p(arg0)
+    arg0.msg("Você desativou o áudio do monitor.")
+    ret 1
+  fimse
+
+func i_salaver
+  ref i
+  epara i = $i_casas009, i, i = objdepois(i)
+    se i_codigo == i.i_codigo
+      ret i.dono
+    fimse
+  efim
+
+
+classe i_casas011
+herda comum_item
+const nome = "controle remoto"
+const descnome = "um controle remoto"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const valor = 1000000
+const evperso = 1 # Eventos dono perso: Sim
+const i_codigo = var.z_codigo ? var.z_codigo : "fantastic1234"
+#
+
+func cmd_escr
+  se arg1 == "open"
+    ref i
+    epara i = $i_casas012, i, i = objdepois(i)
+      se i_codigo == i.i_codigo
+        ret $[i.salacontr].porta_[i.portacontr] == 1, arg0.msg("A porta já está aberta.")
+        arg0.msg("Você aperta o botão open do controle.")
+        $[i.salacontr].mudaporta(i.portacontr, 1, "$m se abriu.", "$m se abriu.")
+        ret 1
+      fimse
+    efim
+    ret arg0.msg("Nenhum dispositivo instalado.")
+  senao arg1 == "close"
+    ref i
+    epara i = $i_casas012, i, i = objdepois(i)
+      se i_codigo == i.i_codigo
+        ret $[i.salacontr].porta_[i.portacontr] > 1, arg0.msg("A porta já está fechada.")
+        arg0.msg("Você aperta o botão close do controle.")
+        $[i.salacontr].mudaporta(i.portacontr, 3, "$m se fechou.", "$m se fechou.")
+        ret 1
+      fimse
+    efim
+    ret arg0.msg("Nenhum dispositivo instalado.")
+  senao arg1 == "ajuda controle"
+    arg0.msg("Comandos para o controle:")
+    arg0.msg("open")
+    arg0.msg("Abre a porta ou portão definido na instalação do dispositivo.")
+    arg0.msg("close")
+    arg0.msg("Fecha a porta ou portão definido na instalação do dispositivo.")
+    arg0.msg("É necessário instalar o dispositivo antes de tudo.")
+    arg0.msg("instalando o dispositivo:")
+    arg0.msg("1. Solte o dispositivo na sala onde fica o portão que quer automatizar;")
+    arg0.msg2("2. Em seguida, digite insdisp seguido da direção da porta;")
+    arg0.msg("Ex: instdisp o")
+    arg0.msg("instdisp l")
+    ret 1
+  fimse
+
+
+classe i_casas012
+herda comum_item
+const nome = "dispositivo remoto para portão"
+const ident = "dispositivo remoto portão"
+const descnome = "um dispositivo remoto para portões"
+const descpos = ""
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 1000000
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const i_codigo = var.z_codigo ? var.z_codigo : "fantastic1234"
+sav txt20 salacontr
+sav txt10 portacontr
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+
+func cmd_soltarobj
+  se arg2 == este && !arg0.dentrocasa && arg0.dono.dono.var.z_dono != arg0.descnome
+    ret arg0.msg("Você não está dentro da sua casa.")
+  fimse
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se txt1(arg1) == "instdisp"
+    refvar dir = txt2(arg1)
+    ret !arg0.dentrocasa && arg0.dono.dono.var.z_dono != arg0.descnome, arg0.msg("Só pode \
+instalar o dispositivo em sua casa.")
+    ret !dono.porta_[dir], arg0.msg("Não há porta nessa direção.")
+    salacontr = dono
+    portacontr = dir
+    arg0.msg("Você instala o dispositivo em " + dono.portanome_[dir] + ".")
+    ret 1
+  fimse
+#
+
+
+classe i_casas013
+herda comum_itemperso
+const nome = "4"
+const descnome = "uma dispensa"
+const descpos = "Uma dispensa guarda os mantimentos ao fundo da cozinha"
+const i_salas = "casas074"
+const valor = 50000
+
+
+classe i_casas014
+herda comum_itemperso
+const nome = "pacote de alarmes"
+const descnome = "um pacote de alarmes das campainhas"
+const descver = "Na parte de cima, há algo escrito em letras maiúsculas:\n'TEC ALARMES'"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const volmax = 10
+const volobj = 10
+
+
+classe i_casas015
+herda comum_itemgrupo
+const nome = "dispositivo anti invasões"
+const descnome = "um dispositivo anti-invasões"
+const descpos = ""
+const msexo = 1 # Sexo Msg: 1 Masculino
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+  se dono.jog && !dono.dono.var.u_[arg0.descnome]
+    ret !dono.dentrocasa, nulo
+    $mens.mtodos1("Invasor! Invasor!")
+    arg0.mudadono($[donoantes])
+  senao !dono.var.u_[arg0.descnome]
+    $mens.p(arg0)
+    $mens.mtodos1("Invasor! Invasor!")
+    arg0.mudadono($[donoantes])
+    arg0.mudadono($[donoantes])
+  fimse
+
+
+classe i_casas016
+herda comum_itemperso
+
+
+classe i_casas017
+herda comum_itemperso
+
+
+classe i_casas018
+herda comum_itemperso
+const nome = "janela"
+const descnome = "uma janela de madeira"
+const descpos = "Há uma janela de madeira em uma parede a sua frente."
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const i_tranc = 1 # Trancar: 1 Pode ser trancado
+const i_fechadura = i_codigo
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+sav txt32 i_codigo
+#
+
+func i_pegar
+  ret dono.s_sala, "a janela está presa à parede."
+
+func i_salaver
+  ref j
+  epara j = $i_casas019, j, j = objdepois(j)
+    se i_codigo == j.i_codigo
+      ret !j.dono.s_sala, nulo
+      ret i_aberto >= 3, nulo
+      ret j.dono
+    fimse
+  efim
+#
+
+func i_salaentrar
+  ref j
+  epara j = $i_casas019, j, j = objdepois(j)
+    se i_codigo == j.i_codigo
+      ret !j.dono.s_sala, nulo
+      ret i_aberto >= 3, nulo
+      ret j.dono
+    fimse
+  efim
+#
+
+func cmd_abriuobj
+  ref j
+  epara j = $i_casas019, j, j = objdepois(j)
+    se i_codigo == j.i_codigo
+      j.i_aberto = 2
+      $mens.p(j)
+      $mens.mvis1("$p se abriu.")
+    fimse
+  efim
+#
+
+func cmd_fechouobj
+  ref j
+  epara j = $i_casas019, j, j = objdepois(j)
+    se i_codigo == j.i_codigo
+      j.i_aberto = 3
+      $mens.p(j)
+      $mens.mvis1("$p se fechou.")
+    fimse
+  efim
+
+const i_som_abre = "abporta"
+const i_som_fecha = "fporta"
+
+func cmd_soltarobj
+  ret arg0.dono.s_area == "moveis", nulo
+  se !arg0.dentrocasa
+    arg0.msg("você não pode soltar uma janela de madeira aqui.")
+    ret 1
+  fimse
+
+
+classe i_casas019
+herda comum_itemperso
+const nome = "janela"
+const descnome = "uma janela de madeira"
+const descpos = "Há uma janela de madeira em uma parede à sua frente."
+const i_abertoini = 2 # Container: 2 Inicialmente aberto
+const i_tranc = 1 # Trancar: 1 Pode ser trancado
+const i_fechadura = i_codigo
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+sav txt32 i_codigo
+#
+#
+
+func i_pegar
+  ret dono.s_sala, "a janela está presa à parede."
+#
+
+func i_salaentrar
+  ref j
+  epara j = $i_casas018, j, j = objdepois(j)
+    se i_codigo == j.i_codigo
+      ret !j.dono.s_sala, nulo
+      ret i_aberto >= 3, nulo
+      ret j.dono
+    fimse
+  efim
+
+func i_salaver
+  ref j
+  epara j = $i_casas018, j, j = objdepois(j)
+    se i_codigo == j.i_codigo
+      ret !j.dono.s_sala, nulo
+      ret i_aberto >= 3, nulo
+      ret j.dono
+    fimse
+  efim
+#
+
+func cmd_abriuobj
+  ref j
+  epara j = $i_casas018, j, j = objdepois(j)
+    se i_codigo == j.i_codigo
+      j.i_aberto = 2
+      $mens.p(j)
+      $mens.mvis1("$p se abriu.")
+    fimse
+  efim
+#
+
+func cmd_fechouobj
+  ref j
+  epara j = $i_casas018, j, j = objdepois(j)
+    se i_codigo == j.i_codigo
+      j.i_aberto = 3
+      $mens.p(j)
+      $mens.mvis1("$p se fechou.")
+    fimse
+  efim
+
+const i_som_abre = "abporta"
+const i_som_fecha = "fporta01"
+
+func cmd_soltarobj
+  ret arg0.dono.s_area == "moveis", nulo
+  se !arg0.dentrocasa
+    arg0.msg("Você não pode soltar uma janela de madeira aqui.")
+    ret 1
+  fimse
+
+
+classe i_casas020
+herda comum_item
+const nome = "chave da janela"
+const descnome = "a chave de uma janela"
+const i_chave = i_codigo
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 900
+const manterperso = 1 # Mantém em jogador: Sim
+sav txt32 i_codigo
+
+
+classe i_casas021
+herda comum_itemperso
+const nome = dono ? "grande caixa" : "janela de madeira"
+const descnome = dono ? "uma grande caixa" : "uma janela de madeira"
+const i_itens = "casas018\ncasas019\ncasas020"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const objmax = 3
+const valor = 1545500
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_mudadono
+  se dono.jog && !donoantes
+    txt32 codigo
+    codigo = txts(txtnome(dono.nome)) + rand(100000, 999999)
+    refvar i1 = criar("i_casas018", este, 1)
+    i1.i_codigo = codigo
+    refvar i2 = criar("i_casas019", este, 1)
+    i2.i_codigo = codigo
+    refvar i3 = criar("i_casas020", este, 1)
+    i3.i_codigo = codigo
+  fimse
+
+
+classe p_casas001
+herda comum_perso
+const nome = "O chefe da imobiliária"
+const descnome = "o chefe da imobiliária"
+const descpadr = "O chefe da imobiliária está sentado atrás de uma escrivaninha."
+const lojacasa = "casas"
+const lojachave = "casas"
+const taxacasa = "casas"
+
+
+classe p_casas002
+herda comum_perso
+const nome = "campailton"
+const ident = "campailton vendedor"
+const descnome = "Campailton, o vendedor de campainhas"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "comprar campainha" || arg1 == "comprar 1"
+    ret arg0.var.z_moedas_ < 5000000, arg0.msg("Você não possui 5000000 moedas.")
+    arg0.var.z_moedas_ -= 5000000
+    txt50 codigo
+    codigo = "z_codigo="
+    codigo += arg0.descnome + rand(1000, 9999)
+    refvar pacote = criar("i_casas014", arg0, 1)
+    criar("i_casas007", pacote, 1, codigo)
+    criar("i_casas008", pacote, 10, codigo)
+    $mens.p(arg0)
+    $mens.mvis1("$P compra uma campainha do vendedor.")
+    ret 1
+  senao arg1 == "comprar 2" || arg1 == "comprar câmera" || arg1 == "comp 2"
+    ret arg0.var.z_moedas_ < 5000000, arg0.msg("Você não possui 5000000 moedas.")
+    arg0.var.z_moedas_ -= 5000000
+    txt50 codigo
+    codigo = "z_codigo="
+    codigo += arg0.descnome + rand(999, 99999)
+    criar("i_casas009", arg0, 1, codigo)
+    criar("i_casas010", arg0, 1, codigo)
+    $mens.p(arg0, este)
+    $mens.mvis1("$P compra uma câmera de monitoramento de $A por 5000000 moedas.")
+  senao arg1 == "lista" || arg1 == "list" || arg1 == "lis"
+    arg0.msg("\b" + nome + " informa:")
+    arg0.msg("1. uma campainha     $5000000")
+    arg0.msg2("2. Uma câmera de monitoramento. $5000000")
+    arg0.msg2("3. um controle com dispositivo para automatização de portões    $5000000")
+    ret 1
+  senao arg1 == "comprar 3" || arg1 == "comprar controle"
+    ret arg0.var.z_moedas_ < 5000000, arg0.msg("Você não possui 5000000 moedas.")
+    arg0.var.z_moedas_ -= 5000000
+    txt50 codigo
+    codigo = "z_codigo="
+    codigo += arg0.descnome + rand(999, 99999)
+    criar("i_casas011", arg0, 1, codigo)
+    criar("i_casas012", arg0, 1, codigo)
+    $mens.p(arg0, este)
+    $mens.mvis1("$P compra um controle remoto com dispositivo para portões $d $A.")
+    ret 1
+  fimse
+
+
+classe p_casas016
+herda comum_perso
+const nome = "carpinteiro"
+const ident = "carpinteiro vendedor homem"
+const descnome = "o carpinteiro"
+const descpadr = "Um velho carpinteiro trabalha em novas peças de madeira, arrumando-as para a \
+venda."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const lojaitem = "casas021 30"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+
+classe s_casas001
+herda b_casas
+const s_titulo = "Nos portões de acesso às casas populares"
+const dir_l = $s_vilares247
+const dir_o = $s_casas002
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "os portões de acesso"
+const portaartigo_o = 3 # Artigo porta: 3 os (portões)
+
+
+classe s_casas002
+herda b_casas
+const s_titulo = "Casas Populares"
+const dir_l = $s_casas001
+const portanome_l = "os portões de acesso"
+const portaartigo_l = 3 # Artigo porta: 3 os (portões)
+const dir_o = $s_casas003
+
+
+classe s_casas003
+herda b_casas
+const s_titulo = "A Praça Popular"
+const dir_n = $s_casas012
+const dir_s = $s_casas004
+const dir_l = $s_casas002
+const dir_o = $s_casas009
+
+
+classe s_casas004
+herda b_casas
+const s_titulo = "Na entrada de uma pequena imobiliária"
+const dir_n = $s_casas003
+const dir_entrar = $s_casas005
+
+
+classe s_casas005
+herda b_casas
+const s_titulo = "Em uma pequena imobiliária"
+const s_desc = "Você acaba de adentrar uma pequena imobiliária.\n\
+Para sul fica o setor de compra e venda da imobiliária, enquanto para leste está a tesouraria.\n\
+A oficina do chaveiro fica a oeste."
+const dir_s = $s_casas006
+const dir_l = $s_casas007
+const dir_o = $s_casas008
+const dir_sair = $s_casas004
+
+
+classe s_casas006
+herda b_casas
+const s_titulo = "Compra e Venda"
+const dir_n = $s_casas005
+
+
+classe s_casas007
+herda b_casas
+const s_titulo = "Tesouraria"
+const dir_o = $s_casas005
+
+
+classe s_casas008
+herda b_casas
+const s_titulo = "Oficina do chaveiro"
+const dir_l = $s_casas005
+
+
+classe s_casas009
+herda b_casas
+const s_titulo = "Um gramado"
+const dir_l = $s_casas003
+const dir_o = $s_casas010
+
+
+classe s_casas010
+herda b_casas
+const s_titulo = "A entrada de um campinho de futebol"
+const dir_l = $s_casas009
+const dir_entrar = $s_casas011
+
+
+classe s_casas011
+herda b_casas
+const s_titulo = "Em um Campinho de futebol"
+const dir_sair = $s_casas010
+
+
+classe s_casas012
+herda b_casas
+const s_titulo = "Uma rua de pedras toscas"
+const dir_n = $s_casas013
+const dir_s = $s_casas003
+
+
+classe s_casas013
+herda b_casas
+const s_titulo = "Uma rua de pedras toscas"
+const dir_n = $s_casas014
+const dir_s = $s_casas012
+
+
+classe s_casas014
+herda b_casas
+const s_titulo = "Uma rua de pedras toscas"
+const dir_n = $s_casas015
+const dir_s = $s_casas013
+
+
+classe s_casas015
+herda b_casas
+const s_titulo = "Cruzando uma rua"
+const dir_s = $s_casas014
+const dir_l = $s_casas016
+
+
+classe s_casas016
+herda b_casas
+const s_titulo = "Rua dos prazeres"
+const dir_s = $s_casas017
+const dir_o = $s_casas015
+
+
+classe s_casas017
+herda b_casas
+const s_titulo = "Casa popular 01"
+const dir_n = $s_casas016
+const dir_s = $s_casas018
+
+
+classe s_casas018
+herda b_casas
+const s_titulo = "Um Jardim"
+const dir_n = $s_casas017
+const dir_s = $s_casas019
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "o portão da garagem"
+const portaartigo_s = 2 # Artigo porta: 2 o (portão)
+const fechadura_s = "casas001"
+const fecha_s = 0 # Fecha ao passar: Não
+const tranc_s = 1 # Trancar: 1 Pode ser trancado
+const dir_l = $s_casas020
+
+
+classe s_casas019
+herda b_casas
+const s_titulo = "Garagem"
+const dir_n = $s_casas018
+const portanome_n = "o portão da garagem"
+const fechadura_n = "casas001"
+const tranc_n = 1 # Trancar: 1 Pode ser trancado
+
+
+classe s_casas020
+herda b_casas
+const s_titulo = "Uma Sala"
+const dir_l = $s_casas021
+const dir_o = $s_casas018
+const portanome_o = "uma porta de correr"
+
+
+classe s_casas021
+herda b_casas
+const s_titulo = "Sala de Jantar"
+const dir_n = $s_casas022
+const dir_s = $s_casas076
+const dir_l = $s_casas024
+const dir_o = $s_casas020
+
+
+classe s_casas022
+herda b_casas
+const s_titulo = "Cozinha"
+const dir_s = $s_casas021
+const dir_l = $s_casas025
+const portanome_l = "a porta do banheiro"
+const fechadura_l = "casas001"
+const dir_o = $s_casas023
+
+
+classe s_casas023
+herda b_casas
+const s_titulo = "Quintal"
+const dir_l = $s_casas022
+
+
+classe s_casas024
+herda b_casas
+const s_titulo = "Um quarto"
+const dir_o = $s_casas021
+
+
+classe s_casas025
+herda b_casas
+const s_titulo = "Banheiro"
+const dir_o = $s_casas022
+const portanome_o = "a porta do banheiro"
+const fechadura_o = "casas001"
+const tranc_o = 1 # Trancar: 1 Pode ser trancado
+
+
+classe s_casas026
+herda b_casas
+const s_titulo = ""
+const dir_o = $s_casas028
+
+
+classe s_casas027
+herda b_casas
+const s_titulo = "Dentro do elevador."
+const eveste = 1 # Eventos sala: Sim
+const dir_o = $s_casas028
+
+func cmd_salaperso
+  misc:evento(arg0)
+
+func cmd_escr
+  se arg1 == "descer"
+    misc:tempo("entrou", arg0)
+    ret 1
+  fimse
+
+func entrou20
+  arg0.msg("As portas do elevador se fecham e o elevador começa a descer.")
+
+func entrou80
+  arg0.msg("descendo...")
+
+func entrou120
+  arg0.msg("O elevador chega ao térreo e as portas do elevador se abrem.")
+  arg0.mudadono($s_casas025)
+
+
+classe s_casas028
+herda b_casas
+const s_titulo = "No primeiro andar."
+const s_desc = "Você se encontra no primeiro andar do palácio."
+const dir_n = $s_casas030
+const dir_s = $s_casas037
+const dir_l = $s_casas027
+const dir_o = $s_casas029
+
+
+classe s_casas029
+herda b_casas
+const s_titulo = "Quarto da empregada."
+const dir_l = $s_casas028
+
+
+classe s_casas030
+herda b_casas
+const s_titulo = "Um corredor no primeiro andar"
+const dir_n = $s_casas031
+const dir_s = $s_casas028
+
+
+classe s_casas031
+herda b_casas
+const s_titulo = "O luxuoso quarto da princesa druida"
+const dir_s = $s_casas030
+
+
+classe s_casas032
+herda b_casas
+const s_titulo = "Na cozinha do palácio."
+const dir_s = $s_casas023
+const s_reset = "S 100 templo015 1 S\n\
+S 100 templo017 1 S\n\
+P 100 templo003 0 0 1\n\
+S 100 templo018 1 S\n\
+S 100 templo019 1 S\n\
+S 100 templo020 1 S"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  !dentro1.objini("i_templo015") && criar("i_templo015", este, 1)
+  !dentro1.objini("i_templo017") && criar("i_templo017", este, 1)
+  se p_templo003:objsolto.total < 1
+    criar("p_templo003", este, 0)
+  fimse
+  !dentro1.objini("i_templo018") && criar("i_templo018", este, 1)
+  !dentro1.objini("i_templo019") && criar("i_templo019", este, 1)
+  !dentro1.objini("i_templo020") && criar("i_templo020", este, 1)
+
+
+classe s_casas033
+herda b_casas
+const s_titulo = "Início das escadas."
+const dir_s = $s_casas024
+const dir_c = $s_casas034
+
+
+classe s_casas034
+herda b_casas
+const s_titulo = "escadas."
+const dir_o = $s_casas035
+const dir_b = $s_casas033
+
+
+classe s_casas035
+herda b_casas
+const s_titulo = "escadas"
+const dir_l = $s_casas034
+const dir_c = $s_casas036
+
+
+classe s_casas036
+herda b_casas
+const s_titulo = "Escadas"
+const dir_c = $s_casas037
+const dir_b = $s_casas035
+
+
+classe s_casas037
+herda b_casas
+const s_titulo = "No fim das escadas."
+const dir_n = $s_casas028
+const dir_b = $s_casas036
+
+
+classe s_casas038
+herda b_casas
+const s_titulo = "Rua das casas"
+const dir_n = $s_casas004
+const dir_s = $s_casas039
+const dir_l = $s_casas046
+const portaini_l = 3 # Estado inicial: 3 Porta trancada
+const portanome_l = "o portão da casa3"
+const portaartigo_l = 2 # Artigo porta: 2 o (portão)
+const fechadura_l = "casas003"
+const fecha_l = 1 # Fecha ao passar: Sim
+const tranc_l = 2 # Trancar: 2 Tranca ao fechar
+const dir_o = $s_casas040
+const portaini_o = 3 # Estado inicial: 3 Porta trancada
+const portanome_o = "o portão da casa 2"
+const portaartigo_o = 2 # Artigo porta: 2 o (portão)
+const fechadura_o = "casas002"
+const fecha_o = 1 # Fecha ao passar: Sim
+const tranc_o = 2 # Trancar: 2 Tranca ao fechar
+
+
+classe s_casas039
+herda b_casas
+const s_titulo = "Rua das casas"
+const dir_n = $s_casas038
+
+
+classe s_casas040
+herda b_casas
+const s_titulo = "Jardim"
+const dir_s = $s_casas041
+const portaini_s = 3 # Estado inicial: 3 Porta trancada
+const fecha_s = 1 # Fecha ao passar: Sim
+const tranc_s = 2 # Trancar: 2 Tranca ao fechar
+const dir_l = $s_casas038
+const portaini_l = 3 # Estado inicial: 3 Porta trancada
+const fechadura_l = "casas002"
+const fecha_l = 1 # Fecha ao passar: Sim
+const tranc_l = 2 # Trancar: 2 Tranca ao fechar
+
+
+classe s_casas041
+herda b_casas
+const s_titulo = "Sala"
+const dir_n = $s_casas040
+const dir_s = $s_casas042
+const dir_o = $s_casas043
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_casas042
+herda b_casas
+const s_titulo = "Cozinha."
+const dir_n = $s_casas041
+const dir_o = $s_casas044
+
+
+classe s_casas043
+herda b_casas
+const s_titulo = "Quarto."
+const dir_n = $s_casas045
+const dir_l = $s_casas041
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const fecha_l = 1 # Fecha ao passar: Sim
+
+
+classe s_casas044
+herda b_casas
+const s_titulo = "pequeno quintal."
+const dir_l = $s_casas042
+
+
+classe s_casas045
+herda b_casas
+const s_titulo = "Banheiro particular"
+const dir_s = $s_casas043
+
+
+classe s_casas046
+herda b_casas
+const s_titulo = "Um pequeno jardim."
+const dir_s = $s_casas048
+const portaini_s = 3 # Estado inicial: 3 Porta trancada
+const portanome_s = "a porta da sala"
+const fechadura_s = "casas003"
+const fecha_s = 1 # Fecha ao passar: Sim
+const tranc_s = 2 # Trancar: 2 Tranca ao fechar
+const dir_l = $s_casas047
+const dir_o = $s_casas038
+const portaini_o = 3 # Estado inicial: 3 Porta trancada
+const portanome_o = "o portão da casa"
+const portaartigo_o = 2 # Artigo porta: 2 o (portão)
+const fechadura_o = "casas003"
+const fecha_o = 1 # Fecha ao passar: Sim
+const tranc_o = 2 # Trancar: 2 Tranca ao fechar
+
+
+classe s_casas047
+herda b_casas
+const s_titulo = "Um quintal."
+const dir_s = $s_casas049
+const portaini_s = 3 # Estado inicial: 3 Porta trancada
+const portanome_s = "a porta da cozinha"
+const fechadura_s = "casas003"
+const fecha_s = 1 # Fecha ao passar: Sim
+const tranc_s = 2 # Trancar: 2 Tranca ao fechar
+const dir_o = $s_casas046
+
+
+classe s_casas048
+herda b_casas
+const s_titulo = "Uma ampla sala."
+const dir_n = $s_casas046
+const portaini_n = 3 # Estado inicial: 3 Porta trancada
+const portanome_n = "a porta da sala"
+const fechadura_n = "casas003"
+const fecha_n = 1 # Fecha ao passar: Sim
+const tranc_n = 2 # Trancar: 2 Tranca ao fechar
+const dir_s = $s_casas051
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "a porta do quarto"
+const fechadura_s = "casas003"
+const fecha_s = 1 # Fecha ao passar: Sim
+const dir_l = $s_casas049
+
+
+classe s_casas049
+herda b_casas
+const s_titulo = "Uma bela cozinha."
+const dir_n = $s_casas047
+const portaini_n = 3 # Estado inicial: 3 Porta trancada
+const portanome_n = "a porta da cozinha"
+const fechadura_n = "casas003"
+const fecha_n = 1 # Fecha ao passar: Sim
+const tranc_n = 2 # Trancar: 2 Tranca ao fechar
+const dir_l = $s_casas050
+const dir_o = $s_casas048
+
+
+classe s_casas050
+herda b_casas
+const s_titulo = "Um jardim"
+const dir_n = $s_casas054
+const portaini_n = 3 # Estado inicial: 3 Porta trancada
+const portanome_n = "a porta da sala"
+const fechadura_n = "casas004"
+const fecha_n = 1 # Fecha ao passar: Sim
+const tranc_n = 2 # Trancar: 2 Tranca ao fechar
+const dir_o = $s_casas009
+const portaini_o = 3 # Estado inicial: 3 Porta trancada
+const portanome_o = "o portão da casa"
+const portaartigo_o = 2 # Artigo porta: 2 o (portão)
+const fechadura_o = "casas004"
+const fecha_o = 1 # Fecha ao passar: Sim
+const tranc_o = 2 # Trancar: 2 Tranca ao fechar
+
+
+classe s_casas051
+herda b_casas
+const s_titulo = "Um grande e organizado quarto."
+const dir_n = $s_casas048
+const fechadura_n = "casas003"
+const dir_l = $s_casas052
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "a porta do banheiro"
+const fechadura_l = "casas003"
+const fecha_l = 1 # Fecha ao passar: Sim
+
+
+classe s_casas052
+herda b_casas
+const s_titulo = "Um banheiro."
+const dir_o = $s_casas051
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "a porta do banheiro"
+const fechadura_o = "casas003"
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_casas053
+herda b_casas
+const s_titulo = "Quintal"
+const dir_n = $s_casas055
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "a porta da cozinha"
+const fechadura_n = "casas004"
+const fecha_n = 1 # Fecha ao passar: Sim
+
+
+classe s_casas054
+herda b_casas
+const s_titulo = "Uma sala"
+const dir_n = $s_casas056
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "a porta do quarto"
+const fechadura_n = "casas004"
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_s = $s_casas050
+const portaini_s = 3 # Estado inicial: 3 Porta trancada
+const portanome_s = "a porta da sala"
+const fechadura_s = "casas004"
+const fecha_s = 1 # Fecha ao passar: Sim
+const tranc_s = 2 # Trancar: 2 Tranca ao fechar
+const dir_l = $s_casas055
+
+
+classe s_casas055
+herda b_casas
+const s_titulo = "Uma cozinha"
+const dir_n = $s_casas057
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "a porta do banheiro"
+const fechadura_n = "casas004"
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_s = $s_casas053
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "a porta da cozinha"
+const fecha_s = 1 # Fecha ao passar: Sim
+const dir_o = $s_casas054
+
+
+classe s_casas056
+herda b_casas
+const s_titulo = "Um quarto."
+const dir_s = $s_casas054
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "a porta do quarto"
+const fechadura_s = "casas004"
+const fecha_s = 1 # Fecha ao passar: Sim
+
+
+classe s_casas057
+herda b_casas
+const s_titulo = "Um lindo banheiro"
+const s_desc = "Esse é um banheiro muito limpo e cheiroso. Os azulejos estão tão limpos que \
+você\n\
+até mesmo consegue ver o seu reflexo nas paredes e no chão."
+const dir_s = $s_casas055
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "a porta do banheiro"
+const fechadura_s = "casas004"
+const fecha_s = 1 # Fecha ao passar: Sim
+
+
+classe s_casas058
+herda b_casas
+const s_titulo = "dentro da gaiola"
+const s_desc = "Você está dentro de uma gaiola bem grande.\n\
+As paredes aqui, são todas feitas de grades, para evitar que qualquer coisa que esteja aqui \
+fuja.\n\
+Cada canto, um ambiente diferente, para que possa ser postos os mais diversos animais possíveis"
+const s_entrada = "A entrada da gaiola"
+const dir_n = $s_casas059
+
+
+classe s_casas059
+herda b_casas
+const s_titulo = "Uma passagem"
+const dir_n = $s_casas061
+const dir_s = $s_casas058
+const dir_c = $s_casas060
+const portaini_c = 1 # Estado inicial: 1 Porta aberta
+const portanome_c = "as grades"
+const portaartigo_c = 1 # Artigo porta: 1 as (portas)
+const fecha_c = 1 # Fecha ao passar: Sim
+
+
+classe s_casas060
+herda b_casas
+const s_titulo = "espaço das águias"
+const dir_b = $s_casas059
+const portaini_b = 1 # Estado inicial: 1 Porta aberta
+const portanome_b = "as grades"
+const portaartigo_b = 1 # Artigo porta: 1 as (portas)
+const fecha_b = 1 # Fecha ao passar: Sim
+
+
+classe s_casas061
+herda b_casas
+const s_titulo = "continuando a passagem"
+const dir_n = $s_casas063
+const dir_s = $s_casas059
+
+
+classe s_casas062
+herda b_casas
+const dir_o = $s_casas061
+
+
+classe s_casas063
+herda b_casas
+const s_titulo = "Final da passagem"
+const dir_s = $s_casas061
+const dir_l = $s_casas064
+const dir_c = $s_casas066
+
+
+classe s_casas064
+herda b_casas
+const s_titulo = "área dos leões"
+const dir_o = $s_casas063
+const dir_entrar = $s_casas065
+
+
+classe s_casas065
+herda b_casas
+const s_titulo = "Espaço dos leões"
+const s_desc = "Sentindo o orrível cheiro de animais mortos e ouvindo rugidos, este lugar te \
+endica que aqui, é o canto dos leões.\n\
+Por tanto, não pense em ficar por aqui para descansar, pois você é um prato fácil de se consiguir\
+."
+const dir_sair = $s_casas064
+const portaini_sair = 2 # Estado inicial: 2 Porta fechada
+const portanome_sair = "um par de fortes grades de ferro"
+const portaartigo_sair = 3 # Artigo porta: 3 os (portões)
+const fecha_sair = 1 # Fecha ao passar: Sim
+
+
+classe s_casas066
+herda b_casas
+const s_titulo = "uma rampa"
+const dir_c = $s_casas067
+const dir_b = $s_casas063
+
+
+classe s_casas067
+herda b_casas
+const s_titulo = "continuando na rampa"
+const dir_o = $s_casas068
+const dir_b = $s_casas066
+
+
+classe s_casas068
+herda b_casas
+const s_titulo = "ainda na rampa"
+const dir_n = $s_casas069
+const dir_l = $s_casas067
+const dir_b = $s_casas070
+
+
+classe s_casas069
+herda b_casas
+const s_titulo = "espaço dos gorilas"
+const s_desc = "Frutas e árvores por aqui.\nParece um bom lugar para gorilas"
+const dir_s = $s_casas068
+
+
+classe s_casas070
+herda b_casas
+const s_titulo = "descida para o espaço dos tigres"
+const dir_c = $s_casas068
+const dir_b = $s_casas071
+
+
+classe s_casas071
+herda b_casas
+const s_titulo = "Continuando na descida"
+const dir_c = $s_casas070
+const dir_b = $s_casas072
+
+
+classe s_casas072
+herda b_casas
+const s_titulo = "final da descida para o espaço dos tigres"
+const dir_n = $s_casas073
+const dir_c = $s_casas071
+
+
+classe s_casas073
+herda b_casas
+const s_titulo = "espaço dos tigres"
+const s_desc = "Grunidos e som de patas correndo, te endicam o local onde os tigres estão.\n\
+Tenha cuidado"
+const dir_s = $s_casas072
+
+
+classe s_casas074
+herda b_casas
+const s_titulo = "Uma dispensa"
+const s_entrada = "dispensa"
+
+
+classe s_casas075
+herda b_casas
+const s_titulo = "Uma sala escura"
+const dir_b = $s_rio001
+
+
+classe s_casas076
+herda b_casas
+const s_titulo = "Um quarto"
+const dir_n = $s_casas021

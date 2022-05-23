@@ -1,0 +1,777 @@
+classe i_natal008
+herda comum_itemperso
+const nome = "capa"
+const ident = "capa"
+const descnome = "Uma impenetrável capa obscura"
+const descpos = "Você quase escorrega em Uma longa, negra e impenetrável capa de viagem que \
+estava camuflada sob acúmulos de poeira."
+const descver = "Olhando a capa de perto, ela aparenta ser uma vestimenta até que comum. No \
+entanto, a testura do tecido deixa a desejar devido a sua delicadesa.\n\
+Não há nenhum indício de que essa capa protegeria qualquer ser vivente que queira se abrigar das \
+intempéries do tempo, muito menos de outros seres dotados da mínima persepção.\n\
+Apesar de todos os motivos que se possa encontrar para não perder tempo com esse objeto sem \
+valor real, manter a capa nas mãos fêz-lo sentir algo diferente, talvez mágico no material da \
+qual foi feito. A temperatura parece mudar leve, porém perceptivamente sobre seus dedos, suas \
+mãos sob ela movem-se sem que note-se a olhos vistos qualquer movimentação por fora da capa."
+const nivel = 250
+const pesoobj = 20
+const valor = 1000000000
+const vestir1 = "800"
+const inivar = ""
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const semdoar = 1
+const manterperso = 1 # Mantém em jogador: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar
+  pveloc1 += 150
+  evasao += 150
+  bitver |= 256
+  bitinv |= 8
+  atktipo.0 *= 1.1 # Tipos Normais
+  atktipo.1 *= 1.1 # Tipos Especiais
+  deftipo.1 *= 0.9 # Tipos Especiais
+  deftipo.0 *= 0.9 # Tipos Normais
+
+func cmd_pegarobj
+  se arg2 == este
+    se !dono.item
+      ret arg0.msg("você não pode simplesmente pegar este ítem, pode apenas identificá-lo.")
+    fimse
+
+func cmd_soltarobj
+  se arg2 == este
+    ret txt(arg1) == "i_quest001", nulo
+    ret !arg0.msg("Você não pode soltar " + descnome + ".")
+  fimse
+
+func cmd_guardarobj
+  se arg2 == este
+    ret txt(arg1) == "i_quest001", nulo
+    ret $mens.mp("Você não pode guardar $o dentro $d $a.", arg0, arg1, arg2)
+  fimse
+
+func cmd_darobj
+  se arg2 == este
+    ret arg0.msg("Não é permitido dar " + descnome + "para ninguém.")
+  fimse
+
+func cmd_chegou
+  misc:evento(arg0)
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "soltar"
+    arg0.msg("Você não pode soltar " + descnome + ".")
+    ret 1
+  casose "trocar capa"
+  casose "troca capa"
+  casose "troc capa"
+  casose "tro capa"
+  casose "trocar cap"
+  casose "troca cap"
+  casose "troc cap"
+  casose "tro cap"
+  casose "trocar ca"
+  casose "troca ca"
+  casose "troc ca"
+  casose "tro ca"
+  casose "trocar c"
+  casose "troca c"
+  casose "troc c"
+  casose "tro c"
+    arg0.msg("Você não pode dar " + descnome + " para seu animal.")
+    ret 1
+  casofim
+
+
+classe a_adquest
+herda area
+const a_nome = "Itens especiais."
+const a_tempo = 1
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_adquest
+herda sala
+const s_area = "quest"
+
+
+classe i_adquest001
+herda comum_item
+const nome = "* Stephir, o lendário pingente místico"
+const ident = "stephir pingente"
+const descnome = "* Stephir, o lendário pingente místico"
+const descpos = "* um estranho pingente foi deixado aqui, emanando um forte poder."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 250
+const renascer = 1
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 525
+const valor = 1000000000
+const vestir1 = 512 # Aonde vestir: 9-no pescoço
+const vestirnao = "criança"
+const vestirsim = 1 # Podem vestir: 1 Jogadores e PNJs
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const quest = 200
+const semdoar = 1
+const manterperso = 1 # Mantém em jogador: Sim
+
+func cmd_soltarobj
+  se arg2 == este
+    ret txt(arg1) == "i_quest001", nulo
+    ret !arg0.msg("Você não pode soltar " + descnome + ".")
+  fimse
+
+func cmd_doarobj
+  se arg2 == este
+    ret txt(arg1) == "i_quest001", nulo
+    ret arg0.msg("Você não pode doar este item")
+  fimse
+
+func cmd_guardarobj
+  se arg2 == este
+    ret arg0.jog_imortal, nulo
+    ret txt(arg1) == "i_quest001", nulo
+    ret $mens.mp("Você não pode soltar $o $e $a.", arg0, arg1, arg2)
+  fimse
+
+func cmd_darobj
+  se arg2 == este
+    ret arg0.j_imortal, nulo
+    ret txt(arg1) == "i_quest001", nulo
+    ret arg0.msg("Não é permitido dar " + descnome + "para ninguém.")
+  fimse
+#
+
+func i_pegar
+  ret !dono.item, "Você não consegue pegar " + descnome + " do chão."
+  ret nulo
+#
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pmovemax += 150
+  atknorm += 100
+  defnorm += 200
+  evasao += 100
+  bitver |= 8
+  atktipo.0 *= 1.3 # Tipos Normais
+
+func cmd_chegou
+  misc:evento(arg0)
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "soltar pingente"
+    arg0.msg("Você não pode soltar " + descnome + ".")
+    ret 1
+  casofim
+
+
+classe i_adquest002
+herda comum_item
+const nome = "* As asas aladas de Gleider, o Dragão da Meia Noite"
+const ident = "asas"
+const descnome = "* As asas aladas de Gleider, o Dragão da Meia Noite"
+const descpos = "* um par de explendorosas asas de Gleider, o dragão da Meia-noite reluzem a \
+menor claridade aqui."
+const descver = "Estas asas negras e translúcidas obviamente pertencente a uma magnífica\n\
+linhagem de dragão, jaz a sua frente após serem decepadas do formidável\n\
+Gleider, o dragão da Meia-Noite. Seja lá quem fora este guerreiro, foi\n\
+realmente bravo e corajoso para conseguir este feito."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const nivel = 210
+const renascer = 1
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 15000
+const valor = 1000000000
+const vestir1 = 2048 # Aonde vestir: 11-nas costas
+const vestirnao = "criança"
+const vestirsim = 1 # Podem vestir: 1 Jogadores e PNJs
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const semdoar = 1
+const manterperso = 1 # Mantém em jogador: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10 * pnivel + 100
+  pmovemax += -390
+  pveloc1 += 210
+  atknorm += 200
+  bitver |= 6
+  bitinv |= 16
+  atktipo.0 *= 2 # Tipos Normais
+  atktipo.6 *= 0.67 # Fogo
+
+func cmd_doarobj
+  se arg2 == este
+    ret arg0.msg("Você não pode doar este item")
+  fimse
+
+func cmd_pegarobj
+  se arg2 == este
+    se !dono.item
+      ret arg0.msg("você não pode simplesmente pegar este ítem, pode apenas identificá-lo.")
+    fimse
+
+func cmd_soltarobj
+  se arg2 == este
+    ret txt(arg1) == "i_quest", nulo
+    ret !arg0.msg("Você não pode soltar " + descnome + ".")
+  fimse
+
+func cmd_guardarobj
+  se arg2 == este
+    ret txt(arg1) == "iquest001", nulo
+    ret $mens.mp("Você não pode soltar $o dentro $d $a.", arg0, arg1, arg2)
+  fimse
+
+func cmd_darobj
+  se arg2 == este
+    ret txt(arg1) == "i_quest001", nulo
+    ret arg0.msg("Não é permitido dar " + descnome + "para ninguém.")
+  fimse
+
+func cmd_chegou
+  misc:evento(arg0)
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "soltar"
+    arg0.msg("Você não pode soltar " + descnome + ".")
+    ret 1
+  casose "trocar asas"
+  casose "troca asas"
+  casose "troc asas"
+  casose "tro asas"
+  casose "trocar asa"
+  casose "troca asa"
+  casose "troc asa"
+  casose "tro asa"
+  casose "trocar as"
+  casose "troca as"
+  casose "troc as"
+  casose "tro as"
+    arg0.msg("Você não pode dar " + descnome + " para seu animal.")
+    ret 1
+  casofim
+
+
+classe i_adquest003
+herda comum_item
+const nome = "* O cajado flamejante de Belisama, a Deusa do Fogo"
+const ident = "cajado"
+const descnome = "* O cajado flamejante de Belisama, a Deusa do Fogo"
+const descpos = "* um belíssimo cajado ricamente decorado com pedras preciosas, o qual jamais \
+nenhuma mão mortal seria capaz de fabricá-lo se encontra aqui, estalando de poder."
+const descver = "Este cilindro dourado emana poder e calor sem igual. Feito de ouro e em \
+sua\n\
+circunferência há incrustado alternadamente pedras preciosas como rubis e\n\
+ambar, que magicamente viram símbolos e letras de algum idioma divino a\n\
+muito esquecido, que logo desmancham-se e se reconstroem formando mais\n\
+escritas desconhecida para sua mente mortal. Em seu ápice há uma bela e\n\
+explendorosa pedra de rubi magnificamente brilhante onde se soltam faíscas\n\
+de poder em vermelho e dourado."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 500
+const renascer = 95
+const armamax = 1382
+const armamin = 910
+const armafalha = 5
+const armaaddprecisao = 30
+const armatipo = 2 # Tipo de arma: 2 Cajado
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 20000
+const tipoitem = 2 # Tipo de item: 1-arma
+const valor = 2100000000
+const vestirsim = 1 # Podem vestir: 1 Jogadores e PNJs
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const semdoar = 1
+const armaatk = "elemental"
+const manterperso = 1 # Mantém em jogador: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 2000 * pnivel + 500000
+  pmanamax += 2000 * pnivel + 500000
+  pmovemax += 2000 * pnivel + 500000
+  bitinv &= ~2
+  atktipo.0 *= 5 # Tipos Normais
+  atktipo.1 *= 5 # Tipos Especiais
+  atktipo.6 *= 9 # Fogo
+  deftipo.0 *= 0.44 # Tipos Normais
+  deftipo.1 *= 0.46 # Tipos Especiais
+
+func cmd_doarobj
+  se arg2 == este
+    ret txt(arg1) == "i_quest001", nulo
+    ret arg0.msg("Você não pode doar este item")
+  fimse
+
+func cmd_pegarobj
+  se arg2 == este
+    se !dono.item
+      ret arg0.msg("você não pode simplesmente pegar este ítem, pode apenas identificá-lo.")
+    fimse
+  fimse
+#
+
+func cmd_soltarobj
+  se arg2 == este
+    ret txt(arg1) == "i_quest001", nulo
+    ret !arg0.msg("Você não pode soltar " + descnome + ".")
+  fimse
+
+func cmd_guardarobj
+  se arg2 == este
+    ret txt(arg1) == "i_quest001", nulo
+    ret $mens.mp("Você não pode guardar $o dentro $d $a.", arg0, arg1, arg2)
+  fimse
+
+func cmd_darobj
+  se arg2 == este
+    ret arg0.msg("Não é permitido dar " + descnome + "para ninguém.")
+  fimse
+
+func cmd_chegou
+  misc:evento(arg0)
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "soltar"
+    arg0.msg("Você não pode soltar " + descnome + ".")
+    ret 1
+  casose "trocar cajado"
+  casose "troca cajado"
+  casose "troc cajado"
+  casose "tro cajado"
+  casose "trocar cajad"
+  casose "troca cajad"
+  casose "troc cajad"
+  casose "tro cajad"
+  casose "trocar caja"
+  casose "troca caja"
+  casose "troc caja"
+  casose "tro caja"
+  casose "trocar caj"
+  casose "troca caj"
+  casose "troc caj"
+  casose "tro caj"
+  casose "trocar ca"
+  casose "troca ca"
+  casose "troc ca"
+  casose "tro ca"
+  casose "trocar c"
+  casose "troca c"
+  casose "troc c"
+  casose "tro c"
+    arg0.msg("Você não pode dar " + descnome + " para seu animal.")
+    ret 1
+  casofim
+
+const quest = 10000
+
+
+classe i_adquest004
+herda comum_item
+const nome = "* o caótico anel de obsidiana negra"
+const ident = "anel"
+const descnome = "* o caótico anel de obsidiana negra"
+const descpos = "* um anel caótico jaz aqui, sugando toda a luz e felicidade do hambiente."
+const descver = "Este belo anel de obsidiana negra como a meia-noite, com runas em escarlate\n\
+em sua circunferência, parece sugar toda a claridade do ambiente, emanando\n\
+dele para o seu interior o sentimento do mais puro ódio, desespero, como se\n\
+quisesse puxá-lo para o abismo onde apenas o caos abita."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 236
+const renascer = 4
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 100
+const valor = 0
+const vestir1 = 6291456 # Aonde vestir: 21-no dedo direito, 22-no dedo esquerdo
+const vestirnao = "criança\nguerreiro\nmago\nnormal"
+const vestirsim = 1 # Podem vestir: 1 Jogadores e PNJs
+const inivar = "e_chama_protetora=8"
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const semdoar = 1
+const manterperso = 1 # Mantém em jogador: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 15 * pnivel + 1500
+  pmanamax += 15 * pnivel + 1700
+  pmovemax += 15 * pnivel + 1500
+  atknorm += 300
+  defnorm += 500
+  atkesp += 300
+  defesp += 500
+  evasao += 75
+  precisao += 100
+  bitver |= 256
+  atktipo.13 *= 1.5 # Trevas
+  atktipo.17 *= 1.2 # Veneno
+  atktipo.18 *= 1.4 # Fantasma
+
+func cmd_doarobj
+  se arg2 == este
+    ret txt(arg1) == "i_quest001", nulo
+    ret arg0.msg("Você não pode doar este item")
+  fimse
+
+func cmd_pegarobj
+  se arg2 == este
+    se !dono.item
+      ret arg0.msg("você não pode simplesmente pegar este ítem, pode apenas identificá-lo.")
+    fimse
+
+func cmd_soltarobj
+  se arg2 == este
+    ret txt(arg1) == "i_quest001", nulo
+    ret !arg0.msg("Você não pode soltar " + descnome + ".")
+  fimse
+
+func cmd_guardarobj
+  se arg2 == este
+    ret txt(arg1) == "i_quest001", nulo
+    ret $mens.mp("Você não pode guardar $o dentro $d $a.", arg0, arg1, arg2)
+  fimse
+
+func cmd_darobj
+  se arg2 == este
+    ret arg0.msg("Não é permitido dar " + descnome + "para ninguém.")
+  fimse
+
+func cmd_chegou
+  misc:evento(arg0)
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "soltar"
+    arg0.msg("Você não pode soltar " + descnome + ".")
+    ret 1
+  casose "trocar anel"
+  casose "troca anel"
+  casose "troc anel"
+  casose "tro anel"
+  casose "trocar ane"
+  casose "troca ane"
+  casose "troc ane"
+  casose "tro ane"
+  casose "trocar an"
+  casose "troca an"
+  casose "troc an"
+  casose "tro an"
+  casose "trocar a"
+  casose "troca a"
+  casose "troc a"
+  casose "tro a"
+    arg0.msg("Você não pode dar " + descnome + " para seu animal.")
+    ret 1
+  casofim
+
+const quest = 250
+
+
+classe i_adquest005
+herda comum_itemperso
+const nome = "mochila"
+const ident = "quest mochila"
+const descnome = "Uma mochila"
+const i_itens = "item092\n\
+natal008\n\
+natal009\n\
+natal010\n\
+natal011\n\
+quest001\n\
+quest002\n\
+quest003\n\
+quest004\n\
+quest006\n\
+quest007"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const vestir1 = "40000000"
+const evperso = 1 # Eventos dono perso: Sim
+
+
+classe i_adquest006
+herda comum_itemperso
+const nome = "Estrela"
+const ident = "estrela fragmento"
+const descnome = "Um fragmento da estrela do criador"
+const descpos = "Um fragmento da estrela do criador acabou se perdendo por aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 70
+const luzitem = 7 # Tipo de luz: 7 Automático (acende ao vestir, sem fogo)
+const luzini = 999999999
+const luztxt = "$O perde suas forças e se apaga completamente."
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 256 # Tipo de produto: 8-Fonte de luz
+const vestir1 = 2 # Aonde vestir: 1-como símbolo
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const semdoar = 1
+const manterperso = 1 # Mantém em jogador: Sim
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 2
+
+const m_atribs2 = "*El$v está rodead$s por uma forte luz."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30 * pnivel
+  pmanamax += 2 * pnivel
+  pmovemax += 31
+  evasao += 1 * pnivel
+  bitver |= 2
+  bitinv |= 16
+  atktipo.0 *= 1.07 # Tipos Normais
+  atktipo.1 *= 1.09 # Tipos Especiais
+  deftipo.0 *= 0.93 # Tipos Normais
+  deftipo.1 *= 0.95 # Tipos Especiais
+
+func cmd_doarobj
+  se arg2 == este
+    ret arg0.msg("Você não pode doar este item")
+  fimse
+
+func cmd_pegarobj
+  se arg2 == este
+    se !dono.item
+      ret arg0.msg("você não pode simplesmente pegar este ítem, pode apenas identificá-lo.")
+    fimse
+
+func cmd_soltarobj
+  se arg2 == este
+    ret txt(arg1) == "i_quest001", nulo
+    ret !arg0.msg("Você não pode soltar " + descnome + ".")
+  fimse
+
+func cmd_guardarobj
+  se arg2 == este
+    ret txt(arg1) == "i_quest001", nulo
+    ret $mens.mp("Você não pode guardar $o dentro $d $a.", arg0, arg1, arg2)
+  fimse
+
+func cmd_darobj
+  se arg2 == este
+    ret arg0.msg("Não é permitido dar " + descnome + "para ninguém.")
+  fimse
+
+func cmd_chegou
+  misc:evento(arg0)
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "soltar"
+    arg0.msg("Você não pode soltar " + descnome + ".")
+    ret 1
+  casose "trocar estrela"
+  casose "troca estrela"
+  casose "troc estrela"
+  casose "tro estrela"
+  casose "trocar estrel"
+  casose "troca estrel"
+  casose "troc estrel"
+  casose "tro estrel"
+  casose "trocar estre"
+  casose "troca estre"
+  casose "troc estre"
+  casose "tro estre"
+  casose "trocar estr"
+  casose "troca estr"
+  casose "troc estr"
+  casose "tro estr"
+  casose "trocar est"
+  casose "troca est"
+  casose "troc est"
+  casose "tro est"
+  casose "trocar es"
+  casose "troca es"
+  casose "troc es"
+  casose "tro es"
+  casose "trocar e"
+  casose "troca e"
+  casose "troc e"
+  casose "tro e"
+  casose "trocar fragmento"
+  casose "troca fragmento"
+  casose "troc fragmento"
+  casose "tro fragmento"
+  casose "trocar fragment"
+  casose "troca fragment"
+  casose "troc fragment"
+  casose "tro fragment"
+  casose "trocar fragmen"
+  casose "troca fragmen"
+  casose "troc fragmen"
+  casose "tro fragmen"
+  casose "trocar fragme"
+  casose "troca fragme"
+  casose "troc fragme"
+  casose "tro fragme"
+  casose "trocar fragm"
+  casose "troca fragm"
+  casose "troc fragm"
+  casose "tro fragm"
+  casose "trocar frag"
+  casose "troca frag"
+  casose "troc frag"
+  casose "tro frag"
+  casose "trocar fra"
+  casose "troca fra"
+  casose "troc fra"
+  casose "tro fra"
+  casose "trocar fr"
+  casose "troca fr"
+  casose "troc fr"
+  casose "tro fr"
+  casose "trocar f"
+  casose "troca f"
+  casose "troc f"
+  casose "tro f"
+    arg0.msg("Você não pode dar " + descnome + " para seu animal.")
+    ret 1
+  casofim
+
+
+classe i_adquest007
+herda comum_item
+const nome = "as reluzentes ombreiras de ouro do Reino Solar"
+const ident = "ombreiras"
+const descnome = "as reluzentes ombreiras de ouro do Reino Solar"
+const descpos = "Magníficas ombreiras que parecem conter o brilho do próprio sol estão reluzindo \
+aqui"
+const nivel = 80
+const renascer = 5
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 2000
+const vestir1 = 8 # Aonde vestir: 3-sobre os ombros
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const manterperso = 1 # Mantém em jogador: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 5 * pnivel + 180
+  pmanamax += 5 * pnivel + 180
+  defnorm += 300
+  defesp += 300
+  evasao += 120
+  bitver |= 2
+
+func cmd_pegarobj
+  se arg2 == este
+    se !dono.item
+      ret arg0.msg("você não pode simplesmente pegar este ítem, pode apenas identificá-lo.")
+    fimse
+
+func cmd_doarobj
+  se arg2 == este
+    ret arg0.msg("Você não pode doar este item")
+  fimse
+
+func cmd_guardarobj
+  se arg2 == este
+    ret txt(arg1) == "i_quest001", nulo
+    ret $mens.mp("Você não pode guardar $o dentro $d $a.", arg0, arg1, arg2)
+  fimse
+
+func cmd_darobj
+  se arg2 == este
+    ret arg0.msg("Não é permitido dar " + descnome + "para ninguém.")
+  fimse
+
+func cmd_chegou
+  misc:evento(arg0)
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "soltar"
+    arg0.msg("Você não pode soltar " + descnome + ".")
+    ret 1
+  casose "trocar ombreiras"
+  casose "trocar ombreira"
+  casose "trocar ombreir"
+  casose "trocar ombrei"
+  casose "trocar ombre"
+  casose "trocar ombr"
+  casose "trocar omb"
+  casose "trocar om"
+  casose "trocar o"
+  casose "troca ombreiras"
+  casose "troca ombreira"
+  casose "troca ombreir"
+  casose "troca ombrei"
+  casose "troca ombre"
+  casose "troca ombr"
+  casose "troca omb"
+  casose "troca om"
+  casose "troca o"
+  casose "troc o"
+  casose "troc om"
+  casose "troc omb"
+  casose "troc ombr"
+  casose "troc ombre"
+  casose "troc ombrei"
+  casose "troc ombreir"
+  casose "troc ombreira"
+  casose "troc ombreiras"
+  casose "tro ombreiras"
+  casose "tro ombreira"
+  casose "tro ombreir"
+  casose "tro ombrei"
+  casose "tro ombre"
+  casose "tro ombr"
+  casose "tro omb"
+  casose "tro om"
+  casose "tro o"
+    arg0.msg("Você não pode dar " + descnome + " para seu animal.")
+    ret 1
+  casofim
+
+
+classe s_adquest001
+herda b_adquest
+const s_titulo = "O Quest Center"
+const s_desc = ""
+const s_semmagia = 0 # Sem magia: Não
+const eveste = 1 # Eventos sala: Sim
+const a_reset = "P 100 quest001 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_adquest001:objsolto.total < 1
+    criar("p_adquest001", este, 0)
+  fimse
+
+func cmd_chegou
+  misc:evento(arg0)
+  arg0.teclou("salvar")
+
+func cmd_escr
+  se arg1 == "retornar"
+    $mens.p(arg0)
+    $mens.mtodos2("Voltando ao seu ponto de retorno", "$P desaparece em uma núvem de fumaça.")
+    arg0.mudadono($[arg0.var.z_salafim])
+    ret 1
+  fimse
+
+const dir_ = $s_adquest004
+
+
+classe s_adquest002
+herda b_adquest
+const dir_o = $s_adquest001
+
+
+classe s_adquest003
+herda b_adquest
+const dir_s = $s_adquest001

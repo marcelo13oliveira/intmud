@@ -1,0 +1,70 @@
+classe a_cartorio
+herda area
+
+
+classe b_cartorio
+herda sala
+const s_area = "cartorio"
+
+
+classe i_cartorio001
+herda comum_item
+const nome = "documento"
+const descnome = "um documento de divórcio"
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_escr
+  se arg1 == "assinar"
+    $mens.p(arg0, nulo, este)
+    $mens.mvis1("$P assina seu nome $e $o.")
+    apagar(este)
+    ret 1
+  fimse
+
+
+classe p_cartorio001
+herda comum_perso
+const nome = "chefe do cartório"
+const descnome = "o chefe do cartório"
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se txt1(arg1) == "reg" || txt1(arg1) == "registrar"
+    refvar bnome = txt2(arg1)
+    ret inttotal(bnome) > 15, arg0.msg("O nome da criança não pode passar de 15 caracteres.")
+    ret !bnome, arg0.msg("Digite registrar seguido do nome que deseja dar ao bebê.")
+    ret inttotal(bnome) > 12, arg0.msg("Nome do bebê não pode passar de 12 caracteres.")
+    ret txt(arg0.persoesc) != "p_templo012", arg0.msg("Antes, escolha o bebê que quer registrar."\
+)
+    refvar bebe = arg0.persoesc
+    se arg0.descnome == bebe.var.z_pai || arg0.descnome == bebe.var.z_mae
+      teclou("f Você já registrou " + bebe.descnome + ", " + arg0.descnome + ".")
+      ret 1
+    fimse
+    se arg0.msexo
+      bebe.var.z_pai = arg0.descnome
+      se !bebe.var.z_sobrenome
+        bebe.var.z_sobrenome = arg0.var.z_sobrenome
+      senao bebe.var.z_sobrenome != arg0.var.z_sobrenome
+        bebe.var.z_sobrenome += " " + arg0.var.z_sobrenome
+      fimse
+    senao !arg0.msexo
+      bebe.var.z_mae = arg0.descnome
+      se !bebe.var.z_sobrenome
+        bebe.var.z_sobrenome = arg0.var.z_sobrenome
+      senao bebe.var.z_sobrenome != arg0.var.z_sobrenome
+        bebe.var.z_sobrenome += " " + arg0.var.z_sobrenome
+      fimse
+    fimse
+    bnome && (bebe.var.z_nome = bnome)
+    teclou("f " + bebe.descnome + " registrad" + (bebe.msexo ? "o." : "a."))
+    bebe.recalc = 1
+    ret 1
+  fimse

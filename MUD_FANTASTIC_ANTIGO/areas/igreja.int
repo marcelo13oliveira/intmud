@@ -1,0 +1,281 @@
+classe a_igreja
+herda area
+const a_nome = "A Igreja"
+
+
+classe b_igreja
+herda sala
+const s_fome = 1 # Fome e sede: 1 Ausente
+const s_area = "igreja"
+
+
+classe i_igreja001
+herda comum_item
+const nome = "capelo"
+const descnome = "capelo preto"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 150
+const vestir1 = 4 # Aonde vestir: 2-Na cabeça
+const i_msgvestiu = "$P põe $o sobre a cabeça."
+
+
+classe i_igreja002
+herda comum_item
+const nome = "batina"
+const descnome = "uma batina preta"
+const nivel = 150
+const vestir1 = 4096 # Aonde vestir: 12-no corpo
+const i_msgvestiu = "$P veste $o no corpo e a abotoa por completo."
+
+
+classe i_igreja003
+herda comum_item
+const nome = "estola"
+const descnome = "estola"
+const vestir1 = 8 # Aonde vestir: 3-sobre os ombros
+
+
+classe i_igreja004
+herda comum_item
+const nome = "túnica"
+const descnome = "uma túnica"
+const vestir1 = 8192 # Aonde vestir: 13-sobre o corpo
+
+
+classe i_igreja005
+herda comum_item
+const nome = "cruz peitoral"
+const descnome = "uma cruz peitoral"
+const vestir1 = 268435456 # Aonde vestir: 28-No busto
+
+
+classe s_igreja001
+herda b_igreja
+const s_titulo = "Na base das escadarias da igreja"
+const dir_s = $s_igreja020
+const dir_c = $s_igreja002
+const dir_o = $s_igreja027
+const dir_l = $s_igreja025
+
+
+classe s_igreja002
+herda b_igreja
+const s_titulo = "Na longa escadaria da igreja"
+const dir_n = $s_igreja028
+const dir_b = $s_igreja001
+
+
+classe s_igreja003
+herda b_igreja
+const s_titulo = "No topo da escadaria da igreja"
+const dir_l = $s_igreja004
+const dir_b = $s_igreja028
+
+
+classe s_igreja004
+herda b_igreja
+const s_titulo = "Em frente aos enormes portões de madeira da igreja"
+const dir_entrar = $s_igreja005
+const portaini_entrar = 1 # Estado inicial: 1 Porta aberta
+const portanome_entrar = "as enormes portas de madeira da igreja"
+const portaartigo_entrar = 1 # Artigo porta: 1 as (portas)
+const dir_o = $s_igreja003
+
+
+classe s_igreja005
+herda b_igreja
+const s_titulo = "No amplo salão da igreja"
+const s_desc = "Ao entrar, você se depara com vários quadros e pinturas espalhados pelas\n\
+paredes, além de várias estatuetas."
+const s_som = "castelos"
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_igreja006
+const dir_l = $s_igreja017
+const dir_o = $s_igreja019
+const dir_sair = $s_igreja004
+
+
+classe s_igreja006
+herda b_igreja
+const s_titulo = "Pisando sobre um longo tapete vermelho"
+const dir_n = $s_igreja007
+const dir_s = $s_igreja005
+const dir_l = $s_igreja016
+const dir_o = $s_igreja015
+
+
+classe s_igreja007
+herda b_igreja
+const s_titulo = "Caminhando pelo longo tapete vermelho da igreja"
+const dir_n = $s_igreja008
+const dir_s = $s_igreja006
+const dir_l = $s_igreja014
+const dir_o = $s_igreja013
+
+
+classe s_igreja008
+herda b_igreja
+const s_titulo = "Aproximando-se do altar"
+const dir_n = $s_igreja009
+const dir_s = $s_igreja007
+const dir_l = $s_igreja011
+const dir_o = $s_igreja012
+
+
+classe s_igreja009
+herda b_igreja
+const s_titulo = "Diante do altar"
+const dir_s = $s_igreja008
+const dir_c = $s_igreja010
+
+
+classe s_igreja010
+herda b_igreja
+const s_titulo = "Sobre o altar"
+const eveste = 1 # Eventos sala: Sim
+const dir_l = $s_igreja021
+const dir_b = $s_igreja009
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+#
+
+func cmd_falou
+  $mens.p(arg0)
+  $mens.mens = arg1
+  $mens.mareatodoss("A voz $d $p ecoa pela igreja: '$m'")
+
+const s_reset = "P 100 templo016 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_templo016:objsolto.total < 1
+    criar("p_templo016", este, 0)
+  fimse
+
+
+classe s_igreja011
+herda b_igreja
+const s_titulo = "Uma fileira de bancos"
+const dir_o = $s_igreja008
+
+
+classe s_igreja012
+herda b_igreja
+const s_titulo = "Uma fileira de bancos"
+const dir_l = $s_igreja008
+
+
+classe s_igreja013
+herda b_igreja
+const s_titulo = "Uma fileira de bancos"
+const dir_l = $s_igreja007
+
+
+classe s_igreja014
+herda b_igreja
+const s_titulo = "Uma fileira de bancos"
+const dir_o = $s_igreja007
+
+
+classe s_igreja015
+herda b_igreja
+const s_titulo = "Uma fileira de bancos"
+const dir_l = $s_igreja006
+
+
+classe s_igreja016
+herda b_igreja
+const s_titulo = "Uma fileira de bancos"
+const dir_o = $s_igreja006
+
+
+classe s_igreja017
+herda b_igreja
+const s_titulo = "Um amplo corredor iluminado por candelabros"
+const dir_l = $s_igreja018
+const dir_o = $s_igreja005
+
+
+classe s_igreja018
+herda b_igreja
+const s_titulo = "Em frente a uma bela porta, adornada por ouro e prata"
+const dir_l = $s_templo039
+const portaini_l = 3 # Estado inicial: 3 Porta trancada
+const portanome_l = "uma belíssima porta de ouro, adornada por prata e maçaneta de diamante"
+const fechadura_l = "templo001"
+const fecha_l = 1 # Fecha ao passar: Sim
+const tranc_l = 0 # Trancar: 0 Não pode ser trancado
+const dir_o = $s_igreja017
+
+
+classe s_igreja019
+herda b_igreja
+const s_titulo = "Um amplo corredor iluminado por candelabros"
+const dir_l = $s_igreja005
+
+
+classe s_igreja020
+herda b_igreja
+const s_titulo = "O belo jardim da igreja"
+const dir_n = $s_igreja001
+const dir_s = $s_rio168
+const dir_l = $s_igreja024
+const dir_o = $s_igreja026
+
+
+classe s_igreja021
+herda b_igreja
+const s_titulo = "Vestuário"
+const dir_o = $s_igreja010
+
+
+classe s_igreja022
+herda b_igreja
+const s_titulo = "Na calçada em frente à igreja"
+const dir_l = $s_igreja020
+const dir_o = $s_igreja023
+
+
+classe s_igreja023
+herda b_igreja
+const s_titulo = "Uma rua ladrilhada com pedras douradas"
+const dir_l = $s_igreja022
+const dir_n = $s_parmicasas388
+
+
+classe s_igreja024
+herda b_igreja
+const s_titulo = "O belo jardim da igreja"
+const dir_n = $s_igreja025
+const dir_o = $s_igreja020
+
+
+classe s_igreja025
+herda b_igreja
+const s_titulo = "O belo Jardim da igreja"
+const dir_s = $s_igreja024
+const dir_o = $s_igreja001
+
+
+classe s_igreja026
+herda b_igreja
+const s_titulo = "O belo Jardim da igreja"
+const dir_n = $s_igreja027
+const dir_l = $s_igreja020
+
+
+classe s_igreja027
+herda b_igreja
+const s_titulo = "O belo jardim da igreja"
+const dir_s = $s_igreja026
+const dir_l = $s_igreja001
+
+
+classe s_igreja028
+herda b_igreja
+const s_titulo = "Na longa escadaria da igreja"
+const dir_s = $s_igreja002
+const dir_c = $s_igreja003

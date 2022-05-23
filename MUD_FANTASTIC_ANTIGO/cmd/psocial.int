@@ -1,0 +1,31 @@
+classe CMDPSOCial
+
+
+classe cmd_psocial
+herda comando_comum
+const posic = 0
+#
+ref obj0 # Personagem
+ref obj1 # Alvo
+ref obj2 # Item
+const m_@ = "$"
+txt512 m_m
+
+func escr
+  prog p
+  p.iniclasse("soc_" + txt1(arg1))
+  refvar s = $[p.texto]
+  se !arg1
+    ret arg0.msg("Digite o comando social após psocial.")
+  senao !s
+    ret arg0.msg("Comando social inexistente: " + txt1(arg1))
+  fimse
+  ref j
+  refvar nomesav = txts(txtnome(txt2(arg1)))
+  indiceitem item
+  item.ini("pn " + nomesav)
+  j = item.obj
+  ret !j, arg0.msg("Jogador inexistente ou ausente: " + arg1)
+  $mens.mp(s.perso1, arg0, j)
+  $mens.p(arg0, j)
+  j.msginv(s.perso2)

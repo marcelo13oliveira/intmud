@@ -1,0 +1,2185 @@
+classe a_dracula
+herda area
+const a_nome = "O reino de drácula"
+const a_tempo = 15
+const a_reset = 2 # Modo de reset: 2 Normal
+
+
+classe b_dracula
+herda sala
+const s_item = 0
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_luz = 3 # Luz: 3 Escuro
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const s_soltar = 0 # Soltar itens: 0 Permitido
+const s_area = "dracula"
+const s_autonao = 1 # Sem entrada de automóveis: Sim
+
+
+classe i_dracula001
+herda comum_itemperso
+const nome = "geladeira"
+const descnome = "uma geladeira prata"
+const descpos = "Uma geladeira prata com porta de vidro, está ao lado do armário."
+const renascer = 0
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const i_msgabriu = "$p abre a porta da geladeira."
+const i_msgfechou = "$p fecha a porta da geladeira."
+const valor = 10000
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+
+
+classe i_dracula002
+herda comum_item
+const nome = "canino direito de ambrorgio"
+const descnome = "Dois caninos afiados"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_captura = 100
+const vestir1 = 524288 # Aonde vestir: 19-nos lábios
+const vestirnao = "anão\nave\nduende\nelfo\nfada\ngoblin\nhumano\nsatiro"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 5 * pnivel + 100
+
+const i_msgvestiu = "$P insere dois caninos afiados na boca."
+
+
+classe i_dracula003
+herda comum_itemperso
+const nome = "uma taça de ossos"
+const descnome = "Uma taça feita de ossos humano"
+const descpos = "Uma taça de ossos humano, repousa sobre a mesa, cheia de sangue."
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_fome = 200
+const f_sede = 200
+const f_msgperso = "$p leva $o a boca, tomando uma dose de sangue."
+const f_msgoutros = "$p leva $o a boca, tomando uma dose de sangue."
+
+
+classe i_dracula004
+herda comum_item
+const nome = "Um tapete de pelos preto"
+const descnome = "um pequeno tapete preto"
+const descpos = "um pequeno tapete preto, cobre todo o xão."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_dracula005
+herda comum_itemperso
+const nome = "caixinha de anel"
+const descnome = "uma caixinha rosa, com lacinhos em formato de coração"
+const descpos = "uma caixinha rosa, com lacinhos está aqui."
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+
+
+classe i_dracula006
+herda comum_itemperso
+const nome = "garrafa de coca cola"
+const descnome = "uma garrafa de coca cola"
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_fome = 5
+const f_sede = 30
+const f_msgperso = "$p toma uma garrafa de coca cola si refrescando!"
+const f_msgoutros = "$p toma uma garrafa de coca cola si refrescando!"
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const tipoitem = 32768 # Tipo de item: 15-bebida
+const valor = 1500
+const f_liquido = "cocacola"
+
+
+classe i_dracula007
+herda comum_itemperso
+const nome = "peitoral de prata"
+const descnome = "um peitoral de prata"
+const descpos = "um peitoral de prata está aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 200
+const valor = 22000000
+const vestir1 = 268435456 # Aonde vestir: 28-No busto
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 15 * pnivel + 300
+  pmanamax += 2 * pnivel + 200
+  pmovemax += 650
+  pveloc1 += 150
+  defnorm += 25 * pnivel + 200
+  defesp += 25 * pnivel + 200
+
+
+classe i_dracula008
+herda comum_itemperso
+const nome = "bebedouro"
+const ident = "um bebedouro da coca cola"
+const descnome = "um bebedouro da coca cola"
+const descpos = "um grande bebedouro com o símbulo da coca cola está em um canto do ambiente."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_sede = 48
+const f_msgperso = "$P pega um copo descartável, enche de coca cola apartir do bebedouro e o \
+bebe em várias goladas, refrescando-se!"
+const f_msgoutros = "$p pega um copo discartável, e toma coca cola do bebedouro si refrescando!"
+const i_pegar = "Você não consegue carregar tanto peso."
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 32768 # Tipo de item: 15-bebida
+
+
+classe i_dracula009
+herda comum_itemperso
+const nome = "fruteira"
+const ident = "uma fruteira"
+const descnome = "uma fruteira de alumínio"
+const descpos = "Uma fruteira de alumínio foi posta no centro da mesa, repleta de frutas."
+const i_pegar = ""
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 5000
+
+
+classe i_dracula010
+herda comum_itemperso
+const nome = "lente azul"
+const ident = "lente azul"
+const descnome = "uma lente azul"
+const nivel = 220
+const renascer = 6
+const i_pegar = ""
+const vestir1 = 48 # Aonde vestir: 4-no olho direito, 5-no olho esquerdo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 25 * pnivel + 250
+  pveloc1 += 10 * pnivel + 100
+  precisao += 10 * pnivel + 100
+  bitver |= 62
+
+
+classe i_dracula011
+herda comum_itemperso
+const nome = "Uma capa preta"
+const ident = "uma capa preta"
+const descnome = "Uma capa preta"
+const descpos = "Uma capa preta está jogada aqui."
+const nivel = 200
+const renascer = 125
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const i_msgabriu = "$p abre um dos bouços de uma capa preta."
+const i_msgfechou = "$p fechou um dos bouços de uma capa preta."
+const mantersala = 1 # Mantém na sala: Sim
+const vestir1 = 8192 # Aonde vestir: 13-sobre o corpo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 160 * pnivel + 3200
+  pmanamax += 220 * pnivel + 3000
+  pmovemax += 160 * pnivel + 3200
+  pveloc1 += 60 * pnivel + 160
+  atknorm += 260 * pnivel + 3400
+  defnorm += 500 * pnivel + 3000
+  atkesp += 220 * pnivel + 3200
+  defesp += 260
+  evasao += 300 * pnivel + 3600
+  precisao += 160 * pnivel + 3400
+  bitver |= 6462
+  bitinv |= 44
+  atktipo.1 *= 1.5 # Tipos Especiais
+  atktipo.6 *= 1.5 # Fogo
+  atktipo.12 *= 1.2 # Luz
+  atktipo.13 *= 1.5 # Trevas
+  atktipo.14 *= 1.5 # Elétrico
+  atktipo.15 *= 1.5 # Vegetal
+  atktipo.17 *= 1.5 # Veneno
+
+const i_msgvestiu = "$p joga uma capa preta sobre o corpo, se escondendo do sol."
+const i_msgremoveu = "$p remove uma capa preta, segurando-a em uma de suas mãos."
+const manterperso = 1 # Mantém em jogador: Sim
+
+
+classe i_dracula012
+herda comum_itemperso
+const nome = "espada do cavaleiro da morte"
+const descnome = "uma espada de cavaleiro"
+const descpos = "uma poderosa espada si encontra aqui, com manchas de sangue."
+const nivel = 400
+const renascer = 40
+const armamax = 500
+const armamin = 300
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const valor = 900000000
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+const vestirnao = ""
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 45 * pnivel + 450
+  pmovemax += 40 * pnivel + 250
+  pveloc1 += 25 * pnivel + 150
+  atknorm += 135 * pnivel + 300
+  atkesp += 135 * pnivel + 250
+  precisao += 13 * pnivel + 70
+  atktipo.4 *= 1.65 # Cortante
+  atktipo.5 *= 1.65 # Perfurante
+
+const manterperso = 1 # Mantém em jogador: Sim
+
+
+classe i_dracula013
+herda comum_itemperso
+const nome = "uma placa"
+const descnome = "uma placa de metal brilhante"
+const descpos = "Uma placa de metal está no centro do templo com um aviso."
+const descver = "Atenção:\n\
+o usuário que criar itens personalisados com nomes pornográficos serão punidos."
+const i_pegar = "Uma mão invisível toca seu ombro, e uma voz eccoa próximo ao seu ouvido \
+dizendo: não pegue."
+
+
+classe i_dracula014
+herda comum_itemperso
+const nome = "uma caixinha de música"
+const descnome = "uma caixinha de música em formato de coração"
+const descpos = "uma pequena caixinha de música vermelha, em formato de coração, está pendurada \
+no berso tocando uma bela canção."
+const descver = "é uma caixinha vermelha.\n\
+olhando para ela você ver um pequeno expelho.\n\
+dentro há uma pequena bailarina, que si move para os lados, enquanto toca uma bela canção de \
+niná."
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+
+
+classe i_dracula015
+herda comum_itemperso
+const nome = "um banco alto"
+const descnome = "um banco preto"
+const descpos = "um banco preto alto, está ao redor da mesa"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_lugar = 3
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 1
+const tipoitem = 512 # Tipo de item: 9-Mobília
+const valor = 5000
+
+
+classe i_dracula016
+herda comum_itemperso
+const nome = "uma pequena mesa"
+const descnome = "uma pequena mesa de vidro"
+const descpos = "uma pequena mesa de vidro, com os pés de alumínio si encontra em um dos cantos \
+do ambiente."
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const tipoitem = 2048 # Tipo de item: 11-Container
+const valor = 6000
+
+
+classe i_dracula017
+herda comum_itemperso
+const nome = "sofá preto"
+const descnome = "um luchuoso sofá preto com detales em mógno"
+const descpos = "Um luchuoso sofá de couro preto detalhado em mógno, está encostado na parede da \
+sala a sua direita."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "não pode pegar esse item."
+const i_movel = 4 # Mobília: 4 Sentar e dormir confortavelmente
+const i_lugar = 5
+
+
+classe i_dracula018
+herda comum_item
+const nome = "um lustre de cristal nas cores branco e prata na forma de gotas"
+const descnome = "um lustre de cristal nas cores branco e prata na forma de gotas"
+const descpos = "um lustre de cristal nas cores branco e prata na forma de gotas está pendurado \
+no teto, banhando tudo em uma luz clara."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 256 # Tipo de item: 8-Fonte de luz
+
+
+classe i_dracula019
+herda comum_itemperso
+const nome = "O cetro da feiticeira obscura"
+const ident = "cetro feiticeira obscura"
+const descnome = "O magnífico cetro da feiticeira obscura"
+const descpos = "O magnífico cetro da feiticeira obscura jaz abandonado aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 340
+const renascer = 35
+const armamax = 500
+const armamin = 250
+const armatipo = 2 # Tipo de arma: 2 Cajado
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 0 # Tipo de item: (1-arma)
+const valor = 1500000
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+const i_empunhoumsg = "$p segura firmemente O magnífico cetro da feiticeira obscura em suas \
+mãos, sentindo o poder que ele o concede ao ser empunhado."
+const vestirnao = "elfa\nelfo\nfada\nguerreiro\nladrão\nmonge"
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const manterperso = 1 # Mantém em jogador: Sim
+const i_msgremoveu = "Com tristeza, $p desempunha $o."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 300000
+  pmanamax += 2000 * pnivel + 500000
+  pmovemax += 500
+  pveloc1 += 500
+  atknorm += 50 * pnivel + 200
+  atkesp += 50 * pnivel + 100000
+  precisao += 100 * pnivel + 1000
+  atktipo.1 *= 2 # Tipos Especiais
+  atktipo.6 *= 2 # Fogo
+  atktipo.13 *= 2 # Trevas
+  atktipo.16 *= 2 # Psíquico
+  atktipo.17 *= 2 # Veneno
+  atktipo.18 *= 2 # Fantasma
+
+const quest = 3000
+const quest = 650
+
+func cmd_pegarobj
+  se arg2 == este && arg1.nome != "mochila de aventureiro"
+    ret arg0.dentrocasa, nulo
+    ret arg0.dono.dono.dono.var.z_dono == arg0.descnome, nulo
+    ret arg0.j_imortal, nulo
+    ret arg1 == $s_quest001, arg0.msg("Você pode apenas identificar esse item.")
+    arg0.msg("Você não consegue pegar " + arg2.descnome + ".")
+    ret 1
+  fimse
+
+func cmd_soltarobj
+  ret arg0.dono.dono.var.z_dono == arg0.descnome, nulo
+  ret arg0.dentrocasa, nulo
+  ret arg0.j_imortal, nulo
+  ret arg0.dono == $s_templo027, nulo
+  se arg2 == este && arg1.nome != "mochila de aventureiro"
+    arg0.msg("Você não consegue soltar " + descnome + ".")
+    ret 1
+  fimse
+
+func cmd_doarobj
+  se arg2 == este
+    arg0.msg("Você não consegue doar " + arg2.descnome + ".")
+    ret 1
+  fimse
+
+const vestirsexo = 0 # Vestir gênero: 0 Todos
+
+
+classe i_dracula020
+herda comum_itemperso
+const nome = "o lendário bracelete das sombras"
+const descnome = "o lendário bracelete das sombras"
+const nivel = 310
+const renascer = 75
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 1000000000
+const vestir1 = 196608 # Aonde vestir: 16-no pulso direito, 17-no pulso esquerdo
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func i_pegar
+  ret !dono.item, "Você não pode pegar " + descnome + " do chão."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 30 * pnivel + 800
+  pmovemax += 65 * pnivel + 350
+  pveloc1 += 10 * pnivel + 310
+  atktipo.0 *= 1.22 # Tipos Normais
+  atktipo.1 *= 1.25 # Tipos Especiais
+  atktipo.2 *= 1.15 # Contusão
+  deftipo.0 *= 0.87 # Tipos Normais
+  deftipo.1 *= 0.83 # Tipos Especiais
+
+const quest = 260
+const m_atribs2 = "* el$v está envolvid$s por uma imensa sombra."
+#
+
+func cmd_soltarobj
+  se arg2 == este
+    ret arg1.item, nulo
+    ret arg0.msg("Você não pode soltar " + arg2.descnome + ".")
+  fimse
+#
+
+func cmd_darobj
+  se arg2 == este
+    ret arg0.msg("Você não pode dar " + descnome + " a ninguém.")
+  fimse
+
+const manterperso = 1 # Mantém em jogador: Sim
+
+
+classe i_dracula021
+herda comum_itemperso
+const nome = "lente castanha"
+const ident = "lente castanha"
+const descnome = "uma lente castanha"
+const nivel = 650
+const renascer = 200
+const vestir1 = 48 # Aonde vestir: 4-no olho direito, 5-no olho esquerdo
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100 * pnivel + 10000
+  pmovemax += 250 * pnivel + 2000
+  pveloc1 += 250 * pnivel + 2000
+  atknorm += 300 * pnivel + 3600
+  defnorm += 300 * pnivel + 3600
+  atkesp += 300 * pnivel + 3600
+  defesp += 300 * pnivel + 3600
+  precisao += 500 * pnivel
+  bitver |= 6206
+  atktipo.0 *= 1.1 # Tipos Normais
+  atktipo.1 *= 1.1 # Tipos Especiais
+
+
+classe i_dracula022
+herda comum_itemperso
+const nome = "Um par de luvas de couro"
+const descnome = "Um par de luvas de couro"
+const descpos = "Um par de luvas de couro foi deixado aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 300
+const renascer = 16
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 3000000
+const vestir1 = 262144 # Aonde vestir: 18-nas mãos
+const manterperso = 1 # Mantém em jogador: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 20 * pnivel + 300
+  pmovemax += 20 * pnivel + 300
+  atknorm += 200
+  defnorm += 25 * pnivel + 500
+  atkesp += 200
+  defesp += 25 * pnivel + 500
+  atktipo.2 *= 2 # Contusão
+  atktipo.3 *= 2 # luta
+  deftipo.2 *= 0.5 # Contusão
+  deftipo.3 *= 0.5 # luta
+
+const quest = 350
+
+
+classe i_dracula023
+herda comum_itemperso
+const nome = "Um lustre de cristal prata enfeitado com pequenos diamantes em forma de gota."
+const descnome = "Um lustre de cristal prata enfeitado com pequenos diamantes em forma de \
+gota."
+const descpos = "Um lustre de cristal prata enfeitado com pequenos diamantes em forma de gota \
+foi instalado no teto."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const luzitem = 1 # Tipo de luz: 1 Lanterna (acende/apaga, sem fogo)
+const luzini = -6000
+const luzliga = "$p leva a mão até $o e o acende."
+const luztxt = "$o se apaga lentamente."
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_dracula024
+herda comum_itemperso
+const nome = "Um espelho com moudura cor de rosa"
+const descnome = "Um espelho com moudura cor de rosa"
+const descpos = "Um espelho com moudura cor de rosa dar um toque a mais na decoração do quarto."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_dracula025
+herda comum_item
+const nome = "Uma cortina de seda branca"
+const descnome = "Uma cortina de seda branca com o desenho da miney"
+const descpos = "uma cortina de seda branca com o desenho da miney, cobre toda janela deixando o \
+quarto ainda mais aconchegante."
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 512 # Tipo de item: 9-Mobília
+
+
+classe i_dracula026
+herda comum_itemperso
+const nome = "Uma estante de brinquedos"
+const descnome = "Uma estante de brinquedos"
+const i_abertoini = 1 # Container: 1 Sempre aberto
+
+
+classe i_dracula027
+herda comum_itemperso
+const nome = "Uma tela de progeção de 50 polegadas"
+const descnome = "Uma tela de progeção de 50 polegadas"
+const descpos = "Uma tela de progeção de 50 polegadas, está no centro do salão jogando imagens \
+da festa em hd."
+const mantersala = 1 # Mantém na sala: Sim
+
+
+classe i_dracula028
+herda comum_itemperso
+const nome = "Uma prateleira de brinquedos"
+const descnome = "Uma prateleira de brinquedos"
+const descpos = "Uma prateleira de acrílico transparente, está encostada numa das paredes cheia \
+de brinquedos."
+const i_abertoini = 1 # Container: 1 Sempre aberto
+
+
+classe p_dracula001
+herda comum_perso
+const nome = "cauan"
+const descnome = "cauan"
+const descpadr = "cauan, o ajudante de drácula, está organizando tudo para ser posto a venda."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 700
+const tipo1 = "humano"
+const tipo2 = "clérigo"
+const lojaitem = "dracula003 0\npiramide002 0\ndracula019 0\ndracula011 0"
+const eveste = 0 # Eventos perso: Não
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 4158
+
+
+classe p_dracula002
+herda comum_persobat
+const pesoobj = 300
+const objmax = 20
+const nivel = 50
+const p_recebe = 1 # Recebe itens: Sim
+const p_som_entra = "cascavel"
+const p_som_sai = "cascavel"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const p_rastejar = 1
+const p_pet = 1
+const segurar = 1
+sav uint16 prenascer
+sav txt32 tipo1
+sav txt32 tipo2
+sav txt32 tipo3
+#
+
+func cmd_ini
+  prenascer = 0
+  tipo1 = "réptil"
+#
+
+func ident
+  ret dono.jog, var.z_nome
+  ret var.z_nome && var.z_dono, var.z_nome + ", a cobra de " + var.z_dono
+  ret var.z_dono, "a cobra de " + var.z_dono
+  ret var.z_nome, var.z_nome
+  ret "uma cobra"
+
+func nome
+  ret dono.jog, var.z_nome
+  ret var.z_nome && var.z_dono, var.z_nome + ", a cobra de " + var.z_dono
+  ret var.z_dono, "a cobra de " + var.z_dono
+  ret var.z_nome, var.z_nome
+  ret "uma cobra"
+
+func descpos
+  ret descnome + " rasteja por aqui."
+
+func cmd_descnome
+  ret dono.jog, var.z_nome
+  ret var.z_nome && var.z_dono, var.z_nome + ", a cobra de " + var.z_dono
+  ret var.z_dono, "a cobra de " + var.z_dono
+  ret var.z_nome, var.z_nome
+  ret "uma cobra"
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  se arg0.descnome == var.z_dono
+    seguirjog(arg0)
+  fimse
+#
+
+func seguirjog
+  misc:evento(arg0)
+  seguir(arg0)
+  arg0.tseguir = 2
+  tseguir = 1
+#
+
+func cmd_mudadono
+  misc:evento(iseguir.objlista)
+#
+
+func cabedentro
+  ret 1
+
+func cmd_escr
+  casovar txtmin(txt1(arg1))
+  casose "ordem"
+  casose "orde"
+  casose "ord"
+  casose "or"
+    ret arg0.descnome != var.z_dono, nulo
+    teclou(txt2(arg1))
+    ret 1
+  casofim
+  se arg1 == "ninho"
+    ret arg0.descnome != var.z_dono, nulo
+    $mens.p(este)
+    $mens.mvis1("$p rasteja lentamente em direção ao seu ninho.")
+    mudadono($s_zoo023)
+    ret 1
+  senao txt1(arg1) == "cobra"
+    ret arg0.descnome != var.z_dono, nulo
+    se txt2(arg1) == "casa" || arg1 == "ninho"
+      $mens.p(este)
+      $mens.mvis1("$p rasteja lentamente em direção ao seu ninho.")
+      mudadono($s_zoo023)
+      ret 1
+    senao txt2(arg1) == "reviver"
+      ret arg0.descnome != var.z_dono, nulo
+      ret posicao > 1, arg0.msg("seu animal não está morto.")
+      $mens.p(arg0, este)
+      $mens.mvis1("$P faz várias orações aos deuses, pedindo para que $A retorne a vida!")
+      dono.msg("Milagre! De repente, " + descnome + " abre os olhos, como se tivesse acordado de \
+um longo sono e retornando à vida!")
+      posicao = 5
+      restaurar
+      ret 1
+    senao txt2(arg1) == "dispensar"
+      ret arg0.descnome != var.z_dono, nulo
+      $mens.p(arg0, este)
+      $mens.mvis1("$P se despede de $A e $A vai embora.")
+      apagar(este)
+      ret 1
+    senao txt2(arg1) == "hab"
+      refvar r = este
+      txt100 n
+#
+      textotxt h
+      txt100 t1
+      txt100 t2
+      epara t1 = r.var.ini("h_"), t1, t1 = r.var.depois(t1, "h_")
+        t2 = txte(txt(t1, 2)) # , t2 += txtesp(30 - inttotal(t2))
+        t2 += " / " + txtsublin(misc:aulas, r.var.[t1]_, 1)
+        txt2(r.var.[t1]) && (t2 += " R" + txt2(ar.[t1]))
+        h.addfim(t2)
+      efim
+      ret !h.linhas, arg0.msg("" + nome + "Não possui nenhuma habilidade.")
+      h.addini("Habilidades de " + nome + ":")
+      arg0.msg2(h.remove(1000))
+      ret 1
+    senao txt2(arg1) == "moedas soltar"
+      ret arg0.descnome != var.z_dono, nulo
+      teclou("dar " + var.z_moedas + " moedas " + arg0.descnome)
+      ret 1
+    senao txt2(arg1) == "moedas"
+      ret arg0.descnome != var.z_dono, nulo
+      ret !var.z_moedas_, arg0.msg(nome + " não possui moedas.")
+      ret var.z_moedas_ == 1, arg0.msg(nome + " possui uma moeda.")
+      arg0.msg(nome + " possui " + var.z_moedas + " moedas.")
+      ret 1
+    senao txt2(arg1) == "inv"
+      textotxt t
+      listaitem item
+      refvar r = misc:persoinfo(arg0, arg1)
+      ret !r, nulo
+      epara item = r.dentro1.fim, item, item.antes
+        refvar i = item.obj
+        continuar !i.visivel(arg0)
+        refvar nn = txtsublin(i.atribs.ini.textolin(2), 1)
+        t.addfim(txt(i.objtot) + i.atribs.ini.texto + txtcopiamai(i.descnome, "a") + nn)
+      efim
+      t.juntalin("(", "x)")
+      se t
+        arg0.msg2("" + nome + " carrega: " + txttroca(t.remove(1000), "+", ""))
+      senao
+        arg0.msg("" + nome + " não está carregando nada.")
+      fimse
+      ret 1
+    senao txt2(arg1) == "lista"
+      arg0.msg("" + nome + " diz: Digite cobra seguido de um dos comandos a seguir, ou de uma \
+ordem qualquer:")
+      arg0.msg("" + nome + " diz: casa:")
+      arg0.msg(nome + " diz: desc seguido de uma curta descrição:")
+      arg0.msg("Muda ou insere uma curta descrição do meu personagem.")
+      arg0.msg("" + nome + " diz: moedas:")
+      arg0.msg("Mostra quantas moedas estou carregando.")
+      arg0.msg("" + nome + " diz: moedas soltar:")
+      arg0.msg("Eu te entrego as moedas que estou carregando.")
+      arg0.msg("" + nome + " diz: hab:")
+      arg0.msg("Eu te mostro as minhas habilidades.")
+      arg0.msg("" + nome + " diz: inv:")
+      arg0.msg("Eu te mostro o que estou carregando.")
+      arg0.msg("" + nome + " diz: lista:")
+      arg0.msg("Eu te digo quais são os meus comandos.")
+      arg0.msg("" + nome + " diz: nomear seguido de um nome:")
+      arg0.msg("Muda o meu nome para o nome digitado.")
+      ret 1
+    senao
+      refvar n = txt2(arg1)
+      se txt1(n) == "nomear"
+        var.z_nome = txt2(n)
+        arg0.msg("O nome da sua cobra mudou para " + var.z_nome + ".")
+      senao txt1(n) == "sexo"
+        se txt2(n) == "m" || txt2(n) == "1"
+          var.z_sexo_ = 1
+          arg0.msg("O sexo da sua cobra mudou para masculino.")
+        senao txt2(n) == "f" || txt2(n) == "0"
+          var.z_sexo_ = 0
+          arg0.msg("O sexo de sua cobra mudou para feminino.")
+        senao
+          ret arg0.msg("Opção inválida para sexo: " + txt2(n))
+        fimse
+        ret1
+      senao txt1(n) == "desc"
+        var.z_desc = txt2(n)
+        arg0.msg("Descrição mudada.")
+        ret 1
+      senao
+        teclou(txt2(arg1))
+      fimse
+      ret 1
+    fimse
+  fimse
+#
+
+func cmd_soltaranim
+  se arg2 == este && arg0 == dono
+    arg2.mudadono(arg0.dono)
+    $mens.p(arg0, arg2)
+    $mens.mvis1("$P solta $A.")
+    ret 1
+  fimse
+
+func cmd_morrer
+  se arg0 == este
+    ret arg0.dono.jog, nulo
+    arg0.mudadono($s_zoo023)
+    arg0.posicao = 0
+    ret 1
+  fimse
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 6206
+
+
+classe s_dracula001
+herda b_dracula
+const s_titulo = "em uma grande oficina"
+const s_desc = "no alto da parede, há uma pequena placa."
+const s_fome = 2 # Fome e sede: 2 Some aos poucos
+const s_luz = 1 # Luz: 1 Claro sem eventos de tempo
+const s_recup = 600
+const eveste = 0 # Eventos sala: Não
+const dir_o = $s_vilares464
+const portaini_o = 3 # Estado inicial: 3 Porta trancada
+const portanome_o = "a porta da oficina"
+const fechadura_o = "vilares025"
+const fecha_o = 1 # Fecha ao passar: Sim
+const tranc_o = 2 # Trancar: 2 Tranca ao fechar
+const a_reset = "P 100 drácula001 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_drácula001:objsolto.total < 1
+    criar("p_drácula001", este, 0)
+  fimse
+
+const ver_placa = "na placa está escrito: já que entrou, trabalhe!"
+
+
+classe s_dracula002
+herda b_dracula
+const s_titulo = "No banheiro:"
+const s_entrada = "a entrada do guarda-roupa"
+const portaini_sair = 2 # Estado inicial: 2 Porta fechada
+const portanome_sair = "a porta do banheiro"
+const fecha_sair = 1 # Fecha ao passar: Sim
+
+
+classe s_dracula003
+herda b_dracula
+const s_titulo = "O reino de drácula:"
+const dir_n = $s_dracula004
+
+
+classe s_dracula004
+herda b_dracula
+const s_titulo = "Uma estrada escura:"
+const dir_n = $s_dracula005
+const dir_s = $s_dracula003
+
+
+classe s_dracula005
+herda b_dracula
+const s_titulo = "Uma estrada escura:"
+const dir_n = $s_dracula006
+const dir_s = $s_dracula004
+
+
+classe s_dracula006
+herda b_dracula
+const s_titulo = "Uma estrada escura:"
+const dir_n = $s_dracula007
+const dir_s = $s_dracula005
+
+
+classe s_dracula007
+herda b_dracula
+const s_titulo = "Uma estrada escura:"
+const dir_n = $s_dracula008
+const dir_s = $s_dracula006
+
+
+classe s_dracula008
+herda b_dracula
+const s_titulo = "No meio da estrada:"
+const dir_n = $s_dracula009
+const dir_s = $s_dracula007
+
+
+classe s_dracula009
+herda b_dracula
+const s_titulo = "Ainda no meio da estrada:"
+const dir_n = $s_dracula010
+const dir_s = $s_dracula008
+
+
+classe s_dracula010
+herda b_dracula
+const s_titulo = "Uma estrada escura:"
+const dir_n = $s_dracula011
+const dir_s = $s_dracula009
+
+
+classe s_dracula011
+herda b_dracula
+const s_titulo = "Uma estrada escura:"
+const dir_n = $s_dracula012
+const dir_s = $s_dracula010
+
+
+classe s_dracula012
+herda b_dracula
+const s_titulo = "Uma estrada escura:"
+const dir_n = $s_dracula076
+const dir_s = $s_dracula011
+const dir_o = $s_dracula013
+
+
+classe s_dracula013
+herda b_dracula
+const s_titulo = "Uma parte perigosa na estrada:"
+const dir_l = $s_dracula012
+const dir_o = $s_dracula014
+
+
+classe s_dracula014
+herda b_dracula
+const s_titulo = "Uma parte perigosa na estrada:"
+const dir_l = $s_dracula013
+const dir_o = $s_dracula015
+
+
+classe s_dracula015
+herda b_dracula
+const s_titulo = "Uma parte perigosa na estrada:"
+const dir_l = $s_dracula014
+const dir_ne = $s_dracula016
+
+
+classe s_dracula016
+herda b_dracula
+const s_titulo = "Na estrada escura, entre árvores fechadas:"
+const dir_ne = $s_dracula017
+const dir_so = $s_dracula015
+
+
+classe s_dracula017
+herda b_dracula
+const s_titulo = "Na estrada escura, entre árvores fechadas:"
+const dir_ne = $s_dracula018
+const dir_so = $s_dracula016
+
+
+classe s_dracula018
+herda b_dracula
+const s_titulo = "Na estrada escura, entre árvores fechadas:"
+const dir_ne = $s_dracula019
+const dir_so = $s_dracula017
+
+
+classe s_dracula019
+herda b_dracula
+const s_titulo = "Na estrada escura, entre árvores fechadas:"
+const dir_ne = $s_dracula020
+const dir_so = $s_dracula018
+
+
+classe s_dracula020
+herda b_dracula
+const s_titulo = "Na estrada escura, entre árvores fechadas:"
+const dir_b = $s_dracula021
+const dir_so = $s_dracula019
+
+
+classe s_dracula021
+herda b_dracula
+const s_titulo = "Descendo por um caminho no meio da escuridão:"
+const dir_c = $s_dracula020
+const dir_se = $s_dracula022
+
+
+classe s_dracula022
+herda b_dracula
+const s_titulo = "Descendo por um caminho no meio da escuridão:"
+const dir_b = $s_dracula023
+const dir_no = $s_dracula021
+
+
+classe s_dracula023
+herda b_dracula
+const s_titulo = "Descendo por um caminho no meio da escuridão:"
+const dir_c = $s_dracula022
+const dir_so = $s_dracula024
+
+
+classe s_dracula024
+herda b_dracula
+const s_titulo = "Descendo por um caminho no meio da escuridão:"
+const dir_n = $s_dracula025
+const dir_ne = $s_dracula023
+
+
+classe s_dracula025
+herda b_dracula
+const s_titulo = "Do outro lado da estrada escura:"
+const dir_s = $s_dracula024
+const dir_l = $s_dracula077
+const dir_o = $s_dracula026
+
+
+classe s_dracula026
+herda b_dracula
+const s_titulo = "Do outro lado da estrada escura:"
+const dir_l = $s_dracula025
+const dir_o = $s_dracula027
+
+
+classe s_dracula027
+herda b_dracula
+const s_titulo = "Do outro lado da estrada escura:"
+const dir_n = $s_dracula028
+const dir_l = $s_dracula026
+
+
+classe s_dracula028
+herda b_dracula
+const s_titulo = "Próximo ao castelo de drácula:"
+const dir_n = $s_dracula029
+const dir_s = $s_dracula027
+
+
+classe s_dracula029
+herda b_dracula
+const s_titulo = "Próximo ao castelo:"
+const dir_n = $s_dracula030
+const dir_s = $s_dracula028
+
+
+classe s_dracula030
+herda b_dracula
+const s_titulo = "Próximo ao castelo:"
+const dir_n = $s_dracula031
+const dir_s = $s_dracula029
+
+
+classe s_dracula031
+herda b_dracula
+const s_titulo = "Próximo ao castelo:"
+const dir_s = $s_dracula030
+const dir_b = $s_dracula032
+
+
+classe s_dracula032
+herda b_dracula
+const s_titulo = "Em frente ao castelo de drácula:"
+const dir_l = $s_dracula033
+const dir_o = $s_dracula034
+const dir_c = $s_dracula031
+const dir_entrar = $s_dracula035
+const portaini_entrar = 3 # Estado inicial: 3 Porta trancada
+const portanome_entrar = "As portas do castelo"
+const fecha_entrar = 1 # Fecha ao passar: Sim
+
+
+classe s_dracula033
+herda b_dracula
+const s_titulo = "Em frente ao castelo:"
+const dir_o = $s_dracula032
+const dir_entrar = $s_dracula035
+const portaini_entrar = 3 # Estado inicial: 3 Porta trancada
+const portanome_entrar = "As portas do castelo"
+const fecha_entrar = 1 # Fecha ao passar: Sim
+
+
+classe s_dracula034
+herda b_dracula
+const s_titulo = "Em frente ao castelo:"
+const dir_l = $s_dracula032
+const dir_entrar = $s_dracula035
+const portaini_entrar = 3 # Estado inicial: 3 Porta trancada
+const portanome_entrar = "As portas do castelo"
+const portaartigo_entrar = 1 # Artigo porta: 1 as (portas)
+const fecha_entrar = 1 # Fecha ao passar: Sim
+
+
+classe s_dracula035
+herda b_dracula
+const s_titulo = "No castelo:"
+const dir_n = $s_dracula038
+const dir_l = $s_dracula036
+const dir_o = $s_dracula037
+const dir_sair = $s_dracula032
+const portaini_sair = 3 # Estado inicial: 3 Porta trancada
+const portanome_sair = "As portas do castelo"
+const portaartigo_sair = 1 # Artigo porta: 1 as (portas)
+const fecha_sair = 1 # Fecha ao passar: Sim
+const dir_c = $s_dracula056
+
+
+classe s_dracula036
+herda b_dracula
+const s_titulo = "No castelo:"
+const dir_n = $s_dracula040
+const dir_o = $s_dracula035
+const dir_c = $s_dracula054
+
+
+classe s_dracula037
+herda b_dracula
+const s_titulo = "No castelo:"
+const dir_l = $s_dracula035
+const dir_n = $s_dracula039
+const dir_c = $s_dracula058
+
+
+classe s_dracula038
+herda b_dracula
+const s_titulo = "No castelo:"
+const dir_n = $s_dracula041
+const dir_s = $s_dracula035
+const dir_l = $s_dracula040
+const dir_o = $s_dracula039
+const dir_c = $s_dracula055
+const dir_b = $s_dracula078
+const portaini_b = 3 # Estado inicial: 3 Porta trancada
+const fechadura_b = "dracula002"
+const fecha_b = 1 # Fecha ao passar: Sim
+const tranc_b = 2 # Trancar: 2 Tranca ao fechar
+
+
+classe s_dracula039
+herda b_dracula
+const s_titulo = "No castelo:"
+const dir_n = $s_dracula043
+const dir_s = $s_dracula037
+const dir_l = $s_dracula038
+const dir_c = $s_dracula057
+
+
+classe s_dracula040
+herda b_dracula
+const s_titulo = "No castelo:"
+const dir_n = $s_dracula042
+const dir_s = $s_dracula036
+const dir_o = $s_dracula038
+const dir_c = $s_dracula053
+
+
+classe s_dracula041
+herda b_dracula
+const s_titulo = "No castelo:"
+const dir_s = $s_dracula038
+const dir_l = $s_dracula042
+const dir_o = $s_dracula043
+const dir_c = $s_dracula051
+
+
+classe s_dracula042
+herda b_dracula
+const s_titulo = "No castelo:"
+const dir_o = $s_dracula041
+const dir_s = $s_dracula040
+const dir_c = $s_dracula052
+
+
+classe s_dracula043
+herda b_dracula
+const s_titulo = "No castelo:"
+const dir_s = $s_dracula039
+const dir_l = $s_dracula041
+const dir_o = $s_dracula044
+const dir_c = $s_dracula050
+
+
+classe s_dracula044
+herda b_dracula
+const s_titulo = "O corredor sangrento:"
+const dir_l = $s_dracula043
+const dir_o = $s_dracula045
+const dir_c = $s_dracula059
+
+
+classe s_dracula045
+herda b_dracula
+const s_titulo = "O corredor sangrento:"
+const dir_l = $s_dracula044
+const dir_o = $s_dracula046
+const dir_c = $s_dracula060
+
+
+classe s_dracula046
+herda b_dracula
+const s_titulo = "O corredor sangrento:"
+const dir_l = $s_dracula045
+const dir_o = $s_dracula047
+const dir_c = $s_dracula061
+
+
+classe s_dracula047
+herda b_dracula
+const s_titulo = "O corredor sangrento:"
+const dir_l = $s_dracula046
+const dir_o = $s_dracula048
+const dir_c = $s_dracula062
+
+
+classe s_dracula048
+herda b_dracula
+const s_titulo = "No final do corredor:"
+const dir_n = $s_dracula064
+const dir_l = $s_dracula047
+const dir_c = $s_dracula063
+
+
+classe s_dracula049
+herda b_dracula
+const dir_s = $s_dracula043
+
+
+classe s_dracula050
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_s = $s_dracula057
+const dir_l = $s_dracula051
+const dir_o = $s_dracula059
+const dir_b = $s_dracula043
+
+
+classe s_dracula051
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_s = $s_dracula055
+const dir_l = $s_dracula052
+const dir_o = $s_dracula050
+const dir_b = $s_dracula041
+
+
+classe s_dracula052
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_s = $s_dracula053
+const dir_o = $s_dracula051
+const dir_b = $s_dracula042
+
+
+classe s_dracula053
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_n = $s_dracula052
+const dir_s = $s_dracula054
+const dir_b = $s_dracula040
+const dir_o = $s_dracula055
+
+
+classe s_dracula054
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_n = $s_dracula053
+const dir_b = $s_dracula036
+const dir_o = $s_dracula056
+
+
+classe s_dracula055
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_n = $s_dracula051
+const dir_s = $s_dracula056
+const dir_l = $s_dracula053
+const dir_b = $s_dracula038
+const dir_o = $s_dracula057
+
+
+classe s_dracula056
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_n = $s_dracula055
+const dir_l = $s_dracula054
+const dir_b = $s_dracula035
+const dir_o = $s_dracula058
+
+
+classe s_dracula057
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_n = $s_dracula050
+const dir_s = $s_dracula058
+const dir_l = $s_dracula055
+const dir_b = $s_dracula039
+
+
+classe s_dracula058
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_n = $s_dracula057
+const dir_l = $s_dracula056
+const dir_b = $s_dracula037
+
+
+classe s_dracula059
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_l = $s_dracula050
+const dir_o = $s_dracula060
+const dir_b = $s_dracula044
+
+
+classe s_dracula060
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_l = $s_dracula059
+const dir_o = $s_dracula061
+const dir_b = $s_dracula045
+
+
+classe s_dracula061
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_l = $s_dracula060
+const dir_o = $s_dracula062
+const dir_b = $s_dracula046
+
+
+classe s_dracula062
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_l = $s_dracula061
+const dir_b = $s_dracula047
+const dir_o = $s_dracula063
+
+
+classe s_dracula063
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_n = $s_dracula066
+const dir_l = $s_dracula062
+const dir_b = $s_dracula048
+
+
+classe s_dracula064
+herda b_dracula
+const s_titulo = "Em frente as escadas do segundo andar do castelo:"
+const dir_s = $s_dracula048
+const dir_c = $s_dracula065
+
+
+classe s_dracula065
+herda b_dracula
+const s_titulo = "Nas escadas:"
+const dir_c = $s_dracula069
+const dir_b = $s_dracula064
+const dir_no = $s_dracula067
+
+
+classe s_dracula066
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_s = $s_dracula063
+const dir_c = $s_dracula069
+const dir_b = $s_dracula064
+
+
+classe s_dracula067
+herda b_dracula
+const s_titulo = "No meio das escadas do castelo:"
+const dir_c = $s_dracula068
+const dir_no = $s_dracula070
+const dir_se = $s_dracula065
+
+
+classe s_dracula068
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_c = $s_dracula072
+const dir_b = $s_dracula067
+const dir_se = $s_dracula075
+
+
+classe s_dracula069
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_b = $s_dracula065
+const dir_no = $s_dracula068
+
+
+classe s_dracula070
+herda b_dracula
+const s_titulo = "No meio das escadas do castelo:"
+const dir_c = $s_dracula071
+const dir_se = $s_dracula067
+
+
+classe s_dracula071
+herda b_dracula
+const s_titulo = "No alto das escadas:"
+const dir_l = $s_dracula083
+const dir_c = $s_dracula073
+const dir_b = $s_dracula070
+
+
+classe s_dracula072
+herda b_dracula
+const s_titulo = "Voando próximo ao teto do castelo:"
+const dir_c = $s_dracula074
+const dir_b = $s_dracula068
+
+
+classe s_dracula073
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_l = $s_dracula106
+const dir_b = $s_dracula071
+const dir_se = $s_dracula074
+
+
+classe s_dracula074
+herda b_dracula
+const s_titulo = "Próximo ao teto:"
+const dir_b = $s_dracula072
+const dir_no = $s_dracula073
+
+
+classe s_dracula075
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_b = $s_dracula065
+const dir_no = $s_dracula068
+
+
+classe s_dracula076
+herda b_dracula
+const s_titulo = "Atrás de uma árvore na estrada:"
+const s_morre = 4 # Morre ao entrar: 4 Sim e perde dinheiro
+const dir_s = $s_dracula012
+
+
+classe s_dracula077
+herda b_dracula
+const s_titulo = "Em uma vala cheia de restos mortais:"
+const s_morre = 0 # Morre ao entrar: 0 Não
+const dir_o = $s_dracula025
+
+
+classe s_dracula078
+herda b_dracula
+const s_titulo = "De baixo do castelo:"
+const dir_n = $s_dracula082
+const dir_s = $s_dracula079
+const dir_l = $s_dracula080
+const dir_o = $s_dracula081
+const dir_c = $s_dracula038
+
+
+classe s_dracula079
+herda b_dracula
+const s_titulo = "O esconderijo de ambrórgio:"
+const dir_s = $s_dracula143
+
+
+classe s_dracula080
+herda b_dracula
+const s_titulo = "Numa passagem estreita:"
+const dir_l = $s_dracula124
+
+
+classe s_dracula081
+herda b_dracula
+const s_titulo = "Seguindo por um caminho estreito, em meio a escuridão:"
+const dir_o = $s_dracula132
+
+
+classe s_dracula082
+herda b_dracula
+const s_titulo = "O esconderijo de ambrórgio:"
+const dir_s = $s_dracula078
+
+
+classe s_dracula083
+herda b_dracula
+const s_titulo = "No corredor do segundo andar do castelo:"
+const dir_l = $s_dracula084
+const dir_o = $s_dracula071
+const dir_c = $s_dracula106
+
+
+classe s_dracula084
+herda b_dracula
+const s_titulo = "No corredor do segundo andar do castelo:"
+const dir_l = $s_dracula085
+const dir_o = $s_dracula083
+const dir_c = $s_dracula107
+
+
+classe s_dracula085
+herda b_dracula
+const s_titulo = "no corredor do segundo andar do castelo:"
+const dir_n = $s_dracula088
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "Uma grade de ferro"
+const fecha_n = 1 # Fecha ao passar: Sim
+const dir_l = $s_dracula086
+const dir_o = $s_dracula084
+const dir_c = $s_dracula108
+
+
+classe s_dracula086
+herda b_dracula
+const s_titulo = "No corredor do segundo andar do castelo:"
+const dir_l = $s_dracula087
+const dir_o = $s_dracula085
+const dir_c = $s_dracula109
+
+
+classe s_dracula087
+herda b_dracula
+const s_titulo = "No centro do corredor do segundo andar do castelo"
+const dir_n = $s_dracula097
+const dir_s = $s_dracula089
+const dir_l = $s_dracula166
+const dir_o = $s_dracula086
+const dir_c = $s_dracula110
+
+
+classe s_dracula088
+herda b_dracula
+const s_titulo = "A jaula de Sanguinário, o morcego de drácula."
+const dir_s = $s_dracula085
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "A grade de ferro"
+const fecha_s = 1 # Fecha ao passar: Sim
+
+
+classe s_dracula089
+herda b_dracula
+const s_titulo = "O corredor sul do castelo:"
+const dir_n = $s_dracula087
+const dir_s = $s_dracula090
+const dir_c = $s_dracula117
+
+
+classe s_dracula090
+herda b_dracula
+const s_titulo = "O corredor sul do castelo:"
+const dir_n = $s_dracula089
+const dir_s = $s_dracula091
+const dir_c = $s_dracula118
+const dir_se = $s_dracula154
+
+
+classe s_dracula091
+herda b_dracula
+const s_titulo = "O corredor sul do castelo:"
+const dir_n = $s_dracula090
+const dir_s = $s_dracula092
+const dir_c = $s_dracula119
+
+
+classe s_dracula092
+herda b_dracula
+const s_titulo = "O corredor sul do castelo:"
+const dir_n = $s_dracula091
+const dir_s = $s_dracula093
+const dir_c = $s_dracula120
+
+
+classe s_dracula093
+herda b_dracula
+const s_titulo = "No fim do corredor:"
+const dir_n = $s_dracula092
+const dir_l = $s_dracula095
+const portaini_l = 3 # Estado inicial: 3 Porta trancada
+const portanome_l = "Uma porta negra"
+const fecha_l = 1 # Fecha ao passar: Sim
+const tranc_l = 2 # Trancar: 2 Tranca ao fechar
+const dir_o = $s_dracula096
+const portaini_o = 3 # Estado inicial: 3 Porta trancada
+const portanome_o = "Uma porta negra"
+const fecha_o = 1 # Fecha ao passar: Sim
+const tranc_o = 2 # Trancar: 2 Tranca ao fechar
+const dir_c = $s_dracula121
+const dir_entrar = $s_dracula094
+const portaini_entrar = 3 # Estado inicial: 3 Porta trancada
+const portanome_entrar = "Uma porta de ferro"
+const fecha_entrar = 1 # Fecha ao passar: Sim
+const tranc_entrar = 2 # Trancar: 2 Tranca ao fechar
+
+
+classe s_dracula094
+herda b_dracula
+const s_titulo = "Dentro de uma masmorra:"
+const s_morre = 1 # Morre ao entrar: 1 Sim
+const dir_sair = $s_dracula093
+const portaini_sair = 3 # Estado inicial: 3 Porta trancada
+const portanome_sair = "A porta da masmorra"
+const fecha_sair = 1 # Fecha ao passar: Sim
+const tranc_sair = 2 # Trancar: 2 Tranca ao fechar
+
+
+classe s_dracula095
+herda b_dracula
+const s_titulo = "A sala de reunião do conselho vampírico:"
+const dir_o = $s_dracula093
+const portaini_o = 3 # Estado inicial: 3 Porta trancada
+const portanome_o = "A porta da sala"
+const fecha_o = 1 # Fecha ao passar: Sim
+const tranc_o = 2 # Trancar: 2 Tranca ao fechar
+
+
+classe s_dracula096
+herda b_dracula
+const s_titulo = "a sala negra:"
+const dir_l = $s_dracula093
+const portaini_l = 3 # Estado inicial: 3 Porta trancada
+const portanome_l = "uma porta negra"
+const fecha_l = 1 # Fecha ao passar: Sim
+const tranc_l = 2 # Trancar: 2 Tranca ao fechar
+
+
+classe s_dracula097
+herda b_dracula
+const s_titulo = "O corredor norte do castelo:"
+const dir_n = $s_dracula098
+const dir_s = $s_dracula087
+const dir_c = $s_dracula111
+
+
+classe s_dracula098
+herda b_dracula
+const s_titulo = "O corredor norte do castelo:"
+const dir_n = $s_dracula099
+const dir_s = $s_dracula097
+const dir_c = $s_dracula112
+const dir_no = $s_dracula158
+
+
+classe s_dracula099
+herda b_dracula
+const s_titulo = "O corredor norte do castelo:"
+const dir_n = $s_dracula100
+const dir_s = $s_dracula098
+const dir_c = $s_dracula113
+
+
+classe s_dracula100
+herda b_dracula
+const s_titulo = "O corredor norte do castelo:"
+const dir_n = $s_dracula101
+const dir_s = $s_dracula099
+const dir_c = $s_dracula114
+
+
+classe s_dracula101
+herda b_dracula
+const s_titulo = "O corredor norte do castelo:"
+const dir_n = $s_dracula102
+const dir_s = $s_dracula100
+const dir_c = $s_dracula115
+
+
+classe s_dracula102
+herda b_dracula
+const s_titulo = "No fim do corredor:"
+const dir_s = $s_dracula101
+const dir_l = $s_dracula104
+const dir_o = $s_dracula105
+const dir_c = $s_dracula116
+const dir_entrar = $s_dracula103
+const portaini_entrar = 2 # Estado inicial: 2 Porta fechada
+const portanome_entrar = "As portas de madeira negra do salão"
+const portaartigo_entrar = 1 # Artigo porta: 1 as (portas)
+const fecha_entrar = 1 # Fecha ao passar: Sim
+
+
+classe s_dracula103
+herda b_dracula
+const s_titulo = "No salão de festa do castelo:"
+const dir_sair = $s_dracula102
+const portanome_sair = "As portas de madeira negra do salão"
+const portaartigo_sair = 1 # Artigo porta: 1 as (portas)
+
+
+classe s_dracula104
+herda b_dracula
+const s_titulo = "Um depósito de sangue:"
+const dir_o = $s_dracula102
+const dir_c = $s_dracula123
+
+
+classe s_dracula105
+herda b_dracula
+const s_titulo = "Um depósito de sangue:"
+const dir_l = $s_dracula102
+const dir_c = $s_dracula122
+
+
+classe s_dracula106
+herda b_dracula
+const s_titulo = "Voando próximo ao teto do castelo:"
+const dir_l = $s_dracula107
+const dir_o = $s_dracula073
+const dir_b = $s_dracula083
+
+
+classe s_dracula107
+herda b_dracula
+const s_titulo = "Voando próximo ao teto do castelo:"
+const dir_l = $s_dracula108
+const dir_o = $s_dracula106
+const dir_b = $s_dracula084
+
+
+classe s_dracula108
+herda b_dracula
+const s_titulo = "Voando próximo ao teto do castelo:"
+const dir_l = $s_dracula109
+const dir_o = $s_dracula107
+const dir_b = $s_dracula085
+
+
+classe s_dracula109
+herda b_dracula
+const s_titulo = "Voando próximo ao teto do castelo:"
+const dir_l = $s_dracula110
+const dir_o = $s_dracula108
+const dir_b = $s_dracula086
+
+
+classe s_dracula110
+herda b_dracula
+const s_titulo = "Voando próximo ao teto do castelo:"
+const dir_n = $s_dracula111
+const dir_s = $s_dracula117
+const dir_o = $s_dracula109
+const dir_b = $s_dracula087
+
+
+classe s_dracula111
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_n = $s_dracula112
+const dir_s = $s_dracula110
+const dir_b = $s_dracula097
+
+
+classe s_dracula112
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_n = $s_dracula113
+const dir_s = $s_dracula111
+const dir_b = $s_dracula098
+const dir_no = $s_dracula159
+
+
+classe s_dracula113
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_n = $s_dracula114
+const dir_s = $s_dracula112
+const dir_b = $s_dracula099
+
+
+classe s_dracula114
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_n = $s_dracula115
+const dir_s = $s_dracula113
+const dir_b = $s_dracula100
+
+
+classe s_dracula115
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_n = $s_dracula116
+const dir_s = $s_dracula114
+const dir_b = $s_dracula101
+
+
+classe s_dracula116
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_s = $s_dracula115
+const dir_l = $s_dracula123
+const dir_o = $s_dracula122
+const dir_b = $s_dracula102
+
+
+classe s_dracula117
+herda b_dracula
+const s_titulo = "Voando próximo ao teto do castelo:"
+const dir_s = $s_dracula118
+const dir_b = $s_dracula089
+const dir_n = $s_dracula110
+
+
+classe s_dracula118
+herda b_dracula
+const s_titulo = "Voando próximo ao teto do castelo:"
+const dir_n = $s_dracula117
+const dir_s = $s_dracula119
+const dir_b = $s_dracula090
+const dir_se = $s_dracula155
+
+
+classe s_dracula119
+herda b_dracula
+const s_titulo = "Voando próximo ao teto do castelo:"
+const dir_n = $s_dracula118
+const dir_s = $s_dracula120
+const dir_b = $s_dracula091
+
+
+classe s_dracula120
+herda b_dracula
+const s_titulo = "Voando próximo ao teto do castelo:"
+const dir_n = $s_dracula119
+const dir_s = $s_dracula121
+const dir_b = $s_dracula092
+
+
+classe s_dracula121
+herda b_dracula
+const s_titulo = "Voando próximo ao teto do castelo:"
+const dir_n = $s_dracula120
+const dir_b = $s_dracula093
+
+
+classe s_dracula122
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_l = $s_dracula116
+const dir_b = $s_dracula105
+
+
+classe s_dracula123
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_o = $s_dracula116
+const dir_b = $s_dracula104
+
+
+classe s_dracula124
+herda b_dracula
+const s_titulo = "Numa passagem estreita:"
+const dir_l = $s_dracula125
+
+
+classe s_dracula125
+herda b_dracula
+const s_titulo = "Numa passagem estreita:"
+const dir_l = $s_dracula126
+
+
+classe s_dracula126
+herda b_dracula
+const s_titulo = "Numa passagem estreita:"
+const dir_b = $s_dracula127
+
+
+classe s_dracula127
+herda b_dracula
+const s_titulo = "Descendo por um caminho cheio de pedaços de asas de morcegos:"
+const dir_b = $s_dracula128
+
+
+classe s_dracula128
+herda b_dracula
+const s_titulo = "Descendo por um caminho cheio de pedaços de asas de morcego:"
+const dir_b = $s_dracula129
+
+
+classe s_dracula129
+herda b_dracula
+const s_titulo = "Na continuação do caminho:"
+const dir_no = $s_dracula130
+
+
+classe s_dracula130
+herda b_dracula
+const s_titulo = "A frente de um imenso alçapão:"
+const dir_b = $s_dracula131
+
+
+classe s_dracula131
+herda b_dracula
+const s_titulo = "caíndo em um imenso alçapão:"
+const s_morre = 1 # Morre ao entrar: 1 Sim
+
+
+classe s_dracula132
+herda b_dracula
+const s_titulo = "Seguindo por um caminho estreito, em meio a escuridão:"
+const dir_l = $s_dracula081
+const dir_o = $s_dracula133
+
+
+classe s_dracula133
+herda b_dracula
+const s_titulo = "Seguindo por um caminho estreito, em meio a escuridão:"
+const dir_o = $s_dracula134
+
+
+classe s_dracula134
+herda b_dracula
+const s_titulo = "Seguindo por um caminho estreito, em meio a escuridão:"
+const dir_o = $s_dracula135
+
+
+classe s_dracula135
+herda b_dracula
+const s_titulo = "Seguindo por um caminho estreito, em meio a escuridão:"
+const dir_o = $s_dracula136
+
+
+classe s_dracula136
+herda b_dracula
+const s_titulo = "Seguindo por um caminho estreito, em meio a escuridão:"
+const dir_b = $s_dracula137
+
+
+classe s_dracula137
+herda b_dracula
+const s_titulo = "Aprofundando no caminho:"
+const dir_b = $s_dracula138
+
+
+classe s_dracula138
+herda b_dracula
+const s_titulo = "Aprofundando no caminho:"
+const dir_se = $s_dracula139
+
+
+classe s_dracula139
+herda b_dracula
+const s_titulo = "Descendo por uma fenda estreita:"
+const dir_b = $s_dracula140
+
+
+classe s_dracula140
+herda b_dracula
+const s_titulo = "Descendo por uma fenda estreita:"
+const dir_b = $s_dracula141
+
+
+classe s_dracula141
+herda b_dracula
+const s_titulo = "Em uma parte mais apertada na fenda:"
+const dir_se = $s_dracula142
+
+
+classe s_dracula142
+herda b_dracula
+const s_titulo = "Em uma fenda profunda:"
+const s_morre = 1 # Morre ao entrar: 1 Sim
+
+
+classe s_dracula143
+herda b_dracula
+const dir_n = $s_dracula144
+
+
+classe s_dracula144
+herda b_dracula
+const dir_s = $s_dracula145
+
+
+classe s_dracula145
+herda b_dracula
+const dir_n = $s_dracula146
+
+
+classe s_dracula146
+herda b_dracula
+const dir_s = $s_dracula147
+
+
+classe s_dracula147
+herda b_dracula
+const dir_n = $s_dracula148
+
+
+classe s_dracula148
+herda b_dracula
+const dir_s = $s_dracula149
+
+
+classe s_dracula149
+herda b_dracula
+const dir_n = $s_dracula150
+
+
+classe s_dracula150
+herda b_dracula
+const dir_s = $s_dracula151
+
+
+classe s_dracula151
+herda b_dracula
+const s_titulo = "Em frente a um perigoso ninho de morcego vampiro"
+const dir_s = $s_dracula152
+
+
+classe s_dracula152
+herda b_dracula
+const s_titulo = "Um ninho de morcego vampiro:"
+const dir_n = $s_dracula151
+const dir_entrar = $s_dracula153
+
+
+classe s_dracula153
+herda b_dracula
+const s_titulo = "O esconderijo de ambrórgio:"
+const dir_sair = $s_dracula152
+
+
+classe s_dracula154
+herda b_dracula
+const s_titulo = "Subindo uma pequena rampa de madeira:"
+const dir_c = $s_dracula155
+const dir_no = $s_dracula090
+const dir_se = $s_dracula156
+
+
+classe s_dracula155
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_b = $s_dracula154
+const dir_no = $s_dracula118
+const dir_se = $s_dracula157
+
+
+classe s_dracula156
+herda b_dracula
+const s_titulo = "Nas portas da moradia real:"
+const dir_c = $s_dracula157
+const dir_no = $s_dracula154
+
+
+classe s_dracula157
+herda b_dracula
+const s_titulo = "Voando próxmo ao teto:"
+const dir_b = $s_dracula156
+const dir_no = $s_dracula155
+
+
+classe s_dracula158
+herda b_dracula
+const s_titulo = "Seguindo em direção a cozinha do castelo:"
+const dir_c = $s_dracula159
+const dir_no = $s_dracula160
+const dir_se = $s_dracula098
+
+
+classe s_dracula159
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_b = $s_dracula158
+const dir_se = $s_dracula112
+const dir_no = $s_dracula161
+
+
+classe s_dracula160
+herda b_dracula
+const s_titulo = "Seguindo em direção a cozinha do castelo:"
+const dir_c = $s_dracula161
+const dir_no = $s_dracula162
+const dir_se = $s_dracula158
+
+
+classe s_dracula161
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_b = $s_dracula160
+const dir_no = $s_dracula163
+const dir_se = $s_dracula159
+
+
+classe s_dracula162
+herda b_dracula
+const s_titulo = "Seguindo em direção a cozinha do castelo:"
+const dir_s = $s_dracula164
+const dir_c = $s_dracula163
+const dir_se = $s_dracula160
+
+
+classe s_dracula163
+herda b_dracula
+const s_titulo = "Voando próximo ao teto do castelo:"
+const dir_b = $s_dracula162
+const dir_se = $s_dracula161
+const dir_s = $s_dracula165
+
+
+classe s_dracula164
+herda b_dracula
+const s_titulo = "Em uma cozinha sombria:"
+const dir_n = $s_dracula162
+const dir_c = $s_dracula165
+
+
+classe s_dracula165
+herda b_dracula
+const s_titulo = "Voando próximo ao teto da cozinha:"
+const dir_n = $s_dracula163
+const dir_b = $s_dracula164
+
+
+classe s_dracula166
+herda b_dracula
+const s_titulo = "Na continuação do corredor do castelo de drácula:"
+const dir_l = $s_dracula168
+const dir_o = $s_dracula087
+const dir_c = $s_dracula167
+
+
+classe s_dracula167
+herda b_dracula
+const s_titulo = "Voando próximo ao tedo do corredor:"
+const dir_b = $s_dracula166
+const dir_l = $s_dracula169
+
+
+classe s_dracula168
+herda b_dracula
+const s_titulo = "Na continuação do corredor do castelo:"
+const dir_l = $s_dracula170
+const dir_o = $s_dracula166
+const dir_c = $s_dracula169
+
+
+classe s_dracula169
+herda b_dracula
+const s_titulo = "Voando próximo ao teto do corredor:"
+const dir_o = $s_dracula167
+const dir_b = $s_dracula168
+const dir_l = $s_dracula172
+
+
+classe s_dracula170
+herda b_dracula
+const s_titulo = "Na continuação do corredor do castelo:"
+const dir_l = $s_dracula171
+const dir_o = $s_dracula168
+const dir_c = $s_dracula172
+
+
+classe s_dracula171
+herda b_dracula
+const s_titulo = "Na continuação do corredor do castelo:"
+const dir_l = $s_dracula173
+const dir_o = $s_dracula170
+const dir_c = $s_dracula174
+
+
+classe s_dracula172
+herda b_dracula
+const s_titulo = "Voando próximo ao teto do corredor:"
+const dir_o = $s_dracula169
+const dir_b = $s_dracula170
+const dir_l = $s_dracula174
+
+
+classe s_dracula173
+herda b_dracula
+const s_titulo = "Na continuação do corredor do castelo:"
+const dir_l = $s_dracula175
+const dir_o = $s_dracula171
+const dir_c = $s_dracula176
+
+
+classe s_dracula174
+herda b_dracula
+const s_titulo = "Voando próximo ao teto do castelo:"
+const dir_o = $s_dracula172
+const dir_b = $s_dracula171
+const dir_l = $s_dracula176
+
+
+classe s_dracula175
+herda b_dracula
+const s_titulo = "Na continuação do corredor do castelo:"
+const dir_l = $s_dracula177
+const dir_o = $s_dracula173
+const dir_c = $s_dracula178
+
+
+classe s_dracula176
+herda b_dracula
+const s_titulo = "Voando próximo ao teto do corredor:"
+const dir_o = $s_dracula174
+const dir_b = $s_dracula173
+const dir_l = $s_dracula178
+
+
+classe s_dracula177
+herda b_dracula
+const s_titulo = "No final do corredor:"
+const dir_n = $s_dracula180
+const dir_o = $s_dracula175
+const dir_c = $s_dracula179
+
+
+classe s_dracula178
+herda b_dracula
+const s_titulo = "Voando próximo ao teto do castelo:"
+const dir_o = $s_dracula176
+const dir_b = $s_dracula175
+const dir_l = $s_dracula179
+
+
+classe s_dracula179
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_o = $s_dracula178
+const dir_b = $s_dracula177
+
+
+classe s_dracula180
+herda b_dracula
+const s_titulo = "Na sala dos guardas da fortaleza:"
+const dir_s = $s_dracula177
+const dir_c = $s_dracula181
+
+
+classe s_dracula181
+herda b_dracula
+const s_titulo = "Voando próximo ao teto:"
+const dir_b = $s_dracula180

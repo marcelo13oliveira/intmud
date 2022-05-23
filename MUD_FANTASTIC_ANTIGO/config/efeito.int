@@ -1,0 +1,2198 @@
+classe e_abortar
+herda comum_efeito
+const e_nome = "Abortar"
+
+
+classe e_aborto
+herda comum_efeito
+const e_nome = "Aborto"
+const e_ef_apaga = "gravida"
+
+
+classe e_abraçando
+herda comum_efeito
+const e_nome = "Abraçando"
+const tempo1 = 150
+
+
+classe e_acariciando
+herda comum_efeito
+const e_nome = "Acariciando"
+const tempo1 = 100
+
+
+classe e_acorrentar
+herda comum_efeito
+const e_nome = "Acorrentar"
+const r_vida = 1000
+const tempo1 = 0
+const m_atribs2 = "( está acorrentad$t por uma forte corrente de prata."
+
+
+classe e_afortunado
+herda comum_efeito
+const e_nome = "Afortunado"
+const tempo1 = 600
+const tempo2 = 50
+const msgini1 = "$P se sente mais sortud$s."
+const msgini2 = "$P sente-se mais sortud$s."
+const msgfim1 = "Sua precisão retorna ao valor normal."
+const msgfim2 = "A precisão de $P retorna ao valor normal."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  precisao += 5 * pnivel + 50
+
+
+classe e_agilidade
+herda comum_efeito
+const e_nome = "Agilidade"
+const tempo1 = 2000
+const msgini1 = "$P concentra-se para se tornar mais ágil."
+const msgini2 = "$P concentra-se para se tornar mais ágil."
+const msgfalhou1 = "Você não conseguiu se concentrar direito."
+const msgnulo1 = "você já está mais ágil."
+const msgnulo2 = "$P se concentra para tornasse mais ágil."
+const msgfim1 = "Você se sente menos ágil."
+const evperso = 1 # Eventos perso: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pveloc1 += 50 * pnivel + 100
+  atknorm += 50 * pnivel + 50
+  evasao += 300 * pnivel + 50
+  precisao += 300 * pnivel + 50
+
+
+classe e_amamentando
+herda comum_efeito
+const e_nome = "Amamentando"
+
+
+classe e_ampliar_força
+herda comum_efeito
+const e_nome = "Força Ampliada"
+const tempo1 = 5000
+const msgini1 = "Você se concentra para ampliar sua força..."
+const msgini2 = "$P se concentra para ampliar a força del$v..."
+const msgnulo1 = "Você se concentra para ampliar sua força..."
+const msgnulo2 = "$P se concentra para ampliar a força del$v..."
+const msgfim1 = "Você se sente um pouco mais fraco."
+const msgfim2 = "$P se sente um pouco mais fraco."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 10 * pnivel + 200
+  pesomax += 10000
+
+
+classe e_armadura_de_ossos
+herda comum_efeito
+const e_nome = "Armadura de ossos"
+const tempo1 = 3000
+const tempo2 = 50
+const msgini1 = "Uma armadura de ossos protege seu corpo."
+const msgini2 = "uma armadura de ossos protege o corpo de $P."
+const msgfim1 = "A armadura de ossos que $s protegia desfaz-se repentinamente."
+const msgfim2 = "Uma armadura de ossos não mais protege o corpo de $P."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  defnorm += 20 * pnivel + 100
+  defesp += 20 * pnivel + 200
+  deftipo.0 *= 1.05 # Tipos Normais
+  deftipo.1 *= 1.05 # Tipos Especiais
+  deftipo.2 *= 1.05 # Contusão
+  deftipo.3 *= 1.05 # luta
+  deftipo.4 *= 1.05 # Cortante
+  deftipo.5 *= 1.05 # Perfurante
+
+
+classe e_armadura_divina
+herda comum_efeito
+const e_nome = "Divine armor"
+const tempo1 = 1500
+const tempo2 = 500
+const msgini1 = "Uma armadura divina é materializada, graças a sua fé:"
+const msgini2 = "Uma armadura divina é materializada, para proteger $P:"
+const msgreduz1 = "A armadura que protegia $P, agora se desfez, em uma mística luz prateada:"
+const msgreduz2 = "A armadura que protegia $P, Desapareceu em uma mística luz prateada:"
+const m_atribs2 = "* ... Está protegid$s por uma armadura divina:"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  defnorm += 100
+  defesp += 100
+  deftipo.0 *= 0.5 # Tipos Normais
+  deftipo.1 *= 0.5 # Tipos Especiais
+  deftipo.13 *= 0.5 # Trevas
+
+
+classe e_aura_flamejante
+herda comum_efeito
+const e_nome = "Aura flamejante"
+const tempo1 = 8500
+const msgini1 = "Uma aura flamejante rodeia o seu corpo."
+const msgini2 = "Uma aura flamejante rodeia o corpo $d $P."
+const msgnulo1 = "Seu corpo já está rodeado por uma aura flamejante!"
+const msgfim1 = "A aura flamejante que rodeava o seu corpo desaparece."
+const msgfim2 = "A aura flamejante que rodeava o corpo $d $P desaparece."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atkesp += 150
+  deftipo.6 *= 0.6 # Fogo
+
+func cmd_recalc2
+  arg0.atribs.addfim(arg0.msexo ? "\d=+ ... Ele está Protegido por uma aura flamejante" : "\d=+ \
+... Ela está protegida por uma aura flamejante")
+
+
+classe e_aura_negra
+herda comum_efeito
+const e_nome = "Aura negra"
+const tempo1 = 9000
+const msgini1 = "Uma intensa aura negra momentâneamente o envolve."
+const msgini2 = "Uma intensa aura negra momentâneamente envolve $P."
+const msgnulo1 = "Uma intensa aura negra momentâneamente o envolve."
+const msgnulo2 = "Uma intensa aura negra momentâneamente envolve $P."
+const msgfim1 = "A aura negra em volta do seu corpo desaparece."
+const evperso = 1 # Eventos perso: Sim
+
+func cmd_recalc2
+  arg0.atribs.addfim(arg0.msexo ? "\d+ ... Ele está Protegido por uma aura negra" : "\d+ ... Ela \
+está Protegida por uma aura negra")
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  defnorm += 6
+  precisao += 8
+  deftipo.0 *= 0.9 # Tipos Normais
+  deftipo.1 *= 0.9 # Tipos Especiais
+  deftipo.2 *= 0.9 # Contusão
+
+
+classe e_ausente
+herda comum_efeito
+const e_nome = "Ausente"
+const m_atribs2 = "*El$v está ausente " + (dono.var.z_ausente ? "(" + dono.var.z_ausente + ")" : \
+"")
+const evperso = 1 # Eventos perso: Sim
+#
+const cmd_escr = encerrar
+const cmd_atacar = arg0 == dono && encerrar
+const cmd_alvo = arg0 == dono && encerrar
+const cmd_morreu = encerrar
+#
+
+func encerrar
+  var.z_ausente = ""
+  apagar(este)
+  $mens.p(dono) + $mens.mvis2("\d=volta $P não está mais ausente", "\d=volta $P retornou")
+
+
+classe e_banheiro
+herda comum_efeito
+const e_nome = "Banheiro"
+const r_tempo = 300
+const evperso = 1 # Eventos perso: Sim
+inttempo tempo
+#
+
+func cmd_ini
+  tempo = 4000
+
+func cmd_reduz
+  dono.msg("Você sente-se muito apertad" + (dono.msexo ? "o" : "a") + ", procure um banheiro \
+urgente, antes que faça xixi na roupa!")
+#
+
+func cmd_escr
+  se arg1 == "fazer xixi" || arg1 == "mijar"
+    ret !dono.dono.dentro1.objini("i_moveis017"), dono.msg("Você não vê uma privada por perto!")
+    criar("i_xixi", priv, 1)
+    $mens.p(arg0)
+    $mens.mtodos1("No desespero, você senta-se rapidamente na privada e começa a fazer xixi, \
+sentindo um grande alívio ao terminar.")
+    apagar(este)
+    ret 1
+  fimse
+#
+
+func cmd_sentouobj
+  se txt(arg1) == "i_moveis017"
+    $mens.p(arg0)
+    $mens.mvis1("Ao sentar, $P relaxa e deixa o líquido fluir, aliviando sua vontade.")
+    apagar(este)
+    criar("i_xixi", arg1)
+  fimse
+
+func tempo_exec
+  $mens.p(dono, nulo, dono.poslugar.objlista)
+  se dono.poslugar.objlista
+    $mens.mvis1("$P relaxa e deixa o líquido fluir, aliviando sua vontade.")
+    criar("i_xixi", dono.poslugar.objlista, 1)
+    apagar(este)
+  senao
+    $mens.mtodos1("$P não aguenta mais segurar a vontade e acaba fazendo xixi na roupa.")
+    criar("i_xixi", dono.dono, 1)
+    apagar(este)
+  fimse
+
+
+classe e_banheiroc
+herda comum_efeito
+const e_nome = "Banheiroc"
+const r_tempo = 300
+const evperso = 1 # Eventos perso: Sim
+inttempo tempo
+#
+
+func cmd_ini
+  tempo = 2000
+
+func cmd_reduz
+  dono.msg("Você sente-se muito apertad" + (dono.msexo ? "o" : "a") + ", procure um banheiro \
+urgente, antes que cague nas calças!")
+#
+
+func cmd_escr
+  se arg1 == "fazer cocô" || arg1 == "cagar"
+    ret !dono.dono.dentro1.objini("i_moveis017"), dono.msg("Não há uma privada por perto e você \
+não acha legal fazer no chão...")
+    criar("i_coco", priv, 1)
+    $mens.p(arg0)
+    $mens.mtodos1("$P senta-se desesperad$s na privada, e soltando vários puns, você se alivia, \
+deixando a privada totalmente suja de cocô.")
+    apagar(este)
+    ret 1
+  fimse
+#
+
+func tempo_exec
+  $mens.p(arg0)
+  $mens.mtodos1("$P não consegue mais segurar o cocô e acaba fazendo na própria roupa.")
+  criar("i_coco", dono.dono, 1)
+  apagar(este)
+
+
+classe e_barreira_de_água
+herda comum_efeito
+const e_nome = "Barreira d'água"
+const tempo1 = 3900
+const msgini1 = "Uma poderosa barreira d'água começa a rodear seu corpo."
+const msgini2 = "Uma poderosa barreira d'água começa a rodear o corpo de $P."
+const msgnulo1 = "Uma poderosa barreira d'água começa a rodear o corpo de $P."
+const msgnulo2 = "Uma poderosa barreira d'água começa a rodear o corpo de $P."
+const msgfim1 = "A barreira d'água que rodeava você desaparece."
+const evperso = 1 # Eventos perso: Sim
+
+func cmd_atacou # Personagem arg0 atacou arg1
+  se !arg2.result && arg1 == dono # Recebeu ataque com sucesso
+    $mens.p(arg1, arg0)
+    refvar m1 = "A água que lhe envolvia acerta $A violentamente, -20."
+    refvar m2 = "A água que envolvia $P te acerta violentamente, -20."
+    refvar m3 = "Á água que envolvia $P acerta $A violentamente."
+    $mens.mvis3(m1, m2, m3)
+    arg0.pvida -= 30
+    arg0.acertapos(1)
+
+func cmd_recalc2
+  arg0.atribs.addfim(arg0.msexo ? "\d+ ... Ele está Protegido por uma barreira de água" : "\d+ \
+... Ela está protegida por uma barreira de água")
+
+
+classe e_barreira_de_areia
+herda comum_efeito
+const e_nome = "Barreira de areia"
+const tempo1 = 3100
+const msgini1 = "Uma barreira de areia começa a proteger você."
+const msgini2 = "Após isso, uma barreira de areia começa a proteger $P."
+const msgnulo1 = "Uma barreira de areia começa a proteger você."
+const msgnulo2 = "Após isso, uma barreira de areia começa a proteger $P."
+const msgfim1 = "A barreira de areia que te protegia desaparece."
+const evperso = 1 # Eventos perso: Sim
+
+func cmd_atacou # Personagem arg0 atacou arg1
+  se !arg2.result && arg1 == dono # Recebeu ataque com sucesso
+    $mens.p(arg1, arg0)
+    refvar m1 = "sua barreira de areia sufoca $A, -50."
+    refvar m2 = "A barreira de areia de $P sufoca você, -50."
+    refvar m3 = "uma barreira de areia sufoca $A."
+    $mens.mvis3(m1, m2, m3)
+    arg0.pvida -= 50
+    arg0.acertapos(1)
+
+func cmd_recalc2
+  arg0.atribs.addfim(arg0.msexo ? "\d+ ... Uma tempestade de areia o protege." : "\d+ ... Uma \
+tempestade de areia a protege.")
+
+
+classe e_barreira_de_espinhos
+herda comum_efeito
+const e_nome = "Barreira de espinhos"
+const tempo1 = 3100
+const msgini1 = "Vários espinhos começam a te proteger."
+const msgini2 = "Vários espinhos começam a proteger $P."
+const msgnulo1 = "Vários espinhos começam a te proteger."
+const msgnulo2 = "Vários espinhos começam a proteger $P."
+const msgfim1 = "Os espinhos que te protegiam desaparecem."
+const evperso = 1 # Eventos perso: Sim
+
+func cmd_atacou # Personagem arg0 atacou arg1
+  se !arg2.result && arg1 == dono # Recebeu ataque com sucesso
+    $mens.p(arg1, arg0)
+    refvar m1 = "Seus espinhos perfuram $A violentamente, -16."
+    refvar m2 = "Os espinhos de $P perfuram você violentamente, -16."
+    refvar m3 = "Os espinhos de $P perfuram $A violentamente."
+    $mens.mvis3(m1, m2, m3)
+    arg0.pvida -= 16
+    arg0.acertapos(1)
+
+
+classe e_barreira_mística
+herda comum_efeito
+const e_nome = "Barreira mística"
+const tempo1 = 6000
+const tempo2 = 60
+const msgini1 = "Uma barreira mística é criada a sua frente, protegendo-$s!"
+const msgini2 = "Uma barreira mística é criada a frente de $P, protegendo-$s!"
+const msgfalhou1 = "Uma barreira mágica é criada no ar, desaparecendo logo em seguida."
+const msgnulo1 = "Uma barreira mística surge no ar, desaparecendo logo em seguida."
+const msgfim1 = "A barreira mística que havia a sua frente vai aos poucos desaparecendo."
+const msgfim2 = "A barreira mística que envolvia $P vai aos poucos se dicipando."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  defnorm += 5 * pnivel + 100
+  defesp += 5 * pnivel + 100
+
+
+classe e_baton
+herda comum_efeito
+const e_nome = "Baton"
+const tempo1 = 44000
+const msgfim1 = "O baton que cobria seus lábios se desmancha e desaparece."
+const msgfim2 = "O baton que cobria os lábios de $P se desmancha e desaparece."
+const m_atribs2 = "* El$v está usando um baton " + dono.var.z_corbaton + " nos lábios."
+const evperso = 1 # Eventos perso: Sim
+#
+
+func cmd_fim
+  dono.var.z_corbaton = ""
+
+
+classe e_bebendo
+herda comum_efeito
+const e_nome = "Bebendo"
+const tempo1 = 100
+
+
+classe e_beijando
+herda comum_efeito
+const e_nome = "Beijando"
+const tempo1 = 300
+#
+
+func cmd_fim
+  var.j_beijando = ""
+
+
+classe e_cagado
+herda comum_efeito
+const e_nome = "Cagado"
+const evperso = 1 # Eventos perso: Sim
+inttempo coco
+#
+
+func cmd_ini
+  coco = 500
+#
+
+func coco_exec
+  $mens.p(dono)
+  $mens.mtodos1("$P sente-se incomodad$s com o cocô na fralda e chora.")
+  coco = rand(600, 800)
+
+
+classe e_caindo
+herda comum_efeito
+const e_nome = "Caindo"
+const tempo1 = 100
+
+
+classe e_cavalgando
+herda comum_efeito
+const e_nome = "Cavalgando"
+
+
+classe e_cegueira
+herda comum_efeito
+const e_nome = "Cegueira"
+const msgini2 = "$P ficou ceg$s."
+const msgfim2 = "A visão de $p retornou."
+const tempo1 = 9000
+const tempo2 = 50
+const msgfim1 = "A sua visão retornou."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver &= ~1
+
+
+classe e_chama_protetora
+herda comum_efeito
+const e_nome = "Chama protetora"
+const e_desc = "Causa danos em quem atacar você."
+const desc = "Ao ser atacado, o alvo perde 10 pontos de vida / trigger"
+const tempo1 = 3000
+const tempo2 = 500
+const msgini1 = "Uma chama surge em sua volta."
+const msgini2 = "Uma chama protetora surge em volta de $p."
+const msgnulo1 = "Por um instante, uma chama aparece em volta de $p."
+const msgfim1 = "A chama em sua volta se apaga."
+const msgfim2 = "A chama em volta de $p se apaga."
+const m_atribs2 = "*  ... e está protegid$s por uma chama protetora"
+const evperso = 1 # Eventos perso: Sim
+
+func cmd_atacou # Personagem arg0 atacou arg1
+  se !arg2.result && arg1 == dono # Recebeu ataque com sucesso
+    $mens.p(arg1, arg0)
+# Aqui foi usado refvar para não colocar todas as mensagens na mesma instrução
+    refvar m1 = "Sua chama protetora queima $a, -10"
+    refvar m2 = "A chama protetora de $p queima você, -10"
+    refvar m3 = "A chama protetora de $p queima $a."
+    $mens.mvis3(m1, m2, m3)
+    arg0.pvida -= 10
+    arg0.acertapos(1)
+  fimse
+
+
+classe e_chamando
+herda comum_efeito
+const e_nome = "Chamando"
+const evperso = 1 # Eventos perso: Sim
+inttempo chamar
+uint16 chamou
+#
+
+func cmd_ini
+  chamar = 30
+#
+
+func chamar_exec
+  ref p
+  refvar nomesav = txts(txtnome(dono.var.z_jogatender))
+  indiceitem item
+  item.ini("pn " + nomesav)
+  p = item.obj
+  se chamou > 5
+    p.msg("chamada encerrada.")
+    p.var.j_ligar_ = 0
+    p.var.z_jogligar = ""
+    dono.var.j_ligar_ = 0
+    dono.var.z_jogatender = ""
+    apagar(este)
+    ret 1
+  fimse
+  p.msg("\d=bip chamando...")
+  dono.msg("\d=tel02 " + dono.var.z_jogatender + " chamando...")
+  chamou += 1
+  chamar = 30
+#
+
+
+classe e_comendo
+herda comum_efeito
+const e_nome = "Comendo"
+const tempo1 = 100
+
+
+classe e_confusao
+herda comum_efeito
+const e_nome = "Confusão"
+const e_desc = "Ao atacar, poder errar o golpe e se machucar."
+const desc = "Ao atacar tem 25% de chances de se bater / trigger"
+const tempo1 = 300
+const tempo2 = 5
+const msgini2 = "$P ficou confus$s."
+const msgfim2 = "$P não está mais confus$s."
+const evperso = 1 # Eventos perso: Sim
+
+func cmd_atacar
+  se arg0 == dono && rand(100) < 25
+    int32 danos
+    danos = -1 - dono.pvidamax * rand(70, 110) / 1000
+    $mens.p(arg0, arg1)
+    $mens.mtodos1("$P se confundiu e se bateu, " + danos)
+    dono.pvida += danos
+    dono.acertapos(1)
+    arg0.p_espera < 50 && (arg0.p_espera = 50)
+    ret 1
+  fimse
+
+
+classe e_congelado
+herda comum_efeito
+const e_nome = "Congelado"
+const e_condicao = 0 # Condição: 0 Nenhuma; permanente
+const desc = "Fica sem ação / trigger"
+const tempo1 = 0
+const msgini2 = "$P congelou."
+const msgfim2 = "$P descongelou."
+const m_atribs2 = "Congelad$s"
+const evperso = 1 # Eventos perso: Sim
+
+func cmd_escr
+  casovar arg2
+  casose "cmd_ver"
+  casose "cmd_olhar"
+  casose "cmd_inv"
+  casose "cmd_equip"
+  casose "cmd_quem"
+  casose "cmd_hab"
+  casose "cmd_magia"
+    ret
+  casofim
+  arg0.msg("Você está congelad" + (arg0.msexo ? "o." : "a."))
+  ret 1
+
+func cmd_atacar
+  se arg0 == dono
+    $mens.p(arg0)
+    $mens.msginv("$P está congelad$s.", arg0)
+    ret 1
+  fimse
+
+func cmd_atacou
+  se !arg2.result && arg1 == dono # Recebeu ataque com sucesso
+    t_duracao > 50 && (t_duracao -= 40) # Menos tempo congelado
+    se arg2.tipoatk == 4 # Recebeu ataque do tipo fogo
+      apagar(este)
+    fimse
+  fimse
+
+func cmd_mover
+  arg0.msg("Você congelou")
+  ret 1
+
+
+classe e_cortina_de_terra
+herda comum_efeito
+const e_nome = "Cortina de terra"
+const msgini1 = "uma cortina de terra é formada a frente de $P."
+const msgini2 = "Uma cortina de terra é formada à frente de $P."
+const evperso = 1 # Eventos perso: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  defnorm += 200 * pnivel + 100
+  defesp += 100 * pnivel + 100
+#
+
+func cmd_atacou
+  se !arg2.result && arg1.dono
+    $mens.p(arg1, arg0)
+    refvar m1 = "Sua cortina de terra assume a forma de um redemoinho, atacando violentamente na \
+direção de $A, -300"
+    refvar m2 = "A cortina de terra que envolve o corpo de $P assume a forma de um redemoinho \
+violento, atacando em sua direção, -300"
+    refvar m3 = "A cortina de terra que envolve o corpo de $P assume a forma de um redemoinho \
+violento, atacando na direção de $A, -300"
+    $mens.mvis3(m1, m2, m3)
+    arg0.pvida -= 300
+    arg0.acertapos(1)
+  fimse
+
+
+classe e_dançando
+herda comum_efeito
+const e_nome = "Dançando"
+const tempo1 = 100
+
+
+classe e_dano_máximo
+herda comum_efeito
+const e_nome = "Dano máximo"
+const tempo1 = 5000
+const tempo2 = 1
+const msgini1 = "Seu dano é ampliado."
+const msgini2 = "O dano de $P se amplia."
+const msgnulo1 = "O seu dano já está ampliado."
+const msgfim1 = "Você se sente normal."
+const evperso = 1 # Eventos perso: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 50
+  atkesp += 50
+  precisao += 50
+
+
+classe e_derrubado
+herda comum_efeito
+const e_nome = "Derrubado"
+const tempo1 = 100
+const tempo2 = 5
+const msgini1 = "$P é derrubado ao chão, ficando fora de combate."
+const msgini2 = "$P é derrubado ao chão, ficando sem combate."
+const msgfim1 = "$P ficou em pé novamente."
+const msgfim2 = "$P ficou em pé novamente."
+const m_atribs2 = "El$v está caíd$s no chão."
+const evperso = 1 # Eventos perso: Sim
+
+
+classe e_dor_de_barriga
+herda comum_efeito
+const e_nome = "Dor de barriga"
+
+
+classe e_dormindo
+herda comum_efeito
+const e_nome = "Dormindo"
+inttempo sonho
+const frases = "$P ressona baixinho.\n\
+$P sorri enquanto parece ter belos sonhos.\n\
+$P vira de um lado para o outro, parecendo estar tendo pesadelos.\n\
+$P começa a falar coisas sem sentido, parecendo ter um sonho perturbado.\n\
+$P começa a roncar baixinho.\n\
+$P começa a roncar alto."
+const sonhos = "No seu sonho de repente você está caminhando por um longo deserto. Você vê \
+camelos andando de um lado a outro.\n\
+Você sonha com vários zumbis correndo atrás de você...\n\
+Você sonha que está em um lago tranquilo, cheio de coloridos peixes.\n\
+Em seu sonho, lobizomens de vários tamanhos surgem, lhe assustando."
+#
+
+func cmd_ini
+  sonho = 150
+#
+
+func sonho_exec
+  $mens.p(dono)
+  $mens.mtodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+  dono.msg(txtsublin(sonhos, rand(intsublin(sonhos)), 1))
+  sonho = rand(600, 1000)
+
+
+classe e_dreno_de_mana
+herda comum_efeito
+const e_nome = "Dreno de mana"
+const e_desc = "Drena mana constantemente até acabar."
+const desc = "Consome mana até ficar sem mana / trigger"
+const r_mana = 12
+const r_tempo = 40
+const msgini2 = "$P se sente esgotad$s."
+const msgfim2 = "$P se sente renovad$s."
+
+func cmd_reduz
+  se arg0.pmana == 0
+    apagar(este)
+  fimse
+
+
+classe e_e_aborto
+herda comum_efeito
+const e_nome = "E aborto"
+
+
+classe e_endurecer
+herda comum_efeito
+const e_nome = "Endurecer"
+const desc = "Aumenta a defesa durante a batalha"
+const maximo = 4
+const e_condicao = 2 # Condição: 2 Durante a batalha e tem pontos de vida
+const msgnulo2 = "$P não sente diferença."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  deftipo.0 *= 0.8 # Tipos Normais
+  deftipo.1 *= 0.8 # Tipos Especiais
+
+
+classe e_envenenado
+herda comum_efeito
+const e_nome = "Envenenado"
+const desc = "Perde vida de tempos em tempos"
+const r_tempo = 200
+const r_vida = 5000
+const tempo1 = 6000
+const tempo2 = 40
+const msgini2 = "$P foi envenenad$s."
+const msgfim2 = "$P não está mais envenenad$s."
+const msgreduz1 = "$P começa a se contorcer de dores, ao sentir o veneno agindo sob seu corpo."
+const msgreduz2 = "$P começa a se contorcer de dores, ao sentir o veneno agir sobre seu corpo."
+
+
+classe e_escudo_de_ar
+herda comum_efeito
+const e_nome = "Escudo de ar"
+const tempo1 = 4000
+const msgini1 = "Ventos vindo do céu o rodeiam."
+const msgini2 = "Após isto, ventos vindo do céu rodeiam $P."
+const msgnulo1 = "Ventos vindo do céu o rodeiam."
+const msgnulo2 = "Após isto, ventos vindo do céu rodeiam $P."
+const msgfim1 = "Seu escudo de ar desaparece."
+const evperso = 1 # Eventos perso: Sim
+
+func cmd_atacou # Personagem arg0 atacou arg1
+  se !arg2.result && arg1 == dono # Recebeu ataque com sucesso
+    $mens.p(arg1, arg0)
+    refvar mm = rand(arg1.var.prenascer * 30, arg1.var.prenascer * 100)
+    refvar m1 = "Os vários ventos que o rodeiam rasgam o corpo de $A, -" + mm + "."
+    refvar m2 = "Os vários ventos que rodeiam $P rasgam o seu corpo, -" + mm + "."
+    refvar m3 = "Os vários ventos que rodeiam $P rasgam o corpo de $A."
+    $mens.mvis3(m1, m2, m3)
+    arg0.pvida -= mm
+    arg0.acertapos(1)
+
+func cmd_recalc2
+  arg0.atribs.addfim(arg0.msexo ? "\d+ ... Uma tempestade de vento o protege" : "\d+ ... Uma \
+tempestade de vento a  protege")
+
+
+classe e_escudo_de_ossos
+herda comum_efeito
+const e_nome = "Escudo de ossos"
+const tempo1 = 800
+const tempo2 = 50
+const msgini1 = "Um escudo de ossos passa a envolver o seu corpo"
+const msgini2 = "Um escudo de ossos passa a envolver o corpo de $P."
+const msgfim1 = "Os ossos que envolviam seu corpo começam a se transformar em poeira e desaparece\
+m."
+const msgfim2 = "Os ossos que envolviam o corpo de $P começam a virar poeira e desaparecem."
+const m_atribs2 = "* el$v está protegid$s por vários ossos afiados"
+const evperso = 1 # Eventos perso: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  deftipo.0 *= 0.8 # Tipos Normais
+#
+
+func cmd_atacou
+  se !arg2.result && arg1 == dono
+    $mens.p(arg1, arg0)
+    refvar m1 = "Os ossos que envolvem seu corpo perfuram $A com muita Violência, -10"
+    refvar m2 = "Os ossos que envolvem o corpo de $P perfuram seu corpo com muita violência, \
+-10"
+    refvar m3 = "Os ossos que envolvem o corpo de $P perfuram o corpo de $A com muita violência, \
+-10"
+    $mens.mvis3(m1, m2, m3)
+    arg0.pvida -= 10
+    arg0.acertapos(1)
+  fimse
+
+
+classe e_escudo_protetor
+herda comum_efeito
+const e_nome = "Escudo protetor"
+const tempo1 = 3000
+const tempo2 = 120
+const msgini1 = "Um escudo de proteção envolve o seu corpo."
+const msgini2 = "Um escudo de proteção passa a rodear o corpo de $P."
+const msgfalhou1 = "O escudo desaparece antes de encontrar seu corpo."
+const msgfalhou2 = "O escudo desaparece antes antes de encontrar o corpo de $P."
+const msgfim1 = "O escudo que $s protegia desfaz-se repentinamente!"
+const msgfim2 = "O escudo que protegia $P desfaz-se repentinamente."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  deftipo.0 *= 0.85 # Tipos Normais
+  deftipo.2 *= 0.85 # Contusão
+  deftipo.3 *= 0.85 # luta
+  deftipo.4 *= 0.85 # Cortante
+  deftipo.5 *= 0.85 # Perfurante
+
+
+classe e_estapeando
+herda comum_efeito
+const e_nome = "Estapeando"
+const tempo1 = 150
+
+
+classe e_estuporado
+herda comum_efeito
+const e_nome = "Estuporado"
+const tempo1 = 400
+const tempo2 = 10
+const msgini1 = "$P cai ao chão, inconsciente!"
+const msgini2 = "$P cai ao chão, inconsciente!"
+const msgfim1 = "$P recupera a consciência"
+const msgfim2 = "$P recuperou a consciência!"
+const evperso = 1 # Eventos perso: Sim
+
+func cmd_fim # Efeito foi apagado
+  se dono.posicao == 4 # Se estiver dormindo
+    dono.posicao = 8 # Acordou
+  fimse
+
+func cmd_atacou
+  se !arg2.result && arg1 == dono # Recebeu ataque com sucesso
+    t_duracao > 50 && (t_duracao -= 40) # Menos tempo dormindo
+  fimse
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 1024
+
+
+classe e_explosão
+herda comum_efeito
+const e_nome = "Explosão"
+const tempo1 = 300
+#
+
+func cmd_fim
+  $mens.p(dono)
+  $mens.mtodos2("A bomba explode no seu estômago, matando-lhe instantaneamente!", "A bomba \
+explode no estômago $d $P, matando-$s instantaneamente!")
+  dono.j_imortal = 0
+  dono.morreu
+
+
+classe e_falcão
+herda comum_efeito
+const e_nome = "Falcão"
+const desc = "efeito de deck"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 100000 * pnivel + 1000000
+  pmanamax += 100000 * pnivel + 1000000
+  pmovemax += 100000 * pnivel + 1000000
+  atknorm += 100000 * pnivel
+  defnorm += 1000000 * pnivel
+  atkesp += 100000 * pnivel
+  defesp += 1000000 * pnivel
+  deftipo.0 *= 0 # Tipos Normais
+  deftipo.1 *= 0 # Tipos Especiais
+  deftipo.2 *= 0 # Contusão
+  deftipo.3 *= 0 # luta
+  deftipo.4 *= 0 # Cortante
+  deftipo.5 *= 0 # Perfurante
+  deftipo.6 *= 0 # Fogo
+  deftipo.7 *= 0 # Água
+  deftipo.8 *= 0 # Gelo
+  deftipo.9 *= 0 # Terra
+  deftipo.10 *= 0 # Pedra
+  deftipo.11 *= 0 # Aéreo/vento
+  deftipo.12 *= 0 # Luz
+  deftipo.13 *= 0 # Trevas
+  deftipo.14 *= 0 # Elétrico
+  deftipo.15 *= 0 # Vegetal
+  deftipo.16 *= 0 # Psíquico
+  deftipo.17 *= 0 # Veneno
+  deftipo.18 *= 0 # Fantasma
+  deftipo.19 *= 0 # Dragão
+  deftipo.20 *= 0 # Noite
+
+
+classe e_fantasia
+herda comum_efeito
+const e_nome = "Fantasia"
+const e_condicao = 0 # Condição: 0 Nenhuma; permanente
+const evperso = 1 # Eventos perso: Sim
+sav txt80 sobrenome
+sav uint16 sexoreal
+sav txt32 nomereal
+#
+
+func cmd_ini
+  arg0.var.z_mdescreal = arg0.var.z_mdesc
+  arg0.var.z_mdesc = ""
+  arg0.var.z_descreal = arg0.var.z_desc
+  arg0.var.z_desc = ""
+  sexoreal = arg0.msexo
+  sobrenome = arg0.var.z_sobrenome
+  nomereal = arg0.nome
+  arg0.var.z_sobrenome = ""
+  arg0.nome = arg0.var.z_fantasia
+#
+
+func cmd_fim
+  arg0.var.z_mdesc = arg0.var.z_mdescreal
+  arg0.var.z_desc = arg0.var.z_descreal
+  arg0.sock.nome = nomereal
+  arg0.nome = nomereal
+  arg0.msexo = sexoreal
+  arg0.var.z_sobrenome = dsobrenome
+  arg0.msexo = sexoreal
+#
+
+func cmd_escr
+  se txt1(arg1) == "msexo"
+    se txt2(arg1) == "m"
+      arg0.msexo = 1
+      ret arg0.msg("Sexo alterado para masculino.")
+    senao txt2(arg1) == "f"
+      arg0.msexo = 0
+      ret arg0.msg("Sexo alterado para feminino.")
+    senao
+      ret arg0.msg("Digite msexo m para masculino, ou msexo f para feminino.")
+    fimse
+#
+
+
+classe e_flutuar
+herda comum_efeito
+const e_nome = "Flutuar"
+const e_desc = "Flutuando se cansa menos para ir de uma sala a outra."
+const tempo1 = 6000
+const tempo2 = 40
+const msgini2 = "$P começa a flutuar."
+const msgnulo2 = "$P sobe um pouco no ar e volta."
+const msgfim2 = "$P retorna ao chão."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 512
+
+
+classe e_força_bruta
+herda comum_efeito
+const e_nome = "Cósmo energia"
+const tempo1 = 1650
+const msgini1 = "Você sente o universo explodindo dentro de se... Seu cósmo se eleva ao sétimo \
+sentido!"
+const msgini2 = "Você sente uma forte cósmo energia vindo de dentro do corpo de $P."
+const msgnulo1 = "Você sente o universo explodindo dentro de se... Seu cósmo se eleva ao sétimo \
+sentido!"
+const msgnulo2 = "Você sente uma forte cósmo energia vindo de dentro do corpo de $P."
+const msgfim1 = "Você sente sua cósmo energia desaparecer."
+const msgfim2 = "Você sente a cósmo energia de $P desaparecer."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atktipo.2 *= 2 # Contusão
+  atktipo.3 *= 2 # Luta
+  atktipo.4 *= 2 # cortante
+  atktipo.5 *= 2 # Perfurante
+  atktipo.6 *= 2 # Fogo
+  atktipo.7 *= 2 # Água
+  atktipo.8 *= 2 # Gelo
+  atktipo.9 *= 2 # Terra
+  atktipo.10 *= 2 # Pedra
+  atktipo.11 *= 2 # Aéreo/vento
+  atktipo.12 *= 2 # Luz
+  atktipo.13 *= 2 # Trevas
+  atktipo.14 *= 2 # Elétrico
+  atktipo.15 *= 2 # Vegetal
+  atktipo.16 *= 2 # Psíquico
+  atktipo.17 *= 2 # Veneno
+  atktipo.18 *= 2 # Fantasma
+  atktipo.19 *= 2 # Dragão
+
+
+classe e_fortalecer
+herda comum_efeito
+const e_nome = "Fortalecer"
+const tempo1 = 4000
+const tempo2 = 80
+const msgini1 = "Uma aura de poder passa a rodear $P."
+const msgfalhou1 = "Uma forte luz aparece a frente de $P, desaparecendo logo em seguida."
+const msgfim1 = "A aura de poder que rodeava $P desaparece misteriosamente."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atktipo.0 *= 1.2 # Tipos Normais
+  atktipo.1 *= 1.2 # Tipos Especiais
+  atktipo.12 *= 1.25 # Luz
+  deftipo.0 *= 0.9 # Tipos Normais
+  deftipo.1 *= 0.85 # Tipos Especiais
+  deftipo.6 *= 0.85 # Fogo
+  deftipo.7 *= 0.85 # Água
+  deftipo.8 *= 0.95 # Gelo
+  deftipo.9 *= 0.85 # Terra
+  deftipo.10 *= 0.85 # Pedra
+  deftipo.13 *= 0.75 # Trevas
+  deftipo.18 *= 0.75 # Fantasma
+
+
+classe e_fortificar
+herda comum_efeito
+const e_nome = "Força física"
+const tempo1 = 1800
+const msgini1 = "Você se sente mais forte."
+const msgini2 = "$P sorri ao ver os músculos del$v aumentarem."
+const msgfim1 = "Os seus braços e pernas voltam ao tamanho normal."
+const msgfim2 = "Os músculos de $P voltam ao tamanho normal."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pesomax += 10000
+
+
+classe e_furtividade
+herda comum_efeito
+const e_nome = "Furtividade"
+const desc = "Anda em silêncio"
+const e_condicao = 3 # Condição: 3 Fora da batalha e tem pontos de vida
+const msgini1 = "Você anda em silêncio."
+const msgnulo1 = "Você anda em silêncio."
+const tempo1 = 6000
+const tempo2 = 40
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 256
+
+
+classe e_gr
+herda comum_efeito
+const e_condicao = 0 # Condição: 0 Nenhuma; permanente
+const r_tempo = 3000
+const evperso = 1 # Eventos perso: Sim
+
+func cmd_reduz
+  dono.msg(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "Você está se sentindo um pouco enjoada\n\
+você sente uma vontade enorme de comer um delicioso sonho de valsa.\n\
+Você enclina-se para a frente sentindo ânsia de vômito.\n\
+Você começa a sentir fortes dores no pé da barriga.\n\
+Tudo a sua volta parece girar por uns instantes...\n\
+Uma leve dor de cabeça passa a lhe incomodar.\n\
+A alegria lhe invade, e de repente, aquela barra de chocolate parece-lhe uma boa pedida.\n\
+Uma tristeza sem razão lhe atormenta os nervos.\n\
+Seu corpo sofre com um calor excessivo e inesperado.\n\
+Você se encolhe um pouco e treme com o frio repentino"
+
+
+classe e_gravida
+herda comum_efeito
+const e_nome = "Grávida"
+const e_condicao = 0 # Condição: 0 Nenhuma; permanente
+const msgini1 = "$P ficou grávid$s"
+const msgini2 = "$P ficou grávid$s"
+const m_atribs2 = "* el$v está grávid$v"
+const evhora = 1
+const frases = "Você está se sentindo um pouco enjoada\n\
+você sente uma vontade enorme de comer um delicioso sonho de valsa.\n\
+Você enclina-se para a frente sentindo ânsia de vômito.\n\
+Você começa a sentir fortes dores no pé da barriga.\n\
+Tudo a sua volta parece girar por uns instantes...\n\
+Uma leve dor de cabeça passa a lhe incomodar.\n\
+A alegria lhe invade, e de repente, aquela barra de chocolate parece-lhe uma boa pedida.\n\
+Uma tristeza sem razão lhe atormenta os nervos, e você começa a chorar....\n\
+você sente vontade de comer muitas mangas.\n\
+Você sente-se um pouco enjoada...\n\
+O bebê, parecendo impaciente, parece querer sair, com tantos chutes que está dando.\n\
+Você sente o bebê se mover um pouco para a direita.\n\
+Você sente o bebê se movendo um pouco para a esquerda\n\
+Sem motivo algum, você se sente muito irritada\n\
+você sente que precisa se sentar por alguns minutos, pois sua barriga pesa, causando um leve \
+desconforto...\n\
+Você está com ância...\n\
+Você sente vontade de comer sorvete de chocolate\n\
+Você sente vontade de comer pipoca com vinagre\n\
+ você sente muito sono...\n\
+Você sente vontade de comer pizza de calabreza...\n\
+Você sente muitas dores na barriga...\n\
+Você está se sentindo um pouco enjoada.\n\
+Você enclina-se para a frente sentindo ânsia de vômito.\n\
+Você começa a sentir fortes dores no pé da barriga.\n\
+Tudo a sua volta parece girar por uns instantes...\n\
+Uma leve dor de cabeça passa a lhe incomodar.\n\
+A alegria lhe invade, e de repente, aquela barra de chocolate parece-lhe uma boa pedida.\n\
+Você se sente muito cansada.\n\
+Seu corpo sofre com um calor excessivo e inesperado.\n\
+Você sente vontade de tomar suco de mangericão...\n\
+Você está com uma louca vontade de chupar limão com sal...\n\
+O bebê da leves chutes.\n\
+Você se encolhe um pouco e treme com o frio repentino\n\
+ O bebê está em uma posição desconfortável...\n\
+Você se encolhe um pouco e treme com o frio repentino"
+sav uint16 t_bebe
+sav inttempo tempo
+#
+
+func cmd_ini
+  tempo = 1500
+
+func tempo_exec
+  dono.msg(txtsublin(frases, rand(intsublin(frases)), 1))
+  tempo = rand(1500, 3000)
+#
+
+func cmd_hora
+  se arg0 == 7 || arg0 == 19
+    criar("e_banheiro", dono)
+  fimse
+#
+
+func cmd_fim
+  se dono.dentro2.objini("e_aborto")
+    dono.msg("Você sente sangue quente escorrer por suas pernas, e de repente, você tem a \
+sensação de que aquela vida que se formava em seu ventre, já não está mais lá.")
+    apagar(dono.dentro2.objini("e_aborto"))
+    ret 1
+  fimse
+  $mens.p(dono)
+  dono.msg("Você sente sua bolsa romper, enquanto seu canal vaginal se alarga, dando espaço à \
+passagem dos bebês...")
+  txt1 sexo
+  se rand(10) < 4
+    sexo = "m"
+  senao
+    sexo = "f"
+  fimse
+  refvar b = criar("p_templo012", dono.dono, 0)
+  b.var.z_sexo = sexo
+  b.var.z_dono = dono.descnome
+  $mens.p(dono, b)
+  refvar m1 = "Enquanto faz um pouco de força, você sente o bebê saindo de seu ventre... \
+Parabéns, você deu a luz a $A!"
+  refvar m2 = "Enquanto faz um pouco de força, o que se nota na expressão facial del$v, $a vem \
+saindo, dando o ar da graça com um leve choro!"
+  $mens.mvis2(m1, m2)
+  se t_bebe == 2
+    txt1 sexo2
+    se rand(10) < 4
+      sexo2 = "m"
+    senao
+      sexo2 = "f"
+    fimse
+    refvar b2 = criar("p_templo012", dono.dono, 0)
+    b2.var.z_dono = dono.descnome
+    b2.var.z_sexo = sexo2
+    $mens.p(dono, b2)
+    refvar m1 = "Enquanto faz um pouco de força, você sente o bebê saindo de seu ventre... \
+Parabéns, você deu a luz a $A!"
+    refvar m2 = "Enquanto faz um pouco de força, o que se nota na expressão facial del$v, $a vem \
+saindo, dando o ar da graça com um leve choro!"
+    $mens.mvis2(m1, m2)
+  fimse
+  se t_bebe == 3
+    txt1 sexo3
+    se rand(10) < 4
+      sexo3 = "m"
+    senao
+      sexo3 = "f"
+    fimse
+    refvar b3 = criar("p_templo012", dono.dono, 0)
+    b2.var.z_dono = dono.descnome
+    b3.var.z_sexo = sexo3
+    $mens.p(dono, b3)
+    refvar m1 = "Enquanto faz um pouco de força, você sente o bebê saindo de seu ventre... \
+Parabéns, você deu a luz a $A!"
+    refvar m2 = "Enquanto faz um pouco de força, o que se nota na expressão facial del$v, $a vem \
+saindo, dando o ar da graça com um leve choro!"
+    $mens.mvis2(m1, m2)
+  fimse
+
+
+classe e_grd
+herda comum_efeito
+const e_condicao = 0 # Condição: 0 Nenhuma; permanente
+const r_tempo = 5000
+const m_atribs2 = "* Ela está grávida!"
+
+func cmd_reduz
+  dono.msg(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "Você sente-se um pouco enjoada...\n\
+O bebê, parecendo impaciente, parece querer sair, com tantos chutes que está dando.\n\
+Você sente o bebê se mover um pouco para a direita.\n\
+Você sente o bebê se movendo um pouco para a esquerda\n\
+Você sente calor...\n\
+Você está com ância...\n\
+Você sente vontade de comer sorvete de chocolate\n\
+ você sente muito sono...\n\
+Você sente vontade de comer pizza de calabreza...\n\
+Você sente muitas dores na barriga...\n\
+Você está se sentindo um pouco enjoada.\n\
+Você enclina-se para a frente sentindo ânsia de vômito.\n\
+Você começa a sentir fortes dores no pé da barriga.\n\
+Tudo a sua volta parece girar por uns instantes...\n\
+Uma leve dor de cabeça passa a lhe incomodar.\n\
+A alegria lhe invade, e de repente, aquela barra de chocolate parece-lhe uma boa pedida.\n\
+Uma tristeza sem razão lhe atormenta os nervos.\n\
+Seu corpo sofre com um calor excessivo e inesperado.\n\
+Você sente vontade de tomar suco de mangericão...\n\
+Você está com uma louca vontade de chupar limão com sal...\n\
+O bebê da leves chutes.\n\
+Você se encolhe um pouco e treme com o frio repentino\n\
+ O bebê está em uma posição desconfortável..."
+
+func cmd_soltarobj
+  se arg2 == este
+    ret 1
+
+func cmd_darobj
+  se arg2 == este
+    ret 1
+
+func cmd_doarobj
+  se arg2 == este
+    ret 1
+
+
+classe e_grito_de_guerra
+herda comum_efeito
+const e_nome = "Grito de guerra"
+const e_desc = "Aumenta ataque e defesa em 10."
+const tempo1 = 3100
+const msgini1 = "Você da um poderoso grito de guerra!"
+const msgini2 = "$P da um poderoso grito de guerra!"
+const msgnulo1 = "Você da um poderoso grito de guerra!"
+const msgnulo2 = "$P da um poderoso grito de guerra!"
+const msgfim1 = "Você se sente menos imponente."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 15
+  defnorm += 5
+
+
+classe e_imobilizado
+herda comum_efeito
+const e_nome = "Imobilizado"
+const e_desc = "Executa um rápido ataque  contra o seu oponente, derrubando-o ao chão e deixando-\
+o fora de combate por alguns segundos.\n"
+const tempo1 = 50
+const tempo2 = 1
+const msgini1 = "$P foi imobilizad$s."
+const msgfim1 = "Seus movimentos retornam aos poucos."
+const msgfim2 = "Os movimentos de $P retornam aos poucos."
+const m_atribs2 = "... el$v está impossibilitado de atacar"
+const evperso = 1 # Eventos perso: Sim
+#
+
+func cmd_atacar
+  se arg0 == dono
+    arg0
+    $mens.p(arg0, arg1)
+    arg0.msginv("Imobilizad$s, você não consegue atacar $A e nem lhe causar dano algum.")
+    ret 1
+  fimse
+#
+
+func cmd_mover
+  se arg0 == dono
+    $mens.p(dono)
+    arg0.msginv("Você não consegue andar estando imobilizado.")
+    ret 1
+  fimse
+
+
+classe e_imortalidade
+herda comum_efeito
+const e_nome = "Imortalidade"
+const tempo1 = 100
+const tempo2 = 5
+const msgini1 = "Você sente o sangue dos deuses fluir por suas veias."
+const msgini2 = "$P é envolvindo por uma intensa luz brilhante, enquanto um sorriso toma conta \
+de seu rosto."
+const msgfim1 = "Você sente a sua vitalidade voltar ao que era antes."
+const msgfim2 = "A cintilante luz que envolvia $P desaparece e uma tristeza toma conta del$v."
+const evperso = 1 # Eventos perso: Sim
+
+
+classe e_infra_visão
+herda comum_efeito
+const e_nome = "Infra visão"
+const tempo1 = 1000
+const tempo2 = 5
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 6
+
+
+classe e_intimidar
+herda comum_efeito
+const e_nome = "Intimidado"
+const e_condicao = 3 # Condição: 3 Fora da batalha e tem pontos de vida
+const e_desc = "Diminui ataque, defesa, precisão, evazão, ataque especial e defesa especial do \
+personagem que estiver com esse efeito."
+const tempo1 = 1240
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += -10
+  defnorm += -10
+  atkesp += -10
+  defesp += -10
+  evasao += -10
+  precisao += -10
+
+
+classe e_invisibilidade
+herda comum_efeito
+const e_nome = "Invisibilidade"
+const e_condicao = 3 # Condição: 3 Fora da batalha e tem pontos de vida
+const tempo1 = 6000
+const tempo2 = 40
+const msgini2 = "\d=invisivel $P ficou invisível."
+const msgnulo2 = "$P ficou visível por um instante."
+const msgfim2 = "\d=visivel $P apareceu em um clarão."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv |= 4
+
+
+classe e_lambendo
+herda comum_efeito
+const e_nome = "Lambendo"
+const tempo1 = 100
+
+
+classe e_lumos
+herda comum_efeito
+const e_nome = "Lumos"
+const msgini1 = "Uma luz surge na ponta de sua varinha, iluminando tudo ao seu redor!"
+const msgini2 = "Uma luz surge na ponta da varinha de $P, iluminando tudo ao redor!"
+const msgnulo1 = "nada acontece."
+const msgfim1 = "A luz de sua varinha se apagou."
+const msgfim2 = "A luz da varinha de $P se apagou."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv &= ~2
+  bitver |= 2
+
+
+classe e_mãe
+herda comum_efeito
+const e_nome = "evento"
+const msgini1 = "Você começou a participar do evento!"
+const msgfim1 = "Você deixou de participar do evento!"
+const evhora = 1 # Eventos hora: Sim
+const evperso = 1 # Eventos perso: Sim
+#
+
+func cmd_mover
+  se arg0.pnivel < 15
+    apagar(dono.dentro2.objini("e_mae"))
+    ret 1
+  fimse
+  ret dono.var.z_mae_, nulo
+  txt32 item
+  refvar p = rand(1, 3)
+  se p == 1
+    item = "i_evento014"
+  senao p == 2
+    item = "i_evento016"
+  senao p == 3
+    item = "i_evento017"
+  fimse
+  criar(item, dono.dono.dir_[arg2], 1)
+  dono.var.z_mae@ = 1200
+#
+#
+
+func cmd_escr
+  se arg1 == "montar cartão"
+    refvar c2 = dono.dentro1.objini("i_evento016")
+    refvar c3 = dono.dentro1.objini("i_evento017")
+    refvar c1 = dono.dentro1.objini("i_evento014")
+    se c1
+      se c2
+        se c3
+          refvar i = criar("i_mensagem", dono, 1)
+          $mens.p(dono, nulo, i)
+          $mens.mtodos1("$P une as partes do cartão e eles se juntam, formando $o!")
+          apagar(c1), apagar(c2), apagar(c3)
+          ret 1
+        fimse
+        ret dono.msg("Você ainda não possui as três partes do cartão.")
+      fimse
+      ret dono.msg("Você ainda não possui as três partes do cartão.")
+    fimse
+    ret dono.msg("Você ainda não possui as três partes do cartão.")
+  fimse
+
+
+classe e_manto_de_seda
+herda comum_efeito
+const e_nome = "Manto de seda"
+const e_ef_condicao = ""
+const tempo1 = 3000
+const tempo2 = 10
+const msgini1 = "Imediatamente, bichos da ceda rodeiam você, tecendo um manto de ceda impenetráve\
+l sobre seu corpo."
+const msgini2 = "Imediatamente, bichos da ceda rodeiam $P, tecendo um manto de ceda impenetrável \
+sobre seu corpo."
+const m_atribs2 = "Rodead$s por bichos da seda"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 300
+  defnorm += 300
+  atkesp += 300
+  defesp += 300
+
+
+classe e_marca_de_baton
+herda comum_efeito
+const e_nome = "Marca de baton"
+const tempo1 = 900
+const m_atribs2 = "* El$v está com uma marca de baton deixada por " + dono.var.j_marcadebaton + \
+""
+
+
+classe e_marmadura_de_ossos
+herda comum_efeito
+const e_nome = "Marmadura de ossos"
+const m_atribs2 = "Rodead$s por vários ossos afiados"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 22 * pnivel
+  defnorm += 22 * pnivel
+  defesp += 28 * pnivel
+
+
+classe e_marmarduda_de_ossos
+herda comum_efeito
+const e_nome = "Marmarduda de ossos"
+
+
+classe e_meditando
+herda comum_efeito
+const e_nome = "Meditando"
+const desc = "Recupara mana / trigger"
+const r_tempo = 40
+const evperso = 1 # Eventos perso: Sim
+#
+# A partir daqui começa o código para a meditação funcionar
+const cmd_escr = encerrar
+const cmd_atacar = arg0 == dono && encerrar
+const cmd_alvo = arg0 == dono && encerrar
+const cmd_morreu = encerrar
+
+func encerrar
+  ret !t_reduzir, nulo
+  apagar(este)
+  t_reduzir = 0
+  ret dono.pvida <= 0, nulo
+  $mens.p(dono) + $mens.mvis1("$P perdeu a concentração.")
+
+func cmd_reduz # Restaura mana
+  refvar mana = dono.pmana
+  refvar max = dono.pmanamax
+  se mana >= max
+  senao (mana += 1 + max / 10) >= max
+    mana = max
+  senao
+    ret
+  fimse
+  apagar(este)
+  $mens.p(dono)
+  $mens.mvis1("$P conclui a meditação.")
+
+
+classe e_medo
+herda comum_efeito
+const e_nome = "Medo"
+const e_condicao = 3 # Condição: 3 Fora da batalha e tem pontos de vida
+const desc = "Diminui o ataque do alvo durante a batalha"
+const maximo = 4
+const r_tempo = 300
+const r_vida = 500
+const tempo1 = 500
+const tempo2 = 5
+const msgini1 = "Um frio repentino percorre todo o seu corpo, deixando-lhe apavorado!"
+const msgini2 = "Os olhos de $P perdem o brilho, enquanto um medo invade seu corpo, fazendo-$s \
+estremecer da cabeça aos pés."
+const msgfim2 = "$P perdeu o medo."
+const msgreduz1 = "Você sente calafrios e arrepios de medo, $m"
+const msgreduz2 = "Um medo repentino afeta $P, fazendo-$s tremer da cabeça aos pés, $m"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += -50 * pnivel - 500
+  atktipo.0 *= 0.83 # Tipos Normais
+  atktipo.1 *= 0.83 # Tipos Especiais
+
+
+classe e_metamorfose
+herda comum_efeito
+const e_nome = "Metamorfose"
+const e_condicao = 1 # Condição: 1 Tem pontos de vida
+const maximo = 1
+const tempo1 = 600
+const tempo2 = 5
+const msgfim = "$P volta a sua forma normal."
+sav txt20 nomejog
+#
+
+func cmd_ini
+  nomejog = arg0.nome
+  arg0.var.z_metamorfose && (arg0.nome = arg0.var.z_metamorfose)
+#
+
+func cmd_fim
+  arg0.var.z_metamorfose = ""
+  arg0.nome = nomejog
+  arg0.var.h_arranhar = ""
+  arg0.var.h_morder = ""
+
+
+classe e_mijado
+herda comum_efeito
+const e_nome = "Mijado"
+const evperso = 1 # Eventos perso: Sim
+inttempo xixi
+#
+
+func cmd_ini
+  xixi = 500
+#
+
+func xixi_exec
+  $mens.p(dono)
+  $mens.mtodos1("$P sente-se incomodad$s com o xixi na fralda e chora!")
+  xixi = rand(600, 800)
+
+
+classe e_montando
+herda comum_efeito
+const e_nome = "Montando"
+const m_atribs2 = "* el$v está montad$s em " + dono.var.z_montando + "."
+
+
+classe e_nadando
+herda comum_efeito
+const e_nome = "Nadando"
+const msgini1 = "$P começa a nadar."
+const msgini2 = "$P começa a nadar."
+const msgfim1 = "$P começa a nadar."
+const msgfim2 = "$P começa a nadar."
+const m_atribs2 = "el$v está nadando"
+
+
+classe e_ocultar
+herda comum_efeito
+const e_nome = "Ocultar"
+const e_condicao = 3 # Condição: 3 Fora da batalha e tem pontos de vida
+const msgini1 = "$P se esconde."
+const msgnulo1 = "$P continua escondid$s."
+const tempo1 = 6000
+const tempo2 = 40
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv |= 8
+
+
+classe e_pacifico
+herda comum_efeito
+const e_nome = "Pacifico"
+const evperso = 1 # Eventos perso: Sim
+#
+
+func cmd_atacar
+  se arg0.jog && arg1.jog
+    se arg0 == dono
+      arg0.msg("Você não quer brigar com ninguém.")
+    senao arg1 == dono
+      arg0.msg(arg1.descnome + " não quer brigar com ninguém.")
+    fimse
+  fimse
+#
+
+func cmd_atkenv
+  se arg0.jog && arg1.jog
+    ret arg0 == dono, arg0.msg("Você não quer brigar.")
+    ret arg1 == dono, arg0.msg(arg1.descnome + " não quer brigar.")
+  fimse
+
+
+classe e_paralisado
+herda comum_efeito
+const e_nome = "Paralisado"
+const desc = "Espera mais tempo entre ataques / trigger"
+const tempo1 = 3000
+const tempo2 = 20
+const msgini2 = "$P foi paralisad$s."
+const msgfim2 = "$P não está mais paralisad$s."
+const evperso = 1 # Eventos perso: Sim
+
+func cmd_atacou
+  se arg0 == dono && arg0.p_espera < 110
+    arg0.p_espera = 110
+  fimse
+
+
+classe e_parto
+herda comum_efeito
+const e_nome = "Parto"
+const r_tempo = 300
+const evhora = 1 # Eventos hora: Sim
+const evperso = 1 # Eventos perso: Sim
+inttempo contra
+inttempo parir
+inttempo inxar
+#
+
+func cmd_ini
+  dono.msg("Você começa a sentir contrações...")
+  contra = rand(600, 1200)
+  inxar = 900
+  bebe = 6000
+  liquido = 600
+  parir = 6300
+#
+
+func inxar_exec
+  dono.msg("Você sente seu corpo inchar mais do que o normal...")
+
+func contra_exec
+  dono.msg("Suas contrações aumentam de intensidade.")
+  contra = 300
+#
+
+func liquido_exec
+  dono.msg("Um líquido quente e de uma coloração rosada começa a escorrer por sua vagina...")
+#
+
+func bebe_exec
+  dono.msg("O bebê está em uma posição mais baixa, talvez esteja próxima a hora de ele nascer!")
+#
+
+func parir_exec
+  dono.msg("Você está entrando em trabalho de parto: procure um médico urgente!")
+  var.z_parir_ = 1
+  parir = 300
+#
+
+func cmd_fim
+  apagar(dono.dentro2.objini("e_gravida"))
+#
+
+func cmd_escr
+  se arg1 == "parir"
+    ret !dono.var.z_parir_, arg0.msg("Você não está preparada para isso ainda.")
+    arg0.msg("certo!")
+    apagar(este)
+    ret 1
+  fimse
+
+
+classe e_perfume
+herda comum_efeito
+const e_nome = "Perfume"
+const tempo1 = 18000
+const m_atribs2 = perfume
+sav txt100 perfume
+
+
+classe e_prisão_de_teia
+herda comum_efeito
+const e_nome = "Prisão de teia"
+const tempo1 = 100
+const tempo2 = 5
+const msgfim1 = "as inúmeras teias ao seu redor se enfraquecem, libertando-$s"
+const msgfim2 = "a teia que prendia $P enfraquece, libertando-$s"
+const m_atribs2 = "preso em uma viscosa teia"
+const evhora = 1 # Eventos hora: Sim
+const evperso = 1 # Eventos perso: Sim
+
+func cmd_atacar
+  se arg0 == dono
+    $mens.p(arg0)
+    $mens.msginv("$P está imobilizado por incontáveis teias!", arg0)
+    ret 1
+  fimse
+
+func cmd_mover
+  arg0.msg("Você está preso em uma viscosa teia!")
+  ret 1
+
+
+classe e_proteção_de_insetos
+herda comum_efeito
+const e_nome = "Proteção de insetos"
+const e_desc = "retira 400 pontos de vida do alvo a cada golpe recebido."
+const tempo1 = 3000
+const tempo2 = 300
+const msgfim1 = "Os insetos ao seu redor deixam de protegê-l$s"
+const msgfim2 = "os insetos ao redor de $P deixam de protegê-l$s"
+const m_atribs2 = "*Milhares de insetos $s protegem"
+const evhora = 1 # Eventos hora: Sim
+const evperso = 1 # Eventos perso: Sim
+
+func cmd_atacou
+  se !arg2.result && arg1 == dono
+    $mens.p(arg1, arg0)
+    refvar m1 = "Os insetos ao seu redor, devoram o corpo de $A. -400"
+    refvar m2 = "Os insetos ao redor de $P devoram seu corpo, causando-lhe dores e arrepios de \
+medo. -400"
+    refvar m3 = "os insetos ao redor de $P devoram o corpo de $A, causando-lhe dores e arrepios \
+de medo."
+    $mens.mvis3(m1, m2, m3)
+    arg0.pvida -= 400
+    arg0.acertapos(1)
+  fimse
+
+
+classe e_proteção_de_luz
+herda comum_efeito
+const e_nome = "Proteção de luz"
+const tempo1 = 80000
+const tempo2 = 500
+const msgini2 = "Uma luz passa a rodear $p."
+const msgfim2 = "A luz que rodeava $p sumiu."
+const m_atribs2 = "* ... e está protegid$s por uma luz"
+const evperso = 1 # Eventos perso: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  deftipo.12 *= 0.5 # Luz
+  deftipo.13 *= 0.5 # Trevas
+
+func cmd_removeu
+  se arg2 == 3 # No menu do Econfig 2 é nos olhos, aqui soma 1
+    apagar(este)
+  fimse
+
+
+classe e_protego
+herda comum_efeito
+const e_nome = "Protego"
+const tempo1 = 3000
+const tempo2 = 10
+const msgfim1 = "A barreira que $s protegia desfaz-se repentinamente!"
+const msgfim2 = "A barreira que protegia $P desfaz-se repentinamente!"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  deftipo.0 *= 0.97 # Tipos Normais
+  deftipo.1 *= 0.97 # Tipos Especiais
+  deftipo.13 *= 0.97 # Trevas
+  deftipo.17 *= 0.97 # Veneno
+
+
+classe e_punho_de_ossos
+herda comum_efeito
+const e_nome = "Punho de ossos"
+const tempo1 = 3000
+const tempo2 = 50
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atktipo.0 *= 1.15 # Tipos Normais
+  atktipo.1 *= 1.15 # Tipos Especiais
+  atktipo.2 *= 1.15 # Contusão
+  atktipo.3 *= 1.15 # luta
+  atktipo.4 *= 1.15 # Cortante
+  atktipo.5 *= 1.15 # Perfurante
+
+
+classe e_queimando
+herda comum_efeito
+const e_nome = "Queimando"
+const desc = "Perde vida de tempos em tempos / trigger"
+const r_tempo = 80
+const r_vida = 2000
+const tempo1 = 600
+const tempo2 = 5
+const msgini2 = "$P sofre queimaduras."
+const msgfim2 = "$P não está mais queimando."
+const msgreduz2 = "$P está queimando."
+const evperso = 1 # Eventos perso: Sim
+
+func cmd_atacou
+  se !arg2.result && arg1 == dono # Recebeu ataque com sucesso
+    se arg2.tipoatk == 6 # Recebeu ataque do tipo gelo
+      apagar(este)
+    senao arg2.tipoatk == 5 && rand(100) < 25 # Recebeu ataque do tipo água
+      apagar(este)
+    fimse
+  fimse
+
+
+classe e_quente
+herda comum_efeito
+const e_nome = "Quente"
+const tempo1 = 3000
+const msgini2 = "$P esquentou."
+const msgfim1 = "Sua temperatura retorna ao valor normal."
+const msgfim2 = "A temperatura de $P retorna ao valor normal."
+const m_atribs2 = "* Isso está quente"
+const evperso = 1 # Eventos perso: Sim
+#
+
+func cmd_pegouobj
+  se arg2 == dono
+    arg0.msg("Ao pegar " + arg2.descnome + ", você quase se queima.")
+  fimse
+#
+
+func cmd_comeu
+  se arg1 == dono
+    arg0.msg("Estava bem quentinh" + (arg1.msexo ? "o." : "a."))
+  fimse
+#
+
+func cmd_bebeu
+  se arg1 == dono
+    arg0.msg("Estava bem quentinh" + (arg1.msexo ? "o." : "a."))
+  fimse
+
+
+classe e_reduzir
+herda comum_efeito
+const e_nome = "Reduzir"
+const tempo1 = 5000
+const msgini1 = "Você foi reduzido ao nível 220."
+const msgini2 = "$P foi reduzido ao nível 220."
+const msgfim1 = "$P voltou ao nível normal"
+const msgfim2 = "$P voltou ao nível normal."
+sav uint16 n_nivel
+#
+
+func cmd_ini
+  n_nivel = arg0.pnivel
+  arg0.pnivel = 220, recalc = 1
+#
+
+func cmd_fim
+  arg0.pnivel = n_nivel, recalc = 1
+
+
+classe e_rolando
+herda comum_efeito
+const e_nome = "Rolando"
+const tempo1 = 100
+
+
+classe e_rouquidao
+herda comum_efeito
+const e_nome = "Rouquidão"
+const e_desc = "Você perdeu a voz, por isso não consegue usar alguns canais de comunicação."
+const desc = "Bloqueia alguns canais de comunicação / trigger"
+const msgini1 = "Você perdeu a voz."
+const msgfim1 = "Sua voz voltou."
+const evperso = 1 # Eventos perso: Sim
+
+func cmd_escr
+  casovar arg2
+  casose "cmd_telepatia"
+  casose "cmd_falar"
+  casose "cmd_cantar"
+  casose "cmd_sussurrar"
+  casose "cmd_gritar"
+  casose "cmd_novatos"
+  casose "cmd_gemot"
+  casose "cmd_emocao"
+  casose "cmd_chat"
+    arg0.msg("Você perdeu a voz.")
+    ret 1
+  casofim
+
+func morreu
+  se arg0 == este
+    criar("e_rouquidão", arg0)
+    ret 1
+  fimse
+
+
+classe e_santuário
+herda comum_efeito
+const e_nome = "Santuário"
+const e_ef_apaga = "cegueira\nenvenenado"
+const tempo1 = 2000
+const tempo2 = 100
+const msgini1 = "$P recebe a proteção dos monges, graças a sua consentração"
+const msgini2 = "um divino santuário surge em volta de $P, protegendo-$s"
+const msgfim1 = "O santuário que protegia você se desfez aos poucos"
+const msgfim2 = "O santuário que protegia $P se desfez misteriosamente"
+const m_atribs2 = "* ... está protegid$s por uma energia de paz e sabedoria:"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  defnorm += 5 * pnivel + 200
+  defesp += 5 * pnivel + 200
+  evasao += 20 * pnivel + 250
+  deftipo.0 *= 0.8 # Tipos Normais
+  deftipo.1 *= 0.8 # Tipos Especiais
+  deftipo.6 *= 0.7 # Fogo
+  deftipo.13 *= 0.7 # Trevas
+
+
+classe e_sectumsempra
+herda comum_efeito
+const e_nome = "Sectumsempra"
+const r_tempo = 50
+const r_vida = 300
+const tempo1 = 50
+const msgfim1 = "Os sangramentos causados em seu corpo pelo feitiço cessam e as feridas cicatriza\
+m!"
+const msgfim2 = "Os sangramentos por todo o corpo de $P cessam e seus ferimentos são cicatrizados\
+!"
+const msgreduz1 = "Cortes profundos começam a sangrar por todo seu corpo, como se uma espada \
+invisível o tivesse golpeando!"
+const msgreduz2 = "Cortes profundos começam a sangrar por todo o corpo de $P, como se uma espada \
+invisível o tivesse golpeando!"
+
+
+classe e_sectunsempra
+herda comum_efeito
+const e_nome = "Sectunsempra"
+
+
+classe e_soneca
+herda comum_efeito
+const e_nome = "Soneca"
+const e_desc = "Dorme por um tempo."
+const desc = "Recupera vida e dorme por um tempo"
+const tempo1 = 150
+const msgini2 = "$P tira uma soneca."
+const msgnulo2 = "$P tenta tirar uma soneca."
+const msgfim2 = "$P acorda da soneca."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 1024
+  deftipo.0 *= 0.5 # Tipos Normais
+  deftipo.1 *= 0.5 # Tipos Especiais
+
+
+classe e_sono_profundo
+herda comum_efeito
+const e_nome = "Sono profundo"
+const desc = "Não pode acordar / trigger"
+const tempo1 = 100
+const tempo2 = 5
+const msgini2 = "$P pegou no sono."
+const msgnulo2 = "$P parece tão acordad$s quanto antes."
+const msgfim2 = "$P acordou."
+const evperso = 1 # Eventos perso: Sim
+
+func cmd_fim # Efeito foi apagado
+  se dono.posicao == 4 # Se estiver dormindo
+    dono.posicao = 8 # Acordou
+  fimse
+
+func cmd_atacou
+  se !arg2.result && arg1 == dono # Recebeu ataque com sucesso
+    t_duracao > 50 && (t_duracao -= 40) # Menos tempo dormindo
+  fimse
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 1024
+
+
+classe e_sonorus
+herda comum_efeito
+const e_nome = "Sonorus"
+const tempo1 = 3600
+const tempo2 = 5
+const msgfim1 = "Sua voz volta ao volume normal."
+const msgfim2 = "A voz de $P volta ao volume normal."
+const evperso = 1 # Eventos perso: Sim
+#
+
+func cmd_falou
+  se arg0 == dono
+    arg0.msg("Sua voz ressoa em alto e bom som por toda a área.")
+    $mens.p(arg0)
+    $mens.mens = arg1
+    se txtfim(arg1, 3) == "..."
+      $mens.mareas("$P ergue sua voz e pondera: '$m'")
+    senao txtfim(arg1, 1) == "?"
+      $mens.mareas("$P ergue sua voz e pergunta: '$m'")
+    senao txtfim("$P ergue sua voz e exclama: '$m'")
+    senao
+      $mens.mareas("$P ergue sua voz e diz: '$m'")
+    fimse
+  fimse
+
+
+classe e_sorrindo
+herda comum_efeito
+const e_nome = "Sorrindo"
+const e_condicao = 0 # Condição: 0 Nenhuma; permanente
+const maximo = 2
+const tempo1 = 100
+
+
+classe e_transformação
+herda comum_efeito
+const e_nome = "Transformação"
+const maximo = 1
+const tempo1 = 100
+const tempo2 = 5
+const msgini1 = "$p sente uma terrível dor, enquanto seus ossos , um a um, comessam a se \
+quebrar. Isso dói muito!"
+const msgfim1 = "$p respira fundo, e aos poucos vai se acalmando, sentindo a paz reinar em seu \
+corpo novamente"
+const evperso = 1 # Eventos perso: Sim
+sav txt20 nomejog
+#
+
+func cmd_ini
+  $mens.p(arg0)
+  se arg0.msexo
+    $mens.mens = "um lobisomem"
+  senao
+    $mens.mens = "uma loba"
+  fimse
+  $mens.mtodos1("\d=transformacao $P tem seu corpo revestido por pelos, enquanto seus braços e \
+pernas se transformam em patas com grandes garras. Por fim, $P se transforma completamente em \
+$m.")
+  nomejog = arg0.nome
+  arg0.nome = arg0.msexo ? "um lobisomem" : "uma loba"
+#
+
+func cmd_fim
+  dono.nome = nomejog
+  dono.sock.nome = nomejog
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 60
+  bitver |= 4378
+
+
+classe e_veneno_mortal
+herda comum_efeito
+const e_nome = "Veneno mortal"
+const tempo1 = 200
+
+func cmd_ini # Chamado quando o efeito é criado
+  tempoini # Inicia contagem de tempo
+
+func cmd_tempo10
+  arg0.msg("Tem alguma coisa errada. O líquido desceu queimando.")
+
+func cmd_tempo50
+  arg0.msg("Aos poucos você sente uma terrível dor, corroendo os órgãos por dentro.")
+
+func cmd_tempo90
+  $mens.p(arg0)
+  $mens.mtodos1("$P dobra os joelhos e vomita.")
+
+func cmd_tempo110
+  $mens.p(arg0)
+  $mens.mtodos1("$P cai no chão com a boca aberta, já sem vida.")
+  arg0.morreu
+
+
+classe e_ver_invisivel
+herda comum_efeito
+const e_nome = "Ver Invisível"
+const tempo1 = 6000
+const tempo2 = 40
+const msgini1 = "Seus sentidos ficam mais aguçados."
+const msgini2 = "Os sentidos de $p ficam mais aguçados."
+const msgnulo2 = "$P não sente diferença."
+const msgfim1 = "Seus sentidos voltam ao normal."
+const msgfim2 = "Os sentidos de $p voltam ao normal."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 4
+
+
+classe e_ver_oculto
+herda comum_efeito
+const e_nome = "Ver Oculto"
+const tempo1 = 6000
+const tempo2 = 40
+const msgini1 = "Seus sentidos ficam mais aguçados."
+const msgini2 = "Os sentidos de $p ficam mais aguçados."
+const msgnulo1 = "$P não sente diferença."
+const msgfim1 = "Seus sentidos voltam ao normal."
+const msgfim2 = "Os sentidos de $p voltam ao normal."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 8
+
+
+classe e_voar
+herda comum_efeito
+const e_nome = "Voar"
+const e_desc = "Voando se cansa menos para ir de um lugar a outro."
+const tempo1 = 80000
+const tempo2 = 700
+const msgini2 = "$P começa a voar."
+const msgnulo2 = "$P sobe um pouco no ar e volta."
+const msgfim2 = "$P retorna ao chão."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitinv |= 16
+
+
+classe e_voo
+herda comum_efeito
+const e_nome = "Voo"
+const maximo = 1
+const msgini1 = "$p voa cada vez mais alto, para observar melhor o local"
+const msgfalhou1 = "$p tenta voar, mas algo la nos céus a assusta e $p volta para a altura \
+segura em que estava"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pveloc1 += 80
+  evasao += 80
+  bitver |= 48
+  bitinv |= 32
+
+
+classe e_vunerabilidade
+herda comum_efeito
+const e_nome = "Vunerabilidade"
+const tempo1 = 600
+const msgini1 = "Seu corpo ficou mais vunerável à ataques."
+const msgini2 = "O corpo de $P ficou mais vunerável a ataques."
+const msgfim1 = "Seu corpo se reestabelece, voltando ao normal."
+const msgfim2 = "O corpo de $P se reestabelece, voltando ao normal."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  deftipo.0 *= 2 # Tipos Normais
+  deftipo.1 *= 2 # Tipos Especiais
+
+
+classe f_afiado
+herda comum_modif
+const e_nome = "Afiado"
+const m_atribs2 = "Afiado"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  var.z_armamin_ += 2
+  var.z_armamax_ += 5
+
+
+classe f_espada_sagrada
+herda comum_modif
+const e_nome = "Espada sagrada"
+const e_desc = "Torna uma espada sagrada. Aumentando em até o dobro de seu ataque."
+const m_atribs2 = "* Este item é sagrado."
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  var.z_armaaddprecisao_ += 2 * pnivel + 20
+  var.z_armamin_ += 2 * pnivel + 20
+  var.z_armamax_ += 10 * pnivel + 100
+
+
+classe f_frita
+herda comum_modif
+const e_nome = "Frita"
+const m_atribs2 = "frita"
+
+
+classe f_frito
+herda comum_modif
+const e_nome = "Frito"
+const m_atribs2 = "frit$x"
+
+
+classe f_suja
+herda comum_modif
+const e_nome = "Suja"
+const m_atribs2 = "* Ela está suja."
+
+
+classe f_sujo
+herda comum_modif
+const e_nome = "Sujo"

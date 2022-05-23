@@ -1,0 +1,419 @@
+classe misc
+# Miscelânea: tabelas (variáveis) e funções
+# Deve ser usado como misc:variável ao invés de $misc.variável
+#
+# Versão do MUD, aparece no comando Serv
+const versao = "29/12/2016"
+#
+# Objetos obtidos por em misc:separa
+comum txt100 sep1 # Objeto procurado
+comum txt100 sep2 # Objeto ou personagem destino
+#
+# Hora MUD
+comum int1 luz # Se tem luz do dia
+comum uint8 dia # Dia MUD, de 0 (domingo) a 6 (sábado)
+comum uint8 hora # Hora MUD (1 dia MUD = 2 horas)
+const min = intdiv((2999 - misc:imin) / 50) # Minuto MUD
+comum intdec imin # Usado internamente para calcular o minuto MUD
+#
+# Experiência ganha conforme o comando Mudaexp
+comum real mudaexp
+#
+# Direções
+const d1n = "n"
+const d1s = "s"
+const d1l = "l"
+const d1o = "o"
+const d1c = "c"
+const d1b = "b"
+const d1e = "l"
+const d1w = "o"
+const d1u = "c"
+const d1d = "b"
+const d1ne = "ne"
+const d1no = "no"
+const d1se = "se"
+const d1so = "so"
+const d1nw = "no"
+const d1sw = "so"
+const d1entrar = "entrar"
+const d1sair = "sair"
+#
+# Direções opostas
+const d2n = "s"
+const d2s = "n"
+const d2l = "o"
+const d2o = "l"
+const d2c = "b"
+const d2b = "c"
+const d2e = "o"
+const d2w = "l"
+const d2u = "b"
+const d2d = "c"
+const d2ne = "so"
+const d2no = "se"
+const d2se = "no"
+const d2so = "ne"
+const d2nw = "se"
+const d2sw = "ne"
+const d2entrar = "sair"
+const d2sair = "entrar"
+#
+# Para onde o ataque foi
+const d3n = "Norte: "
+const d3s = "Sul: "
+const d3l = "Leste: "
+const d3o = "Oeste: "
+const d3c = "Cima: "
+const d3b = "Baixo:"
+const d3ne = "Nordeste: "
+const d3no = "Noroeste: "
+const d3se = "Sudeste: "
+const d3so = "Sudoeste: "
+#
+# De onde o ataque veio
+const d4n = "Do sul: "
+const d4s = "Do norte: "
+const d4l = "Do oeste: "
+const d4o = "Do leste: "
+const d4c = "De baixo: "
+const d4b = "De cima: "
+const d4ne = "Do sudoeste: "
+const d4no = "Do sudeste: "
+const d4se = "Do noroeste: "
+const d4so = "Do nordeste: "
+#
+# Lista de direções, para o comando LSAI
+const listadir = "n s l o ne no se so c b entrar sair"
+#
+# A classificação das habilidades de acordo com o número de aulas
+const aulas = "Não sabe\n\
+Iniciante\n\
+Muito básico\n\
+Básico\n\
+Intermediário\n\
+Avançado\n\
+Muito avançado\n\
+Mestre\nPerito"
+#
+# Palavra que corresponde a todos os objetos, em nomeobj
+const tudo = "tudo"
+#
+# Quantidade máxima de objetos ao pegar, soltar, guardar, vestir, etc.
+const objmax = 2000000000
+
+func equip # Traduz número para lugar aonde está vestindo um item
+# Retorna um texto ou "Desconhecido" se não for um lugar válido
+  ret arg0 == 50, "empunhando"
+  refvar valor = txtsublin(config:equip_txt, int(arg0) - 1, 1)
+  ret valor ? valor : "desconhecido"
+
+func atkesp # Tipos de golpes
+# arg0 = número do golpe
+# Retorna: 0=normal, 1=especial
+  ret config:atkespecial >> arg0 & 1
+
+func nomevar # Retorna o nome da habilidade/magia/idioma a partir do nome da variável
+# arg0 = nome da variável
+  casovar txt(arg0, 0, 2)
+  casose "i_"
+    ret "Idioma " + txte(txt(arg0, 2))
+  casose "m_"
+    ret "Magia " + txte(txt(arg0, 2))
+  casose
+    ret txte(txt(arg0, 2))
+  casofim
+
+func objvar # Retorna o nome da classe de uma habilidade/magia/idioma
+# arg0 = nome da variável
+  casovar txt(arg0, 0, 2)
+  casose "i_"
+    ret "idioma_" + txt(txt1(arg0), 2)
+  casose "m_"
+    ret "magia_" + txt(txt1(arg0), 2)
+  casose "h_"
+    ret "cmd_" + txt(txt1(arg0), 2)
+  casose
+    ret ""
+  casofim
+
+func separa # Separa o nome do objeto do nome do destino
+# arg0 = texto completo
+# Faz: misc:sep1 = objeto procurado, misc:sep2 = alvo
+  txt200 x
+  x = txtremove(arg0, "EMDSA")
+  casovar intsub(x)
+  casose "0"
+  casose "1"
+    misc:sep1 = x
+    misc:sep2 = ""
+    ret
+  casose "2"
+    se txt1(x) != int(txt1(x))
+      misc:sep1 = txt1(x)
+      misc:sep2 = txt2(x)
+    senao
+      misc:sep1 = x
+      misc:sep2 = ""
+    fimse
+    ret
+  casose "3"
+    misc:sep1 = txtsub(x, 0, 2)
+    misc:sep2 = txtsub(x, 2)
+    ret
+  casose
+    refvar tam = intsub(arg0) - 1
+    misc:sep1 = txtsub(x, 0, tam)
+    misc:sep2 = txtsub(x, tam)
+  casofim
+
+func itemtudo # Obtém um item no personagem ou na sala
+# arg0 = personagem, arg1 = nome do item (que o usuário digitou)
+# Retorna: o objeto do item ou nulo se não encontrou
+  listaitem i
+  nomeobj n
+  n.ini(arg1, 1)
+  epara i = arg0.dentro1.ini, i, i.depois
+    ret i.obj.visivel(arg0) && n.nome(i.obj.ident, i.obj.objtot), ref(i.obj)
+  efim
+  epara i = arg0.dentro2.ini, i, i.depois
+    ret i.obj.visivel(arg0) && n.nome(i.obj.ident, i.obj.objtot), ref(i.obj)
+  efim
+  epara i = arg0.dono.dentro1.ini, i, i.depois
+    ret i.obj.visivel(arg0) && n.nome(i.obj.ident, i.obj.objtot), ref(i.obj)
+  efim
+
+func itemdono # Obtém um item na sala
+# arg0 = personagem, arg1 = nome do item (que o usuário digitou)
+# Retorna: o objeto do item ou nulo se não encontrou
+  listaitem i
+  nomeobj n
+  n.ini(arg1, 1)
+  epara i = arg0.dono.dentro1.ini, i, i.depois
+    ret i.obj.visivel(arg0) && n.nome(i.obj.ident, i.obj.objtot), ref(i.obj)
+  efim
+
+func itemdentro # Obtém um item no personagem
+# arg0 = personagem, arg1 = nome do item (que o usuário digitou)
+# Retorna: o objeto do item ou nulo se não encontrou
+  listaitem i
+  nomeobj n
+  n.ini(arg1, 1)
+  epara i = arg0.dentro1.ini, i, i.depois
+    ret i.obj.visivel(arg0) && n.nome(i.obj.ident, i.obj.objtot), ref(i.obj)
+  efim
+
+func persodono # Obtém um personagem na sala
+# arg0 = personagem, arg1 = nome do personagem (que o usuário digitou)
+# Retorna: o objeto do personagem ou nulo se não encontrou
+  listaitem i
+  nomeobj n
+  n.ini(arg1, 1)
+  epara i = arg0.dono.dentro2.ini, i, i.depois
+    ret i.obj.visivel(arg0) && n.nome(i.obj.ident, i.obj.objtot), ref(i.obj)
+  efim
+
+func persooutro # Obtém um personagem na sala que não seja o próprio personagem
+# arg0 = personagem, arg1 = nome do personagem (que o usuário digitou)
+# Retorna: o objeto do personagem ou nulo se não encontrou
+  listaitem i
+  nomeobj n
+  n.ini(arg1, 1)
+  epara i = arg0.dono.dentro2.ini, i, i.depois
+    refvar r = i.obj
+    ret r != arg0 && r.visivel(arg0) && n.nome(r.ident, r.objtot), ref(r)
+  efim
+
+func persoinfo # Obtém o personagem que o jogador quer consultar a partir de um texto
+# Com jogadores normais, sempre retorna o personagem escolhido
+# arg0 = personagem
+# arg1 = texto do tipo: [nome do personagem na sala] [número do animal]
+# Retorna o objeto do personagem, ou nulo se não encontrou (e avisa o jogador)
+  ref r
+  se !arg1
+    ret arg0.persoesc
+  senao arg1 == intpos(arg1) && config:animal1 >= arg1
+    r = arg0.animalnum(arg1)
+    !r && arg0.msg("Você não possui animal " + arg1 + ".")
+    ret r
+  senao !$perm_[arg0.jogperm].i_perso
+    ret arg0.persoesc
+  fimse
+  listaobj l
+  nomeobj n # Para reconhecer os itens
+  n.ini(txt1(arg1), 1000000)
+  epara l.addfim(arg0.dono.dentro2), l, l.ini.remove
+    continuar !l.objini.visivel(arg0) || !n.nome(l.objini.ident, l.objini.objtot)
+    r = l.objini
+    sair
+  efim
+  se !r
+    arg0.msg("Você não vê isso.")
+    ret
+  fimse
+  refvar num = txt2(arg1)
+  ret num != intpos(num) || config:animal1 < num, r
+  refvar rr = r.animalnum(num)
+  !rr && arg0.msg(txtcopiamai(r.descnome, "A") + " não possui animal " + num + ".")
+  ret rr
+
+func txtmoedas # Retorna texto correspondente à quantidade de moedas
+# arg0 = quantidade de moedas
+  casovar int(arg0)
+  casose "0"
+    ret "nenhuma moeda"
+  casose "1"
+    ret "uma moeda"
+  casose "2"
+    ret "duas moedas"
+  casose "3"
+    ret "três moedas"
+  casose "4"
+    ret "quatro moedas"
+  casose "5"
+    ret "cinco moedas"
+  casose "6"
+    ret "seis moedas"
+  casose "7"
+    ret "sete moedas"
+  casose "8"
+    ret "oito moedas"
+  casose "9"
+    ret "nove moedas"
+  casose "10"
+    ret "dez moedas"
+  casofim
+  uint32 x
+  x = arg0
+  ret x <= 40, "algumas moedas"
+  ret x <= 150, "uma pilha de moedas"
+  ret x <= 500, "poucas pilhas de moedas"
+  ret x <= 2000, "algumas pilhas de moedas"
+  ret x <= 5000, "muitas pilhas de moedas"
+  ret x <= 20000, "um morrinho de moedas"
+  ret x <= 50000, "um pequeno morro de moedas"
+  ret "uma quantidade imensa de moedas"
+
+func evento # Objeto passa a receber eventos até um objeto mudar de sala
+# arg0 a arg2 = objetos cujos eventos serão recebidos
+  ret !ref(arg0), nulo
+  ref r
+  r = criar("misc_evento")
+  r.perso1 = arg0.evento.addfim(este, r)
+  r.perso2 = arg1.evento.addfim(este, r)
+  r.perso3 = arg2.evento.addfim(este, r)
+
+func tempo # Eventos de tempo (cria objeto), vide classe misc_tempo
+  ret !(txt(arg0) && ref(arg1)), nulo
+  refvar r = criar("misc_tempo")
+  r.tempo1 = r.tempo2 = 1
+  r.obj = este
+  r.func = arg0
+  r.perso1 = arg1, r.perso1.evento.addfim(r)
+  r.perso2 = arg2, r.perso2.evento.addfim(r)
+  r.perso3 = arg3, r.perso3.evento.addfim(r)
+
+func ini
+  mudaexp = 1
+
+
+classe misc_evento
+listaitem perso1 # Primeiro personagem
+listaitem perso2 # Segundo personagem
+listaitem perso3 # Terceiro personagem
+const cmd_saiu = fim + apagar(este) # Personagem saiu da sala
+const cmd_fim = fim + apagar(este) # Personagem saiu do jogo
+
+func fim # Este objeto foi apagado
+  perso1.remove, perso2.remove, perso3.remove
+
+
+classe misc_tempo
+# Processa eventos de tempo
+#
+# Deve ser criado com:
+# misc:tempo("nome da função", personagens)
+# É permitido até 3 personagens.
+# Se um dos personagens mudar de sala, o evento é encerrado.
+#
+# Resultado: são executadas as funções cujo nome é o nome
+# especificado seguido do tempo decorrido, em décimos de segundo
+# A função com o nome especificado seguido de "0" é executada
+# quando o objeto for apagado.
+#
+# Na função:
+# arg0 a arg2 = personagens
+# arg3 = objeto misc_tempo
+#
+inttempo tempo1 # Para gerar eventos de tempo
+uint32 tempo2 # tempo2-tempo1 = Tempo decorrido
+txt100 func # Nome da função que deve chamar
+ref obj # Objeto que contém a função
+ref perso1 # Primeiro personagem
+ref perso2 # Segundo personagem
+ref perso3 # Terceiro personagem
+const cmd_saiu = apagar(este) # Personagem saiu da sala
+const cmd_fim = apagar(este) # Personagem saiu do jogo
+
+func fim # Este objeto foi apagado
+  obj.[func]0(perso1, perso2, perso3, este)
+
+func tempo1_exec # Executa eventos
+  ret !obj, apagar(este)
+  prog p
+  uint32 x
+  uint32 v
+  x = 1000000
+  refvar tam = inttotal(func)
+  epara p.inifunctudo(obj, func), p.lin, p.depois
+    (v = txt(p.texto, tam)) > tempo2 && v < x && (x = v)
+  efim
+  x == 1000000 && apagar(este)
+  v = tempo2
+  tempo1 = x - tempo2
+  tempo2 = x
+  obj.[func + v](perso1, perso2, perso3, este)
+
+
+classe miscserv
+# Para atualizar informações do comando serv a cada 60 segundos
+inttempo tempo
+real stempo_antes
+real utempo_antes
+real stempo
+real utempo
+int32 noar # Quantos minutos está no ar
+const iniclasse = !$[arg0] && criar(arg0)
+const ini = tempo = 1, noar = -1
+
+func tempo_exec
+  tempo = 600, noar++
+  debug d
+  stempo = intpos(d.stempo - stempo_antes), stempo_antes = d.stempo
+  utempo = intpos(d.utempo - utempo_antes), utempo_antes = d.utempo
+
+
+classe miscfome
+# Tabela para acertar fome e sede dos jogadores
+# $miscfome.t.[p_fome] = quantidade de fome: 3=muita 2=média 1=pouca 0=sem
+# $miscfome.t.[p_sede] = quantidade de sede: 3=muita 2=média 1=pouca 0=sem
+const semfome = 50 # Valor para não sentir fome e sede
+const cheio = 250 # Valor máximo de p_fome, p_sede, p_bebida e p_diges
+const bebedir = 100 # A partir de que valor pode errar a direção ao se movimentar
+const bebeatk = 70 # A partir de que valor pode errar os golpes devido à bebida
+uint8 t.255 # Fome e sede: 3=muita 2=média 1=pouca 0=sem
+uint8 f.255 # Fome e sede: 2=muita 1=média 0=pouca ou sem
+const iniclasse = !$[arg0] && criar(arg0)
+
+func ini
+  uint16 ind
+# Com muita fome/sede
+  t.0 = 3, f.0 = 2
+# Com fome/sede
+  epara ind = 1, ind <= 30, ind++
+    t.[ind] = 2, f.[ind] = 1
+  efim
+# Com pouca fome/sede
+  epara nulo, ind <= 45, ind++
+    t.[ind] = 1
+  efim

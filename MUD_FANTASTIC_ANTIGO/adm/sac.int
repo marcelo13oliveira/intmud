@@ -1,0 +1,22 @@
+classe adm_sac
+#
+const posic = 0
+#
+
+func escr
+  prog p
+  p.iniclasse("soc_" + txt1(arg1))
+  refvar s = $[p.texto]
+  se !arg0.jogconfig.19
+    ret arg0.msg("Canal ac está desabilitado; para habilitar tecle CONFIG +ac")
+  senao !arg1
+    ret arg0.msg("Digite o comando social após sac.")
+  senao !s
+    ret arg0.msg("Comando social inexistente: " + txt1(arg1))
+  senao
+    $misclog.ac("sac " + arg0.nome + ": " + arg1)
+    indiceitem item
+    epara item.ini("un "), txt1(item.txt) == "un", item.depois
+      item.obj.jogconfig.19 && $mens.msg(config:acmsg, item.obj.perso)
+    efim
+  fimse

@@ -1,0 +1,254 @@
+classe cmd_escrever
+herda comando_comum
+const objnivel = 4
+const txtajuda = "Escrever:\n\
+Sintaxe:\n\
+Escrever mensagem.\n\
+Escreve mensagem no quadro de mensagens.\n\
+Você precisa ter uma caneta com você, e Não dar enter até terminar de escrever tudo o que \
+deseja, senão sua mensagem será registrada sem ser concluída."
+
+func escr
+  se !arg0.dono.dentro1.objini("i_templo048")
+    arg0.msg("Não há um mural por perto.")
+    ret 1
+  fimse
+  se !arg0.dentro1.objini("i_labor002")
+    arg0.msg("Você não possui uma caneta em seu inventário.")
+    ret 1
+  fimse
+  se !arg1
+    arg0.msg("Sim, mas escrever o quê?")
+    ret 1
+  fimse
+  se inttotal(txt1(arg1)) > 50000
+    arg0.msg("A mensagem é muito longa, deve ser igual ou inferior a 50000 caractéres.")
+    ret 1
+  fimse
+  textotxt t_mural
+  datahora d
+  se !t_mural.ler("sav2/mural.txt")
+    arg0.msg("Erro no mural, contacte um administrador do MUD.")
+    ret 1
+  fimse
+  d.agora
+  t_mural.addini(arg0.nome + " em " + d.dia + "/" + d.mes + "/" + d.ano + ", às " + d.hora + ":" \
++ d.min + ": " + arg1)
+  se t_mural.linhas >= 4000
+    textopos pos
+    pos = t_mural.fim
+    pos.remove
+  fimse
+  se !t_mural.salvar("sav2/mural.txt")
+    arg0.msg("Erro ao salvar mensagem no mural, contacte um administrador.")
+    ret 1
+  fimse
+  $mens.p(arg0)
+  $mens.mmudS("Mensagem acaba de ser escrita no mural por $P.")
+  $mens.mtodos2("", "$P escreveu uma mensagem no mural.")
+  arg0.msg("Mensagem escrita: " + arg1)
+
+
+classe adm_lmens
+herda comando_adm
+const txtajuda = "ler\nSintaxe:\nLer.\nlê todas as mensagens do quadro de mensagens."
+const posic = 0
+
+func escr
+  textotxt t_mural
+  se !t_mural.ler("sav2/mural.txt")
+    arg0.msg("Erro ao ler as mensagens do mural, contacte um administrador.")
+    ret 1
+  fimse
+  se t_mural.linhas <= 1
+    arg0.msg("O mural está vazio")
+    ret 1
+  fimse
+  arg0.msg2("Total de mensagens: " + t_mural.linhas + ".")
+  t_mural.dividelin(80, 97)
+  arg0.msg2(t_mural.remove(1000))
+
+
+classe adm_emens
+herda comando_adm
+const txtajuda = "emens:\n\
+Sintaxe:\n\
+emens mensagem.\n\
+Escreve mensagem no quadro de mensagens.\n\
+Você Não precisa ter uma caneta com você, e nem estár na sala do quadro."
+
+func escr
+  se !arg1
+    arg0.msg("Sim, mas escrever o quê?")
+    ret 1
+  fimse
+  se inttotal(arg2) > 20000
+    arg0.msg("A mensagem é muito longa, deve ser igual ou inferior a 20000 caractéres.")
+    ret 1
+  fimse
+  textotxt t_mural
+  datahora d
+  se !t_mural.ler("sav2/mural.txt")
+    arg0.msg("Erro no mural, contacte um administrador do MUD.")
+    ret 1
+  fimse
+  d.agora
+  t_mural.addini(arg0.nome + " em " + d.dia + "/" + d.mes + "/" + d.ano + ", às " + d.hora + ":" \
++ d.min + ": " + arg1)
+  se t_mural.linhas >= 4000
+    textopos pos
+    pos = t_mural.fim
+    pos.remove
+  fimse
+  se !t_mural.salvar("sav2/mural.txt")
+    arg0.msg("Erro ao salvar mensagem no mural, contacte um administrador.")
+    ret 1
+  fimse
+  arg0.msg("Mensagem escrita: " + arg1)
+  $mens.p(arg0)
+  ret arg0.jogconfig.17 == 1, $mens.mmudS("\d=notificar Mensagem acaba de ser escrita no mural \
+por um imortal.")
+  $mens.mmudS("\d=notificar Mensagem acaba de ser escrita no mural por $P.")
+
+
+classe adm_dmens
+herda comando_adm, comando_editor
+const txtajuda = "Um editor para apagar linhas do quadro de mensagens. Favor não usar isso para \
+postar mensagem no quadro, apenas para apagá-las."
+
+func escr
+  se !arg0.sock.teditor.ler("sav2/mural.txt")
+    arg0.msg("Mural não encontrado.")
+  senao
+    arg0.sock.tpasso = arg1
+    passo(arg0.sock, "\b")
+  fimse
+
+func passo
+  casovar txtmin(txt(arg1, 0, 1))
+  casose "\b"
+    arg0.teditor.bytes == 1 && arg0.teditor.limpar
+    arg0.leditor = arg0.teditor.ini
+    arg0.leditor1 = arg0.teditor.ini
+    arg0.leditor2 = arg0.teditor.fim
+    arg0.leditor2.antes
+    arg0.passo = este
+    arg0.msg("Quadro de mensagens " + arg0.tpasso + ", O opções, X salvar, Z sair")
+    ret 1
+  casose "z" # Sair do editor
+    arg0.msg("Retornando ao jogo")
+    arg0.passo = ""
+    ret 1
+  casose "x" # Salvar o texto
+    se arg0.teditor.salvar("sav2/mural.txt")
+      arg0.msg("Alteração salva. " + arg0.tpasso)
+    senao
+      arg0.msg("Erro ao salvar: " + arg0.tpasso)
+    fimse
+    admlog(arg0, "alterou as mensagens do quadro de mensagens.")
+    ret 1
+  casofim
+  ret passoeditor(arg0, arg1, 1000000, "Quadro de mensagens " + arg0.tpasso)
+
+
+classe cmd_ler
+herda comando_comum
+const objnivel = 4
+const txtajuda = "ler\nSintaxe:\nLer.\nlê todas as mensagens do quadro de mensagens."
+const posic = 0
+
+func escr
+  se !arg0.dono.dentro1.objini("i_templo048")
+    arg0.msg("Não há um mural por perto.")
+    ret 1
+  fimse
+  textotxt t_mural
+  se !t_mural.ler("sav2/mural.txt")
+    arg0.msg("Erro ao ler as mensagens do mural, contacte um administrador.")
+    ret 1
+  fimse
+  $mens.p(arg0)
+  $mens.mtodos2("", "$P lê as mensagens do mural.")
+  se t_mural.linhas <= 1
+    arg0.msg("O mural está vazio")
+    ret 1
+  fimse
+  arg0.msg2("Total de mensagens: " + t_mural.linhas + ".")
+  t_mural.dividelin(80, 97)
+  arg0.msg2(t_mural.remove(1000))
+
+
+classe adm_eban
+herda comando_adm, comando_editor
+
+func escr
+  se !arg0.sock.teditor.ler("sav2/ban.txt")
+    arg0.msg("lista ban.txt não encontrada.")
+  senao
+    arg0.sock.tpasso = arg1
+    passo(arg0.sock, "\b")
+  fimse
+
+func passo
+  casovar txtmin(txt(arg1, 0, 1))
+  casose "\b"
+    arg0.teditor.bytes == 1 && arg0.teditor.limpar
+    arg0.leditor = arg0.teditor.ini
+    arg0.leditor1 = arg0.teditor.ini
+    arg0.leditor2 = arg0.teditor.fim
+    arg0.leditor2.antes
+    arg0.passo = este
+    arg0.msg("lista ban " + arg0.tpasso + ", O opções, X salvar, Z sair")
+    ret 1
+  casose "z" # Sair do editor
+    arg0.msg("Retornando ao jogo")
+    arg0.passo = ""
+    ret 1
+  casose "x" # Salvar o texto
+    se arg0.teditor.salvar("sav2/ban.txt")
+      arg0.msg("Alteração salva. " + arg0.tpasso)
+    senao
+      arg0.msg("Erro ao salvar: " + arg0.tpasso)
+    fimse
+    admlog(arg0, "editou a lista ban.")
+    ret 1
+  casofim
+  ret passoeditor(arg0, arg1, 1000000, "lista ban " + arg0.tpasso)
+
+
+classe adm_eban2
+herda comando_adm, comando_editor
+
+func escr
+  se !arg0.sock.teditor.ler("sav2/ban2.txt")
+    arg0.msg("lista ban2.txt não encontrada.")
+  senao
+    arg0.sock.tpasso = arg1
+    passo(arg0.sock, "\b")
+  fimse
+
+func passo
+  casovar txtmin(txt(arg1, 0, 1))
+  casose "\b"
+    arg0.teditor.bytes == 1 && arg0.teditor.limpar
+    arg0.leditor = arg0.teditor.ini
+    arg0.leditor1 = arg0.teditor.ini
+    arg0.leditor2 = arg0.teditor.fim
+    arg0.leditor2.antes
+    arg0.passo = este
+    arg0.msg("lista ban " + arg0.tpasso + ", O opções, X salvar, Z sair")
+    ret 1
+  casose "z" # Sair do editor
+    arg0.msg("Retornando ao jogo")
+    arg0.passo = ""
+    ret 1
+  casose "x" # Salvar o texto
+    se arg0.teditor.salvar("sav2/ban2.txt")
+      arg0.msg("Alteração salva. " + arg0.tpasso)
+    senao
+      arg0.msg("Erro ao salvar: " + arg0.tpasso)
+    fimse
+    admlog(arg0, "editou a lista ban.")
+    ret 1
+  casofim
+  ret passoeditor(arg0, arg1, 1000000, "lista ban " + arg0.tpasso)

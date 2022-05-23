@@ -1,0 +1,207 @@
+classe a_subterreo
+herda area
+const a_nome = "túnel subterrâneo"
+
+
+classe b_subterreo
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_luz = 3 # Luz: 3 Escuro
+const s_recup = 10
+const s_area = "subterreo"
+
+
+classe p_subterreo001
+herda comum_persobat
+const nome = "rato gigante"
+const descnome = "um gigantesco rato de esgoto"
+const descpadr = "Um gigantesco rato de esgoto encara você com seus enormes olhos amarelados."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 26
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+
+classe p_subterreo002
+herda comum_persobat
+const nome = "bandido"
+const descnome = "um bandido mascarado"
+const descpadr = "Um bandido mascarado está aqui, a espera de novas vítimas."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 50
+
+
+classe s_subterreo001
+herda b_subterreo
+const s_titulo = "A entrada de um túnel subterrâneo."
+const dir_l = $s_subterreo002
+const dir_o = $s_rio050
+
+
+classe s_subterreo002
+herda b_subterreo
+const s_titulo = "Um túnel subterrâneo"
+const dir_l = $s_subterreo003
+const dir_o = $s_subterreo001
+
+
+classe s_subterreo003
+herda b_subterreo
+const s_titulo = "Um túnel subterrâneo."
+const dir_l = $s_subterreo006
+const dir_o = $s_subterreo002
+const dir_b = $s_subterreo007
+
+
+classe s_subterreo004
+herda b_subterreo
+const s_titulo = "Rastejando por uma passagem de esgoto."
+const dir_n = $s_subterreo005
+const dir_s = $s_subterreo012
+const a_reset = "P 100 subterreo001 0 0 10 h_morder=2,z_moedas=20000\n\
+P 100 subterreo001 0 0 10 h_morder=3,z_moedas=20000"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_subterreo001:objsolto.total < 10
+    criar("p_subterreo001", este, 0, "h_morder=2,z_moedas=20000")
+  fimse
+  se p_subterreo001:objsolto.total < 10
+    criar("p_subterreo001", este, 0, "h_morder=3,z_moedas=20000")
+  fimse
+
+
+classe s_subterreo005
+herda b_subterreo
+const s_titulo = "Rastejando por uma passagem de esgoto."
+const dir_s = $s_subterreo004
+const dir_no = $s_subterreo023
+
+
+classe s_subterreo006
+herda b_subterreo
+const s_titulo = "Um túnel subterrâneo"
+const dir_l = $s_subterreo008
+const dir_o = $s_subterreo003
+
+
+classe s_subterreo007
+herda b_subterreo
+const s_titulo = "descendo por uma passagem de esgoto."
+const dir_c = $s_subterreo003
+const dir_b = $s_subterreo012
+const s_autonao = 1 # Sem entrada de automóveis: Sim
+
+
+classe s_subterreo008
+herda b_subterreo
+const s_titulo = "Um túnel subterrâneo"
+const dir_s = $s_subterreo013
+const dir_o = $s_subterreo006
+const dir_ne = $s_subterreo009
+
+
+classe s_subterreo009
+herda b_subterreo
+const s_titulo = "uma passagem secreta"
+const dir_ne = $s_subterreo010
+const dir_so = $s_subterreo008
+
+
+classe s_subterreo010
+herda b_subterreo
+const s_titulo = "uma passagem secreta"
+const dir_n = $s_subterreo011
+const dir_so = $s_subterreo009
+
+
+classe s_subterreo011
+herda b_subterreo
+const s_titulo = "Abaixo de uma grade enferrujada."
+const dir_s = $s_subterreo010
+const dir_c = $s_parmilion001
+const fecha_c = 1 # Fecha ao passar: Sim
+
+
+classe s_subterreo012
+herda b_subterreo
+const s_titulo = "Descendo por uma passagem de esgoto."
+const dir_n = $s_subterreo004
+const dir_c = $s_subterreo007
+
+
+classe s_subterreo013
+herda b_subterreo
+const s_titulo = "Uma curva no túnel"
+const dir_n = $s_subterreo008
+const dir_se = $s_subterreo014
+
+
+classe s_subterreo014
+herda b_subterreo
+const s_titulo = "Continuando pelo túnel subterrâneo"
+const dir_no = $s_subterreo013
+const dir_se = $s_subterreo015
+
+
+classe s_subterreo015
+herda b_subterreo
+const s_titulo = "Uma parte larga no túnel"
+const dir_l = $s_subterreo016
+const dir_no = $s_subterreo014
+
+
+classe s_subterreo016
+herda b_subterreo
+const s_titulo = "Uma parte larga no túnel"
+const dir_l = $s_subterreo017
+const dir_o = $s_subterreo015
+
+
+classe s_subterreo017
+herda b_subterreo
+const s_titulo = "Ainda na parte larga do túnel"
+const dir_o = $s_subterreo016
+const dir_ne = $s_subterreo018
+
+
+classe s_subterreo018
+herda b_subterreo
+const s_titulo = "Outra curva no túnel"
+const dir_ne = $s_subterreo019
+const dir_so = $s_subterreo017
+
+
+classe s_subterreo019
+herda b_subterreo
+const s_titulo = "Aproximando-se de uma saída no túnel"
+const dir_ne = $s_subterreo020
+const dir_so = $s_subterreo018
+
+
+classe s_subterreo020
+herda b_subterreo
+const s_titulo = "Uma leve inclinação no túnel"
+const dir_c = $s_subterreo021
+const dir_so = $s_subterreo019
+
+
+classe s_subterreo021
+herda b_subterreo
+const s_titulo = "A parte inclinada"
+const dir_l = $s_subterreo022
+const dir_b = $s_subterreo020
+
+
+classe s_subterreo022
+herda b_subterreo
+const s_titulo = "No fim do túnel"
+const dir_l = $s_midgaard095
+const dir_o = $s_subterreo021
+
+
+classe s_subterreo023
+herda b_subterreo
+const s_titulo = "uma toca de ratos."
+const s_pnj = 2
+const dir_se = $s_subterreo005

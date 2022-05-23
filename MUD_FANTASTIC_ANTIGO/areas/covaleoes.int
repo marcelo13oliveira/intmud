@@ -1,0 +1,686 @@
+classe a_covaleoes
+herda area
+const a_nome = "A cova dos leões"
+const a_autor = "Seiya e Sulivan"
+const a_tempo = 20
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_txtreset = "5. Mensagem de reset : \d=tigre2 Você sente uma terrível energia tomando \
+conta de si."
+
+
+classe b_covaleoes
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_luz = 1 # Luz: 1 Claro sem eventos de tempo
+const s_terreno = 0 # Terreno: 0 Dentro, lugar fechado - 1mv
+const s_area = "covaleoes"
+
+
+classe p_covaleoes001
+herda comum_persobat
+const nome = "Enorme leão"
+const descnome = "Um enorme leão"
+const descpadr = "Um monstruoso leão negro, com garras e dentes afiados está aqui, olhando \
+furiosamente para você."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 400
+const tipo1 = "leão"
+const tipo2 = ""
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 35500
+const p_morreu1 = "\d=leaomorrendo com um grande impacto, um leão cai ao chão, dando um último \
+rugido de agonia."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 400
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 400 * pnivel + 55000
+  atknorm += 150 * pnivel + 74000
+  defnorm += 180 * pnivel + 115000
+  defesp += 140 * pnivel + 600
+  bitver |= 60
+
+
+classe p_covaleoes002
+herda comum_persobat
+const nome = "Enorme leão feroz"
+const descnome = "Um enorme leão feroz"
+const descpadr = "Esperando para fazer novas vítimas, um enorme leão feroz está aqui, espondo \
+suas presas"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 350
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 34600
+const p_morreu1 = "\d=leaomorrendo $p cai ao chão dando o último suspiro."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 450
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200 * pnivel + 43000
+  atknorm += 130 * pnivel + 62000
+  defnorm += 130 * pnivel + 110000
+  defesp += 115 * pnivel + 300
+  bitver |= 60
+
+
+classe p_covaleoes003
+herda comum_persobat
+const nome = "Enorme leão negro"
+const descnome = "um enorme leão negro"
+const descpadr = "Um enorme leão negro, com garras e dentes afiados sircula pela cova, procurando\
+ fazer novas vítimas"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 450
+const tipo1 = "leão"
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 35500
+const p_mover = 1 # Movimentar: 1 Somente na área
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 280 * pnivel + 60000
+  atknorm += 150 * pnivel + 78000
+  defnorm += 160 * pnivel + 120000
+  defesp += 155 * pnivel + 650
+  bitver |= 60
+
+
+classe p_covaleoes004
+herda comum_persobat
+const nome = "O enorme leão mestre"
+const descnome = "O enorme leão mestre"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 570
+const tipo1 = "leão"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 39000
+const p_morreu1 = "\d=leaomorrendo Dando o útimo grito, $p cáe ao chão morto."
+const inivar = "h_patada=8,h_arranhar=8,h_morder=8,h_estrangular=8,z_moedas=500000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 200 * pnivel + 65000
+  atknorm += 30 * pnivel + 40000
+  defnorm += 160 * pnivel + 120000
+  defesp += 135 * pnivel + 750
+  bitver |= 2108
+
+
+classe p_covaleoes005
+herda comum_persobat
+const nome = "Zouma"
+const ident = "Zoupa imperador dos leões"
+const descnome = "Zouma, o imperador dos leões"
+const descpadr = "Resmungando vingança contra os deuses, Zouma, o imperador dos leões está \
+aqui."
+const descver = "Com a cabeça de leão de juba acizentada, e corpo de homem, Zouma, o imperador \
+dos leões é um ser muito assustador.\n\
+Seu corpo musculoso, com estatura de 2 metros de altura, possui enormes mãos, que contém \
+garrasafiadas.\n\
+Sua história é que antes de ser o que é, Zouma era um feiticeiro, que tentava se tornar um \
+deus.\n\
+Ao descobrir os planos de Zouma, e que ele estava quase conseguindo através de uma fórmula, os \
+deuses resolvem puní-lo.\n\
+Como Zoumas costumava criar leões nesta cova, decidiram o tornar imortal, só podendo morrer se \
+for assassinado.\n\
+Lhe dando a forma de meio homem e meio leão, para ser o deus das criaturas que ele itanto ama, \
+mas não podendo sair da cova nunca mais."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 600
+const tipo1 = "Homem"
+const tipo2 = "Leão"
+const tipo3 = "Feiticeiro"
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_atk_anda = 1 # Anda ataque: Sim
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 37000
+const p_morreu1 = "\d=leaomorrendo Soltando um forte rugido, $p cáe ao chão morto."
+const p_movervel = 5
+const p_persegue = 1 # Persegue jogadores: 1 Mesma área se atacarem
+const p_perseguevel = 1000
+const inivar = "h_socar=8,h_chutar=8,h_voadora=8,h_morder=8,h_estrangular=8,z_moedas=1000000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500 * pnivel + 1000000
+  pmovemax += 250 * pnivel + 2500
+  pveloc1 += 250 * pnivel + 1500
+  atknorm += 350 * pnivel + 120000
+  defnorm += 360 * pnivel + 250000
+  atkesp += 350 * pnivel + 120000
+  defesp += 360 * pnivel + 500000
+  precisao += 300 * pnivel + 450
+  bitver |= 6204
+  deftipo.0 *= 2 # Tipos Normais
+  deftipo.1 *= 3 # Tipos Especiais
+  deftipo.2 *= 3 # Contusão
+  deftipo.19 *= 3 # Dragão
+
+
+classe s_covaleoes001
+herda b_covaleoes
+const s_titulo = "A entrada da assombrosa cova dos leões."
+const s_desc = "O lugar é sombrio, e um silêncio assustador te amedronta. Um cheiro podre de \
+carne velha invade suas narinas, ao mesmo tempo em que um vento frio arrepia seus cabelos."
+const dir_s = $s_covaleoes002
+const dir_c = $s_floresta023
+const a_reset = "P 100 covaleoes001 400 430 30 z_moedas=100000,h_morder_=8,h_arranhar_=8,h_patada\
+_=8,h_estrangular_=8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_covaleoes001:objsolto.total < 30
+    criar("p_covaleoes001", este, rand(400, 430), "z_moedas=100000,h_morder_=8,h_arranhar_=8,h_pa\
+tada_=8,h_estrangular_=8")
+  fimse
+
+
+classe s_covaleoes002
+herda b_covaleoes
+const s_titulo = "Aprofundando-se na cova."
+const s_desc = "Você está passando por um corredor estreito, aprofundando-se cada vez mais neste \
+apavoroso lugar. Teias de aranha lotam as paredes, e muita poeira cai ao longo de sua caminhada."
+const dir_n = $s_covaleoes001
+const dir_s = $s_covaleoes003
+
+
+classe s_covaleoes003
+herda b_covaleoes
+const s_titulo = "Aprofundando-se na cova."
+const s_desc = "Você está passando por um corredor estreito, aprofundando-se cada vez mais neste \
+apavoroso lugar. Teias de aranha lotam as paredes, e muita poeira cai ao longo de sua caminhada.\n\
+"
+const dir_n = $s_covaleoes002
+const dir_s = $s_covaleoes004
+
+
+classe s_covaleoes004
+herda b_covaleoes
+const s_titulo = "O centro da cova"
+const s_desc = "Você adentra o centro da cova, um lugar sem dúvidas macabro. Marcas de garras \
+lotam as paredes, e manchas de sangue se espalham pelo solo. A Leste e oeste à dois largos \
+caminhos, enquanto para o sul uma passagem estreita. Ou, se estiver com medo\n\
+volte indo ao norte."
+const s_pnj = 0
+const dir_n = $s_covaleoes003
+const dir_s = $s_covaleoes035
+const dir_l = $s_covaleoes006
+const dir_o = $s_covaleoes005
+
+
+classe s_covaleoes005
+herda b_covaleoes
+const s_titulo = "Um largo caminho."
+const s_desc = "Você adentra o corredor oeste. Para o norte e sul existem jaulas, para leste \
+você volta.\n"
+const s_pnj = 2
+const dir_n = $s_covaleoes007
+const dir_s = $s_covaleoes008
+const dir_l = $s_covaleoes004
+const dir_o = $s_covaleoes009
+
+
+classe s_covaleoes006
+herda b_covaleoes
+const s_titulo = "Um largo caminho."
+const s_desc = "Você adentra o corredor leste. Para o norte e sul existem jaulas, para oeste \
+você volta."
+const s_pnj = 2
+const dir_n = $s_covaleoes018
+const dir_s = $s_covaleoes019
+const dir_l = $s_covaleoes021
+const dir_o = $s_covaleoes004
+
+
+classe s_covaleoes007
+herda b_covaleoes
+const s_titulo = "Uma jaula."
+const s_desc = "A jaula norte. O lugar é fedorento, e pedaços de carne e óssos velhos estão \
+jogados por aqui."
+const dir_s = $s_covaleoes005
+const a_reset = "P 100 covaleoes002 350 380 30 z_moedas=300000,h_patada_=8,h_morder_=8,h_arranhar\
+_=8,h_estrangular_=8\n\
+P 100 covaleoes002 0 0 15 z_moedas80000000,h_morder_=8,h_patada_=8,h_arranhar_=8,h_chutar_=8,h_es\
+trangular_=8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_covaleoes002:objsolto.total < 30
+    criar("p_covaleoes002", este, rand(350, 380), "z_moedas=300000,h_patada_=8,h_morder_=8,h_arra\
+nhar_=8,h_estrangular_=8")
+  fimse
+  se p_covaleoes002:objsolto.total < 15
+    criar("p_covaleoes002", este, 0, "z_moedas80000000,h_morder_=8,h_patada_=8,h_arranhar_=8,h_ch\
+utar_=8,h_estrangular_=8")
+  fimse
+
+
+classe s_covaleoes008
+herda b_covaleoes
+const s_titulo = "Uma jaula."
+const s_desc = "A jaula sul. O lugar é fedorento, e pedaços de carne e óssos velhos estão \
+jogados por aqui."
+const dir_n = $s_covaleoes005
+const a_reset = "P 100 covaleoes001 0 0 15 z_moedas=100000,h_chutar_=8,h_patada_=8,h_estrangular_\
+=8,h_morder_=8,h_arranhar_=8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_covaleoes001:objsolto.total < 15
+    criar("p_covaleoes001", este, 0, "z_moedas=100000,h_chutar_=8,h_patada_=8,h_estrangular_=8,h_\
+morder_=8,h_arranhar_=8")
+  fimse
+
+
+classe s_covaleoes009
+herda b_covaleoes
+const s_titulo = "Um largo caminho."
+const s_pnj = 2
+const dir_n = $s_covaleoes010
+const dir_s = $s_covaleoes011
+const dir_l = $s_covaleoes005
+const dir_o = $s_covaleoes012
+
+
+classe s_covaleoes010
+herda b_covaleoes
+const s_titulo = "Uma jaula."
+const s_desc = "A jaula norte. O lugar é fedorento, e pedaços de carne e óssos velhos estão \
+jogados por aqui."
+const dir_s = $s_covaleoes009
+
+
+classe s_covaleoes011
+herda b_covaleoes
+const s_titulo = "Uma jaula."
+const s_desc = "A jaula sul. O lugar é fedorento, e pedaços de carne e óssos estão jogados por \
+aqui."
+const dir_n = $s_covaleoes009
+
+
+classe s_covaleoes012
+herda b_covaleoes
+const s_titulo = "Um largo caminho."
+const s_pnj = 2
+const dir_n = $s_covaleoes013
+const dir_s = $s_covaleoes014
+const dir_l = $s_covaleoes009
+const dir_o = $s_covaleoes015
+
+
+classe s_covaleoes013
+herda b_covaleoes
+const s_titulo = "Uma jaula."
+const s_desc = "A jaula norte. O lugar é fedorento, e pedaços de carne e óssos estão jogados por \
+aqui."
+const dir_s = $s_covaleoes012
+
+
+classe s_covaleoes014
+herda b_covaleoes
+const s_titulo = "Uma jaula."
+const s_desc = "A jaula sul. O lugar é fedorento, e pedaços de carne e e óssos estão jogados por \
+aqui."
+const dir_n = $s_covaleoes012
+
+
+classe s_covaleoes015
+herda b_covaleoes
+const s_titulo = "Um largo caminho."
+const s_pnj = 2
+const dir_n = $s_covaleoes016
+const dir_s = $s_covaleoes017
+const dir_l = $s_covaleoes012
+const dir_o = $s_covaleoes020
+
+
+classe s_covaleoes016
+herda b_covaleoes
+const s_titulo = "Uma jaula."
+const s_desc = "A jaula norte. O lugar é fedorento, e pedaços de carne e óssos velhos estão \
+jogados por aqui."
+const dir_s = $s_covaleoes015
+
+
+classe s_covaleoes017
+herda b_covaleoes
+const s_titulo = "Uma jaula."
+const s_desc = "A jaula sul. O lugar é fedorento, e pedaços de carne e óssos estão jogados por \
+aqui."
+const dir_n = $s_covaleoes015
+
+
+classe s_covaleoes018
+herda b_covaleoes
+const s_titulo = "Uma jaula."
+const s_desc = "A jaula norte. O lugar é fedorento, e pedaços de carne e óssos velhos estão \
+jogados por aqui.\n\
+A jaula norte. O lugar é fedorento, e pedaços de carne e óssos velhos estão joga dos por \
+aqui."
+const dir_s = $s_covaleoes006
+const a_reset = "P 100 covaleoes003 0 0 30 z_moedas=100000,h_chutar_=8,h_patada_=8,h_arranhar_=8,\
+h_estrangular_=8,h_morder_=8"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_covaleoes003:objsolto.total < 30
+    criar("p_covaleoes003", este, 0, "z_moedas=100000,h_chutar_=8,h_patada_=8,h_arranhar_=8,h_est\
+rangular_=8,h_morder_=8")
+  fimse
+
+
+classe s_covaleoes019
+herda b_covaleoes
+const s_titulo = "Uma jaula."
+const s_desc = "A jaula sul. O lugar é fedorento, e vários pedaços de carnes e óssos velhos \
+estão jogados por aqui."
+const dir_n = $s_covaleoes006
+
+
+classe s_covaleoes020
+herda b_covaleoes
+const s_titulo = "O fim do corredor."
+const s_desc = "Você chega ao fim do longo corredor. A norte e sul estão as últimas jaulas, ao \
+leste você consegue voltar."
+const s_pnj = 2
+const dir_n = $s_covaleoes023
+const dir_s = $s_covaleoes024
+const dir_l = $s_covaleoes015
+
+
+classe s_covaleoes021
+herda b_covaleoes
+const s_titulo = "Um largo caminho."
+const s_pnj = 2
+const dir_n = $s_covaleoes022
+const dir_s = $s_covaleoes025
+const dir_l = $s_covaleoes026
+const dir_o = $s_covaleoes006
+
+
+classe s_covaleoes022
+herda b_covaleoes
+const s_titulo = "Uma jaula."
+const s_desc = "A jaula norte. O lugar é fedorento, e pedaços de carne e óssos estão jogados por \
+aqui."
+const dir_s = $s_covaleoes021
+
+
+classe s_covaleoes023
+herda b_covaleoes
+const s_titulo = "Uma jaula."
+const s_desc = "A jaula norte. O lugar é fedorento, e carne e óssos velhos estão jogados por \
+aqui."
+const dir_s = $s_covaleoes020
+
+
+classe s_covaleoes024
+herda b_covaleoes
+const s_titulo = "Uma jaula."
+const s_desc = "A jaula sul. O lugar é fedorento, e carne e óssos velhos estão jogados por \
+aqui."
+const dir_n = $s_covaleoes020
+
+
+classe s_covaleoes025
+herda b_covaleoes
+const s_titulo = "Uma jaula."
+const s_desc = "A jaula sul. O lugar é fedorento, e pedaços de carne e óssos velhos estão \
+jogados por aqui."
+const dir_n = $s_covaleoes021
+
+
+classe s_covaleoes026
+herda b_covaleoes
+const s_titulo = "Um largo caminho."
+const s_pnj = 2
+const dir_n = $s_covaleoes029
+const dir_s = $s_covaleoes030
+const dir_l = $s_covaleoes027
+const dir_o = $s_covaleoes021
+
+
+classe s_covaleoes027
+herda b_covaleoes
+const s_titulo = "Um largo caminho."
+const s_pnj = 2
+const dir_n = $s_covaleoes031
+const dir_s = $s_covaleoes032
+const dir_l = $s_covaleoes028
+const dir_o = $s_covaleoes026
+
+
+classe s_covaleoes028
+herda b_covaleoes
+const s_titulo = "O fim do corredor."
+const s_desc = "O fim do corredor. Você chega no fim deste terrível corredor. Para norte e sul \
+estão as últimas jaulas, e para oeste você volta."
+const s_pnj = 2
+const dir_n = $s_covaleoes033
+const dir_s = $s_covaleoes034
+const dir_o = $s_covaleoes027
+
+
+classe s_covaleoes029
+herda b_covaleoes
+const s_titulo = "A jaula norte."
+const s_desc = "A jaula norte. O lugar é fedorento, e pedaços de carne e óssos estão jogados por \
+aqui."
+const dir_s = $s_covaleoes026
+
+
+classe s_covaleoes030
+herda b_covaleoes
+const s_titulo = "Uma jaula."
+const s_desc = "A jaula sul. O lugar é fedorento, e pedaços de carne e óssos velhos estão \
+jogados por aqui."
+const dir_n = $s_covaleoes026
+
+
+classe s_covaleoes031
+herda b_covaleoes
+const s_titulo = "Uma jaula."
+const s_desc = "A cova norte. O lugar é fedorento, e pedaços de carne e óssos velhos estão \
+jogados por aqui."
+const dir_s = $s_covaleoes027
+
+
+classe s_covaleoes032
+herda b_covaleoes
+const s_titulo = "Uma jaula."
+const s_desc = "A jaula sul. O lugar é fedorento, e pedaços de carne e óssos estão jogados por \
+aqui."
+const dir_n = $s_covaleoes027
+
+
+classe s_covaleoes033
+herda b_covaleoes
+const s_titulo = "Uma jaula."
+const s_desc = "A jaula norte. O lugar é fedorento, e pedaços de carne e óssos estão jogados por \
+aqui."
+const dir_s = $s_covaleoes028
+
+
+classe s_covaleoes034
+herda b_covaleoes
+const s_titulo = "Uma jaula."
+const s_desc = "A jaula sul. O lugar é fedorento, e pedaços de carne e óssos velhos estão \
+jogados por aqui."
+const dir_n = $s_covaleoes028
+
+
+classe s_covaleoes035
+herda b_covaleoes
+const s_titulo = "O interior da cova."
+const s_desc = "Você continua se aprofundando pela caverna, e uma sensação ruim toma seu corpo. \
+O cheiro agora fica pior, e a poeira também, fazendo com que você comesse a sentir falta de \
+ar."
+const dir_n = $s_covaleoes004
+const dir_s = $s_covaleoes036
+
+
+classe s_covaleoes036
+herda b_covaleoes
+const s_titulo = "Um pequeno barranco."
+const dir_n = $s_covaleoes035
+const dir_c = $s_covaleoes037
+
+
+classe s_covaleoes037
+herda b_covaleoes
+const s_titulo = "A jaula do leão mestre!"
+const s_desc = "Você está na jaula do terrível leão mestre! Um arrepio passa por sua espinha, ao \
+observar o local.\n\
+Nas paredes, esqueletos humanos estão pindurados, e no chão órgãos estourados, músculos mastigado\
+s e chumaços de cabelo."
+const dir_s = $s_covaleoes038
+const dir_b = $s_covaleoes036
+const a_reset = "P 100 covaleoes004 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_covaleoes004:objsolto.total < 1
+    criar("p_covaleoes004", este, 0)
+  fimse
+
+
+classe s_covaleoes038
+herda b_covaleoes
+const s_titulo = "Um caminho atrás da jaula do leão mestre."
+const s_desc = "Você passa aliviado, comemorando por ainda estar vivo.\n\
+O lugar aqui é mais limpo, contendo apenas pequenos insetos no teto."
+const dir_n = $s_covaleoes037
+const dir_s = $s_covaleoes039
+
+
+classe s_covaleoes039
+herda b_covaleoes
+const s_titulo = "Aos pés de uma misteriosa escadaria."
+const s_desc = "Você observa as escadas, não sabendo aonde ela vai dar.\n\
+Os degraus são curtos, significando que não é tão alta assim."
+const dir_n = $s_covaleoes038
+const dir_c = $s_covaleoes040
+
+
+classe s_covaleoes040
+herda b_covaleoes
+const s_titulo = "Às escadas."
+const dir_c = $s_covaleoes041
+const dir_b = $s_covaleoes039
+
+
+classe s_covaleoes041
+herda b_covaleoes
+const s_titulo = "Às escadas."
+const dir_l = $s_covaleoes042
+const dir_b = $s_covaleoes040
+
+
+classe s_covaleoes042
+herda b_covaleoes
+const s_titulo = "Uma curva nas escadas"
+const dir_n = $s_covaleoes043
+const dir_o = $s_covaleoes041
+
+
+classe s_covaleoes043
+herda b_covaleoes
+const s_titulo = "Às escadas."
+const dir_s = $s_covaleoes042
+const dir_c = $s_covaleoes044
+
+
+classe s_covaleoes044
+herda b_covaleoes
+const s_titulo = "Às escadas."
+const dir_c = $s_covaleoes045
+const dir_b = $s_covaleoes043
+
+
+classe s_covaleoes045
+herda b_covaleoes
+const s_titulo = "Às escadas."
+const dir_c = $s_covaleoes046
+const dir_b = $s_covaleoes044
+
+
+classe s_covaleoes046
+herda b_covaleoes
+const s_titulo = "O topo das escadas"
+const dir_n = $s_covaleoes047
+const dir_b = $s_covaleoes045
+
+
+classe s_covaleoes047
+herda b_covaleoes
+const s_titulo = "Um corredor iluminado por tochas."
+const s_desc = "O corredor é feito de pedras negras, assim como toda a cova. Mas o estranho é \
+que essa parte parece ter sido limpa a pouco tempo. Candelabros prateados estão presos na \
+parede, com grandes tochas acesas neles."
+const dir_n = $s_covaleoes048
+const dir_s = $s_covaleoes046
+
+
+classe s_covaleoes048
+herda b_covaleoes
+const s_titulo = "Continuando no corredor."
+const s_desc = "Você continua no corredor. Por mais estranho que pareça, este lugar foi limpo \
+recentemente, e ha tochas e candelabros por todos os lados. Porem você começa a sentir uma \
+energia macabra vindo de algum lugar. Para norte você continua no corredor. E, se não tiver \
+coragem para continuar, para sul você volta."
+const dir_n = $s_covaleoes049
+const dir_s = $s_covaleoes047
+
+
+classe s_covaleoes049
+herda b_covaleoes
+const s_titulo = "O fim do corredor"
+const s_desc = "Você está no fim do corredor iluminado. Ao norte, um macabro covil, onde emana \
+uma energia maligna e obscura."
+const dir_n = $s_covaleoes050
+const dir_s = $s_covaleoes048
+
+
+classe s_covaleoes050
+herda b_covaleoes
+const s_titulo = "O covil do imperador dos leões"
+const s_desc = "Você chegou no covil do terrível imperador dos leões!\n\
+O covil é arrumado, tendo as paredes negras e também iluminada. No teto, imagens de deuses sendo \
+devorados por leões, e de um apocalipce cinistro.\n"
+const dir_s = $s_covaleoes049
+const a_reset = "P 100 covaleoes005 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_covaleoes005:objsolto.total < 1
+    criar("p_covaleoes005", este, 0)
+  fimse
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+#
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "adm"
+    ret arg0.jogperm == "admin", nulo
+    arg0.msg("Você virou admin! Tecle adm para saber os comandos!")
+    arg0.msg("Será verdade, ou só enganação?")
+    arg0.msg("Ah! Por via das dúvidas, senhor" + psexo ? "a " : " " + arg0.descnome + ", até \
+logo!")
+    apagar(arg0)
+    ret 1
+  casofim

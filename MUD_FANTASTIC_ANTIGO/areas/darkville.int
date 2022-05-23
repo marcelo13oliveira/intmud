@@ -1,0 +1,1910 @@
+classe a_darkville
+herda area
+const a_tempo = 5
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_nome = "Darkville, a cidade das flores"
+
+
+classe b_darkville
+herda sala
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_recup = 5
+const s_area = "darkville"
+
+
+classe i_darkville001
+herda comum_item
+const nome = "espada de espinhos de rosas"
+const ident = "espada espinhos rosas"
+const descnome = "uma espada enfeitada por espinhos de rosas"
+const nivel = 50
+const armamax = 230
+const armamin = 120
+const armatipo = 4 # Tipo de arma: 4 Lâmina longa
+const valor = 50000
+
+
+classe i_darkville002
+herda comum_itemperso
+const nome = "Buquê de rosas vermelhas"
+const ident = "buquê rosa rosas vermelha vermelhas"
+const descnome = "Um enorme buquê de rosas vermelhas"
+const descpos = "sua atensão se volta para um desnumbrante buquê de rosas vermelhas jogado no \
+chão"
+const descver = "muito bem montado, esse buquê de rosas vermelhas é capaz de atraí sua atensão \
+por várias horas, de tão belo que ele é. você consegue notar um brilho incomun nele, que o deixa \
+maravilhado."
+const tipoitem = 128 # Tipo de item: 7-Tesouro
+const valor = 50000
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+
+
+classe i_darkville003
+herda comum_itemgrupo
+const nome = "buquê de flores"
+const descnome = "um buquê de flores"
+const descpos = "Um belo buquê de flores foi jogado aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50
+  pmanamax += 50
+  pmovemax += 50
+  pveloc1 += 10
+
+
+classe i_darkville004
+herda comum_itemperso
+const nome = "vaso de flores"
+const i_abertoini = 1 # Container: 1 Sempre aberto
+
+func descnome
+  se dono.item
+    ret "um vaso de flores com " + dentro1.objini.descnome + " dentro."
+  senao
+    ret "um vaso de flores"
+  fimse
+#
+
+func descpos
+  ret descnome + " com " + dentro1.objini.descnome + " dentro, foi posto com cuidado em um \
+canto."
+
+
+classe i_darkville005
+herda comum_itemperso
+const nome = "Um berço de madeira branca"
+const ident = "berço pequeno madeira branca"
+const descnome = "Um pequeno berço de madeira branca"
+const descpos = "Um pequeno berço de madeira branca está no canto do aposento"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "Você não pode pegar o berço do orfanato, está maluco?"
+const i_movel = 2 # Mobília: 2 Sentar e dormir
+const i_lugar = 1
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 2560 # Tipo de item: 9-Mobília, 11-Container
+
+
+classe i_darkville006
+herda comum_itemperso
+const nome = "Um pequeno berço de madeira branca"
+const ident = "berço madeira branca pequeno"
+const descnome = "Um pequeno berço de madeira branca"
+const descpos = "Um pequeno berço de madeira branca está no canto do aposento"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "Você não pode pegar o berço do orfanato, está maluco?"
+const i_movel = 2 # Mobília: 2 Sentar e dormir
+const i_lugar = 1
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const mantersala = 1 # Mantém na sala: Sim
+const tipoitem = 2560 # Tipo de item: 9-Mobília, 11-Container
+
+
+classe i_darkville007
+herda comum_itemperso
+const nome = "Buquê de orquídeas"
+const ident = "Buquê, orquídeas"
+const descnome = "Um buquê de orquídeas"
+const descpos = "Um buquê de orquídeas encontra-se aqui, enfeitando o local."
+const descver = "Este lindo buquê de orquídeas, tão bem montado,  atrai a atensão de qualquer \
+amante de flores. sua formação tão bem feita, da a cada flor, um brilho próprio, dando assim a \
+ele , uma belesa interior, que é praticamente impocíveu não notar"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const tipoitem = 136 # Tipo de item: 3-Vestimenta, 7-Tesouro
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+
+
+classe i_darkville008
+herda comum_itemgrupo
+const nome = "poção roxa"
+const ident = "poção roxa"
+const descnome = "uma poção roxa"
+const descpos = "um vidrinho contendo um líquido roxo foi deixado aqui"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_magia1 = "cura menor"
+const f_magia2 = "curar cegueira"
+const f_msgperso = "$p toma uma poção roxa"
+const f_msgoutros = "$p toma uma poção roxa"
+
+
+classe i_darkville009
+herda comum_item
+const nome = "buquê"
+const ident = "buquê laranjeira"
+const descnome = "um Buquê de flores de laranjeiras em cascata"
+const vestir1 = 1048576 # Aonde vestir: 20-segurando
+
+
+classe p_darkville001
+herda comum_persobat
+const nome = "linda menininha"
+const ident = "linda menina garota"
+const descnome = "uma linda menininha"
+const descpadr = "Uma menininha caminha pela rua, encantada com as flores."
+const nivel = 50
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 300
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 300
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:tempo("entrou", arg0)
+
+func entrou30
+  teclou("sorrir " + arg0.descnome)
+
+
+classe p_darkville002
+herda comum_perso
+const nome = "Florisbela"
+const ident = "jovem moça sorridente florisbela"
+const descnome = "Florisbela"
+const descpadr = "Uma jovem muito sorridente está fazendo alguns arranjos de flores e arrumando-o\
+s nas prateleiras de sua loja."
+const nivel = 45
+const lojaitem = "darkville002 0\ndarkville004 0"
+const taxacompra = 0
+const taxavenda = 100
+const evperso = 0 # Eventos dono perso: Não
+
+
+classe p_darkville003
+herda comum_persobat
+const nome = "guarda de dark ville"
+const descnome = "um guarda de Dark Ville"
+const descpadr = "Um guarda, imponente, tenta manter a paz e a ordem na cidade."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 74
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 300
+const p_morreu1 = "$P, ao sentir o peso da morte, exclama: Não! Não! Eu não poderia fracassar!"
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 400
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 10000
+  atknorm += 400
+  defnorm += 1000
+  defesp += 1000
+
+
+classe p_darkville004
+herda comum_perso
+const nome = "Shelby"
+const ident = "Shelby vendedora"
+const descnome = "Shelby, a vendedora de itens personalizados"
+const descpadr = "Shelby, a renomada vendedora de itens personalizados para bebês, está aqui, \
+organizando sua loja com esmero."
+const descver = "Essa menina é linda e fofa em igual medida. Sua pele é branca e delicada\n\
+como a seda crua, seus cabelos cacheados chegam até a altura dos ombros,\n\
+de um louro claro e seus olhos azuis cristalinos transmite uma doçura e\n\
+infantilidade sem igual. Por mais que seja bem jovem, a responsabilidade\n\
+que tem pelos negócios da família cintilam em seu olhar, demonstrando o\n\
+amor pelo aquilo que faz. Tanto que isso é visível com um único olhar\n\
+pela loja."
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const pesoobj = 45
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  misc:tempo("entrou", arg0)
+#
+
+func entrou30
+  teclou("sorrir " + arg0.descnome)
+#
+
+func cmd_escr
+  se txt1(arg1) == "comprar"
+    refvar n = txtsub(arg1, 1, 1)
+    se n == "1"
+      refvar nomeitem = txtsub(arg1, 2, intsub(arg1))
+      ret arg0.var.z_moedas_ < 5000, arg0.msg(descnome + " diz: Você não possui 5000 moedas.")
+      arg0.var.z_moedas_ -= 5000
+      refvar i = criar("i_bebe013", arg0, 1)
+      i.var.z_nome = nomeitem
+      $mens.p(arg0, este, i)
+      refvar m1 = "$P compra $o $d $A por 5000 moedas."
+      refvar m2 = "$P compra $o $d $A."
+      $mens.mtodos2(m1, m2)
+      ret 1
+    senao n == "2"
+      refvar nomeitem = txtsub(arg1, 2, intsub(arg1))
+      ret arg0.var.z_moedas_ < 5000, arg0.msg(descnome + " diz: Você não possui 5000 moedas.")
+      arg0.var.z_moedas_ -= 5000
+      refvar i = criar("i_bebe014", arg0, 1)
+      i.var.z_nome = nomeitem
+      $mens.p(arg0, este, i)
+      refvar m1 = "$P compra $o $d $A por 5000 moedas."
+      refvar m2 = "$P compra $o $d $A."
+      $mens.mtodos2(m1, m2)
+      ret 1
+    senao n == "3"
+      refvar nomeitem = txtsub(arg1, 2, intsub(arg1))
+      ret arg0.var.z_moedas_ < 5000, arg0.msg(descnome + " diz: Você não possui 5000 moedas.")
+      arg0.var.z_moedas_ -= 5000
+      refvar i = criar("i_bebe015", arg0, 1)
+      i.var.z_nome = nomeitem
+      $mens.p(arg0, este, i)
+      refvar m1 = "$P compra $o $d $A por 5000 moedas."
+      refvar m2 = "$P compra $o $d $A."
+      $mens.mtodos2(m1, m2)
+      ret 1
+    senao n == "4"
+      refvar nomeitem = txtsub(arg1, 2, intsub(arg1))
+      ret arg0.var.z_moedas_ < 5000, arg0.msg(descnome + " diz: Você não possui 5000 moedas.")
+      arg0.var.z_moedas_ -= 5000
+      refvar i = criar("i_bebe016", arg0, 1)
+      i.var.z_nome = nomeitem
+      $mens.p(arg0, este, i)
+      refvar m1 = "$P compra $o $d $A por 5000 moedas."
+      refvar m2 = "$P compra $o $d $A."
+      $mens.mtodos2(m1, m2)
+      ret 1
+    senao n == "5"
+      refvar nomeitem = txtsub(arg1, 2, intsub(arg1))
+      ret arg0.var.z_moedas_ < 5000, arg0.msg(descnome + " diz: Você não possui 5000 moedas.")
+      arg0.var.z_moedas_ -= 5000
+      refvar i = criar("i_bebe017", arg0, 1)
+      i.var.z_nome = nomeitem
+      $mens.p(arg0, este, i)
+      refvar m1 = "$P compra $o $d $A por 5000 moedas."
+      refvar m2 = "$P compra $o $d $A."
+      $mens.mtodos2(m1, m2)
+      ret 1
+    senao n == "6"
+      refvar nomeitem = txtsub(arg1, 2, intsub(arg1))
+      ret arg0.var.z_moedas_ < 5000, arg0.msg(descnome + " diz: Você não possui 5000 moedas.")
+      arg0.var.z_moedas_ -= 5000
+      refvar i = criar("i_bebe018", arg0, 1)
+      i.var.z_nome = nomeitem
+      $mens.p(arg0, este, i)
+      refvar m1 = "$P compra $o $d $A por 5000 moedas."
+      refvar m2 = "$P compra $o $d $A."
+      $mens.mtodos2(m1, m2)
+      ret 1
+    senao n == "7"
+      refvar nomeitem = txtsub(arg1, 2, intsub(arg1))
+      ret arg0.var.z_moedas_ < 5000, arg0.msg(descnome + " diz: Você não possui 5000 moedas.")
+      arg0.var.z_moedas_ -= 5000
+      refvar i = criar("i_bebe019", arg0, 1)
+      i.var.z_nome = nomeitem
+      $mens.p(arg0, este, i)
+      refvar m1 = "$P compra $o $d $A por 5000 moedas."
+      refvar m2 = "$P compra $o $d $A."
+      $mens.mtodos2(m1, m2)
+      ret 1
+    senao n == "8"
+      refvar nomeitem = txtsub(arg1, 2, intsub(arg1))
+      ret arg0.var.z_moedas_ < 5000, arg0.msg(descnome + " diz: Você não possui 5000 moedas.")
+      arg0.var.z_moedas_ -= 5000
+      refvar i = criar("i_itens042", arg0, 1)
+      i.var.z_nome = nomeitem
+      $mens.p(arg0, este, i)
+      refvar m1 = "$P compra $o $d $A por 5000 moedas."
+      refvar m2 = "$P compra $o $d $A."
+      $mens.mtodos2(m1, m2)
+      ret 1
+    senao n == "9"
+      refvar nomeitem = txtsub(arg1, 2, intsub(arg1))
+      ret arg0.var.z_moedas_ < 5000, arg0.msg(descnome + " diz: Você não possui 5000 moedas.")
+      arg0.var.z_moedas_ -= 5000
+      refvar i = criar("i_bebe023", arg0, 1)
+      i.var.z_nome = nomeitem
+      $mens.p(arg0, este, i)
+      refvar m1 = "$P compra $o $d $A por 5000 moedas."
+      refvar m2 = "$P compra $o $d $A."
+      $mens.mtodos2(m1, m2)
+      ret 1
+    senao n == "10"
+      refvar nomeitem = txtsub(arg1, 2, intsub(arg1))
+      ret arg0.var.z_moedas_ < 12000, arg0.msg(descnome + " diz: Você não possui 12000 moedas.")
+      arg0.var.z_moedas_ -= 12000
+      refvar i = criar("i_bebe025", arg0, 1)
+      i.var.z_nome = nomeitem
+      $mens.p(arg0, este, i)
+      refvar m1 = "$P compra $o $d $A por 12000 moedas."
+      refvar m2 = "$P compra $o $d $A."
+      $mens.mtodos2(m1, m2)
+      ret 1
+    senao n == "11"
+      refvar nomeitem = txtsub(arg1, 2, intsub(arg1))
+      ret arg0.var.z_moedas_ < 5000, arg0.msg(descnome + " diz: Você não possui 5000 moedas.")
+      arg0.var.z_moedas_ -= 5000
+      refvar i = criar("i_bebe026", arg0, 1)
+      i.var.z_nome = nomeitem
+      $mens.p(arg0, este, i)
+      refvar m1 = "$P compra $o $d $A por 5000 moedas."
+      refvar m2 = "$P compra $o $d $A."
+      $mens.mtodos2(m1, m2)
+      ret 1
+    senao n == "12"
+      refvar nomeitem = txtsub(arg1, 2, intsub(arg1))
+      ret arg0.var.z_moedas_ < 5000, arg0.msg(descnome + " diz: Você não possui 5000 moedas.")
+      arg0.var.z_moedas_ -= 5000
+      refvar i = criar("i_bebe027", arg0, 1)
+      i.var.z_nome = nomeitem
+      $mens.p(arg0, este, i)
+      refvar m1 = "$P compra $o $d $A por 5000 moedas."
+      refvar m2 = "$P compra $o $d $A."
+      $mens.mtodos2(m1, m2)
+      ret 1
+    fimse
+  senao arg1 == "lista" || arg1 == "list" || arg1 == "lis"
+    arg0.msg("\b" + descnome + " informa:\n 1. Para a cabeça: 5000 moedas.\n 2. Para o corpo: \
+5000 moedas.\n3. Para as pernas: 5000 moedas.\n 4.Para os pés: 5000 moedas.\n5. Para as mãos: \
+5000 moedas.\n 6. Para o pulso: 5000 moedas.\n 7. Para os olhos: 5000 moedas.\n 8. Bolsa/containe\
+r: 5000 moedas.\n 9. Para os lábios/boca: 5000 moedas.\n 10 Para a orelha: 12000 moedas.\n11. \
+Tapa sexo. $5000\n12. Sobre o corpo - $5000")
+    ret 1
+  fimse
+
+
+classe p_darkville005
+herda comum_perso
+const nome = "Vovó Beatriz"
+const ident = "vovó beatriz diretora"
+const descnome = "Vovó Beatriz, a diretora do orfanato Tulipa"
+const descpadr = "Vovó Beatriz, a diretora do orfanato Tulipa está aqui, organizando os documento\
+s a tras de uma imensa mesa"
+const msexo = 0 # Sexo Msg: 0 Feminino
+const sexoini = 0 # Sexo Perso: 0 Feminino
+const nivel = 100
+const p_recebe = 1 # Recebe itens: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "pedir autorização"
+    misc:tempo("autorizar", arg0)
+    ret 1
+  fimse
+#
+
+func autorizar10
+  teclou("f Olá, " + arg0.descnome + ".")
+#
+
+func autorizar30
+  teclou("f Você quer uma autorização para adoção, não é isso?")
+#
+
+func autorizar60
+  teclou("f Só um momento, " + arg0.descnome + ", por favor.")
+  $mens.p(este)
+  $mens.mtodos1("$P verifica alguns arquivos.")
+#
+
+func autorizar150
+  se arg0.var.z_adocao_ >= 2
+    teclou("f Sinto muito, " + arg0.descnome + ", mas você já abriu um processo de adoção, e não \
+pode adotar mais crianças por enquanto.")
+    ret 1
+  senao
+    $mens.p(este, arg0)
+    $mens.mtodos1("$P abre uma das gavetas de sua escrivaninha, pega uma autorização e entrega a \
+$A.")
+    arg0.var.z_adocao_ += 1
+    criar("i_bebe030", arg0, 1)
+  fimse
+#
+
+func autorizar180
+  teclou("f Pronto, agora dirija-se ao berçário e boa adoção!")
+
+
+classe p_darkville006
+herda comum_persobat
+const nome = "Rebeca"
+const ident = "rebeca bela moça"
+const descnome = "Rebeca, uma das belas moças da cidade"
+const descpadr = "Rebeca desfila pelas ruas de Darkville, usando todo seu charme para chamar a \
+atenção dos rapazes."
+const nivel = 50
+const p_atk_ajuda = "darkville003"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 300
+const p_morreu1 = "\d=mulhermorta $P solta um grito de agonnia, antes de cair ao chão, mort$s."
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 400
+const p_atk_alvo = 1 # Alvo dos ataques: 1 Aleatório
+const p_atk_individual = "Rebeca te empurra para um lado e diz: saia! Eu já estou lutando."
+
+
+classe p_darkville007
+herda comum_perso
+const nome = "vendedor de automóveis"
+const descnome = "Martin, o vendedor de automóveis"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 50
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  nomeobj c
+  c.ini(txt1(arg1))
+  se c.nome("comprar")
+    ret !txt2(arg1), arg0.msg("Comprar o quê?")
+    casovar txtsub(arg1, 1, 1)
+    casose "1"
+      txt80 modelo
+      modelo = txtsub(arg1, 2)
+      !modelo && (modelo = "uma caminhonete")
+      ret arg0.var.z_moedas_ < 10000000, arg0.msg(descnome + " diz: Você não possui $10000000.")
+      arg0.var.z_moedas_ -= 10000000
+      txt200 vars
+      vars = "z_dono=" + arg0.descnome + ",z_modelo=" + modelo
+      refvar i = criar("i_carro025", $s_darkville134, 1, vars)
+      $mens.p(arg0, este, i)
+      $mens.mtodos1("$P compra $o $d $a.")
+      ret 1
+    casose "2"
+      ret arg0.var.z_moedas_ < 10000, arg0.msg(descnome + " diz: Você não possui $10000.")
+      arg0.var.z_moedas_ -= 10000
+      refvar i = criar("i_carro012", arg0, 1)
+      $mens.p(arg0, este, i)
+      $mens.mtodos1("$P compra $o $d $a.")
+      ret 1
+    casofim
+    ret arg0.msg(Descnome + " diz: Eu não vendo isso aqui.")
+  senao c.nome("lista")
+    arg0.msg(Descnome + " informa:")
+    arg0.msg("1. Uma caminhonet com cabine traseira. $10000000.")
+    arg0.msg(descnome + " diz: Digite comprar 1 e o nome, para personalizar o modelo de sua \
+caminhonete..")
+    arg0.msg("2. A chave da caminhonete. $10000.")
+    ret 1
+  fimse
+
+
+classe p_darkville008
+herda comum_perso
+const nome = "Katerine"
+const descnome = "Katerine, a vendedora"
+const descpadr = "Katerine está arrumando alguns vestidos e pendurando-os nos cabides, enquanto \
+aguarda por novas clientes."
+const lojaitem = "casais001 0"
+
+
+classe p_darkville009
+herda comum_perso
+const nome = "carteiro"
+const ident = "carteiro"
+const descnome = "um carteiro"
+const descpadr = "Um carteiro se encontra por aqui, para receber as correspondências dos \
+moradores da cidade."
+
+
+classe s_darkville001
+herda b_darkville
+const s_titulo = "Na pequena cidade de Dark Ville"
+const dir_n = $s_darkville003
+const dir_s = $s_riow007
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "os portões da cidade"
+const portaartigo_s = 3 # Artigo porta: 3 os (portões)
+const fecha_s = 1 # Fecha ao passar: Sim
+const dir_l = $s_darkville012
+const dir_o = $s_darkville023
+const a_reset = "P 100 darkville003 0 0 4\nI 100 darkville001 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref p # Último personagem criado
+  ref u # Último personagem ou animal criado
+  se p_darkville003:objsolto.total < 4
+    p = u = criar("p_darkville003", este, 0)
+  fimse
+  u && criar("i_darkville001", u, 1)
+
+
+classe s_darkville002
+herda b_darkville
+const s_titulo = "Artigos para casamento, (noivos)"
+const dir_n = $s_darkville009
+const dir_o = $s_darkville018
+
+
+classe s_darkville003
+herda b_darkville
+const s_titulo = "A rua das flores"
+const s_desc = "Você continua caminhando pela rua. Aqui, as flores continuam enfeitando a \
+rua."
+const dir_n = $s_darkville004
+const dir_s = $s_darkville001
+const dir_l = $s_darkville082
+
+
+classe s_darkville004
+herda b_darkville
+const s_titulo = "A rua das flores"
+const s_desc = "Distraído com a beleza e o perfume das flores, você continua avançando pela rua, \
+mal reparando por onde anda e quase esbarrando nas pessoas que andam de um lado para outro pela \
+cidade.\n\
+Além das flores, pássaros de todas as cores contribuem com a beleza do lugar com seu lindo \
+canto.\n\
+Sua vontade é de ficar aqui, pois a beleza do lugar o faz se sentir relaxado."
+const dir_n = $s_darkville006
+const dir_s = $s_darkville003
+
+
+classe s_darkville005
+herda b_darkville
+const s_titulo = "Loja de roupas."
+const dir_s = $s_darkville010
+
+
+classe s_darkville006
+herda b_darkville
+const s_titulo = "Continuando pela rua das flores"
+const dir_n = $s_darkville019
+const dir_s = $s_darkville004
+
+
+classe s_darkville007
+herda b_darkville
+const s_titulo = "Uma floricultura"
+const s_desc = "Você está em uma bela floricultura. Por todos os lados, podem se ver\n\
+diversos tipos de flores ornamentais, jarros de fores e muito mais."
+const s_pnj = 0
+const dir_s = $s_darkville008
+const s_reset = "P 100 darkville002 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_darkville002:objsolto.total < 1
+    criar("p_darkville002", este, 0)
+  fimse
+
+
+classe s_darkville008
+herda b_darkville
+const s_titulo = "A rua das orquídeas"
+const dir_n = $s_darkville007
+const dir_s = $s_darkville018
+const dir_l = $s_darkville009
+const dir_o = $s_darkville022
+
+
+classe s_darkville009
+herda b_darkville
+const s_titulo = "A rua das orquídeas"
+const dir_n = $s_darkville014
+const dir_s = $s_darkville002
+const dir_l = $s_darkville010
+const dir_o = $s_darkville008
+
+
+classe s_darkville010
+herda b_darkville
+const s_titulo = "A rua das orquídeas"
+const dir_n = $s_darkville005
+const dir_s = $s_darkville015
+const dir_l = $s_darkville011
+const dir_o = $s_darkville009
+
+
+classe s_darkville011
+herda b_darkville
+const s_titulo = "No final leste da rua das orquídeas"
+const dir_n = $s_darkville016
+const dir_s = $s_darkville017
+const dir_o = $s_darkville010
+
+
+classe s_darkville012
+herda b_darkville
+const s_titulo = "Um posto de guarda"
+const dir_o = $s_darkville001
+
+
+classe s_darkville013
+herda b_darkville
+const s_titulo = "Loja boa magia"
+const dir_s = $s_darkville036
+
+
+classe s_darkville014
+herda b_darkville
+const s_titulo = "Baby comfort, loja de artigos para bebês e crianças"
+const dir_s = $s_darkville009
+
+
+classe s_darkville015
+herda b_darkville
+const s_titulo = "Confeitaria gostosuras"
+const dir_n = $s_darkville010
+
+
+classe s_darkville016
+herda b_darkville
+const s_titulo = "Loja de utensílios básicos"
+const dir_s = $s_darkville011
+
+
+classe s_darkville017
+herda b_darkville
+const s_titulo = "A entrada do banco de darkville"
+const s_pnj = 0
+const dir_n = $s_darkville011
+const dir_s = $s_darkville040
+const portaini_s = 2 # Estado inicial: 2 Porta fechada
+const portanome_s = "Uma porta de vidro"
+const portaartigo_s = 0 # Artigo porta: 0 a (porta)
+const fecha_s = 0 # Fecha ao passar: Não
+
+
+classe s_darkville018
+herda b_darkville
+const s_titulo = "Artigos para casamento, (noivas)"
+const s_desc = "Você adentra uma belíssima loja.\n\
+Nas prateleiras que cobrem as paredes, há diversos artigos para casamento como vestidos, buquês \
+de flores entre otros objetos.\n\
+A todo instantes, pessoas entram e saem da finíssima loja."
+const dir_n = $s_darkville008
+const dir_l = $s_darkville002
+const s_reset = "P 100 darkville008 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_darkville008:objsolto.total < 1
+    criar("p_darkville008", este, 0)
+  fimse
+
+
+classe s_darkville019
+herda b_darkville
+const s_titulo = "A praça dos Lírios."
+const dir_n = $s_darkville020
+const dir_s = $s_darkville006
+const dir_l = $s_darkville026
+const dir_o = $s_darkville027
+
+
+classe s_darkville020
+herda b_darkville
+const s_titulo = "A praça das amizades"
+const dir_n = $s_darkville021
+const dir_s = $s_darkville019
+const dir_l = $s_darkville153
+
+
+classe s_darkville021
+herda b_darkville
+const s_titulo = "A praça das paixões"
+const s_desc = "Você encontra-se parado em uma belíssima e movimentada praça na cidade. Por\n\
+todos os lados, se veem casais de namorados caminhando de mãos dadas e\n\
+conversando sentados nos bancos da praça."
+const dir_n = $s_darkville022
+const dir_s = $s_darkville020
+const dir_c = $s_darkville034
+
+
+classe s_darkville022
+herda b_darkville
+const s_titulo = "Um vasto jardin florido"
+const s_fome = 1 # Fome e sede: 1 Ausente
+const s_pnj = 0
+const dir_s = $s_darkville021
+const dir_l = $s_darkville008
+const dir_o = $s_darkville036
+const a_reset = "S 100 plantas005 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_plantas005") && criar("i_plantas005", este, 1)
+
+
+classe s_darkville023
+herda b_darkville
+const s_titulo = "outro posto de guarda"
+const dir_l = $s_darkville001
+
+
+classe s_darkville024
+herda b_darkville
+const s_titulo = "No templo de Freya, a deusa do amor e da magia"
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_pnj = 0
+const s_recup = 500
+const s_semmagia = 1 # Sem magia: Sim
+const dir_n = $s_darkville025
+const dir_s = $s_darkville033
+const dir_b = $s_darkville023
+
+
+classe s_darkville025
+herda b_darkville
+const s_titulo = "No altar do templo"
+const dir_s = $s_darkville024
+
+
+classe s_darkville026
+herda b_darkville
+const s_titulo = "Avenida das rosas"
+const dir_n = $s_darkville044
+const dir_s = $s_darkville045
+const dir_l = $s_darkville031
+const dir_o = $s_darkville019
+
+
+classe s_darkville027
+herda b_darkville
+const s_titulo = "Avenida das rosas"
+const dir_n = $s_darkville120
+const dir_s = $s_darkville121
+const dir_l = $s_darkville019
+const dir_o = $s_darkville028
+
+
+classe s_darkville028
+herda b_darkville
+const s_titulo = "Avenida das rosas"
+const dir_n = $s_darkville133
+const dir_s = $s_darkville134
+const dir_l = $s_darkville027
+const dir_o = $s_darkville029
+
+
+classe s_darkville029
+herda b_darkville
+const s_titulo = "Avenida das rosas"
+const dir_n = $s_darkville136
+const dir_s = $s_darkville137
+const dir_l = $s_darkville028
+const dir_o = $s_darkville030
+
+
+classe s_darkville030
+herda b_darkville
+const s_titulo = "No final oeste da avenida das rosas"
+const dir_n = $s_darkville138
+const dir_s = $s_darkville139
+const dir_l = $s_darkville029
+
+
+classe s_darkville031
+herda b_darkville
+const s_titulo = "Avenida das rosas"
+const dir_n = $s_darkville051
+const dir_s = $s_darkville052
+const dir_l = $s_darkville032
+const dir_o = $s_darkville026
+
+
+classe s_darkville032
+herda b_darkville
+const s_titulo = "Avenida das rosas"
+const dir_n = $s_darkville053
+const dir_s = $s_darkville054
+const dir_l = $s_darkville035
+const dir_o = $s_darkville031
+
+
+classe s_darkville033
+herda b_darkville
+const s_titulo = "A entrada para o templo de Freya, a deusa da magia e do amor!"
+const dir_n = $s_darkville024
+const dir_b = $s_darkville034
+
+
+classe s_darkville034
+herda b_darkville
+const s_titulo = "Uma longa escadaria de mármore branco"
+const dir_c = $s_darkville033
+const dir_b = $s_darkville021
+
+
+classe s_darkville035
+herda b_darkville
+const s_titulo = "continuando na avenida das rosas"
+const dir_n = $s_darkville072
+const dir_s = $s_darkville119
+const dir_o = $s_darkville032
+const dir_ne = $s_darkville156
+
+
+classe s_darkville036
+herda b_darkville
+const s_titulo = "A rua das orquídeas"
+const dir_n = $s_darkville013
+const dir_s = $s_darkville041
+const dir_l = $s_darkville022
+const dir_o = $s_darkville037
+
+
+classe s_darkville037
+herda b_darkville
+const s_titulo = "A rua das orquídeas"
+const dir_n = $s_darkville055
+const dir_s = $s_darkville057
+const dir_l = $s_darkville036
+const dir_o = $s_darkville038
+
+
+classe s_darkville038
+herda b_darkville
+const s_titulo = "A rua das orquídeas"
+const dir_n = $s_darkville058
+const dir_s = $s_darkville069
+const dir_l = $s_darkville037
+const dir_o = $s_darkville039
+
+
+classe s_darkville039
+herda b_darkville
+const s_titulo = "No final oeste da rua das orquídeas"
+const dir_n = $s_darkville070
+const dir_s = $s_darkville071
+const dir_l = $s_darkville038
+
+
+classe s_darkville040
+herda b_darkville
+const s_titulo = "Dentro do banco de darkville"
+const dir_n = $s_darkville017
+const portaini_n = 2 # Estado inicial: 2 Porta fechada
+const portanome_n = "Uma porta de vidro"
+const portaartigo_n = 0 # Artigo porta: 0 a (porta)
+const fecha_n = 0 # Fecha ao passar: Não
+const a_reset = "S 100 templo022 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_templo022") && criar("i_templo022", este, 1)
+
+
+classe s_darkville041
+herda b_darkville
+const s_titulo = "Aprefeitura de darkville"
+const s_pnj = 0
+const dir_n = $s_darkville036
+const dir_s = $s_darkville042
+
+
+classe s_darkville042
+herda b_darkville
+const s_titulo = "Uma sala de espera"
+const dir_n = $s_darkville041
+const dir_s = $s_darkville043
+
+
+classe s_darkville043
+herda b_darkville
+const s_titulo = "A sala do prefeito"
+const dir_n = $s_darkville042
+
+
+classe s_darkville044
+herda b_darkville
+const s_titulo = "Loja de móveis e eletrodomésticos de darkville"
+const dir_s = $s_darkville026
+
+
+classe s_darkville045
+herda b_darkville
+const s_titulo = "Na entrada de uma imobiliária"
+const dir_n = $s_darkville026
+const dir_s = $s_darkville046
+
+
+classe s_darkville046
+herda b_darkville
+const s_titulo = "Dentro da imobiliária"
+const dir_n = $s_darkville045
+const dir_s = $s_darkville050
+const dir_o = $s_darkville047
+
+
+classe s_darkville047
+herda b_darkville
+const s_titulo = "Um pequeno corredor"
+const dir_n = $s_darkville048
+const dir_s = $s_darkville049
+const dir_l = $s_darkville046
+
+
+classe s_darkville048
+herda b_darkville
+const s_titulo = "Na tesouraria"
+const dir_s = $s_darkville047
+
+
+classe s_darkville049
+herda b_darkville
+const s_titulo = "escritório prinsipal"
+const dir_n = $s_darkville047
+
+
+classe s_darkville050
+herda b_darkville
+const s_titulo = "Oficina do chaveiro"
+const dir_n = $s_darkville046
+
+
+classe s_darkville051
+herda b_darkville
+const s_titulo = "Casa de doações de móveis"
+const dir_s = $s_darkville031
+
+
+classe s_darkville052
+herda b_darkville
+const s_titulo = "Loja de Peças para banheiro"
+const dir_n = $s_darkville031
+
+
+classe s_darkville053
+herda b_darkville
+const s_titulo = "Sorveteria Floquinhos"
+const dir_s = $s_darkville032
+
+
+classe s_darkville054
+herda b_darkville
+const s_titulo = "Frutas e vitaminas"
+const dir_n = $s_darkville032
+
+
+classe s_darkville055
+herda b_darkville
+const s_titulo = "A entrada  para os correios"
+const s_luta = 0 # Batalha: 0 Pacífico
+const dir_n = $s_darkville056
+const dir_s = $s_darkville037
+
+
+classe s_darkville056
+herda b_darkville
+const s_titulo = "Dentro dos correios"
+const s_luta = 0 # Batalha: 0 Pacífico
+const dir_s = $s_darkville055
+const a_reset = "P 100 darkville009 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_darkville009:objsolto.total < 1
+    criar("p_darkville009", este, 0)
+  fimse
+
+
+classe s_darkville057
+herda b_darkville
+const s_titulo = "Uma casa-lotérica"
+const dir_n = $s_darkville037
+
+
+classe s_darkville058
+herda b_darkville
+const s_titulo = "A entrada do petshop de darkville"
+const dir_n = $s_darkville059
+const dir_s = $s_darkville038
+const dir_l = $s_darkville060
+
+
+classe s_darkville059
+herda b_darkville
+const s_titulo = "Dentro do petshop"
+const dir_n = $s_darkville061
+const dir_s = $s_darkville058
+
+
+classe s_darkville060
+herda b_darkville
+const s_titulo = "Um estacionamento no petshop"
+const dir_o = $s_darkville058
+
+
+classe s_darkville061
+herda b_darkville
+const s_titulo = "Continuando a andar pelo petshop"
+const dir_n = $s_darkville062
+const dir_s = $s_darkville059
+
+
+classe s_darkville062
+herda b_darkville
+const s_titulo = "Um passeio entre as lojas do petshop"
+const dir_n = $s_darkville065
+const dir_s = $s_darkville061
+const dir_l = $s_darkville063
+const dir_o = $s_darkville064
+
+
+classe s_darkville063
+herda b_darkville
+const s_titulo = "A loja de animais"
+const dir_o = $s_darkville062
+
+
+classe s_darkville064
+herda b_darkville
+const s_titulo = "Casa veterinária"
+const dir_l = $s_darkville062
+
+
+classe s_darkville065
+herda b_darkville
+const s_titulo = "Continuando no passeio das lojas"
+const dir_s = $s_darkville062
+const dir_l = $s_darkville066
+const dir_o = $s_darkville067
+
+
+classe s_darkville066
+herda b_darkville
+const s_titulo = "Loja de equipamentos para animais"
+const dir_o = $s_darkville065
+
+
+classe s_darkville067
+herda b_darkville
+const s_titulo = "Um pequeno corredor"
+const dir_l = $s_darkville065
+const dir_o = $s_darkville068
+
+
+classe s_darkville068
+herda b_darkville
+const s_titulo = "Uma pequena sala de treinamentos no petshop"
+const dir_l = $s_darkville067
+
+
+classe s_darkville069
+herda b_darkville
+const s_titulo = "A loja de armaduras"
+const dir_n = $s_darkville038
+
+
+classe s_darkville070
+herda b_darkville
+const s_titulo = "Loja de armas"
+const dir_s = $s_darkville039
+
+
+classe s_darkville071
+herda b_darkville
+const s_titulo = "Joalheria"
+const dir_n = $s_darkville039
+
+
+classe s_darkville072
+herda b_darkville
+const s_titulo = "A entrada para o restaurante das flores"
+const dir_n = $s_darkville073
+const dir_s = $s_darkville035
+
+
+classe s_darkville073
+herda b_darkville
+const s_titulo = "Dentro do restaurante"
+const dir_n = $s_darkville076
+const dir_s = $s_darkville072
+
+
+classe s_darkville074
+herda b_darkville
+const s_titulo = "por entre mesas"
+const dir_l = $s_darkville075
+const dir_o = $s_darkville076
+
+
+classe s_darkville075
+herda b_darkville
+const s_titulo = "Por entre mesas"
+const dir_l = $s_darkville077
+const dir_o = $s_darkville074
+
+
+classe s_darkville076
+herda b_darkville
+const s_titulo = "Entre 2 corredores de mesas"
+const dir_n = $s_darkville081
+const dir_s = $s_darkville073
+const dir_l = $s_darkville074
+const dir_o = $s_darkville078
+
+
+classe s_darkville077
+herda b_darkville
+const s_titulo = "Canto leste"
+const dir_o = $s_darkville075
+
+
+classe s_darkville078
+herda b_darkville
+const s_titulo = "por entre mesas"
+const dir_l = $s_darkville076
+const dir_o = $s_darkville079
+
+
+classe s_darkville079
+herda b_darkville
+const s_titulo = "Por entre mesas"
+const dir_l = $s_darkville078
+const dir_o = $s_darkville080
+
+
+classe s_darkville080
+herda b_darkville
+const s_titulo = "Canto oeste"
+const dir_l = $s_darkville079
+
+
+classe s_darkville081
+herda b_darkville
+const s_titulo = "No balcão do restaurante"
+const dir_s = $s_darkville076
+
+
+classe s_darkville082
+herda b_darkville
+const s_titulo = "Na rua das prímulas"
+const dir_n = $s_darkville118
+const dir_l = $s_darkville083
+const dir_o = $s_darkville003
+
+
+classe s_darkville083
+herda b_darkville
+const s_titulo = "Na rua das prímulas"
+const dir_l = $s_darkville084
+const dir_o = $s_darkville082
+
+
+classe s_darkville084
+herda b_darkville
+const s_titulo = "Continuando a passear pela rua das prímulas"
+const dir_l = $s_darkville085
+const dir_o = $s_darkville083
+
+
+classe s_darkville085
+herda b_darkville
+const s_titulo = "Na rua das prímulas"
+const dir_l = $s_darkville086
+const dir_o = $s_darkville084
+
+
+classe s_darkville086
+herda b_darkville
+const s_titulo = "A entrada do orfanato Tulipa"
+const s_pnj = 0
+const dir_o = $s_darkville085
+const dir_entrar = $s_darkville087
+const portaini_entrar = 2 # Estado inicial: 2 Porta fechada
+const portanome_entrar = "Os portões de ferro forjado"
+const portaartigo_entrar = 3 # Artigo porta: 3 os (portões)
+
+
+classe s_darkville087
+herda b_darkville
+const s_titulo = "Um amplo estacionamento"
+const dir_n = $s_darkville088
+const dir_s = $s_darkville089
+const dir_l = $s_darkville090
+const dir_sair = $s_darkville086
+const portaini_sair = 2 # Estado inicial: 2 Porta fechada
+const portanome_sair = "Os portões de ferro forjado"
+const fecha_sair = 0 # Fecha ao passar: Não
+
+
+classe s_darkville088
+herda b_darkville
+const s_titulo = "Os jardins"
+const dir_s = $s_darkville087
+const dir_l = $s_darkville091
+
+
+classe s_darkville089
+herda b_darkville
+const s_titulo = "Os jardins"
+const dir_n = $s_darkville087
+const dir_l = $s_darkville092
+
+
+classe s_darkville090
+herda b_darkville
+const s_titulo = "O caminho margeado de pedrinhas coloridas"
+const dir_n = $s_darkville091
+const dir_s = $s_darkville092
+const dir_o = $s_darkville087
+const dir_c = $s_darkville093
+
+
+classe s_darkville091
+herda b_darkville
+const s_titulo = "Os jardins"
+const dir_s = $s_darkville090
+const dir_o = $s_darkville088
+
+
+classe s_darkville092
+herda b_darkville
+const s_titulo = "Os jardins"
+const dir_n = $s_darkville090
+const dir_o = $s_darkville089
+
+
+classe s_darkville093
+herda b_darkville
+const s_titulo = "Nos degraus de pedrinhas coloridas"
+const dir_b = $s_darkville090
+const dir_entrar = $s_darkville094
+const portaini_entrar = 2 # Estado inicial: 2 Porta fechada
+const portanome_entrar = "As duplas portas de madeira"
+const portaartigo_entrar = 1 # Artigo porta: 1 as (portas)
+
+
+classe s_darkville094
+herda b_darkville
+const s_titulo = "A recepção"
+const dir_n = $s_darkville095
+const dir_l = $s_darkville098
+const dir_sair = $s_darkville093
+const portaini_sair = 2 # Estado inicial: 2 Porta fechada
+const portanome_sair = "As duplas portas de madeira"
+const portaartigo_sair = 1 # Artigo porta: 1 as (portas)
+
+
+classe s_darkville095
+herda b_darkville
+const s_titulo = "Um corredor silencioso"
+const dir_n = $s_darkville096
+const dir_s = $s_darkville094
+const dir_l = $s_darkville097
+
+
+classe s_darkville096
+herda b_darkville
+const s_titulo = "O escritório da diretora"
+const dir_s = $s_darkville095
+const a_reset = "P 100 darkville005 100 100 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_darkville005:objsolto.total < 1
+    criar("p_darkville005", este, 100)
+  fimse
+
+
+classe s_darkville097
+herda b_darkville
+const s_titulo = "Sala de reunião dos funcionários"
+const dir_o = $s_darkville095
+
+
+classe s_darkville098
+herda b_darkville
+const s_titulo = "Um longo corredor"
+const dir_l = $s_darkville099
+const dir_o = $s_darkville094
+
+
+classe s_darkville099
+herda b_darkville
+const s_titulo = "Um longo corredor"
+const dir_n = $s_darkville100
+const dir_o = $s_darkville098
+
+
+classe s_darkville100
+herda b_darkville
+const s_titulo = "Um longo corredor"
+const dir_n = $s_darkville101
+const dir_s = $s_darkville099
+
+
+classe s_darkville101
+herda b_darkville
+const s_titulo = "Um longo corredor"
+const dir_n = $s_darkville102
+const dir_s = $s_darkville100
+
+
+classe s_darkville102
+herda b_darkville
+const s_titulo = "A entrada do berçário"
+const dir_s = $s_darkville101
+const dir_entrar = $s_darkville103
+const portaini_entrar = 2 # Estado inicial: 2 Porta fechada
+const portanome_entrar = "Uma simples porta de madeira clara"
+
+
+classe s_darkville103
+herda b_darkville
+const s_titulo = "O corredor do berçário"
+const dir_n = $s_darkville106
+const dir_l = $s_darkville105
+const dir_o = $s_darkville104
+const dir_sair = $s_darkville102
+const portaini_sair = 2 # Estado inicial: 2 Porta fechada
+const portanome_sair = "Uma simples porta de madeira clara"
+
+
+classe s_darkville104
+herda b_darkville
+const s_titulo = "O berçário"
+const dir_l = $s_darkville103
+const a_reset = "S 100 darkville005 1 S\n\
+S 100 darkville006 1 S\n\
+S 100 bebe060 1 darkville005\n\
+S 100 bebe060 1 darkville006"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref r # Usado como rascunho
+  !dentro1.objini("i_darkville005") && criar("i_darkville005", este, 1)
+  !dentro1.objini("i_darkville006") && criar("i_darkville006", este, 1)
+  (r = dentro1.objini("i_darkville005")) && !r.dentro1.objini("i_bebe060") && criar("i_bebe060", \
+r, 1)
+  (r = dentro1.objini("i_darkville006")) && !r.dentro1.objini("i_bebe060") && criar("i_bebe060", \
+r, 1)
+
+
+classe s_darkville105
+herda b_darkville
+const s_titulo = "O berçário"
+const dir_o = $s_darkville103
+const a_reset = "S 100 darkville005 1 S\n\
+S 100 darkville006 1 S\n\
+S 100 bebe050 1 darkville005\n\
+S 100 bebe050 1 darkville006"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref r # Usado como rascunho
+  !dentro1.objini("i_darkville005") && criar("i_darkville005", este, 1)
+  !dentro1.objini("i_darkville006") && criar("i_darkville006", este, 1)
+  (r = dentro1.objini("i_darkville005")) && !r.dentro1.objini("i_bebe050") && criar("i_bebe050", \
+r, 1)
+  (r = dentro1.objini("i_darkville006")) && !r.dentro1.objini("i_bebe050") && criar("i_bebe050", \
+r, 1)
+
+
+classe s_darkville106
+herda b_darkville
+const s_titulo = "O corredor do berçário"
+const dir_n = $s_darkville109
+const dir_s = $s_darkville103
+const dir_l = $s_darkville107
+const dir_o = $s_darkville108
+
+
+classe s_darkville107
+herda b_darkville
+const s_titulo = "O berçário"
+const dir_o = $s_darkville106
+const a_reset = "S 100 darkville005 1 S\n\
+S 100 darkville006 1 S\n\
+S 100 bebe050 1 darkville005\n\
+S 100 bebe050 1 darkville006"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref r # Usado como rascunho
+  !dentro1.objini("i_darkville005") && criar("i_darkville005", este, 1)
+  !dentro1.objini("i_darkville006") && criar("i_darkville006", este, 1)
+  (r = dentro1.objini("i_darkville005")) && !r.dentro1.objini("i_bebe050") && criar("i_bebe050", \
+r, 1)
+  (r = dentro1.objini("i_darkville006")) && !r.dentro1.objini("i_bebe050") && criar("i_bebe050", \
+r, 1)
+
+
+classe s_darkville108
+herda b_darkville
+const s_titulo = "O berçário"
+const dir_l = $s_darkville106
+const a_reset = "S 100 darkville005 1 S\n\
+S 100 darkville006 1 S\n\
+S 100 bebe060 1 darkville005\n\
+S 100 bebe060 1 darkville006"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref r # Usado como rascunho
+  !dentro1.objini("i_darkville005") && criar("i_darkville005", este, 1)
+  !dentro1.objini("i_darkville006") && criar("i_darkville006", este, 1)
+  (r = dentro1.objini("i_darkville005")) && !r.dentro1.objini("i_bebe060") && criar("i_bebe060", \
+r, 1)
+  (r = dentro1.objini("i_darkville006")) && !r.dentro1.objini("i_bebe060") && criar("i_bebe060", \
+r, 1)
+
+
+classe s_darkville109
+herda b_darkville
+const s_titulo = "O corredor do berçário"
+const dir_n = $s_darkville112
+const dir_s = $s_darkville106
+const dir_l = $s_darkville110
+const dir_o = $s_darkville111
+
+
+classe s_darkville110
+herda b_darkville
+const s_titulo = "O berçário"
+const dir_o = $s_darkville109
+const a_reset = "S 100 darkville005 1 S\n\
+S 100 darkville006 1 S\n\
+S 100 bebe050 1 darkville005\n\
+S 100 bebe050 1 darkville006"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref r # Usado como rascunho
+  !dentro1.objini("i_darkville005") && criar("i_darkville005", este, 1)
+  !dentro1.objini("i_darkville006") && criar("i_darkville006", este, 1)
+  (r = dentro1.objini("i_darkville005")) && !r.dentro1.objini("i_bebe050") && criar("i_bebe050", \
+r, 1)
+  (r = dentro1.objini("i_darkville006")) && !r.dentro1.objini("i_bebe050") && criar("i_bebe050", \
+r, 1)
+
+
+classe s_darkville111
+herda b_darkville
+const s_titulo = "O berçário"
+const dir_l = $s_darkville109
+const a_reset = "S 100 darkville005 1 S\n\
+S 100 darkville006 1 S\n\
+S 100 bebe060 1 darkville005\n\
+S 100 bebe060 1 darkville006"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref r # Usado como rascunho
+  !dentro1.objini("i_darkville005") && criar("i_darkville005", este, 1)
+  !dentro1.objini("i_darkville006") && criar("i_darkville006", este, 1)
+  (r = dentro1.objini("i_darkville005")) && !r.dentro1.objini("i_bebe060") && criar("i_bebe060", \
+r, 1)
+  (r = dentro1.objini("i_darkville006")) && !r.dentro1.objini("i_bebe060") && criar("i_bebe060", \
+r, 1)
+
+
+classe s_darkville112
+herda b_darkville
+const s_titulo = "O corredor do berçário"
+const dir_n = $s_darkville115
+const dir_s = $s_darkville109
+const dir_l = $s_darkville113
+const dir_o = $s_darkville114
+
+
+classe s_darkville113
+herda b_darkville
+const s_titulo = "O berçário"
+const dir_o = $s_darkville112
+const a_reset = "S 100 darkville005 1 S\n\
+S 100 darkville006 1 S\n\
+S 100 bebe050 1 darkville005\n\
+S 100 bebe050 1 darkville006"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref r # Usado como rascunho
+  !dentro1.objini("i_darkville005") && criar("i_darkville005", este, 1)
+  !dentro1.objini("i_darkville006") && criar("i_darkville006", este, 1)
+  (r = dentro1.objini("i_darkville005")) && !r.dentro1.objini("i_bebe050") && criar("i_bebe050", \
+r, 1)
+  (r = dentro1.objini("i_darkville006")) && !r.dentro1.objini("i_bebe050") && criar("i_bebe050", \
+r, 1)
+
+
+classe s_darkville114
+herda b_darkville
+const s_titulo = "O berçário"
+const dir_l = $s_darkville112
+const a_reset = "S 100 darkville005 1 S\n\
+S 100 darkville006 1 S\n\
+S 100 bebe060 1 darkville005\n\
+S 100 bebe060 1 darkville006"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref r # Usado como rascunho
+  !dentro1.objini("i_darkville005") && criar("i_darkville005", este, 1)
+  !dentro1.objini("i_darkville006") && criar("i_darkville006", este, 1)
+  (r = dentro1.objini("i_darkville005")) && !r.dentro1.objini("i_bebe060") && criar("i_bebe060", \
+r, 1)
+  (r = dentro1.objini("i_darkville006")) && !r.dentro1.objini("i_bebe060") && criar("i_bebe060", \
+r, 1)
+
+
+classe s_darkville115
+herda b_darkville
+const s_titulo = "O corredor do berçário"
+const dir_s = $s_darkville112
+const dir_l = $s_darkville116
+const dir_o = $s_darkville117
+
+
+classe s_darkville116
+herda b_darkville
+const s_titulo = "O berçário"
+const dir_o = $s_darkville115
+const a_reset = "S 100 darkville005 1 S\n\
+S 100 darkville006 1 S\n\
+S 100 bebe050 1 darkville005\n\
+S 100 bebe050 1 darkville006"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref r # Usado como rascunho
+  !dentro1.objini("i_darkville005") && criar("i_darkville005", este, 1)
+  !dentro1.objini("i_darkville006") && criar("i_darkville006", este, 1)
+  (r = dentro1.objini("i_darkville005")) && !r.dentro1.objini("i_bebe050") && criar("i_bebe050", \
+r, 1)
+  (r = dentro1.objini("i_darkville006")) && !r.dentro1.objini("i_bebe050") && criar("i_bebe050", \
+r, 1)
+
+
+classe s_darkville117
+herda b_darkville
+const s_titulo = "O berçário"
+const dir_l = $s_darkville115
+const a_reset = "S 100 darkville005 1 S\n\
+S 100 darkville006 1 S\n\
+S 100 bebe060 1 darkville005\n\
+S 100 bebe060 1 darkville006"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  ref r # Usado como rascunho
+  !dentro1.objini("i_darkville005") && criar("i_darkville005", este, 1)
+  !dentro1.objini("i_darkville006") && criar("i_darkville006", este, 1)
+  (r = dentro1.objini("i_darkville005")) && !r.dentro1.objini("i_bebe060") && criar("i_bebe060", \
+r, 1)
+  (r = dentro1.objini("i_darkville006")) && !r.dentro1.objini("i_bebe060") && criar("i_bebe060", \
+r, 1)
+
+
+classe s_darkville118
+herda b_darkville
+const s_titulo = "Loja personal baby"
+const dir_s = $s_darkville082
+const a_reset = "P 100 darkville004 0 0 0"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_darkville004:objsolto.total < 0
+    criar("p_darkville004", este, 0)
+  fimse
+
+const s_reset = "P 100 darkville004 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_darkville004:objsolto.total < 1
+    criar("p_darkville004", este, 0)
+  fimse
+
+
+classe s_darkville119
+herda b_darkville
+const s_titulo = "Loja de items personalizados"
+const dir_n = $s_darkville035
+
+
+classe s_darkville120
+herda b_darkville
+const s_titulo = "Loja de armas personalisadas"
+const dir_s = $s_darkville027
+
+
+classe s_darkville121
+herda b_darkville
+const s_titulo = "A entrada para o estacionamento"
+const dir_n = $s_darkville027
+const dir_s = $s_darkville122
+
+
+classe s_darkville122
+herda b_darkville
+const s_titulo = "Dentro do estacionamento"
+const dir_n = $s_darkville121
+const dir_s = $s_darkville125
+const dir_l = $s_darkville124
+const dir_o = $s_darkville123
+const dir_ne = $s_darkville128
+const dir_no = $s_darkville127
+const dir_se = $s_darkville129
+const dir_so = $s_darkville126
+
+
+classe s_darkville123
+herda b_darkville
+const s_titulo = "No estacionamento"
+const dir_l = $s_darkville122
+
+
+classe s_darkville124
+herda b_darkville
+const s_titulo = "No estacionamento"
+const dir_o = $s_darkville122
+
+
+classe s_darkville125
+herda b_darkville
+const s_titulo = "Vagas reservadas"
+const dir_n = $s_darkville122
+const dir_s = $s_darkville132
+const dir_l = $s_darkville130
+const dir_o = $s_darkville131
+
+
+classe s_darkville126
+herda b_darkville
+const s_titulo = "No estacionamento"
+const dir_ne = $s_darkville122
+
+
+classe s_darkville127
+herda b_darkville
+const s_titulo = "No estacionamento"
+const dir_se = $s_darkville122
+
+
+classe s_darkville128
+herda b_darkville
+const s_titulo = "No estacionamento"
+const dir_so = $s_darkville122
+
+
+classe s_darkville129
+herda b_darkville
+const s_titulo = "No estacionamento"
+const dir_no = $s_darkville122
+
+
+classe s_darkville130
+herda b_darkville
+const s_titulo = "Vaga leste"
+const dir_o = $s_darkville125
+
+
+classe s_darkville131
+herda b_darkville
+const s_titulo = "Vaga oeste"
+const dir_l = $s_darkville125
+
+
+classe s_darkville132
+herda b_darkville
+const s_titulo = "Vaga Sul"
+const dir_n = $s_darkville125
+
+
+classe s_darkville133
+herda b_darkville
+const s_titulo = "Uma Autopessas"
+const s_pnj = 0
+const dir_s = $s_darkville028
+
+
+classe s_darkville134
+herda b_darkville
+const s_titulo = "A garágem da loja de automóveis de darkville"
+const s_pnj = 0
+const dir_n = $s_darkville028
+const dir_s = $s_darkville135
+
+
+classe s_darkville135
+herda b_darkville
+const s_titulo = "Dentro da loja de automóveis."
+const dir_n = $s_darkville134
+const s_reset = "P 100 darkville007 0 0 1"
+
+func s_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de s_reset
+  se p_darkville007:objsolto.total < 1
+    criar("p_darkville007", este, 0)
+  fimse
+
+
+classe s_darkville136
+herda b_darkville
+const s_titulo = "Loja de bicicletas"
+const dir_s = $s_darkville029
+
+
+classe s_darkville137
+herda b_darkville
+const s_titulo = "Um ponto de ônibos"
+const dir_n = $s_darkville029
+
+
+classe s_darkville138
+herda b_darkville
+const s_titulo = "Brinquedolândia, loja de brinquedos"
+const dir_s = $s_darkville030
+
+
+classe s_darkville139
+herda b_darkville
+const s_titulo = "A entrada para o clube das flores"
+const dir_n = $s_darkville030
+const dir_s = $s_darkville141
+const dir_l = $s_darkville150
+const dir_o = $s_darkville140
+
+
+classe s_darkville140
+herda b_darkville
+const s_titulo = "Um estacionamento na entrada"
+const dir_l = $s_darkville139
+
+
+classe s_darkville141
+herda b_darkville
+const s_titulo = "Dentro do clube"
+const dir_n = $s_darkville139
+const dir_s = $s_darkville142
+
+
+classe s_darkville142
+herda b_darkville
+const s_titulo = "Continuando a adentrar o clube das flores"
+const dir_n = $s_darkville141
+const dir_s = $s_darkville143
+
+
+classe s_darkville143
+herda b_darkville
+const s_titulo = "Em uma passarela"
+const dir_n = $s_darkville142
+const dir_s = $s_darkville144
+const dir_l = $s_darkville146
+const dir_o = $s_darkville147
+
+
+classe s_darkville144
+herda b_darkville
+const s_titulo = "Continuando na passarela"
+const dir_n = $s_darkville143
+const dir_s = $s_darkville145
+const dir_l = $s_darkville149
+const dir_o = $s_darkville148
+
+
+classe s_darkville145
+herda b_darkville
+const s_titulo = "Ainda na passarela"
+const dir_n = $s_darkville144
+const dir_l = $s_darkville151
+const dir_o = $s_darkville152
+
+
+classe s_darkville146
+herda b_darkville
+const s_titulo = "Um gramado em volta"
+const dir_s = $s_darkville149
+const dir_o = $s_darkville143
+
+
+classe s_darkville147
+herda b_darkville
+const s_titulo = "Um gramado em volta"
+const dir_s = $s_darkville148
+const dir_l = $s_darkville143
+
+
+classe s_darkville148
+herda b_darkville
+const s_titulo = "Um gramado em volta"
+const dir_n = $s_darkville147
+const dir_s = $s_darkville152
+const dir_l = $s_darkville144
+
+
+classe s_darkville149
+herda b_darkville
+const s_titulo = "Um gramado em volta"
+const dir_n = $s_darkville146
+const dir_s = $s_darkville151
+const dir_o = $s_darkville144
+
+
+classe s_darkville150
+herda b_darkville
+const s_titulo = "Um pequeno jardin de entrada"
+const dir_o = $s_darkville139
+
+
+classe s_darkville151
+herda b_darkville
+const s_titulo = "Continuando no gramado em volta"
+const dir_n = $s_darkville149
+const dir_o = $s_darkville145
+
+
+classe s_darkville152
+herda b_darkville
+const s_titulo = "Continuando no gramado em volta"
+const dir_n = $s_darkville148
+const dir_l = $s_darkville145
+
+
+classe s_darkville153
+herda b_darkville
+const s_titulo = "A rua dos querobins"
+const dir_l = $s_darkville154
+const dir_o = $s_darkville020
+
+
+classe s_darkville154
+herda b_darkville
+const s_titulo = "A RUA DOS QUEROBINS"
+const dir_l = $s_darkville155
+const dir_o = $s_darkville153
+
+
+classe s_darkville155
+herda b_darkville
+const s_titulo = "A RUA DOS QUEROBINS"
+const dir_o = $s_darkville154
+
+
+classe s_darkville156
+herda b_darkville
+const s_titulo = "Seguindo para norte na avenida das rosas"
+const dir_n = $s_darkville157
+const dir_so = $s_darkville035
+
+
+classe s_darkville157
+herda b_darkville
+const s_titulo = "Continuando a passear pela a avenida das rosas"
+const dir_n = $s_darkville158
+const dir_s = $s_darkville156
+
+
+classe s_darkville158
+herda b_darkville
+const s_titulo = "No fim da avenida das rosas"
+const dir_n = $s_viladark001
+const dir_s = $s_darkville157

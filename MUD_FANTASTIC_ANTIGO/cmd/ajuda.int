@@ -1,0 +1,296 @@
+classe cmd_ajuda
+herda comando_comum
+const posic = 0
+const ta1 = "\b\c3Páginas de ajuda\b\n\
+Para ler tecle AJUDA seguido do nome de um tópico ou um comando.\n\
+Os tópicos são:\n\
+  \c2MOVER\b     Como movimentar-se no jogo\n\
+  \c2COMUNICA\b  Comunicação com outros jogadores\n\
+  \c2INFO\b      Informações sobre o seu personagem\n\
+  \c2OBJETO\b    Manuseio de objetos\n"
+const ta2 = "  \c2ANIMAL\b    Manuseio de animais\n"
+const ta3 = "  \c2COMBATE\b   Lutas com outros personagens\n\
+  \c2GRUPO\b     Jogando em grupo\n\
+  \c2LOJAS\b     Lojas e professores\n\
+  \c2NOMES\b     Digitando nomes de objetos e personagens\n\
+  \c2JOG\b       Outros comandos para jogadores\n\
+  \c2DIVERSOS\b  Diversos comandos"
+const ta4 = "\nPara ler as páginas de administração tecle \c2ADM\b"
+
+func txtajuda
+  ret ta1 + (config:animal1 ? ta2) + ta3 + ($perm_[arg0.jogperm].c_adm ? ta4)
+
+func escr
+  listaobj l
+  epara l.addfim(arg0.evento), l, l.ini.remove
+    ret l.objini.cmd_ajuda(arg0, arg1), nulo
+  efim
+  se 1
+    ret !arg1, arg0.msg2(txtajuda(arg0))
+    refvar t1 = $cmd_[txt1(arg1)].txtajuda(arg0)
+    ret t1, arg0.msg2(t1)
+    refvar t2 = $cmdfim_[txt1(arg1)].txtajuda(arg0)
+    ret t2, arg0.msg2(t2)
+    refvar t3 = arg2.ajuda_[txt1(arg1)]
+    ret t3, arg0.msg2("\b\c3" + txtmaimin(arg1) + "\b\n" + t3)
+  fimse
+  prog p
+  epara p.iniclasse("cmd_" + txt1(arg1)), p.lin, p.depois
+    refvar t1 = $[p.texto].txtajuda(arg0)
+    ret t1, arg0.msg2(t1)
+  efim
+  epara p.iniclasse("cmdfim_" + txt1(arg1)), p.lin, p.depois
+    refvar t1 = $[p.texto].txtajuda(arg0)
+    ret t1, arg0.msg2(t1)
+  efim
+  arg0.msg("Comando ou tópico de ajuda desconhecido: " + arg1)
+
+
+classe cmd_mover
+const iniclasse = !$[arg0] && criar(arg0)
+const txtajuda = "\b\c3Movimentação\b\n\
+Você pode mover seu personagem para as seguintes direções:\n\
+N (norte), S (sul), L ou E (leste), O ou W (oeste), C (cima), B (baixo),\n\
+NE (nordeste), NO ou NW (noroeste), SE (sudeste) e SO ou SW (sudoeste),\n\
+C (para cima), B (para baixo), ENTRAR e SAIR.\n\
+Você poderá encontrar portas fechadas no caminho. Nesse caso, será\n\
+necessário abrir antes de prosseguir naquela direção. Veja os comandos\n\
+ABRIR, FECHAR, TRANCAR e DESTRANCAR.\n\
+Para percorrer longas distâncias, pode-se digitar as direções na sequência,\n\
+separando por espaço. Por exemplo, N L L C S NO\n\
+Isso funciona porque, quando você digita uma direção e o seu personagem\n\
+consegue andar, o que foi digitado após a direção é interpretado como outro\n\
+comando.\n\
+É possível também seguir outros personagens. Veja o comando SEGUIR.\n\
+O personagem pode cansar-se (pontos de vigor chegar a zero, vide comando\n\
+VIDA). Nesse caso, o melhor é sentar-se (digitando SENTAR) ou descansar\n\
+(digitando DESCANSAR) para recuperar os pontos de vigor mais rapidamente.\n\
+Depois, para voltar a caminhar, deverá ficar em pé (digitando LEVANTAR)."
+
+
+classe cmd_comunica
+const iniclasse = !$[arg0] && criar(arg0)
+
+func txtajuda
+  ret tit + (config:novatostipo ? nov) + (config:chattipo ? cha) + gch + pvt + (config:gritartipo\
+ ? gri) + fal + sus + soc + (config:emocaotipo ? emo) + ign + (config:rezartipo ? rez) + \
+(config:bugtipo ? bug) + (config:ideiatipo ? ide)
+
+const tit = "\b\c3Comunicação\b"
+const nov = "\n\
+  \c2NOVATOS\b   Envia mensagem para os jogadores com o canal NOVATOS habilitado"
+const cha = "\n\
+  \c2CHAT\b      Envia mensagem para os jogadores com o canal CHAT habilitado\n\
+  \c2SCHAT\b     Comandos \"sociais\" no canal CHAT"
+const gch = "\n  \c2GCHAT\b     Envia uma mensagem para os jogadores do seu grupo"
+const pvt = "\n  \c2TELEPATIA\b Envia mensagem privativa para um jogador"
+const gri = "\n  \c2GRITAR\b    Envia mensagem para os personagens na mesma área"
+const fal = "\n  \c2FALAR\b     Envia mensagem para os personagens na mesma sala"
+const sus = "\n  \c2SUSSURRAR\b Sussurra uma mensagem para um personagem na mesma sala"
+const soc = "\n\
+  \c2SOCIAL\b    Comandos \"sociais\" - para interpretação entre personagens"
+const emo = "\n  \c2EMOÇÃO\b    Demonstra emoções do seu personagem"
+const ign = "\n  \c2IGNORAR\b   Ignora um jogador"
+const rez = "\n\
+  \c2REZAR\b     Envia mensagem para os administradores que estiverem no jogo"
+const bug = "\n  \c2BUG\b       Envia mensagem para informar sobre bugs (erros) no jogo"
+const ide = "\n  \c2IDEIA\b     Envia mensagem sobre ideias para o jogo"
+
+
+classe cmd_info
+const iniclasse = !$[arg0] && criar(arg0)
+const txtajuda = "\b\c3Informações\b\n\
+  \c2VIDA\b      Pontos de vida, mana, vigor, nível e experiência\n\
+  \c2RELATAR\b   Relata vida, mana, vigor, experiência para os outros\n\
+  \c2MOEDAS\b    Quantas moedas está carregando\n\
+  \c2ESTAT\b     Estatísticas e outras informações do seu personagem\n\
+  \c2OLHAR\b     Descrição de onde você está ou de um objeto ou personagem\n\
+  \c2VER\b       Descrição resumida de onde você está, objeto ou personagem\n\
+  \c2HORA\b      A hora atual: real e no MUD\n\
+  \c2INV\b       Os objetos que você está carregando\n\
+  \c2EQUIP\b     Os objetos equipando você ou que você está vestindo\n\
+  \c2QUEM\b      Os usuários que estão jogando no momento\n\
+  \c2ONDE\b      A área em que está e os jogadores visíveis na mesma área\n\
+  \c2SAÍDAS\b    Mostra as saídas óbvias de onde você está\n\
+  \c2HAB\b       As habilidades do seu personagem\n\
+  \c2MAGIA\b     As magias do seu personagem\n\
+  \c2IDIOMA\b    Idiomas que o seu personagem conhece\n\
+  \c2OUTROS\b    Outras habilidades e itens do seu personagem\n\
+  \c2EFEITO\b    Os efeitos que estão afetando o seu personagem\n\
+  \c2INFOJOG\b   Informações sobre outros jogadores"
+
+
+classe cmd_objeto
+const iniclasse = !$[arg0] && criar(arg0)
+const txtajuda = "\b\c3Objetos\b\n\
+  \c2PEGAR\b     Pega um objeto, do chão ou de dentro de outro objeto\n\
+  \c2SOLTAR\b    Solta um objeto no chão ou coloca dentro de outro\n\
+  \c2GUARDAR\b   Coloca um objeto dentro de outro\n\
+  \c2DAR\b       Dá um objeto a outro personagem\n\
+  \c2VESTIR\b    Veste um objeto, ou usa como arma (se for arma)\n\
+  \c2REMOVER\b   Deixa de vestir ou usar um objeto\n\
+  \c2CARREGAR\b  Carrega a arma sendo empunhada com um objeto\n\
+  \c2DESCARREGAR\b Descarrega a arma sendo empunhada\n\
+  \c2ABRIR\b     Abre um objeto (exemplo, uma bolsa ou um baú)\n\
+  \c2FECHAR\b    Fecha um objeto\n\
+  \c2TRANCAR\b   Tranca um objeto\n\
+  \c2DESTRANCAR\b Destranca um objeto\n\
+  \c2ACENDER\b   Acende um objeto\n\
+  \c2APAGAR\b    Apaga um objeto\n\
+  \c2BEBER\b     Bebe um objeto (exemplo, uma poção ou uma garrafa)\n\
+  \c2COMER\b     Come um objeto (um alimento)\n\
+  \c2RECITAR\b   Recita um objeto (um pergaminho)"
+
+
+classe cmd_lojas
+const iniclasse = !$[arg0] && criar(arg0)
+const txtajuda = "\b\c3Lojas e professores\b\n\
+  \c2LISTA\b     Lista de produtos sendo vendidos e informações sobre um produto\n\
+  \c2COMPRAR\b   Compra um produto\n\
+  \c2VENDER\b    Vende alguma coisa\n\
+  \c2AVALIAR\b   Para saber quanto pagam por algum item que você possui\n\
+  \c2PAGAR\b     Para pagar a taxa de manutenção da casa, caso você possua uma\n\
+  \c2AULAS\b     Lista de cursos sendo ministrados e informações sobre um curso\n\
+  \c2APRENDER\b  Aprende alguma coisa que está sendo ensinada\n\
+Nota:\n\
+Os comandos para comprar e vender itens também permitem comprar e vender\n\
+casas, comprar uma chave para sua casa e trocar a fechadura, caso você\n\
+perca a chave."
+
+
+classe cmd_nomes
+const iniclasse = !$[arg0] && criar(arg0)
+const txtajuda = "\b\c3Nomes\b\n\
+Diversos comandos requerem que digite o nome de um personagem ou objeto.\n\
+Exemplo: PEGAR CHAVE\n\
+Quando há vários objetos com o mesmo nome, o comando acima pegaria apenas\n\
+o primeiro. Se for desejáve pegar outro, é necessário digitar um número\n\
+(começa no 1) seguido de um ponto e o nome do objeto.\n\
+Exemplo, para pegar a segunda chave: PEGAR 2.CHAVE\n\
+Vários comandos permitem especificar a quantidade. Nesse caso, acrescente\n\
+o número seguido de espaço antes do nome do objeto.\n\
+Exemplo: PEGAR 10 CHAVE\n\
+Quando o nome de um objeto contém espaço no meio, é necessário escrever\n\
+entre aspas duplas, ou então usar o sublinhado ao invés do espaço.\n\
+Exemplo 1: PEGAR \"CHAVE BRANCA\"\n\
+Exemplo 2: PEGAR CHAVE_BRANCA\n\
+Nesse caso, seu personagem pegará qualquer chave que for branca.\n\
+Para poupar digitação, na maioria dos casos pode-se abreviar, digitando\n\
+apenas o começo das palavras.\n\
+Exemplo 1: PE CH\n\
+Exemplo 2: PE CH_BRA\n\
+Nesse caso, CH refere-se a qualquer objeto cujo nome começa com CH.\n\
+Alguns comandos aceitam a palava TUDO, que se refere a todos os itens.\n\
+Exemplo 1: PEGAR TUDO\n\
+Exemplo 2: PEGAR TUDO.CHAVE\n\
+No exemplo 1, você está pegando todos os itens do chão.\n\
+Já no segundo, está pegando todas as chaves do chão.\n\
+No entanto, dependendo da natureza dos objetos, você pode ter de repetir\n\
+o comando (ou teclar um sinal de exclamação) até pegar todos."
+
+
+classe cmd_combate
+const iniclasse = !$[arg0] && criar(arg0)
+const txtajuda = aj1 + (config:matartipo ? aj2 : aj3) + aj4
+const aj1 = "\b\c3Combate\b\n"
+const aj2 = "Para começar uma luta basta teclar MATAR ou um comando agressivo,\n\
+seguido do personagem que você quiser atacar.\n"
+const aj3 = "Para começar uma luta basta teclar um comando agressivo, seguido\n\
+do nome do personagem que você quiser atacar.\n"
+const aj4 = "Para lançar magias tecle lançar e o nome da magia, e o alvo, se houver um.\n\
+Antes de começar uma luta, você pode checar ter uma ideia da dificuldade\n\
+teclando VER seguido do nome do personagem. Se for muito maior que o seu\n\
+nível, provavelmente é melhor não começar a luta.\n\
+Você pode checar a qualquer momento seus pontos de vida, teclando VIDA.\n\
+Quando esses pontos chegarem a 0, você morre. Assim, se a luta estiver\n\
+desfavorável, pode tentar fugir teclando FUGIR. Mas saiba que algumas\n\
+criaturas podem procurar por você e perseguir.\n\
+Se teclar FUGIR seguido de um número, quando seus pontos de vida caírem\n\
+abaixo desse número em uma luta, seu personagem foge automaticamente.\n\
+Se outro jogador estiver por perto, muitas vezes poderá resgatar você.\n\
+Veja o comando RESGATAR."
+
+
+classe cmd_jog
+const iniclasse = !$[arg0] && criar(arg0)
+const txtajuda = txtajuda1 + (config:renascer ? txtajuda2) + txtajuda3
+const txtajuda1 = "\b\c3Outros comandos para jogadores\b\n\
+  \c2CONFIG\b    Opções de configuração\n\
+  \c2PROMPT\b    Mensagens do prompt\n\
+  \c2CORES\b     Cores no prompt\n\
+  \c2ATALHO\b    Criando atalhos para os comandos mais usados\n\
+  \c2SALVAR\b    Salva o seu personagem\n\
+  \c2SENHA\b     Muda a senha do seu personagem\n\
+  \c2FIM\b       Sai do MUD, retirando também o seu personagem\n\
+  \c2AUTOAPAGAR\b  Apaga o seu personagem definitivamente\n"
+const txtajuda2 = "  \c2RENASCER\b  Seu personagem renasce, após atingir o nível máximo\n"
+const txtajuda3 = "  \c2PTITULO\b   Muda o título do seu personagem, mostrado no comando QUEM\n\
+  \c2PDESC\b     Muda a descrição do seu personagem, mostrada no comando OLHAR\n\
+  \c2MDESC\b     Muda a descrição do seu personagem para mulheres\n\
+  \c2STITULO\b   Muda o título da sala, desde que você esteja na sua casa\n\
+  \c2SDESC\b     Muda a descrição da sala, desde que você esteja na sua casa\n\
+  \c2SJOG\b      Define quem pode pegar itens de uma sala da sua casa"
+
+
+classe cmd_cores
+const iniclasse = !$[arg0] && criar(arg0)
+const txtajuda = "\b\c3Cores no prompt\b\n\n\
+É possível definir as cores dos caracteres e do fundo no prompt.\n\
+Entretanto, não há suporte a cores no Papovox, nem para os usuários\n\
+que jogarem através de um chat.\n\n\
+As seguintes sequências de caracteres mudam a cor das letras:\n\
+ %c0  \c7Preto\b             %c1  \c1Vermelho\b         \b %c2  \c2Verde\b\n\
+ %c3  \c3Marrom\b            %c4  \c4Azul\b             \b %c5  \c5Magenta\b\n\
+ %c6  \c6Ciano\b             %c7  \c7Branco\b           \b %c8  \c8Cinza\b\n\
+ %c9  \c9Vermelho intenso\b  %ca  \caVerde intenso\b    \b %cb  \cbAmarelo\b\n\
+ %cc  \ccAzul intenso\b      %cd  \cdMagenta intenso\b  \b %ce  \ceCiano intenso\b\n\
+ %cf  \cfBranco intenso\b\n\n\
+As seguintes sequências de caracteres mudam a cor de fundo:\n\
+ %f0  \d0Preto\b             %f1  \d1Vermelho\b          %f2  \d2Verde\b\n\
+ %f3  \d3Marrom\b            %f4  \d4Azul\b              %f5  \d5Magenta\b\n\
+ %f6  \d6Ciano\b             %f7  \c0\d7Branco\b\n\n\
+As seguintes sequências de caracteres mudam outros atributos:\n\
+ %b   Caracteres brancos sob fundo preto sem piscante, sublinhado e inverso\n\
+ %cg  Liga o sublinhado (um traço horizontal em baixo)\n\
+ %ch  Desliga o sublinhado\n\
+ %ci  Liga inversão de frente com fundo (troca cores de frente com fundo)\n\
+ %cj  Desliga inversão de frente com fundo\n\
+ %ck  Liga texto piscante\n\
+ %cl  Desliga texto piscante\n\n\
+Veja também: PROMPT"
+
+
+classe cmd_diversos
+const iniclasse = !$[arg0] && criar(arg0)
+
+func txtajuda
+  refvar perm = $perm_[arg0.jogperm]
+  textotxt t
+  t.addfim("\b\c3Diversos comandos\b")
+  t.addfim("Barracas _ Comandos básicos para as barracas.")
+  t.addfim("Carros _ Comandos básicos para os carros")
+  prog p
+  epara p.inifunctudo(perm, "div_"), p.lin, p.depois
+    continuar !perm.[p.texto]
+    refvar lin = "  \c2" + txtmai(txt(p.texto, 4)) + "\b "
+    t.addfim(lin + txtesp(15 - inttotal(lin)) + txtmudamai(perm.[p.texto], "A"))
+  efim
+  se t.linhas <= 1
+    t.addfim("Nenhum comando definido aqui")
+  senao
+    t.addfim("Nota: esses comandos não podem ser abreviados")
+  fimse
+  ret t.remove(1000)
+
+
+classe cmd_help
+herda cmd_ajuda
+
+
+classe cmd_camera
+herda comando_comum
+#
+const txtajuda = "\b\c6Usando a câmera\b\n\
+Digite 'tirar foto', sem argumentos, caso queira tirar uma foto da sala onde está.\n\
+caso queira tirar uma foto de um personagem, digite tirar foto seguido do nome do personagem.\n\
+Por exemplo: tirar foto joão"

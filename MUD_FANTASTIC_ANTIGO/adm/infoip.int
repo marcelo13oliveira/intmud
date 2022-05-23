@@ -1,0 +1,36 @@
+classe adm_infoip
+herda comando_adm
+#
+const posic = 0
+#
+
+func escr
+  se !arg1
+    ret arg0.msg("Digite o nome do jogador após infoip.")
+  senao
+    ref p
+    refvar nomesav = txts(txtnome(arg1))
+    indiceitem item
+    item.ini("pn " + nomesav)
+    p = item.obj
+    ret !p, arg0.msg("Jogador inexistente ou ausente: " + arg1)
+    refvar jogtip = txtsub(p.sock.info, 0, 1)
+    se jogtip == "p"
+      arg0.msg("Jogador" + (p.msexo ? " " : "a ") + p.descnome + ", via papovox.\nConexão: " + \
+txtsub(p.sock.info, 1, 1))
+    senao jogtip == "h"
+      arg0.msg("Jogador" + (p.msexo ? " " : "a ") + p.descnome + ", via http.\nConexão: " + \
+txtsub(p.sock.info, 1, 1))
+    senao jogtip == "b"
+      se intsub(p.sock.info) == 4
+        arg0.msg("Jogador" + (p.msexo ? " " : "a ") + p.descnome + ", via bot " + txtsub(p.sock.i\
+nfo, 2) + "\nConexão: " + txtsub(p.sock.info, 1, 1))
+      senao
+        arg0.msg("Jogador" + (p.msexo ? " " : "a ") + p.descnome + ", via bot " + txtsub(p.sock.i\
+nfo, 1))
+      fimse
+    senao
+      arg0.msg("Jogador" + (p.msexo ? " " : "a ") + p.descnome + ", via telnet/client.\nConexão: \
+" + txtsub(p.sock.info, 1))
+    fimse
+  fimse

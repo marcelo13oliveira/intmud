@@ -1,0 +1,27 @@
+classe cmd_encontrar
+herda comando_comum
+#
+const posic = 5
+const txtajuda = "\b\c3Encontrar\b\n\
+ Sintaxe: encontrar Mnome do personagem<\n\
+Mostra onde um jogador está."
+#
+
+func escr
+  se !arg1
+    ret arg0.msg("Digite o nome do jogador após encontrar.")
+  senao
+    ref p
+    refvar nomesav = txts(txtnome(arg1))
+    indiceitem item
+    item.ini("pn " + nomesav)
+    p = item.obj
+    ret !p, arg0.msg("Jogador inexistente ou ausente: " + arg1)
+    ret p.j_imortal && !arg0.j_imortal, arg0.msg("Você não pode encontrar " + p.descnome + \
+".")
+    ret arg0.var.u_[p.sock.nome], arg0.msg("Você está ignorando " + p.descnome + ".")
+    ret p.var.u_[arg0.sock.nome], arg0.msg(p.descnome + " está ignorando você.")
+    ret !p.visivel(arg0), arg0.msg("Impossível encontrar " + arg1 + ".")
+    arg0.msg("Jogador" + (p.msexo ? " " : "a ") + p.descnome + ": " + (p.dono.var.z_titulo ? \
+p.dono.var.z_titulo : p.dono.s_titulo))
+  fimse

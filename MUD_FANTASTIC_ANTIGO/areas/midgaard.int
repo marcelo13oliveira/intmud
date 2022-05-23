@@ -1,0 +1,4525 @@
+classe p_midgaard019
+herda comum_perso
+const nome = "Mestre clérigo"
+const ident = "mestre clerigo"
+const descnome = "O mestre clérigo"
+const descpadr = "O mestre clérigo está sentado sobre o tapete fazendo algumas meditações."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 100
+const lojaini = 0
+const lojafim = 0
+const lojaaula = "h_meditar 8\n\
+m_curar 8\n\
+m_curar_cegueira 8\n\
+m_restaurar_vitalidade 8\n\
+m_força_interior 8\n\
+m_força_física 8\n\
+m_cura_divina 8\n\
+m_chama_protetora 8\n\
+m_santuário 8\n\
+m_criar_fonte 8\n\
+m_create_food 8\n\
+m_retornar 8\n\
+m_fogo 8"
+const lojafechada = "$P falou, 'Não estou em meu espediente no momento, volte outra hora!'"
+const taxaaula = 100
+
+
+classe a_midgaard
+herda area
+const a_nome = "Cidade de Midgaard"
+const a_tempo = 1
+const a_reset = 2 # Modo de reset: 2 Normal
+const a_autor = "Edson e Ian"
+
+
+classe b_midgaard
+herda sala
+const s_doarsalas = "midgaard005"
+const s_item = 4
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_luz = 1 # Luz: 1 Claro sem eventos de tempo
+const s_morre = 0 # Morre ao entrar: 0 Não
+const s_pnj = 6
+const s_recup = 30
+const s_reserva = 1 # Comando reserva: Sim
+const s_retornar = 0 # Comando retornar: 0 Permitido
+const s_semmagia = 0 # Sem magia: Não
+const s_terreno = 2 # Terreno: 2 Campo, um campo aberto - 2mv
+const s_som = "campomidgaard"
+const eveste = 1
+const s_area = "midgaard"
+
+
+classe i_barril
+herda comum_itemperso
+const nome = "barril"
+const ident = "barril água"
+const descnome = "um barril"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_fome = 40
+const f_sede = 35
+const f_diges = 50
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 100000
+const evperso = 1 # Eventos dono perso: Sim
+sav uint32 barril
+
+func cmd_ini
+  barril = 5
+
+func descver
+  se barril < 1
+    ret "Ainda tem um restinho de água."
+  senao barril < 12
+    ret "Está com água até a metade."
+  senao
+    ret "está cheio até a borda."
+
+func f_msgperso
+  ret barril > 0, "$P bebe de um barril ."
+  ret "$P bebe o último gole de um barril ."
+
+func cmd_bebeu
+  se !barril
+    criar("i_barrilvazio", arg0)
+    apagar(este)
+    ret 1
+  senao
+    barril -= 1
+
+
+classe i_barrilvazio
+herda comum_itemperso
+const nome = "barrilvazio"
+const ident = "barril vazio"
+const descnome = "um barril"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+
+
+classe i_bolinha
+herda comum_item
+const nome = "bolinha"
+const ident = "bolinha"
+const descnome = "uma bolinha"
+const descpos = "Uma pequena bolinha está aqui. seria ótimo jogá-la em alguém!"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_bebida = -20
+const f_fome = 40
+const f_diges = 40
+const f_msgperso = "$P põe uma deliciosa bolinha na boca, degustando-a."
+const valor = 20000
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+
+func cmd_escr
+  nomeobj x
+  nomeobj y
+  x.ini(txtsub(arg1, 0, 1))
+  y.ini(txtsub(arg1, 1, 1))
+  se arg1 == "pertar bolinha"
+    $mens.p(arg0)
+    $mens.mtodos1("\d=bugar $P aperta uma bolinha, e misteriosamente ela se multiplica!")
+    criar("i_bolinha", arg0)
+    ret 1
+  senao x.nome("jogar") && y.nome("bolinha")
+    refvar perso = txtsub(arg1, 2, 1)
+    refvar p = misc:persooutro(arg0, perso)
+    ret !p, arg0.msg("Você não vê " + perso + ".")
+    $mens.p(arg0, p, este)
+    $mens.mtodos1("\d=pular $P joga $o $e $a.")
+    este.mdono(p, 1)
+    ret 1
+  fimse
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20 * pnivel
+  atkesp += 20 * pnivel
+
+
+classe i_fabi016
+herda comum_item
+const nome = "anel da psicologia"
+const ident = "psicologia anel brilhante"
+const descnome = "o brilhante anel da psicologia"
+const descpos = "o anel de algum formado em psicologia está aqui em um canto."
+const descver = "um anel brilhante,\n\
+totalmente ouro,\n\
+de uma beleza, já mais vista por qualquer pessoa.\n\
+esse anel é pertencente a Fabi, a psicóloga recém formada!\n\
+em cima, rodeada por pérolas, pode-se notar uma grande pedra lápis-lazúli com o símbolo da \
+psicologia,\n\
+e dentro dela, está escrita a seguinte frase.\n\
+você merece, merece esse anel, por ter conseguido, em meio a lutas, e batalhas, findar um curso, \
+que exige tanto da pessoa!\n\
+a honra é sua, meus parabéns, Fabi!\n\
+Equipe de Gods Killermud!"
+const i_pegar = "você por acaso se formou em psicologia para usar esse anel?"
+const tipoitem = 136 # Tipo de produto: 3-Vestimenta, 7-Tesouro
+const vestir1 = "c00000"
+const vestirsim = 1 # Podem vestir: 1 Jogadores e PNJs
+const manterperso = 1 # Mantém em jogador: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1000 * pnivel
+  pmanamax += 500 * pnivel
+  pmovemax += 500 * pnivel
+  pveloc1 += 100 * pnivel
+  atknorm += 1000 * pnivel
+  defnorm += 1000 * pnivel
+  atkesp += 1000 * pnivel
+  defesp += 1000 * pnivel
+  evasao += 500 * pnivel
+  precisao += 500 * pnivel
+  pesomax += 500 * pnivel
+  bitver |= 62
+  atktipo.0 *= 1.2 # Tipos Normais
+  atktipo.1 *= 1.2 # Tipos Especiais
+  atktipo.3 *= 1.2 # Luta
+  atktipo.6 *= 1.2 # Fogo
+  atktipo.8 *= 1.2 # Gelo
+
+const m_atribs1 = ""
+
+
+classe i_midgaard001
+herda comum_item
+const nome = "Uma espada longa"
+const ident = "espada longa"
+const descnome = "Uma espada longa"
+const descpos = "uma longa espada foi esquecida aqui"
+const nivel = 3
+const armamax = 80
+const armamin = 40
+const armafalha = 3
+const armatipo = 4 # Arma tipo: 4 Lâmina longa
+const pesoobj = 10
+const tipoitem = 2 # Tipo de produto: Arma
+const valor = 50
+const evitem = 0 # Eventos dono item: Não
+const armatipoatk = 2 # Ataque tipo: 2 Cortante
+
+
+classe i_midgaard002
+herda comum_item
+const nome = "Braçadeiras de bronze"
+const ident = "braçadeiras bronze"
+const descnome = "Um par de braçadeiras de bronze"
+const descpos = "Um par de braçadeiras de bronze foi deixado aqui."
+const nivel = 4
+const objmax = 100
+const pesoobj = 2
+const tipoitem = 4 # Tipo de produto: Armadura
+const valor = 1320
+const vestir1 = 16384 # Aonde vestir: 14-nos braços
+const vestir2 = 0 # Vestir posição 2: 0 Não
+const vestir3 = 0 # Vestir posição 3: 0 Não
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 20
+  pmanamax += 20
+  pmovemax += 20
+
+
+classe i_midgaard003
+herda comum_itemperso
+const nome = "um grande bracelete com espinhos"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const vestir1 = "30000"
+const sexo = 1 # Sexo: 1 Masculino
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 4
+
+
+classe i_midgaard004
+herda comum_itemperso
+const nome = "uma medalha de diamante"
+const vestir1 = "300"
+const sexo = 0 # Sexo: 0 Feminino
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 5
+
+
+classe i_midgaard005
+herda comum_itemperso
+const nome = "o anel do caos"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const vestir1 = "c00000"
+const sexo = 1 # Sexo: 1 Masculino
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 500 * pnivel + 300
+  pmanamax += 100
+  atknorm += 340000
+  precisao += 234444
+  bitver |= 514
+
+
+classe i_midgaard006
+herda comum_itemperso
+const nome = "um par de braçadeiras de ouro"
+const ident = "braçadeiras ouro"
+const descnome = "um par de braçadeiras de ouro"
+const descpos = "um par de belas braçadeiras de ouro foi deixado aqui em um cantinho"
+const valor = 8550
+const vestir1 = "4000" # Aonde vestir: 14-Nos braços
+const sexo = 0 # Sexo: 0 Feminino
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 5
+  defnorm += 10
+
+
+classe i_midgaard007
+herda comum_itemperso
+const nome = "Manoplas de prata"
+const ident = "manoplas prata"
+const descnome = "um par de manoplas de prata"
+const vestir1 = "40000" # Aonde vestir: 18-Nas mãos
+const sexo = 1 # Sexo: 1 Masculino
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  defnorm += 5
+
+
+classe i_midgaard008
+herda comum_itemperso
+const nome = "escudo de diamante"
+const descnome = "um escudo de diamante"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const vestir1 = 1 # Aonde vestir: 0-como escudo
+const sexo = 1 # Sexo: 1 Masculino
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  defnorm += 20
+
+
+classe i_midgaard009
+herda comum_itemperso
+const nome = "a face da morte"
+const vestir1 = "4"
+const sexo = 0 # Sexo: 0 Feminino
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  precisao += 100
+  bitver = 512 | bitver
+
+
+classe i_midgaard010
+herda comum_itemperso
+const nome = "um par de sandálias prateadas"
+const ident = "sandálias"
+const vestir1 = "30000000"
+const sexo = 0 # Sexo: 0 Feminino
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver = 256 | bitver
+
+
+classe i_midgaard011
+herda comum_itemperso
+const nome = "o cinturão do esquadrão negro"
+const vestir1 = "1000000"
+const sexo = 1 # Sexo: 1 Masculino
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  atknorm += 20
+
+
+classe i_midgaard012
+herda comum_itemperso
+const nome = "o manto de Astaroth"
+const ident = "manto astarot"
+const vestir1 = "800"
+const sexo = 1 # Sexo: 1 Masculino
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pveloc1 += 50
+  atknorm += 5
+
+
+classe i_midgaard013
+herda comum_itemperso
+const nome = "as perneiras de Laymonder"
+const descnome = "as perneiras de Laymonder, o Mestre das Potestades"
+const vestir1 = "2000000"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pveloc1 += 50
+  atknorm += 10
+
+
+classe i_midgaard014
+herda comum_item
+const nome = "uma fatia de bolo de chocolate"
+const ident = "pedaço fatia bolo chocolate"
+const descnome = "uma fatia de bolo de chocolate"
+const descpos = "Aquela fatia de bolo servida em um prato parece convidar você a se deliciar."
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 40
+const f_diges = 24
+const pesoobj = 20
+const tipoitem = 16384 # Tipo de produto: 14-comida
+const valor = 1100
+
+
+classe i_midgaard015
+herda comum_item
+const nome = "um pão doce recheado"
+const ident = "pão doce recheado"
+const descnome = "um pão doce recheado"
+const descpos = "Alguém atirou um pãozinho doce no chão... tremendo desperdício!"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 20
+const pesoobj = 15
+const tipoitem = 16384 # Tipo de produto: 14-comida
+const valor = 10
+const f_diges = 9
+
+
+classe i_midgaard016
+herda comum_item
+const nome = "Umas bolinhas de frutas"
+const ident = "bolinhas frutas chocolate"
+const descnome = "umas bolinhas de frutas"
+const descpos = "coma-me! parece dizer o delicioso conteúdo de uma pequena cestinha no cantinho \
+da sala."
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 28
+const f_diges = 15
+const f_msgperso = "Você tira da cesta uma a uma das deliciosas bolinhas, e as saboreia prazerosa\
+mente."
+const f_msgoutros = "$P Tira da cesta uma a uma das deliciosas bolinhas, e as saboreia prazerosam\
+ente."
+const pesoobj = 50
+const tipoitem = 16384 # Tipo de produto: 14-comida
+const valor = 1500
+
+
+classe i_midgaard017
+herda comum_item
+const nome = "um copo de café"
+const ident = "copo café"
+const descnome = "um copo de café"
+const descpos = "um copo de café bem quente esfria intocado aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_fome = 20
+const f_sede = 50
+const f_msgperso = "$P bebe lentamente o café do copo."
+const pesoobj = 10
+const tipoitem = 32768 # Tipo de produto: 15-bebida
+const valor = 20
+
+
+classe i_midgaard018
+herda comum_item
+const nome = "um copo duplo de suco"
+const ident = "copo suco"
+const descnome = "um copo duplo de suco"
+const descpos = "um grande copo cheio de suco até a borda foi deixado aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_sede = 120
+const f_msgperso = "Você bebe todo o conteúdo do copo em grandes goladas. Que refrescante!"
+const f_msgoutros = "$P bebe todo o conteúdo do copo em grandes goladas. Que refrescante!"
+const pesoobj = 30
+const tipoitem = 32768 # Tipo de produto: 15-bebida
+const valor = 25
+
+
+classe i_midgaard019
+herda comum_item
+const nome = "Um enorme pão recheado"
+const ident = "pão enorme recheado"
+const descnome = "Um enorme pão recheado"
+const descpos = "Um grande e gordo sanduíche ainda em seu envólocro aguarda alguém com uma fome \
+de leão para se fartar."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 200
+const f_diges = 90
+const f_msgperso = "Você devora um enorme pão recheado em algumas bocadas."
+const f_msgoutros = "$P devora um enorme pão recheado em algumas bocadas. mas isso que é \
+fome!"
+const pesoobj = 70
+const tipoitem = 16384 # Tipo de produto: 14-comida
+const valor = 100
+const eveste = 1 # Eventos item: Sim
+sav uint8 comeu
+
+func f_msgperso
+  ret comeu < 6, "$P da uma mordida no pão."
+  ret "$P come o último pedaço do pão."
+
+func cmd_comeu
+  comeu += 1
+  comeu >= 7 && apagar(este)
+
+
+classe i_midgaard020
+herda comum_item
+const nome = "fonte"
+const ident = "fonte fount cristalina água"
+const descnome = "Uma fonte"
+const descpos = "\d=fonte Circundada por uma aura branca, uma fonte está aqui, jorrando água \
+cristalina."
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_sede = 200
+const f_diges = 30
+const f_msgperso = "$p bebe água cristalina da fonte de água cristalina."
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 1
+const eveste = 1 # Eventos item: Sim
+const evperso = 0 # Eventos dono perso: Não
+const evitem = 0 # Eventos dono item: Não
+const evsala = 0 # Eventos dono sala: Não
+
+func cmd_pegarobj
+  se arg2 == este
+    arg0.msg("Para que pegar uma fonte de pedra?")
+    ret 1
+
+
+classe i_midgaard021
+herda comum_item
+const nome = "pizza"
+const ident = "pizza prestígio"
+const descnome = "uma pizza de prestígio"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const f_diges = 70
+const f_msgperso = "$p come uma deliciosa pizza de prestígio, lambuzando o rosto com o recheio"
+const valor = 35
+
+
+classe i_midgaard022
+herda comum_itemperso
+const nome = "Uma bola de fogo"
+const ident = "bola fogo ball fire"
+const luzitem = 0 # Tipo de luz: 0 Não aceita acender/apagar, sem fogo
+const valor = 200000
+const vestir1 = "100000"
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 20
+  pmanamax += 100
+  bitver |= 2
+
+
+classe i_midgaard023
+herda comum_item
+const nome = "Uma poção de cura"
+const ident = "poção cura"
+const descnome = "Uma poção de cura"
+const descpos = "hÁ um frasco de poção de cura atirado em um canto."
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_magia1 = "Heal"
+const f_magia2 = "heal"
+const pesoobj = 10
+const tipoitem = 1024 # Tipo de produto: 10-Poção
+const valor = 350
+const vestir1 = "0"
+const f_magia3 = "heal"
+
+
+classe i_midgaard024
+herda comum_itemperso
+const nome = "sacola"
+const ident = "sacola azul"
+const descnome = "uma grande sacola azul"
+const descpos = "Uma sacola está jogada aqui"
+const i_abertoini = 1 # Container: 1 Sempre aberto
+const objmax = 10000
+const tipoitem = 10240 # Tipo de produto: 11-Container, 13-Comida
+const valor = 240
+const vestir1 = "100000"
+const volexp = 0 # Expande: Não
+const volmax = 4000
+
+
+classe i_midgaard025
+herda comum_itemperso
+const nome = "anel de diamante"
+const ident = "anel diamante"
+const descnome = "um pequenino anel"
+const descpos = "Um brilhante, e valioso anel foi perdido aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const vestir1 = "c00000"
+const manterperso = 1 # Mantém em jogador: Sim
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 50
+  pmanamax += 100
+
+
+classe i_midgaard026
+herda comum_itemperso
+const nome = "Um vaso sanitário"
+const ident = "vaso sanitário"
+const descnome = "Um vaso sanitário"
+const descpos = "Bem adaptado a parede está um vaso sanitário"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_sede = -250
+const f_diges = 250
+const f_msgperso = "$P mergulha o rosto dentro do vaso sanitário e bebe uma longa golada de água \
+suja!"
+const f_msgoutros = "$P mergulha o rosto dentro do vaso sanitário e bebe uma longa golada de \
+água suja!"
+const i_movel = 1 # Mobília: 1 Sentar
+const i_lugar = 1
+const valor = 4000
+const volmax = 0
+const semdoar = 1
+
+
+classe i_midgaard027
+herda comum_itemperso
+const nome = "Um armarinho"
+const ident = "armarinho"
+const descnome = "um armarinho"
+const descpos = "Um pequeno armarinho espelhado foi afixado na parede do banheiro."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_abertoini = 3 # Container: 3 Inicialmente fechado
+const valor = 4000
+const semdoar = 1
+
+
+classe i_midgaard028
+herda comum_item
+const nome = "Um rolo de corda"
+const ident = "corda rolo"
+const descnome = "Um rolo de corda"
+const descpos = "Tem um montinho de corda embolado num canto"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const tipoitem = 32768 # Tipo de produto: 15-ferramenta
+const valor = 500
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+
+classe i_midgaard029
+herda comum_item
+const nome = "pia para banheiro"
+const ident = "pia banheiro mármore"
+const descnome = "Uma pia de mármore para banheiro"
+const descpos = "Uma pia de mármore foi colocada ao lado do vaso sanitário"
+const f_tipo = 1 # Tipo: 1 Fonte, não some após beber
+const f_sede = 70
+const f_msgperso = "$P bebe água de $o"
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 4000
+const eveste = 1 # Eventos item: Sim
+sav uint32 pia
+
+func cmd_ini
+  pia = 200
+
+func f_msgperso
+  ret pia > 1, "$P abaixa-se e toma algumas goladas de água da pia para banheiro."
+  ret "$P abaixa-se e toma os últimos goles de água da pia para banheiro."
+
+func cmd_beber
+  se !arg0.dono.dentro1.objini("i_casas004")
+    arg0.msg("A pia precisa estár no chão para ter de onde vir água.")
+    ret 1
+  senao
+  fimse
+
+func cmd_bebeu
+  se !pia
+    apagar(este)
+    ret 1
+  senao
+    pia += -1
+    ret 1
+  fimse
+
+func cmd_soltarobj
+  se arg0.dentrocasa
+    listaobj l
+    epara l.addfim(arg0.dentro1), l, l.ini.remove
+      l.i_casas004 && l.objini.mudadono(arg0.dono, 10000)
+    efim
+  senao
+    arg0.msg("Você não está dentro da sua casa.")
+    ret 1
+
+
+classe i_midgaard030
+herda comum_itemperso
+const nome = "copo de água"
+const ident = "copo água"
+const descnome = "um copo de água"
+const descpos = "Um cópo com água límpida se encontra aqui"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_fome = 0
+const f_sede = 250
+const f_diges = 250
+const f_msgperso = "$P toma algunsgoles do copo"
+const f_msgoutros = "$P bebe algumas goladas do grande copo"
+const manterperso = 1 # Mantém em jogador: Sim
+
+
+classe i_midgaard031
+herda comum_item
+const nome = "Caixa eletrônico"
+const ident = "eletrônico"
+const descnome = "Um caixa eletrônico"
+const descpos = "Um caixa eletrônico está aqui, para o uso de todos"
+const descver = "um caixa bastante comum.\n\
+Na superfície pode se ver um visor, e alguns botões."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const i_pegar = "Está fixado na parede"
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 30000
+const volobj = 10
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const sacrificar = 1
+
+
+classe i_midgaard033
+herda comum_itemperso
+const nome = "empadão"
+const ident = "grande empadão"
+const descnome = "um grande e delicioso empadão"
+const descpos = "um grande e delicioso empadão está em cima da mesa"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const eveste = 1 # Eventos item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_chegou
+  misc:evento(arg0)
+
+func cmd_escr
+  se arg1 == "cortar empadão"
+    se arg0.dentro1.objini("i_midgaard034")
+      arg0.msg("Você já tem um pedaço")
+    senao
+      se arg0.dentro1.objini("i_teste012")
+        $mens.p(arg0)
+        $mens.mtodos1("$P corta um pedaço do empadão.")
+        criar("i_midgaard034", arg0)
+      senao
+        arg0.msg("Você precisa de uma faca.")
+      fimse
+    fimse
+    ret 1
+
+
+classe i_midgaard034
+herda comum_item
+const nome = "pedaço do empadão"
+const ident = "pedaço empadão"
+const descnome = "um grande pedaço do empadão"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const f_diges = 50
+const f_msgperso = "$p come em grandes bocadas um pedaço do delicioso empadão"
+
+
+classe i_midgaard035
+herda comum_item
+const nome = "bem casado"
+const ident = "bem casado"
+const descnome = "um bem casado"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_msgperso = "$p come um delicioso bem casado"
+
+
+classe i_midgaard036
+herda comum_item
+const nome = "ponche de frutas"
+const ident = "ponche frutas"
+const descnome = "um ponche de frutas"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_bebida = 70
+const f_fome = 40
+const f_diges = 40
+const f_msgperso = "$p bebe calmamente e em pequenos goles, um delicioso ponche de frutas"
+const valor = 700
+
+
+classe i_midgaard037
+herda comum_item
+const nome = "quibe"
+const ident = "quibe"
+const descnome = "um quibe"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 60
+const f_diges = 60
+const f_msgperso = "$p come um quibe"
+
+
+classe i_midgaard038
+herda comum_item
+const nome = "bisnaguinha"
+const ident = "bisnaguinha"
+const descnome = "uma bisnaguinha"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_magia1 = "envenenar"
+const f_msgperso = "$p come uma deliciosa bisnaguinha preparada pelas delicadas mãos de fabi, a \
+rainha das bisnaguinhas"
+
+
+classe i_midgaard039
+herda comum_item
+const nome = "pizza"
+const ident = "pizza quatro queijos"
+const descnome = "uma pizza de quatro queijos"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 40
+const f_diges = 30
+const f_msgperso = "$p come uma deliciosa pizza de quatro queijos"
+const mantersala = 1 # Mantém na sala: Sim
+const valor = 40
+
+
+classe i_midgaard060
+herda comum_item
+const nome = "Uma poção de detectar invisibilidade"
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_magia1 = "detectar invisibilidade"
+
+
+classe i_midgaard061
+herda comum_item
+const nome = "uma poção azul brilhante"
+const ident = "poçao azul"
+const descnome = "uma poção azul brilhante"
+const nivel = 120
+const f_tipo = 2 # Tipo: 2 Poção, beber
+const f_magia1 = "cura divina"
+const f_magia2 = "cura divina"
+const f_nivel1 = 120
+const f_nivel2 = 120
+const f_magia3 = "cura divina"
+const f_nivel3 = 120
+const valor = 2000000
+
+
+classe p_crianca
+herda comum_persobat
+const nome = "criancinha"
+const ident = "criancinha linda"
+const descnome = "uma criancinha linda"
+const descpadr = "uma criancinha linda corre por aqui, com um docinho nas mãos"
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 0 # Corpo: 0 Não deixa corpo
+const p_exp = 3000
+const p_morreu1 = "$P simplesmente some no ar."
+const p_mover = 2 # Movimentar: 2 Qualquer lugar
+const evsala = 1 # Eventos dono sala: Sim
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 4158
+
+
+classe p_midgaard001
+herda comum_perso
+const nome = "cobrador"
+const ident = "cobrador impostos"
+const descnome = "um cobrador de impostos"
+const descpadr = "um cobrador de impostos está sentado atrás do balcão, esperando seus clientes."
+const taxacasa = "adcasas"
+
+
+classe p_midgaard002
+herda comum_persobat
+const nome = "A secretária do Prefeito"
+const ident = "secretária"
+const descnome = "A secretária do prefeito"
+const descpadr = "A secretária do prefeito está aqui"
+const sexoini = 0 # Sexo: 0 Feminino
+const pesoobj = 10
+const nivel = 12
+const pospadr = 6 # Posição padrão: 6 Sentado
+const tipo1 = "humano"
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_imortal = 0 # Imortal: Não
+const p_mover = 0 # Movimentar: 0 Não sai do lugar
+const inivar = "z_moedas=15000"
+
+
+classe p_midgaard003
+herda comum_perso
+const nome = "padeiro"
+const ident = "padeiro homem senhor"
+const descnome = "Um padeiro"
+const descpadr = "Um padeiro está atrás do balcão limpando a farinha do rosto, olhando para \
+você, aguardando seu pedido."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo: 1 Masculino
+const pesoobj = 80000
+const volexp = 1 # Expande: Sim
+const nivel = 100
+const lojaitem = "midgaard014 0\n\
+midgaard015 0\n\
+midgaard016 0\n\
+midgaard017 0\n\
+midgaard018 0\n\
+midgaard019 0\n\
+cozinha001 0\n\
+cozinha002 0\n\
+aditem081 0\n\
+aditem083 0\n\
+aditem091 0\n\
+aditem030 0\n\
+fierce049 0\n\
+aditem108 0\n\
+aditem116 0\n\
+praiacoca029 0\n\
+aditem040 0"
+const lojafechada = "$P diz: 'Olá $c! não trabalho agora, tente voltar outra hora.'"
+const taxacompra = 0
+const taxavenda = 0
+const p_recebe = 1 # Recebe itens: Sim
+const evhora = 0 # Eventos hora: Não
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_chegou
+  misc:evento(arg0)
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "conversar padeiro"
+    se arg0.pnivel < 10
+      arg0.msg("você precisa estár no nível 10 para realisar essa quest")
+      ret 1
+    senao arg0.var.z_p > 1
+      arg0.msg("Um padeiro diz: 'Não preciso de sua ajuda por enquanto " + arg0.nome + ", \
+obrigado.'")
+      ret 1
+    senao arg0.var.z_pn_ == 1
+      arg0.msg("O padeiro lhe diz: 'já lhe pedi o favor.'")
+    senao arg0.dentro1.objini("i_item074")
+      apagar(arg0.dentro1.objini("i_item074"))
+      arg0.msg("Ele lhe cumprimenta novamente e diz:")
+      arg0.msg("Um padeiro diz: 'Você me ajudou bastante. Muito obrigado.")
+      arg0.var.z_p@ = 60000
+      arg0.msg("Você recebeu 3 pontos de aventura! Parabéns, missão cumprida!")
+      arg0.var.z_quest_ += 3
+      refvar tc = rand(1, 400)
+      arg0.ganhaexp(tc)
+    senao
+      arg0.msg("O padeiro diz: 'Olá, preciso de um favor.'")
+      arg0.msg("O padeiro diz: 'Minha farinha acabou e não posso fechar a padaria para ir \
+buscar.'")
+      arg0.msg("O padeiro diz: 'Procure na mercearia mais próxima.'")
+      arg0.msg("O padeiro vira-se para o lado, e se serve com um pouco de café.")
+      arg0.var.z_pn_ = 1
+    fimse
+    ret 1
+  casofim
+
+
+classe p_midgaard004
+herda comum_perso
+const nome = "o ferreiro de midgaard"
+const ident = "ferreiro"
+const descnome = "Um ferreiro"
+const descpadr = "o ferreiro de midgaard está afiando uma espada aqui"
+const descver = ""
+const sexoini = 1 # Sexo: 1 Masculino
+const pesoobj = 60000
+const volmax = 1
+const objmax = 900
+const nivel = 100
+const tipo1 = "0"
+const lojaaula = "h_lâmina_curta 3\n\
+h_arma_exótica 3\n\
+h_lâmina_longa 8\n\
+h_maca_e_martelo 8\n\
+h_cajado 8"
+const lojaitem = "teste012 0\nmidgaard001 0"
+const taxacompra = 0
+const taxavenda = 60
+const tipoitem = 2 # Compra produtos: Arma
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_chegou
+  misc:evento(arg0)
+  ret !arg0.jog, nulo
+
+func cmd_escr
+  se txt1(arg1) == "afiar"
+    se !txt2(arg1)
+      arg0.msg("" + descnome + " pergunta: 'O que você quer afiar, " + arg0.nome + "?'")
+      ret 1
+    fimse
+    ref item
+    item = misc:itemdentro(arg0, txt2(arg1))
+    se item == nulo
+      arg0.msg("" + descnome + " diz: 'Eu não vejo " + txt2(arg1) + " com você.'")
+      ret 1
+    senao int(item.armatipo) != 3
+      arg0.msg("" + descnome + " pondera: 'Só afio lâminas curtas, não sei afiar " + txt2(arg1) \
++ ",.")
+    senao item.var.f_afiado_
+      arg0.msg("" + descnome + " diz: 'isso já está afiado.")
+    senao arg0.var.z_moedas_ < 12000
+      arg0.msg("" + descnome + " diz: 'Você não tem moedas para isso.'")
+    senao
+      arg0.var.z_moedas_ -= 12000
+      item = item.mudadono(este, 1)
+      item.var.f_afiado_ = 2
+      item.recalc = 1
+      item = item.mudadono(arg0, 1)
+      $mens.p(este, arg0)
+      $mens.mvis2("", "$P afia $o para $a.")
+    fimse
+    ret 1
+
+
+classe p_midgaard005
+herda comum_persobat
+const nome = "o guarda da cidade"
+const ident = "guarda"
+const descnome = "um guarda"
+const descpadr = "O guarda da cidade está parado aqui."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const objmax = 3
+const nivel = 15
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 560
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const p_naoresg = 1 # Sem resgate: Sim
+const p_persegue = 1 # Persegue jogadores: 1 Se atacarem
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "z_moedas=5000"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pesomax += 2000 * pnivel + 90000
+
+
+classe p_midgaard006
+herda comum_persobat
+const nome = "Guarda do portão"
+const ident = "guarda portão cidade midgaard"
+const descnome = "o guarda do portão"
+const descpadr = "Um guarda está aqui, vigiando o portão."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const volobj = 2000
+const objmax = 4
+const nivel = 15
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 570
+const p_movervel = 1000
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "z_moedas=10000"
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pesomax += 2000 * pnivel + 90000
+
+
+classe p_midgaard007
+herda comum_persobat
+const nome = "um guarda irritado"
+const nivel = 11
+const p_agressivo = 2 # Agressivo: 2 Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_morreu1 = "$P cai no chão, sem vida."
+const p_naoresg = 1 # Sem resgate: Sim
+const inivar = "z_moedas=1500"
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+
+classe p_midgaard008
+herda comum_perso
+const nome = "guarda"
+const ident = "guardião"
+const descnome = "o guardião da guilda"
+const descpadr = "o guardião está aqui, protegendo a guilda dos clérigos"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 500
+const tipo1 = "humano"
+const tipo2 = "clerico"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_mover
+  se arg2 == "o" && arg0.tipo2 == "guerreiro"
+    arg0.msg("O guardião impede sua passagem.")
+    arg0.msg("O guardião da guilda diz: Aqui é somente permitido clérigos.")
+    ret 1
+  fimse
+  se arg2 == "o" && arg0.tipo2 == "necromante"
+    arg0.msg("O guardião impede sua passagem.")
+    arg0.msg("O guardião da guilda diz: Aqui é somente permitido clérigos.")
+    ret 1
+  fimse
+  se arg2 == "o" && arg0.tipo2 == "mago"
+    arg0.msg("O guardião impede sua passagem.")
+    arg0.msg("O guardião da guilda diz: Aqui é somente permitido clérigos.")
+    ret 1
+  fimse
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 4158
+
+
+classe p_midgaard009
+herda comum_persobat
+const nome = "fido"
+const ident = "cachorro fido bestial"
+const descnome = "Um fido bestial"
+const descpadr = "um pobre fido bestial, faminto, está aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo: 1 Masculino
+const objmax = 13
+const nivel = 0
+const tipo1 = "cachorro"
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_atktipo = "morder"
+const p_captura = 2 # Capturar: 2 Fácil
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 3 # Corpo: 3 Deixa corpo com itens e moedas, depois vão para sala
+const p_exp = 406
+const p_morreu1 = "$p cai, imóvel"
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 800
+const p_recebe = 1 # Recebe itens: Sim
+const p_soltar = 1 # Dar e soltar: 1 Pode-se apenas soltar
+const inivar = "z_moedas=1500"
+
+
+classe p_midgaard010
+herda comum_persobat
+const nome = "Um aventureiro"
+const ident = "olhar aventureiro"
+const descnome = "Um aventureiro"
+const descpadr = "Um aventureiro está parado aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const objmax = 13
+const nivel = 20
+const p_agressivo = 1 # Agressivo: 1 Se atacarem
+const p_corpo = 2 # Quando morre: 2 Deixa corpo com itens e moedas
+const p_exp = 520
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const inivar = "z_moedas=3000"
+
+
+classe p_midgaard011
+herda comum_persobat
+const nome = "o pacificador"
+const ident = "pacificador"
+const descnome = "o pacificador"
+const descpadr = "O pacificador está aqui, pronto para agir se for encontrado pessoas em atitude \
+suspeita"
+const descver = "ele olha para vocÊ e diz\" não vá arranjar confusão\"\n"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 6
+const pospadr = 8 # Posição padrão: 8 Em pé
+const tipo1 = "normal"
+const p_corpo = 2 # Quando morre: 2 Deixa corpo com itens e moedas
+const p_exp = 550
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const inivar = "z_moedas=2500"
+const eveste = 1 # Eventos perso: Sim
+
+
+classe p_midgaard012
+herda comum_persobat
+const nome = "o zelador"
+const ident = "zelador"
+const descnome = "Um zelador"
+const descpadr = "O zelador está limpando tudo por aqui"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 10
+const pospadr = 8 # Posição padrão: 8 Em pé
+const p_corpo = 2 # Quando morre: 2 Deixa corpo com itens e moedas
+const p_exp = 540
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const inivar = "z_moedas=4000"
+
+
+classe p_midgaard013
+herda comum_persobat
+const nome = "Odif Laitseb"
+const ident = "odif laitseb cachorro"
+const descnome = "Odif Laitseb"
+const descpadr = "Um cachorro procura algo para comer aqui"
+const descver = " Odif era um deus, mas foi transformado em cachorro,"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 22
+const pospadr = 8 # Posição padrão: 8 Em pé
+const p_captura = 2 # Capturar: 2 Fácil
+const p_comecorpo = 1 # Come corpos: Sim
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+const p_exp = 525
+const p_mover = 1 # Movimentar: 1 Somente na área
+const p_movervel = 1000
+const inivar = "z_moedas=3400"
+const eveste = 0 # Eventos perso: Não
+
+func cmd_comeu
+  refvar gexp = rand(1, 40000)
+  ganhaexp(gexp)
+
+
+classe p_midgaard014
+herda comum_persobat
+const nome = "drow comum"
+const descpadr = "um drow comun está aqui, em pé com furia"
+const descnome = "um drow comum"
+const ident = "drow"
+const nivel = 25
+
+
+classe p_midgaard015
+herda comum_perso
+const nome = "professor dos guerreiros"
+const ident = "guerreiro professor mestre"
+const descnome = "O mestre dos guerreiros"
+const descpadr = "O mestre dos guerreiros está aqui, encinando aos novatos, e dando dicas aos \
+mais experientes"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 111
+const tipo1 = "haufling"
+const tipo2 = "guerreiro"
+const lojaini = 0
+const lojasim = "guerreiro"
+const lojanao = "mago"
+const lojaaula = "h_terceiro_ataque 8\n\
+h_segundo_ataque 8\n\
+h_soco_múltiplo 8\n\
+h_preparação_física 8\n\
+h_chute_invertido 8\n\
+h_gancho 8\n\
+h_socar 8\n\
+h_chutar 8\n\
+h_voadora 8\n\
+h_arremessar 8\n\
+h_primeiro_socorro 8\n\
+h_ataque_relâmpago 8\n\
+h_soco_esmagador 8\n\
+h_retreat 8"
+const taxaaula = 100
+
+
+classe p_midgaard016
+herda comum_perso
+const nome = "O professor dos necromantes"
+const ident = "mestre professor necromante necromantes"
+const descnome = "O mestre dos necromantes"
+const descpadr = "O mestre dos Necromantes está aqui, com o olhar fixo em seus alunos."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 112
+const tipo1 = "humano"
+const tipo2 = "necromante"
+const lojaini = 4
+const lojafim = 21
+const lojasim = "necromante"
+const lojanao = "mago"
+const lojaaula = "h_meditar 3\n\
+m_contorcer 4\n\
+m_cegueira 5\n\
+m_envenenar 4\n\
+m_armadura_de_ossos 7\n\
+m_chamas_infernais 8\n\
+m_convocar_pesadelos 7\n\
+m_tempestade_de_ossos 7\n\
+m_bracelete_de_ossos 6\n\
+m_ataque_de_ossos 8\n\
+m_explosão_de_energia 8\n\
+m_amolecer_carne 8\n\
+m_transmutação 8\n\
+m_ressuscitar 8"
+const lojacasa = "x"
+const lojafechada = "$P pergunta: 'Só ensino das quatro as vinte e uma horas! Você tem relógio, \
+não tem?'"
+const taxaaula = 100
+
+
+classe p_midgaard017
+herda comum_perso
+const nome = "barman"
+const ident = "homem velho barman senhor"
+const descnome = "Um senhor"
+const descpadr = "Um senhor está com o olhar atento ao bar, aguardando novos clientes"
+const msexo = 1 # Sexo Msg: 1 Masculino
+
+
+classe p_midgaard018
+herda comum_perso
+const nome = "o vendedor de animais"
+const descpadr = "o vendedor de animais está aqui, tratando de todos seus animais"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+
+func cmd_escr
+  se arg1 == "lista"
+    arg0.msg("O vendedor de animais lhe diz: 'Eu tenho os seguintes animais a venda:")
+    arg0.msg("1 - Um lobo, custa $20100.")
+    arg0.msg("2 - Um amigável cachorrinho, custa $18100.")
+    arg0.msg("3 - Um fofo gatinho, custa $10100.")
+    arg0.msg("4 - Um coelhinho, custa $8000.")
+    arg0.msg("5 - um pequeno chinchila, custa $25000.")
+    arg0.msg("6 - Uma perereca, custa $20000.")
+    arg0.msg("O vendedor de animais lhe diz: 'Para comprar um animal, digite comprar mais o \
+número correspondente.")
+    arg0.msg("exemplo: um lobo na lista é o número 1. para comprá-lo, digite comprar 1.")
+    ret 1
+  fimse
+  se arg1 == "comprar 1"
+    ret arg0.pnivel < 20, arg0.msg("Você precisa estar acima do nível 20 para ter um lobo!")
+    ret arg0.var.z_moedas_ < 20100, arg0.msg("Você não tem 20100 moedas para pagar por um \
+lobo.")
+    ret arg0.lseguir.total("p_midgaard029") >= 1, arg0.msg("Você já tem um lobo.")
+    txt200 habs
+    habs = "z_dono=" + arg0.descnome + ",h_morder=5,h_arranhar=5,h_arremessar=5"
+    refvar r = criar("p_midgaard029", dono, 20, habs)
+    r.seguirjog(arg0)
+    $mens.p(r, arg0)
+    $mens.p(r, arg0)
+    $mens.mvis1("$A paga 20100 para o vendedor de animais que pega um lobo, e tráz até $A.")
+    arg0.var.z_moedas_ -= 20100
+    ret 1
+  fimse
+  se arg1 == "comprar 2"
+    ret arg0.pnivel < 20, arg0.msg("Você precisa estar acima do nível 20 para ter um cachorrinho!\
+")
+    ret arg0.var.z_moedas_ < 18100, arg0.msg("Você não tem 18100 moedas para pagar por um \
+cachorrinho.")
+    ret arg0.lseguir.total("p_midgaard031") >= 1, arg0.msg("Você já tem um cachorrinho.")
+    txt200 habs
+    habs = "z_dono=" + arg0.descnome + ",h_morder=5,h_arranhar=5,h_arremessar=5"
+    refvar r = criar("p_midgaard031", dono, 20, habs)
+    r.seguirjog(arg0)
+    $mens.p(r, arg0)
+    $mens.p(r, arg0)
+    $mens.mvis1("$A paga 18100 para o vendedor de animais que pega um cachorrinho, e tráz até \
+$A.")
+    arg0.var.z_moedas_ -= 18100
+    ret 1
+  fimse
+  se arg1 == "comprar 3"
+    ret arg0.pnivel < 20, arg0.msg("Você precisa estar acima do nível 20 para ter um gatinho!")
+    ret arg0.var.z_moedas_ < 10100, arg0.msg("Você não tem 10100 moedas para pagar por um \
+gatinho.")
+    ret arg0.lseguir.total("p_midgaard030") >= 1, arg0.msg("Você já tem um gatinho.")
+    txt200 habs
+    habs = "z_dono=" + arg0.descnome + ",h_morder=5,h_arranhar=5,h_arremessar=5"
+    refvar r = criar("p_midgaard030", dono, 20, habs)
+    r.seguirjog(arg0)
+    $mens.p(r, arg0)
+    $mens.p(r, arg0)
+    $mens.mvis1("$A paga 10100 para o vendedor de animais que pega um gatinho, e tráz até \
+$A.")
+    arg0.var.z_moedas_ -= 10100
+    ret 1
+  fimse
+  se arg1 == "comprar 4"
+    ret arg0.pnivel < 20, arg0.msg("Você precisa estar acima do nível 20 para ter um coelhinho!")
+    ret arg0.var.z_moedas_ < 8000, arg0.msg("Você não tem 8000 moedas para pagar por um coelhinho\
+.")
+    ret arg0.lseguir.total("p_midgaard032") >= 1, arg0.msg("Você já tem um coelhinho.")
+    txt200 habs
+    habs = "z_dono=" + arg0.descnome + ",h_morder=5,h_arranhar=5,h_arremessar=5"
+    refvar r = criar("p_midgaard032", dono, 20, habs)
+    r.seguirjog(arg0)
+    $mens.p(r, arg0)
+    $mens.p(r, arg0)
+    $mens.mvis1("$A paga 8000 para o vendedor de animais que pega um coelhinho, e tráz até \
+$A.")
+    arg0.var.z_moedas_ -= 8000
+    ret 1
+  fimse
+  se arg1 == "comprar 5"
+    ret arg0.pnivel < 20, arg0.msg("Você precisa estar acima do nível 20 para ter um chinchila!")
+    ret arg0.var.z_moedas_ < 25000, arg0.msg("Você não tem 25000 moedas para pagar por um \
+chinchila.")
+    ret arg0.lseguir.total("p_animal022") >= 1, arg0.msg("Você já tem um chinchila.")
+    txt200 habs
+    habs = "z_dono=" + arg0.descnome + ",h_morder=5,h_arranhar=5,h_arremessar=5"
+    refvar r = criar("p_animal022", dono, 20, habs)
+    r.seguirjog(arg0)
+    $mens.p(r, arg0)
+    $mens.p(r, arg0)
+    $mens.mvis1("$A paga 25000 para o vendedor de animais que pega um chinchila, e tráz até \
+$A.")
+    arg0.var.z_moedas_ -= 25000
+    ret 1
+  fimse
+  se arg1 == "comprar 6"
+    ret arg0.pnivel < 20, arg0.msg("Você precisa estar acima do nível 20 para ter uma perereca!")
+    ret arg0.var.z_moedas_ < 20000, arg0.msg("Você não tem 20000 moedas para pagar por uma \
+perereca.")
+    ret arg0.lseguir.total("p_animal018") >= 1, arg0.msg("Você já tem uma perereca.")
+    txt200 habs
+    habs = "z_dono=" + arg0.descnome + ",h_morder=5,h_arranhar=5,h_arremessar=5"
+    refvar r = criar("p_animal018", dono, 20, habs)
+    r.seguirjog(arg0)
+    $mens.p(r, arg0)
+    $mens.p(r, arg0)
+    $mens.mvis1("$A paga 20100 para o vendedor de animais que pega uma perereca, e tráz até \
+$A.")
+    arg0.var.z_moedas_ -= 20100
+    ret 1
+  fimse
+
+
+classe p_midgaard020
+herda comum_perso
+const nome = "armeiro"
+const ident = "armeiro"
+const descnome = "Um armeiro"
+const descpadr = "Um armeiro está empé atrás do balcão, exibindo as armaduras que estão a \
+venda"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const nivel = 100
+const pospadr = 8 # Posição padrão: 8 Em pé
+const tipo1 = "Humano"
+const tipo2 = "Guerreiro"
+const lojaitem = "aditem002 0\n\
+midgaard002 0\n\
+aditem003 0\n\
+aditem004 0\n\
+aditem005 0\n\
+aditem006 0\n\
+aditem007 0\n\
+aditem009 0\n\
+aditem011 0\n\
+aditem012 0\n\
+aditem016 0\n\
+aditem019 0\n\
+aditem026 0\n\
+aditem023 0\n\
+aditem024 0\n\
+aditem063 0"
+const lojainv = 0 # Produtos inv: Não
+const lojafechada = "$P diz: Desculpe, só vendo armaduras das sete as 18 horas."
+const taxacompra = 0
+const taxavenda = 20
+const tipoitem = 12 # Compra produtos: 2-Armadura, 3-Vestimenta
+const p_recebe = 1 # Recebe itens: Sim
+const eveste = 0 # Eventos perso: Não
+const evperso = 0 # Eventos dono perso: Não
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "conversar armeiro"
+    se arg0.pnivel < 10
+      arg0.msg("Você precisa estár no nível 10 para realisar essa quest")
+      ret 1
+    senao arg0.var.z_a > 1
+      arg0.msg("Um armeiro diz: 'Olá " + arg0.nome + ", Não preciso de mais peles por agora.'")
+      ret 1
+    senao arg0.var.z_armeiro_ == ""
+      arg0.msg("Olá " + arg0.nome + ".")
+      arg0.msg("Eu estou trabalhando em novas roupas e armaduras.\nEu preciso de um embrulho de \
+peles para finalisar meus trabalhos.\nVocê poderia por favor me trazer um?\nAh, e é claro, se me \
+ajudar a recompensa será imediata.")
+      arg0.var.z_armeiro = 1
+    senao arg0.var.z_armeiro == 1
+      teclou("f já disse o que quero. Um embrulho de peles, apenas isso...")
+    fimse
+    ret 1
+  casofim
+
+func cmd_darobj
+  se arg0.var.z_armeiro == 1
+    se txt(arg2) != "i_acamp007"
+      ret arg0.msg("Um armeiro olha para você.\nUm armeiro exclama: 'Não é " + arg2.descnome + " \
+que eu quero!'")
+    fimse
+
+func cmd_deuobj
+  se arg1 == este
+    se arg0.var.z_armeiro == 1
+      arg0.var.z_armeiro = ""
+      apagar(arg2)
+      misc:tempo("pele", arg0)
+    fimse
+  fimse
+
+func pele15
+  arg0.msg("Um armeiro analisa o item com cuidado.")
+
+func pele50
+  arg0.msg("Um armeiro coça a cabeça.")
+
+func pele80
+  arg0.msg("Um armeiro diz: 'Exselente! É isso mesmo! Muito obrigado " + arg0.nome + ".")
+  arg0.var.z_a@ = 60000
+  arg0.msg("missão cumprida!\nVocê recebeu 5 pontos de aventura!")
+  arg0.var.z_quest_ += 5
+  refvar f = rand(1, 1500)
+  arg0.ganhaexp(f)
+  ret 1
+
+
+classe p_midgaard021
+herda comum_perso
+const nome = "merceeiro"
+const ident = "Merseiro"
+const descnome = "Um merceeiro"
+const descpadr = "Um velho merceeiro está aqui, atrás do balcão, olhando um pouco sem paciência \
+para você."
+const nivel = 100
+const lojaitem = "aditem017 0\n\
+aditem018 0\n\
+midgaard024 0\n\
+casas020 0\n\
+itens004 0\n\
+aditem085 0\n\
+caneta 0\n\
+palacio046 0\n\
+palacio064 0"
+const lojafechada = "$P diz: 'Estou fechado no momento, só reabro as oito horas.'"
+const taxacompra = 30
+const taxavenda = 20
+const tipoitem = 2304 # Compra produtos: 8-Fonte de luz, 11-Container
+const evsala = 1 # Eventos dono sala: Sim
+
+func cmd_chegou
+  misc:evento(arg0)
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "conversar merceeiro"
+    se arg0.dentro1.objini("i_item074")
+      arg0.msg("O merceeiro lhe diz: 'Já dei o que me pediu.")
+      arg0.msg("O merceeiro volta a arrumar a mercadoria nas prateleiras.")
+    senao arg0.var.z_pn_ == 1
+      arg0.var.z_pn_ = ""
+      arg0.msg("Você chama o merceeiro para um canto e lhe explica a situação do padeiro.")
+      arg0.msg("O velho, coça a cabeça meio pensativo e diz:")
+      arg0.msg("hum, então você precisa de farinha...")
+      arg0.msg("O merceeiro vasculha as prateleiras e volta com um pacóte médio nas mãos:")
+      arg0.msg("O merseeiro exclama: 'Achei!'")
+      arg0.msg("O merseeiro da um pacote de farinha para você.")
+      criar("i_aditem074", arg0)
+    senao
+      arg0.msg("O merceeiro continua distraído e nem nota sua presença.")
+    fimse
+    ret 1
+  casofim
+
+
+classe p_midgaard022
+herda comum_perso
+const nome = "vendedor de poções"
+const ident = "feiticeiro"
+const descnome = "O feiticeiro"
+const descpadr = "Um feiticeiro está aqui, falando algo para si mesmo"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo: 1 Masculino
+const nivel = 100
+const pospadr = 8 # Posição padrão: 8 Em pé
+const lojaini = 0
+const lojafim = 0
+const lojaitem = "ADITEM041 0\n\
+midgaard023 0\n\
+ADITEM048 0\n\
+ADITEM061 0\n\
+ADITEM080 0\n\
+ADITEM033 0\n\
+midgaard061 120\n\
+ADITEM100 0"
+const lojafechada = "$P diz: 'Desculpe, só vendo poções e pergaminhos das 10 as 23 horas.'"
+const p_corpo = 2 # Corpo: 2 Deixa corpo com itens e moedas
+
+
+classe p_midgaard023
+herda comum_perso
+const nome = "vendedor"
+const ident = "rapáz jovem vendedor"
+const descnome = "Um jovem vendedor"
+const descpadr = "Um rapás jovem está aqui, vendendo diversos produtos para casa"
+const sexoini = 1 # Sexo: 1 Masculino
+const pesoobj = 70000
+const nivel = 7
+const lojaini = 10
+const lojafim = 20
+const lojaitem = "midgaard026 0\n\
+midgaard027 0\n\
+midgaard028 0\n\
+midgaard029 0\n\
+casas010 0\n\
+cozinha005 0\n\
+casas004 0\nvara 0"
+const lojafechada = "$P diz: '$C, só trabalho das 10 as 20 horas.'"
+const tipoitem = 32768 # Compra produtos: 15-ferramenta
+const eveste = 1 # Eventos perso: Sim
+
+func cmd_chegou
+  ret !arg0.jog, nulo # Retorna se não for jogador
+  arg0.msg("O vendedor de móveis sorri para você. Apressadamente ele lhe diz:")
+  arg0.msg("Desculpe $P, mas ainda não estamos vendendo móveis, volte da qui um mês. ele sorri. \
+- Estou brincando, volte quando quiser.")
+
+
+classe p_midgaard024
+herda comum_perso
+const nome = "senhora"
+const ident = "hanny jovem senhora"
+const descnome = "Hanne"
+const descpadr = "Hanne, uma jovem senhora está vendendo raridades aqui"
+const nivel = 193
+const tipo1 = "elfo"
+const tipo2 = "mago"
+const lojaitem = "aditem052 0\naditem053 0\naditem055 0"
+
+
+classe p_midgaard025
+herda comum_perso
+const nome = "O joalheiro"
+const ident = "joalheiro homem humano vendedor"
+const descnome = "O joalheiro"
+const descpadr = "O simpático joalheiro encontra-se atrás do balcão, pronto a negociar com um \
+cliente especial"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const tipoitem = 128 # Compra produtos: 7-Tesouro
+
+
+classe p_midgaard026
+herda comum_perso
+
+
+classe p_midgaard027
+herda comum_perso
+const nome = "Aguadeiro"
+const ident = "Aguadeiro homem"
+const descnome = "Um aguadeiro"
+const descpadr = "O aguadeiro encontra-se aqui cuidando da mercadoria."
+const nivel = 30
+
+
+classe p_midgaard028
+herda comum_perso
+const nome = "vendedor"
+const ident = "Vendedor animais"
+const descnome = "Um vendedor de animais"
+const descpadr = "Um jovem está aqui, acariciando um animalzinho."
+const nivel = 32
+const eveste = 1 # Eventos perso: Sim
+const evsala = 1 # Eventos em sala: Sim
+
+func cmd_chegou
+  misc:evento(arg0)
+  misc:tempo("entrou", arg0)
+
+func entrou3
+  $mens.p(arg0)
+  $mens.mtodos1("O vendedor de animais da as boas vindas a $P")
+
+func cmd_escr
+  se arg1 == "animais"
+    arg0.msg("O vendedor de animais lhe diz: 'Eu tenho os seguintes animais a venda:")
+    arg0.msg("Um lobo, custa $20100.")
+    arg0.msg("Um amigável cachorrinho, custa $18100.")
+    arg0.msg("Um fofo gatinho, custa $10100.")
+    arg0.msg("Um coelhinho, custa $8000.")
+    arg0.msg("um pequeno chinchila, custa $25000.")
+    ret 1
+  senao arg1 == "comprar lobo"
+    ret arg0.var.z_moedas_ < 20000, arg0.msg("Você não tem $20100.")
+    $mens.p(arg0)
+    $mens.mtodos1("O vendedor abre uma gaiola e tira de lá um pequeno lobo, e o entrega para $P \
+em uma coleira.")
+    arg0.var.z_moedas_ -= 20100
+    criar("p_midgaard029", arg0)
+    ret 1
+  senao arg1 == "comprar cachorro"
+    ret arg0.var.z_moedas_ < 18100, arg0.msg("Você não tem $18100.")
+    $mens.p(arg0)
+    $mens.mtodos1("O vendedor vai até o canto esquerdo de sua loja, abre uma gaiola, volta com \
+um cachorro e o entrega a $P.")
+    arg0.var.z_moedas_ += -18100
+    criar("p_midgaard031", arg0)
+    ret 1
+  senao arg1 == "comprar gato"
+    ret arg0.var.z_moedas_ < 10100, arg0.msg("Você não tem $10100.")
+    $mens.p(arg0)
+    $mens.mtodos1("O vendedor caminha até o canto direito da loja, abre uma gaiola, vem com um \
+gatinho nas mãos e o entrega a $p.")
+    criar("p_midgaard030", arg0)
+    arg0.var.z_moedas_ += -10100
+    ret 1
+  senao arg1 == "comprar coelho"
+    ret arg0.var.z_moedas_ < 8000, arg0.msg("" + descnome + " diz: 'Você não tem $8000.")
+    $mens.p(arg0)
+    $mens.mtodos1("O vendedor vai até uma pequenina gaiola, pega um coelhinho nas mãos e o \
+entrega a $P com todo cuidado.")
+    arg0.var.z_moedas_ -= 8000
+    criar("p_midgaard032", arg0)
+    ret 1
+  senao arg1 == "comprar chinchila"
+    ret arg0.var.z_moedas_ < 25000, arg0.msg("Você não tem $20100.")
+    $mens.p(arg0)
+    $mens.mtodos1("O vendedor abre a porta de uma pequena gaiola, retirando um pequenino \
+chinchila, entregando-o a $P.")
+    arg0.var.z_moedas_ += -20100
+    criar("p_animal022", arg0)
+    ret 1
+  senao arg1 == "medicar"
+    ret arg0.var.z_moedas_ < 3000, arg0.msg("O vendedor de animais diz: 'Você não tem dinheiro \
+para isso.'")
+    ret arg0.persoesc == arg0, arg0.msg("Um vendedor de animais diz: 'Escolha um animal primeiro.\
+'")
+    ret arg0.persobat == arg0.persobat.pvidamax, arg0.msg("Um vendedor diz: 'Este animal já está \
+saldável.'")
+    arg0.msg("Você pede ao vendedor para medicar seu animal.\nO vendedor olha para o animal.")
+    arg0.msg("O vendedor diz: 'Ok, vou medicá-lo ao custo de 3000 moedinhas.")
+    arg0.var.z_moedas_ += -3000
+    arg0.persoesc.restaurar
+    arg0.msg("O vendedor diz: 'Ok, medicado e curado!\nMais cuidado da próxima vez!")
+    ret 1
+  fimse
+
+
+classe p_midgaard029
+herda comum_persobat
+const ident = "lobo feróz"
+const descpadr = ""
+const msexo = 1 # Sexo Msg: 1 Masculino
+const objmax = 30
+const nivel = 30
+const p_atktipo = "selvagem"
+const p_captura = 3 # Capturar: 3 Normal
+const p_morreu2 = "inconsiente $P desmaia."
+const p_naoseguir = 1 # Não podem seguir: Sim
+const p_recebe = 1 # Recebe itens: Sim
+const p_soltar = 0 # Dar e soltar: 0 Pode-se dar e soltar
+const inivar = "h_selvagem=8,h_arranhar=8,h_morder=8,h_arremeçar=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const segurar = 1
+const objsav = 1
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pvidamax += 1 * pnivel + 100
+  pmanamax += 1 * pnivel + 100
+  pmovemax += 1 * pnivel + 100
+  pveloc1 += 1 * pnivel + 20
+  atknorm += 1 * pnivel + 100
+  defnorm += 19
+  atkesp += 1 * pnivel + 100
+  bitver |= 18
+
+func nome
+  ret var.z_nome, var.z_nome
+  ret "lobo"
+#
+
+func descnome
+  se var.z_dono
+    se var.z_nome
+      ret var.z_nome + ", o lobo de " + var.z_dono
+    senao
+      ret "o lobo de " + var.z_dono
+    fimse
+  senao
+    ret "um lobo"
+  fimse
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  se arg0.descnome == var.z_dono
+    seguirjog(arg0)
+  fimse
+#
+
+func seguirjog
+  misc:evento(arg0)
+  seguir(arg0)
+  arg0.tseguir = 2
+  tseguir = 1
+#
+
+func cmd_mudadono
+  misc:evento(iseguir.objlista)
+#
+
+func cabedentro
+  ret 1
+#
+
+func cmd_escr
+  se txt1(arg1) == "lobo"
+    ret arg0.descnome != var.z_dono, nulo
+    se txt2(arg1) == "casa"
+      $mens.p(este)
+      $mens.mvis1("Depois de um longo uivo, $P some, indo em direção a sua casa.")
+      mudadono($s_midgaard148)
+      ret 1
+    senao txt2(arg1) == "dispensar"
+      ret arg0.descnome != var.z_dono, nulo
+      $mens.p(arg0, este)
+      $mens.mvis1("$P se despede $d $A e $A vai embora.")
+      apagar(este)
+      ret 1
+    senao txt2(arg1) == "hab"
+      refvar r = este
+      txt100 n
+#
+      textotxt h
+      txt100 t1
+      txt100 t2
+      epara t1 = r.var.ini("h_"), t1, t1 = r.var.depois(t1, "h_")
+        t2 = txte(txt(t1, 2)) # , t2 += txtesp(30 - inttotal(t2))
+        t2 += " / " + txtsublin(misc:aulas, r.var.[t1]_, 1)
+        txt2(r.var.[t1]) && (t2 += " R" + txt2(ar.[t1]))
+        h.addfim(t2)
+      efim
+      ret !h.linhas, arg0.msg("\b" + nome + "Não possui nenhuma habilidade.")
+      h.addini("\b\c6Habilidades de " + nome + ":\b")
+      arg0.msg2(h.remove(1000))
+      ret 1
+    senao txt2(arg1) == "moedas soltar"
+      ret arg0.descnome != var.z_dono, nulo
+      teclou("dar " + var.z_moedas + " moedas " + arg0.descnome)
+      ret 1
+    senao txt2(arg1) == "moedas"
+      ret arg0.descnome != var.z_dono, nulo
+      ret !var.z_moedas_, arg0.msg(nome + " não possui moedas.")
+      ret var.z_moedas_ == 1, arg0.msg(nome + " possui uma moeda.")
+      arg0.msg(nome + " possui " + var.z_moedas + " moedas.")
+      ret 1
+    senao txt2(arg1) == "inv"
+      textotxt t
+      listaitem item
+      refvar r = misc:persoinfo(arg0, arg1)
+      ret !r, nulo
+      epara item = r.dentro1.fim, item, item.antes
+        refvar i = item.obj
+        continuar !i.visivel(arg0)
+        refvar nn = txtsublin(i.atribs.ini.textolin(2), 1)
+        t.addfim(txt(i.objtot) + i.atribs.ini.texto + txtcopiamai(i.descnome, "a") + nn)
+      efim
+      t.juntalin("(", "x)")
+      se t
+        arg0.msg2("\b\c6" + nome + " carrega:\b\n" + txttroca(t.remove(1000), "\d+", "\n"))
+      senao
+        arg0.msg("\b" + nome + " não está carregando nada.")
+      fimse
+      ret 1
+    senao txt2(arg1) == "lista"
+      arg0.msg("\b" + nome + " diz: Digite lobo seguido de um dos comandos a seguir, ou de uma \
+ordem qualquer:")
+      arg0.msg("\b" + nome + " diz: casa:")
+      arg0.msg("Me manda de volta para a loja de animais.")
+      arg0.msg(nome + " diz: desc seguido de uma curta descrição:")
+      arg0.msg("Muda ou insere uma curta descrição do meu personagem.")
+      arg0.msg("\b" + nome + " diz: moedas:")
+      arg0.msg("Mostra quantas moedas estou carregando.")
+      arg0.msg("\b" + nome + " diz: moedas soltar:")
+      arg0.msg("Eu te entrego as moedas que estou carregando.")
+      arg0.msg("\b" + nome + " diz: hab:")
+      arg0.msg("Eu te mostro as minhas habilidades.")
+      arg0.msg("\b" + nome + " diz: inv:")
+      arg0.msg("Eu te mostro o que estou carregando.")
+      arg0.msg("\b" + nome + " diz: lista:")
+      arg0.msg("Eu te digo quais são os meus comandos.")
+      arg0.msg("\b" + nome + " diz: nomear seguido de um nome:")
+      arg0.msg("Muda o meu nome para o nome digitado.")
+      ret 1
+    senao
+      refvar n = txt2(arg1)
+      se txt1(n) == "nomear"
+        var.z_nome = txt2(n)
+        arg0.msg("O nome do seu lobo mudou para " + var.z_nome + ".")
+      senao txt1(n) == "desc"
+        var.z_desc = txt2(n)
+        arg0.msg("Descrição mudada.")
+        ret 1
+      senao
+        teclou(txt2(arg1))
+      fimse
+      ret 1
+    fimse
+  fimse
+#
+
+func cmd_morrer
+  se arg0 == este
+    arg0.mudadono($s_midgaard148)
+    arg0.restaurar
+    arg0.recalc = 1
+    ret 1
+  fimse
+
+func recalc2_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  bitver |= 2
+#
+
+func cmd_soltaranim
+  se arg2 == este
+    $mens.p(arg0, arg2)
+    $mens.mtodos1("$P solta $A.")
+    arg2.mudadono(arg0.dono)
+    ret 1
+  fimse
+
+
+classe p_midgaard030
+herda comum_persobat
+const descver = "esse pequeno animal além de ser pacífico e obediente,ama muito a quem o cuida e \
+o ampara\n\
+Ele fixa um olhar amigavel em você, que você fica admirado!\n"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const pesoobj = 20
+const nivel = 5
+const p_corpo = 1 # Corpo: 1 Deixa corpo vazio
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "h_morder=8,h_Lâmina_longa=8,h_lâmina_curta=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const segurar = 1
+#
+
+func cmd_ini
+  se arg0.jog
+    var.z_dono = arg0.descnome
+  fimse
+
+func nome
+  ret var.z_nome, var.z_nome
+  ret "gatinho"
+#
+
+func descnome
+  se var.z_dono
+    se var.z_nome
+      ret var.z_nome + ", o gatinho de " + var.z_dono
+    senao
+      ret "o gatinho de " + var.z_dono
+    fimse
+  senao
+    ret "um gatinho"
+  fimse
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  se arg0.descnome == var.z_dono
+    seguirjog(arg0)
+  fimse
+#
+
+func seguirjog
+  misc:evento(arg0)
+  seguir(arg0)
+  arg0.tseguir = 2
+  tseguir = 1
+#
+
+func cmd_mudadono
+  misc:evento(iseguir.objlista)
+#
+
+func cabedentro
+  ret 1
+#
+
+func cmd_escr
+  se txt1(arg1) == "gatinho"
+    ret arg0.descnome != var.z_dono, nulo
+    se txt2(arg1) == "casa"
+      $mens.p(este)
+      $mens.mvis1("$P mia baixinho, e dá um grande salto sumindo em direção a sua casa.")
+      mudadono($s_midgaard148)
+      ret 1
+    senao txt2(arg1) == "dispensar"
+      ret arg0.descnome != var.z_dono, nulo
+      $mens.p(arg0, este)
+      $mens.mvis1("$P se despede $d $A e $A vai embora.")
+      apagar(este)
+      ret 1
+    senao txt2(arg1) == "hab"
+      refvar r = este
+      txt100 n
+#
+      textotxt h
+      txt100 t1
+      txt100 t2
+      epara t1 = r.var.ini("h_"), t1, t1 = r.var.depois(t1, "h_")
+        t2 = txte(txt(t1, 2)) # , t2 += txtesp(30 - inttotal(t2))
+        t2 += " / " + txtsublin(misc:aulas, r.var.[t1]_, 1)
+        txt2(r.var.[t1]) && (t2 += " R" + txt2(ar.[t1]))
+        h.addfim(t2)
+      efim
+      ret !h.linhas, arg0.msg("\b" + nome + "Não possui nenhuma habilidade.")
+      h.addini("\b\c6Habilidades de " + nome + ":\b")
+      arg0.msg2(h.remove(1000))
+      ret 1
+    senao txt2(arg1) == "moedas soltar"
+      ret arg0.descnome != var.z_dono, nulo
+      teclou("dar " + var.z_moedas + " moedas " + arg0.descnome)
+      ret 1
+    senao txt2(arg1) == "moedas"
+      ret arg0.descnome != var.z_dono, nulo
+      ret !var.z_moedas_, arg0.msg(nome + " não possui moedas.")
+      ret var.z_moedas_ == 1, arg0.msg(nome + " possui uma moeda.")
+      arg0.msg(nome + " possui " + var.z_moedas + " moedas.")
+      ret 1
+    senao txt2(arg1) == "inv"
+      textotxt t
+      listaitem item
+      refvar r = misc:persoinfo(arg0, arg1)
+      ret !r, nulo
+      epara item = r.dentro1.fim, item, item.antes
+        refvar i = item.obj
+        continuar !i.visivel(arg0)
+        refvar nn = txtsublin(i.atribs.ini.textolin(2), 1)
+        t.addfim(txt(i.objtot) + i.atribs.ini.texto + txtcopiamai(i.descnome, "a") + nn)
+      efim
+      t.juntalin("(", "x)")
+      se t
+        arg0.msg2("\b\c6" + nome + " carrega:\b\n" + txttroca(t.remove(1000), "\d+", "\n"))
+      senao
+        arg0.msg("\b" + nome + " não está carregando nada.")
+      fimse
+      ret 1
+    senao txt2(arg1) == "lista"
+      arg0.msg("\b" + nome + " diz: Digite gatinho seguido de um dos comandos a seguir, ou de \
+uma ordem qualquer:")
+      arg0.msg("\b" + nome + " diz: casa:")
+      arg0.msg("Me manda de volta para a loja de animais.")
+      arg0.msg(nome + " diz: desc seguido de uma curta descrição:")
+      arg0.msg("Muda ou insere uma curta descrição do meu personagem.")
+      arg0.msg("\b" + nome + " diz: moedas:")
+      arg0.msg("Mostra quantas moedas estou carregando.")
+      arg0.msg("\b" + nome + " diz: moedas soltar:")
+      arg0.msg("Eu te entrego as moedas que estou carregando.")
+      arg0.msg("\b" + nome + " diz: hab:")
+      arg0.msg("Eu te mostro as minhas habilidades.")
+      arg0.msg("\b" + nome + " diz: inv:")
+      arg0.msg("Eu te mostro o que estou carregando.")
+      arg0.msg("\b" + nome + " diz: lista:")
+      arg0.msg("Eu te digo quais são os meus comandos.")
+      arg0.msg("\b" + nome + " diz: nomear seguido de um nome:")
+      arg0.msg("Muda o meu nome para o nome digitado.")
+      ret 1
+    senao
+      refvar n = txt2(arg1)
+      se txt1(n) == "nomear"
+        var.z_nome = txt2(n)
+        arg0.msg("O nome do seu gatinho mudou para " + var.z_nome + ".")
+      senao txt1(n) == "desc"
+        var.z_desc = txt2(n)
+        arg0.msg("Descrição mudada.")
+        ret 1
+      senao
+        teclou(txt2(arg1))
+      fimse
+      ret 1
+    fimse
+  fimse
+#
+
+func cmd_morrer
+  se arg0 == este
+    arg0.mudadono($s_midgaard148)
+    arg0.restaurar
+    arg0.recalc = 1
+    ret 1
+  fimse
+#
+
+func cmd_soltaranim
+  se arg2 == este
+    $mens.p(arg0, arg2)
+    $mens.mtodos1("$P solta $A.")
+    arg2.mudadono(arg0.dono)
+    misc:evento(arg0)
+    ret 1
+  fimse
+
+
+classe p_midgaard031
+herda comum_persobat
+const nome = "cachorro"
+const ident = "Cachorro"
+const descver = "olhando parece inofencivo, porém,\n\
+basta uma ordem de seu dono, e ele o atacará."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const nivel = 23
+const p_soltar = 0 # Dar e soltar: 0 Pode-se dar e soltar
+const inivar = "h_morder=8,h_Lâmina_longa=8,h_lâmina_curta=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const objsav = 1
+const segurar = 1
+#
+
+func nome
+  ret var.z_nome, var.z_nome
+  ret "cachorro"
+#
+
+func descnome
+  se var.z_dono
+    se var.z_nome
+      ret var.z_nome + ", o cachorro de " + var.z_dono
+    senao
+      ret "o cachorro de " + var.z_dono
+    fimse
+  senao
+    ret "um cachorro"
+  fimse
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  se arg0.descnome == var.z_dono
+    seguirjog(arg0)
+  fimse
+#
+
+func seguirjog
+  misc:evento(arg0)
+  seguir(arg0)
+  arg0.tseguir = 2
+  tseguir = 1
+#
+
+func cmd_mudadono
+  misc:evento(iseguir.objlista)
+#
+
+func cabedentro
+  ret 1
+#
+
+func cmd_escr
+  se txt1(arg1) == "cachorro"
+    ret arg0.descnome != var.z_dono, nulo
+    se txt2(arg1) == "casa"
+      $mens.p(este)
+      $mens.mvis1("$P abana o rabo, e corre em direção ao seu lar.")
+      mudadono($s_midgaard148)
+      ret 1
+    senao txt2(arg1) == "dispensar"
+      ret arg0.descnome != var.z_dono, nulo
+      $mens.p(arg0, este)
+      $mens.mvis1("$P se despede $d $A e $A vai embora.")
+      apagar(este)
+      ret 1
+    senao txt2(arg1) == "hab"
+      refvar r = este
+      txt100 n
+#
+      textotxt h
+      txt100 t1
+      txt100 t2
+      epara t1 = r.var.ini("h_"), t1, t1 = r.var.depois(t1, "h_")
+        t2 = txte(txt(t1, 2)) # , t2 += txtesp(30 - inttotal(t2))
+        t2 += " / " + txtsublin(misc:aulas, r.var.[t1]_, 1)
+        txt2(r.var.[t1]) && (t2 += " R" + txt2(ar.[t1]))
+        h.addfim(t2)
+      efim
+      ret !h.linhas, arg0.msg("\b" + nome + "Não possui nenhuma habilidade.")
+      h.addini("\b\c6Habilidades de " + nome + ":\b")
+      arg0.msg2(h.remove(1000))
+      ret 1
+    senao txt2(arg1) == "moedas soltar"
+      ret arg0.descnome != var.z_dono, nulo
+      teclou("dar " + var.z_moedas + " moedas " + arg0.descnome)
+      ret 1
+    senao txt2(arg1) == "moedas"
+      ret arg0.descnome != var.z_dono, nulo
+      ret !var.z_moedas_, arg0.msg(nome + " não possui moedas.")
+      ret var.z_moedas_ == 1, arg0.msg(nome + " possui uma moeda.")
+      arg0.msg(nome + " possui " + var.z_moedas + " moedas.")
+      ret 1
+    senao txt2(arg1) == "inv"
+      textotxt t
+      listaitem item
+      refvar r = misc:persoinfo(arg0, arg1)
+      ret !r, nulo
+      epara item = r.dentro1.fim, item, item.antes
+        refvar i = item.obj
+        continuar !i.visivel(arg0)
+        refvar nn = txtsublin(i.atribs.ini.textolin(2), 1)
+        t.addfim(txt(i.objtot) + i.atribs.ini.texto + txtcopiamai(i.descnome, "a") + nn)
+      efim
+      t.juntalin("(", "x)")
+      se t
+        arg0.msg2("\b\c6" + nome + " carrega:\b\n" + txttroca(t.remove(1000), "\d+", "\n"))
+      senao
+        arg0.msg("\b" + nome + " não está carregando nada.")
+      fimse
+      ret 1
+    senao txt2(arg1) == "lista"
+      arg0.msg("\b" + nome + " diz: Digite cachorro seguido de um dos comandos a seguir, ou de \
+uma ordem qualquer:")
+      arg0.msg("\b" + nome + " diz: casa:")
+      arg0.msg("Me manda de volta para a loja de animais.")
+      arg0.msg(nome + " diz: desc seguido de uma curta descrição:")
+      arg0.msg("Muda ou insere uma curta descrição do meu personagem.")
+      arg0.msg("\b" + nome + " diz: moedas:")
+      arg0.msg("Mostra quantas moedas estou carregando.")
+      arg0.msg("\b" + nome + " diz: moedas soltar:")
+      arg0.msg("Eu te entrego as moedas que estou carregando.")
+      arg0.msg("\b" + nome + " diz: hab:")
+      arg0.msg("Eu te mostro as minhas habilidades.")
+      arg0.msg("\b" + nome + " diz: inv:")
+      arg0.msg("Eu te mostro o que estou carregando.")
+      arg0.msg("\b" + nome + " diz: lista:")
+      arg0.msg("Eu te digo quais são os meus comandos.")
+      arg0.msg("\b" + nome + " diz: nomear seguido de um nome:")
+      arg0.msg("Muda o meu nome para o nome digitado.")
+      ret 1
+    senao
+      refvar n = txt2(arg1)
+      se txt1(n) == "nomear"
+        var.z_nome = txt2(n)
+        arg0.msg("O nome do seu cachorro mudou para " + var.z_nome + ".")
+      senao txt1(n) == "desc"
+        var.z_desc = txt2(n)
+        arg0.msg("Descrição mudada.")
+        ret 1
+      senao
+        teclou(txt2(arg1))
+      fimse
+      ret 1
+    fimse
+  fimse
+
+func cmd_morrer
+  se arg0 == este
+    arg0.mudadono($s_midgaard148)
+    arg0.restaurar
+    arg0.recalc = 1
+    ret 1
+  fimse
+#
+
+func cmd_soltaranim
+  se arg2 == este
+    $mens.p(arg0, arg2)
+    $mens.mtodos1("$P solta $A.")
+    arg2.mudadono(arg0.dono)
+    ret 1
+  fimse
+
+
+classe p_midgaard032
+herda comum_persobat
+const nome = "Coelho"
+const ident = "Coelho"
+const descver = "esse coelho tão pequeno adora ficar correndo por todos os cantos.\n\
+muita das vezes faz manobras radicais como por exemplo, rolar no chão quando está correndo muito \
+rápido.\n\
+rapidamente ele percebe que você o observa e começa a fazer muitas e muitas stripulias para \
+chamar cada vez mais a sua  atensão!\n\
+sua cor branca num tom meio rosado é o que mais chama a atensão nele, além dos seus olhinhos \
+azues."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 15
+const nivel = 3
+const p_corpo = 1 # Corpo: 1 Deixa corpo vazio
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "h_arranhar=8,h_lâmina_curta=8,h_morder=8,h_lâmina_longa=8"
+const eveste = 1 # Eventos perso: Sim
+const evperso = 1 # Eventos dono perso: Sim
+const evsala = 1 # Eventos dono sala: Sim
+const segurar = 1
+const objsav = 1
+#
+
+func nome
+  ret var.z_nome, var.z_nome
+  ret "coelho"
+#
+
+func descnome
+  se var.z_dono
+    se var.z_nome
+      ret var.z_nome + ", o coelho de " + var.z_dono
+    senao
+      ret "o coelho de " + var.z_dono
+    fimse
+  senao
+    ret "um coelho"
+  fimse
+#
+
+func cmd_chegou
+  ret !arg0.jog, nulo
+  misc:evento(arg0)
+  se arg0.descnome == var.z_dono
+    seguirjog(arg0)
+  fimse
+#
+
+func seguirjog
+  misc:evento(arg0)
+  seguir(arg0)
+  arg0.tseguir = 2
+  tseguir = 1
+#
+
+func cmd_mudadono
+  misc:evento(iseguir.objlista)
+#
+
+func cabedentro
+  ret 1
+#
+
+func cmd_escr
+  se txt1(arg1) == "coelho"
+    ret arg0.descnome != var.z_dono, nulo
+    se txt2(arg1) == "casa"
+      $mens.p(este)
+      $mens.mvis1("$P começa a correr e saltar, indo em direção ao seu lar.")
+      mudadono($s_midgaard148)
+      ret 1
+    senao txt2(arg1) == "dispensar"
+      ret arg0.descnome != var.z_dono, nulo
+      $mens.p(arg0, este)
+      $mens.mvis1("$P se despede $d $A e $A vai embora.")
+      apagar(este)
+      ret 1
+    senao txt2(arg1) == "hab"
+      refvar r = este
+      txt100 n
+#
+      textotxt h
+      txt100 t1
+      txt100 t2
+      epara t1 = r.var.ini("h_"), t1, t1 = r.var.depois(t1, "h_")
+        t2 = txte(txt(t1, 2)) # , t2 += txtesp(30 - inttotal(t2))
+        t2 += " / " + txtsublin(misc:aulas, r.var.[t1]_, 1)
+        txt2(r.var.[t1]) && (t2 += " R" + txt2(ar.[t1]))
+        h.addfim(t2)
+      efim
+      ret !h.linhas, arg0.msg("\b" + nome + "Não possui nenhuma habilidade.")
+      h.addini("\b\c6Habilidades de " + nome + ":\b")
+      arg0.msg2(h.remove(1000))
+      ret 1
+    senao txt2(arg1) == "moedas soltar"
+      ret arg0.descnome != var.z_dono, nulo
+      teclou("dar " + var.z_moedas + " moedas " + arg0.descnome)
+      ret 1
+    senao txt2(arg1) == "moedas"
+      ret arg0.descnome != var.z_dono, nulo
+      ret !var.z_moedas_, arg0.msg(nome + " não possui moedas.")
+      ret var.z_moedas_ == 1, arg0.msg(nome + " possui uma moeda.")
+      arg0.msg(nome + " possui " + var.z_moedas + " moedas.")
+      ret 1
+    senao txt2(arg1) == "inv"
+      textotxt t
+      listaitem item
+      refvar r = misc:persoinfo(arg0, arg1)
+      ret !r, nulo
+      epara item = r.dentro1.fim, item, item.antes
+        refvar i = item.obj
+        continuar !i.visivel(arg0)
+        refvar nn = txtsublin(i.atribs.ini.textolin(2), 1)
+        t.addfim(txt(i.objtot) + i.atribs.ini.texto + txtcopiamai(i.descnome, "a") + nn)
+      efim
+      t.juntalin("(", "x)")
+      se t
+        arg0.msg2("\b\c6" + nome + " carrega:\b\n" + txttroca(t.remove(1000), "\d+", "\n"))
+      senao
+        arg0.msg("\b" + nome + " não está carregando nada.")
+      fimse
+      ret 1
+    senao txt2(arg1) == "lista"
+      arg0.msg("\b" + nome + " diz: Digite coelho seguido de um dos comandos a seguir, ou de uma \
+ordem qualquer:")
+      arg0.msg("\b" + nome + " diz: casa:")
+      arg0.msg("Me manda de volta para a loja de animais.")
+      arg0.msg(nome + " diz: desc seguido de uma curta descrição:")
+      arg0.msg("Muda ou insere uma curta descrição do meu personagem.")
+      arg0.msg("\b" + nome + " diz: moedas:")
+      arg0.msg("Mostra quantas moedas estou carregando.")
+      arg0.msg("\b" + nome + " diz: moedas soltar:")
+      arg0.msg("Eu te entrego as moedas que estou carregando.")
+      arg0.msg("\b" + nome + " diz: hab:")
+      arg0.msg("Eu te mostro as minhas habilidades.")
+      arg0.msg("\b" + nome + " diz: inv:")
+      arg0.msg("Eu te mostro o que estou carregando.")
+      arg0.msg("\b" + nome + " diz: lista:")
+      arg0.msg("Eu te digo quais são os meus comandos.")
+      arg0.msg("\b" + nome + " diz: nomear seguido de um nome:")
+      arg0.msg("Muda o meu nome para o nome digitado.")
+      ret 1
+    senao
+      refvar n = txt2(arg1)
+      se txt1(n) == "nomear"
+        var.z_nome = txt2(n)
+        arg0.msg("O nome do seu coelho mudou para " + var.z_nome + ".")
+      senao txt1(n) == "desc"
+        var.z_desc = txt2(n)
+        arg0.msg("Descrição mudada.")
+        ret 1
+      senao
+        teclou(txt2(arg1))
+      fimse
+      ret 1
+    fimse
+  fimse
+
+func cmd_morrer
+  se arg0 == este
+    arg0.mudadono($s_midgaard148)
+    arg0.restaurar
+    arg0.recalc = 1
+    ret 1
+  fimse
+#
+
+func cmd_soltaranim
+  se arg2 == este
+    $mens.p(arg0, arg2)
+    $mens.mtodos1("$P solta $A.")
+    arg2.mudadono(arg0.dono)
+    ret 1
+  fimse
+
+
+classe p_midgaard033
+herda comum_persobat
+const nome = "Hanster"
+const ident = "Hanster"
+const descnome = "Um Pequeno Hanster"
+const descpadr = "Um Pequeno e fofinho Hanster está aqui, procurando algo para roer."
+const descver = "  Ele é tão pequeno que cabe na palma de sua mão, e é tão\n\
+fofinho que dá vontade de apertá-lo.\n\
+ Suas orelhinhas são marrons, e seu corpo branco com manchas castanhas.\n\
+ Seus pequenos olhos se movem de um lado a outro, e seus dentinhos\n\
+roem contentemente o alimento que tem sobre as patinhas."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const pesoobj = 12
+const nivel = 2
+const p_corpo = 1 # Corpo: 1 Deixa corpo vazio
+const p_recebe = 1 # Recebe itens: Sim
+const inivar = "h_morder=8,h_arranhar=8"
+
+func recalc1_auto # Altera atributos do personagem
+# Não alterar; função criada automaticamente
+  pveloc1 += 5 * pnivel + 50
+  atknorm += 3 * pnivel + 50
+  defnorm += 6 * pnivel + 100
+  precisao += 4 * pnivel + 100
+
+
+classe p_midgaard085
+herda comum_perso
+const nome = "O professor"
+const ident = "professor mestre mago humano homem"
+const descnome = "Um mago experiente"
+const descpadr = "Um mago experiente aguarda os alunos ao fundo da sala."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo: 1 Masculino
+const pesoobj = 254
+const nivel = 100
+const pospadr = 8 # Posição padrão: 8 Em pé
+const tipo1 = "haufling"
+const tipo2 = "mago"
+const lojaini = 5
+const lojafim = 20
+const lojanao = "guerreiro"
+const lojaaula = "h_meditar 8\n\
+m_armadura 8\n\
+m_contorcer 8\n\
+m_flutuar 8\n\
+m_infravisão 8\n\
+m_descarga_elétrica 8\n\
+m_escudo 8\n\
+h_visível 8\n\
+m_invisibilidade 8\n\
+m_identificar 8\n\
+m_curar_cegueira 8\n\
+m_força_interior 8\n\
+m_remover_veneno 8\n\
+m_Restaurar_vitalidade 8\n\
+m_visão_verdadeira 8\n\
+m_cegueira 8\n\
+m_foco 8\n\
+m_voar 8\n\
+m_envenenar 8\n\
+m_aura_negra 8\n\
+m_bola_de_fogo 8\n\
+m_paralisia 8\n\
+m_lentidão 8\n\
+m_armadura_de_pedra 8\n\
+m_remover_invisibilidade 8\n\
+m_poder_interior 8\n\
+m_parede_de_fogo 8\n\
+m_punho_de_gelo 8\n\
+m_punho_de_pedra 8\n\
+m_escudo_de_espinhos 8\n\
+m_aura_gelada 8\n\
+m_visão_total 8\n\
+m_terremoto 8\n\
+m_detectar_invisibilidade 8\n\
+m_sono_profundo 8\n\
+m_retornar 5"
+const lojafechada = "$P diz: 'Olá! Eu estou descançando agora. Só ensino das 5 as 20 horas.'"
+const taxaaula = 100
+sav inttempo tempo
+
+func cmd_mudadono
+  tempo = 36000
+
+func tempo_exec
+  tempo = 36000
+  $mens.mens = arg1
+  $mens.p(este)
+  $mens.mareatodos1(txtsublin(frases, rand(intsublin(frases)), 1))
+
+const frases = "Começa a chover.\n\
+A chuva para.\n\
+Os trovões e raios cessam.\n\
+Nuvens aparecem no céu.\n\
+As nuvens desaparecem."
+
+
+classe p_torvani024
+herda comum_perso
+const nome = "professor dos clérigos"
+const ident = "professor clérigos"
+const descnome = "o professor dos clérigos"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const sexoini = 1 # Sexo Perso: 1 Masculino
+const lojaaula = "h_meditar 5\nm_cura_divina 5"
+
+
+classe s_midgaard001
+herda b_midgaard
+const s_titulo = "O templo de Midgaard."
+const s_desc = "Você está no templo de Midgaard. O templo foi construído com grandes e\n\
+antigas pedras brancas, e algumas contém imagens retratando camponeses,\n\
+deuses e monstros. Uma suave música chega em seus ouvidos, deixando você com\n\
+uma vontade de se sentar e relaxar por alguns instantes. Uma escadaria de\n\
+mármore leva para baixo, em direção a praça do templo. Ao leste se encontra\n\
+a sala de doações de Midgaard, e para oeste, um grande corredor. Para o norte\n\
+está o altar do templo."
+const s_fome = 1 # Fome e sede: 1 Ausente
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_luz = 0 # Luz: 0 Claro com eventos de tempo
+const s_naoresg = 0 # Sem resgate: Não
+const s_pnj = 0
+const s_recup = 300
+const s_retornar = 2 # Comando retornar: 2 Muda o ponto de retorno para essa sala
+const s_semmagia = 0 # Sem magia: Não
+const s_soltar = 0 # Soltar itens: 0 Permitido
+const s_som = "templo2"
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_midgaard003
+const dir_s = $s_midgaard142
+const dir_l = $s_midgaard005
+const dir_o = $s_midgaard107
+const dir_b = $s_midgaard002
+const fecha_no = 1 # Fecha ao passar: Sim
+const dir_entrar = $s_adarena001
+
+func escr
+  se arg0 == "Quests"
+    arg0.msg("Teleportando...")
+    arg0.mudadono$s_quests001
+  fimse
+  ret 1
+
+func cmd_salaperso
+  misc:evento(arg0)
+  misc:tempo("efeito", arg0)
+
+func efeito1
+  se arg0.dentro2.objini("e_morto")
+    apagar(arg0.dentro2.objini("e_morto"))
+
+func efeito2
+  se arg0.dentro2.objini("e_evento")
+    apagar(arg0.dentro2.objini("e_evento"))
+
+func efeito3
+  se arg0.dentro2.objini("e_folheto")
+    apagar(arg0.dentro2.objini("e_folheto"))
+    ret 1
+  senao
+  fimse
+
+func cmd_mover
+  se arg2 == "entrar"
+    se arg0.var.z_adarena_ > 1
+      arg0.msg("Aguarde para entrar, ainda restam " + arg0.var.z_adarena_ + " décimos de \
+segundo.")
+      ret 1
+    senao
+      arg0.var.z_adarena@ = 1200
+      arg0.msg("Ao entrar, várias imagens se formam ao seu redor.")
+      arg0.msg("Imagens de antigos Deuses, batalhando entre si.")
+      arg0.msg("Imagens de guerreiros e gladiadores.")
+      arg0.msg("Ao retornar de seus delírios, você está em")
+      $mens.p(arg0)
+      $mens.mmudtodos1("*Arena Midgaard* $P entrou, e está esperando alguém para lutar.")
+      arg0.mudadono($s_adarena001)
+      ret 1
+    fimse
+
+const dir_ = $s_midgaard124
+
+
+classe s_midgaard002
+herda b_midgaard
+const s_titulo = "A praça do templo."
+const s_desc = "Você está na Praça do Templo de Midgaard. Uma grande escadaria de mármore\n\
+leva-lhe até o Templo. Para o sul está a praça do comércio, onde você pode\n\
+ver muitas pessoas caminhando tranquilamente."
+const s_item = 1
+const s_luz = 0 # Luz: 0 Claro com eventos de tempo
+const s_pnj = 6
+const dir_n = $s_midgaard030
+const dir_s = $s_midgaard004
+const dir_l = $s_midgaard007
+const dir_o = $s_midgaard121
+const dir_c = $s_midgaard001
+const a_reset = "P 100 midgaard009 0 0 40\n\
+P 100 midgaard009 0 0 40\n\
+S 100 midgaard020 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_midgaard009:objsolto.total < 40
+    criar("p_midgaard009", este, 0)
+  fimse
+  se p_midgaard009:objsolto.total < 40
+    criar("p_midgaard009", este, 0)
+  fimse
+  !dentro1.objini("i_midgaard020") && criar("i_midgaard020", este, 1)
+
+
+classe s_midgaard003
+herda b_midgaard
+const s_titulo = "O altar do Templo"
+const s_desc = "Você está no altar do templo, na parte norte do templo de Midgaard. Você vê\n\
+um enorme altar de mármore em sua frente e atrás de você há uma estátua de\n\
+Ulrich, o criador.  Ao norte o caminho leva para o campo."
+const s_luz = 0 # Luz: 0 Claro com eventos de tempo
+const s_pnj = 6
+const s_recup = 30
+const dir_n = $s_midgaard029
+const dir_s = $s_midgaard001
+const dir_o = $s_midgaard135
+
+
+classe s_midgaard004
+herda b_midgaard
+const s_titulo = "a praça do comércio"
+const s_desc = "   Você está na Praça do Comércio, a famosa praça de Midgaard. Uma grande \
+e\n\
+diferente estátua se encontra no meio da praça. Há caminhos para todas as\n\
+direções: ao norte fica a Praça do Templo, ao sul fica a Praça Comum, ao\n\
+leste e oeste segue a Rua Principal."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_n = $s_midgaard002
+const dir_s = $s_midgaard071
+const dir_l = $s_midgaard010
+const dir_o = $s_midgaard009
+const a_reset = "P 100 midgaard005 0 0 30"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_midgaard005:objsolto.total < 30
+    criar("p_midgaard005", este, 0)
+  fimse
+
+
+classe s_midgaard005
+herda b_midgaard
+const s_titulo = "A sala de doações."
+const s_desc = "Armaduras, espadas e outros itens estão jogados pelo chão, esperando para serem \
+pegos por você."
+const s_item = 0
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_luz = 0 # Luz: 0 Claro com eventos de tempo
+const s_pnj = 0
+const s_semmagia = 1 # Sem magia: Sim
+const s_soltar = 1 # Soltar itens: 1 Não permitido
+const dir_o = $s_midgaard001
+
+func cmd_salaperso
+  casovar arg2
+  casose "pegar tudo"
+    arg0.msg("Não é pocível pegar todos os itens de uma vez!")
+    ret 1
+  casofim
+
+
+classe s_midgaard006
+herda b_midgaard
+const s_titulo = "Sala de leitura"
+const s_desc = "Essa é a sala de leitura de Midgaard.\n\
+Estantes e prateleiras contendo livros estão por todos os lados, e um enorme sofá está em um \
+canto da sala.\n\
+Na parede oeste, com uma bonita caligrafia está escrito: Exercite também sua mente, pois ela é \
+sua melhor arma!\n\
+Um grande quadro de mensagens está preso a parede logo a sua frente."
+const s_fome = 2 # Fome e sede: 2 Some aos poucos
+const s_item = 0
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_luz = 0 # Luz: 0 Claro com eventos de tempo
+const s_naoresg = 1 # Sem resgate: Sim
+const s_semmagia = 1 # Sem magia: Sim
+const s_soltar = 0 # Soltar itens: 0 Permitido
+const s_som = "sala_de_leitura"
+const dir_l = $s_midgaard107
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "A porta da sala de leitura"
+const fecha_l = 1 # Fecha ao passar: Sim
+const som_abrir_l = "aporta2"
+const som_fechar_l = "fporta2"
+const a_reset = "S 100 teste036 1 S\nS 100 item013 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_teste036") && criar("i_teste036", este, 1)
+  !dentro1.objini("i_item013") && criar("i_item013", este, 1)
+
+
+classe s_midgaard007
+herda b_midgaard
+const s_titulo = "A entrada de um bar"
+const s_desc = "Um balcão de madeira está a sua frente.\n\
+A norte há uma pequena porta, do lado do balcão que dá acesso ao interior do bar.\n\
+Dentro do bar avista-se alguns quadros na parede com imagens de midgaard. Um relógio está do \
+lado da parede ao lado de um quadro com uma imagem de um templo!"
+const s_luz = 0 # Luz: 0 Claro com eventos de tempo
+const s_pnj = 0
+const dir_n = $s_midgaard110
+const dir_o = $s_midgaard002
+const a_reset = "P 100 midgaard012 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_midgaard012:objsolto.total < 1
+    criar("p_midgaard012", este, 0)
+  fimse
+
+
+classe s_midgaard008
+herda b_midgaard
+const s_titulo = "a entrada para a guilda dos necromantes"
+const s_desc = ""
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_pnj = 0 # PNJs entram: Não
+const dir_o = $s_midgaard094
+const s_luz = 0 # Luz: 0 Claro com eventos de tempo
+const dir_s = $s_midgaard121
+
+
+classe s_midgaard009
+herda b_midgaard
+const s_titulo = "A rua principal"
+const s_desc = "   Você está na Rua Principal, passando no meio de Midgaard. Sul daqui fica\n\
+a Loja de Armaduras, e a Padaria fica ao norte. Leste daqui você vê a Praça\n\
+do Comércio."
+const dir_n = $s_midgaard021
+const dir_s = $s_midgaard020
+const dir_l = $s_midgaard004
+const dir_o = $s_midgaard018
+
+
+classe s_midgaard010
+herda b_midgaard
+const s_titulo = "a rua principal"
+const s_desc = "Você está na continuação da rua principal. Ao norte, há uma mercearia, com\n\
+as pinturas já gastas. Ao sul, você pode ver a loja de ferramentas."
+const s_terreno = 3 # Terreno: 3 Pântano, itens afundam - 3mv
+const dir_n = $s_midgaard016
+const dir_s = $s_midgaard017
+const dir_l = $s_midgaard011
+const dir_o = $s_midgaard004
+
+
+classe s_midgaard011
+herda b_midgaard
+const s_titulo = "a rua principal"
+const s_desc = "você está no final leste da rua principal aqui você pode observar poucas\n\
+pessoas ao sul, você vê a guilda dos guerreiros, em quanto que ao norte,\n\
+fica a loja de armas. ao leste ficam os portões de midgaard"
+const dir_n = $s_midgaard015
+const dir_s = $s_midgaard012
+const dir_l = $s_midgaard013
+const dir_o = $s_midgaard010
+
+
+classe s_midgaard012
+herda b_midgaard
+const s_titulo = "A entrada para a guilda dos guerreiros"
+const s_desc = "essa é a entrada para guilda dos guerreiros ao sul você pode ver um bar,\n\
+enquanto ao norte encontra a rua principal."
+const s_pnj = 0 # PNJs entram: Não
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_midgaard011
+const dir_s = $s_midgaard080
+
+func cmd_mover
+  se arg2 == "s" && arg0.tipo2 == "mago"
+    refvar l = rand(-1, -6000)
+    arg0.pvida += l
+    arg0.msg("algo como uma espada lhe fere ao tentar seguir! " + l + ".")
+    arg0.posicao = 6
+    ret arg0.pvida == 0, arg0.morreu, ret
+    ret 1
+  fimse
+  se arg2 == "s" && arg0.tipo2 == "necromante"
+    refvar l = rand(-1, -200)
+    arg0.pvida += l
+    arg0.msg("algo como uma espada lhe fere ao tentar seguir! " + l + ".")
+    arg0.posicao = 6
+    ret arg0.pvida == 0, arg0.morreu, ret
+    ret 1
+  senao
+    se arg2 == "s" && arg0.tipo2 == "clerigo"
+      refvar l = rand(-1, -200)
+      arg0.pvida += l
+      arg0.msg("algo como uma espada lhe fere ao tentar seguir! " + l + ".")
+      arg0.posicao = 6
+      ret arg0.pvida == 0, arg0.morreu, ret
+      ret 1
+
+
+classe s_midgaard013
+herda b_midgaard
+const s_titulo = "o portão de saída leste de midgaard"
+const s_desc = "essa é a saída leste de midgaard ao oeste você volta para a cidade,\n\
+enquanto ao leste sai de seus domínios"
+const s_pnj = 0
+const s_recup = 0
+const dir_n = $s_midgaard096
+const dir_s = $s_midgaard014
+const dir_l = $s_midgaard083
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "O portão"
+const portaartigo_l = 2 # Artigo porta: 2 o (portão)
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_midgaard011
+const a_reset = "P 100 midgaard005 0 0 4 z_moedas=500"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_midgaard005:objsolto.total < 4
+    criar("p_midgaard005", este, 0, "z_moedas=500")
+  fimse
+
+
+classe s_midgaard014
+herda b_midgaard
+const s_titulo = "a entrada para uma lanchonete."
+const s_pnj = 0
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_midgaard013
+const dir_s = $s_mec001
+const a_reset = "P 100 agua005 0 0 1 nn\nP 100 agua006 0 0 1\nP 100 agua007 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_agua005:objsolto.total < 1
+    criar("p_agua005", este, 0, "nn")
+  fimse
+  se p_agua006:objsolto.total < 1
+    criar("p_agua006", este, 0)
+  fimse
+  se p_agua007:objsolto.total < 1
+    criar("p_agua007", este, 0)
+  fimse
+
+
+classe s_midgaard015
+herda b_midgaard
+const s_titulo = "Loja de armas de Midgaard."
+const s_desc = "Um balcão de madeira está a sua frente. Atrás do balcão avista-se várias \
+espadas, adagas e outras armas empenduradas na parede.\n\
+Na parede nota-se alguns quadros de grandes lutas que já ocorreram em Midgaard. Talvês as \
+grandes armas destas lutas tenham saído desta loja de armas.\n\
+A sul avista-se o fim da rua principal de Midgaard."
+const s_pnj = 0 # PNJs entram: Não
+const s_semmagia = 1 # Sem magia: Sim
+const dir_s = $s_midgaard011
+const a_reset = "P 100 midgaard004 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_midgaard004:objsolto.total < 1
+    criar("p_midgaard004", este, 0)
+  fimse
+
+
+classe s_midgaard016
+herda b_midgaard
+const s_titulo = "Mercearia de Midgaard."
+const s_desc = "Um balcão de madeira está a sua frente. De trás do balcão nota-se vários \
+equipamentos, ferramentas e objetos nas prateleiras da mercearia.\n\
+A sul avista-se a continuação da rua principal de Midgaard."
+const s_luz = 0 # Luz: 0 Claro com eventos de tempo
+const s_pnj = 0 # PNJs entram: Não
+const s_semmagia = 1 # Sem magia: Sim
+const eveste = 0 # Eventos sala: Não
+const dir_s = $s_midgaard010
+const a_reset = "P 100 midgaard021 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_midgaard021:objsolto.total < 1
+    criar("p_midgaard021", este, 0)
+  fimse
+
+
+classe s_midgaard017
+herda b_midgaard
+const s_titulo = "A loja de ferramentas"
+const s_desc = "Um balcão de madeira está a sua frente. Através do balcão nota-se várias \
+ferramentas empenduradas na parede.\n\
+Outras ferramentas também estão guardadas em uma estante de madeira ao lado do vendedor.\n\
+A norte avista-se a continuação da rua principal de Midgaard."
+const s_pnj = 0 # PNJs entram: Não
+const s_semmagia = 1 # Sem magia: Sim
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_midgaard010
+const a_reset = "P 100 midgaard023 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_midgaard023:objsolto.total < 1
+    criar("p_midgaard023", este, 0)
+  fimse
+
+
+classe s_midgaard018
+herda b_midgaard
+const s_titulo = "A rua principal"
+const s_desc = "   Você está no fim da Rua Principal de Midgaard. Ao sul você vê a Entrada\n\
+da Guilda dos Magos. A rua continua ao leste para a praça do comércio. A\n\
+Loja de Magias fica ao norte, e para oeste ficam os portões da cidade."
+const dir_n = $s_midgaard022
+const dir_s = $s_midgaard055
+const dir_l = $s_midgaard009
+const dir_o = $s_midgaard019
+
+
+classe s_midgaard019
+herda b_midgaard
+const s_titulo = "O portão oeste de Midgaard"
+const s_desc = "   Você está no meio das duas pequenas torres construídas juntas a parede\n\
+da cidade ligando uma ponte com a cidade. Junto está o portão. A Rua\n\
+Principal fica ao leste e ao oeste, e ao sul você vê a Rua da Muralha."
+const dir_n = $s_midgaard120
+const dir_s = $s_midgaard023
+const dir_l = $s_midgaard018
+const dir_o = $s_midgaard082
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "O portão"
+const portaartigo_o = 2 # Artigo porta: 2 o (portão)
+const fecha_o = 1 # Fecha ao passar: Sim
+const a_reset = "P 100 midgaard006 0 0 4 z_moeda=1500"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_midgaard006:objsolto.total < 4
+    criar("p_midgaard006", este, 0, "z_moeda=1500")
+  fimse
+
+
+classe s_midgaard020
+herda b_midgaard
+const s_titulo = "a loja de armaduras"
+const s_desc = "esta é a loja de armaduras de midgaard você pode ver por todos os cantos\n\
+vários tipos de armaduras esperando serem vendidas uma grande quantidade de\n\
+elmos e escudo enchem as prateleiras do seu campo de visão, qe se perde mais\n\
+pro fundo."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_pnj = 0 # PNJs entram: Não
+const s_semmagia = 1 # Sem magia: Sim
+const eveste = 0 # Eventos sala: Não
+const dir_n = $s_midgaard009
+const a_reset = "P 100 midgaard020 100 100 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_midgaard020:objsolto.total < 1
+    criar("p_midgaard020", este, 100)
+  fimse
+
+
+classe s_midgaard021
+herda b_midgaard
+const s_titulo = "a padaria"
+const s_desc = "esta é a padaria de midgaard. por todos os lados, existem prateleiras qe\n\
+estão repletas de doces e golozeimas."
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_morre = 0 # Morre ao entrar: 0 Não
+const s_pnj = 0 # PNJs entram: Não
+const s_semmagia = 1 # Sem magia: Sim
+const eveste = 0 # Eventos sala: Não
+const dir_s = $s_midgaard009
+const a_reset = "P 100 midgaard003 100 100 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_midgaard003:objsolto.total < 1
+    criar("p_midgaard003", este, 100)
+  fimse
+
+
+classe s_midgaard022
+herda b_midgaard
+const s_titulo = "A loja de magía de midgaard"
+const s_desc = "essa é a loja de magia de midgaard por todos os lados, é possível avistar\n\
+prateleiras cheias de pergaminhos poções e vários itens mágicos."
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_pnj = 0 # PNJs entram: Não
+const s_semmagia = 1 # Sem magia: Sim
+const dir_s = $s_midgaard018
+const a_reset = "P 100 midgaard022 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_midgaard022:objsolto.total < 1
+    criar("p_midgaard022", este, 0)
+  fimse
+
+
+classe s_midgaard023
+herda b_midgaard
+const s_titulo = "a rua da muralha"
+const s_desc = "   Você está na parede oeste da cidade. A rua continua mais para o sul e \
+o\n\
+portão da cidade fica ao norte daqui."
+const dir_n = $s_midgaard019
+const dir_s = $s_midgaard024
+
+
+classe s_midgaard024
+herda b_midgaard
+const s_titulo = "A rua da muralha"
+const s_desc = "   Você está andando na parede oeste da cidade. A rua continua para o norte\n\
+e para o sul. O Beco Pobre fica a leste."
+const dir_n = $s_midgaard023
+const dir_s = $s_midgaard025
+const dir_l = $s_midgaard076
+const dir_o = $s_rio002
+
+
+classe s_midgaard025
+herda b_midgaard
+const s_titulo = "a rua da muralha"
+const s_desc = "   Você está na rua da muralha, ao oeste da cidade, que continua no norte.\n\
+A ponte fica ao sul."
+const dir_n = $s_midgaard024
+const dir_s = $s_midgaard026
+
+
+classe s_midgaard026
+herda b_midgaard
+const s_titulo = "a ponte sobre o rio"
+const s_desc = "   Você está na ponte de pedra que passa sobre o rio. A ponte foi\n\
+construída fora da parede oeste da cidade e o rio flui por um buraco na\n\
+parede a dez pés abaixo da ponte."
+const dir_n = $s_midgaard025
+const dir_s = $s_midgaard027
+
+
+classe s_midgaard027
+herda b_midgaard
+const s_titulo = "o canto noroeste da afluência"
+const s_desc = "   Você segue pela afluência. A muralha de Midgaard se encontra logo ao seu\n\
+lado , a oeste. Um pequeno passeio o conduz a leste, enquanto a ponte fica a\n\
+norte daqui. O passeio continua também ao sul, juntamente com a muralha da\ncidade."
+const dir_n = $s_midgaard026
+const dir_s = $s_midgaard077
+const dir_l = $s_midgaard028
+
+
+classe s_midgaard028
+herda b_midgaard
+const s_titulo = "o paceio do parque"
+const s_desc = ""
+const dir_o = $s_midgaard027
+const dir_l = $s_midgaard031
+const dir_s = $s_midgaard067
+
+
+classe s_midgaard029
+herda b_midgaard
+const s_titulo = "atrás do altar"
+const s_desc = " Você está em um caminho sujo, que leva para longe do altar que fica ao sul\n\
+da qui. Descendo as escadas, o caminho continua através do belo campo de\n\
+Midgaard."
+const eveste = 1 # Eventos sala: Sim
+const dir_s = $s_midgaard003
+const dir_b = $s_midgaard030
+
+
+classe s_midgaard030
+herda b_midgaard
+const s_titulo = "O grande campo de Midgaard"
+const s_desc = "\d=campo Você está andando num caminho selvagem, através de lodo, musgo e\n\
+barro. Você vê o horizonte ao Norte, Leste e Oeste. Ao sul, a ocupada cidade\n\
+de Midgaard. Tudo a sua volta é saudavelmente verde, e há algumas árvores\n\
+ocupando o caminho. O Sol bate em seu rosto e um vento bagunça o seu cabelo.\n\
+Pássaros voam acima de você, e você sente que poderia deitar na grama e\n\
+ficar aqui para sempre, cercado de beleza por todos os lados. O caminho\n\
+continua para o norte, através do campo.\n\
+Para o Leste, você vai em direção a pequena igreja de Midgaard."
+const s_noite = "Você está andando num caminho selvagem, através de lodo, musgo e barro.\n\
+Você vê o horizonte ao Norte, Leste e Oeste. Ao sul, a ocupada cidade de\n\
+Midgaard. Tudo a sua volta é saudavelmente verde, e há algumas árvores ocupando\n\
+o caminho. O Sol bate em seu rosto e um vento bagunça o seu cabelo.\n\
+Pássaros voam acima de você, e você sente que poderia deitar na grama e ficar\n\
+aqui para sempre, cercado de beleza por todos os lados. O caminho continua para\n\
+o norte, através do campo."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_pnj = 0
+const s_recup = 0
+const dir_n = $s_midgaard032
+const dir_s = $s_midgaard002
+const dir_l = $s_midgaard136
+const dir_o = $s_comeco120
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "Os portões da escola de Midgaard"
+const portaartigo_o = 3 # Artigo porta: 3 os (portões)
+const fecha_o = 1 # Fecha ao passar: Sim
+const dir_c = $s_midgaard029
+
+
+classe s_midgaard031
+herda b_midgaard
+const s_titulo = "o paceio do parque"
+const s_desc = ""
+const s_pnj = 6
+const dir_s = $s_midgaard033
+const dir_l = $s_midgaard045
+const dir_o = $s_midgaard028
+
+
+classe s_midgaard032
+herda b_midgaard
+const s_titulo = "O grande campo de Midgaard"
+const s_desc = "   Você está andando num caminho selvagem, através de lodo, musgo e barro.\n\
+Você vê o horizonte ao Norte, Leste e Oeste. Ao Sul, a ocupada cidade de\n\
+Midgaard. Tudo em sua volta é saudavelmente verde, e há algumas árvores\n\
+ocupando o caminho. O Sol bate em seu rosto e um vento bagunça o seu cabelo.\n\
+Pássaros voam acima de você, e você sente que poderia deitar na grama e\n\
+ficar aqui para sempre, cercado de beleza por todos os lados. O Caminho\n\
+continua para o norte, através do campo."
+const dir_n = $s_midgaard044
+const dir_s = $s_midgaard030
+const dir_o = $s_adcasas001
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "Os portões da vila"
+const portaartigo_o = 3 # Artigo porta: 3 os (portões)
+const fecha_o = 1 # Fecha ao passar: Sim
+const som_abrir_o = "aporta6"
+const som_fechar_o = "fporta6"
+
+
+classe s_midgaard033
+herda b_midgaard
+const s_titulo = "a entrada do parque"
+const s_desc = ""
+const dir_n = $s_midgaard031
+const dir_l = $s_midgaard034
+const dir_s = $s_midgaard035
+
+
+classe s_midgaard034
+herda b_midgaard
+const s_titulo = "o café do parque"
+const s_desc = ""
+const dir_o = $s_midgaard033
+
+
+classe s_midgaard035
+herda b_midgaard
+const s_titulo = "o parque"
+const s_desc = ""
+const dir_n = $s_midgaard033
+const dir_l = $s_midgaard036
+const dir_o = $s_midgaard042
+
+
+classe s_midgaard036
+herda b_midgaard
+const s_titulo = "o parque"
+const s_desc = ""
+const dir_o = $s_midgaard035
+const dir_s = $s_midgaard037
+
+
+classe s_midgaard037
+herda b_midgaard
+const s_titulo = "o parque"
+const s_desc = ""
+const dir_n = $s_midgaard036
+const dir_o = $s_midgaard038
+const dir_l = $s_midgaard046
+
+
+classe s_midgaard038
+herda b_midgaard
+const s_titulo = "o tanque"
+const s_desc = ""
+const dir_l = $s_midgaard037
+const dir_o = $s_midgaard039
+
+
+classe s_midgaard039
+herda b_midgaard
+const s_titulo = "o parque"
+const s_desc = ""
+const dir_l = $s_midgaard038
+const dir_n = $s_midgaard042
+const dir_o = $s_midgaard043
+
+
+classe s_midgaard040
+herda b_midgaard
+const s_titulo = "O Começo Da Passagem"
+const s_desc = "Você está entrando em um longo corredor, podendo escutar o som de\n\
+criaturas por perto, mas sem poder contar exatamente a origem do som.\n\
+Uma saída ao leste te leva ao corredor, e ao sul retorna para a entrada."
+const dir_s = $s_midgaard053
+const dir_l = $s_midgaard041
+
+
+classe s_midgaard041
+herda b_midgaard
+const s_titulo = "O Corredor Sujo"
+const s_desc = "Você continua caminhando pelo corredor. Aqui não há nada diferente,\n\
+mas você tem certeza de que escutou barulhos vindo do leste. Há muito lodo nas paredes daqui... \
+não poderiam ter chamado\n\
+alguém para limpar este lugar? O que os novatos irão pensar? Bem, você pode\n\
+continuar no corredor indo para o leste ou oeste."
+const dir_o = $s_midgaard040
+const dir_l = $s_midgaard087
+
+
+classe s_midgaard042
+herda b_midgaard
+const s_titulo = "o parque"
+const s_desc = ""
+const dir_s = $s_midgaard039
+const dir_l = $s_midgaard035
+
+
+classe s_midgaard043
+herda b_midgaard
+const s_titulo = "a entrada oeste do parque"
+const s_desc = ""
+const dir_l = $s_midgaard039
+const dir_o = $s_midgaard066
+
+
+classe s_midgaard044
+herda b_midgaard
+const s_titulo = "O grande campo de Midgaard"
+const s_desc = ""
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_recup = 0
+const s_semmagia = 1 # Sem magia: Sim
+const dir_n = $s_midgaard128
+const inv_n = 0 # Invisível: Não
+const dir_s = $s_midgaard032
+const dir_o = $s_midgaard054
+
+
+classe s_midgaard045
+herda b_midgaard
+const s_titulo = "o paceio do parque"
+const s_desc = ""
+const dir_o = $s_midgaard031
+const dir_s = $s_midgaard050
+const dir_l = $s_midgaard051
+
+
+classe s_midgaard046
+herda b_midgaard
+const s_titulo = "a entrada leste do parque"
+const s_desc = ""
+const dir_o = $s_midgaard037
+const dir_l = $s_midgaard047
+
+
+classe s_midgaard047
+herda b_midgaard
+const s_titulo = "a avenida esmeralda"
+const s_desc = ""
+const dir_o = $s_midgaard046
+const dir_l = $s_midgaard048
+const dir_n = $s_midgaard050
+const dir_s = $s_midgaard056
+
+
+classe s_midgaard048
+herda b_midgaard
+const s_titulo = "a sala de espera"
+const s_desc = ""
+const s_pnj = 0
+const dir_l = $s_midgaard049
+const dir_o = $s_midgaard047
+const a_reset = "P 100 midgaard002 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_midgaard002:objsolto.total < 1
+    criar("p_midgaard002", este, 0)
+  fimse
+
+
+classe s_midgaard049
+herda b_midgaard
+const s_titulo = "o escritório do prefeito"
+const s_desc = ""
+const dir_o = $s_midgaard048
+
+
+classe s_midgaard050
+herda b_midgaard
+const s_titulo = "a avenida esmeralda"
+const s_desc = ""
+const dir_n = $s_midgaard045
+const dir_s = $s_midgaard047
+
+
+classe s_midgaard051
+herda b_midgaard
+const s_titulo = "O canto nordeste da afluência"
+const s_desc = ""
+const dir_s = $s_midgaard052
+const dir_o = $s_midgaard045
+
+
+classe s_midgaard052
+herda b_midgaard
+const s_titulo = "Na afluência"
+const s_desc = ""
+const dir_n = $s_midgaard051
+const dir_o = $s_midgaard058
+
+
+classe s_midgaard053
+herda b_midgaard
+const s_titulo = "A entrada para a área dos novatos"
+const s_desc = "Esse parece ser o lugar que você estava procurando.\n\
+Se você é novato, entre aqui para matar e subir seu nível sem morrer\n\
+aqui há apenas monstros fracos, que servem para você treinar para batalhar\n\
+pelo mundo a fora."
+const dir_o = $s_midgaard044
+const dir_n = $s_midgaard040
+const s_pnj = 0 # PNJs entram: Não
+
+
+classe s_midgaard054
+herda b_midgaard
+const s_titulo = "o caminho sujo"
+const s_desc = "este é um caminho de barro, repleto de adubo para plantas\n\
+e muita sujeira."
+const s_pnj = 0
+const dir_l = $s_midgaard044
+const dir_o = $s_tabuleiro001
+
+
+classe s_midgaard055
+herda b_midgaard
+const s_titulo = "A entrada da guilda dos magos"
+const s_desc = "Você está na entrada para a guilda dos magos. Ao sul está o restaurante dos\n\
+magos, ao norte está a rua prinsipal."
+const s_pnj = 0 # PNJs entram: Não
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_midgaard018
+const dir_s = $s_midgaard084
+
+func cmd_mover
+  se arg2 == "s" && arg0.tipo2 == "guerreiro"
+    arg0.msg("Desculpe, você não é mago, por tanto, é impocível seguir!")
+    ret 1
+  fimse
+  se arg2 == "s" && arg0.tipo2 == "necromante"
+    arg0.msg("Desculpe, você não é mago, portanto, é impossível seguir!")
+    ret 1
+  senao
+    se arg2 == "s" && arg0.tipo2 == "clerigo"
+      arg0.msg("Desculpe, você não é mago, portanto, é impossível seguir!")
+      ret 1
+
+
+classe s_midgaard056
+herda b_midgaard
+const s_titulo = "a avenida esmeralda"
+const s_desc = ""
+const dir_n = $s_midgaard047
+const dir_o = $s_midgaard057
+
+
+classe s_midgaard057
+herda b_midgaard
+const s_titulo = "a avenida esmeralda"
+const s_desc = ""
+const dir_s = $s_midgaard063
+const dir_l = $s_midgaard056
+
+
+classe s_midgaard058
+herda b_midgaard
+const s_titulo = "A afluência"
+const s_desc = ""
+const dir_n = $s_midgaard068
+const dir_l = $s_midgaard052
+const dir_o = $s_midgaard059
+
+
+classe s_midgaard059
+herda b_midgaard
+const s_titulo = "A afluência"
+const s_desc = ""
+const dir_n = $s_midgaard060
+const dir_l = $s_midgaard058
+const dir_o = $s_midgaard077
+
+
+classe s_midgaard060
+herda b_midgaard
+const s_titulo = "a avenida esmeralda"
+const s_desc = ""
+const dir_s = $s_midgaard059
+const dir_n = $s_midgaard061
+
+
+classe s_midgaard061
+herda b_midgaard
+const s_titulo = "a avenida esmeralda"
+const s_desc = ""
+const dir_s = $s_midgaard060
+const dir_l = $s_midgaard062
+
+
+classe s_midgaard062
+herda b_midgaard
+const s_titulo = "a avenida esmeralda"
+const s_desc = ""
+const dir_o = $s_midgaard061
+const dir_n = $s_midgaard063
+
+
+classe s_midgaard063
+herda b_midgaard
+const s_titulo = "a encruzilhada"
+const s_desc = ""
+const dir_n = $s_midgaard057
+const dir_s = $s_midgaard062
+const dir_o = $s_midgaard064
+const dir_l = $s_midgaard070
+
+
+classe s_midgaard064
+herda b_midgaard
+const s_titulo = "a estrada do parque"
+const s_desc = ""
+const dir_l = $s_midgaard063
+const dir_n = $s_midgaard065
+
+
+classe s_midgaard065
+herda b_midgaard
+const s_titulo = "a estrada do parque"
+const s_desc = ""
+const dir_s = $s_midgaard064
+const dir_n = $s_midgaard066
+
+
+classe s_midgaard066
+herda b_midgaard
+const s_titulo = "a estrada do parque"
+const s_desc = ""
+const dir_n = $s_midgaard067
+const dir_s = $s_midgaard065
+const dir_l = $s_midgaard043
+const dir_o = $s_midgaard079
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const tranc_o = 0 # Trancar: 0 Não pode ser trancado
+
+
+classe s_midgaard067
+herda b_midgaard
+const s_titulo = "a estrada do parque"
+const s_desc = ""
+const dir_s = $s_midgaard066
+const dir_n = $s_midgaard028
+
+
+classe s_midgaard068
+herda b_midgaard
+const s_titulo = "a estrada do parque"
+const s_desc = ""
+const dir_s = $s_midgaard058
+const dir_n = $s_midgaard069
+
+
+classe s_midgaard069
+herda b_midgaard
+const s_titulo = "a estrada do parque"
+const s_desc = ""
+const dir_s = $s_midgaard068
+const dir_n = $s_midgaard070
+
+
+classe s_midgaard070
+herda b_midgaard
+const s_titulo = "a estrada do parque"
+const s_desc = ""
+const dir_s = $s_midgaard069
+const dir_l = $s_safare001
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "Um enorme portão de ferro"
+const portaartigo_l = 2 # Artigo porta: 2 o (portão)
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_midgaard063
+const a_reset = "P 100 midgaard013 0 0 30"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_midgaard013:objsolto.total < 30
+    criar("p_midgaard013", este, 0)
+  fimse
+
+
+classe s_midgaard071
+herda b_midgaard
+const s_titulo = "a praça comun"
+const s_desc = "   Na Praça Comum, pessoas passam por você, conversando umas com as outras.\n\
+A oeste fica o beco pobre e ao leste fica o beco escuro. Ao norte fica a Praça\n\
+do Comércio. Você sente um cheiro horrível vindo do sul."
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_midgaard004
+const dir_s = $s_midgaard086
+const dir_l = $s_midgaard072
+const dir_o = $s_midgaard075
+const a_reset = "P 100 midgaard010 0 0 8\n\
+P 100 midgaard012 0 0 1\n\
+P 100 midgaard010 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_midgaard010:objsolto.total < 8
+    criar("p_midgaard010", este, 0)
+  fimse
+  se p_midgaard012:objsolto.total < 1
+    criar("p_midgaard012", este, 0)
+  fimse
+  se p_midgaard010:objsolto.total < 1
+    criar("p_midgaard010", este, 0)
+  fimse
+
+
+classe s_midgaard072
+herda b_midgaard
+const s_titulo = "Início do bêco escuro"
+const s_desc = "aqui há no chão alguma sujeira, porém ela não impede que você continue andando \
+pelo bêco\n\
+a leste a luminozidade vai se acabando aos poucos\n\
+a oeste há uma praça, algumas pessoas estão caminhando por ela"
+const dir_l = $s_midgaard073
+const dir_o = $s_midgaard071
+const a_reset = "P 100 midgaard011 0 0 10 cmd_var.h_socar=1_cmd_var.h_chutar=1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_midgaard011:objsolto.total < 10
+    criar("p_midgaard011", este, 0, "cmd_var.h_socar=1_cmd_var.h_chutar=1")
+  fimse
+
+
+classe s_midgaard073
+herda b_midgaard
+const s_titulo = "o beco escuro"
+const s_desc = "aqui a claridade que vem do oeste cessa um pouco\n\
+a leste ao longe avista-se uma lata de lixo do lado de uma parede\n\
+a oeste avista-se uma luz e o que parece ser outro bêco"
+const dir_s = $s_midgaard113
+const dir_l = $s_midgaard074
+const dir_o = $s_midgaard072
+
+
+classe s_midgaard074
+herda b_midgaard
+const s_titulo = "o final do beco escuro"
+const s_desc = "aqui está meio escuro, a oeste avista-se uma luz\n\
+as paredes estão sujas e no chão há um pouco de lixo\n\
+uma lata de lixo está do lado da parede, nela parecem haver ratos"
+const dir_n = $s_beco001
+const dir_s = $s_rio111
+const dir_o = $s_midgaard073
+const a_reset = "P 100 midgaard009 0 0 40"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_midgaard009:objsolto.total < 40
+    criar("p_midgaard009", este, 0)
+  fimse
+
+
+classe s_midgaard075
+herda b_midgaard
+const s_titulo = "o final do beco pobre"
+const s_desc = "a norte avista-se uma pequena barraca de pizza\n\
+a sul avista-se uma barraca de cachorro quente\n\
+a leste avista-se uma praça com algumas pessoas andando\n\
+a oeste o beco continua"
+const dir_n = $s_midgaard105
+const dir_s = $s_midgaard112
+const dir_l = $s_midgaard071
+const dir_o = $s_midgaard076
+
+
+classe s_midgaard076
+herda b_midgaard
+const s_titulo = "o beco pobre"
+const s_desc = "aqui há uma lata de lixo com a tampa aberta, um pouco de lixo está espalhado do \
+lado da lixeira\n\
+para leste avista-se duas pequenas barracas\n\
+a oeste avista-se o que parece ser uma pequena rua"
+const dir_l = $s_midgaard075
+const dir_o = $s_midgaard024
+const a_reset = "P 100 midgaard011 0 0 20\nP 100 midgaard011 0 0 20"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_midgaard011:objsolto.total < 20
+    criar("p_midgaard011", este, 0)
+  fimse
+  se p_midgaard011:objsolto.total < 20
+    criar("p_midgaard011", este, 0)
+  fimse
+
+
+classe s_midgaard077
+herda b_midgaard
+const s_titulo = "a afluência"
+const s_desc = "Você está no canto sudoeste da muralha da cidade. A Afluência segue a norte\n\
+e  a leste."
+const dir_n = $s_midgaard027
+const dir_s = $s_midgaard078
+const dir_l = $s_midgaard059
+
+
+classe s_midgaard078
+herda b_midgaard
+const s_titulo = "o portão sul"
+const s_desc = "portão sul de Midgaard, até a floresta de Miden'Nir ('Sangue Verde' na\n\
+língua dos goblins). Você ainda pode ver a cidade ao leste, mas se seguir ao\n\
+sul, encontrará ar fresco e matas verdes."
+const s_pnj = 0
+const dir_n = $s_midgaard077
+const dir_s = $s_goblins001
+const portaini_s = 1 # Estado inicial: 1 Porta aberta
+const portanome_s = "O portão sul"
+const portaartigo_s = 2 # Artigo porta: 2 o (portão)
+const fecha_s = 1 # Fecha ao passar: Sim
+const dir_l = $s_midgaard101
+const a_reset = "P 100 midgaard010 10 20 40"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_midgaard010:objsolto.total < 40
+    criar("p_midgaard010", este, rand(10, 20))
+  fimse
+
+
+classe s_midgaard079
+herda b_midgaard
+const s_titulo = "o quartel dos guardas"
+const s_desc = ""
+const dir_l = $s_midgaard066
+const a_reset = "P 100 midgaard007 0 0 42 z_moedas=200"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_midgaard007:objsolto.total < 42
+    criar("p_midgaard007", este, 0, "z_moedas=200")
+  fimse
+
+const portaini_l = 3 # Estado inicial: 3 Porta trancada
+const tranc_l = 1 # Trancar: 1 Pode ser trancado
+
+
+classe s_midgaard080
+herda b_midgaard
+const s_titulo = "O bar da guilda"
+const s_desc = ""
+const dir_n = $s_midgaard012
+const dir_o = $s_midgaard081
+
+
+classe s_midgaard081
+herda b_midgaard
+const s_titulo = "Uma sala grande"
+const s_desc = ""
+const s_pnj = 0 # PNJs entram: Não
+const s_semmagia = 1 # Sem magia: Sim
+const dir_l = $s_midgaard080
+const a_reset = "P 100 guilda002 0 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_guilda002:objsolto.total < 2
+    criar("p_guilda002", este, 0)
+  fimse
+
+
+classe s_midgaard082
+herda b_midgaard
+const s_titulo = "fora do portão oeste de midgaard"
+const s_desc = ""
+const s_pnj = 0
+const dir_l = $s_midgaard019
+const portaini_l = 2 # Estado inicial: 2 Porta fechada
+const portanome_l = "o portão"
+const portaartigo_l = 2 # Artigo porta: 2 o (portão)
+const fecha_l = 1 # Fecha ao passar: Sim
+const dir_o = $s_midgaard089
+
+
+classe s_midgaard083
+herda b_midgaard
+const s_titulo = "fora do portão leste de midgaard"
+const s_desc = "você está fora dos portões leste de midgard ao norte você v uma estrada\n\
+passando ao lado da cidade, enquanto ao oeste você retorna aos domínios de\n\
+midgaard."
+const s_pnj = 0
+const dir_n = $s_midgaard091
+const dir_l = $s_midleste001
+const dir_o = $s_midgaard013
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "O portão"
+const portaartigo_o = 2 # Artigo porta: 2 o (portão)
+const fecha_o = 1 # Fecha ao passar: Sim
+
+
+classe s_midgaard084
+herda b_midgaard
+const s_titulo = "O restaurante dos magos"
+const s_desc = ""
+const dir_n = $s_midgaard055
+const dir_l = $s_midgaard085
+
+
+classe s_midgaard085
+herda b_midgaard
+const s_titulo = "Diante do mestre da guilda"
+const s_desc = ""
+const s_semmagia = 1 # Sem magia: Sim
+const dir_o = $s_midgaard084
+const a_reset = "P 100 guilda001 0 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_guilda001:objsolto.total < 2
+    criar("p_guilda001", este, 0)
+  fimse
+
+
+classe s_midgaard086
+herda b_midgaard
+const s_titulo = "O depósito de lixo"
+const s_desc = "Aqui é onde as pessoas jogam seus lixos. No meio de todo o lixo você pode\n\
+ver uma grande passagem. Parece a entrada de alguma caverna. Norte daqui se encontra\n\
+a Praça Comum."
+const s_soltar = 3 # Soltar itens: 3 Destrói caindo
+const dir_n = $s_midgaard071
+const dir_b = $s_midgaard095
+const a_reset = "P 100 midgaard005 0 0 10\nP 100 midgaard009 0 0 20"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_midgaard005:objsolto.total < 10
+    criar("p_midgaard005", este, 0)
+  fimse
+  se p_midgaard009:objsolto.total < 20
+    criar("p_midgaard009", este, 0)
+  fimse
+
+
+classe s_midgaard087
+herda b_midgaard
+const s_titulo = "O Cruzamento"
+const s_desc = "Você chegou no cruzamento entre duas passagens. Ao norte e ao leste,\n\
+a passagem fica mais clara, e a parte escura continua pelo caminho ao sul."
+const dir_o = $s_midgaard041
+
+
+classe s_midgaard088
+herda b_midgaard
+const s_titulo = "Arena"
+const s_desc = ""
+const s_luta = 2 # Batalha: 2 Qualquer luta
+
+
+classe s_midgaard089
+herda b_midgaard
+const s_titulo = "Um caminho de terra"
+const s_desc = "Você está em um longo caminho de terra batida. Ao norte se vê escuridão.\n\
+Ao leste, pode-se ver uma estrada dezerta."
+const s_pnj = 0
+const dir_n = $s_midgaard090
+const dir_l = $s_midgaard082
+const dir_o = $s_midoeste001
+
+
+classe s_midgaard090
+herda b_midgaard
+const s_titulo = "Um caminho em meio as árvores"
+const s_desc = ""
+const dir_n = $s_anoes001
+const dir_s = $s_midgaard089
+const dir_o = $s_ciganos001
+
+
+classe s_midgaard091
+herda b_midgaard
+const s_titulo = "A estrada ao lado de midgaard"
+const s_desc = ""
+const dir_s = $s_midgaard083
+const dir_n = $s_midgaard092
+
+
+classe s_midgaard092
+herda b_midgaard
+const s_titulo = "a continuação da estrada"
+const s_desc = ""
+const dir_s = $s_midgaard091
+const dir_l = $s_midgaard093
+
+
+classe s_midgaard093
+herda b_midgaard
+const s_titulo = "uma parte deserta da estrada"
+const s_desc = ""
+const dir_l = $s_dark001
+const dir_o = $s_midgaard092
+
+
+classe s_midgaard094
+herda b_midgaard
+const s_titulo = "O interior da guilda"
+const s_desc = "Esta sala é bastante âmpla. O chão é bem limpo e em algumas partes há tapetes \
+para os alunos se sentarem.\n\
+Através de uma janela na parede a leste avista-se a entrada da guilda.\n\
+Uma porta a sul dá acesso para a entrada da guilda."
+const dir_s = $s_midgaard121
+const a_reset = "P 100 guilda003 0 0 2"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_guilda003:objsolto.total < 2
+    criar("p_guilda003", este, 0)
+  fimse
+
+
+classe s_midgaard095
+herda b_midgaard
+const s_titulo = "O subterrânio de midgaard"
+const s_desc = "Essa parte é bem escura, você quase não concegue ver onde está pisando\n\
+Por aqui há teias de aranha pelas paredes, e o chão está sem asfalto, terra pura\n\
+Ao sul você pode observar uma entrada, parece ser de uma grande caverna"
+const s_pnj = 0 # PNJs entram: Não
+const dir_s = $s_caverna001
+const dir_c = $s_midgaard086
+const dir_o = $s_subterreo022
+
+
+classe s_midgaard096
+herda b_midgaard
+const s_titulo = "A entrada do banco de Midgaard"
+const s_desc = ""
+const s_pnj = 0
+const dir_s = $s_midgaard013
+const dir_o = $s_midgaard097
+
+
+classe s_midgaard097
+herda b_midgaard
+const s_titulo = "O banco de Midgaard"
+const s_desc = ""
+const dir_l = $s_midgaard096
+const dir_n = $s_midgaard098
+const dir_s = $s_midgaard099
+
+
+classe s_midgaard098
+herda b_midgaard
+const s_titulo = "a área de impostos de midgaard."
+const s_desc = ""
+const dir_s = $s_midgaard097
+const a_reset = "P 100 midgaard001 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_midgaard001:objsolto.total < 1
+    criar("p_midgaard001", este, 0)
+  fimse
+
+
+classe s_midgaard099
+herda b_midgaard
+const s_titulo = "Área dos caixas eletrônicos"
+const s_desc = ""
+const dir_n = $s_midgaard097
+const dir_l = $s_midgaard127
+const dir_o = $s_midgaard125
+const a_reset = "S 100 midgaard031 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_midgaard031") && criar("i_midgaard031", este, 1)
+
+
+classe s_midgaard100
+herda b_midgaard
+const s_titulo = "Bem-vindo"
+const s_desc = "Seja bem-vindo ao Killer mud! Aventuras, amizades, batalhas sangrentas e \
+surpresas o esperam fora dessas paredes, mas antes devemos prepará-lo para isso."
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_luz = 1 # Luz: 1 Claro sem eventos de tempo
+const s_recup = 500
+const s_semmagia = 1 # Sem magia: Sim
+const s_soltar = 1 # Soltar itens: 1 Não permitido
+const s_retornar = 1 # Comando retornar: 1 Não permitido
+const eveste = 1 # Eventos sala: Sim
+const dir_b = $s_midgaard001
+
+func cmd_salaperso # Personagem chegou
+  ret !arg0.jog, nulo # Retorna se não for jogador
+  misc:evento(arg0) # Receber eventos do personagem
+  misc:tempo("entrou", arg0) # Dispara funções 'entrou'
+
+func entrou5
+  arg0.msg("Você está empunhando uma faca. Para ver o que está empunhando / vestindo, digite \
+equip.\n para ver o conteúdo de seu inventário, digite inv, ou apenas, i.")
+  arg0.msg("Para remover um item, digite remover nome do item.\nPara remover todos os itens, \
+digite remover tudo.")
+  arg0.msg("Agora desça as escadas para o templo de midgaard e comece atacando os fidos. Eles \
+são mais fracos que os demais mobs.")
+  arg0.msg("Após subir um pouco mais de nível, pode matar outros mobs além dos fidos bestiais.")
+  arg0.msg("Se precisar de ajuda, digite ajuda e o nome de um tópico, por exemplo: ajuda \
+comunica. Ou ainda, peça ajuda a outro jogador, ou a um Deus!")
+  arg0.msg("Boa sorte!")
+  ret 1
+# func cmd_escr
+# casovar arg2
+# casose "cmd_regras"
+# inttempo t
+#
+# func t_exec
+# t = 10
+#
+# func t_exec
+# t = 10
+# arg0.mudadono(s_midgaard001)
+# fimse
+# casose "cmd_quem"
+# ret
+# casofim
+# arg0.msg("digite regras para proceguir")
+# ret 1
+#
+
+const s_gritar = "É proibido gritos aqui."
+
+
+classe s_midgaard101
+herda b_midgaard
+const s_titulo = "Contornando midgaard"
+const s_desc = "Você está em um caminho contornando a cidade de Midgaard, entre\n\
+árvores. Os galhos balansam com o vento, escondendo a passagem."
+const dir_o = $s_midgaard078
+const dir_l = $s_midgaard102
+
+
+classe s_midgaard102
+herda b_midgaard
+const s_titulo = "Contornando midgaard"
+const s_desc = "Você continua pelo caminho contornando midgaard. As árvores escondem a passagem\n\
+completamente, e a cidade desaparece aos poucos de sua visão."
+const dir_o = $s_midgaard101
+const dir_l = $s_midgaard103
+
+
+classe s_midgaard103
+herda b_midgaard
+const s_titulo = "Contornando Midgaard"
+const s_desc = "Você continua pelo caminho que contorna toda a cidade de\n\
+Midgaard. As árvores que escondem a passagem agora aparentam terem sido cortadas.\n\
+Uma imença árvore impede que você continue."
+const dir_o = $s_midgaard102
+
+
+classe s_midgaard104
+herda b_midgaard
+const s_titulo = "Nas redondezas de um acampamento."
+const s_desc = "você está nas redondezas de um acampamento\n\
+kobold, ao sudeste de Midgaard. Uma pilha de ossos está escondida em\n\
+meio as árvores."
+const dir_no = $s_midgaard103
+const dir_so = $s_kobolds001
+
+
+classe s_midgaard105
+herda b_midgaard
+const s_titulo = "a pizzaria do mendigo morto"
+const s_desc = ""
+const s_pnj = 0 # PNJs entram: Não
+const s_semmagia = 1 # Sem magia: Sim
+const eveste = 0 # Eventos sala: Não
+const dir_s = $s_midgaard075
+const a_reset = "P 100 perso003 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_perso003:objsolto.total < 1
+    criar("p_perso003", este, 0)
+  fimse
+
+
+classe s_midgaard106
+herda b_midgaard
+const s_titulo = "um grande corredor"
+const s_desc = ""
+const dir_l = $s_midgaard001
+
+
+classe s_midgaard107
+herda b_midgaard
+const s_titulo = "Um grande corredor."
+const s_desc = "Você está andando por um grande corredor.\n\
+Em ambos os lados, você vê imagens da criação do mundo, e de poderosos deuses combatendo \
+criaturas das trevas.\n\
+Ao norte se encontra Tesouros e pedras preciosas, e ao sul a loja de itens especiais.\n\
+Ao leste você volta para o templo de Midgaard, e para o oeste está a sala de leitura."
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const s_pnj = 0
+const dir_n = $s_midgaard109
+const dir_s = $s_midgaard108
+const dir_l = $s_midgaard001
+const dir_o = $s_midgaard006
+const portaini_o = 2 # Estado inicial: 2 Porta fechada
+const portanome_o = "A porta da sala de leitura"
+const fecha_o = 1 # Fecha ao passar: Sim
+const som_abrir_o = "aporta2"
+const som_fechar_o = "fporta2"
+
+
+classe s_midgaard108
+herda b_midgaard
+const s_titulo = "Loja de itens especiais"
+const s_desc = ""
+const dir_n = $s_midgaard107
+const a_reset = "P 100 midgaard024 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_midgaard024:objsolto.total < 1
+    criar("p_midgaard024", este, 0)
+  fimse
+
+
+classe s_midgaard109
+herda b_midgaard
+const s_titulo = "Tesouros e pedras preciosas"
+const s_desc = ""
+const s_luz = 1 # Luz: 1 Claro sem eventos de tempo
+const dir_s = $s_midgaard107
+const a_reset = "P 100 midgaard025 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_midgaard025:objsolto.total < 1
+    criar("p_midgaard025", este, 0)
+  fimse
+
+
+classe s_midgaard110
+herda b_midgaard
+const s_titulo = "Dentro de um bar"
+const s_desc = "O chão aqui é feito de madeira. Nota-se vários quadros na parede do bar com \
+imagens de midgaard.\n\
+Através do balcão é possível avistar ao longe uma praça e o que parece ser uma escadaria.\n\
+A sul há uma porta que dá acesso a entrada do bar."
+const dir_s = $s_midgaard007
+
+
+classe s_midgaard111
+herda b_midgaard
+const s_titulo = "Sala de recuperação"
+const s_luta = 2 # Batalha: 2 Qualquer luta
+const s_recup = 100000000
+const objmax = 100000
+const eveste = 1 # Eventos sala: Sim
+
+func cmd_chegou
+  misc:tempo("entrou", arg0)
+
+func entrou10
+  se arg0.p_bebida_ = ""
+    ret1
+  senao
+    arg0.p_bebida = 0
+
+
+classe s_midgaard112
+herda b_midgaard
+const s_titulo = "uma barraquinha de cachorro quente"
+const s_desc = ""
+const s_pnj = 0
+const dir_n = $s_midgaard075
+const a_reset = "P 100 perso007 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_perso007:objsolto.total < 1
+    criar("p_perso007", este, 0)
+  fimse
+
+
+classe s_midgaard113
+herda b_midgaard
+const s_titulo = "A margem do rio."
+const s_desc = "Você está na margem do rio de Midgaard.\n\
+Para o sul começa o rio, e para o norte, você volta para o beco escuro."
+const s_pnj = 0
+const dir_n = $s_midgaard073
+const dir_s = $s_midgaard114
+
+
+classe s_midgaard114
+herda b_midgaard
+const s_titulo = "No rio."
+const s_desc = "Você está no rio sul de Midgaard.\n\
+Para o norte você volta para a margem, e para leste e oeste, o rio continua."
+const dir_n = $s_midgaard113
+const dir_l = $s_midgaard115
+const dir_o = $s_midgaard116
+
+
+classe s_midgaard115
+herda b_midgaard
+const s_titulo = "No rio."
+const s_desc = ""
+const dir_l = $s_midgaard118
+const dir_o = $s_midgaard114
+
+
+classe s_midgaard116
+herda b_midgaard
+const s_titulo = "No rio."
+const s_desc = ""
+const dir_l = $s_midgaard114
+const dir_o = $s_midgaard117
+
+
+classe s_midgaard117
+herda b_midgaard
+const s_titulo = "No rio."
+const s_desc = ""
+const dir_l = $s_midgaard116
+
+
+classe s_midgaard118
+herda b_midgaard
+const s_titulo = "No rio."
+const s_desc = ""
+const dir_l = $s_midgaard119
+const dir_o = $s_midgaard115
+
+
+classe s_midgaard119
+herda b_midgaard
+const s_titulo = "Uma interseção no rio."
+const s_desc = ""
+const dir_l = $s_midgaard122
+const dir_o = $s_midgaard118
+
+
+classe s_midgaard120
+herda b_midgaard
+const s_titulo = "A loja de Animais"
+const s_desc = ""
+const s_luta = 0 # Batalha: 0 Pacífico
+const s_pnj = 0
+const eveste = 1 # Eventos sala: Sim
+const dir_s = $s_midgaard019
+const dir_o = $s_midgaard148
+const a_reset = "P 100 midgaard018 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_midgaard018:objsolto.total < 1
+    criar("p_midgaard018", este, 0)
+  fimse
+
+
+classe s_midgaard121
+herda b_midgaard
+const s_titulo = "A entrada para a guilda dos necromantes"
+const s_desc = "Uma porta de madeira a norte dá acesso a guilda.\n\
+Um tapete está a frente da porta da guilda, no tapete está escrito (Guilda dos necromantes).\n\
+A leste avista-se a praça do tempo de Midgaard."
+const s_pnj = 0
+const eveste = 1 # Eventos sala: Sim
+const dir_n = $s_midgaard008
+const dir_l = $s_midgaard002
+
+func cmd_mover
+  se arg2 == "n" && arg0.tipo2 == "guerreiro"
+    arg0.msg("Só necromantes entram aqui.")
+    ret 1
+  fimse
+  se arg2 == "n" && arg0.tipo2 == "mago"
+    arg0.msg("Apenas necromantes podem entrar aqui.")
+    ret 1
+  senao
+    se arg2 == "n" && arg0.tipo2 == "clerigo"
+      arg0.msg("Apenas necromantes podem entrar aqui.")
+      ret 1
+
+
+classe s_midgaard122
+herda b_midgaard
+const s_titulo = "No rio"
+const dir_o = $s_midgaard119
+const dir_c = $s_labirinto001
+
+
+classe s_midgaard123
+const s_titulo = ""
+const s_desc = ""
+const s_fome = 1 # Fome e sede: 1 Ausente
+
+
+classe s_midgaard124
+herda b_midgaard
+const dir_ = $s_midgaard001
+
+
+classe s_midgaard125
+herda b_midgaard
+const s_titulo = "Área dos caixas eletrônicos"
+const dir_l = $s_midgaard099
+const a_reset = "S 100 midgaard031 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_midgaard031") && criar("i_midgaard031", este, 1)
+
+
+classe s_midgaard127
+herda b_midgaard
+const s_titulo = "Área dos caixas eletrônicos"
+const dir_o = $s_midgaard099
+const a_reset = "S 100 midgaard031 1 S"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  !dentro1.objini("i_midgaard031") && criar("i_midgaard031", este, 1)
+
+
+classe s_midgaard128
+herda b_midgaard
+const s_titulo = "o grande campo de midgaard."
+const s_pnj = 0
+const dir_n = $s_midgaard129
+const dir_s = $s_midgaard044
+
+func cmd_escr
+  se arg0 == "n"
+    arg0.moveu, nulo
+    arg0.msg("você tenta sair da sala, mas a curiosidade de olhar a árvore te mantém aqui.")
+  fimse
+
+
+classe s_midgaard129
+herda b_midgaard
+const s_titulo = "um magnífico jardim"
+const s_desc = "Você está no magnífico Jardim de Midgaard.\n\
+Aqui a grama é bem macia, rodeada por flores, pequenas e maiores das variadas árvores, imbelezam \
+este lugar, encantando seus olhos com tanta beleza e pureza neste local.\n\
+AO longe, pode se ver o templo, e para o norte, o caminho continua."
+const s_luta = 0 # Batalha: 0 Pacífico
+const dir_n = $s_midgaard130
+const dir_s = $s_midgaard128
+
+
+classe s_midgaard130
+herda b_midgaard
+const s_titulo = "um magnífico jardim"
+const s_desc = "Você continua no magnífico jardim.\n\
+Plantas, árvores e flores, rodeiam este lugar.\n\
+Você nota que aqui está um velho ansião, com seus cabelhos grizálios, e olha para você.\n\
+Para o sul você volta para o início do Jardim."
+const s_luta = 0 # Batalha: 0 Pacífico
+const dir_s = $s_midgaard129
+const dir_l = $s_midgaard131
+const dir_o = $s_midgaard133
+const a_reset = "P 100 elfos029 450 500 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_elfos029:objsolto.total < 1
+    criar("p_elfos029", este, rand(450, 500))
+  fimse
+
+
+classe s_midgaard131
+herda b_midgaard
+const s_titulo = "na parte florida do jardim"
+const s_luta = 0 # Batalha: 0 Pacífico
+const dir_l = $s_midgaard132
+const dir_o = $s_midgaard130
+
+
+classe s_midgaard132
+herda b_midgaard
+const s_titulo = "na parte florida do jardim"
+const s_luta = 0 # Batalha: 0 Pacífico
+const dir_o = $s_midgaard131
+
+
+classe s_midgaard133
+herda b_midgaard
+const s_titulo = "Na parte florida do jardim"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_l = $s_midgaard130
+const dir_o = $s_midgaard134
+
+
+classe s_midgaard134
+herda b_midgaard
+const s_titulo = "Na parte florida do jardim"
+const s_luta = 1 # Batalha: 1 Exceto entre jogadores
+const dir_l = $s_midgaard133
+
+
+classe s_midgaard135
+herda b_midgaard
+const s_titulo = "A entrada da guilda dos Clérigos"
+const dir_l = $s_midgaard003
+const dir_o = $s_midgaard126
+const a_reset = "P 100 midgaard008 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_midgaard008:objsolto.total < 1
+    criar("p_midgaard008", este, 0)
+  fimse
+
+
+classe s_midgaard136
+herda b_midgaard
+const s_titulo = "A entrada para a pequena igreja de Midgaard."
+const dir_l = $s_midgaard137
+const dir_o = $s_midgaard030
+
+
+classe s_midgaard137
+herda b_midgaard
+const s_titulo = "A igreja de Midgaard"
+const dir_n = $s_midgaard139
+const dir_s = $s_midgaard140
+const dir_l = $s_midgaard138
+const dir_o = $s_midgaard136
+
+
+classe s_midgaard138
+herda b_midgaard
+const s_titulo = "Fileira de bancos"
+const dir_n = $s_midgaard141
+const dir_o = $s_midgaard137
+
+
+classe s_midgaard139
+herda b_midgaard
+const s_titulo = "Fileira Norte de bancos"
+const dir_s = $s_midgaard137
+
+
+classe s_midgaard140
+herda b_midgaard
+const s_titulo = "Fileira de bancos, parte Sul"
+const dir_n = $s_midgaard137
+
+
+classe s_midgaard141
+herda b_midgaard
+const s_titulo = "Parte norte das fileiras de bancos"
+const dir_s = $s_midgaard138
+
+
+classe s_midgaard142
+herda b_midgaard
+const s_titulo = "Entrada para o santuário."
+const s_desc = "Você está na entrada do santuário do templo.\n\
+Esta entrada está com suas paredes, chão e teto cravejados por ouro.\n\
+No chão, do lado da porta, uma pedra brilhante está ao lado, logo não toque nela.\n\
+Esta pedra não pode ser tocada por mortais, simplesmente porque, algo que contém magia extrema, \
+não pode ser manozeada por mãos erradas, ou seja, apenas por imortais."
+const dir_n = $s_midgaard001
+const dir_s = $s_midgaard143
+
+
+classe s_midgaard143
+herda b_midgaard
+const s_titulo = "Continuação do santuário"
+const dir_n = $s_midgaard142
+const dir_c = $s_midgaard144
+
+
+classe s_midgaard144
+herda b_midgaard
+const s_titulo = "Escadas para o pequeno altar do santuário."
+const dir_c = $s_midgaard145
+const dir_b = $s_midgaard143
+
+
+classe s_midgaard145
+herda b_midgaard
+const s_titulo = "O Pequeno altar do santuário."
+const dir_b = $s_midgaard144
+
+
+classe s_midgaard146
+herda b_midgaard
+const dir_s = $s_midgaard006
+
+
+classe s_midgaard147
+herda b_midgaard
+const dir_s = $s_midgaard006
+
+
+classe s_midgaard148
+herda b_midgaard
+const s_titulo = "Sala de descanso dos animais"
+const s_luta = 0 # Batalha: 0 Pacífico
+const dir_l = $s_midgaard120
+
+
+classe s_midgaard200
+herda b_midgaard
+const s_titulo = "Sala de espera."
+const s_desc = ""
+const s_gritar = "Você não consegue fazer isso."
+
+
+classe s_torvani091
+herda b_midgaard
+const s_titulo = "A entrada da guilda dos clérigos"
+const eveste = 1 # Eventos sala: Sim
+const dir_s = $s_torvani007
+const dir_l = $s_torvani092
+
+func cmd_mover
+  se arg2 == "l" && arg0.tipo2 == "guerreiro"
+    refvar v = rand(1, 10000)
+    arg0.msg("Uma força misteriosa te empurra empedindo sua passagem -" + v + ".")
+    arg0.posicao = 6
+    arg0.pvida -= v
+    ret arg0.pvida == 0, arg0.morreu
+    ret 1
+  senao
+    se arg2 == "l" && arg0.tipo2 == "mago"
+      refvar v = rand(1, 10000)
+      arg0.msg("Uma força misteriosa te empurra empedindo sua passagem -" + v + ".")
+      arg0.posicao = 6
+      arg0.pvida -= v
+      ret arg0.pvida == 0, arg0.morreu
+      ret 1
+    senao
+      se arg2 == "l" && arg0.tipo2 == "necromante"
+        refvar v = rand(1, 10000)
+        arg0.msg("Uma força misteriosa te empurra empedindo sua passagem -" + v + ".")
+        arg0.posicao = 6
+        arg0.pvida -= v
+        ret arg0.pvida == 0, arg0.morreu
+        ret 1
+
+
+classe s_torvani092
+herda b_midgaard
+const s_titulo = "A guilda dos clérigos"
+const a_reset = "P 100 torvani024 0 0 1"
+
+func a_reset1 # Realiza o reset
+# Não alterar; função criada automaticamente a partir de a_reset
+  se p_torvani024:objsolto.total < 1
+    criar("p_torvani024", este, 0)
+  fimse
+
+const dir_o = $s_torvani091

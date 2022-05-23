@@ -1,0 +1,223 @@
+classe a_frutas
+herda area
+
+
+classe b_frutas
+herda sala
+const s_area = "frutas"
+
+
+classe i_frutas001
+herda comum_item
+const nome = "cacho de banana"
+const ident = "cacho"
+const descnome = "um cacho de bananas"
+const descver = "este é um cacho de bananas. Para arrancar uma banana dele digite \"pegar\n\
+banana cacho\""
+const msexo = 1 # Sexo Msg: 1 Masculino
+const valor = 4800
+const eveste = 1 # 
+const evperso = 1 # Eventos dono perso: Sim
+const evitem = 1 # Eventos dono item: Sim
+sav uint16 bananas
+#
+#
+
+func cmd_ini
+  bananas = 12
+#
+
+func cmd_escr
+  se arg1 == "pegar banana cacho" || arg1 == "tirar banana cacho"
+    bananas -= 1
+    refvar b = criar("i_frutas002", arg0, 1)
+    $mens.p(arg0, nulo, b)
+    $mens.mvis1("$P retira $o do cacho.")
+    !bananas && apagar(este)
+    ret 1
+  fimse
+
+
+classe i_frutas002
+herda comum_item
+const nome = "banana"
+const descnome = "uma banana"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 48
+const f_sede = 0
+const f_diges = 120
+const f_msgperso = "$P descasca a banana e a põe na boca, devorando-a rapidamente em várias \
+dentadas!"
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_comeu
+  criar("i_frutas003", arg0, 1)
+#
+
+func cmd_escr
+  se arg1 == "cortar banana"
+    $mens.p(arg0)
+    $mens.mvis1("$P descasca a banana e começa a partí-la em vários pedaços...")
+    apagar(este)
+    criar("i_frutas004", arg0, 1)
+    ret 1
+  fimse
+
+
+classe i_frutas003
+herda comum_item
+const nome = "casca de banana"
+const ident = "casca"
+const descnome = "uma casca de banana"
+const descpos = "Você quase escorrega em uma casca de banana que algum desastrado deixou cair \
+aqui."
+
+
+classe i_frutas004
+herda comum_item
+const nome = "vários pedacinhos de panana"
+const descnome = "vários pedacinhos de banana"
+const msexo = 1 # Sexo Msg: 1 Masculino
+
+
+classe i_frutas005
+herda comum_item
+const nome = "mamão"
+const descnome = "um mamão"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 10
+const f_msgperso = "$p come um enorme mamão"
+const f_msgoutros = "$p come um enorme mamão"
+const valor = 500
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_escr
+  se arg1 == "cortar mamão"
+    $mens.p(arg0)
+    $mens.mvis1("$P descasca completamente o mamão e começa a fatiá-lo em vários pedaços.")
+    apagar(este)
+    criar("i_frutas006", arg0, 1)
+    ret 1
+  fimse
+
+
+classe i_frutas006
+herda comum_item
+const nome = "vários pedaços de mamão"
+const descnome = "vários pedaços de mamão"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 48
+const f_sede = 30
+const f_diges = 120
+const f_msgperso = "$P saboreia cada pedaço de mamão, deliciando-se ao seu sabor."
+const valor = 600
+
+
+classe i_frutas007
+herda comum_item
+const nome = "pedaços de maçã"
+const descnome = "vários pedaços de maçã"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 30
+const f_sede = 24
+const f_diges = 90
+const f_msgperso = "$P come um a um os pedaços de maçã, deliciando-se."
+
+
+classe i_frutas008
+herda comum_item
+const nome = "cacho de uva"
+const ident = "cacho"
+const descnome = "um cacho de uvas"
+const descver = "um delicioso cacho de uvas. Digite pegar uva cacho para arrancar uma uvinha."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 0 # Tipo: 0 Nenhum
+const f_fome = 4
+const f_msgperso = "$p come uma por uma das uvinhas de $o"
+const f_msgoutros = "$p come uma por uma das uvinhas de $o"
+const valor = 4800
+const eveste = 1 # 
+const evperso = 1 # Eventos dono perso: Sim
+sav uint16 uvas
+#
+#
+
+func cmd_ini
+  uvas = 12
+#
+
+func cmd_escr
+  se arg1 == "pegar uva cacho" || arg1 == "tirar uva cacho"
+    uvas -= 1
+    refvar b = criar("i_frutas009", arg0, 1)
+    $mens.p(arg0, nulo, b)
+    $mens.mvis1("$P retira $o do cacho.")
+    !uvas && apagar(este)
+    ret 1
+  fimse
+
+
+classe i_frutas009
+herda comum_itemgrupo
+const nome = "uva"
+const descnome = "uma doce uva"
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 30
+const f_sede = 30
+const f_diges = 120
+const f_msgperso = "$p estoura uma uva dentre os dentes, deliciando-se com o sabor."
+const f_msgoutros = "$p estoura uma uva dentre os dentes, deliciando-se com o sabor."
+
+
+classe i_frutas010
+herda comum_item
+const nome = "abacate"
+const descnome = "um verde abacate"
+const descpos = "Bem maduro, um abacate está caído no chão."
+const msexo = 1 # Sexo Msg: 1 Masculino
+const f_tipo = 3 # Tipo: 3 Comida, comer
+const f_fome = 120
+const f_diges = 240
+const f_msgperso = "$P descasca o abacate e começa a saboreá-lo lentamente, apreciando seu \
+sabor."
+
+
+classe i_frutas011
+herda comum_itemgrupo
+const nome = "cacho"
+const ident = "cacho cocos"
+const descnome = "um cacho de cocos"
+const msexo = 1 # Sexo Msg: 1 Masculino
+const mantersala = 1 # Mantém na sala: Sim
+const pesoobj = 5000
+const volobj = 5
+const eveste = 1 # Eventos item: Sim
+const evperso = 1 # Eventos dono perso: Sim
+#
+
+func cmd_escr
+  casovar txtmin(arg1)
+  casose "arrancar cocos"
+  casose "arranca cocos"
+  casose "arranc cocos"
+  casose "arran cocos"
+  casose "arrancar coco"
+  casose "arranca coco"
+  casose "arranc coco"
+  casose "arran coco"
+    refvar coco = criar("i_praia004", arg0, 5)
+    $mens.p(arg0, nulo, coco)
+    $mens.mvis1("$P arranca todos os cocos do cacho.")
+    apagar(este)
+    ret 1
+  casofim
+
+
+classe i_frutas012
+herda comum_item

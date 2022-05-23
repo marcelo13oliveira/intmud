@@ -1,0 +1,123 @@
+*** Sumário
+
+Introdução
+Lista de arquivos
+Como rodar o jogo
+Arquivos de perguntas e respostas
+
+*** Introdução
+
+Quest é um jogo de questionários. São perguntas com alternativas,
+sendo apenas uma correta. O objetivo é promover o aprendizado, não
+avaliar os conhecimentos de cada um.
+
+O usuário escolhe o questionário (o jogo suporta até 10).
+As perguntas são apresentadas em uma ordem aleatória.
+Quando o jogador responde corretamente, a pergunta é retirada da lista.
+Se responder errado, o jogo mostra qual era a alternativa certa e
+acrescenta a pergunta novamente na lista.
+
+Antes de cada pergunta é exibida a quantidade de perguntas que faltam
+(um número). Quando chega a zero, a pontuação é calcula, de acordo com
+quantidade de erros e no tempo que o usuário levou para terminar
+o questionário.
+
+*** Lista de arquivos
+
+quest.int - o jogo em si, feito em IntMUD
+intmud.exe - necessário para rodar o arquivo quest.int
+quest0.txt a quest9.txt - perguntas e respostas dos níveis 0 a 9
+quest.sav - contém os récordes; é criado automaticamente pelo jogo
+
+*** Como rodar o jogo
+
+Há três formas de rodar o jogo:
+1. Independente. No próprio micro do usuário, sem a necessidade de
+programas externos.
+2. Como servidor de Telnet. Os jogadores usam um programa de Telnet,
+ou o próprio Papovox.
+3. Como bot do Minichat ou do Bate-papo SACI na Intervox.
+O jogo é ativado dentro do chat.
+
+A forma como o programa vai rodar é definido no início do arquivo
+quest.int. Inicialmente vem configurado para rodar independente.
+
+Os passos para rodar o jogo são:
+
+1. Se necessário, abrir o arquivo quest.int em um editor de texto
+e alterar a partir da linha 5 do arquivo. As seguintes linhas:
+const modo = 0
+const servporta = 1963
+const serv = "localhost"
+const porta = 1963
+const sala = "sala01"
+const senha = "sala01"
+O jogo vem configurado para executar localmente, em uma janela.
+
+Exemplo de como ativar para acessar via Telnet ou Papovox na porta 1963:
+const modo = 2
+const servporta = 1963
+
+Exemplo de como ativar como bot para um chat:
+const modo = 3
+const serv = "intervox.nce.ufrj.br"
+const porta = 1963
+const sala = "nome-da-sala"
+const senha = "senha-da-sala"
+
+2. Executar:
+Renomear o arquivo intmud.exe para quest.exe e executar.
+
+Ou, se não quiser mudar o nome do arquivo intmud.exe, executar:
+intmud quest.int
+
+Se estiver usando algum ambiente gráfico, basta arrastar o arquivo
+quest.int para o intmud.exe com o botão esquerdo do mouse.
+
+*** Arquivos de perguntas e respostas
+
+São os arquivos quest0.txt a quest9.txt (níveis 0 a 9).
+A primeira linha contém sempre o título, que aparece ao escolher
+a opção I (informações) durante o jogo.
+Da segunda em diante são as perguntas e respostas.
+
+As linhas que começam com as letras P, R e C, seguidas de espaço,
+significam perguntas, respostas e continuação da linha anterior,
+respectivamente. Qualquer outra linha é ignorada pelo jogo.
+
+Após cada pergunta escreve-se de uma a dez respostas.
+
+Perguntas de alternativas devem ter duas ou mais respostas.
+Exemplo:
+P O pernilongo
+R pica
+R morde
+R lambe
+
+A resposta correta é sempre a primeira. Entretanto, o jogo encarrega-se
+de exibí-las em uma ordem aleatória.
+
+Se o enunciado ou uma alternativa não couber em uma linha, pode-se
+continuar na linha seguinte, apenas acrescentando a letra C no começo.
+Exemplo:
+P As frutas são guardadas somente nas gavetas de uma determinada geladeira.
+C Sabe-se que a primeira gaveta contém duas maçãs. A segunda contém o dobro
+C da primeira, mas a terceira não se sabe.
+R Se a terceira gaveta possuir a mesma quantidade de maçãs da primeira
+C somada à segunda, a geladeira possui 12 maçãs.
+R Se a terceira gaveta estiver vazia, a geladeira possui 6 maçãs.
+C Por outro lado, se a terceira gaveta tiver a metade das maçãs da segunda,
+C a geladeira possui apenas 10 maçãs.
+
+Se houver somente uma resposta, o usuário deve digitar o conteúdo da
+resposta para acertar. Exemplo:
+P Escreva 15 por extenso
+R quinze
+
+Nessa modalidade, se a resposta tiver mais de uma linha, o usuário
+deve digitar o conteúdo de qualquer linha para acertar. Exemplo:
+P Escreva por extenso um número inteiro de 3 a 6
+R três
+C quatro
+C cinco
+C seis

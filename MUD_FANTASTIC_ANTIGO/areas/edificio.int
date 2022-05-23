@@ -1,0 +1,432 @@
+classe a_edificio
+herda area
+const a_nome = "edifício"
+
+
+classe b_edificio
+herda sala
+const s_area = "edificio"
+
+
+classe i_edificio001
+herda comum_item
+const nome = "elevador"
+const descnome = "um elevador"
+const descpos = "O elevador está na parede a norte."
+const i_pegar = "O elevador está dentro da parede."
+const i_salas = "edificio001"
+const mantersala = 1 # Mantém na sala: Sim
+const eveste = 1 # Eventos item: Sim
+#
+
+func cmd_mudadono
+  dono.dentro2.objini.msg("O elevador chegou.")
+  donoantes.dentro2.objlista.msg("O elevador saiu.")
+
+
+classe s_edificio001
+herda b_edificio
+const s_titulo = "Dentro do elevador"
+const s_entrada = "Dentro do elevador"
+const dir_sair = $s_edificio002
+const portanome_sair = "as portas do elevador"
+const portaartigo_sair = 1 # Artigo porta: 1 as (portas)
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "n1"
+    ret dono.dono == $s_vilares177, arg0.msg("Você já está no primeiro andar.")
+    dono.mudadono($s_edificio011)
+    mudaporta("sair", 2)
+    se dono.donoantes == $s_vilares212 || dono.donoantes == $s_vilares393
+      misc:tempo("descer", arg0)
+    senao
+      misc:tempo("subir", arg0)
+    fimse
+    ret 1
+  senao arg1 == "n2"
+    ret dono.dono == $s_vilares212, arg0.msg("Você já está no segundo andar...")
+    dono.mudadono($s_edificio012)
+    mudaporta("sair", 2)
+    se dono.donoantes == $s_vilares393
+      misc:tempo("descer", arg0)
+    senao
+      misc:tempo("subir", arg0)
+    fimse
+    ret 1
+  senao arg1 == "n0"
+    ret dono.dono == $s_vilares154, arg0.msg("Você já está no térreo do prédio.")
+    dono.mudadono($s_edificio010)
+    mudaporta("sair", 2)
+    misc:tempo("descer", arg0)
+    ret 1
+  senao arg1 == "n3"
+    ret dono.dono == $s_vilares393, arg0.msg("Você já está no terceiro andar.")
+    dono.mudadono($s_edificio013)
+    mudaporta("sair", 2)
+    se dono.donoantes == $s_vilares212
+      misc:tempo("subir", arg0)
+    senao
+      misc:tempo("subir", arg0)
+    fimse
+    ret 1
+  fimse
+#
+
+func subir30
+  msg("As portas se fecham e as ingrenagens começam a levar o elevador para cima.")
+#
+
+func subir90
+#
+  msg("Subindo...")
+#
+
+func subir150
+  se dono.dono == $s_edificio010
+    dono.mudadono($s_vilares154)
+    $mens.p(arg0)
+    $mens.mvis1("Finalmente as portas do elevador se abrem e você se vê no térreo do prédio.")
+  senao dono.dono == $s_edificio011
+    dono.mudadono($s_vilares177)
+    $mens.p(arg0)
+    $mens.mvis1("Finalmente as portas do elevador se abrem e você se vê no primeiro andar do \
+prédio.")
+  senao dono.dono == $s_edificio012
+    dono.mudadono($s_vilares212)
+    $mens.p(arg0)
+    $mens.mvis1("Finalmente as portas do elevador se abrem e você se vê no segundo andar do \
+prédio.")
+  senao dono.dono == $s_edificio013
+    dono.mudadono($s_vilares393)
+    $mens.p(arg0)
+    $mens.mvis1("Finalmente as portas do elevador se abrem e você se vê no terceiro andar do \
+prédio.")
+  fimse
+  mudaporta("sair", 1)
+#
+#
+
+func descer30
+  dentro2.objlista.msg("As portas do elevador se fecham e as ingrenagens começam a levar o \
+elevador para baixo.")
+#
+
+func descer90
+  msg("Descendo...")
+#
+
+func descer150
+  se dono.dono == $s_edificio010
+    dono.mudadono($s_vilares154)
+    $mens.p(arg0)
+    $mens.mvis1("Finalmente as portas do elevador se abrem e você se vê no térreo do prédio.")
+    mudaporta("sair", 1)
+  senao dono.dono == $s_edificio011
+    dono.mudadono($s_vilares177)
+    $mens.p(arg0)
+    $mens.mvis1("Finalmente as portas do elevador se abrem e você se vê no primeiro andar do \
+prédio.")
+    mudaporta("SAIR", 1)
+  senao dono.dono == $s_edificio012
+    dono.mudadono($s_vilares212)
+    $mens.p(arg0)
+    $mens.mvis1("Finalmente as portas do elevador se abrem e você se vê no segundo andar do \
+prédio.")
+    mudaporta("sair", 1)
+  fimse
+#
+
+func cmd_mover
+  se arg2 == "sair" && dono.dono.s_area == "edifício"
+    ret arg0.msg("Aguarde até que as portas do elevador se abram para sair.")
+  fimse
+
+
+classe s_edificio002
+herda b_edificio
+const dir_entrar = $s_edificio001
+
+
+classe s_edificio003
+herda b_edificio
+const s_titulo = "Dentro do elevador"
+
+
+classe s_edificio004
+herda b_edificio
+const s_titulo = "Dentro do elevador"
+const s_desc = "Você encontra-se dentro de um amplo elevador. As paredes são feitas de aço\n\
+inox e atrás de você há um espelho, refletindo a imagem dos que aqui estão.\n\
+Em um canto, há vários botões, que indicam os andares do prédio, com as\n\
+seguintes inscrições: n0, n1, n2, n3 e n4"
+const s_entrada = "elevador"
+const dir_sair = $s_edificio002
+const portanome_sair = "as portas do elevador"
+const portaartigo_sair = 1 # Artigo porta: 1 as (portas)
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "n1"
+    ret dono.dono == $s_viladark300, arg0.msg("Você já está no primeiro andar.")
+    dono.mudadono($s_edificio011)
+    mudaporta("sair", 2)
+    se dono.donoantes == $s_viladark330 || dono.donoantes == $s_viladark340
+      misc:tempo("descer", arg0)
+    senao
+      misc:tempo("subir", arg0)
+    fimse
+    ret 1
+  senao arg1 == "n2"
+    ret dono.dono == $s_viladark330, arg0.msg("Você já está no segundo andar...")
+    dono.mudadono($s_edificio012)
+    mudaporta("sair", 2)
+    se dono.donoantes == $s_viladark340
+      misc:tempo("descer", arg0)
+    senao
+      misc:tempo("subir", arg0)
+    fimse
+    ret 1
+  senao arg1 == "n0"
+    ret dono.dono == $s_vilares281, arg0.msg("Você já está no térreo do prédio.")
+    dono.mudadono($s_edificio010)
+    mudaporta("sair", 2)
+    misc:tempo("descer", arg0)
+    ret 1
+  senao arg1 == "n3"
+    ret dono.dono == $s_viladark340, arg0.msg("Você já está no terceiro andar.")
+    dono.mudadono($s_edificio013)
+    mudaporta("sair", 2)
+    se dono.donoantes == $s_viladark330
+      misc:tempo("subir", arg0)
+    senao
+      misc:tempo("subir", arg0)
+    fimse
+    ret 1
+  fimse
+#
+
+func subir30
+  msg("As portas se fecham e as ingrenagens começam a levar o elevador para cima.")
+#
+
+func subir90
+#
+  msg("Subindo...")
+#
+
+func subir150
+  se dono.dono == $s_edificio010
+    dono.mudadono($s_viladark281)
+    $mens.p(arg0)
+    $mens.mvis1("Finalmente as portas do elevador se abrem e você se vê no térreo do prédio.")
+  senao dono.dono == $s_edificio011
+    dono.mudadono($s_viladark300)
+    $mens.p(arg0)
+    $mens.mvis1("Finalmente as portas do elevador se abrem e você se vê no primeiro andar do \
+prédio.")
+  senao dono.dono == $s_edificio012
+    dono.mudadono($s_viladark330)
+    $mens.p(arg0)
+    $mens.mvis1("Finalmente as portas do elevador se abrem e você se vê no segundo andar do \
+prédio.")
+  senao dono.dono == $s_edificio013
+    dono.mudadono($s_viladark340)
+    $mens.p(arg0)
+    $mens.mvis1("Finalmente as portas do elevador se abrem e você se vê no terceiro andar do \
+prédio.")
+  fimse
+  mudaporta("sair", 1)
+#
+#
+
+func descer30
+  dentro2.objlista.msg("As portas do elevador se fecham e as ingrenagens começam a levar o \
+elevador para baixo.")
+#
+
+func descer90
+  msg("Descendo...")
+#
+
+func descer150
+  se dono.dono == $s_edificio010
+    dono.mudadono($s_viladark281)
+    $mens.p(arg0)
+    $mens.mvis1("Finalmente as portas do elevador se abrem e você se vê no térreo do prédio.")
+    mudaporta("sair", 1)
+  senao dono.dono == $s_edificio011
+    dono.mudadono($s_viladark300)
+    $mens.p(arg0)
+    $mens.mvis1("Finalmente as portas do elevador se abrem e você se vê no primeiro andar do \
+prédio.")
+    mudaporta("SAIR", 1)
+  senao dono.dono == $s_edificio012
+    dono.mudadono($s_viladark330)
+    $mens.p(arg0)
+    $mens.mvis1("Finalmente as portas do elevador se abrem e você se vê no segundo andar do \
+prédio.")
+    mudaporta("sair", 1)
+  fimse
+#
+
+func cmd_mover
+  se arg2 == "sair" && dono.dono.s_area == "edifício"
+    ret arg0.msg("Aguarde até que as portas do elevador se abram para sair.")
+  fimse
+
+
+classe s_edificio005
+herda b_edificio
+const s_titulo = "Dentro do elevador"
+const s_desc = "Você encontra-se dentro de um amplo elevador. As paredes são feitas de aço\n\
+inox e atrás de você há um espelho, refletindo a imagem dos que aqui estão.\n\
+Em um canto, há vários botões, que indicam os andares do prédio, com as\n\
+seguintes inscrições: n0, n1, n2, n3 e n4"
+const s_entrada = "elevador"
+const dir_sair = $s_edificio002
+const portanome_sair = "as portas do elevador"
+const portaartigo_sair = 1 # Artigo porta: 1 as (portas)
+#
+
+func cmd_salaperso
+  misc:evento(arg0)
+#
+
+func cmd_escr
+  se arg1 == "n1"
+    ret dono.dono == $s_parmicasas300, arg0.msg("Você já está no primeiro andar.")
+    dono.mudadono($s_edificio011)
+    mudaporta("sair", 2)
+    se dono.donoantes == $s_parmicasas330 || dono.donoantes == $s_parmicasas340
+      misc:tempo("descer", arg0)
+    senao
+      misc:tempo("subir", arg0)
+    fimse
+    ret 1
+  senao arg1 == "n2"
+    ret dono.dono == $s_parmicasas330, arg0.msg("Você já está no segundo andar...")
+    dono.mudadono($s_edificio012)
+    mudaporta("sair", 2)
+    se dono.donoantes == $s_parmicasas340
+      misc:tempo("descer", arg0)
+    senao
+      misc:tempo("subir", arg0)
+    fimse
+    ret 1
+  senao arg1 == "n0"
+    ret dono.dono == $s_vilares281, arg0.msg("Você já está no térreo do prédio.")
+    dono.mudadono($s_edificio010)
+    mudaporta("sair", 2)
+    misc:tempo("descer", arg0)
+    ret 1
+  senao arg1 == "n3"
+    ret dono.dono == $s_parmicasas340, arg0.msg("Você já está no terceiro andar.")
+    dono.mudadono($s_edificio013)
+    mudaporta("sair", 2)
+    se dono.donoantes == $s_parmicasas330
+      misc:tempo("subir", arg0)
+    senao
+      misc:tempo("subir", arg0)
+    fimse
+    ret 1
+  fimse
+#
+
+func subir30
+  msg("As portas se fecham e as ingrenagens começam a levar o elevador para cima.")
+#
+
+func subir90
+#
+  msg("Subindo...")
+#
+
+func subir150
+  se dono.dono == $s_edificio010
+    dono.mudadono($s_parmicasas281)
+    $mens.p(arg0)
+    $mens.mvis1("Finalmente as portas do elevador se abrem e você se vê no térreo do prédio.")
+  senao dono.dono == $s_edificio011
+    dono.mudadono($s_parmicasas300)
+    $mens.p(arg0)
+    $mens.mvis1("Finalmente as portas do elevador se abrem e você se vê no primeiro andar do \
+prédio.")
+  senao dono.dono == $s_edificio012
+    dono.mudadono($s_parmicasas330)
+    $mens.p(arg0)
+    $mens.mvis1("Finalmente as portas do elevador se abrem e você se vê no segundo andar do \
+prédio.")
+  senao dono.dono == $s_edificio013
+    dono.mudadono($s_parmicasas340)
+    $mens.p(arg0)
+    $mens.mvis1("Finalmente as portas do elevador se abrem e você se vê no terceiro andar do \
+prédio.")
+  fimse
+  mudaporta("sair", 1)
+#
+#
+
+func descer30
+  dentro2.objlista.msg("As portas do elevador se fecham e as ingrenagens começam a levar o \
+elevador para baixo.")
+#
+
+func descer90
+  msg("Descendo...")
+#
+
+func descer150
+  se dono.dono == $s_edificio010
+    dono.mudadono($s_parmicasas281)
+    $mens.p(arg0)
+    $mens.mvis1("Finalmente as portas do elevador se abrem e você se vê no térreo do prédio.")
+    mudaporta("sair", 1)
+  senao dono.dono == $s_edificio011
+    dono.mudadono($s_parmicasas300)
+    $mens.p(arg0)
+    $mens.mvis1("Finalmente as portas do elevador se abrem e você se vê no primeiro andar do \
+prédio.")
+    mudaporta("SAIR", 1)
+  senao dono.dono == $s_edificio012
+    dono.mudadono($s_parmicasas330)
+    $mens.p(arg0)
+    $mens.mvis1("Finalmente as portas do elevador se abrem e você se vê no segundo andar do \
+prédio.")
+    mudaporta("sair", 1)
+  fimse
+#
+
+func cmd_mover
+  se arg2 == "sair" && dono.dono.s_area == "edifício"
+    ret arg0.msg("Aguarde até que as portas do elevador se abram para sair.")
+  fimse
+
+
+classe s_edificio010
+herda b_edificio
+const s_titulo = "Dentro da parede"
+
+
+classe s_edificio011
+herda b_edificio
+const s_titulo = "Em frente ao elevador do primeiro andar"
+const dir_l = $s_vilares160
+
+
+classe s_edificio012
+herda b_edificio
+const s_titulo = "Em frente ao elevador do segundo andar"
+
+
+classe s_edificio013
+herda b_edificio
+const s_titulo = "Em frente ao elevador do terceiro andar"

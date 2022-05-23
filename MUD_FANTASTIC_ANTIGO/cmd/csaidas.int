@@ -1,0 +1,31 @@
+classe cmd_csaidas
+herda comando_comum
+#
+const posic = 0
+#
+
+func escr
+  se !arg0.dono.dono.dono.visivel(arg0)
+    arg0.msg("Está escuro...")
+    ret
+  fimse
+  textotxt t
+  txt80 dir
+  ref dono = arg0.dono
+  epara dir = misc:listadir, dir, dir = txt2(dir)
+    refvar nome = txt1(dir)
+    refvar sala = dono.dono.dono.dirsala(nome, arg0)
+    continuar !sala || dono.dono.dono.inv_[arg1](arg0)
+    se int(arg0.porta_[nome]) >= 2
+      t.addfim(txt(txtmai(nome) + "       ", 0, 8) + "Está fechado")
+    senao sala.visivel(arg0)
+      t.addfim(txt(txtmai(nome) + "       ", 0, 8) + sala.s_titulo(arg0))
+    senao
+      t.addfim(txt(txtmai(nome) + "       ", 0, 8) + "Está escuro")
+    fimse
+  efim
+  se t.linhas
+    arg0.msg2("\b\c6Saídas óbvias:\b\n" + t.remove(1000))
+  senao
+    arg0.msg("Não há nenhuma saída óbvia.")
+  fimse

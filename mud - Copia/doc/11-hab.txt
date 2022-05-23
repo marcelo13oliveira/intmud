@@ -1,0 +1,287 @@
+Habilidades e magias (cmd/ataque.int e adm/ataque.int)
+
+Habilidades são definidas como a maioria dos comandos do MUD: uma classe
+cujo nome é "cmd_" seguido do nome da habilidade.
+Magias são classes cujo nome é "magia_" seguido do nome da magia.
+
+Via de regra, habilidades e magias são colocadas no arquivo config/hab.int.
+Todas elas herdam, diretamente ou indiretamente, a classe comando_hab.
+
+Podem ser dos seguintes tipos:
+Comuns: herdam comando_ataque
+De identificação: herdam comando_identificar
+De retorno: herdam comando_retornar
+
+
+Na classe comando_hab:
+
+const posic = 7
+Posição mínima do personagem para usar a hab/magia.
+
+const precisao = 100
+Para habilidades e magias que por natureza são imprecisas.
+De 0 (sempre erra) a 100 (mesmo que atacar sem arma) ou 101 (nunca falha).
+
+const tipoarma = 0
+É um valor numérico em que cada bit corresponde a um tipo de arma
+da lista em config:arma_txt, no arquivo config/config.int.
+Se for 0, funciona independente da arma usada.
+Nota: é muito mais fácil alterar essa constante pela edição online.
+
+const valor = 0
+Preço da aula: quantas moedas os personagens cobram para ensinar.
+
+const depende = ""
+Habilidades, magias e idiomas necessários para aprender esse ataque.
+É um texto em que cada linha contém o nome de uma prática, no formato:
+Habilidades são "h_" seguido do nome da habilida
+Magias são "m_" seguido do nome da magia
+Idiomas são "i_" seguido do nome do idioma
+Exemplo:
+const depende = "h_chutar\nm_voar"
+
+const aulaini = 0
+Iniciante nível: a partir de que nível pode ter a primeira aula.
+
+const aulafim = 0
+Perito nível: A partir de que nível pode ter todas as aulas
+
+const tipoperso = ""
+Raças e classes de personagens que podem aprender essa hab/magia.
+É um texto sendo que cada linha é uma raça ou classe.
+Se estiver vazio, todas as classes e raças podem aprender.
+Exemplo:
+const tipoperso = "anão\nguerreiro"
+
+const c_espera = 15
+Tempo de espera: tempo mínimo que deve esperar, em décimos de segundo
+
+const c_vida1 = 0
+Quantos pontos de vida consome no nível iniciante.
+
+const c_vida2 = 0
+Quantos pontos de vida consome no nível perito.
+
+const c_mana1 = 0
+Quantos pontos de mana consome no nível iniciante.
+
+const c_mana2 = 0
+Quantos pontos de mana consome no nível perito.
+
+const c_move1 = 0
+Quantos pontos de vigor consome no nível iniciante.
+
+const c_move2 = 0
+Quantos pontos de vigor consome no nível perito.
+
+const a_cond = 0
+Condição para aplicar os efeitos sob o alvo:
+0 = Um ou mais pontos de vida
+1 = Nenhum ponto de vida
+2 = Nenhuma condição
+
+const a_vida1 = 0
+Quantos pontos de vida ganha.
+
+const a_vida2 = 0
+Quantos pontos de vida ganha por nível.
+
+const a_mana1 = 0
+Quantos pontos de mana ganha.
+
+const a_mana2 = 0
+Quantos pontos de mana ganha por nível.
+
+const a_move1 = 0
+Quantos pontos de vigor ganha.
+
+const a_move2 = 0
+Quantos pontos de vigor ganha por nível.
+
+const a_efeito1 = ""
+Nome do primeiro efeito aplicado sob o alvo.
+
+const a_prob1 = 100
+Probabilidade de criar o primeiro efeito, 100=não falha.
+
+const a_efeito2 = ""
+Nome do segundo efeito aplicado sob o alvo.
+
+const a_prob2 = 100
+Probabilidade de criar o segundo efeito, 100=não falha.
+
+const a_efeito3 = ""
+Nome do terceiro efeito aplicado sob o alvo.
+
+const a_prob3 = 100
+Probabilidade de criar o terceiro efeito, 100=não falha.
+
+const a_remove = ""
+Nomes dos efeitos que serão removidos.
+É um texto sendo que cada linha é o nome de um efeito.
+Exemplo:
+const a_remove = "flutuar"
+
+func checahab1( personagem )
+func checahab2( personagem, quanto sabe )
+Checa se personagem pode usar habilidade/magia e avisa o personagem.
+O argumento quanto sabe é um número de 0 a 1 que indica quanto sabe da
+habilidade ou magia (0=iniciante até 1=perito).
+Retorna verdadeiro se puder usar (na prática, 0=falso, 1=verdadeiro).
+
+func autohab1( personagem )
+func autohab2( personagem, quanto sabe )
+Mesmo que checahab (acima), exceto que não avisa o personagem.
+
+func custohab1( personagem )
+func custohab2( personagem, quanto sabe )
+Aplica os custos da habilidade/magia, como gasto de mana e de moviemnto.
+Argumento quanto sabe, vide função checahab2, acima.
+
+
+Na classe comando_ataque:
+
+int8 result
+Resultado da batalha, atualizado pela função exechab:
+0 = Acertou o alvo
+1 = Não teve efeito
+2 = Errou o alvo
+3 = O alvo esquivou
+4 = Cancelar ataque
+
+const tipoalvo = 0
+Indica o tipo de alvo e de hab/magia:
+0 = Qualquer um; ataque
+1 = Exceto o personagem; ataque
+2 = Todos dividindo o ataque
+3 = Outros dividindo o ataque
+4 = Todos sem dividir o ataque
+5 = Outros sem dividir o ataque
+6 = Qualquer um; não é ataque
+7 = O personagem; não é ataque
+8 = Ataque automático
+9 = Nenhum (não ataca)
+
+const a_batalha = 0
+Condição:
+0 = Nenhuma
+1 = Durante a batalha
+2 = Fora da batalha
+
+const tipoatk = 0
+Elemento usado no ataque, como contusão, cortante, fogo, etc. Os elementos
+estão definidos na constante config:atknomes, arquivo config/config.int.
+Nota: é muito mais fácil alterar essa constante pela edição online.
+
+const ataque = 50
+Força de ataque, em porcentagem (100 significa 100%).
+
+const vel = 50
+Velocidade do golpe, em porcentagem (100 significa 100%).
+
+const addprecisao = 0
+Quanta precisão é adicionada ao personagem durante o ataque.
+
+const tipobonus = ""
+Raças e classes de personagens que possuem um bônus (atacam com mais força).
+É um texto sendo que cada linha é uma raça ou classe.
+Exemplo:
+const tipobonus = "anão\nguerreiro"
+
+const msgextra = ""
+Informações extras, mostradas quando o jogador consulta sobre a hab/magia.
+
+const atk1_usar1 = ""
+Constantes atk1 a atk5. Essa é uma delas. Cada constante contém uma mensagem
+de batalha. Essas constantes são chamadas pouco antes da mensagem ser enviada,
+por isso $mens já está preenchido corretamente:
+$mens.perso = personagem que está atacando
+$mens.alvo = personagem alvo dos ataques
+$mens.obj1 = arma usada, ou nulo se não está usando arma
+$mens.obj2 = munição usada, ou nulo se não está usando munição
+Abaixo são listadas as constantes atk1, mas atk2 a atk5 seguem o mesmo padrão.
+
+Ao usar a habilidade ou magia:
+atk1_usar1 = para o personagem
+atk1_usar2 = para o alvo; se vazio assume atk1_usar1
+atk1_usar3 = para os outros; se vazio assume atk1_usar1
+
+Quando acertou o golpe em si mesmo:
+atk1_auto1 = para o personagem
+atk1_auto2 = para os outros; se vazio assume atk1_auto1
+
+Quando acertou outro personagem:
+atk1_perso1 = para o personagem
+atk1_perso2 = para o alvo; se vazio assume atk1_perso1
+atk1_perso3 = para os outros; se vazio assume atk1_perso1
+
+Quando matou o alvo:
+atk1_matou1 = para o personagem
+atk1_matou2 = para o alvo; se vazio assume atk1_matou1
+atk1_matou3 = para os outros; se vazio assume atk1_matou1
+
+Quando errou o alvo:
+atk1_errou1 = para o personagem
+atk1_errou2 = para o alvo; se vazio assume atk1_errou1
+atk1_errou3 = para os outros; se vazio assume atk1_errou1
+
+Quando o golpe não teve efeito:
+atk1_nulo1 = para o personagem
+atk1_nulo2 = para o alvo; se vazio assume atk1_nulo1
+atk1_nulo3 = para os outros; se vazio assume atk1_nulo1
+
+Quando o alvo esquivou (opcional):
+atk1_esquivou1 = para o personagem
+atk1_esquivou2 = para o alvo; se vazio assume atk1_esquivou1
+atk1_esquivou3 = para os outros; se vazio assume atk1_esquivou1
+
+func habajuda
+arg0 = objeto do personagem
+Retorna um texto que contém informações, para os comandos hab, magia e
+quando o jogador pede informações sobre uma aula.
+
+func escr( personagem, o que escreveu )
+É chamado quando o jogador digita o comando para usar a hab/magia.
+Tem o mesmo efeito que chamar escrhab( personagem, o que escreveu ).
+
+func escrhab( personagem, o que escreveu, item, nível )
+É chamado quando o jogador digita o comando para usar a hab/magia ou
+quando come ou bebe algo ou recita um pergaminho.
+Essa função basicamente obtém o alvo e chama a função exechab.
+O argumento item é o item que disparou a hab/magia (uma comida, bebida
+ou pergaminho), ou nulo se não usou nenhum.
+O argumento nível é o nível da hab/magia, quando o item não for nulo.
+
+func exechabperso( personagem, alvo )
+Personagem usa uma habilidade ou magia. É uma versão simplificada de exechab.
+
+func exechab( personagem, alvo, quanto sabe, nível, item usado, direção )
+Chamado quando personagem usa habilidade ou magia.
+O argumento quanto sabe é um número de 0 a 1 que indica quanto sabe da
+habilidade ou magia (0=iniciante até 1=perito).
+O argumento nível geralmente é o nível do personagem.
+O argumento item é o item que disparou a hab/magia (uma comida, bebida
+ou pergaminho), ou nulo se não usou nenhum.
+O argumento direção é a direção tomada do personagem até o alvo, quando
+o personagem atacou de outra sala.
+
+func efeitohab( personagem, alvo, quanto sabe, nível )
+Aplica o efeito da habilidade ou magia sobre o alvo.
+Os argumento quanto sabe, e nível, vide função exechab, acima.
+
+func velgolpe( personagem, alvo )
+Acerta o tempo de espera conforme o golpe.
+Se baseia na constante vel da hag/magia, que é a velocidade do golpe.
+
+func execgolpe( personagem, alvo, força do ataque )
+Realiza um ataque e coloca resultado em result e mudavida.
+Na força do ataque deve estar incluído o quanto sabe do golpe.
+Se for 0, não calcula os danos.
+Se baseia em tipoatk (tipo de ataque) e arma1 (arma usada).
+
+func mensgolpe( personagem, alvo )
+Envia mensagens de alvo principal de acordo com o resultado do ataque.
+
+func mensgolpe2( personagem, alvo )
+Envia mensagens de alvo secundário (não envia todas as mensagens)
+de acordo com o resultado do ataque.
